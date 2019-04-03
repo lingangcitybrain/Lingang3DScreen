@@ -1,0 +1,181 @@
+﻿<!-- 战略新兴产业 -->
+<div id="left01_02" class="divbox divbox-ll clearfix" style="top:10rem;z-index:999;display:block;">
+    <h3>
+        <div>战略新兴产业</div>
+    </h3>
+    <div class="divcont zlxxcy-cont">
+        <div class="zlxxcy-contdiv">
+            <ul class="zlxxcy-list">
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">生物产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">新一代信息技术产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">高端装备制造产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">新材料产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">节能环保产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">新能源汽车产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">数字创意产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">新能源产业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+                <li class="zlxxcy-li">
+                    <div class="zlxxcy-left">
+                        <div class="zlxxcy-title">相关服务业</div>
+                        <span class="zlxxcy-per">0%</span>
+                    </div>
+                    <div class="zlxxcy-right">
+                        <div class="zlxxcy-bar"><span class="zlxxcy-num"></span></div>
+                    </div>
+                </li>
+            </ul>
+            <div class="zlxxcy-mess scrolldiv">
+                <!-- 实施税收饶让，承认东道国的税收优惠政策；放宽税收抵免限制，最大限度避免重复征税；实施亏损结转及其追补机制、加速折旧和延期纳税促进对外投资等措施，促进对外合作。 -->
+            </div>
+            <span class="zlxxcy-year"></span>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        
+        //企业数动画效果
+        var Top10Data = [
+            { year: 2014, value: [139, 234, 339, 181, 116, 110, 21, 25, 9], text: '临港地区限价商品住房供应管理工作实施方案' },
+            { year: 2015, value: [155, 317, 349, 184, 118, 112, 23, 27, 13], text: '高新技术企业职工教育经费税前扣除政策' },
+            { year: 2016, value: [187, 435, 358, 184, 124, 122, 26, 29, 14], text: '临港地区建立特别机制和实行特殊政策的三十条实施政策' },
+            { year: 2017, value: [494, 508, 360, 184, 130, 124, 28, 32, 14], text: '图解：上海自贸区服务业扩大开发措施' },
+            { year: 2018, value: [817, 604, 361, 185, 131, 129, 35, 33, 14], text: '金白银得实惠！本市迎来创业带动就业政策“升级版”！' },
+        ]
+
+        var Top10DataLargestNumArr = [];
+        var Top10DataLargestNum = 0;
+        var Top10DataTotalYearNum = [];
+        var zlxxcyRightTimer = null;
+        var zlxxcyRightTimer2 = null;
+        var yearIndex = -1;
+
+        for (var i = 0; i < Top10Data.length; i++) {
+            Top10DataLargestNumArr.push(Math.max.apply(null, Top10Data[i].value))
+            Top10DataTotalYearNum[i] = sum(Top10Data[i].value)
+        }
+
+        Top10DataLargestNum = Math.max.apply(null, Top10DataLargestNumArr)
+
+        function zlxxcySetDataFun() {
+            $(".zlxxcy-li").each(function (index, element) {
+                $(this).find(".zlxxcy-bar").css({ transition: '1.5s width linear' }).width(Top10Data[yearIndex].value[index] * 100 / Top10DataLargestNum + '%');
+                $(this).find(".zlxxcy-num").html(Top10Data[yearIndex].value[index]);
+                $(this).find(".zlxxcy-per").html((Top10Data[yearIndex].value[index] / Top10DataTotalYearNum[yearIndex] * 100).toFixed(2) + '%');
+            })
+            $(".zlxxcy-year").html(Top10Data[yearIndex].year);
+            $(".zlxxcy-mess").html(Top10Data[yearIndex].text);
+
+            zlxxcyRightTimer = setTimeout(function () {
+                clearTimeout(zlxxcyRightTimer)
+                zlxxcyLoopFun();
+            }, 2500)
+        }
+
+        function zlxxcyLoopFun() {
+            yearIndex++;
+            if (yearIndex < Top10Data.length) {
+                zlxxcySetDataFun()
+            } else {
+                clearTimeout(zlxxcyRightTimer)
+                yearIndex = -1;
+
+                zlxxcyRightTimer2 = setTimeout(function () {
+                    clearInterval(zlxxcyRightTimer2)
+                    $(".zlxxcy-li").each(function (index, element) {
+                        $(this).find(".zlxxcy-bar").css({ transition: '.3s width linear' }).width(0);
+                        $(this).find(".zlxxcy-num").html('');
+                        $(this).find(".zlxxcy-per").html('0%');
+                    })
+                    $(".zlxxcy-year").html('');
+                    $(".zlxxcy-mess").html('');
+
+                    zlxxcyRightTimer = setTimeout(function () {
+                        clearTimeout(zlxxcyRightTimer)
+                        zlxxcyLoopFun();
+                    }, 1500)
+
+                }, 4000)
+
+            }
+        }
+
+        zlxxcyRightTimer = setTimeout(function () {
+            clearTimeout(zlxxcyRightTimer)
+            zlxxcyLoopFun();
+        }, 1500)
+
+
+        function sum(arr) {
+            return eval(arr.join("+"));
+        };
+
+
+
+
+</script>

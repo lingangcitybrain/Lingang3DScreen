@@ -1,0 +1,1182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C0452E9D-0BC0-4A37-8701-044D614F3DF0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chimelong.Resort.Web</RootNamespace>
+    <AssemblyName>Chimelong.Resort.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Apache.NMS, Version=1.7.1.3894, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
+      <HintPath>..\packages\Apache.NMS.1.7.1\lib\net40\Apache.NMS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ, Version=1.7.2.4108, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
+      <HintPath>..\packages\Apache.NMS.ActiveMQ.1.7.2\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.NLog20, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.NLog20.3.3.1\lib\net40\Common.Logging.NLog20.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="jsnlog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=742e180f6c5ccd0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\JSNLog.2.28.0\lib\net452\jsnlog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Owin, Version=1.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Owin.1.2.2\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.1.1.2\lib\net451\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authorization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.1.1.2\lib\net451\Microsoft.AspNetCore.Authorization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cors, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cors.1.1.2\lib\net451\Microsoft.AspNetCore.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.1.1.2\lib\net451\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.1.1.2\lib\net451\Microsoft.AspNetCore.DataProtection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.DataProtection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Diagnostics.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Diagnostics.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.AspNetCore.Diagnostics.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Html.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Html.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.AspNetCore.Html.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.1.1.2\lib\net451\Microsoft.AspNetCore.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.1.1.2\lib\net451\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.1.1.2\lib\net451\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.JsonPatch, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.JsonPatch.1.1.2\lib\net451\Microsoft.AspNetCore.JsonPatch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Localization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Localization.1.1.2\lib\net451\Microsoft.AspNetCore.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Abstractions.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.ApiExplorer, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.ApiExplorer.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.ApiExplorer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Core, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Core.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Cors, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Cors.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.DataAnnotations, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.DataAnnotations.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.DataAnnotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Formatters.Json, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Formatters.Json.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Formatters.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Localization, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Localization.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Razor, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Razor.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Razor.Host, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Razor.Host.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.Razor.Host.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.TagHelpers, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.TagHelpers.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.TagHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.ViewFeatures, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.ViewFeatures.1.1.3\lib\net451\Microsoft.AspNetCore.Mvc.ViewFeatures.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Razor, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Razor.1.1.2\lib\net451\Microsoft.AspNetCore.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Razor.Runtime, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Razor.Runtime.1.1.2\lib\net451\Microsoft.AspNetCore.Razor.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.ResponseCaching.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.ResponseCaching.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.1.1.2\lib\net451\Microsoft.AspNetCore.Routing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.1.1.2\lib\net451\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.1.1.2\lib\net451\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.3.0\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.1.3.0\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.1.1.2\lib\net451\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.1.1.2\lib\net451\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.1.1\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.1.1.2\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Composite, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Composite.1.1.1\lib\netstandard1.0\Microsoft.Extensions.FileProviders.Composite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.1.1.1\lib\net451\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.1.1.1\lib\net45\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Globalization.CultureInfoCache, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Globalization.CultureInfoCache.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Globalization.CultureInfoCache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Localization, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Localization.1.1.2\lib\net451\Microsoft.Extensions.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Localization.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Localization.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Localization.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.1.1.1\lib\net451\Microsoft.Extensions.ObjectPool.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Options.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.PlatformAbstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.PlatformAbstractions.1.1.0\lib\net451\Microsoft.Extensions.PlatformAbstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.1.1.2\lib\netstandard1.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.1.1.2\lib\netstandard1.1\Microsoft.Net.Http.Headers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.6\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.1\lib\portable-net45+win8+wpa81\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection.Metadata, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.2.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.3.1\lib\netstandard1.0\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.6\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.6\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\JSNLogConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="rtHub\Startup.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\iPadControlController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rtHub\Control.cs" />
+    <Compile Include="rtHub\ControlHub.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\aliplayer-min.css" />
+    <Content Include="Content\animsition.min.css" />
+    <Content Include="Content\common.css" />
+    <Content Include="Content\images\20190320-1b77e4e7-0a580a000f62-00000008-000090d4.jpg" />
+    <Content Include="Content\images\bgtoleft.png" />
+    <Content Include="Content\images\bgtoright.png" />
+    <Content Include="Content\images\box-bg1-active.png" />
+    <Content Include="Content\images\box-bg1.png" />
+    <Content Include="Content\images\box-close.png" />
+    <Content Include="Content\images\cgq-1.png" />
+    <Content Include="Content\images\cgq-10.png" />
+    <Content Include="Content\images\cgq-2.png" />
+    <Content Include="Content\images\cgq-3.png" />
+    <Content Include="Content\images\cgq-4.png" />
+    <Content Include="Content\images\cgq-5.png" />
+    <Content Include="Content\images\cgq-6.png" />
+    <Content Include="Content\images\cgq-7.png" />
+    <Content Include="Content\images\cgq-8.png" />
+    <Content Include="Content\images\cgq-9.png" />
+    <Content Include="Content\images\cy-cyxx-legend.png" />
+    <Content Include="Content\images\cy-cyyq-rl-21.png" />
+    <Content Include="Content\images\cy-cyyq-rl-22.png" />
+    <Content Include="Content\images\cy-qy-div-icon2.png" />
+    <Content Include="Content\images\cy-qy-div-icon3.png" />
+    <Content Include="Content\images\cy-qy-div-icon4.gif" />
+    <Content Include="Content\images\cy-qy-jrlc.png" />
+    <Content Include="Content\images\cy-qy-menu-close.png" />
+    <Content Include="Content\images\cy-qy-nav1-hover.png" />
+    <Content Include="Content\images\cy-qy-nav1.png" />
+    <Content Include="Content\images\cy-qy-nav10-hover.png" />
+    <Content Include="Content\images\cy-qy-nav10.png" />
+    <Content Include="Content\images\cy-qy-nav2-hover.png" />
+    <Content Include="Content\images\cy-qy-nav2.png" />
+    <Content Include="Content\images\cy-qy-nav3-hover.png" />
+    <Content Include="Content\images\cy-qy-nav3.png" />
+    <Content Include="Content\images\cy-qy-nav4-hover.png" />
+    <Content Include="Content\images\cy-qy-nav4.png" />
+    <Content Include="Content\images\cy-qy-nav5-hover.png" />
+    <Content Include="Content\images\cy-qy-nav5.png" />
+    <Content Include="Content\images\cy-qy-nav6-hover.png" />
+    <Content Include="Content\images\cy-qy-nav6.png" />
+    <Content Include="Content\images\cy-qy-nav7-hover.png" />
+    <Content Include="Content\images\cy-qy-nav7.png" />
+    <Content Include="Content\images\cy-qy-nav8-hover.png" />
+    <Content Include="Content\images\cy-qy-nav8.png" />
+    <Content Include="Content\images\cy-qy-nav9-hover.png" />
+    <Content Include="Content\images\cy-qy-nav9.png" />
+    <Content Include="Content\images\cy-qy-zc-icon.png" />
+    <Content Include="Content\images\cy-yq-lr-11.png" />
+    <Content Include="Content\images\cy-yq-poi.png" />
+    <Content Include="Content\images\divbox-titlebg-hastabbox.png" />
+    <Content Include="Content\images\divbox-titlebg-hastabbox2.png" />
+    <Content Include="Content\images\divbox-titlebg-hastabbox3.png" />
+    <Content Include="Content\images\divbox-titlebg.png" />
+    <Content Include="Content\images\dtrk-pic.png" />
+    <Content Include="Content\images\eventdetail_car.png" />
+    <Content Include="Content\images\fanhuanhuan.jpg" />
+    <Content Include="Content\images\forecast-pernum-title.png" />
+    <Content Include="Content\images\header-bg.png" />
+    <Content Include="Content\images\header-cancel.png" />
+    <Content Include="Content\images\header-menubg-hover.png" />
+    <Content Include="Content\images\header-menubg.png" />
+    <Content Include="Content\images\header-menurbg-hover.png" />
+    <Content Include="Content\images\header-menurbg.png" />
+    <Content Include="Content\images\huanghaiyu.jpg" />
+    <Content Include="Content\images\kanghongxia.jpg" />
+    <Content Include="Content\images\nav-btnicon.png" />
+    <Content Include="Content\images\nav-leftbgicon.png" />
+    <Content Include="Content\images\nav-rightbgicon.png" />
+    <Content Include="Content\images\night-scene.png" />
+    <Content Include="Content\images\pj-3d.png" />
+    <Content Include="Content\images\pj-3d2.png" />
+    <Content Include="Content\images\pj-bshadow.png" />
+    <Content Include="Content\images\pj-tempicon.png" />
+    <Content Include="Content\images\pj-tshadow.png" />
+    <Content Include="Content\images\pjl-topicon.png" />
+    <Content Include="Content\images\poi-leftpic.png" />
+    <Content Include="Content\images\POI1.gif" />
+    <Content Include="Content\images\real-scene.png" />
+    <Content Include="Content\images\rycltj-datebtn.png" />
+    <Content Include="Content\images\sj-div1.png" />
+    <Content Include="Content\images\sj-div2.png" />
+    <Content Include="Content\images\sj-div3.png" />
+    <Content Include="Content\images\sj-div4.png" />
+    <Content Include="Content\images\sj.png" />
+    <Content Include="Content\images\sqcl-chartbg.png" />
+    <Content Include="Content\images\sqrk_icon1.png" />
+    <Content Include="Content\images\sqrk_icon2.png" />
+    <Content Include="Content\images\sqrk_icon3.png" />
+    <Content Include="Content\images\sqzz-hax-lr-11.png" />
+    <Content Include="Content\images\sqzz-lr-11.png" />
+    <Content Include="Content\images\sqzz-lr-12.png" />
+    <Content Include="Content\images\sqzz-lr-13.png" />
+    <Content Include="Content\images\sqzz-lr-21.png" />
+    <Content Include="Content\images\sqzz-lr-22.png" />
+    <Content Include="Content\images\sqzz-lr-31.png" />
+    <Content Include="Content\images\sqzz-poi-icon1.png" />
+    <Content Include="Content\images\sqzz-poi-icon2.png" />
+    <Content Include="Content\images\star-icon%40x2.png" />
+    <Content Include="Content\images\star-icon.png" />
+    <Content Include="Content\images\statistic-arrow.png" />
+    <Content Include="Content\images\sunxiaohong.jpg" />
+    <Content Include="Content\images\sxt-1.png" />
+    <Content Include="Content\images\sxt-2.png" />
+    <Content Include="Content\images\sxt-3.png" />
+    <Content Include="Content\images\sxt-video-btnicon-blue.png" />
+    <Content Include="Content\images\sxt-video-btnicon.png" />
+    <Content Include="Content\images\sxt-videoli.png" />
+    <Content Include="Content\images\traffic-icon1.png" />
+    <Content Include="Content\images\traffic-icon2.png" />
+    <Content Include="Content\images\twocol-topicon.png" />
+    <Content Include="Content\images\weathy_04.png" />
+    <Content Include="Content\images\weathy_07.png" />
+    <Content Include="Content\images\wrj-pic.png" />
+    <Content Include="Content\images\wuchunli.jpg" />
+    <Content Include="Content\images\yangyufeng.jpg" />
+    <Content Include="Content\images\yibiaopan-bg.png" />
+    <Content Include="Content\images\ykhx-1.png" />
+    <Content Include="Content\images\ykhx-2.png" />
+    <Content Include="Content\images\ykhx-3.png" />
+    <Content Include="Content\images\ykhx-4.png" />
+    <Content Include="Content\images\yqsjlb-1.png" />
+    <Content Include="Content\images\yqsjlb.png" />
+    <Content Include="Content\images\yqyj-hart-warn-icon1.png" />
+    <Content Include="Content\images\yqyj-hart-warn-icon2.png" />
+    <Content Include="Content\images\yqyj-hart-warn-icon3.png" />
+    <Content Include="Content\images\yqyj-icon-hover.png" />
+    <Content Include="Content\images\yqyj-icon.png" />
+    <Content Include="Content\images\yqyj.png" />
+    <Content Include="Content\images\yuanchengxiang.jpg" />
+    <Content Include="Content\images\zhouyong.jpg" />
+    <Content Include="Content\images\zlxxcyjg-bg.png" />
+    <Content Include="Content\images\zoomin.png" />
+    <Content Include="Content\jqueryui\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\jqueryui\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\jqueryui\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jqueryui\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\jqueryui\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\jqueryui\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\jqueryui\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\jqueryui\jquery-ui.css" />
+    <Content Include="Content\jqueryui\jquery-ui.min.css" />
+    <Content Include="Content\js\divscroll.js" />
+    <Content Include="Content\js\echarts.min.js" />
+    <Content Include="Content\js\raphael.min.js" />
+    <Content Include="Content\js\sj-chart.js" />
+    <Content Include="Content\js\sjcg-chart.js" />
+    <Content Include="Content\js\wrj-chart.js" />
+    <Content Include="Content\page.css" />
+    <Content Include="Content\starability.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\styleNew.css" />
+    <Content Include="Content\weather\0.gif" />
+    <Content Include="Content\weather\1.gif" />
+    <Content Include="Content\weather\10.gif" />
+    <Content Include="Content\weather\11.gif" />
+    <Content Include="Content\weather\12.gif" />
+    <Content Include="Content\weather\13.gif" />
+    <Content Include="Content\weather\14.gif" />
+    <Content Include="Content\weather\15.gif" />
+    <Content Include="Content\weather\16.gif" />
+    <Content Include="Content\weather\17.gif" />
+    <Content Include="Content\weather\18.gif" />
+    <Content Include="Content\weather\19.gif" />
+    <Content Include="Content\weather\2.gif" />
+    <Content Include="Content\weather\20.gif" />
+    <Content Include="Content\weather\21.gif" />
+    <Content Include="Content\weather\22.gif" />
+    <Content Include="Content\weather\23.gif" />
+    <Content Include="Content\weather\24.gif" />
+    <Content Include="Content\weather\25.gif" />
+    <Content Include="Content\weather\26.gif" />
+    <Content Include="Content\weather\27.gif" />
+    <Content Include="Content\weather\28.gif" />
+    <Content Include="Content\weather\29.gif" />
+    <Content Include="Content\weather\3.gif" />
+    <Content Include="Content\weather\30.gif" />
+    <Content Include="Content\weather\31.gif" />
+    <Content Include="Content\weather\4.gif" />
+    <Content Include="Content\weather\5.gif" />
+    <Content Include="Content\weather\6.gif" />
+    <Content Include="Content\weather\7.gif" />
+    <Content Include="Content\weather\8.gif" />
+    <Content Include="Content\weather\9.gif" />
+    <Content Include="Content\weather\a_0.gif" />
+    <Content Include="Content\weather\a_1.gif" />
+    <Content Include="Content\weather\a_10.gif" />
+    <Content Include="Content\weather\a_11.gif" />
+    <Content Include="Content\weather\a_12.gif" />
+    <Content Include="Content\weather\a_13.gif" />
+    <Content Include="Content\weather\a_14.gif" />
+    <Content Include="Content\weather\a_15.gif" />
+    <Content Include="Content\weather\a_16.gif" />
+    <Content Include="Content\weather\a_17.gif" />
+    <Content Include="Content\weather\a_18.gif" />
+    <Content Include="Content\weather\a_19.gif" />
+    <Content Include="Content\weather\a_2.gif" />
+    <Content Include="Content\weather\a_20.gif" />
+    <Content Include="Content\weather\a_21.gif" />
+    <Content Include="Content\weather\a_22.gif" />
+    <Content Include="Content\weather\a_23.gif" />
+    <Content Include="Content\weather\a_24.gif" />
+    <Content Include="Content\weather\a_25.gif" />
+    <Content Include="Content\weather\a_26.gif" />
+    <Content Include="Content\weather\a_27.gif" />
+    <Content Include="Content\weather\a_28.gif" />
+    <Content Include="Content\weather\a_29.gif" />
+    <Content Include="Content\weather\a_3.gif" />
+    <Content Include="Content\weather\a_30.gif" />
+    <Content Include="Content\weather\a_31.gif" />
+    <Content Include="Content\weather\a_4.gif" />
+    <Content Include="Content\weather\a_5.gif" />
+    <Content Include="Content\weather\a_6.gif" />
+    <Content Include="Content\weather\a_7.gif" />
+    <Content Include="Content\weather\a_8.gif" />
+    <Content Include="Content\weather\a_9.gif" />
+    <Content Include="Content\weather\a_nothing.gif" />
+    <Content Include="Content\weather\b_0.gif" />
+    <Content Include="Content\weather\b_1.gif" />
+    <Content Include="Content\weather\b_10.gif" />
+    <Content Include="Content\weather\b_11.gif" />
+    <Content Include="Content\weather\b_12.gif" />
+    <Content Include="Content\weather\b_13.gif" />
+    <Content Include="Content\weather\b_14.gif" />
+    <Content Include="Content\weather\b_15.gif" />
+    <Content Include="Content\weather\b_16.gif" />
+    <Content Include="Content\weather\b_17.gif" />
+    <Content Include="Content\weather\b_18.gif" />
+    <Content Include="Content\weather\b_19.gif" />
+    <Content Include="Content\weather\b_2.gif" />
+    <Content Include="Content\weather\b_20.gif" />
+    <Content Include="Content\weather\b_21.gif" />
+    <Content Include="Content\weather\b_22.gif" />
+    <Content Include="Content\weather\b_23.gif" />
+    <Content Include="Content\weather\b_24.gif" />
+    <Content Include="Content\weather\b_25.gif" />
+    <Content Include="Content\weather\b_26.gif" />
+    <Content Include="Content\weather\b_27.gif" />
+    <Content Include="Content\weather\b_28.gif" />
+    <Content Include="Content\weather\b_29.gif" />
+    <Content Include="Content\weather\b_3.gif" />
+    <Content Include="Content\weather\b_30.gif" />
+    <Content Include="Content\weather\b_31.gif" />
+    <Content Include="Content\weather\b_4.gif" />
+    <Content Include="Content\weather\b_5.gif" />
+    <Content Include="Content\weather\b_6.gif" />
+    <Content Include="Content\weather\b_7.gif" />
+    <Content Include="Content\weather\b_8.gif" />
+    <Content Include="Content\weather\b_9.gif" />
+    <Content Include="Content\weather\b_nothing.gif" />
+    <Content Include="Content\weather\nothing.gif" />
+    <Content Include="Content\weather\Read me.txt" />
+    <Content Include="Content\weather\r_b.gif" />
+    <Content Include="Content\weather\r_t1.gif" />
+    <Content Include="Content\weather\tem1.gif" />
+    <Content Include="Content\weather\tem2.gif" />
+    <Content Include="Content\weather\tem3.gif" />
+    <Content Include="Content\weather\tem4.gif" />
+    <Content Include="Content\weather\tem5.gif" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\Ajax\Industry\e_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\Industry\g_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\Society\s_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\Society\s_LayerMenuAjax.js" />
+    <Content Include="Scripts\Ajax\Tour\t_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\Tour\t_LayerMenuAjax.js" />
+    <Content Include="Scripts\Data\Industry\e_EchartData.js" />
+    <Content Include="Scripts\Data\Industry\e_LayerMenuData.js" />
+    <Content Include="Scripts\Data\Industry\g_EchartData.js" />
+    <Content Include="Scripts\Data\Society\s_EchartData.js" />
+    <Content Include="Scripts\Data\Society\s_LayerMenuData.js" />
+    <Content Include="Scripts\Data\Society\s_MainData.js" />
+    <Content Include="Scripts\Data\Test\SpecialEfficiencyData.js" />
+    <Content Include="Scripts\Data\Tour\t_EchartData.js" />
+    <Content Include="Scripts\Data\Tour\t_LayerMenuData.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\video\CH1.flv" />
+    <Content Include="Content\video\illegalPark.flv" />
+    <Content Include="Content\video\CH2.flv" />
+    <Content Include="Content\video\交通示例模拟.flv" />
+    <Content Include="Content\video\dakeliu.flv" />
+    <Content Include="Content\video\drone_video_demo.flv" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\Chimelong.release.pubxml" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery.pagination.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\jquery.ztree.all-3.5.js" />
+    <Content Include="Scripts\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Scripts\jquery.ztree.dropdown.js" />
+    <Content Include="Scripts\jsnlog.js" />
+    <Content Include="Scripts\jsnlog.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Modules\Industry\Building\b_BuildingFloor.js" />
+    <Content Include="Scripts\Modules\Industry\Building\b_Echart.js" />
+    <Content Include="Scripts\Modules\Industry\Building\b_Main.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\el_AtlasChart.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\el_EstateInfo.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\el_HotMap.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\e_Echart.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\e_Main.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\gl_Event.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\gl_GardenBuilding.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\gl_Stop.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\gl_TopCompany.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\gl_UnmannedCar.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\g_Echart.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\g_Main.js" />
+    <Content Include="Scripts\Modules\IPadControl.js" />
+    <Content Include="Scripts\Modules\MainMenu.js" />
+    <Content Include="Scripts\Modules\Society\sl_Drone.js" />
+    <Content Include="Scripts\Modules\Society\sl_Event.js" />
+    <Content Include="Scripts\Modules\Society\sl_SeaboardLine.js" />
+    <Content Include="Scripts\Modules\Society\sl_WorkSite.js" />
+    <Content Include="Scripts\Modules\Society\sl_WorkStation.js" />
+    <Content Include="Scripts\Modules\Society\s_Echart.js" />
+    <Content Include="Scripts\Modules\Society\s_Event.js" />
+    <Content Include="Scripts\Modules\Society\sl_Camera.js" />
+    <Content Include="Scripts\Modules\Society\sl_IOT.js" />
+    <Content Include="Scripts\Modules\Society\s_LeftLayer.js" />
+    <Content Include="Scripts\Modules\Society\s_Main.js" />
+    <Content Include="Scripts\Modules\Society\s_MainNew.js" />
+    <Content Include="Scripts\Modules\Society\s_PoiDetial.js" />
+    <Content Include="Scripts\Modules\Society\s_RightLayer.js" />
+    <Content Include="Scripts\Modules\SpecialEfficiency.js" />
+    <Content Include="Scripts\Modules\Test\SpecialEfficiency.js" />
+    <Content Include="Scripts\Modules\Tour\tl_Bus.js" />
+    <Content Include="Scripts\Modules\Tour\tl_Camera.js" />
+    <Content Include="Scripts\Modules\Tour\tl_Drone.js" />
+    <Content Include="Scripts\Modules\Tour\tl_Event.js" />
+    <Content Include="Scripts\Modules\Tour\tl_Metro.js" />
+    <Content Include="Scripts\Modules\Tour\tl_ParkingLot.js" />
+    <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
+    <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
+    <Content Include="Scripts\Modules\Tour\t_Echart.js" />
+    <Content Include="Scripts\Modules\Tour\tl_RoadCondition.js" />
+    <Content Include="Scripts\Modules\Tour\tl_VisitorsMap.js" />
+    <Content Include="Scripts\Modules\Tour\t_EchartNew.js" />
+    <Content Include="Scripts\Modules\Tour\t_Main.js" />
+    <Content Include="Scripts\Modules\Tour\t_MainNew.js" />
+    <Content Include="Scripts\Qmap\QMap3d-2.0.min.js" />
+    <Content Include="Scripts\Qmap\QMap3d-src.js" />
+    <Content Include="Scripts\Qmap\QMap3dV2.3-custom.js" />
+    <Content Include="Scripts\Qmap\QMapV2.Business.V2026.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Shared\DataCache.js" />
+    <Content Include="Scripts\Shared\SignalRHub.js" />
+    <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\Shared\Cookie.js" />
+    <Content Include="Scripts\Tools\ajaxfileupload.js" />
+    <Content Include="Scripts\Tools\aliplayer\aliplayer-min.css" />
+    <Content Include="Scripts\Tools\aliplayer\aliplayer-min.js" />
+    <Content Include="Scripts\Tools\Animate-Number\jquery.animateNumber.js" />
+    <Content Include="Scripts\Tools\Animate-Number\jquery.color.min.js" />
+    <Content Include="Scripts\Tools\DatePicker\skin\whyGreen\datepicker25.css" />
+    <Content Include="Scripts\Tools\DatePicker\skin\whyGreen\datepicker1 - 复制.css" />
+    <Content Include="Scripts\Tools\divscroll.js" />
+    <Content Include="Scripts\Tools\echarts.min.js" />
+    <Content Include="Scripts\Tools\fingerprintjs2\fingerprint2.js" />
+    <Content Include="Scripts\Tools\fingerprintjs2\fingerprint2.min.js" />
+    <Content Include="Scripts\Tools\jqplug\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\Tools\jqplug\jquery.countup.js" />
+    <Content Include="Scripts\Tools\jqplug\jquery.countup.min.js" />
+    <Content Include="Scripts\Tools\jqplug\jquery.waypoints.min.js" />
+    <Content Include="Scripts\Tools\jqueryUI\css\jquery.multiselect.css" />
+    <Content Include="Scripts\Tools\jqueryUI\css\jquery.multiselect.filter.css" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.css" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.js" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.min.css" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.min.js" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.structure.css" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.theme.css" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery-ui.theme.min.css" />
+    <Content Include="Scripts\Tools\jqueryUI\jquery.animsition.min.js" />
+    <Content Include="Scripts\Tools\jqueryUI\js\jquery.multiselect.filter.js" />
+    <Content Include="Scripts\Tools\jqueryUI\js\jquery.multiselect.filter.min.js" />
+    <Content Include="Scripts\Tools\jqueryUI\js\jquery.multiselect.js" />
+    <Content Include="Scripts\Tools\jqueryUI\js\jquery.multiselect.min.js" />
+    <Content Include="Scripts\Tools\knockoutjs.simplegrid.js" />
+    <Content Include="Scripts\Qmap\QMap3d-src.map" />
+    <Content Include="Scripts\Tools\laydate\laydate.js" />
+    <Content Include="Scripts\Tools\laydate\theme\default\font\iconfont.svg" />
+    <Content Include="Scripts\Tools\laydate\theme\default\laydate.css" />
+    <Content Include="Scripts\Tools\md5.js" />
+    <Content Include="Scripts\Tools\moment.js" />
+    <Content Include="Scripts\Tools\raphael.min.js" />
+    <Content Include="Scripts\Tools\sjxx-chart.js" />
+    <Content Include="Scripts\Tools\socketio\eapui-socketio.js" />
+    <Content Include="Scripts\Tools\socketio\eapui.js" />
+    <Content Include="Scripts\Tools\socketio\socket.io.js" />
+    <Content Include="Scripts\Tools\socketio\socketioUtil.js" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-bottom-right-corner.css" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-default.css" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-flat-attack.css" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-os.css" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-plain.css" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-top.css" />
+    <Content Include="Scripts\Tools\vex\css\vex-theme-wireframe.css" />
+    <Content Include="Scripts\Tools\vex\css\vex.css" />
+    <Content Include="Scripts\Tools\vex\js\vex.combined.js" />
+    <Content Include="Scripts\Tools\vex\js\vex.combined.min.js" />
+    <Content Include="Scripts\Tools\vex\js\vex.js" />
+    <Content Include="Scripts\Tools\vex\js\vex.min.js" />
+    <Content Include="Scripts\jsnlog.js.map" />
+    <Content Include="Scripts\Tools\laydate\theme\default\font\iconfont.eot" />
+    <Content Include="Scripts\Tools\laydate\theme\default\font\iconfont.ttf" />
+    <Content Include="Scripts\Tools\laydate\theme\default\font\iconfont.woff" />
+    <Content Include="Scripts\Tools\fingerprintjs2\fingerprint2.min.js.map" />
+    <Content Include="Scripts\Tools\vex\api\1-Basic.md" />
+    <Content Include="Scripts\Tools\vex\api\2-Themes.md" />
+    <Content Include="Scripts\Tools\vex\api\3-Advanced.md" />
+    <Content Include="Scripts\Tools\vex\api\4-Plugins.md" />
+    <Content Include="Scripts\Tools\vex\api\intro.md" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\Shared\Common.js" />
+    <Content Include="Scripts\Shared\Config.js" />
+    <Content Include="Scripts\Tools\echarts.js" />
+    <Content Include="Scripts\Tools\echarts-gl.js" />
+    <Content Include="Scripts\Tools\jquery.nicescroll.js" />
+    <Content Include="Scripts\Shared\Load.js" />
+    <Content Include="Scripts\Shared\Main.js" />
+    <Content Include="Scripts\Shared\Map.js" />
+    <Content Include="Scripts\Shared\MouseEvent.js" />
+    <Content Include="Scripts\Shared\Reset.js" />
+    <Content Include="Scripts\Tools\util.js" />
+    <Content Include="Scripts\Tools\CoordinateConversion.js" />
+    <Content Include="Scripts\Tools\DatePicker\calendar.js" />
+    <Content Include="Scripts\Tools\DatePicker\config.js" />
+    <Content Include="Scripts\Tools\DatePicker\Demo.htm" />
+    <Content Include="Scripts\Tools\DatePicker\lang\en.js" />
+    <Content Include="Scripts\Tools\DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\Tools\DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\Tools\DatePicker\My97DatePicker.htm" />
+    <Content Include="Scripts\Tools\DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\Tools\DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\Tools\DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\Tools\DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\Tools\DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\Tools\DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\Tools\DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\Tools\DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\datePicker.gif" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\default\datepicker.css" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\default\img.gif" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\WdatePicker.css" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\whyGreen\bg.jpg" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\whyGreen\datepicker.css" />
+    <Content Include="Scripts\Tools\DatePicker\开发包\whyGreen\img.gif" />
+    <Content Include="Scripts\Tools\jquery-showloading\css\showLoading.css" />
+    <Content Include="Scripts\Tools\jquery-showloading\images\loading-bars.gif" />
+    <Content Include="Scripts\Tools\jquery-showloading\images\loading.gif" />
+    <Content Include="Scripts\Tools\jquery-showloading\js\jquery.showLoading.js" />
+    <Content Include="Scripts\Tools\jquery-showloading\js\jquery.showLoading.min.js" />
+    <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\Tools\JsBarcode.all.js" />
+    <Content Include="View\Industry\Building\Left_First_01.html" />
+    <Content Include="View\Industry\Building\Left_Second_01.html" />
+    <Content Include="View\Industry\Building\Left_Second_02.html" />
+    <Content Include="View\Industry\Estate\Bottom_AtlasDetail.html" />
+    <Content Include="View\Industry\Estate\Bottom_EstateDetail.html" />
+    <Content Include="View\Industry\Estate\Bottom_Menu.html" />
+    <Content Include="View\Industry\Estate\Center_01.html" />
+    <Content Include="View\Industry\Estate\Center_02.html" />
+    <Content Include="View\Industry\Estate\Left_First_01.html" />
+    <Content Include="View\Industry\Estate\Left_First_02.html" />
+    <Content Include="View\Industry\Estate\Left_Second_01.html" />
+    <Content Include="View\Industry\Estate\Left_Second_02.html" />
+    <Content Include="View\Industry\Estate\Left_Second_03.html" />
+    <Content Include="View\Industry\Estate\Right_First_01.html" />
+    <Content Include="View\Industry\Estate\Right_First_02.html" />
+    <Content Include="View\Industry\Estate\Right_First_03.html" />
+    <Content Include="View\Industry\Estate\Right_Second_01.html" />
+    <Content Include="View\Industry\Estate\Right_Second_02.html" />
+    <Content Include="View\Industry\Garden\TopCompanyInfo.html" />
+    <Content Include="View\Industry\Garden\Bottom_Menu.html" />
+    <Content Include="View\Industry\Garden\Center_01.html" />
+    <Content Include="View\Industry\Garden\Left_First_01.html" />
+    <Content Include="View\Industry\Garden\Left_First_02.html" />
+    <Content Include="View\Industry\Garden\Left_First_03.html" />
+    <Content Include="View\Industry\Garden\Left_Second_01.html" />
+    <Content Include="View\Industry\Garden\Left_Second_02.html" />
+    <Content Include="View\Industry\Garden\Left_Second_03.html" />
+    <Content Include="View\Industry\Garden\Right_First_01.html" />
+    <Content Include="View\Industry\Garden\Right_First_02.html" />
+    <Content Include="View\Industry\Garden\Right_Second_01.html" />
+    <Content Include="View\SocietyNew\Bottom_CameraDetail.html" />
+    <Content Include="View\SocietyNew\Bottom_DroneCamera.html" />
+    <Content Include="View\SocietyNew\Bottom_EventDetail.html" />
+    <Content Include="View\SocietyNew\Bottom_EventDetailPic.html" />
+    <Content Include="View\SocietyNew\Bottom_EventPaidan.html" />
+    <Content Include="View\SocietyNew\Bottom_Menu.html" />
+    <Content Include="View\SocietyNew\Center_01.html" />
+    <Content Include="View\SocietyNew\Center_01_Info.html" />
+    <Content Include="View\SocietyNew\Left_First_01.html" />
+    <Content Include="View\SocietyNew\Left_First_02.html" />
+    <Content Include="View\SocietyNew\Left_First_03.html" />
+    <Content Include="View\SocietyNew\Left_First_04.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventAll.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventCamera.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventDrone.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventDrone1.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventDrone2.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventDrone3.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventIOT.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventIOT1.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventIOT2.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventIOT3.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventIOT4.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventSeaBoard.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventWorkSite.html" />
+    <Content Include="View\SocietyNew\Left_Second_EventWorkStation.html" />
+    <Content Include="View\SocietyNew\Right_Second_01.html" />
+    <Content Include="View\SocietyNew\Right_Second_02.html" />
+    <Content Include="View\SocietyNew\Right_Second_03.html" />
+    <Content Include="View\Society\Bottom_Container.html" />
+    <Content Include="View\Society\Centre_Container.html" />
+    <Content Include="View\Society\header_menu.html" />
+    <Content Include="View\Society\R_EventDetail.html" />
+    <Content Include="View\Society\R_EventList.html" />
+    <Content Include="View\Society\Left01_Container.html" />
+    <Content Include="View\Society\Left02_Container.html" />
+    <Content Include="View\Society\L_CameraList.html" />
+    <Content Include="View\Society\Right_Container.html" />
+    <Content Include="View\TourNew\Bottom_CameraDetail.html" />
+    <Content Include="View\TourNew\Bottom_DroneCamera.html" />
+    <Content Include="View\TourNew\Bottom_Menu.html" />
+    <Content Include="View\TourNew\Bottom_TrafficCamera.html" />
+    <Content Include="View\TourNew\Center_01.html" />
+    <Content Include="View\TourNew\Center_02.html" />
+    <Content Include="View\TourNew\Center_03.html" />
+    <Content Include="View\TourNew\Center_EventDetail.html" />
+    <Content Include="View\TourNew\Left_First_01.html" />
+    <Content Include="View\TourNew\Left_First_02.html" />
+    <Content Include="View\TourNew\Left_First_03.html" />
+    <Content Include="View\TourNew\Left_First_04.html" />
+    <Content Include="View\TourNew\Left_Second_01.html" />
+    <Content Include="View\TourNew\Left_Second_02.html" />
+    <Content Include="View\TourNew\Left_Second_03.html" />
+    <Content Include="View\TourNew\Right_First_01.html" />
+    <Content Include="View\TourNew\Right_First_02.html" />
+    <Content Include="View\TourNew\Right_First_03.html" />
+    <Content Include="View\TourNew\Right_Second_01.html" />
+    <Content Include="View\TourNew\Right_Second_02.html" />
+    <Content Include="View\TourNew\Right_Second_03.html" />
+    <Content Include="View\Tour\Bottom_Menu.html" />
+    <Content Include="View\Tour\Centre2_Container.html" />
+    <Content Include="View\Tour\Centre3_Container.html" />
+    <Content Include="View\Tour\B_CameraDetail.html" />
+    <Content Include="View\Tour\Centre_Container.html" />
+    <Content Include="View\Tour\Header_Menu.html" />
+    <Content Include="View\Tour\Left01_Container.html" />
+    <Content Include="View\Tour\Left02_Container.html" />
+    <Content Include="View\Tour\Right01_Container.html" />
+    <Content Include="View\Tour\Right02_Container.html" />
+    <Content Include="View\Tour\R_EventDetail.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ApiTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Society\" />
+    <Folder Include="View\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>59594</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/LingangCityBrainV2</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

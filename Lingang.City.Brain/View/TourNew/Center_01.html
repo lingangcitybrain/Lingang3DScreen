@@ -1,0 +1,56 @@
+﻿
+<div class="statistic-box twocol" style="z-index:999;display:block;">
+    <button class="statistic-slidebtn"><img src="../Content/images/statistic-arrow.png"></button>
+    <div class="statistic-slidediv">
+        <div class="pjc-statistic  short-statistic" style="margin-bottom: 1.3rem;">
+            <dl>
+                <dt onclick="require('t_Main').totalsRefresh();">景区总人数</dt>
+                <dd class="testAerial"><span id="yqzrs-center">0</span></dd>
+                <dt>景区预警指标</dt>
+                <dd class="testAerial clearfix yqyj-level-dd">
+                    <div class="yqyj-levelbox clearfix" style="overflow: hidden; border-radius: .3rem;">
+                        <img src="../Content/images/yqyj.png">
+                        <div class="yqyj-levelbg"></div>
+                    </div>
+                    <div class="yqyj-levelbox clearfix" style="overflow: visible;">
+                        <span class="yqyj-level yqyj-level1">正常</span>
+                        <span class="yqyj-level yqyj-level2">三级预警</span>
+                        <span class="yqyj-level yqyj-level3">二级预警</span>
+                        <span class="yqyj-level yqyj-level4">一级预警</span>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <div class="pjc-statistic  short-statistic">
+            <dl>
+                <dt>景区周边人数</dt>
+                <dd class="testAerial"><span id="yqzbrs-center">0</span></dd>
+                <dt>未来30分钟预测人数</dt>
+                <dd class="testAerial"><span id="yqnwlrs-center">0</span></dd>
+            </dl>
+        </div>
+        <div class="pjc-statistic  short-statistic">
+            <dl>
+                <dt>海昌公园停车场车辆数</dt>
+                <dd class="testAerial"><span id="yqncls-center">0</span></dd>
+                <dt>未来30分钟预测车辆数</dt>
+                <dd class="testAerial"><span id="yqnwlcls-center">0</span></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<script>
+$(function () {
+    $(".statistic-slidebtn").each(function () {
+        var thisClick = false;
+        $(this).click(function () {
+            thisClick = !thisClick;
+            if (thisClick) {
+                $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+            } else {
+                $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+            }
+        })
+    })
+})
+</script>

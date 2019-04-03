@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta charset="utf-8" />
+    <title>临港智慧城市大脑平台</title>    
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")    
+    @Scripts.Render("~/bundles/signalR")    
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.1/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min.js"></script>
+    <script src="~/Scripts/Tools/vex/js/vex.combined.min.js"></script>
+    <script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
+    <script data-main="@Url.Content("~/Scripts/Shared/Main")" type="text/javascript" src="~/Scripts/require.js"></script>    
+    <script src="~/Scripts/Shared/SignalRHub.js"></script> 
+</head>
+<body style="padding-top:0px;overflow-y:hidden;overflow-x:hidden;" oncontextmenu="return false" ondragstart="return false">
+    @*<div style="height:100%">*@
+        @RenderBody()
+    @*</div>*@
+</body>
+</html>
+

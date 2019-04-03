@@ -1,0 +1,37 @@
+﻿
+<div class="statistic-box twocol" style="z-index:999;display:block;">
+    <button class="statistic-slidebtn"><img src="../Content/images/statistic-arrow.png"></button>
+    <div class="statistic-slidediv">
+        <div class="pjc-statistic">
+            <dl>
+                <dt>案件累计数</dt>
+                <dd class="testAerial"><span id="dsz-ajljs">47,266</span></dd>
+                <dt>当月案件数</dt>
+                <dd class="testAerial"><span id="dsz-dyajs">5,082</span></dd>
+                <dt>智能派单率</dt>
+                <dd class="testAerial"><span id="dsz-znpds">90</span><span>&#37;</span></dd>
+                <dt>主动发现率</dt>
+                <dd class="testAerial"><span id="dsz-zdfxl">75</span><span>&#37;</span></dd>
+                <dt>闭环率</dt>
+                <dd class="testAerial"><span id="dsz-bhl">99</span><span>&#37;</span></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".statistic-slidebtn").each(function () {
+            var thisClick = false;
+            $(this).click(function () {
+                thisClick = !thisClick;
+                if (thisClick) {
+                    $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                } else {
+                    $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                }
+            })
+        })
+    })
+
+</script>

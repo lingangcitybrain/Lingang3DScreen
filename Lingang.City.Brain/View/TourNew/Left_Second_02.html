@@ -1,0 +1,45 @@
+﻿<!-- 摄像头 -->
+<div id="left02_02" class="divbox divbox-lr" style="top:7.5rem;z-index:999;display:block;">
+    <h3><div id="zxsxtsx">在线摄像头</div></h3>
+    <div class="divcont wrj-l2  dkl-sxt">
+        <ul class="flex"id="zxsxt" style=" padding .2rem 0;">
+            <li class="wrj-l2-li wrj-l2-li1">
+                <button class=""><div class="testAerial">487</div><span>总数</span></button>
+            </li>
+            <li class="wrj-l2-li ">
+                <!-- 这里负的多少秒表示百分之多少  100% 需要设置 animation-delay: -99.999s 左右-->
+
+                <div class="piebox"><div class="pie testAerial" style="animation-delay: -20s" data-text="20%"></div></div>
+                <div class="piebox-right">
+                    <span> 球机</span>
+                    <div><span class="testAerial">98</span>台</div>
+                </div>
+            </li>
+            <li class="wrj-l2-li ">
+                <div class="piebox"><div class="pie testAerial" style="animation-delay: -79s" data-text="79%"></div></div>
+                <div class="piebox-right">
+                    <span> 枪机</span>
+                    <div><span class="testAerial">388</span>台</div>
+                </div>
+            </li>
+            <li class="wrj-l2-li ">
+                <div class="piebox"><div class="pie testAerial" style="animation-delay: -1s" data-text="1%"></div></div>
+                <div class="piebox-right">
+                    <span> 鹰眼</span>
+                    <div><span class="testAerial">1</span>台</div>
+                </div>
+            </li>
+        </ul>
+        <div class="sxt-videobox dkl-r-sxt-videobox">
+            <ul class="sxt-videoul flex dkl-r-sxtul">
+                <!--<li class="sxt-videoli prism-player" id="left02_video01"></li>
+                <li class="sxt-videoli prism-player" id="left02_video02"></li>-->
+                <li class="sxt-videoli"><div class="sxt-videoli-div prism-player" id="left02_video01"></div></li>
+                <li class="sxt-videoli"><div class="sxt-videoli-div prism-player" id="left02_video02"></div></li>
+            </ul>
+            <button type="button" class="arrowbtn btnleft" onclick="require('t_Main').loadLeft2_Video()"></button>
+            <button type="button" class="arrowbtn btnright" onclick="require('t_Main').loadLeft2_Video()"></button>
+        </div>
+
+    </div>
+</div>

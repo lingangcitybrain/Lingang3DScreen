@@ -1,0 +1,38 @@
+﻿
+
+
+
+<div class="statistic-box twocol" style="z-index:999;display:block;">
+    <button class="statistic-slidebtn"><img src="../Content/images/statistic-arrow.png"></button>
+    <div class="statistic-slidediv">
+        <div class="pjc-statistic  short-statistic" style="z-index:999;display:block;">
+            <dl>
+                <dt>企业总数</dt>
+                <dd class="testAerial"><span id="e_qyzs">66,159</span></dd>
+                <dt>战略新兴企业数</dt>
+                <dd class="testAerial"><span id="e_zlxxqys">2,309</span></dd>
+                <dt>投融资企业数</dt>
+                <dd class="testAerial"><span id="e_ssgs">117</span></dd>
+                <dt>异动企业数</dt>
+                <dd class="testAerial"><span id="e_ydqys">22,678</span></dd>
+            </dl>
+        </div> 
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".statistic-slidebtn").each(function () {
+            var thisClick = false;
+            $(this).click(function () {
+                thisClick = !thisClick;
+                if (thisClick) {
+                    $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                } else {
+                    $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                }
+            })
+        })
+    })
+
+</script>

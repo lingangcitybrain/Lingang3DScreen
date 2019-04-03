@@ -1,0 +1,55 @@
+﻿@charset 'utf-8';
+/* CSS Document */
+html,body,ul,ol,p,dl,dt,dd,h1,h2,h3,h4,h5,h6{
+	margin: 0;
+	padding: 0;
+}
+html,body{width: 100%; height: 100%; }
+body{
+	color:#ccc;
+	-ms-user-select:none;
+	user-select:none;
+	/*scrollbar-base-color: rgba(86, 128, 172, 1);
+	scrollbar-track-color: rgba(43, 53, 86, 1);
+	scrollbar-arrow-color: rgba(86, 128, 172, 1);
+	scrollbar-shadow-color: rgba(55, 55, 55, 1);*/
+}
+ul,ol { list-style: none;}
+select,
+input,
+button {
+	padding: 0;
+	border: 0;
+	outline: none;
+	background-color: transparent;
+}
+button, 
+.btn, 
+.button, 
+[type="button"]{ 
+	cursor:pointer;
+}
+em, i, b{font-style: normal; font-weight:normal;}
+a {text-decoration: none;}
+img{
+	max-width:100%;
+	height:auto;
+	vertical-align:middle;	
+}
+::-webkit-input-placeholder { color: #fff;}
+.fl{ float: left; }
+.fr{ float: right; }
+.clearfix:after {
+	content:"";
+	display:block;
+	visibility: hidden;
+	height:0;
+	font-size:0;
+	line-height:0;
+	clear:both;   
+}
+.clearfix{ *zoom:1; } 
+.flex{ display: flex; }
+.inline-flex{ display: inline-flex; }
+.flexgrow1{ flex-grow:1; }
+.flexgrow2{ flex-grow:2; }

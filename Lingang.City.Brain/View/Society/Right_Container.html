@@ -1,0 +1,78 @@
+﻿<!--右侧第一列DIV-->
+<div class="pjr">
+    <!-- 事件信息 -->
+    <div class="divbox clearfix">
+        <h3><div>事件信息</div></h3>
+        <div class="divcont divcont-sj">
+            <div class="chartdiv sj-chartdiv">
+                <div class="sj-chart" id="sj-chart"></div>
+            </div>
+            <div class="sj-legend">
+                <div class="sj-legend-div">
+                    <span>智能派单（<em class="testAerial">160</em>）</span>
+                    <div><em class="testAerial">80</em>%</div>
+                </div>
+                <div class="sj-legend-div">
+                    <span>非智能派单（<em class="testAerial">40</em>）</span>
+                    <div><em class="testAerial">20</em>%</div>
+                </div>
+            </div>
+            <div class="sj-pie">
+                <div class="sj-piediv flex">
+                    <div class="pie testAerial" id="xbt1-chart" style="animation-delay: -40s"></div>
+                    <div class="piebox-right">
+                        <span>预计提高派单效率</span>
+                        <div><span class="testAerial">40</span>%</div>
+                    </div>
+                </div>
+                <div class="sj-piediv flex">
+                    <div class="pie testAerial" id="xbt2-chart" style="animation-delay: -80s"></div>
+                    <div class="piebox-right">
+                        <span>智能派单准确率超过</span>
+                        <div><span class="testAerial">80</span>%</div>
+                    </div>
+                </div>
+                <!-- 注意  100% 时，延时时间要比100s 小一点 -->
+                <div class="sj-piediv flex">
+                    <div class="pie testAerial" style="animation-delay: -99.9999s"></div>
+                    <div class="piebox-right">
+                        <span>智能发现事件</span>
+                        <div><span class="testAerial">100</span>%</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <!-- 事件处理成功数据 -->
+    <div class="divbox clearfix">
+        <!--  头部有图标tab时， 添加hastabbox-->
+        <h3 class="hastabbox">
+            <div>事件处理成功数</div>
+            <div class="charttabbox flex">
+                <a class="charttab active">按月</a>
+                <a class="charttab">按日</a>
+            </div>
+
+        </h3>
+        <div class="divcont sjcg">
+            <div class="chartdiv sjcg-chartdiv"><div class="sjcg-chart" id="sjcg-chart"></div></div>
+            <div class="flex sjxx-tab">
+                <button type="button" class="active">已处理：<span class="testAerial">20</span></button>
+                <button type="button">待处理：<span class="testAerial">5</span></button>
+                <button type="button">未处理：<span class="testAerial">5</span></button>
+            </div>
+            <div class="scrolldiv" id="right_EventList">
+            </div>
+        </div>
+    </div>
+</div>

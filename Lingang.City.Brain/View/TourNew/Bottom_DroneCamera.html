@@ -1,0 +1,18 @@
+﻿<!--无人机摄像头﻿-->
+<div class="poiinfo" style="left:58%;top:15%;z-index:999;">
+    <div class="box-top">
+        无人机视频
+        <button type="button" class="box-close" onclick="require('tl_Drone').closeCameraDetial()"></button>
+    </div>
+    <div class="boxcont flex" style="position:relative;width:11.8rem; height:7rem;  overflow:hidden; padding:0;">
+        <div class="prism-player video-js" id="bottom_cameradetail"></div>
+    </div>
+</div>
+<style>
+    .video-js {
+        position:absolute !important;
+        left:-.4rem;
+        width: calc(100% + .8rem) !important;
+        height: 100% !important;
+    }
+</style>

@@ -1,0 +1,39 @@
+﻿<!-- 左侧 有两列时添加   twocol -->
+
+
+<div class="statistic-box twocol" style="z-index:999;display:block;">
+    <button class="statistic-slidebtn"><img src="../Content/images/statistic-arrow.png"></button>
+    <div class="statistic-slidediv">
+        <div class="pjc-statistic" style="z-index:999;display:block;">
+            <dl>
+                <dt>园区企业数</dt>
+                <dd class="testAerial"><span id="g_zcqys">2,764</span></dd>
+                <!--<dt>入驻企业数</dt>
+                <dd class="testAerial"><span id="g_rzqys">61</span></dd>-->
+                <dt>固定资产投资（万元）</dt>
+                <dd class="testAerial"><span id="g_gdzctz">5,702.93</span></dd>
+                <dt>产值（万元）</dt>
+                <dd class="testAerial"><span id="g_cz">520,687.98</span></dd>
+                <dt>税收（万元）</dt>
+                <dd class="testAerial"><span id="g_ss">18,554.5</span></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".statistic-slidebtn").each(function () {
+            var thisClick = false;
+            $(this).click(function () {
+                thisClick = !thisClick;
+                if (thisClick) {
+                    $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                } else {
+                    $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                }
+            })
+        })
+    })
+
+</script>
