@@ -1031,6 +1031,7 @@
     <Content Include="View\Industry\Estate\Right_First_03.html" />
     <Content Include="View\Industry\Estate\Right_Second_01.html" />
     <Content Include="View\Industry\Estate\Right_Second_02.html" />
+    <Content Include="View\Industry\Garden\BuildingIntro.html" />
     <Content Include="View\Industry\Garden\CompanyStatistic.html" />
     <Content Include="View\Industry\Garden\TopCompanyInfo.html" />
     <Content Include="View\Industry\Garden\Bottom_Menu.html" />
@@ -1161,7 +1162,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>59594</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
