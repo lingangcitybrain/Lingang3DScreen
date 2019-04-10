@@ -1,11 +1,11 @@
-﻿define(["config", "common", "e_LayerMenuData", "util"], function (con, com, e_LayerMenuData, util) {
+﻿define(["config", "common", "e_LayerMenuData", "util", "gl_GardenBuildingAjax"], function (con, com, e_LayerMenuData, util,gl_GardenBuildingAjax) {
     /****************************园区建筑图层****************************/
     return {
         LayerType: null,//选择楼宇
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
         poiListData: new util.HashMap,
-
+        BuildingListData:new util.HashMap,
         GardenLayerType: null,//园区POI属性
         GardenPOIData: null,//园区POI详情数据
 
@@ -19,6 +19,8 @@
             })
         
         },
+
+        /*****************************************/
 
         /*************园区图层-start*************/
         //加载园区POI
@@ -159,11 +161,18 @@
 
         /*************楼宇-start*************/
         loadBuilding: function () {
+            require("reset").ClearDivHtmlOnLeftAndRightAndCenter();
             //飞行到园区视角
             require("mainMenu").LayerFlyto(311, function () {
                 require("gl_GardenBuilding").loadPOI();
+                require("gl_GardenBuilding").showGardenShowWindow();
             })
-
+            //存储楼宇信息到本地
+            gl_GardenBuildingAjax.getBuildingListData(function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    require("gl_GardenBuilding").BuildingListData.put(result[i].id, result[i]);
+                }
+            })
         },
         //加载楼宇POI
         loadPOI:function(){
@@ -242,6 +251,30 @@
                     }
                 }
             }
+        },
+        //加载园区展示窗口
+        showGardenShowWindow: function () {
+            require("gl_GardenBuilding").CompanyStatisticWindow();
+        },
+        //入驻企业统计
+        CompanyStatisticWindow: function () {
+            var option = {
+                aniDom: "#left01_01",
+                htmlDom: "#left_first_01",
+                url: con.HtmlUrl + 'Industry/Garden/CompanyStatistic.html'
+            }
+            com.UIControlAni(option, function () {
+                require("gl_GardenBuilding").loadCompanyInfo();
+            });
+        },
+        //加载企业信息 
+        loadCompanyInfo: function () {
+            gl_GardenBuildingAjax.getCompanyStatisticsData(function (result) {
+                var data = result[0];
+                $("#companyTotal").html(data.successedMerchantsProjects);
+                $("#totalOutputValue").html(data.outputValue);
+                $("#totalPerson").html(data.servicesCount);
+            })
         },
         /*************楼宇-start*************/
 

@@ -37,6 +37,7 @@
         t_LayerMenuAjax: "Ajax/Tour/t_LayerMenuAjax",
         t_EchartAjax: "Ajax/Tour/t_EchartAjax",
         g_EchartAjax: "Ajax/Industry/g_EchartAjax",
+        gl_GardenBuildingAjax:"Ajax/Industry/gl_GardenBuildingAjax",
         //Data
         s_layerMenuData: "Data/Society/s_LayerMenuData",
         s_EchartData: "Data/Society/s_EchartData",

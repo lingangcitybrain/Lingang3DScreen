@@ -789,6 +789,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Ajax\Industry\e_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\Industry\gl_GardenBuildingAjax.js" />
     <Content Include="Scripts\Ajax\Industry\g_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Society\s_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Society\s_LayerMenuAjax.js" />
@@ -1030,6 +1031,7 @@
     <Content Include="View\Industry\Estate\Right_First_03.html" />
     <Content Include="View\Industry\Estate\Right_Second_01.html" />
     <Content Include="View\Industry\Estate\Right_Second_02.html" />
+    <Content Include="View\Industry\Garden\CompanyStatistic.html" />
     <Content Include="View\Industry\Garden\TopCompanyInfo.html" />
     <Content Include="View\Industry\Garden\Bottom_Menu.html" />
     <Content Include="View\Industry\Garden\Center_01.html" />
