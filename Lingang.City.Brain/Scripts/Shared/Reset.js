@@ -31,5 +31,31 @@
 
 
         },
+        //清除首页左右两边div的html内容
+        ClearDivHtmlOnLeftAndRightAndCenter: function () {
+            $("#left_first_01").html("");
+            $("#left_first_02").html("");
+            $("#left_first_03").html("");
+            $("#left_first_04").html("");
+
+            $("#left_second_01").html("");
+            $("#left_second_02").html("");
+            $("#left_second_03").html("");
+            $("#left_second_04").html("");
+
+            $("#right_first_01").html("");
+            $("#right_first_02").html("");
+            $("#right_first_03").html("");
+            $("#right_first_04").html("");
+
+            $("#right_second_01").html("");
+            $("#right_second_02").html("");
+            $("#right_second_03").html("");
+            $("#right_second_04").html("");
+
+            $("#center_01").html("");
+            $("#center_02").html("");
+            $("#center_03").html("");
+        },
     }
 })

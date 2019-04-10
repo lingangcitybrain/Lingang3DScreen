@@ -3725,7 +3725,13 @@
 
                 $('.yqsjlb-list').html(html);
                 for (var i = 0; i < data.outputData.length; i++) {
-                    $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
+                    if (data.outputData[i].snapshoturiwithrect == undefined || data.outputData[i].snapshoturiwithrect == "") {
+                        $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(../Content/images/yqsjlb-default.png)")
+                        $('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
+                    } else if (data.outputData[i].snapshoturiwithrect != undefined) {
+                        $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
+                    }
+
                 }
 
             })

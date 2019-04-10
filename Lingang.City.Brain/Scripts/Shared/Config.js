@@ -4,6 +4,7 @@
         WebServiceUrl: "http://" + location.host + "/LingangCityBrainV3/", 
         HtmlUrl: "/LingangCityBrainV3/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
+        InterfaceUrl_garden: "http://47.101.181.131:8092/",  //接口地址
         InterfaceUrl_HeatMap: "http://47.101.181.131:8094/",  //接口地址
         IsInterface: true,//是否走接口true:接口false本地
         AreaName: "gwh_xilou",
