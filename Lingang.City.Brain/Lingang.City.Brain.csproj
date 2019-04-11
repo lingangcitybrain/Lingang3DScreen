@@ -643,6 +643,7 @@
     <Content Include="Content\images\ykhx-3.png" />
     <Content Include="Content\images\ykhx-4.png" />
     <Content Include="Content\images\yqsjlb-1.png" />
+    <Content Include="Content\images\yqsjlb-default.png" />
     <Content Include="Content\images\yqsjlb.png" />
     <Content Include="Content\images\yqyj-hart-warn-icon1.png" />
     <Content Include="Content\images\yqyj-hart-warn-icon2.png" />
