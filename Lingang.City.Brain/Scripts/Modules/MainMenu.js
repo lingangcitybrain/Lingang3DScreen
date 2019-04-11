@@ -156,17 +156,21 @@ function (con, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main) {
                     //加载div数据
                     switch (menuname) {
                         case "社区综合":// 社区综合
+                        $("#header_menu div button").removeClass("active");//删除当前元素的样式
+                            $("button").eq(index).addClass("active");//添加当前元素的样式
                             s_Main.loadMain();
                             break;
                         case "景区管理"://旅游 大客流
                             $("#header_menu div button").removeClass("active");//删除当前元素的样式
                             $("button").eq(index).addClass("active");//添加当前元素的样式
 
-                            require("reset").Revert();
+                            //require("reset").Revert();
 
                             t_Main.loadMain();
                             break;
                         case "产业发展"://产业
+                            $("#header_menu div button").removeClass("active");//删除当前元素的样式
+                            $("button").eq(index).addClass("active");//添加当前元素的样式
                             e_Main.loadMain();
                             break;
                         default:

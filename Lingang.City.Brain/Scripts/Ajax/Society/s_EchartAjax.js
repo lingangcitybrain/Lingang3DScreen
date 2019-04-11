@@ -84,7 +84,9 @@
         //事件处理成功
         getSocietySjcg: function (callback) {
             if (con.IsInterface) {
-              //ajax
+                //ajax
+                require("s_Echart").sjcgData = s_EchartData.sjcgData;
+                callback();
             } else {//执行本地
                 require("s_Echart").sjcgData = s_EchartData.sjcgData;
                 callback();
