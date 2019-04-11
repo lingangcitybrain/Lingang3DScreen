@@ -105,7 +105,7 @@
         //Building
         b_Main: "Modules/Industry/Building/b_Main",
         b_Echart: "Modules/Industry/Building/b_Echart",
-
+        b_BuildingFloor: "Modules/Industry/Building/b_BuildingFloor",
         //
         //specialEff: "Modules/Test/SpecialEfficiency",
         specialEff: "Modules/SpecialEfficiency",

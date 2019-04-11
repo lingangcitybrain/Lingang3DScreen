@@ -24,7 +24,7 @@
             //    callback();
             //}
         },
-        getBuildingListData:function(){
+        getBuildingListData: function (callback) {
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
                 url: con.InterfaceUrl_garden + 'ywtb/dsbuildinginfo/buildingList',

@@ -155,20 +155,12 @@
                 //require("gl_TopCompany").loadTopCompany()
 
             })
-            //加载建筑信息
-            require("gl_GardenBuilding").loadBuidingDetail(nodename);
         },
         /*************园区图层-end*************/
 
 
         /*************楼宇-start*************/
-        //加载楼层信息
-        loadBuidingDetail: function (nodename) {
-            //获取建筑信息
-            var id = nodename.split("_")[1];
-            var data = require("gl_GardenBuilding").BuildingListData.get(id);
-
-        },
+       
         loadBuilding: function () {
             require("reset").ClearDivHtmlOnLeft();
             require("reset").ClearDivHtmlOnCenter();

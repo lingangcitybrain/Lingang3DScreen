@@ -588,6 +588,7 @@
     <Content Include="Content\images\header-menurbg.png" />
     <Content Include="Content\images\huanghaiyu.jpg" />
     <Content Include="Content\images\kanghongxia.jpg" />
+    <Content Include="Content\images\loudong-selecticon.png" />
     <Content Include="Content\images\nav-btnicon.png" />
     <Content Include="Content\images\nav-leftbgicon.png" />
     <Content Include="Content\images\nav-rightbgicon.png" />
@@ -1014,6 +1015,7 @@
     <Content Include="Scripts\Tools\jquery-showloading\js\jquery.showLoading.min.js" />
     <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Scripts\Tools\JsBarcode.all.js" />
+    <Content Include="View\Industry\Building\BuildingDetail.html" />
     <Content Include="View\Industry\Building\Left_First_01.html" />
     <Content Include="View\Industry\Building\Left_Second_01.html" />
     <Content Include="View\Industry\Building\Left_Second_02.html" />
@@ -1162,11 +1164,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>59594</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/LingangCityBrainV3</IISUrl>
+          <IISUrl>http://localhost/LingangCityBrainV3/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

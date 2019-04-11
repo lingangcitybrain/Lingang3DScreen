@@ -1650,7 +1650,7 @@ dd.pjc-statistic-star >form{
 .yqsj-tabitemul{
 	width: 200%;
 	height: 100%;
-	transition: all .3s ease;
+	transition: all 1s ease;
 }
 .yqsj-tabitem{
 	width: 50%;
@@ -3348,6 +3348,68 @@ dd.pjc-statistic-star >form{
 }
 .sqzz-wrj-lr3-ul>li>.item-l>img{
 	width: 1.3rem;
+}
+
+/* 楼栋信息*/
+.loudong{
+	z-index: 999;
+	position: absolute;	
+	width: 4.4rem;
+    right:25rem;
+    top:5rem;
+}
+.loudong-top{ 
+	font-size: .35rem; 
+	text-align: center;
+}
+.loudong-top>.testAerial{
+	font-size: .8rem;
+	font-weight: bolder;
+	color:#edaf07;
+}
+.loudong-div{
+	width: 100%;
+	padding: .2rem .45rem;
+	border-radius: .1rem;
+	background: rgba(0, 38, 147, 0.3);
+	box-shadow: inset 0px 0px 0.2rem rgba(20,154,239,0.75);
+	box-sizing: border-box;
+}
+.loudong-li{
+	overflow: hidden;
+	font-size: .35rem;
+	height: .75rem;
+	line-height: .75rem;
+}
+.loudong-li>div{
+	float: left;
+	height: 100%;
+}
+.loudong-li em.testAerial{
+	font-size: .6rem;
+	font-weight: bolder;
+	color: #1a8fef;
+}
+.loudong-li>select::-ms-expand { display: none;}  
+.loudong-li>select{
+	float: left;
+	width: 2.5em;
+	height: 100%;
+	font-size: inherit;
+	font-size: .7rem;
+	font-weight: bolder;
+	color: #1a8fef;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background: url(../Content/images/loudong-selecticon.png) no-repeat scroll 100% center transparent ;
+	background-size:.58rem;
+	box-sizing:border-box;
+	cursor: pointer;
+}
+.loudong-li>.select-valuespan{
+	float: left;
+	margin-left: -3.2em;
 }
 
 @media screen and (max-width: 11520px){

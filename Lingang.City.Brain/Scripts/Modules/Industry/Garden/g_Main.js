@@ -1,4 +1,4 @@
-﻿define(["config", "common", "mainMenu", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "gl_TopCompany"], function (con, com, mainMenu, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event,gl_TopCompany) {
+﻿define(["config", "common", "mainMenu", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "gl_TopCompany","b_BuildingFloor"], function (con, com, mainMenu, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event,gl_TopCompany,b_BuildingFloor) {
     /****************************园区****************************/
     return {
         LayerCatalog: {
@@ -62,6 +62,14 @@
                     break;
                 case "Building": //楼宇
                     //tl_Camera.loadCameraDetial(nodename)
+                    var node = map.getSceneNode(con.AreaName, nodename);
+                    if (node) {
+                        //飞行位置暂定
+                        Q3D.globalCamera().flyToAxisView(node, 30, 1, function () {
+                            b_BuildingFloor.loadBuidingDetail(nodename);
+                       })
+                        
+                    }
                     break;
                 default:
             }

@@ -111,7 +111,7 @@
                     yqsjNum++;
                     yqsjNum = yqsjNum > 1 ? 0 : yqsjNum;
                     yqsjTranFn(yqsjNum);
-                }, 2000)
+                }, 3000)
             }
 
             function yqsjTranFn(yqsjNum) {
