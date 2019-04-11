@@ -170,7 +170,8 @@
 
         },
         loadBuilding: function () {
-            require("reset").ClearDivHtmlOnLeftAndRightAndCenter();
+            require("reset").ClearDivHtmlOnLeft();
+            require("reset").ClearDivHtmlOnCenter();
             //飞行到园区视角
             require("mainMenu").LayerFlyto(311, function () {
                 require("gl_GardenBuilding").loadPOI();
@@ -283,6 +284,24 @@
                 $("#companyTotal").html(data.successedMerchantsProjects);
                 $("#totalOutputValue").html(data.outputValue);
                 $("#totalPerson").html(data.servicesCount);
+            })
+            require("gl_GardenBuilding").loadCompanyList(0);
+        },
+        loadCompanyList: function (pageIndex) {
+            gl_GardenBuildingAjax.getCompanyData(function (result) {
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    html+=' <li class="cy-ly-rr1-li active">'+
+                    '<div class="cy-ly-rr1-lidiv clearfix active">'+
+                        '<span class="cy-ly-rr1-num">00'+(i+1)+'</span>'+
+                        '<span class="cy-ly-rr1-name">'+result[i].companyName+'</span>'+
+                        '<span class="cy-ly-rr1-date">' + result[i].preYearOutputValue + '万元</span>' +
+                    '</div>'+
+                    //'<div class="cy-ly-rr1-person">新材料产业</div>'+
+                    //'<div class="cy-ly-rr1-state">5620人</div>' +
+                '</li>';
+                    $("#ul-companylist").html(html);
+                }
             })
         },
         /*************楼宇-start*************/
