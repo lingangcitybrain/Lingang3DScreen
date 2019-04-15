@@ -36,7 +36,7 @@
 
         },
         openFloor: function (floor) {
-            require("b_BuildingFloor").openFloor(4);
+            
             var id = require("b_BuildingFloor").buildingID;
             var layerArr = require("e_LayerMenuData").FloorLayerData[id];
             if (layerArr) {
