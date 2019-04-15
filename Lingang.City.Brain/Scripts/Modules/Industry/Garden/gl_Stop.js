@@ -17,5 +17,13 @@
             require("reset").ClearDivHtmlOnCenter();
 
         },
+        loadParkingInfo: function () {
+            var time = null;//不传，查历史记录可传
+            require("gl_GardenBuildingAjax").getParkingInfo(time, function (data) {
+                //var pos=data.
+                var parkingLotPOS = Q3D.globalVec3d({ longitude: data.longitude, latitude: data.altitude, height: 0 });
+
+            })
+        },
     }
 })
