@@ -19,9 +19,10 @@
                         else if(nodename.indexOf("POITour") > -1) {   //大客流POI
                             t_Main.PoiEvent(nodename);
                         } else if (nodename.indexOf("POIIndustryG") > -1) {   //产业园区
-                            Q3D.globalCamera().flyToAxisView(node, 200, 1, function () {
+                        //注释飞行动作，单独去poi时间里面飞行
+                            //Q3D.globalCamera().flyToAxisView(node, 200, 1, function () {
                                  g_Main.PoiEvent(nodename);
-                            })
+                            //})
                         }
                     }
                 }

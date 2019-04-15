@@ -1,4 +1,4 @@
-﻿define(["config", "common", "mainMenu", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "gl_TopCompany","b_BuildingFloor"], function (con, com, mainMenu, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event,gl_TopCompany,b_BuildingFloor) {
+﻿define(["config", "common", "mainMenu", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "gl_TopCompany","b_BuildingFloor","e_LayerMenuData"], function (con, com, mainMenu, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event,gl_TopCompany,b_BuildingFloor,e_LayerMenuData) {
     /****************************园区****************************/
     return {
         LayerCatalog: {
@@ -62,11 +62,34 @@
                     break;
                 case "Building": //楼宇
                     //tl_Camera.loadCameraDetial(nodename)
-                    var node = map.getSceneNode(con.AreaName, nodename);
+                    //var node = map.getSceneNode(con.AreaName, nodename);
+                    var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + id + "#rooftop");//固定飞到每栋楼的指定节点位置
                     if (node) {
                         //飞行位置暂定
-                        Q3D.globalCamera().flyToAxisView(node, 30, 1, function () {
+                        var viewPos = "-92.72203063964844,46.00672149658203,93.78089904785156".toVector3();
+                        Q3D.globalCamera().flyToNode(node, viewPos, 1, function () {
                             b_BuildingFloor.loadBuidingDetail(nodename);
+                            /**********************测试半透明************************/
+                            var lg = Q3D.layerGroup();
+                            var layerArr=e_LayerMenuData.FloorLayerData[id].layerName;
+                            //var layerArr=["14#1F","14#2F","14#3F","14#4F","14#5F","14#rooftop"];
+                            for(var i=0;i<layerArr.length;i++){
+	                            var nodeArr=lg.getLayerAllNodeNames(layerArr[i]);
+	                            for(var j=0;j<nodeArr.length;j++){
+		                            var node=map.getSceneNode(nodeArr[j]);
+		                            if(node){
+		                                var model = node.asModel();
+		                                model.setMaterial(0, "material/69_lanse.mtr");  //批量替换模型材质
+                                        //设置材质透明度没效果
+			                            //var MaterialCount=model.getMaterialCount();
+			                            //for(var k=0;k<MaterialCount;k++){
+				                        //    var qmaterial = model.getMaterial(k);
+				                        //    qmaterial.setAlpha(0.5);
+			                            //}	
+		                            }
+	                            }	
+                            }
+                            /****************************************************/
                        })
                         
                     }
