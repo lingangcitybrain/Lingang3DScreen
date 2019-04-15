@@ -13,10 +13,10 @@ namespace Lingang.City.Brain.Web.Controllers
             return View();
         }
 
-        //public ActionResult ApiTest()
-        //{
-        //    return View();
-        //}
+        public ActionResult ControlDesk()
+        {
+            return View();
+        }
 
     }
 }
