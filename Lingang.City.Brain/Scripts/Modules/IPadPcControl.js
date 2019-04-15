@@ -478,7 +478,7 @@
         getDefaultLayerView: function(){
             $.ajax({
                 type: "POST",  
-                url: con.WebServiceUrl + "iPadControl/defaultlayerview",
+                url: con.WebServiceUrl + "DefaultMapView/getDefaultMapLayerView",
                 cache: false,
                 data: null,
                 dataType: 'json',  // 返回数据的数据类型json

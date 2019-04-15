@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chimelong.Resort.Web</RootNamespace>
-    <AssemblyName>Chimelong.Resort.Web</AssemblyName>
+    <RootNamespace>Lingang.City.Brain.Web</RootNamespace>
+    <AssemblyName>Lingang.City.Brain.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -510,7 +510,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\JSNLogConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DefaultMapViewController.cs" />
     <Compile Include="Controllers\PCControlController.cs" />
+    <Compile Include="Model\ControlPanelModel.cs" />
+    <Compile Include="Model\DefaultMapViewModel.cs" />
     <Compile Include="rtHub\Startup.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\iPadControlController.cs" />
@@ -850,7 +853,7 @@
     <Content Include="Scripts\Modules\Industry\Garden\gl_UnmannedCar.js" />
     <Content Include="Scripts\Modules\Industry\Garden\g_Echart.js" />
     <Content Include="Scripts\Modules\Industry\Garden\g_Main.js" />
-    <Content Include="Scripts\Modules\IPadControl.js" />
+    <Content Include="Scripts\Modules\IPadPcControl.js" />
     <Content Include="Scripts\Modules\MainMenu.js" />
     <Content Include="Scripts\Modules\Society\sl_Drone.js" />
     <Content Include="Scripts\Modules\Society\sl_Event.js" />
@@ -1133,11 +1136,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\ApiTest.cshtml" />
+    <Content Include="Views\Home\ControlDesk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Society\" />
+    <Folder Include="Views\DefaultMapView\" />
     <Folder Include="View\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -1164,7 +1168,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>59594</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -51,7 +51,7 @@
         g_EchartData: "Data/Industry/g_EchartData",
         //Modules
         mainMenu: "Modules/MainMenu",
-        iPad: "Modules/IPadControl",
+        iPad: "Modules/IPadPcControl",
 
         //Society
         //s_Main: "Modules/Society/s_Main",
