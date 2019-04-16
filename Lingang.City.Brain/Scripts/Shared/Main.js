@@ -1,5 +1,5 @@
 ﻿require.config({
-    baseUrl: "../Scripts",
+    baseUrl: "Scripts",
     paths: {
         //base
         text: 'text',

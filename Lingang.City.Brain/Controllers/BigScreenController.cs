@@ -4,7 +4,7 @@ using NLog;
 namespace Lingang.City.Brain.Web.Controllers
 {
 
-    public class HomeController : Controller
+    public class BigScreenController : Controller
     {
         Logger logger = LogManager.GetCurrentClassLogger();
         
@@ -12,11 +12,5 @@ namespace Lingang.City.Brain.Web.Controllers
         {
             return View();
         }
-
-        public ActionResult ControlDesk()
-        {
-            return View();
-        }
-
     }
 }
