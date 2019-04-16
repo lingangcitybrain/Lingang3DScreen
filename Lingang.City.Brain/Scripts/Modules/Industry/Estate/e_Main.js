@@ -16,7 +16,6 @@
             },
         },
         loadMain: function () {
-            //require("mainMenu").ClearAllDiv(); //清空div内容
 
             setTimeout(function () {
                 //el_AtlasChart.loadAtlasChart();

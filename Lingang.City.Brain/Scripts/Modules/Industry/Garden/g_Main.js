@@ -13,9 +13,6 @@
             },
         },
         loadMain: function () {
-            //require("mainMenu").ClearAllDiv(); //清空div内容
-
-
             this.loadBottomMenu();//加载底部图层
 
             this.loadLeftFirst1();//加载左侧第一列第一个div

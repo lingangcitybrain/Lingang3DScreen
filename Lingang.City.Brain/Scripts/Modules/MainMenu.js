@@ -3,108 +3,7 @@ function (con, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main) {
     return {
         WeatherData: null,//天气数据
         WeatherSevenData: null,//七天天气数据
-        //隐藏所有图层
-        HideAllDIV: function () {
-            $("#bj_backgroud").hide()
-            $("#header_menu").hide()
-            $("#header_timetemp").hide()
 
-
-            //底部图层
-            $("#bottom_menu").hide();
-            //左边第一列元素
-            $("#left_first_01").hide();
-            $("#left_first_02").hide();
-            $("#left_first_03").hide();
-            $("#left_first_04").hide();
-            //左边第二列元素
-            $("#left_second_01").hide();
-            $("#left_second_02").hide();
-            $("#left_second_03").hide();
-            $("#left_second_04").hide();
-            //右边第一列元素
-            $("#right_first_01").hide();
-            $("#right_first_02").hide();
-            $("#right_first_03").hide();
-            $("#right_first_04").hide();
-            //右边第二列元素
-            $("#right_second_01").hide();
-            $("#right_second_02").hide();
-            $("#right_second_03").hide();
-            $("#right_second_04").hide();
-            //当中的元素
-            $("#center_01").hide();
-            $("#center_02").hide();
-            $("#center_03").hide();
-
-
-            this.ClearAllDiv();
-        },
-        //
-        ClearAllDiv: function () {
-            ////////////////////////////////////////////////////////////////////////////
-            //底部图层
-            $("#bottom_menu").empty();
-            //左边第一列元素
-            $("#left_first_01").empty();
-            $("#left_first_02").empty();
-            $("#left_first_03").empty();
-            $("#left_first_04").empty();
-            //左边第二列元素
-            $("#left_second_01").empty();
-            $("#left_second_02").empty();
-            $("#left_second_03").empty();
-            $("#left_second_04").empty();
-            //右边第一列元素
-            $("#right_first_01").empty();
-            $("#right_first_02").empty();
-            $("#right_first_03").empty();
-            $("#right_first_04").empty();
-            //右边第二列元素
-            $("#right_second_01").empty();
-            $("#right_second_02").empty();
-            $("#right_second_03").empty();
-            $("#right_second_04").empty();
-            //当中的元素
-            $("#center_01").empty();
-            $("#center_02").empty();
-            $("#center_03").empty();
-        },
-        //显示所有图层
-        ShowAllDIV: function () {
-            $("#bj_backgroud").show()
-            $("#header_menu").show()
-            $("#header_timetemp").show()
-
-
-            //底部图层
-            $("#bottom_menu").show();
-            //左边第一列元素
-            $("#left_first_01").show();
-            $("#left_first_02").show();
-            $("#left_first_03").show();
-            $("#left_first_04").show();
-            //左边第二列元素
-            $("#left_second_01").show();
-            $("#left_second_02").show();
-            $("#left_second_03").show();
-            $("#left_second_04").show();
-            //右边第一列元素
-            $("#right_first_01").show();
-            $("#right_first_02").show();
-            $("#right_first_03").show();
-            $("#right_first_04").show();
-            //右边第二列元素
-            $("#right_second_01").show();
-            $("#right_second_02").show();
-            $("#right_second_03").show();
-            $("#right_second_04").show();
-            //当中的元素
-            $("#center_01").show();
-            $("#center_02").show();
-            $("#center_03").show();
-
-        },
         //切换大的产业
         loadMenu: function () {
             $("#bj_backgroud").show()
@@ -113,76 +12,39 @@ function (con, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main) {
             //底部图层
             $("#bottom_menu").show();
 
-           
-            ////顶部菜单
-            //$("#header_menu div button").each(function (index) {
-            //    $(this).click(function () {//点击触发事件
-            //        $("#header_menu div button").removeClass("active");//删除当前元素的样式
-            //        $("button").eq(index).addClass("active");//添加当前元素的样式
-            //        var menuname = $("button").eq(index).text();
-
-            //        require("reset").Revert();
-
-
-            //        //默认夜景模式
-            //        require("specialEff").nighttime();
-
-            //        //加载div数据
-            //        switch (menuname) {
-            //            case "社区综合":// 社区综合
-            //                s_Main.loadMain();
-            //                break;
-            //            case "景区管理"://旅游 大客流
-            //                t_Main.loadMain();
-            //                break;
-            //            case "产业发展"://产业
-            //                e_Main.loadMain();
-            //                break;
-            //            default:
-
-            //        }
-            //    });
-            //});
-
-
             //顶部菜单
             $("#header_menu div button").each(function (index) {
                 $(this).click(function () {//点击触发事件
+                    $("#header_menu div button").removeClass("active");//删除当前元素的样式
+                    $("button").eq(index).addClass("active");//添加当前元素的样式
+
                     var menuname = $("button").eq(index).text();
-                    
+                    require("reset").Revert();
+
                     //默认夜景模式
                     require("specialEff").nighttime();
 
                     //加载div数据
                     switch (menuname) {
                         case "社区综合":// 社区综合
-                        $("#header_menu div button").removeClass("active");//删除当前元素的样式
-                            $("button").eq(index).addClass("active");//添加当前元素的样式
                             s_Main.loadMain();
                             break;
                         case "景区管理"://旅游 大客流
-                            $("#header_menu div button").removeClass("active");//删除当前元素的样式
-                            $("button").eq(index).addClass("active");//添加当前元素的样式
-
-                            //require("reset").Revert();
-
                             t_Main.loadMain();
                             break;
                         case "产业发展"://产业
-                            $("#header_menu div button").removeClass("active");//删除当前元素的样式
-                            $("button").eq(index).addClass("active");//添加当前元素的样式
                             e_Main.loadMain();
                             break;
+                        case "产业推演"://产业                            
+                            window.location(con.TyHref);
+                            break;
                         default:
-
                     }
                 });
             });
 
-
-
-            //s_Main.loadMain();
-            t_Main.loadMain();
+            s_Main.loadMain();
+            //t_Main.loadMain();
             //e_Main.loadMain();
         },
         //时钟

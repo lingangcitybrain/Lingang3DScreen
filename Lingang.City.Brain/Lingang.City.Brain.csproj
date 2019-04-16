@@ -1141,7 +1141,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Society\" />
-    <Folder Include="Views\DefaultMapView\" />
     <Folder Include="View\Shared\" />
   </ItemGroup>
   <ItemGroup>

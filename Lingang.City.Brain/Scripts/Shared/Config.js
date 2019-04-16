@@ -7,6 +7,7 @@
         InterfaceUrl_garden: "http://47.101.181.131:8095/",  //接口地址
         InterfaceUrl_parking: "http://47.101.181.131:8093/",
         InterfaceUrl_HeatMap: "http://47.101.181.131:8094/",  //接口地址
+        TyHref: 'ME-SRE://1800,800,100,100', //产业推演地址定向
         IsInterface: true,//是否走接口true:接口false本地
         AreaName: "gwh_xilou",
         CONFIG_NAME: "Example",
