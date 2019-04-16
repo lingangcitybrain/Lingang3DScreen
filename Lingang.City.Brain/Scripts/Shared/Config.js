@@ -1,7 +1,8 @@
 ﻿define(["util"], function (util) {
 //define( function () {
     return {
-        WebServiceUrl: "http://" + location.host + "/LingangCityBrainV3/", 
+        WebServiceUrl: "http://" + location.host + "/LingangCityBrainV3/",
+        WebServiceUrlForControl: "http://192.168.3.199/LingangCityBrainV3/",
         HtmlUrl: "/LingangCityBrainV3/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
         InterfaceUrl_garden: "http://47.101.181.131:8095/",  //接口地址
