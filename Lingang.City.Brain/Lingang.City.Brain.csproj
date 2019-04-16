@@ -796,6 +796,7 @@
     <Content Include="Scripts\Ajax\Industry\e_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Industry\gl_GardenBuildingAjax.js" />
     <Content Include="Scripts\Ajax\Industry\g_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\IPadPcControlAjax.js" />
     <Content Include="Scripts\Ajax\Society\s_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Society\s_LayerMenuAjax.js" />
     <Content Include="Scripts\Ajax\Tour\t_EchartAjax.js" />
