@@ -1,6 +1,8 @@
 ﻿define(["config", "common"], function (con, com) {
     /****************************停车位图层****************************/
     return {
+        stopPOI: "Texture/common/stop.png",
+        stopPOI_hover: "Texture/common/stop_hover.png",
             Revert: function () {
 
         },

@@ -3,6 +3,9 @@
     return {
         buildingID: null,
         changeMaterialModel: [],
+        POINodeClk: "",
+        buildingPOI: "Texture/common/building.png",
+        buildingPOI_hover: "Texture/common/building_hover.png",
         HideLayerArr:[],
         Revert: function () {
             this.resetBuildingMaterial();
@@ -65,8 +68,15 @@
                 }
             }
         },
-        buildingOperation: function (nodename) {
+        buildingOperation: function (nodename) {            
+            
             require("b_BuildingFloor").resetBuildingMaterial();
+            var areaName = con.AreaName;
+            var node = map.getSceneNode(areaName, nodename);
+            if (node) {
+                node.asPOI().setIcon(require("b_BuildingFloor").buildingPOI_hover);
+            }
+            require("b_BuildingFloor").POINodeClk = nodename;
             require("b_BuildingFloor").loadBuidingDetail(nodename);
             var id = nodename.split("_")[1];
             /**********************测试半透明************************/
@@ -123,6 +133,14 @@
                 require("b_BuildingFloor").changeMaterialModel = [];
             }
             require("b_BuildingFloor").resetHideLayer();
+            //还原POI
+            if (require("b_BuildingFloor").POINodeClk != "") {
+                var areaName = con.AreaName;
+                var node = map.getSceneNode(areaName, require("b_BuildingFloor").POINodeClk);
+                if (node) {
+                    node.asPOI().setIcon(require("b_BuildingFloor").buildingPOI);
+                }
+            }
         },
     }
 })
