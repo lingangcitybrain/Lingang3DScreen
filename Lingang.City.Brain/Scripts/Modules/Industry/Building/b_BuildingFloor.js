@@ -3,6 +3,7 @@
     return {
         buildingID: null,
         changeMaterialModel: [],
+        HideLayerArr:[],
         Revert: function () {
             this.resetBuildingMaterial();
         },
@@ -23,21 +24,27 @@
                     $("#buildingName_detail").html(data.buildingName);
                     $("#").html();
                     $("#buildingArea_detail").html(data.buildingArea);
-                    //var floors = parseInt(data.floors);
-                    //var floorHTML = "";
-                    //for (var i = 1; i <= floors; i++) {
-                    //    floorHTML += "<option>"+i+"</option>";
-                    //}
+                    var floors = parseInt(data.floors);
+                    var floorHTML = "";
+                    for (var i = 1; i <= floors; i++) {
+                        floorHTML += '<li class="loudong-floor active" value="'+i+'"><span class="testAerial">'+i+'</span>楼</li>';
+                    }
+                    $("#loudong-ul").html(floorHTML);
                     $("#buildingFloors_detail").html(data.floors);
                     $("#companyCount_detail").html(data.companyCount);
                     $("#occupancyRate_detail").html(data.occupancyRate);
+
+                    $("#loudong-ul li").click(function (e) {
+                        var floor = $(this).attr("value");
+                        require("b_BuildingFloor").openFloor(floor);
+                    })
                 }
             });
             
 
         },
         openFloor: function (floor) {
-            
+            require("b_BuildingFloor").resetHideLayer();
             var id = require("b_BuildingFloor").buildingID;
             var layerArr = require("e_LayerMenuData").FloorLayerData[id];
             if (layerArr) {
@@ -47,6 +54,7 @@
                     var layer = lg.getLayer(data[i]);
                     if (layer) {
                         layer.setVisible(0);
+                        require("b_BuildingFloor").HideLayerArr.push(layer);
                     }
                 }
                 var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + id + "#rooftop");//固定飞到每栋楼的指定节点位置
@@ -74,8 +82,9 @@
                         if (nodeName.indexOf("shell") > -1 || nodeName.indexOf("area") > -1) {
                             var model = node.asModel();
                             var qmaterial = model.getMaterial(0);
-                           // console.info(qmaterial.getName());
-                            require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
+                            // console.info(qmaterial.getName());
+                            var materialName = qmaterial.getName();
+                            require("b_BuildingFloor").changeMaterialModel.push({ model: model,materialName: qmaterial.getName() });
                             model.setMaterial(0, "material/69_lanse.mtr");  //批量替换模型材质
                             //设置材质透明度没效果
                             //var MaterialCount=model.getMaterialCount();
@@ -89,6 +98,20 @@
             }
             /****************************************************/
         },
+        //还原隐藏的楼层
+        resetHideLayer: function () {
+            var HideLayerArr = require("b_BuildingFloor").HideLayerArr;
+            if (HideLayerArr.length > 0) {
+                for (var i = 0; i < HideLayerArr.length; i++) {
+                    //var lg = Q3D.layerGroup();
+                    var layer = HideLayerArr[i];
+                    //if (layer) {
+                        layer.setVisible(1);
+                    //}
+                }
+                require("b_BuildingFloor").HideLayerArr = [];
+            }
+        },
         //还原建筑原来材质
         resetBuildingMaterial: function () {
             var modelArr = require("b_BuildingFloor").changeMaterialModel;
@@ -99,6 +122,7 @@
                 }
                 require("b_BuildingFloor").changeMaterialModel = [];
             }
+            require("b_BuildingFloor").resetHideLayer();
         },
     }
 })
