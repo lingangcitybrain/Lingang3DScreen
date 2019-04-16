@@ -55,7 +55,7 @@
             });
         },
         //获取停车场信息
-        getParkingInfo: function (time) {
+        getParkingInfo: function (time,callback) {
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
                 url: con.InterfaceUrl_parking + 'parklotInfo',

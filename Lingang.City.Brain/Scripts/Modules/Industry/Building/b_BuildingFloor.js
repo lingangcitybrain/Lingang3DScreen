@@ -30,7 +30,7 @@
                     var floors = parseInt(data.floors);
                     var floorHTML = "";
                     for (var i = 1; i <= floors; i++) {
-                        floorHTML += '<li class="loudong-floor active" value="'+i+'"><span class="testAerial">'+i+'</span>楼</li>';
+                        floorHTML += '<li class="loudong-floor" value="'+i+'"><span class="testAerial">'+i+'</span>楼</li>';
                     }
                     $("#loudong-ul").html(floorHTML);
                     $("#buildingFloors_detail").html(data.floors);
@@ -38,6 +38,7 @@
                     $("#occupancyRate_detail").html(data.occupancyRate);
 
                     $("#loudong-ul li").click(function (e) {
+                        $(this).addClass("active");
                         var floor = $(this).attr("value");
                         require("b_BuildingFloor").openFloor(floor);
                     })
