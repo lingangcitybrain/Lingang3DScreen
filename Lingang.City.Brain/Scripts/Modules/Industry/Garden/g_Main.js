@@ -49,13 +49,21 @@
 
                 id = str.split("_")[1];
             }
-
+            var nodes = map.getSceneNode(con.AreaName, nodename);
             switch (poitype) {
                 case "Garden": //园区
-                    gl_GardenBuilding.loadGardenDetial(nodename);
+                    if (nodes) {
+                        Q3D.globalCamera().flyToAxisView(nodes, 200, 1, function () {
+                            gl_GardenBuilding.loadGardenDetial(nodename);
+                        })
+                    }
                     break;
                 case "TopCompany": //龙头企业
-                    require("gl_TopCompany").loadCompanyMain(nodename);
+                    if (nodes) {
+                        Q3D.globalCamera().flyToAxisView(nodes, 200, 1, function () {
+                            require("gl_TopCompany").loadCompanyMain(nodename);
+                        })
+                    }
                     break;
                 case "Building": //楼宇
                     //tl_Camera.loadCameraDetial(nodename)
