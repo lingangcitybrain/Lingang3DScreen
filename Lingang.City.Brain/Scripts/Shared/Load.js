@@ -27,7 +27,7 @@ define(["config", 'common', "util", "reset", 'mevent', "specialEff", "mainMenu",
                 setInterval(require("mainMenu").Clock, 1000);
 
                 //获取天气
-                require("mainMenu").Weather();
+                WeatherFromInternet();
                 
                 //获取默认视口数据，与ipad共用
                 iPad.getDefaultLayerView();

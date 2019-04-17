@@ -872,7 +872,6 @@
     <Content Include="Scripts\Modules\Society\s_PoiDetial.js" />
     <Content Include="Scripts\Modules\Society\s_RightLayer.js" />
     <Content Include="Scripts\Modules\SpecialEfficiency.js" />
-    <Content Include="Scripts\Modules\Test\SpecialEfficiency.js" />
     <Content Include="Scripts\Modules\Tour\tl_Bus.js" />
     <Content Include="Scripts\Modules\Tour\tl_Camera.js" />
     <Content Include="Scripts\Modules\Tour\tl_Drone.js" />
@@ -1021,6 +1020,7 @@
     <Content Include="Scripts\Tools\jquery-showloading\js\jquery.showLoading.min.js" />
     <Content Include="Scripts\Tools\jqueryUI\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Scripts\Tools\JsBarcode.all.js" />
+    <Content Include="Scripts\Tools\Weather.js" />
     <Content Include="View\Industry\Building\BuildingDetail.html" />
     <Content Include="View\Industry\Building\Left_First_01.html" />
     <Content Include="View\Industry\Building\Left_Second_01.html" />

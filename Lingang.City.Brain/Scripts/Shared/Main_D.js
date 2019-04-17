@@ -27,7 +27,7 @@
         util: "Tools/util",
         aliplayer: "https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
         animsition: "Tools/jqueryUI/jquery.animsition.min",//JS特效
-
+        weather: "Tools/Weather",
 
 
         //Ajax
@@ -42,7 +42,7 @@
         //Data
         s_layerMenuData: "Data/Society/s_LayerMenuData",
         s_EchartData: "Data/Society/s_EchartData",
-        
+
         t_LayerMenuData: "Data/Tour/t_LayerMenuData",
         t_EchartData: "Data/Tour/t_EchartData",
 
@@ -141,6 +141,10 @@
         },
         'animsition': {
             exports: 'animsition'
+        },
+        'weather': {
+            deps: ["jquery"],
+            exports: 'weather'
         }
     },
     waitSeconds: 0,
@@ -151,12 +155,12 @@
 require(['Shared/Map', "qmap3d", "qmap3dcustom", 'jquery', 'jqueryui'], function (mapObj) {
     mapObj.initMap();
 
-   // 社区综治
+    // 社区综治
     require(['s_Main'], function (data) {
         data.loadMain();
         $("body").css("background-color", "black");
     });
- 
+
     // 园区
     //require(['g_Main'], function (data) {
     //    data.loadMain();

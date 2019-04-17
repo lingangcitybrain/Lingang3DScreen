@@ -727,9 +727,9 @@
         },
         //无人机事件天气预报
         DroneWeather: function () {
-            if (require("mainMenu").WeatherSevenData != null) {
+            if (WeatherSevenData != null) {
                 //console.log("天气数据不为空");
-                var data = require("mainMenu").WeatherSevenData
+                var data = WeatherSevenData
                 var weaimg_0 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[0].wea_img + ".png"
                 var weaimg_1 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[1].wea_img + ".png"
                 var weaimg_2 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[2].wea_img + ".png"
