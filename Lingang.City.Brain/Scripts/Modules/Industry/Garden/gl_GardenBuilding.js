@@ -14,7 +14,7 @@
         loadGardenBuilding:function()
         {
             //飞行到园区视角
-            require("mainMenu").LayerFlyto(20, function () {
+            com.LayerFlyto(20, function () {
                 require("gl_GardenBuilding").loadGardenPOI();
             })
         
@@ -150,7 +150,7 @@
         loadGardenDetial:function(nodename){
             this.clearGardenPOI();//隐藏园区POI
             //进入龙头企业视角
-            require("mainMenu").LayerFlyto(311, function () {
+            com.LayerFlyto(311, function () {
                 require("gl_TopCompany").loadTopCompanyPOI();
                 //require("gl_TopCompany").loadTopCompany()
 
@@ -165,7 +165,7 @@
             require("reset").ClearDivHtmlOnLeft();
             require("reset").ClearDivHtmlOnCenter();
             //飞行到园区视角
-            require("mainMenu").LayerFlyto(311, function () {
+            com.LayerFlyto(311, function () {
                 require("gl_GardenBuilding").loadPOI();
                 require("gl_GardenBuilding").showGardenShowWindow();
             })

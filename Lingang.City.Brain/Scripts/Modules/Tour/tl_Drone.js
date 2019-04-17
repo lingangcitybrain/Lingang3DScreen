@@ -11,7 +11,7 @@
         flag:0,//
         loadDrone: function () {
             this.Revert();
-            require("mainMenu").LayerFlyto(12, function () { })
+            com.LayerFlyto(12, function () { })
 
 
 
@@ -162,7 +162,7 @@
             map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);
         },
         loadDroneDetail: function (nodename) {
-            require("mainMenu").LayerFlyto(121, function () {
+            com.LayerFlyto(121, function () {
                 require("tl_Drone").loadDroneModel();
                 require("tl_Drone").loadDroneCamera(nodename);
             })

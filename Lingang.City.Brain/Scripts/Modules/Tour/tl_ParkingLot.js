@@ -20,7 +20,7 @@
 
 
             //默认视口
-            require("mainMenu").LayerFlyto(5)
+            com.LayerFlyto(5)
 
             
             //加载停车场POI

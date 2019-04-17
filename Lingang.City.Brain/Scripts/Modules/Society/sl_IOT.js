@@ -12,7 +12,7 @@
 
             //默认视口
             //Q3D.globalCamera().flyTo(("395748.56013082625,291.2252960205078,-3416845.9814377967").toVector3d(), ("-32.5178108215332,4.200603485107422,2.6675448417663574").toVector3(), 1, null);
-            require("mainMenu").LayerFlyto(10)
+            com.LayerFlyto(10)
 
 
             var post_data = {"communityId": "s012","type":""}

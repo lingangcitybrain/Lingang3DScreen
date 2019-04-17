@@ -4,7 +4,7 @@
         //事件图层
         loadEvent:function()
         {
-            require("mainMenu").LayerFlyto(23)
+            com.LayerFlyto(23)
         
         },
         Revert: function () {

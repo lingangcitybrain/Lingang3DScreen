@@ -10,7 +10,7 @@
             this.Revert();
 
             //默认视口
-            require("mainMenu").LayerFlyto(3)
+            com.LayerFlyto(3)
 
             this.LayerType = require("t_Main").LayerCatalog.Camera;
             var post_data = { "offset": "0", "count": "1000" }

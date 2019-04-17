@@ -4,7 +4,7 @@
         //加载人员分布热力图
         loadHotMap:function()
         {
-            require("mainMenu").LayerFlyto(18)
+            com.LayerFlyto(18)
         
         },
         //清空

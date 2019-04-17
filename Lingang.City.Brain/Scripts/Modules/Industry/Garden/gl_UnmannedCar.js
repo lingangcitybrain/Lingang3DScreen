@@ -3,7 +3,7 @@
     return {
         //加载无人车图层
         loadUnmannedCar: function () {
-            require("mainMenu").LayerFlyto(22)
+            com.LayerFlyto(22)
 
         },
         //

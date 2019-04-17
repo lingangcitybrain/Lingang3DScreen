@@ -13,7 +13,7 @@
 
             this.Revert();
             this.LayerType = require("s_Main").LayerCatalog.Camera;
-             require("mainMenu").LayerFlyto(11)
+             com.LayerFlyto(11)
 
             var post_data = {"communityId": "s012","id": "1"}
 

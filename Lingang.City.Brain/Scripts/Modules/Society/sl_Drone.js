@@ -9,7 +9,7 @@
         left02_01_video01: null,
         loadDrone: function () {
             this.Revert();
-            require("mainMenu").LayerFlyto(12, function () {
+            com.LayerFlyto(12, function () {
                 require("sl_Drone").loadDronePOI();
                 require("sl_Drone").loadDroneModel();
             })
@@ -140,7 +140,7 @@
             map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);
         },
         loadDroneDetail:function(){
-            require("mainMenu").LayerFlyto(121, function () {
+            com.LayerFlyto(121, function () {
                 require("sl_Drone").loadDroneModel();
                 require("sl_Drone").loadDroneCamera();
             })

@@ -3,10 +3,10 @@
         Trafficdetail_player: null,
         //交通仿真
         loadTrafficSimulation: function () {
-            //require('mainMenu').ChangeLight(1) //实景
+            //com.ChangeLight(1) //实景
 
             //切换视口
-            require("mainMenu").LayerFlyto(9, null, 2);
+            com.LayerFlyto(9, null, 2);
             require("tl_TrafficSimulation").loadCamera();
             //try {
             //    var areaname = "road_fangzhen";

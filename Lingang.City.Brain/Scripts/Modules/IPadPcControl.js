@@ -70,10 +70,10 @@
                         require('mainMenu').ChangeContainer(3);
                         break;
                     case "11"://日景
-                        require('mainMenu').ChangeLight(1) 
+                        com.ChangeLight(1) 
                         break;
                     case "12"://夜景
-                        require('mainMenu').ChangeLight(0)
+                        com.ChangeLight(0)
                         break;
                     case "100"://还原
                         require("reset").Revert();
