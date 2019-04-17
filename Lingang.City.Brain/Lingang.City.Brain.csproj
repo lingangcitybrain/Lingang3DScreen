@@ -898,6 +898,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Shared\DataCache.js" />
+    <Content Include="Scripts\Shared\Main_D.js" />
     <Content Include="Scripts\Shared\SignalRHub.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\Shared\Cookie.js" />
@@ -985,7 +986,7 @@
     <Content Include="Scripts\Tools\echarts-gl.js" />
     <Content Include="Scripts\Tools\jquery.nicescroll.js" />
     <Content Include="Scripts\Shared\Load.js" />
-    <Content Include="Scripts\Shared\Main.js" />
+    <Content Include="Scripts\Shared\Main_S.js" />
     <Content Include="Scripts\Shared\Map.js" />
     <Content Include="Scripts\Shared\MouseEvent.js" />
     <Content Include="Scripts\Shared\Reset.js" />
