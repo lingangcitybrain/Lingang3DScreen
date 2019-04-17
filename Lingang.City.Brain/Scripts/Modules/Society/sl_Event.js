@@ -236,8 +236,8 @@
 
                 $("#eventhead").html(data.eventName);
                 var html = ' <li><div>接警时间：</div><span>' + data.createTime + '</span></li>' +
-                    '<li><div><img src="../Content/images/sqzz-poi-icon1.png">地址：</div><span>' + data.address + '</span></li>' +
-                    '<li><div><img src="../Content/images/sqzz-poi-icon2.png">事件描述：</div><span>' + data.eventDes + '</span></li>';
+                    '<li><div><img src="Content/images/sqzz-poi-icon1.png">地址：</div><span>' + data.address + '</span></li>' +
+                    '<li><div><img src="Content/images/sqzz-poi-icon2.png">事件描述：</div><span>' + data.eventDes + '</span></li>';
                 $("#ul_eventdetail").html(html);
 
                 require("sl_Event").loadVedio(id);
@@ -731,7 +731,7 @@
                     html += "    <button type=\"button\" class=\"box-close\"  onclick=\"require('sl_Event').closeDetail()\"></button>"
                     html += "</div>"
                     html += "<div class=\"boxcont\">"
-                    html += "<div class=\"box-leftpic\"><img src=\"../Content/images/poi-leftpic.png\"></div>"
+                    html += "<div class=\"box-leftpic\"><img src=\"Content/images/poi-leftpic.png\"></div>"
                     html += "<dic class=\"box-rightinfo\">"
                     html += "    <ul>"
                     html += "    <li><span>事件时间：</span><em>" + con.getNowFormatDate(data.createTime) + "</em></li>"
