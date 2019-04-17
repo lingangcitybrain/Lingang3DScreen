@@ -21,7 +21,7 @@
 
             map.loadArea("danao");
 
-            require("mainMenu").LayerFlyto(15, function () {
+            com.LayerFlyto(15, function () {
                 //大脑转动
                 require("s_Main").DanaoAnimation = setTimeout(function () {
                     require("sl_Event").loadDanaoAnimation();

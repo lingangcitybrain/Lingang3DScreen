@@ -25,8 +25,8 @@
 <!--天气和时间-->
 <div class="header-timetemp" id="header_timetemp" style="z-index:999;display:none">
     <span class="real-neight">
-        <button type="button" class="real-scene" onclick="require(['mainMenu'], function (data) { data.ChangeLight(1); })">实景</button>
-        <button type="button" class="night-scene active" onclick="require(['mainMenu'], function (data) { data.ChangeLight(0); })">夜景</button>
+        <button type="button" class="real-scene" onclick="require(['common'], function (data) { data.ChangeLight(1); })">实景</button>
+        <button type="button" class="night-scene active" onclick="require(['common'], function (data) { data.ChangeLight(0); })">夜景</button>
     </span>
     <span class="header-temp" id="header_tempimg"><img src="Content/images/weathy_04.png"><span id="header_temp">10°</span></span>
     <span class="header-date" id="pj-year">2019.01.30</span>

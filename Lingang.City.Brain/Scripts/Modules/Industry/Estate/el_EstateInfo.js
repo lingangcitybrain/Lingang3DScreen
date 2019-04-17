@@ -12,7 +12,7 @@
         {
             this.setEstateArea(1);//显示产业区块
 
-            require("mainMenu").LayerFlyto(16, function () {
+            com.LayerFlyto(16, function () {
                 require("el_EstateInfo").loadEstatePOI();//加载POI
             })
         },

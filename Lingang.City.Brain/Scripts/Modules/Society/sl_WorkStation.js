@@ -12,7 +12,7 @@
             this.POIData = s_layerMenuData.WorkStationData;
 
             //Q3D.globalCamera().flyTo(("395687.1677625096,257.72499084472656,-3416907.1926804725").toVector3d(), ("-36.82597732543945,-2.9202616214752197,-2.19104266166687").toVector3(), 1, null);
-             require("mainMenu").LayerFlyto(13)
+             com.LayerFlyto(13)
 
             var areaName = con.AreaName;
             var icon = this.LayerType.UnChooseIcon;

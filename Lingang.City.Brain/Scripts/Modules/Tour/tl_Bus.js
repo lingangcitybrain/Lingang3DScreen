@@ -11,7 +11,7 @@
             this.LayerType = require("t_Main").LayerCatalog.Bus;
 
             //默认视口
-            require("mainMenu").LayerFlyto(6)
+            com.LayerFlyto(6)
 
 
             var post_data = { "offset": "0", "count": "1000"}

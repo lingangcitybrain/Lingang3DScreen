@@ -3,7 +3,7 @@
         //实时路况
         loadRoadCondition: function () {
             //默认视口
-            require("mainMenu").LayerFlyto(2)
+            com.LayerFlyto(2)
         },
         //清空
         Revert: function () {

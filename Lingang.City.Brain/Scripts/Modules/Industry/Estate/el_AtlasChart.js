@@ -6,7 +6,7 @@
         LastPOI_Clk: null,//鼠标选中POI
         //加载象限图谱图层信息
         loadAtlasChart: function () {
-            require("mainMenu").LayerFlyto(17, function () {
+            com.LayerFlyto(17, function () {
                 require("el_AtlasChart").loadPOI();
             })
 

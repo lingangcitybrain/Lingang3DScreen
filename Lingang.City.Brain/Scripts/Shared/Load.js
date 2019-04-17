@@ -24,7 +24,7 @@ define(["config", 'common', "util", "reset", 'mevent', "specialEff", "mainMenu",
 
 
                 //时钟
-                setInterval(require("mainMenu").Clock, 1000);
+                setInterval(com.Clock, 1000);
 
                 //获取天气
                 WeatherFromInternet();

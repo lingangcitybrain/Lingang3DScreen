@@ -12,7 +12,7 @@
             this.Revert();
 
             //默认视口
-            require("mainMenu").LayerFlyto(7, function () {
+            com.LayerFlyto(7, function () {
                 
             })
             require("tl_Event").loadEventPOI();
