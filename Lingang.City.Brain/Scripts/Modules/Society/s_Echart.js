@@ -727,9 +727,9 @@
         },
         //无人机事件天气预报
         DroneWeather: function () {
-            if (require("mainMenu").WeatherSevenData != null) {
+            if (WeatherSevenData != null) {
                 //console.log("天气数据不为空");
-                var data = require("mainMenu").WeatherSevenData
+                var data = WeatherSevenData
                 var weaimg_0 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[0].wea_img + ".png"
                 var weaimg_1 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[1].wea_img + ".png"
                 var weaimg_2 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[2].wea_img + ".png"
@@ -799,16 +799,16 @@
             //        var html = '';
             //        html += '<tr>';
             //        html += '<td rowspan="2">';
-            //        html += '<div class=""><img src="../Content/images/sqzz-lr-21.png" style="width: 1.1rem"></div>';
+            //        html += '<div class=""><img src="Content/images/sqzz-lr-21.png" style="width: 1.1rem"></div>';
             //        html += '</td>';
             //        html += '<td>'+data.data[0].week+'</td>';
             //        html += '<td>'+data.data[1].week+'</td>';
             //        html += '<td>'+data.data[2].week+ '</td>';
             //        html += '</tr>';
             //        html += '<tr>';
-            //        html += '<td><div class=""><img src="../Content/images/sqzz-lr-22.png" style="width: .8rem"></div></td>';
-            //        html += '<td><div class=""><img src="../Content/images/sqzz-lr-22.png" style="width: .8rem"></div></td>';
-            //        html += '<td><div class=""><img src="../Content/images/sqzz-lr-22.png" style="width: .8rem"></div></td>';
+            //        html += '<td><div class=""><img src="Content/images/sqzz-lr-22.png" style="width: .8rem"></div></td>';
+            //        html += '<td><div class=""><img src="Content/images/sqzz-lr-22.png" style="width: .8rem"></div></td>';
+            //        html += '<td><div class=""><img src="Content/images/sqzz-lr-22.png" style="width: .8rem"></div></td>';
             //        html += '</tr>';
             //        html += '<tr>';
             //        html += '<td style="font-size: .4rem;">' + data.data[0].tem1 + '-' + data.data[0].tem2 + '℃</td>';

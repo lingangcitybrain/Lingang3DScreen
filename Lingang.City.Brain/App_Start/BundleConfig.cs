@@ -12,8 +12,8 @@ namespace Lingang.City.Brain.Web
                        "~/Scripts/Tools/divscroll.js",
                         "~/Scripts/Tools/echarts.min.js",
                         "~/Scripts/Tools/raphael.min.js",
-                        "~/Scripts/Tools/jqplug/jquery-1.11.0.min.js"
-
+                        "~/Scripts/Tools/jqplug/jquery-1.11.0.min.js",
+                        "~/Scripts/Tools/Weather.js"
                          ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));

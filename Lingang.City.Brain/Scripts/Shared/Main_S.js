@@ -27,7 +27,7 @@
         util: "Tools/util",
         aliplayer: "https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
         animsition: "Tools/jqueryUI/jquery.animsition.min",//JS特效
-
+        weather: "Tools/Weather",
 
 
         //Ajax
@@ -141,6 +141,10 @@
         },
         'animsition': {
             exports: 'animsition'
+        },
+        'weather': {
+            deps: ["jquery"],
+            exports: 'weather'
         }
     },
     waitSeconds: 0,
