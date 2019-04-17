@@ -510,13 +510,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\JSNLogConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BigScreenController.cs" />
     <Compile Include="Controllers\ControlDeskController.cs" />
     <Compile Include="Controllers\DefaultMapViewController.cs" />
     <Compile Include="Controllers\PCControlController.cs" />
     <Compile Include="Model\ControlPanelModel.cs" />
     <Compile Include="Model\DefaultMapViewModel.cs" />
     <Compile Include="rtHub\Startup.cs" />
-    <Compile Include="Controllers\BigScreenController.cs" />
     <Compile Include="Controllers\iPadControlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1137,8 +1137,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\BigScreen\Index.cshtml" />
     <Content Include="Views\ControlDesk\Index.cshtml" />
+    <Content Include="Views\BigScreen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

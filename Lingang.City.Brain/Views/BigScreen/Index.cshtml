@@ -1,15 +1,15 @@
 ﻿@{
-    ViewBag.Title = "临港智慧城市大脑平台";
+    ViewBag.Title = "临港智慧城市大脑";
 }
 <!--背景透片-->
 @*<div class="pj-bgbox" id="bj_backgroud" style="z-index:999;display:none;">
-    <div class="pj-tshadow"></div>
-    <div class="pj-rshadow twocol"></div>
-    <div class="pj-bshadow"></div>
-    <div class="pj-lshadow twocol"></div>
-</div>*@
+        <div class="pj-tshadow"></div>
+        <div class="pj-rshadow twocol"></div>
+        <div class="pj-bshadow"></div>
+        <div class="pj-lshadow twocol"></div>
+    </div>*@
 <!-- 头部 -->
-<script data-main="@Url.Content("~/Scripts/Shared/Main")" type="text/javascript" src="~/Scripts/require.js"></script>    
+<script data-main="@Url.Content("~/Scripts/Shared/Main")" type="text/javascript" src="~/Scripts/require.js"></script>
 <div class="header clearfix" id="header_menu" style="z-index:999;display:none">
     <div class="header-leftmenu">
         <button class="header-menu">数字星空</button>
@@ -25,8 +25,8 @@
 <!--天气和时间-->
 <div class="header-timetemp" id="header_timetemp" style="z-index:999;display:none">
     <span class="real-neight">
-        <button type="button" class="real-scene"  onclick="require(['mainMenu'], function (data) { data.ChangeLight(1); })">实景</button>
-        <button type="button" class="night-scene active"  onclick="require(['mainMenu'], function (data) { data.ChangeLight(0); })">夜景</button>
+        <button type="button" class="real-scene" onclick="require(['mainMenu'], function (data) { data.ChangeLight(1); })">实景</button>
+        <button type="button" class="night-scene active" onclick="require(['mainMenu'], function (data) { data.ChangeLight(0); })">夜景</button>
     </span>
     <span class="header-temp" id="header_tempimg"><img src="../Content/images/weathy_04.png"><span id="header_temp">10°</span></span>
     <span class="header-date" id="pj-year">2019.01.30</span>
@@ -62,7 +62,7 @@
 <!--------------------------------------------------------中间-------------------------------------------->
 <!--中间统计数据 -->
 <div id="center_01" style="z-index:999;"></div>
-<div id="center_02" style="z-index:999;"></div> 
+<div id="center_02" style="z-index:999;"></div>
 <div id="center_03" style="z-index:999;"></div>
 
 
@@ -70,13 +70,13 @@
 <div id="detail_01" style="z-index:999;display:none;"></div>
 
 <!--POI详情内容-->
-<div id="detail_02"  style="z-index:999;display:none;"></div>
+<div id="detail_02" style="z-index:999;display:none;"></div>
 <div id="detail_03" style="z-index:999;display:none;"></div>
 
 <!--社会综治视频播放内容-->
 <div id="detail_societyplayer" style="display:none;"></div>
 <!--大客流视频播放内容-->
-<div id="detail_tourplayer"style="display:none;"></div>
+<div id="detail_tourplayer" style="display:none;"></div>
 
 <!--------------------------------------------------------三维-------------------------------------------->
 <!--交通仿真-->
