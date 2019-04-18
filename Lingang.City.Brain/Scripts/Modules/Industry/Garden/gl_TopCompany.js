@@ -1,4 +1,4 @@
-﻿define(["config", "common","util", "e_LayerMenuData"], function (con, com, util, e_LayerMenuData) {
+﻿define(["config", "common", "util", "e_LayerMenuData", "gl_GardenBuildingAjax"], function (con, com, util, e_LayerMenuData, gl_GardenBuildingAjax) {
     /****************************龙头企业****************************/
     return {
         LayerType: null,//龙头企业POI属性
@@ -10,33 +10,43 @@
             require("g_Main").Revert();
             this.LayerType = require("g_Main").LayerCatalog.TopCompany;
 
-            require("gl_TopCompany").POIData = e_LayerMenuData.TopCompany.Data;
+            //require("gl_TopCompany").POIData = e_LayerMenuData.TopCompany.Data;
+            gl_GardenBuildingAjax.getTopCompanyList(function (data) {
+                require("gl_TopCompany").POIData = data;
+                var areaName = con.AreaName;
+                var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
+                var pois = [];
+                for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
 
+                    var row = require("gl_TopCompany").POIData[i];
+                    //var buildingID = row.buildingID;
+                    var poiName = "POIIndustryG" + require("gl_TopCompany").LayerType.Name + "_" + row.id;//POIIOT_01
+                    var iconSize = Q3D.vector2(72, 76);
 
-            var areaName = con.AreaName;
-            var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
-            var pois = [];
-            for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
+                    var poiPOS = e_LayerMenuData.GardenPOI.Data[row.buildingID];
+                    //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
+                    //var pos = Coordinate + ",0";
 
-                var row = require("gl_TopCompany").POIData[i];
+                    //var pos = row.lng + "," + row.lat + ",15";
+                    var pos = "";
+                    if (poiPOS) {
+                        pos = poiPOS.lng + "," + poiPOS.lat + ",15";
+                    }
+                    if (pos != "") {
+                        var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                var poiName = "POIIndustryG" + require("gl_TopCompany").LayerType.Name + "_" + row.id;//POIIOT_01
-                var iconSize = Q3D.vector2(72, 76);
-                //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
-                //var pos = Coordinate + ",0";
-                var pos = row.lng + "," + row.lat + ",15";
-                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-
-                var poi = { POIName: poiName, Position: position, Text: row.name, Icon: icon, IconSize: iconSize, FontColor: "#00ff00", FontSize: 8 };
-                var node = map.getSceneNode(areaName + "/" + poiName);
-                if (node) {
-                    node.setVisible(1);//显示当前父节点
-                } else {
-                    pois.push(poi);
-                    this.CompanyList.put(row.id,row)
+                        var poi = { POIName: poiName, Position: position, Text: row.companyName, Icon: icon, IconSize: iconSize, FontColor: "#00ff00", FontSize: 8 };
+                        var node = map.getSceneNode(areaName + "/" + poiName);
+                        if (node) {
+                            node.setVisible(1);//显示当前父节点
+                        } else {
+                            pois.push(poi);
+                            require("gl_TopCompany").CompanyList.put(row.id, row)
+                        }
+                    }
                 }
-            }
-            com.InitPois(areaName, pois);
+                com.InitPois(areaName, pois);
+            })
         },
         //隐藏POI
         clearTopCompanyPOI: function () {
