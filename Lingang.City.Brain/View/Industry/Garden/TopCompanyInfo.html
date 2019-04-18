@@ -1,6 +1,6 @@
 ﻿<!-- 中间企业 -->
 <div class="cy-qy-navbar" style="z-index:999;">
-    进入<br>企业
+    <!--进入<br>企业-->
     <button class="cy-qy-menu-close" onclick="require('gl_TopCompany').closeTopCompanyInfo();">关闭</button>
     <ul class="cy-qy-menu">
         <li class="cy-qy-menuli">
@@ -128,32 +128,6 @@
 <script>
     cyqyMenuLiFun();
     function cyqyMenuLiFun() {
-        //$(".cy-qy-navbar").click(function () {
-        //    $(this).addClass("active");
-        //    $(this).find(".cy-qy-menu-close").css({ display: "block" })
-        //})
-
-        //$(".cy-qy-menu a").each(function (index, element) {
-        //    $(this).click(function (ev) {
-        //        if (ev.target == $(this)[0]) {
-        //            $(this).addClass("active").parents(".cy-qy-menuli").siblings().find("a").removeClass("active").find(".cy-qy-divcont").removeClass("active");
-        //            $(this).find(".cy-qy-divcont").addClass("active");
-        //        }
-        //    })
-        //})
-
-        //$(".cy-qy-menu-close").click(function (ev) {
-        //    if (ev.target == $(this)[0]) {
-        //        $(this).parents(".cy-qy-navbar").find("a").each(function () {
-        //            $(this).removeClass("active").find(".cy-qy-divcont").removeClass("active");
-        //        });
-        //        $(this).parents(".cy-qy-navbar").removeClass("active")
-        //        $(this).css({ display: "none" })
-        //        return false;
-        //    }
-        //})
-
-
 
         // 显示圆圈
         $(".cy-qy-navbar").click(function () {
@@ -196,15 +170,6 @@
                 return false;
             }
         })
-
-
-
-
-
-
-
-
-
 
     }
 
