@@ -26,7 +26,7 @@
             estimate30mParkVehicleNo: 0,   //未来30分钟预测车辆
             outerPeople: 0,   //园区周边人数
             estimateOuterParkPeopleNo: 0,   //未来30分钟预测人数
-            loadMain: function () {
+            loadMain: function (callback) {
 
                 //tl_VisitorsMap.loadVisitorsMap();
                 //this.Revert();
@@ -57,6 +57,9 @@
                 require(['nicescroll'], function (data) {
                     $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                 });
+
+                if ($.isFunction(callback))
+                    callback();
             },
 
             //特效加载

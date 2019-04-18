@@ -881,11 +881,11 @@
     <Content Include="Scripts\Modules\Tour\tl_ParkingLot.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
     <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
-    <Content Include="Scripts\Modules\Tour\t_Echart.js" />
+    <Content Include="Scripts\Modules\Tour\t_BigScreen.js" />
+    <Content Include="Scripts\Modules\Tour\t_ControlDesk.js" />
     <Content Include="Scripts\Modules\Tour\tl_RoadCondition.js" />
     <Content Include="Scripts\Modules\Tour\tl_VisitorsMap.js" />
     <Content Include="Scripts\Modules\Tour\t_EchartNew.js" />
-    <Content Include="Scripts\Modules\Tour\t_Main.js" />
     <Content Include="Scripts\Modules\Tour\t_MainNew.js" />
     <Content Include="Scripts\Qmap\QMap3d-2.0.min.js" />
     <Content Include="Scripts\Qmap\QMap3d-src.js" />
