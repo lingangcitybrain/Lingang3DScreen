@@ -186,8 +186,9 @@
             var areaName = con.AreaName;
             var icon = require("gl_GardenBuilding").LayerType.UnChooseIcon;
             var pois = [];
-            for (var i = 0; i < require("gl_GardenBuilding").POIData.length; i++) {
-
+            //for (var i = 0; i < require("gl_GardenBuilding").POIData.length; i++) {
+            //$.each(require("gl_GardenBuilding").POIData,function)
+            for (var i in require("gl_GardenBuilding").POIData) {
                 var row = require("gl_GardenBuilding").POIData[i];
                 //require("gl_GardenBuilding").poiListData.put(row.id, row);
 
@@ -227,7 +228,7 @@
             var data = this.POIData;
             //设置POI隐藏
             if (data != null) {
-                for (var i = 0; i < data.length; i++) {
+                for (var i in data) {
                     var name = this.LayerType.Name;
 
                     var poiname = "POIIndustryG" + name + "_" + data[i].id;

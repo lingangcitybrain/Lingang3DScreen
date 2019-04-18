@@ -4,7 +4,8 @@
         LayerType: null,//龙头企业POI属性
         POIData: null,//龙头企业POI详情数据
         LastPOI_Clk: null,
-        CompanyList:new util.HashMap,
+        CompanyList: new util.HashMap,
+        CompanyID:null,
         //加载龙头企业
         loadTopCompanyPOI: function () {
             require("g_Main").Revert();
@@ -85,7 +86,7 @@
         loadCompanyMain: function (nodeName)
         {
             var id = nodeName.split("_")[1];
-
+            this.CompanyID = id;
             //$("#left_second_01").empty();
             //$("#left_second_02").empty();
             //$("#left_second_03").empty();            
@@ -303,32 +304,36 @@
             var data = this.CompanyList.get(id);
             if (data != null)
             {
-                var name = data.name;   //公司名称
-                var createtime = data.createtime;//成立时间
-                var companytype = data.companytype;//公司类型
-                var zczb = data.zczb;//注册资本
+                var name = data.companyName;   //公司名称
+                var createtime = data.updateTime;//成立时间
+                var companytype = " ";//data.companytype;//公司类型
+                var zczb = " "//data.zczb;//注册资本
 
-                var hy = data.hy;//行业
-                var jyfw = data.jyfw;//经营范围
-                var zt = data.zt;//状态
-                var dwtz = data.dwtz;//对外投资
-                var address = data.address;
+                //var hy = data.hy;//行业
+                //var jyfw = data.jyfw;//经营范围
+                //var zt = data.zt;//状态
+                var preYearOutputValue = data.preYearOutputValue;
+                var preYearTax = data.preYearTax;
+                var dwtz = "";//data.dwtz;//对外投资
+                var address = data.buildingName;
 
 
-                if (jyfw.length > 20) { jyfw = jyfw.substring(0, 20)+"..." }
+                //if (jyfw.length > 20) { jyfw = jyfw.substring(0, 20)+"..." }
               
 
                 var html = "";
                 html += '<li class="qyjbxx-li"><div>公司名称：</div><span>' + name + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>成立日期：</div><span>' + createtime + '</span></li>';
+                //html += '<li class="qyjbxx-li"><div>成立日期：</div><span>' + createtime + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>公司类型：</div><span>' + companytype + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>注册资本：</div><span>' + zczb + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>所属行业：</div><span>' + hy + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>经营范围：</div><span>' + jyfw + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>状态：</div><span>' + zt + '</span></li>';
+                html += '<li class="qyjbxx-li"><div>上年度产值：</div><span>' + preYearOutputValue + '</span></li>';
+                html += '<li class="qyjbxx-li"><div>上年度税收：</div><span>' + preYearTax + '</span></li>';
+                //html += '<li class="qyjbxx-li"><div>所属行业：</div><span>' + hy + '</span></li>';
+                //html += '<li class="qyjbxx-li"><div>经营范围：</div><span>' + jyfw + '</span></li>';
+                //html += '<li class="qyjbxx-li"><div>状态：</div><span>' + zt + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>对外投资数：</div><span>' + dwtz + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>所在楼号：</div><span>' + address + '</span></li>';
-                   
+                html += '<li class="qyjbxx-li"><div>更新日期：</div><span>' + createtime + '</span></li>';
 
                 $("#Industry_CompanyInfo").empty();
                 $("#Industry_CompanyInfo").html(html);
@@ -381,32 +386,37 @@
         },
         //关闭花蕾图
         closeTopCompanyInfo: function () {
-            //POI样式调整
-            var areaName = con.AreaName;
-            this.LayerType = require("g_Main").LayerCatalog.TopCompany;
-            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
-                var icon = this.LayerType.UnChooseIcon;
-                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
-                if (lastNode) {
-                    lastNode.asPOI().setIcon(icon);
-                    //lastNode.setVisible(0);
+            //进入龙头企业视角
+            com.LayerFlyto(311, function () {
+                require("b_BuildingFloor").resetHideLayer();
+                //POI样式调整
+                var areaName = con.AreaName;
+                require("gl_TopCompany").LayerType = require("g_Main").LayerCatalog.TopCompany;
+                if (require("gl_TopCompany").LastPOI_Clk && require("gl_TopCompany").LastPOI_Clk != "") {
+                    var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
+                    var lastNode = map.getSceneNode(areaName, require("gl_TopCompany").LastPOI_Clk);
+                    if (lastNode) {
+                        lastNode.asPOI().setIcon(icon);
+                        //lastNode.setVisible(0);
+                    }
                 }
-            }
-            //显示POI
-            for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
-                var row = require("gl_TopCompany").POIData[i];
-                var poiName = "POIIndustryG" + require("gl_TopCompany").LayerType.Name + "_" + row.id;//POIIOT_01
-                var node = map.getSceneNode(areaName + "/" + poiName);
-                if (node) {
-                    node.setVisible(1);//显示POI
+                //显示POI
+                for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
+                    var row = require("gl_TopCompany").POIData[i];
+                    var poiName = "POIIndustryG" + require("gl_TopCompany").LayerType.Name + "_" + row.id;//POIIOT_01
+                    var node = map.getSceneNode(areaName + "/" + poiName);
+                    if (node) {
+                        node.setVisible(1);//显示POI
+                    }
                 }
-            }
-            
-            //显示招商漏斗
-            require("g_Main").loadLeftSecond1();//加载左侧第二列第一个div
-            require("g_Main").loadLeftSecond2();//
-            require("g_Main").loadLeftSecond3();//
-            com.openCloseBigDigital('open'); // 显示大数字
+
+                //显示招商漏斗
+                require("g_Main").loadLeftSecond1();//加载左侧第二列第一个div
+                require("g_Main").loadLeftSecond2();//
+                require("g_Main").loadLeftSecond3();//
+                com.openCloseBigDigital('open'); // 显示大数字
+
+            });
         },
         //绑定事件
         loadFun: function () {
@@ -416,9 +426,11 @@
                     console.log(ev.target)
                     clickBoolean = !clickBoolean;
                     if (clickBoolean) {
-                        $(this).addClass("active")
+                        $(this).addClass("active");
                     } else {
-                        $(this).removeClass("active")
+                        $(this).removeClass("active");
+                        //点击入驻企业操作
+                        require("gl_TopCompany").flyToBuilding();
                     }
                 }
             })
@@ -443,6 +455,32 @@
             setTimeout(function () {
                 $(".cy-qy-navbar").click()
             }, 200);
+        },
+        flyToBuilding: function () {
+            //飞楼栋
+            var companyInfo = require("gl_TopCompany").CompanyList.get(require("gl_TopCompany").CompanyID);
+
+            if (companyInfo) {
+                //var str = companyInfo.buildingName;  //"海立方一期/12号楼/12#-5", 海立方一期/14号楼/14# //14#代表楼，-5代表公司所在层，没有-，表示整栋楼都是该公司
+                //var index = str.lastIndexOf("\/");
+                //var floor = str.substring(index + 1, str.length);
+                var floor = "12-4";
+                if (floor.indexOf("-") > -1) {//表示公司在某层，否则整栋楼都是该公司
+                    require("b_BuildingFloor").buildingID = companyInfo.buildingID;
+                    require("b_BuildingFloor").openFloor(floor.split("-")[1]);
+                } else {
+                    var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + companyInfo.buildingID + "#rooftop");//飞到公司所属楼栋的指定节点位置
+                    if (node) {
+                        //飞行位置暂定
+                        var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
+                        Q3D.globalCamera().flyToNode(node, viewPos, 1, function () {
+                            //b_BuildingFloor.buildingOperation(nodename);
+
+                        })
+
+                    }
+                }
+            }
         },
         //清空div内容
         clearTopCompanyInfo: function () {

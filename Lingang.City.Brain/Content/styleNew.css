@@ -2530,13 +2530,13 @@ dd.pjc-statistic-star >form{
 	top:50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	width: 1rem;
-	height: 1rem;
+	width: 0;
+	height: 0;
 	text-align: center;
 	font-size: .2rem;
 	padding-top: .2rem;
 	color: #03d2fe;
-	background: url(../Content/images/cy-qy-jrlc.png) no-repeat;
+	background: url(../Content/images/cy-qy-jrlc-enter.png) no-repeat;
 	background-size: 1rem;
 	border-radius: 50%;
 	box-sizing: border-box;
@@ -2548,6 +2548,7 @@ dd.pjc-statistic-star >form{
 	transform: scale(0);
 	transition: transform .2s;
 }
+.cy-qy-navbar.active{width:1rem;height:1rem;}
 .cy-qy-navbar.active .cy-qy-menu{ transform: scale(1);}
 .cy-qy-navbar .cy-qy-menu >li.cy-qy-menuli{
 	position: absolute;
@@ -2691,7 +2692,7 @@ dd.pjc-statistic-star >form{
 .cy-qy-menu-close{ 
 	position: absolute;
 	bottom: -7rem;
-	left: 50%;
+	left: -.5rem;
 	width: 2rem;
 	height: 2rem;
 	background: url(../Content/images/cy-qy-menu-close.png) no-repeat;
@@ -2701,7 +2702,7 @@ dd.pjc-statistic-star >form{
 	transition:.3s;
 }
 .cy-qy-menu-close.active{
-	transform: translateX(-50%) scale(1); 
+	transform: scale(1); 
 	transition-delay: 1s;
 }
 .cy-qy-divcont{
