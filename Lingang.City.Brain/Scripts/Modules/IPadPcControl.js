@@ -61,13 +61,13 @@
 
                 switch (menu) {
                     case "1"://社区综治
-                        require('mainMenu').ChangeContainer(1); 
+                        require('s_Home').loadMain();
                         break;
                     case "2"://大客流
-                        require('mainMenu').ChangeContainer(2);
+                        require('t_Home').loadMain();
                         break;
                     case "3"://产业园区
-                        require('mainMenu').ChangeContainer(3);
+                        require('e_Home').loadMain();
                         break;
                     case "11"://日景
                         com.ChangeLight(1) 

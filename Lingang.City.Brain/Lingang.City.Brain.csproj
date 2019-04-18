@@ -880,8 +880,8 @@
     <Content Include="Scripts\Modules\Tour\tl_ParkingLot.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
     <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
-    <Content Include="Scripts\Modules\Tour\t_BigScreen.js" />
-    <Content Include="Scripts\Modules\Tour\t_ControlDesk.js" />
+    <Content Include="Scripts\Modules\Tour\t_Home_S.js" />
+    <Content Include="Scripts\Modules\Tour\t_Home_D.js" />
     <Content Include="Scripts\Modules\Tour\tl_RoadCondition.js" />
     <Content Include="Scripts\Modules\Tour\tl_VisitorsMap.js" />
     <Content Include="Scripts\Modules\Tour\t_EchartNew.js" />

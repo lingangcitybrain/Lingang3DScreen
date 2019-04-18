@@ -72,7 +72,7 @@
         s_PoiDetial: "Modules/Society/s_PoiDetial",
 
         //tour
-        t_Home: "Modules/Tour/t_BigScreen", // 入口
+        t_Home: "Modules/Tour/t_Home_S", // 入口
         t_Main: "Modules/Tour/t_MainNew",
         t_Echart: "Modules/Tour/t_EchartNew",
         tl_Metro: "Modules/Tour/tl_Metro",
