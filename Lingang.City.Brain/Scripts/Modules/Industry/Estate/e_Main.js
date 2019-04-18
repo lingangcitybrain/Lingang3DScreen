@@ -15,6 +15,9 @@
                 }
             },
         },
+        openUnity3dWin:function(){
+            window.location(con.TyHref);
+        },
         loadMain: function () {
 
             setTimeout(function () {

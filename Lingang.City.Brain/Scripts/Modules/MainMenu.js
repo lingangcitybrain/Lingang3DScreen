@@ -1,5 +1,5 @@
-﻿define(['config', 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main"],
-function (con, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main) {
+﻿define(['config', 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main", "t_Home"],
+function (con, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home) {
     return {
         //切换大的产业
         loadMenu: function () {
@@ -27,13 +27,13 @@ function (con, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main) {
                             s_Main.loadMain();
                             break;
                         case "景区管理"://旅游 大客流
-                            t_Main.loadMain();
+                            t_Home.loadMain();
                             break;
                         case "产业发展"://产业
                             e_Main.loadMain();
                             break;
-                        case "产业推演"://产业                            
-                            window.location(con.TyHref);
+                        case "产业推演"://产业               
+                            e_Main.openUnity3dWin();
                             break;
                         default:
                     }
