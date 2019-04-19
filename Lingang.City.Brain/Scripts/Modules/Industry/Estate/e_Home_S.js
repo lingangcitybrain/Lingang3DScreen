@@ -5,5 +5,8 @@
                 setTimeout(function () { $('.chartzoomin').hide() }, 1000);
             });
         },
+        openUnity3dWin: function () {
+            e_Main.openUnity3dWin();
+        },
     }
 });

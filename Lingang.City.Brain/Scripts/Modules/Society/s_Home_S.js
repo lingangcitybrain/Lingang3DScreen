@@ -6,5 +6,16 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
                 setTimeout(function () { $('.chartzoomin').hide() }, 1000);
             });
         },
+        dayNightMenuChange: function (type) {
+            switch (type) {
+                case "实景":
+                    com.ChangeLight(1);
+                    break;
+                case "夜景":
+                    com.ChangeLight(0);
+                    break;
+                default:
+            }
+        }
     }
 });

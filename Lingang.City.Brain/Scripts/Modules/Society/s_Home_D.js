@@ -10,5 +10,25 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
             };
             control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
         },
+        dayNightMenuChange: function (type) {
+            var jsondata = {
+                "menu": "11",
+                "xyz": "",
+                "angle": "",
+            };
+            switch (type) {
+                case "实景":
+                    com.ChangeLight(1);
+                    jsondata.menu = "11";
+                    break;
+                case "夜景":
+                    com.ChangeLight(0);
+                    jsondata.menu = "12";
+                    break;
+                default:
+            }
+
+            control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
+        }
     }
 });
