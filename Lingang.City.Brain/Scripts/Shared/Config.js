@@ -2,7 +2,7 @@
 //define( function () {
     return {
         WebServiceUrl: "http://" + location.host + "/LingangCityBrain/",
-        WebServiceUrlForControl: "http://192.168.3.199/LingangCityBrain/",
+        WebServiceUrlForControl: "http://192.168.3.104/LingangCityBrain/",
         HtmlUrl: "/LingangCityBrain/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
         InterfaceUrl_garden: "http://47.101.181.131:8095/",  //接口地址
