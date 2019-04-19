@@ -39,54 +39,50 @@
         },
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；日景：11；夜景：12；还原：100
-        menuControl: function (str)
-        {
+        menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
             var message = "";
             var re_xyz = "";
             var re_angle = "";
 
-
-            console.log(str)
-
-
             try {
-                var json  = $.parseJSON(str);
-                var xyz   = json.xyz
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
                 var angle = json.angle
                 var menu = json.menu
 
-               
-
                 switch (menu) {
+                    case "0"://数字星空
+                        break;
                     case "1"://社区综治
-                        require('s_Home').loadMain();
+                        require('mainMenu').mainMenuSelect(1);
                         break;
                     case "2"://大客流
-                        require('t_Home').loadMain();
+                        require('mainMenu').mainMenuSelect(2);
                         break;
                     case "3"://产业园区
-                        require('e_Home').loadMain();
+                        require('mainMenu').mainMenuSelect(3);
                         break;
-                    case "11"://日景
-                        com.ChangeLight(1) 
+                    case "4"://产业发展
+                        require('mainMenu').mainMenuSelect(4);
+                        break;
+                    case "11"://实景
+                        require('mainMenu').dayNightMenuSelect(0);
                         break;
                     case "12"://夜景
-                        com.ChangeLight(0)
+                        require('mainMenu').dayNightMenuSelect(1);
                         break;
                     case "100"://还原
                         require("reset").Revert();
-                        break; 
+                        break;
                     default:
                 }
-
 
                 //视口切换
                 if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
                     Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
                 }
-
 
                 result = 1;
                 message = "操作成功";

@@ -55,7 +55,7 @@
         iPad: "Modules/IPadPcControl",
 
         //Society
-        //s_Main: "Modules/Society/s_Main",
+        s_Home: "Modules/Society/s_Home_S", // 入口
         s_Main: "Modules/Society/s_MainNew",
         s_LeftLayer: "Modules/Society/s_LeftLayer",
         s_RightLayer: "Modules/Society/s_RightLayer",
@@ -89,12 +89,14 @@
 
         //Industry
         //Estate
+        e_Home: "Modules/Industry/Estate/e_Home_S", // 入口
         e_Main: "Modules/Industry/Estate/e_Main",
         e_Echart: "Modules/Industry/Estate/e_Echart",
         el_EstateInfo: "Modules/Industry/Estate/el_EstateInfo",
         el_AtlasChart: "Modules/Industry/Estate/el_AtlasChart",
         el_HotMap: "Modules/Industry/Estate/el_HotMap",
         //Garden
+        g_Home: "Modules/Industry/Garden/g_Home_S", // 入口
         g_Main: "Modules/Industry/Garden/g_Main",
         g_Echart: "Modules/Industry/Garden/g_Echart",
         gl_GardenBuilding: "Modules/Industry/Garden/gl_GardenBuilding",
@@ -103,6 +105,7 @@
         gl_Event: "Modules/Industry/Garden/gl_Event",
         gl_TopCompany: "Modules/Industry/Garden/gl_TopCompany",
         //Building
+        b_Home: "Modules/Industry/Building/b_Home_S", // 入口
         b_Main: "Modules/Industry/Building/b_Main",
         b_Echart: "Modules/Industry/Building/b_Echart",
         b_BuildingFloor: "Modules/Industry/Building/b_BuildingFloor",
