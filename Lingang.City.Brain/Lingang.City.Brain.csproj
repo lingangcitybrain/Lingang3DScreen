@@ -844,11 +844,15 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Modules\Industry\Building\b_BuildingFloor.js" />
     <Content Include="Scripts\Modules\Industry\Building\b_Echart.js" />
+    <Content Include="Scripts\Modules\Industry\Building\b_Home_D.js" />
+    <Content Include="Scripts\Modules\Industry\Building\b_Home_S.js" />
     <Content Include="Scripts\Modules\Industry\Building\b_Main.js" />
     <Content Include="Scripts\Modules\Industry\Estate\el_AtlasChart.js" />
     <Content Include="Scripts\Modules\Industry\Estate\el_EstateInfo.js" />
     <Content Include="Scripts\Modules\Industry\Estate\el_HotMap.js" />
     <Content Include="Scripts\Modules\Industry\Estate\e_Echart.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\e_Home_D.js" />
+    <Content Include="Scripts\Modules\Industry\Estate\e_Home_S.js" />
     <Content Include="Scripts\Modules\Industry\Estate\e_Main.js" />
     <Content Include="Scripts\Modules\Industry\Garden\gl_Event.js" />
     <Content Include="Scripts\Modules\Industry\Garden\gl_GardenBuilding.js" />
@@ -856,6 +860,8 @@
     <Content Include="Scripts\Modules\Industry\Garden\gl_TopCompany.js" />
     <Content Include="Scripts\Modules\Industry\Garden\gl_UnmannedCar.js" />
     <Content Include="Scripts\Modules\Industry\Garden\g_Echart.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\g_Home_D.js" />
+    <Content Include="Scripts\Modules\Industry\Garden\g_Home_S.js" />
     <Content Include="Scripts\Modules\Industry\Garden\g_Main.js" />
     <Content Include="Scripts\Modules\IPadPcControl.js" />
     <Content Include="Scripts\Modules\MainMenu.js" />
@@ -868,6 +874,8 @@
     <Content Include="Scripts\Modules\Society\s_Event.js" />
     <Content Include="Scripts\Modules\Society\sl_Camera.js" />
     <Content Include="Scripts\Modules\Society\sl_IOT.js" />
+    <Content Include="Scripts\Modules\Society\s_Home_D.js" />
+    <Content Include="Scripts\Modules\Society\s_Home_S.js" />
     <Content Include="Scripts\Modules\Society\s_LeftLayer.js" />
     <Content Include="Scripts\Modules\Society\s_Main.js" />
     <Content Include="Scripts\Modules\Society\s_MainNew.js" />

@@ -9,7 +9,8 @@
                 data: post_data,  //传送的数据
                 dataType: 'json',  // 返回数据的数据类型json
                 success: function (res) {
-                    callback(data)
+                    if ($.isFunction(callback))
+                        callback(res)
                 },
                 error: function () {
                 }
@@ -25,7 +26,8 @@
                 data: post_data,  //传送的数据
                 dataType: 'json',  // 返回数据的数据类型json
                 success: function (res) {
-                    callback(data)
+                    if ($.isFunction(callback))
+                        callback(res)
                 },
                 error: function () {
                 }
