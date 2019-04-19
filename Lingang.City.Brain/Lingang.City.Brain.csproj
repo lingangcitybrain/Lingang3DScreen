@@ -1043,6 +1043,7 @@
     <Content Include="View\Industry\Estate\Right_Second_01.html" />
     <Content Include="View\Industry\Estate\Right_Second_02.html" />
     <Content Include="View\Industry\Garden\CompanyStatistic.html" />
+    <Content Include="View\Industry\Garden\UnmannedCarDetail.html" />
     <Content Include="View\Industry\Garden\TopCompanyInfo.html" />
     <Content Include="View\Industry\Garden\Bottom_Menu.html" />
     <Content Include="View\Industry\Garden\Center_01.html" />

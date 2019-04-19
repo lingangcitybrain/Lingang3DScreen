@@ -23,6 +23,8 @@
                             //Q3D.globalCamera().flyToAxisView(node, 200, 1, function () {
                                  g_Main.PoiEvent(nodename);
                             //})
+                        }else if(nodename.indexOf("UmmannedCarPOI")>-1){//无人车POI
+                            require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);
                         }
                     }
                 }
