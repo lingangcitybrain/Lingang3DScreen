@@ -804,6 +804,7 @@
     <Content Include="Scripts\Ajax\Tour\t_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Tour\t_LayerMenuAjax.js" />
     <Content Include="Scripts\Data\Industry\e_EchartData.js" />
+    <Content Include="Scripts\Data\Industry\g_UnmannedCarData.js" />
     <Content Include="Scripts\Data\Industry\e_LayerMenuData.js" />
     <Content Include="Scripts\Data\Industry\g_EchartData.js" />
     <Content Include="Scripts\Data\Society\s_EchartData.js" />

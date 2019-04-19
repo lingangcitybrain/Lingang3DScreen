@@ -50,6 +50,7 @@
         e_EchartData: "Data/Industry/e_EchartData",
 
         g_EchartData: "Data/Industry/g_EchartData",
+        g_UnmannedCarData:"Data/Industry/g_UnmannedCarData",
         //Modules
         mainMenu: "Modules/MainMenu",
         iPad: "Modules/IPadPcControl",
