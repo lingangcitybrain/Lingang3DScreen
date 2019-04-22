@@ -50,7 +50,7 @@
                 /************************创建无人车POI*******************************/
                 var POINodeName = "UmmannedCarPOI_" + i;                
                 var POIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName);
-                var iconSize = Q3D.vector2(41, 45),
+                var iconSize = Q3D.vector2(31, 35),
                     FontColor = Q3D.colourValue("#000080", 1),
                     icon = require("gl_UnmannedCar").UnmannedCarPOIIcon;
                 var node = map.getSceneNode(areaName, POINodeName);
@@ -63,7 +63,7 @@
                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
                         Scale: Q3D.vector3(1, 1, 1),
                         POIOptions: {
-                            FontSize: 25,
+                            FontSize: 18,
                             FontName: "微软雅黑",
                             FontColor: FontColor,
                             CharScale: 1,
@@ -90,17 +90,18 @@
                     map.createPOI(areaName + "/" + POINodeName, poiOptions);
                     require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + POINodeName);
                     /************************END*******************************/
-                }                /******************************漫游起点和终点POI***************************************/                /*var RouteStart = "RouteStartPOI_" + i, RouteEnd="RouteEndPOI_"+i;
-                var POIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName);
-                var iconSize = Q3D.vector2(41, 45),
-                    FontColor = Q3D.colourValue("#000080", 1),
-                    icon = require("gl_UnmannedCar").UnmannedCarPOIIcon;
-                var node = map.getSceneNode(areaName, POINodeName);
+                }                /******************************漫游起点和终点POI***************************************/                var RouteStartNode = "RouteStartPOI_" + i, RouteEndNode="RouteEndPOI_"+i;
+                var RouteStartPOIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName),
+                    RouteEndPOIPosition = data[data.length-1].pos.toGlobalVec3d().toLocalPos(areaName);
+                var iconSize = Q3D.vector2(31, 35),
+                    FontColor = Q3D.colourValue("#000080", 1);
+                //起点
+                var node = map.getSceneNode(areaName, RouteStartNode);
                 if (node) {
                     node.setVisible(1);
                 } else {
                     var poiOptions = {
-                        Position: Q3D.vector3(POIPosition),
+                        Position: Q3D.vector3(RouteStartPOIPosition),
                         Orientation: null,
                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
                         Scale: Q3D.vector3(1, 1, 1),
@@ -109,8 +110,8 @@
                             FontName: "微软雅黑",
                             FontColor: FontColor,
                             CharScale: 1,
-                            Text: "无人车" + i,
-                            Icon: icon,
+                            Text: "",
+                            Icon: "Texture/common/IOT6.png",
                             IconSize: iconSize,
                             POILayout: Q3D.Enums.poiLayOut.Bottom,
                             UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
@@ -129,19 +130,54 @@
                             AlwaysOnScreen: true,
                         }
                     };
-                    map.createPOI(areaName + "/" + POINodeName, poiOptions);
-                    require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + POINodeName);
-                    */
-                    /************************END*******************************/
-                }                /**************************************END*******************************************/                /************************无人车漫游路线*******************************/                var pointsArray = [], offsetArray = [], LineName = "TrajectoryRoute_" + i;                for (var j = 0; j < data.length; j++) {
+                    map.createPOI(areaName + "/" + RouteStartNode, poiOptions);
+                    require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + RouteStartNode);
+                    
+                    
+                }                //终点                var nodeEnd = map.getSceneNode(areaName, RouteEndNode);
+                if (nodeEnd) {
+                    nodeEnd.setVisible(1);
+                } else {
+                    var poiOptions = {
+                        Position: Q3D.vector3(RouteEndPOIPosition),
+                        Orientation: null,
+                        OrientationType: Q3D.Enums.nodeOrientationType.Self,
+                        Scale: Q3D.vector3(1, 1, 1),
+                        POIOptions: {
+                            FontSize: 25,
+                            FontName: "微软雅黑",
+                            FontColor: FontColor,
+                            CharScale: 1,
+                            Text: "",
+                            Icon: "Texture/common/IOT6_hover.png",
+                            IconSize: iconSize,
+                            POILayout: Q3D.Enums.poiLayOut.Bottom,
+                            UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
+                            IconAlphaEnabled: true,
+                            FontOutLine: 2, //同描边有关
+                            FontEdgeColor: Q3D.colourValue("#80ffff", 1),
+                            AlphaTestRef: null,
+                            Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
+                            LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用
+                            BackFrameBorderSize: null,//2, //同边框有关 背景边框大小
+                            BackBorderColor: null,//Q3D.colourValue("#80ffff", 1),//背景边框颜色
+                            BackFillColor: null,//Q3D.colourValue("#80ffff", 1),//背景填充色
+                            LabelMargin: null,
+                            IconLabelMargin: null,
+                            SpecialTransparent: true,
+                            AlwaysOnScreen: true,
+                        }
+                    };
+                    map.createPOI(areaName + "/" + RouteEndNode, poiOptions);
+                    require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + RouteEndNode);
+
+
+                }                /************************END*******************************/                /**************************************END*******************************************/                /************************无人车漫游路线*******************************/                var pointsArray = [], offsetArray = [], LineName = "TrajectoryRoute_" + i;                for (var j = 0; j < data.length; j++) {
                     var pos = data[j].pos;
                     pointsArray.push(Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName)));
                     offsetArray.push(0);
                 }                var nodeLine = map.getSceneNode(areaName, LineName);
-                if (!nodeLine)
-                //{
-                //    nodeLine.setVisible(1);
-                //} else                {                    //画路线
+                if (!nodeLine)                {                    //画路线
                     var routeOptions = {
                         Material: null,
                         SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
@@ -149,7 +185,7 @@
                         OffsetDist: offsetArray, //偏移距离，单位米，用于贝塞尔曲线的控制点计算
                         LineOptions: {
                             Subdivision: 20, //设置生成曲线细分程度
-                            LineWidth: 5,
+                            LineWidth: 2,
                             WrapLen: 2,
                             //以下用于动态创建的材质
                             Color: Q3D.colourValue("#008000", 1), //线的颜色
@@ -182,7 +218,7 @@
                  map.roamByPolyline(areaName + "/" + POINodeName, polylineOptions);                                /******************************END************************************/
             }
         },
-        showUnmannedCarTrajectors: function (nodeName) {
+        showUnmannedCarTrajectors:function(nodeName) {
             var id = nodeName.split("_")[1];
             var nodeName = "TrajectoryRoute_" + id,
                 areaName = con.AreaName;
@@ -263,7 +299,7 @@
                 } else {                    //画路线
                     var routeOptions = {
                         Material: null,
-                        SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                        SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
                         LinePoints: pointsArray, //一维数组
                         OffsetDist: offsetArray, //偏移距离，单位米，用于贝塞尔曲线的控制点计算
                         LineOptions: {
@@ -271,8 +307,8 @@
                             LineWidth: 5,
                             WrapLen: 2,
                             //以下用于动态创建的材质
-                            Color: Q3D.colourValue("#0000FFF", 1), //线的颜色
-                            Alpha: 1, //线的透明度
+                            Color: Q3D.colourValue("#0000FF", 0.8), //线的颜色
+                            Alpha: 0.7, //线的透明度
                         },
                         OnLineCreated: function () {
                             //alert("Line is created!");
