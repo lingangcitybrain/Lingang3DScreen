@@ -3358,6 +3358,7 @@ dd.pjc-statistic-star >form{
 	width: 4.4rem;
     right:25rem;
     top:5rem;
+    
 }
 .loudong-top{ 
 	font-size: .35rem; 
@@ -3451,6 +3452,33 @@ dd.pjc-statistic-star >form{
 .loudong-floor:hover span.testAerial,
 .loudong-floor.active span.testAerial{
 	color: rgba(224, 189, 113, 1);
+}
+
+.poi-guiji{
+	z-index: 999;
+	position: absolute;
+	width: 6rem; 
+	/*height: 3.6rem; 
+	padding-top: .9rem;*/ 
+	font-size: .28rem; 
+	background:linear-gradient(transparent, rgba(0,0,0,.5) 33%, rgba(0,0,0,.5) 67%, transparent);
+}
+.poi-guiji:after,
+.poi-guiji:before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: .32rem;
+	height: 100%;
+	background: url(../Content/images/poi_guiji_leftshadow.png) no-repeat;
+	background-size: 100% 100%;
+	transform: translateX(-100%);
+}
+.poi-guiji:before{
+	left: auto;
+	right: 0;
+	transform: translateX(100%) rotate(180deg);
 }
 
 @media screen and (max-width: 11520px){

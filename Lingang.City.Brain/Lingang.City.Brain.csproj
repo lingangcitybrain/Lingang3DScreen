@@ -598,6 +598,7 @@
     <Content Include="Content\images\nav-leftbgicon.png" />
     <Content Include="Content\images\nav-rightbgicon.png" />
     <Content Include="Content\images\night-scene.png" />
+    <Content Include="Content\images\personCardIMG.jpg" />
     <Content Include="Content\images\pj-3d.png" />
     <Content Include="Content\images\pj-3d2.png" />
     <Content Include="Content\images\pj-bshadow.png" />
@@ -606,6 +607,7 @@
     <Content Include="Content\images\pjl-topicon.png" />
     <Content Include="Content\images\poi-leftpic.png" />
     <Content Include="Content\images\POI1.gif" />
+    <Content Include="Content\images\poi_guiji_leftshadow.png" />
     <Content Include="Content\images\real-scene.png" />
     <Content Include="Content\images\rycltj-datebtn.png" />
     <Content Include="Content\images\sj-div1.png" />
