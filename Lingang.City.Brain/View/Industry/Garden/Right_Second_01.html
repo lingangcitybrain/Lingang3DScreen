@@ -4,12 +4,12 @@
     <div class="divcont">
         <div class="flex sjxx-tab">
             <button type="button" class="active">总数：<span class="testAerial">20</span></button>
-            <button type="button">已处理：<span class="testAerial">18</span></button>
-            <button type="button">待处理：<span class="testAerial">1</span></button>
-            <button type="button">未处理：<span class="testAerial">1</span></button>
+            <button type="button">已处理：<span class="testAerial" id="processed">18</span></button>
+            <button type="button">待处理：<span class="testAerial" id="Untreated">1</span></button>
+            <button type="button">处理中：<span class="testAerial" id="in-process">1</span></button>
         </div>
-        <div class="cy-ly-rr1-divbox scrolldiv">
-            <ul class="cy-ly-rr1-ul">
+        <div class="cy-ly-rr1-divbox">
+            <ul class="cy-ly-rr1-ul scrolldiv" style="height:100%;" id="ul-parkingEnvent">
                 <li class="cy-ly-rr1-li active">
                     <div class="cy-ly-rr1-lidiv clearfix active">
                         <span class="cy-ly-rr1-num">001</span>
@@ -212,6 +212,17 @@
                 </li>
 
             </ul>
+
+            <div class="pagination-box">
+                <div class="pagination" id="pagination-parkingEnvent">
+                    <span class="current prev">上一页</span>
+                    <span class="current">1</span>
+                    <a style="cursor: pointer;">2</a>
+                    <a style="cursor: pointer;">...</a>
+                    <a style="cursor: pointer;">4</a>
+                    <a class="next" style="cursor: pointer;">下一页</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

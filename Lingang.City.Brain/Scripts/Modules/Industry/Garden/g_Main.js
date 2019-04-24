@@ -235,6 +235,7 @@
             }
             com.UIControlAni(option, function () {
                 require("g_Echart").sjtj();
+                require("gl_Event").loadEvnetList(0);
                 return null;
             });
         },

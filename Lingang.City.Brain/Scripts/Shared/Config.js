@@ -8,6 +8,7 @@
         InterfaceUrl_garden: "http://47.101.181.131:8095/",  //接口地址
         InterfaceUrl_parking: "http://47.101.181.131:8093/",
         InterfaceUrl_HeatMap: "http://47.101.181.131:8094/",  //接口地址
+        InterfaceUrl_Event:"http://47.101.181.131:8096/",//园区事件获取接口
         TyHref: 'ME-SRE://1920,1080,0,0#{I/DPZJ2nKwh4LSzuco/cQkvXVlgp+TDvjq/cNLLkrjreGqbjCMrRauMS6zwQ327fX5A/CScvo4CnCmUWy4Qb5KX+tkPCMvUiD2TztEDdNx8rd1zLpkN8aDtEk23jcGaL}', //产业推演地址定向
         IsInterface: true,//是否走接口true:接口false本地
         AreaName: "gwh_xilou",
