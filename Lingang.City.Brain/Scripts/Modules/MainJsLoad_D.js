@@ -16,7 +16,7 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
                         "angle": currOriV3.x + ',' + currOriV3.y + ',' + currOriV3.z,
                     };
                     control_Ajax.sendMapControlInfo(jsondata); //发送控制命令           
-            },50)
+            },100)
         },
     }
 })
