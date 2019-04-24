@@ -150,11 +150,26 @@
         loadGardenDetial:function(nodename){
             this.clearGardenPOI();//隐藏园区POI
             //进入龙头企业视角
-            com.LayerFlyto(311, function () {
-                require("gl_TopCompany").loadTopCompanyPOI();
-                //require("gl_TopCompany").loadTopCompany()
+            //com.LayerFlyto(311, function () {
+            //    require("gl_TopCompany").loadTopCompanyPOI();
 
-            })
+            //})
+
+            var data = require("dataCache").defaultLayerView.get(311);
+            if (data != null) {
+                var angle = data.angle;
+                var xyz = data.xyz;
+
+                try {
+
+                    Q3D.globalCamera().flyTo((xyz).toVector3d(), (angle).toVector3(), 1, function () {
+                        require("gl_TopCompany").loadTopCompanyPOI();
+                    });
+
+                } catch (e) {
+
+                }
+            }
         },
         /*************园区图层-end*************/
 

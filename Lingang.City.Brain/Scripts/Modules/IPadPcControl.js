@@ -286,7 +286,7 @@
             var re_xyz = "";
             var re_angle = "";
 
-            console.log(str)
+            //console.log(str)
 
             try {
                 var json = $.parseJSON(str);
@@ -297,17 +297,17 @@
                 var id = json.id
 
 
-                //switch (menuname) {
-                //    case "1"://社区综治
-                //        //this.layerSocietyControl(layer);
-                //        break;
-                //    case "2"://大客流
-                //        //this.layerTourControl(layer);
-                //        break;
-                //    case "3"://产业园区
-                //        //this.layerIndustryControl(layer);
-                //        break;
-                //}
+                switch (menu) {
+                    case "1"://社区综治
+                        //this.layerSocietyControl(layer);
+                        break;
+                    case "2"://大客流
+                        //this.layerTourControl(layer);
+                        break;
+                    case "3"://产业园区
+                        this.poiIndustryControl(id);
+                        break;
+                }
 
 
                 //if (id != null)
@@ -333,6 +333,24 @@
 
             res = { "code ": result, " message ": message }
             return res
+        },
+        poiIndustryControl: function (id) {
+            //switch (menu) {
+            //    case "1"://社区综治
+            //        //this.layerSocietyControl(layer);
+            //        break;
+                
+            //        this.poiIndustryControl(id);
+            //        break;
+            //    default:
+            //        require("g_Main").PoiEvent(id);
+            //}
+            if (id.indexOf("UmmannedCarPOI") > -1) { //无人车POI
+                require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);
+            } else {
+                require("g_Main").PoiEvent(id);
+            }
+            
         },
         poiSocietyControl: function (layer,id)
         {

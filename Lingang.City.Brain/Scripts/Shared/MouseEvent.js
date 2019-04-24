@@ -21,10 +21,10 @@
                         } else if (nodename.indexOf("POIIndustryG") > -1) {   //产业园区
                         //注释飞行动作，单独去poi时间里面飞行
                             //Q3D.globalCamera().flyToAxisView(node, 200, 1, function () {
-                                 g_Main.PoiEvent(nodename);
+                            require("g_Home").PoiEvent(nodename);//g_Main.PoiEvent(nodename);
                             //})
                         }else if(nodename.indexOf("UmmannedCarPOI")>-1){//无人车POI
-                            require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);
+                            require("g_Home").showUnmannedCarTrajectors(nodename);
                         }
                     }
                 }

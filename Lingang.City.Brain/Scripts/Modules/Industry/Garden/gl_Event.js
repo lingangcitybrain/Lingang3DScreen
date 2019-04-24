@@ -29,12 +29,12 @@
                             html += '<li class="cy-ly-rr1-li active">'+
                     '<div class="cy-ly-rr1-lidiv clearfix active">'+
                         '<span class="cy-ly-rr1-num">'+(i+1)+'</span>'+
-                        '<span class="cy-ly-rr1-name">' + data[i].eventName + '</span>' +
+                        '<span class="cy-ly-rr1-name">' + data[i].eventname + '</span>' +
                         //'<span class="cy-ly-rr1-date">' + myTime(data[i].eventTime) + '</span>' +
                         //'<span class="cy-ly-rr1-date">' + data[i].eventTime + '</span>' +
                     '</div>' +
                     '<div class="cy-ly-rr1-state">' + data[i].status + '</div>' +
-                    '<span class="cy-ly-rr1-date">' + data[i].eventTime + '</span>' +
+                    '<span class="cy-ly-rr1-date">' + data[i].timestamp + '</span>' +
                 '</li>';
                         }
                     }

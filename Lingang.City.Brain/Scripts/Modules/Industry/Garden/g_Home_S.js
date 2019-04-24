@@ -28,6 +28,18 @@
         loadEvent: function () {
             gl_Event.loadEvent();
         },
+
+
+        /*******************************POI操作********************************************/
+
+        PoiEvent: function (nodename) {
+            g_Main.PoiEvent(nodename);            
+        },
+        //无人车poi点击
+        showUnmannedCarTrajectors: function (nodename) {
+        require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);        
+    },
+        /*************************************END******************************************/
     }
 
 })

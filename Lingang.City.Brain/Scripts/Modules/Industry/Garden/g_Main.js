@@ -53,9 +53,9 @@
             switch (poitype) {
                 case "Garden": //园区
                     if (nodes) {
-                        Q3D.globalCamera().flyToAxisView(nodes, 200, 1, function () {
+                        //Q3D.globalCamera().flyToAxisView(nodes, 200, 1, function () {
                             gl_GardenBuilding.loadGardenDetial(nodename);
-                        })
+                        //})
                     }
                     break;
                 case "TopCompany": //龙头企业
