@@ -13,7 +13,7 @@
             },
         },
         loadMain: function () {
-            this.loadBottomMenu();//加载底部图层
+            //this.loadBottomMenu();//加载底部图层
 
             this.loadLeftFirst1();//加载左侧第一列第一个div
             this.loadLeftFirst2();//
@@ -82,51 +82,7 @@
             }
         },
         /*****************************图层*****************************/
-        //加载底部图层
-        loadBottomMenu: function () {
-            var url = con.HtmlUrl + 'Industry/Garden/Bottom_Menu.html';
-            require(['text!' + url], function (template) {
-                $("#bottom_menu").html(template);
-                $("#bottom_menu").show('drop', 1000);//左侧
-                require("g_Main").ChangeLayer();
-            })
-        },
-        //点击底部的菜单
-        ChangeLayer: function () {
-            //产业
-            $("#bottom_menu ul li").each(function (index) {//便利对象
-                $(this).click(function () {//点击触发事件
-                    $("li").removeClass("active");//删除当前元素的样式
-                    $("li").eq(index).addClass("active");//添加当前元素的样式
-                    var menuname = $("li").eq(index).text();
-                    require("g_Main").showLayer(menuname);
-                   
-                });
-            });
-        },
 
-        //切换显示图层
-        showLayer: function (menuname) {
-            this.Revert();
-            switch (menuname) {
-                case "楼宇":
-                    gl_GardenBuilding.loadBuilding();
-                    break;
-                case "停车":
-                    gl_Stop.loadStop();
-                    break;
-                case "无人驾驶接驳车":
-                    gl_UnmannedCar.loadUnmannedCar();
-                    break;
-                case "事件":
-                    gl_Event.loadEvent();
-                    break;
-                case "产业信息":
-                    require("e_Main").loadMain();
-                    break;
-                default:
-            }
-        },
         /*****************************左侧第一列*****************************/
 
         //加载第一个div

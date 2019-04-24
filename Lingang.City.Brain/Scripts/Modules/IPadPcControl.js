@@ -235,7 +235,46 @@
         },
         //产业园区图层控制
         layerIndustryControl: function (layercode) {
+            $("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
 
+            switch (layercode) {
+                case "16":
+                    $("#bottom_menu ul li").eq(0).addClass("active");
+                    require("mainMenu").showLayer_e_Main("产业信息");
+                    break;
+                case "17":
+                    $("#bottom_menu ul li").eq(1).addClass("active");
+                    require("mainMenu").showLayer_e_Main("象限图谱");  //没效果
+                    break;
+                case "18":
+                    $("#bottom_menu ul li").eq(2).addClass("active");//没效果
+                    require("mainMenu").showLayer_e_Main("人员分布");
+                    break;
+                case "19":
+                    $("#bottom_menu ul li").eq(3).addClass("active");
+                    require("mainMenu").showLayer_e_Main("园区信息");
+                    break;
+                case "20"://楼宇
+                    require("mainMenu").showLayer_gMain('楼宇');
+                    $("#bottom_menu ul li").eq(0).addClass("active");
+                    break;
+                case "21"://停车场
+                    require("mainMenu").showLayer_gMain('停车');//没效果
+                    $("#bottom_menu ul li").eq(1).addClass("active");
+                    break;
+                case "22"://无人驾驶接驳车
+                    require("mainMenu").showLayer_gMain('无人驾驶接驳车');
+                    $("#bottom_menu ul li").eq(2).addClass("active");
+                    break;
+                case "23"://事件
+                    require("mainMenu").showLayer_gMain('事件');
+                    $("#bottom_menu ul li").eq(3).addClass("active");
+                    break;
+                case "24"://产业信息
+                    require("mainMenu").showLayer_gMain('产业信息');
+                    $("#bottom_menu ul li").eq(4).addClass("active");
+                    break;
+                }
         },
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //POI定位控制

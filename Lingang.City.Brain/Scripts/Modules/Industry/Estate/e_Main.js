@@ -25,7 +25,7 @@
                  require("el_EstateInfo").loadEstateInfo();
             }, 1000);
            
-            this.loadBottomMenu();//加载底部图层
+            //this.loadBottomMenu();//加载底部图层
 
             this.loadLeftFirst1();//加载左侧第一列第一个div
             this.loadLeftFirst2();//
@@ -48,50 +48,7 @@
 
         },
 
-        /*****************************图层*****************************/
-        //加载底部图层
-        loadBottomMenu: function () {
-            var url = con.HtmlUrl + 'Industry/Estate/Bottom_Menu.html';
-            require(['text!' + url], function (template) {
-                $("#bottom_menu").html(template);
-                $("#bottom_menu").show('drop', 1000);//左侧
-                require("e_Main").ChangeLayer();
-            })
-        },
-        //点击底部的菜单
-        ChangeLayer: function () {
-            //产业
-            $("#bottom_menu ul li").each(function (index) {//便利对象
-                $(this).click(function () {//点击触发事件
-                    $("li").removeClass("active");//删除当前元素的样式
-                    $("li").eq(index).addClass("active");//添加当前元素的样式
-                    var menuname = $("li").eq(index).text();
-                    require("e_Main").showLayer(menuname);
-                   
 
-                });
-            });
-        },
-
-        //切换显示图层
-        showLayer: function (menuname) {
-            this.Revert();
-            switch (menuname) {
-                case "产业信息":
-                    el_EstateInfo.loadEstateInfo();
-                    break;
-                case "象限图谱":
-                    el_AtlasChart.loadAtlasChart();
-                    break;
-                case "人员分布":
-                    el_HotMap.loadHotMap();
-                    break;
-                case "园区信息": 
-                    require("g_Main").loadMain();
-                    break;
-                default:
-            }
-        },
         /*****************************左侧第一列*****************************/
 
         //加载第一个div

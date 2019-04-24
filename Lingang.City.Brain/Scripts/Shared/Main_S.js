@@ -28,7 +28,7 @@
         aliplayer: "https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
         animsition: "Tools/jqueryUI/jquery.animsition.min",//JS特效
         weather: "Tools/Weather",
-
+        pagination: "jquery.pagination",
 
         //Ajax
         e_EchartAjax: "Ajax/Industry/e_EchartAjax",
@@ -50,6 +50,7 @@
         e_EchartData: "Data/Industry/e_EchartData",
 
         g_EchartData: "Data/Industry/g_EchartData",
+        g_UnmannedCarData: "Data/Industry/g_UnmannedCarData",
         //Modules
         mainMenu: "Modules/MainMenu",
         iPad: "Modules/IPadPcControl",
