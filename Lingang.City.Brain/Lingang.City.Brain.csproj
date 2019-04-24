@@ -867,6 +867,8 @@
     <Content Include="Scripts\Modules\Industry\Garden\g_Home_S.js" />
     <Content Include="Scripts\Modules\Industry\Garden\g_Main.js" />
     <Content Include="Scripts\Modules\IPadPcControl.js" />
+    <Content Include="Scripts\Modules\MainJsLoad_D.js" />
+    <Content Include="Scripts\Modules\MainJsLoad_S.js" />
     <Content Include="Scripts\Modules\MainMenu.js" />
     <Content Include="Scripts\Modules\Society\sl_Drone.js" />
     <Content Include="Scripts\Modules\Society\sl_Event.js" />

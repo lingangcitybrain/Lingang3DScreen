@@ -1,5 +1,5 @@
-define(["config", 'common', "util", "reset", 'mevent', "specialEff", "mainMenu", "s_Main", "t_Main" , "e_Main" , "g_Main", "b_Main", "iPad"],
-    function (config, com, util, reset, mevent, specialEff, mainMenu, s_Main, t_Main, e_Main, g_Main, b_Main,iPad) {
+define(["config", 'common', "util", "reset", 'mevent', "specialEff", "mainMenu", "s_Main", "t_Main", "e_Main", "g_Main", "b_Main", "iPad", "mainJsLoad"],
+    function (config, com, util, reset, mevent, specialEff, mainMenu, s_Main, t_Main, e_Main, g_Main, b_Main, iPad, mainJsLoad) {
 
         return {
             Onload: function () {
@@ -38,6 +38,7 @@ define(["config", 'common', "util", "reset", 'mevent', "specialEff", "mainMenu",
                 //加载主页面上的元素
                 setTimeout(function () {
                     mainMenu.loadMenu(); //1 社区综治 2旅游大客流 3 产业
+                    mainJsLoad.loadJs();
                 }, 1000);
             },
 
