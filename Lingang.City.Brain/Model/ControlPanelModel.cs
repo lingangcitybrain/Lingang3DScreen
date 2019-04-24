@@ -54,4 +54,16 @@ namespace Lingang.City.Brain.Web.Model
         public string code { get; set; }
         public string message { get; set; }
     }
+
+    public class aliSpeechRecognizerModel
+    {
+        public string token { get; set; }
+        public string appkey { get; set; }
+        public string fileName { get; set; }
+        public string format { get; set; }
+        public int sampleRate { get; set; }
+        public bool enablePunctuationPrediction { get; set; }
+        public bool enableInverseTextNormalization { get; set; }
+        public bool enableVoiceDetection { get; set; }
+    }
 }
