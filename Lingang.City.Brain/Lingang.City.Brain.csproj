@@ -524,6 +524,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rtHub\Control.cs" />
     <Compile Include="rtHub\ControlHub.cs" />
+    <Compile Include="Services\AliSpeechRecognizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\aliplayer-min.css" />
