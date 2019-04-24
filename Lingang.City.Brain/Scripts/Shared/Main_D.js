@@ -54,6 +54,7 @@
         //Modules
         mainMenu: "Modules/MainMenu",
         iPad: "Modules/IPadPcControl",
+        mainJsLoad: "Modules/MainJsLoad_D", // 入口
 
         //Society
         s_Home: "Modules/Society/s_Home_D",  // 入口
