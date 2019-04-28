@@ -20,10 +20,10 @@
         },
         loadMain: function () {
 
-            setTimeout(function () {
+            //setTimeout(function () {
                 //el_AtlasChart.loadAtlasChart();
                  require("el_EstateInfo").loadEstateInfo();
-            }, 1000);
+            //}, 1000);
            
             //this.loadBottomMenu();//加载底部图层
 

@@ -13,9 +13,10 @@
         //加载园区的建筑信息，在建筑上标注楼号POI
         loadGardenBuilding:function()
         {
+            require("gl_GardenBuilding").loadGardenPOI();
             //飞行到园区视角
             com.LayerFlyto(20, function () {
-                require("gl_GardenBuilding").loadGardenPOI();
+                
             })
         
         },

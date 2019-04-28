@@ -11,9 +11,9 @@
         loadEstateInfo:function()
         {
             this.setEstateArea(1);//显示产业区块
-
+            require("el_EstateInfo").loadEstatePOI();//加载POI
             com.LayerFlyto(16, function () {
-                require("el_EstateInfo").loadEstatePOI();//加载POI
+                
             })
         },
         //加载POI

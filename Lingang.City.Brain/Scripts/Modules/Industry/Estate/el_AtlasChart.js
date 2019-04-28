@@ -6,8 +6,9 @@
         LastPOI_Clk: null,//鼠标选中POI
         //加载象限图谱图层信息
         loadAtlasChart: function () {
+            require("el_AtlasChart").loadPOI();
             com.LayerFlyto(17, function () {
-                require("el_AtlasChart").loadPOI();
+                
             })
 
             var url = '/LingangCityBrain/View/Industry/Estate/Bottom_AtlasDetail.html';
