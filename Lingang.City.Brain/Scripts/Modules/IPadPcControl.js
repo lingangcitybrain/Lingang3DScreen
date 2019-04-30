@@ -255,7 +255,8 @@
                     require("mainMenu").showLayer_e_Main("园区信息");
                     break;
                 case "20"://楼宇
-                    require("mainMenu").showLayer_gMain('楼宇');
+                    //require("mainMenu").showLayer_gMain('楼宇');
+                    require("gl_GardenBuilding").loadBuilding();
                     $("#bottom_menu ul li").eq(0).addClass("active");
                     break;
                 case "21"://停车场
@@ -346,8 +347,13 @@
             //        require("g_Main").PoiEvent(id);
             //}
             if (id.indexOf("UmmannedCarPOI") > -1) { //无人车POI
-                require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);
-            } else {
+                require("gl_UnmannedCar").showUnmannedCarTrajectors(id);
+            }
+            //else if (id.indexOf("POIIndustryGTopCompany") > -1) { //代表企业POI
+            //    $(".cy-qy-navbar").click();
+            //    //require("gl_UnmannedCar").showUnmannedCarTrajectors(id);
+            //}
+            else {
                 require("g_Main").PoiEvent(id);
             }
             
@@ -429,24 +435,23 @@
                 var id = json.id
                 var command = json.command
 
-                //switch (menuname) {
-                //    case "1"://社区综治
-                //        //this.layerSocietyControl(layer);
-                //        break;
-                //    case "2"://大客流
-                //        //this.layerTourControl(layer);
-                //        break;
-                //    case "3"://产业园区
-                //        //this.layerIndustryControl(layer);
-                //        break;
-                //}
-
                 if (id != null && id != "") {
                     if (command != null && command != "") {
                         if (command == "open") {
                             if (layer == 7) { //事件
                                 var nodename = "POITourEvent_" + id;
                                 require("tl_Event").loadEventDetial(nodename)
+                            }
+                            else if (layer == 19) {  //园区
+                                if (id.indexOf("POIIndustryGTopCompany") > -1) {//代表企业POI（花瓣窗口，进入企业内部操作）
+                                    //$(".cy-qy-navbar").click();
+                                    require("gl_TopCompany").flyToBuilding();
+                                } 
+                            } else if (layer == 20) { //楼宇
+                                if (id.indexOf("buildingFloor") > -1) { //楼宇UI楼层操作
+                                    var floor = id.split("/")[1];
+                                    require("b_BuildingFloor").openFloor(floor);
+                                }
                             }
                             else {
                                 var nodename = "POITourCamera_" + id;
@@ -458,10 +463,25 @@
                             if (layer == 7) {
                                 //var nodename = "POITourEvent_" + id;
                                 require("tl_Event").closeDetail()
+                            } else if (layer == 19) {  //园区
+                                if (id.indexOf("POIIndustryGTopCompany") > -1) {//代表企业POI（花瓣窗口）
+                                    require('gl_TopCompany').closeTopCompanyInfo();//关闭当前花瓣窗口
+                                    $(".cy-qy-menu-close").click();
+                                }
                             }
                             else {
                                 require("tl_Camera").closeCameraDetial();
                                 $('.vex-dialog-button-primary').click();
+                            }
+                        }
+                    }
+                    else {  //单纯层级显示隐藏
+                        if (id.indexOf("POIIndustryGTopCompany") > -1) {//代表企业POI（花瓣窗口）
+                            //require('gl_TopCompany').closeTopCompanyInfo();//关闭当前花瓣窗口
+                            //$(".cy-qy-menu-close").click();
+                            var index = parseInt(id.split("/")[1]);
+                            if (index>=0) {
+                                $(".cy-qy-menu a")[index].click();
                             }
                         }
                     }

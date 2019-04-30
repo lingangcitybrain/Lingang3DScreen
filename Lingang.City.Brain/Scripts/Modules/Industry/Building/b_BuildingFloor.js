@@ -40,7 +40,8 @@
                     $("#loudong-ul li").click(function (e) {
                         $(this).addClass("active");
                         var floor = $(this).attr("value");
-                        require("b_BuildingFloor").openFloor(floor);
+                        require("g_Home").openFloor(floor);
+                        //require("b_BuildingFloor").openFloor(floor);
                     })
                 }
             });

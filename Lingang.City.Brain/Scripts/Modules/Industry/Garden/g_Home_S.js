@@ -40,6 +40,25 @@
         require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);        
     },
         /*************************************END******************************************/
+        /*****************************UI窗口交互******************************************/
+        //关闭代表企业花瓣窗口
+        closeTopCompanyInfo: function () {
+            require('gl_TopCompany').closeTopCompanyInfo();
+        },
+        //花瓣点击事件
+        FlowerClickFn: function (index) {
+           //没有可执行代码，同步中控台方法名称
+        },
+        //点击进入企业详情
+        clickCompany: function () {            
+            //没有可执行代码，同步中控台方法名称
+        },
+        //楼宇揭楼层
+        openFloor: function (floor) {
+            require("b_BuildingFloor").openFloor(floor);
+            
+        },
+        /*********************************END*********************************************/
     }
 
 })

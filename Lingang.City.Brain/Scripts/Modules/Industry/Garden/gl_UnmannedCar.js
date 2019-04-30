@@ -11,9 +11,10 @@
         DrivingRoutes:[],
         //加载无人车图层
         loadUnmannedCar: function () {
-            com.LayerFlyto(22, function () {
                 require("gl_UnmannedCar").loadCarTrajectory();
                 require("gl_UnmannedCar").DrawDrivingRoute();
+            com.LayerFlyto(22, function () {
+                
             })
 
         },

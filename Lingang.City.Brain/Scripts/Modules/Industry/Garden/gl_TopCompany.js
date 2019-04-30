@@ -5,7 +5,8 @@
         POIData: null,//龙头企业POI详情数据
         LastPOI_Clk: null,
         CompanyList: new util.HashMap,
-        CompanyID:null,
+        CompanyID: null,
+        clickBoolean:false,
         //加载龙头企业
         loadTopCompanyPOI: function () {
             require("g_Main").Revert();
@@ -386,52 +387,72 @@
         },
         //关闭花蕾图
         closeTopCompanyInfo: function () {
-            //进入龙头企业视角
-            com.LayerFlyto(311, function () {
-                require("b_BuildingFloor").resetHideLayer();
-                //POI样式调整
-                var areaName = con.AreaName;
-                require("gl_TopCompany").LayerType = require("g_Main").LayerCatalog.TopCompany;
-                if (require("gl_TopCompany").LastPOI_Clk && require("gl_TopCompany").LastPOI_Clk != "") {
-                    var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
-                    var lastNode = map.getSceneNode(areaName, require("gl_TopCompany").LastPOI_Clk);
-                    if (lastNode) {
-                        lastNode.asPOI().setIcon(icon);
-                        //lastNode.setVisible(0);
-                    }
+            require("b_BuildingFloor").resetHideLayer();
+            //POI样式调整
+            var areaName = con.AreaName;
+            require("gl_TopCompany").LayerType = require("g_Main").LayerCatalog.TopCompany;
+            if (require("gl_TopCompany").LastPOI_Clk && require("gl_TopCompany").LastPOI_Clk != "") {
+                var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
+                var lastNode = map.getSceneNode(areaName, require("gl_TopCompany").LastPOI_Clk);
+                if (lastNode) {
+                    lastNode.asPOI().setIcon(icon);
+                    //lastNode.setVisible(0);
                 }
-                //显示POI
-                for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
-                    var row = require("gl_TopCompany").POIData[i];
-                    var poiName = "POIIndustryG" + require("gl_TopCompany").LayerType.Name + "_" + row.id;//POIIOT_01
-                    var node = map.getSceneNode(areaName + "/" + poiName);
-                    if (node) {
-                        node.setVisible(1);//显示POI
-                    }
+            }
+            //显示POI
+            for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
+                var row = require("gl_TopCompany").POIData[i];
+                var poiName = "POIIndustryG" + require("gl_TopCompany").LayerType.Name + "_" + row.id;//POIIOT_01
+                var node = map.getSceneNode(areaName + "/" + poiName);
+                if (node) {
+                    node.setVisible(1);//显示POI
                 }
+            }
 
-                //显示招商漏斗
-                require("g_Main").loadLeftSecond1();//加载左侧第二列第一个div
-                require("g_Main").loadLeftSecond2();//
-                require("g_Main").loadLeftSecond3();//
-                com.openCloseBigDigital('open'); // 显示大数字
+            //显示招商漏斗
+            require("g_Main").loadLeftSecond1();//加载左侧第二列第一个div
+            require("g_Main").loadLeftSecond2();//
+            require("g_Main").loadLeftSecond3();//
+            com.openCloseBigDigital('open'); // 显示大数字
+            //进入龙头企业视角
+            com.LayerFlyto(311, function () {               
 
             });
         },
         //绑定事件
         loadFun: function () {
+            //if (require("gl_TopCompany").clickBoolean==null) {
+            //    require("gl_TopCompany").clickBoolean = false;
+            //}
             var clickBoolean = false;
             $(".cy-qy-navbar").click(function (ev) {
                 if (ev.target && ev.target == $(".cy-qy-navbar")[0]) {
-                    console.log(ev.target)
+                    //console.log(ev.target)
                     clickBoolean = !clickBoolean;
-                    if (clickBoolean) {
+                    if (clickBoolean && require("gl_TopCompany").clickBoolean) { //true，true
                         $(this).addClass("active");
-                    } else {
+                        require("gl_TopCompany").clickBoolean = false;
+                    }
+                    else if ((!clickBoolean) == false && require("gl_TopCompany").clickBoolean == false) {  //false，false
+                        $(this).addClass("active");
+                        require("gl_TopCompany").clickBoolean = true;
+                    }
+                    //else if (clickBoolean == false && require("gl_TopCompany").clickBoolean == true && (!$(this).hasClass("active"))==true) {  //false，false
+                    //    $(this).addClass("active");
+                    //    require("gl_TopCompany").clickBoolean = true;
+                    //}
+                    else {
                         $(this).removeClass("active");
+                        require("gl_TopCompany").clickBoolean = true;
                         //点击入驻企业操作
                         require("gl_TopCompany").flyToBuilding();
                     }
+                    //if ($(this).hasClass("active")) {
+                    //    $(this).removeClass("active");
+                    //    require("gl_TopCompany").flyToBuilding();
+                    //} else {
+                    //    $(this).addClass("active");
+                    //}
                 }
             })
 
@@ -453,7 +474,7 @@
 
 
             setTimeout(function () {
-                $(".cy-qy-navbar").click()
+                $(".cy-qy-navbar").click();
             }, 200);
         },
         flyToBuilding: function () {

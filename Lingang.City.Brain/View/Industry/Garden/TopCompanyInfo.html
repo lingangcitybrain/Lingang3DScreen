@@ -1,10 +1,10 @@
 ﻿<!-- 中间企业 -->
-<div class="cy-qy-navbar" style="z-index:999;">
+<div class="cy-qy-navbar" id="cy-qy-navbar" style="z-index:999;" onclick="require('g_Home').clickCompany()">
     <!--进入<br>企业-->
-    <button class="cy-qy-menu-close" onclick="require('gl_TopCompany').closeTopCompanyInfo();">关闭</button>
+    <button class="cy-qy-menu-close" onclick="require('g_Home').closeTopCompanyInfo();">关闭</button>
     <ul class="cy-qy-menu">
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(0);">
                 <div class="cy-qy-title">产业政策</div>
                 <div class="cy-qy-divcont divcont-setright cy-qy-zc-divcont" style="top: .4rem;">
                     <div class="cy-qy-divcont-child">
@@ -18,7 +18,7 @@
             </a>
         </li>
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(1);">
                 <div class="cy-qy-title">人才政策</div>
                 <div class="cy-qy-divcont divcont-setright cy-qy-zc-divcont">
                     <div class="cy-qy-divcont-child">
@@ -32,7 +32,7 @@
             </a>
         </li>
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(2);">
                 <div class="cy-qy-title">财政税收政策</div>
                 <div class="cy-qy-divcont divcont-setright cy-qy-zc-divcont">
                     <div class="cy-qy-divcont-child">
@@ -46,7 +46,7 @@
             </a>
         </li>
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(3);">
                 <div class="cy-qy-title">金融政策</div>
                 <div class="cy-qy-divcont divcont-setright cy-qy-zc-divcont">
                     <div class="cy-qy-divcont-child">
@@ -60,7 +60,7 @@
             </a>
         </li>
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(4);">
                 <div class="cy-qy-title">其他</div>
                 <div class="cy-qy-divcont divcont-setright cy-qy-zc-divcont" style="top: 2.5rem;">
                     <div class="cy-qy-divcont-child">
@@ -74,11 +74,11 @@
             </a>
         </li>
 
-        <li class="cy-qy-menuli"><a href="javascript:;"><div class="cy-qy-title">物业报修</div></a></li>
-        <li class="cy-qy-menuli"><a href="javascript:;"><div class="cy-qy-title">生活服务</div></a></li>
-        <li class="cy-qy-menuli"><a href="javascript:;"><div class="cy-qy-title">人才服务</div></a></li>
+        <li class="cy-qy-menuli"><a href="javascript:require('g_Home').FlowerClickFn(5);"><div class="cy-qy-title">物业报修</div></a></li>
+        <li class="cy-qy-menuli"><a href="javascript:require('g_Home').FlowerClickFn(6);"><div class="cy-qy-title">生活服务</div></a></li>
+        <li class="cy-qy-menuli"><a href="javascript:require('g_Home').FlowerClickFn(7);"><div class="cy-qy-title">人才服务</div></a></li>
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(8);">
                 <div class="cy-qy-title">入住服务</div>
                 <div class="cy-qy-divcont divcont-setleft">
                     <div class="cy-qy-divcont-child">
@@ -100,7 +100,7 @@
             </a>
         </li>
         <li class="cy-qy-menuli">
-            <a href="javascript:;">
+            <a href="javascript:require('g_Home').FlowerClickFn(9);">
                 <div class="cy-qy-title">代理开办</div>
                 <div class="cy-qy-divcont divcont-setleft" style="top: .4rem;">
                     <div class="cy-qy-divcont-child">
@@ -147,6 +147,7 @@
         $(".cy-qy-menu a").each(function (index, element) {
             $(this).click(function (ev) {
                 if (ev.target == $(this)[0]) {
+                    //require('g_Home').FlowerClickFn(this);
                     $(this).addClass("active").parents(".cy-qy-menuli").siblings().find("a").removeClass("active").find(".cy-qy-divcont").removeClass("active");
                     $(this).find(".cy-qy-divcont").css({ "transition-duration": ".8s" }).addClass("active");
                 }

@@ -130,6 +130,62 @@
             control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
         },
         /*************************************END******************************************/
+
+        /*****************************UI窗口交互******************************************/
+        //关闭代表企业花瓣窗口
+        closeTopCompanyInfo: function () {
+            require('gl_TopCompany').closeTopCompanyInfo();
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "id": require("gl_TopCompany").LastPOI_Clk,
+                "command":"close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+
+        //花瓣点击事件
+        FlowerClickFn: function (index) {
+            //$(e).addClass("active").parents(".cy-qy-menuli").siblings().find("a").removeClass("active").find(".cy-qy-divcont").removeClass("active");
+            //$(e).find(".cy-qy-divcont").css({ "transition-duration": ".8s" }).addClass("active");
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "id": require("gl_TopCompany").LastPOI_Clk+"/"+index,
+                "command": "",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        //点击进入企业详情
+        clickCompany: function () {
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "id": require("gl_TopCompany").LastPOI_Clk, //+ "/" + require("gl_TopCompany").clickBoolean,
+                "command": "open",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        //楼宇揭楼层
+        openFloor: function (floor) {
+            require("b_BuildingFloor").openFloor(floor);
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "id": "buildingFloor/"+floor,
+                "command": "open",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        /*********************************END*********************************************/
     }
 
 })

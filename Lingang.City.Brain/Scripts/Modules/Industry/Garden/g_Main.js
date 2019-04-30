@@ -60,20 +60,22 @@
                     break;
                 case "TopCompany": //龙头企业
                     if (nodes) {
+                        require("gl_TopCompany").loadCompanyMain(nodename);
                         Q3D.globalCamera().flyToAxisView(nodes, 200, 1, function () {
-                            require("gl_TopCompany").loadCompanyMain(nodename);
+                            
                         })
                     }
                     break;
                 case "Building": //楼宇
                     //tl_Camera.loadCameraDetial(nodename)
                     //var node = map.getSceneNode(con.AreaName, nodename);
+                    b_BuildingFloor.buildingOperation(nodename);
                     var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + id + "#rooftop");//固定飞到每栋楼的指定节点位置
                     if (node) {
                         //飞行位置暂定
                         var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
                         Q3D.globalCamera().flyToNode(node, viewPos, 1, function () {
-                            b_BuildingFloor.buildingOperation(nodename);
+                            
                        })
                         
                     }

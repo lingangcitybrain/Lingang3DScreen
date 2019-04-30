@@ -151,26 +151,27 @@
         loadGardenDetial:function(nodename){
             this.clearGardenPOI();//隐藏园区POI
             //进入龙头企业视角
-            //com.LayerFlyto(311, function () {
-            //    require("gl_TopCompany").loadTopCompanyPOI();
+            require("gl_TopCompany").loadTopCompanyPOI();
+            com.LayerFlyto(311, function () {
+                
 
-            //})
+            })
 
-            var data = require("dataCache").defaultLayerView.get(311);
-            if (data != null) {
-                var angle = data.angle;
-                var xyz = data.xyz;
+            //var data = require("dataCache").defaultLayerView.get(311);
+            //if (data != null) {
+            //    var angle = data.angle;
+            //    var xyz = data.xyz;
 
-                try {
+            //    try {
 
-                    Q3D.globalCamera().flyTo((xyz).toVector3d(), (angle).toVector3(), 1, function () {
-                        require("gl_TopCompany").loadTopCompanyPOI();
-                    });
+            //        Q3D.globalCamera().flyTo((xyz).toVector3d(), (angle).toVector3(), 1, function () {
+            //            require("gl_TopCompany").loadTopCompanyPOI();
+            //        });
 
-                } catch (e) {
+            //    } catch (e) {
 
-                }
-            }
+            //    }
+            //}
         },
         /*************园区图层-end*************/
 
@@ -180,10 +181,11 @@
         loadBuilding: function () {
             require("reset").ClearDivHtmlOnLeft();
             require("reset").ClearDivHtmlOnCenter();
+            require("gl_GardenBuilding").loadPOI();
+            require("gl_GardenBuilding").showGardenShowWindow();
             //飞行到园区视角
             com.LayerFlyto(311, function () {
-                require("gl_GardenBuilding").loadPOI();
-                require("gl_GardenBuilding").showGardenShowWindow();
+                
             })
             //存储楼宇信息到本地
             gl_GardenBuildingAjax.getBuildingListData(function (result) {
