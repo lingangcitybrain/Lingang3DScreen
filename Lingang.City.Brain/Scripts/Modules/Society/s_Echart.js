@@ -135,7 +135,6 @@
         },
         //无人机视频
         wrjsp: function () {
-            //console.log("asdfas")
             $("#bigechartHead").empty();
             require("s_Main").loadCenter_Video();
             

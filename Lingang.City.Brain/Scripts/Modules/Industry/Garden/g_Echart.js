@@ -1092,8 +1092,8 @@
             require("g_Echart").mybigChart.setOption(zhwyOption);
         },
         //智慧能耗
-        zhnh: function (post_data) {
-
+        zhnh: function () {
+            var post_data=20190521123030
             g_EchartAjax.getZhnh(post_data, function (result) {
                 if (require("g_Echart").zhnhData == null) { return false; }
                 var data = require("g_Echart").zhnhData;
@@ -1121,6 +1121,7 @@
             for (var i = 0; i < 7; i++) {
                 zhnhdata.push(Math.round((Math.random() * 60 + 10)));
             }
+                
             var myChartzhnh = echarts.init(zhnhChart);
             zhnhOption = {
                 title: {

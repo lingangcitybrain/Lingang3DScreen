@@ -111,7 +111,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: 'http://47.101.181.131:8081/v1/industrial/jobChance',
+                    url: con.InterfaceUrl_estate + 'v1/industrial/jobChance',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -137,7 +137,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: 'http://47.101.181.131:8081/v1/industrial/salaryChange',
+                    url: con.InterfaceUrl_estate + 'v1/industrial/salaryChange',
                     cache: false,
                     data:{type:postdata},
                     dataType: 'json',  // 返回数据的数据类型json
@@ -164,7 +164,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: 'http://47.101.181.131:8081/v1/industrial/eliteDistrbution',
+                    url: con.InterfaceUrl_estate+'v1/industrial/eliteDistrbution',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -214,7 +214,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: 'http://47.101.181.131:8081/v1/risk/fkldjyfx',
+                    url: con.InterfaceUrl_estate + 'v1/risk/fkldjyfx',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -223,15 +223,38 @@
                     },
                     error: function () {
                         require("e_Echart").fkldData = e_EchartData.fkldData.data;
-                        callback(data);
+                        callback();
                     }
                 });
             }
             else {//执行本地
                 require("e_Echart").fkldData = e_EchartData.fkldData.data;
-                callback(data);
+                callback();
             }
         },
-
+        //中间数字
+        centernumberajax: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_estate + 'v1/industrial/companyStatistics',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("e_Echart").centernumberData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        require("e_Echart").centernumberData = e_EchartData.centernumberData;
+                        callback();
+                    }
+                });
+            }
+            else {//执行本地
+                require("e_Echart").centernumberData = e_EchartData.centernumberData;
+                callback();
+            }
+        },
     }
 });

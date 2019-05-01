@@ -7,8 +7,8 @@
                 Bus: { Id: 1, TextName: "公交", Name: "Bus", Level: 2, ChooseIcon: "Texture/Common/bus_hover.png", UnChooseIcon: "Texture/Common/bus.png" },
                 Metro: { Id: 1, TextName: "地铁", Name: "Metro", Level: 1, ChooseIcon: "Texture/Common/metro_hover.png", UnChooseIcon: "Texture/Common/metro.png" },
                 Event: { Id: 5, TextName: "事件", Name: "Event", Level: 1, ChooseIcon: "Texture/Common/event_hover.png", UnChooseIcon: "Texture/Common/event.png" },
-                Drone: {
-                    Id: 6, TextName: "无人机", Name: "Drone", Level: 1, ChooseIcon: "Texture/Common/wurenjiku_hover.png", UnChooseIcon: "Texture/Common/wurenjiku.png"
+                DroneHangar: {
+                    Id: 6, TextName: "无人机库", Name: "DHangar", Level: 1, ChooseIcon: "Texture/Common/wurenjiku_hover.png", UnChooseIcon: "Texture/Common/wurenjiku.png"
                 }
             },
             left02_video01: null,
@@ -491,6 +491,38 @@
                     //})
 
 
+                });
+            },
+            //加载中间无人机视频
+            loadCenter_Video: function () {
+                var videowidth = $("#Big-chart").width();
+                var videoheight = $("#Big-chart").height();
+                if (require("t_Main").tourhtml_wurenji01) {
+                    require("t_Main").tourhtml_wurenji01.dispose();
+                    require("t_Main").tourhtml_wurenji01 = null;
+                }
+
+                $("#Big-chart").empty();
+                require(['aliplayer'], function (data) {
+                    var post_data = { "offset": "0", "count": "1000" }
+                    var playurl = con.WebServiceUrl + "/Content/video/dakeliu.flv";
+                    require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+                        "id": "Big-chart",
+                        "source": playurl,
+                        "width": videowidth + "px",
+                        "height": videoheight + "px",
+                        "autoplay": true,
+                        "isLive": false,
+                        "rePlay": true,
+                        "showBuffer": true,
+                        "snapshot": false,
+                        "showBarTime": 5000,
+                        "useFlashPrism": true,
+                        "mediaType": "audio"
+                    }, function (player) {
+                        //加载成功,清空错误提示
+                        $("#Big-chart").empty();
+                    }); 
                 });
             },
             //加载中间列

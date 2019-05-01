@@ -63,7 +63,7 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
         },
         loadDrone: function () {
             this.layerNO = 12;
-            sl_Drone.loadDrone();
+            tl_Drone.loadDrone();
             sl_Drone.loadLeftSecond();
             require("s_Main").loadCenter1Info();
             var jsondata = {
@@ -143,7 +143,7 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
         },
         loadGrid: function () {
             this.layerNO = 28;
-            sl_Grid.loadGridPOI();
+            sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();
             require("s_Main").loadCenter1();
             var jsondata = {

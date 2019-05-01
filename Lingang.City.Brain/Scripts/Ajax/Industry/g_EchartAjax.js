@@ -39,7 +39,8 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").zsldData = g_EchartData.zsldData;
+                        callback();
                     }
                 });
             }
@@ -88,7 +89,8 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").zsFunnelData = g_EchartData.zsFunnelData;
+                        callback();
                     }
                 });
             }
@@ -112,7 +114,8 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").tcfwData = g_EchartData.tcfwData.data;
+                        callback();
                     }
                 });
             }
@@ -161,7 +164,8 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").zhwyRepairData = g_EchartData.zhwyRepairData;
+                        callback();
                     }
                 });
             }
@@ -185,7 +189,8 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").zhwyInspectData = g_EchartData.zhwyInspectData;
+                        callback();
                     }
                 });
             }
@@ -196,21 +201,22 @@
         },
 
         //智慧能耗
-        getZhnh: function (post_data, callback) {
+        getZhnh: function (post_data,callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl_parking + 'v1/power/lastest',
                     cache: false,
-                    data: post_data,  //传送的数据
+                    data: {datatime:post_data},  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("g_Echart").zhnhData = data;
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").zhnhData = g_EchartData.zhnhData;
+                        callback();
                     }
                 });
             }
@@ -233,7 +239,8 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("g_Echart").sjtjData = g_EchartData.sjtjData;
+                        callback();
                     }
                 });
             }
