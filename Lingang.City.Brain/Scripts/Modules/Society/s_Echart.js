@@ -397,8 +397,8 @@
                 var data = require("s_Echart").sxtCameraData;
                 data = data.data;
 
-                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
-                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.length);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.length);
                 $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(0);
             });
         },
@@ -514,6 +514,14 @@
                var data = require("s_Echart").societySjcgData;
                data = data.data.taskInfo;
 
+                //X轴月份
+               var xAxisMonth = [];
+               var oToDay = new Date().getMonth() + 1;
+               for (var i = 0; i < 12; i++) {
+                   var j = (oToDay - i) <= 0 ? (12 + oToDay - i) : (oToDay - i);
+                   xAxisMonth.unshift(j)
+               }
+
                var seriesData = []; //事件处理成功数
                var seriesDataMax = 0; //事件处理成功数最大值
 
@@ -599,7 +607,7 @@
                                },
                            },
                            axisTick: { show: false, },
-                           data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                           data: xAxisMonth,
                        }],
                        yAxis: [{
                            type: 'value',
@@ -700,6 +708,14 @@
 
        bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
 
+           //X轴月份
+           var xAxisMonth = [];
+           var oToDay = new Date().getMonth() + 1;
+           for (var i = 0; i < 12; i++) {
+               var j = (oToDay - i) <= 0 ? (12 + oToDay - i) : (oToDay - i);
+               xAxisMonth.unshift(j+'月')
+           }
+
             if (sjcgChartClose) {
                 return false;
             } else {
@@ -746,7 +762,7 @@
                             }
                         },
                         axisTick: { show: false, },
-                        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                        data: xAxisMonth,
 
                     }],
                     yAxis: [{
