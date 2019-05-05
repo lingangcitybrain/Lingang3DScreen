@@ -1,4 +1,4 @@
-﻿define(["config", "common", "dataCache"], function (con, com, dataCache) {
+﻿define(["config", "common", "dataCache", "controlData"], function (con, com, dataCache, controlData) {
     return {
         //地图控制
         mapControl: function (str)
@@ -8,8 +8,6 @@
             var message = "";
             var re_xyz   = "";
             var re_angle = "";
-
-            console.log(str)
 
             try
             {
@@ -100,60 +98,29 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////图层控制////////////////////////////////////////////////////////////
         //图层控制
-        layerControl: function (str)
-        {
-            var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
-            var result = 1;
-            var message = "";
-            var re_xyz = "";
-            var re_angle = "";
+        layerControl: function (str) {
+            var json = $.parseJSON(str);
+            var xyz = json.xyz
+            var angle = json.angle
+            var menu = json.menu
+            var layer = json.layer
 
-
-            console.log(str)
-
-            try {
-                var json  = $.parseJSON(str);
-                var xyz   = json.xyz
-                var angle = json.angle
-                var menu  = json.menu
-                var layer = json.layer
-
-                switch (menu) {
-                    case "1"://社区综治
-                        this.layerSocietyControl(layer);
-                        break;
-                    case "2"://大客流
-                        this.layerTourControl(layer);
-                        break;
-                    case "3"://产业园区
-                        this.layerIndustryControl(layer);
-                        break;
+            var layerValue = $.grep(controlData.layerControlData, function (n, i) {
+                if (n.menu == menu && n.layer == layer) {
+                    eval(n.func);
+                    return n;
                 }
+            });
 
-
-                //视口切换
-                if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
-                    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
-                }
-
-                result  = 1;
-                message = con.LayerViewPos + "|" + con.LayerViewOri;
-
-            } catch (e) {
-                result = 0;
-                message = "操作失败";
+            //视口切换
+            if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
+                Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
             }
 
-
-            var pos = this.getCameraPos();
-            re_xyz = pos.split(",")[0];
-            re_angle = pos.split(",")[1];
-
-            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
-            return res
         },
+
         //社区综治图层控制
         layerSocietyControl: function(layercode)
         {
@@ -277,7 +244,7 @@
                     break;
                 }
         },
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////POI定位控制//////////////////////////////////////////////////////////
         //POI定位控制
         poiControl: function (str)
         {
@@ -416,7 +383,7 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////POI信息窗口控制/////////////////////////////////////////////////////
         //POI信息窗口控制
         poiInfoControl: function (str)
         {
