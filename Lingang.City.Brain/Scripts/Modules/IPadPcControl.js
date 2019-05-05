@@ -445,6 +445,7 @@
                             else if (layer == 19) {  //园区
                                 if (id.indexOf("POIIndustryGTopCompany") > -1) {//代表企业POI（花瓣窗口，进入企业内部操作）
                                     //$(".cy-qy-navbar").click();
+                                    $(".cy-qy-navbar").removeClass("active");
                                     require("gl_TopCompany").flyToBuilding();
                                 } 
                             } else if (layer == 20) { //楼宇
