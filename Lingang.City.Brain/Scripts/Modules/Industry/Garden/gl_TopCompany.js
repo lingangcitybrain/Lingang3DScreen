@@ -86,6 +86,7 @@
         //
         loadCompanyMain: function (nodeName)
         {
+            //require("gl_TopCompany").conrolFlower();
             var id = nodeName.split("_")[1];
             this.CompanyID = id;
             //$("#left_second_01").empty();
@@ -96,6 +97,20 @@
             this.loadTopCompanyDetial(nodeName)
             this.closeOtherUi();
             com.openCloseBigDigital('close'); // 收起大数字
+        },
+        conrolFlower: function () {
+            /*********************控制花瓣显示隐藏********************/
+            $(".cy-qy-navbar").addClass("active").children(".cy-qy-menu").css({ "transition": "transform .2s" });
+            $(".cy-qy-navbar").find(".cy-qy-title").each(function () {
+                $(this).css({
+                    "transition-delay": "1s",
+                    "transition-duration": ".3s",
+                    "opacity": 1,
+                    "padding": ".1rem .4rem",
+                })
+            })
+            $(".cy-qy-navbar").find(".cy-qy-menu-close").addClass("active");
+            /*****************************************/
         },
         //企业综合评分雷达图页面
         loadLeftCompanyScore: function (id) {
@@ -383,6 +398,8 @@
                 $("#center_02").show('drop', 1000);//左侧
 
                 require("gl_TopCompany").loadFun();
+                //显示花蕾图
+                require("gl_TopCompany").conrolFlower();
             })
         },
         //关闭花蕾图
@@ -425,57 +442,57 @@
             //    require("gl_TopCompany").clickBoolean = false;
             //}
             var clickBoolean = false;
-            $(".cy-qy-navbar").click(function (ev) {
-                if (ev.target && ev.target == $(".cy-qy-navbar")[0]) {
-                    //console.log(ev.target)
-                    clickBoolean = !clickBoolean;
-                    if (clickBoolean && require("gl_TopCompany").clickBoolean) { //true，true
-                        $(this).addClass("active");
-                        require("gl_TopCompany").clickBoolean = false;
-                    }
-                    else if ((!clickBoolean) == false && require("gl_TopCompany").clickBoolean == false) {  //false，false
-                        $(this).addClass("active");
-                        require("gl_TopCompany").clickBoolean = true;
-                    }
-                    //else if (clickBoolean == false && require("gl_TopCompany").clickBoolean == true && (!$(this).hasClass("active"))==true) {  //false，false
-                    //    $(this).addClass("active");
-                    //    require("gl_TopCompany").clickBoolean = true;
-                    //}
-                    else {
-                        $(this).removeClass("active");
-                        require("gl_TopCompany").clickBoolean = true;
-                        //点击入驻企业操作
-                        require("gl_TopCompany").flyToBuilding();
-                    }
-                    //if ($(this).hasClass("active")) {
-                    //    $(this).removeClass("active");
-                    //    require("gl_TopCompany").flyToBuilding();
-                    //} else {
-                    //    $(this).addClass("active");
-                    //}
-                }
-            })
+            //$(".cy-qy-navbar").click(function (ev) {
+            //    if (ev.target && ev.target == $(".cy-qy-navbar")[0]) {
+            //        //console.log(ev.target)
+            //        clickBoolean = !clickBoolean;
+            //        if (clickBoolean && require("gl_TopCompany").clickBoolean) { //true，true
+            //            $(this).addClass("active");
+            //            require("gl_TopCompany").clickBoolean = false;
+            //        }
+            //        else if ((!clickBoolean) == false && require("gl_TopCompany").clickBoolean == false) {  //false，false
+            //            $(this).addClass("active");
+            //            require("gl_TopCompany").clickBoolean = true;
+            //        }
+            //        //else if (clickBoolean == false && require("gl_TopCompany").clickBoolean == true && (!$(this).hasClass("active"))==true) {  //false，false
+            //        //    $(this).addClass("active");
+            //        //    require("gl_TopCompany").clickBoolean = true;
+            //        //}
+            //        else {
+            //            $(this).removeClass("active");
+            //            require("gl_TopCompany").clickBoolean = true;
+            //            //点击入驻企业操作
+            //            require("gl_TopCompany").flyToBuilding();
+            //        }
+            //        //if ($(this).hasClass("active")) {
+            //        //    $(this).removeClass("active");
+            //        //    require("gl_TopCompany").flyToBuilding();
+            //        //} else {
+            //        //    $(this).addClass("active");
+            //        //}
+            //    }
+            //})
 
-            $(".cy-qy-menu a").each(function (index, element) {
-                var clickBtnABoolean = false;
-                $(this).click(function (ev) {
-                    if (ev.target && ev.target == $(this)[0]) {
-                        clickBtnABoolean = !clickBtnABoolean;
-                        if (clickBtnABoolean) {
-                            $(this).addClass("active");
-                            $(this).find(".cy-qy-divcont") && $(this).find(".cy-qy-divcont").css({ display: "block" })
-                        } else {
-                            $(this).removeClass("active");
-                            $(this).find(".cy-qy-divcont") && $(this).find(".cy-qy-divcont").css({ display: "none" })
-                        }
-                    }
-                })
-            })
+            //$(".cy-qy-menu a").each(function (index, element) {
+            //    var clickBtnABoolean = false;
+            //    $(this).click(function (ev) {
+            //        if (ev.target && ev.target == $(this)[0]) {
+            //            clickBtnABoolean = !clickBtnABoolean;
+            //            if (clickBtnABoolean) {
+            //                $(this).addClass("active");
+            //                $(this).find(".cy-qy-divcont") && $(this).find(".cy-qy-divcont").css({ display: "block" })
+            //            } else {
+            //                $(this).removeClass("active");
+            //                $(this).find(".cy-qy-divcont") && $(this).find(".cy-qy-divcont").css({ display: "none" })
+            //            }
+            //        }
+            //    })
+            //})
 
 
-            setTimeout(function () {
-                $(".cy-qy-navbar").click();
-            }, 200);
+            //setTimeout(function () {
+            //    $(".cy-qy-navbar").click();
+            //}, 200);
         },
         flyToBuilding: function () {
             //飞楼栋

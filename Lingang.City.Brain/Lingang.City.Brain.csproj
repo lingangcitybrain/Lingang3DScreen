@@ -807,6 +807,7 @@
     <Content Include="Scripts\Ajax\Society\s_LayerMenuAjax.js" />
     <Content Include="Scripts\Ajax\Tour\t_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Tour\t_LayerMenuAjax.js" />
+    <Content Include="Scripts\Data\ControlDeskData.js" />
     <Content Include="Scripts\Data\Industry\e_EchartData.js" />
     <Content Include="Scripts\Data\Industry\g_UnmannedCarData.js" />
     <Content Include="Scripts\Data\Industry\e_LayerMenuData.js" />
