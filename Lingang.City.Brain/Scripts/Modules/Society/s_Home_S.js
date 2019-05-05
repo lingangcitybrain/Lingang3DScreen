@@ -16,6 +16,28 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
                     break;
                 default:
             }
-        }
+        },
+        loadIOT: function () {
+            sl_IOT.loadIOT();
+            sl_IOT.loadLeftSecond();
+        },
+        loadCamera: function () {
+            sl_Camera.loadCamera();
+        },
+        loadDrone: function () {
+            sl_Drone.loadDrone();
+        },
+        loadWorkStation: function () {
+            sl_WorkStation.loadWorkStation();
+        },
+        layerSeaboard: function () {
+            sl_SeaboardLine.layerSeaboard();
+        },
+        loadWorkSite: function () {
+            sl_WorkSite.loadWorkSite();
+        },
+        loadEvent: function () {
+            sl_Event.loadEvent();
+        },
     }
 });

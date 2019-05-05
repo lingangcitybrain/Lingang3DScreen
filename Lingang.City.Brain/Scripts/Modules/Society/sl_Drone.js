@@ -9,9 +9,10 @@
         left02_01_video01: null,
         loadDrone: function () {
             this.Revert();
+            require("sl_Drone").loadDronePOI();
+            require("sl_Drone").loadDroneModel();
             com.LayerFlyto(12, function () {
-                require("sl_Drone").loadDronePOI();
-                require("sl_Drone").loadDroneModel();
+                
             })
         },
         loadDronePOI: function () {

@@ -158,25 +158,25 @@
         layerSocietyControl: function(layercode)
         {
             switch (layercode) {
-                case "1"://传感器
+                case "10"://传感器
                     require("s_Main").showLayer('传感器');
                     break;
-                case "2"://摄像头
+                case "11"://摄像头
                     require("s_Main").showLayer('摄像头');
                     break;
-                case "3"://无人机
+                case "12"://无人机
                     require("s_Main").showLayer('无人机');
                     break;
-                case "4"://村居工作站
+                case "13"://村居工作站
                     require("s_Main").showLayer('村居工作站');
                     break;
-                case "5"://海岸线
+                case "14"://海岸线
                     require("s_Main").showLayer('海岸线');
                     break;
-                case "6"://工地
+                case "26"://工地
                     require("s_Main").showLayer('工地');
                     break;
-                case "7"://事件
+                case "15"://事件
                     require("s_Main").showLayer('事件');
                     break;
             }
@@ -239,41 +239,49 @@
 
             switch (layercode) {
                 case "16":
-                    $("#bottom_menu ul li").eq(0).addClass("active");
-                    require("mainMenu").showLayer_e_Main("产业信息");
+                    //$("#bottom_menu ul li").eq(0).addClass("active");
+                    //require("mainMenu").showLayer_e_Main("产业信息");
+                    require("mainMenu").showLayer_e_Main(0);
                     break;
                 case "17":
-                    $("#bottom_menu ul li").eq(1).addClass("active");
-                    require("mainMenu").showLayer_e_Main("象限图谱");  //没效果
+                    //$("#bottom_menu ul li").eq(1).addClass("active");
+                    //require("mainMenu").showLayer_e_Main("象限图谱");  //没效果
+                    require("mainMenu").showLayer_e_Main(1);
                     break;
                 case "18":
-                    $("#bottom_menu ul li").eq(2).addClass("active");//没效果
-                    require("mainMenu").showLayer_e_Main("人员分布");
+                    //$("#bottom_menu ul li").eq(2).addClass("active");//没效果
+                    //require("mainMenu").showLayer_e_Main("人员分布");
+                    require("mainMenu").showLayer_e_Main(2);
                     break;
                 case "19":
-                    $("#bottom_menu ul li").eq(3).addClass("active");
-                    require("mainMenu").showLayer_e_Main("园区信息");
+                    //$("#bottom_menu ul li").eq(3).addClass("active");
+                    //require("mainMenu").showLayer_e_Main("园区信息");
+                    require("mainMenu").showLayer_e_Main(3);
                     break;
                 case "20"://楼宇
-                    //require("mainMenu").showLayer_gMain('楼宇');
-                    require("gl_GardenBuilding").loadBuilding();
-                    $("#bottom_menu ul li").eq(0).addClass("active");
+                    require("mainMenu").showLayer_gMain(0);
+                    //require("gl_GardenBuilding").loadBuilding();
+                    //$("#bottom_menu ul li").eq(0).addClass("active");
                     break;
                 case "21"://停车场
-                    require("mainMenu").showLayer_gMain('停车');//没效果
-                    $("#bottom_menu ul li").eq(1).addClass("active");
+                    //require("mainMenu").showLayer_gMain('停车');//没效果
+                    //$("#bottom_menu ul li").eq(1).addClass("active");
+                    require("mainMenu").showLayer_gMain(1);
                     break;
                 case "22"://无人驾驶接驳车
-                    require("mainMenu").showLayer_gMain('无人驾驶接驳车');
-                    $("#bottom_menu ul li").eq(2).addClass("active");
+                    //require("mainMenu").showLayer_gMain('无人驾驶接驳车');
+                    //$("#bottom_menu ul li").eq(2).addClass("active");
+                    require("mainMenu").showLayer_gMain(2);
                     break;
                 case "23"://事件
-                    require("mainMenu").showLayer_gMain('事件');
-                    $("#bottom_menu ul li").eq(3).addClass("active");
+                    //require("mainMenu").showLayer_gMain('事件');
+                    //$("#bottom_menu ul li").eq(3).addClass("active");
+                    require("mainMenu").showLayer_gMain(3);
                     break;
                 case "24"://产业信息
-                    require("mainMenu").showLayer_gMain('产业信息');
-                    $("#bottom_menu ul li").eq(4).addClass("active");
+                    //require("mainMenu").showLayer_gMain('产业信息');
+                    //$("#bottom_menu ul li").eq(4).addClass("active");
+                    require("mainMenu").showLayer_gMain(4);
                     break;
                 }
         },

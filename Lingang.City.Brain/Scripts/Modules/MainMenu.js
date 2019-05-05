@@ -87,19 +87,17 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
         ChangeLayer_e_Main: function () {
             //产业
             $("#bottom_menu ul li").each(function (index) {//便利对象
-                $(this).click(function () {//点击触发事件
-                    $("li").removeClass("active");//删除当前元素的样式
-                    $("li").eq(index).addClass("active");//添加当前元素的样式
-                    var menuname = $("li").eq(index).text();
-                    require("mainMenu").showLayer_e_Main(menuname);
-
-
+                $(this).click(function () {//点击触发事件                                        
+                    require("mainMenu").showLayer_e_Main(index);
                 });
             });
         },
 
         //切换显示图层
-        showLayer_e_Main: function (menuname) {
+        showLayer_e_Main: function (index) {
+            var menuname = $("li").eq(index).text();
+            $("li").removeClass("active");//删除当前元素的样式
+            $("li").eq(index).addClass("active");//添加当前元素的样式
             e_Main.Revert();
             switch (menuname) {
                 case "产业信息":
@@ -134,17 +132,18 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             //产业
             $("#bottom_menu ul li").each(function (index) {//便利对象
                 $(this).click(function () {//点击触发事件
-                    $("li").removeClass("active");//删除当前元素的样式
-                    $("li").eq(index).addClass("active");//添加当前元素的样式
-                    var menuname = $("li").eq(index).text();
-                    require("mainMenu").showLayer_gMain(menuname);
+                    
+                    require("mainMenu").showLayer_gMain(index);
 
                 });
             });
         },
 
         //切换显示图层
-        showLayer_gMain: function (menuname) {
+        showLayer_gMain: function (index) {
+            $("li").removeClass("active");//删除当前元素的样式
+            $("li").eq(index).addClass("active");//添加当前元素的样式
+            var menuname = $("li").eq(index).text();
             g_Main.Revert();
             switch (menuname) {
                 case "楼宇":

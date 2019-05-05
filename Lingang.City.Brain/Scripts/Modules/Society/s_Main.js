@@ -85,29 +85,28 @@ function (con, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone,
         //切换显示图层
         showLayer: function (menuname) {
             this.Revert();
-            switch (menuname) {
+            switch (menuname)   {
                 case "传感器":
-                    sl_IOT.loadIOT();
-                    sl_IOT.loadLeftSecond();
+                    require("s_Home").loadIOT();                    
                     break;
                 case "摄像头":
-                    sl_Camera.loadCamera();
+                    require("s_Home").loadCamera();
                     break;
                 case "无人机":
-                    sl_Drone.loadDrone();
+                    require("s_Home").loadDrone();
                     break;
                 case "村居工作站":
-                    sl_WorkStation.loadWorkStation();
+                    require("s_Home").loadWorkStation();
                     break;
                 case "海岸线":
-                    sl_SeaboardLine.layerSeaboard();
+                    require("s_Home").layerSeaboard();
                     break;
                 case "工地":
-                    sl_WorkSite.loadWorkSite();
+                    require("s_Home").loadWorkSite();
                     break;
                 case "事件":
                     //Q3D.globalCamera().flyTo(("395683.8080060399,286.4911804199219,-3416926.616417045").toVector3d(), ("-42.453548431396484,-2.83009672164917,-2.5931613445281982").toVector3(), 1, null);
-                    sl_Event.loadEvent();
+                    require("s_Home").loadEvent();
                     break;
                 default:
             }

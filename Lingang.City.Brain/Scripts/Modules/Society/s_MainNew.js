@@ -86,42 +86,26 @@ function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT,
             this.Revert();
             switch (menuname) {
                 case "传感器":
-                    sl_IOT.loadIOT(); //三维POI
-                    sl_IOT.loadLeftSecond(); //左侧第二列内容显示
-                    this.loadCenter1Info();  //当中大数字显示
+                    require("s_Home").loadIOT();
                     break;
                 case "摄像头":
-                    sl_Camera.loadCamera();
-                    //sl_Camera.loadLeftSecond();
-                    sl_IOT.loadLeftSecond();
-                    this.loadCenter1Info();
+                    require("s_Home").loadCamera();
                     break;
                 case "无人机":
-                    sl_Drone.loadDrone();
-                    sl_Drone.loadLeftSecond();
-                    this.loadCenter1Info();
+                    require("s_Home").loadDrone();
                     break;
                 case "村居工作站":
-                    sl_WorkStation.loadWorkStation();
-                    //sl_WorkStation.loadLeftSecond();
-                    sl_IOT.loadLeftSecond();
-                    this.loadCenter1Info();
+                    require("s_Home").loadWorkStation();
                     break;
                 case "海岸线":
-                    sl_SeaboardLine.layerSeaboard();
-                    sl_SeaboardLine.loadLeftSecond();
-                    this.loadCenter1Info();
+                    require("s_Home").layerSeaboard();
                     break;
                 case "工地":
-                    sl_WorkSite.loadWorkSite();
-                    sl_WorkSite.loadLeftSecond();
-                    this.loadCenter1Info();
+                    require("s_Home").loadWorkSite();
                     break;
                 case "事件":
-                    sl_Event.loadEvent();
-                    //sl_Event.loadLeftSecond();
-                    sl_IOT.loadLeftSecond();
-                    this.loadCenter1();
+                    //Q3D.globalCamera().flyTo(("395683.8080060399,286.4911804199219,-3416926.616417045").toVector3d(), ("-42.453548431396484,-2.83009672164917,-2.5931613445281982").toVector3(), 1, null);
+                    require("s_Home").loadEvent();
                     break;
                 default:
             }
