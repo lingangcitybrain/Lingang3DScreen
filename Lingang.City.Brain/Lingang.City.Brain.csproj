@@ -807,15 +807,14 @@
     <Content Include="Scripts\Ajax\Society\s_LayerMenuAjax.js" />
     <Content Include="Scripts\Ajax\Tour\t_EchartAjax.js" />
     <Content Include="Scripts\Ajax\Tour\t_LayerMenuAjax.js" />
-    <Content Include="Scripts\Data\ControlDeskData.js" />
     <Content Include="Scripts\Data\Industry\e_EchartData.js" />
     <Content Include="Scripts\Data\Industry\g_UnmannedCarData.js" />
     <Content Include="Scripts\Data\Industry\e_LayerMenuData.js" />
     <Content Include="Scripts\Data\Industry\g_EchartData.js" />
+    <Content Include="Scripts\Data\IPadPcControlData.js" />
     <Content Include="Scripts\Data\Society\s_EchartData.js" />
     <Content Include="Scripts\Data\Society\s_LayerMenuData.js" />
     <Content Include="Scripts\Data\Society\s_MainData.js" />
-    <Content Include="Scripts\Data\Test\SpecialEfficiencyData.js" />
     <Content Include="Scripts\Data\Tour\t_EchartData.js" />
     <Content Include="Scripts\Data\Tour\t_LayerMenuData.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
