@@ -50,8 +50,12 @@
            //没有可执行代码，同步中控台方法名称
         },
         //点击进入企业详情
-        clickCompany: function () {            
+        clickCompany: function () {       
+            $(".cy-qy-navbar").removeClass("active");
+            //点击入驻企业操作
+            require("gl_TopCompany").flyToBuilding();
             //没有可执行代码，同步中控台方法名称
+
         },
         //楼宇揭楼层
         openFloor: function (floor) {

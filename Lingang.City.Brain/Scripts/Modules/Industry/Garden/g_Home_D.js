@@ -162,6 +162,10 @@
         },
         //点击进入企业详情
         clickCompany: function () {
+            //require("gl_TopCompany").conrolFlower();
+            $(".cy-qy-navbar").removeClass("active");
+            //点击入驻企业操作
+            require("gl_TopCompany").flyToBuilding();
             var jsondata = {
                 "menu": "3",
                 "layer": this.layerNO,

@@ -1,4 +1,4 @@
-﻿define(["config", "common", "dataCache"], function (con, com, dataCache) {
+﻿define(["config", "common", "dataCache", "controlData"], function (con, com, dataCache, controlData) {
     return {
         //地图控制
         mapControl: function (str)
@@ -8,8 +8,6 @@
             var message = "";
             var re_xyz   = "";
             var re_angle = "";
-
-            console.log(str)
 
             try
             {
@@ -100,83 +98,52 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////图层控制////////////////////////////////////////////////////////////
         //图层控制
-        layerControl: function (str)
-        {
-            var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
-            var result = 1;
-            var message = "";
-            var re_xyz = "";
-            var re_angle = "";
+        layerControl: function (str) {
+            var json = $.parseJSON(str);
+            var xyz = json.xyz
+            var angle = json.angle
+            var menu = json.menu
+            var layer = json.layer
 
-
-            console.log(str)
-
-            try {
-                var json  = $.parseJSON(str);
-                var xyz   = json.xyz
-                var angle = json.angle
-                var menu  = json.menu
-                var layer = json.layer
-
-                switch (menu) {
-                    case "1"://社区综治
-                        this.layerSocietyControl(layer);
-                        break;
-                    case "2"://大客流
-                        this.layerTourControl(layer);
-                        break;
-                    case "3"://产业园区
-                        this.layerIndustryControl(layer);
-                        break;
+            var layerValue = $.grep(controlData.layerControlData, function (n, i) {
+                if (n.menu == menu && n.layer == layer) {
+                    eval(n.func);
+                    return n;
                 }
+            });
 
-
-                //视口切换
-                if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
-                    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
-                }
-
-                result  = 1;
-                message = con.LayerViewPos + "|" + con.LayerViewOri;
-
-            } catch (e) {
-                result = 0;
-                message = "操作失败";
+            //视口切换
+            if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
+                Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
             }
 
-
-            var pos = this.getCameraPos();
-            re_xyz = pos.split(",")[0];
-            re_angle = pos.split(",")[1];
-
-            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
-            return res
         },
+
         //社区综治图层控制
         layerSocietyControl: function(layercode)
         {
             switch (layercode) {
-                case "1"://传感器
+                case "10"://传感器
                     require("s_Main").showLayer('传感器');
                     break;
-                case "2"://摄像头
+                case "11"://摄像头
                     require("s_Main").showLayer('摄像头');
                     break;
-                case "3"://无人机
+                case "12"://无人机
                     require("s_Main").showLayer('无人机');
                     break;
-                case "4"://村居工作站
+                case "13"://村居工作站
                     require("s_Main").showLayer('村居工作站');
                     break;
-                case "5"://海岸线
+                case "14"://海岸线
                     require("s_Main").showLayer('海岸线');
                     break;
-                case "6"://工地
+                case "26"://工地
                     require("s_Main").showLayer('工地');
                     break;
-                case "7"://事件
+                case "15"://事件
                     require("s_Main").showLayer('事件');
                     break;
             }
@@ -239,45 +206,53 @@
 
             switch (layercode) {
                 case "16":
-                    $("#bottom_menu ul li").eq(0).addClass("active");
-                    require("mainMenu").showLayer_e_Main("产业信息");
+                    //$("#bottom_menu ul li").eq(0).addClass("active");
+                    //require("mainMenu").showLayer_e_Main("产业信息");
+                    require("mainMenu").showLayer_e_Main(0);
                     break;
                 case "17":
-                    $("#bottom_menu ul li").eq(1).addClass("active");
-                    require("mainMenu").showLayer_e_Main("象限图谱");  //没效果
+                    //$("#bottom_menu ul li").eq(1).addClass("active");
+                    //require("mainMenu").showLayer_e_Main("象限图谱");  //没效果
+                    require("mainMenu").showLayer_e_Main(1);
                     break;
                 case "18":
-                    $("#bottom_menu ul li").eq(2).addClass("active");//没效果
-                    require("mainMenu").showLayer_e_Main("人员分布");
+                    //$("#bottom_menu ul li").eq(2).addClass("active");//没效果
+                    //require("mainMenu").showLayer_e_Main("人员分布");
+                    require("mainMenu").showLayer_e_Main(2);
                     break;
                 case "19":
-                    $("#bottom_menu ul li").eq(3).addClass("active");
-                    require("mainMenu").showLayer_e_Main("园区信息");
+                    //$("#bottom_menu ul li").eq(3).addClass("active");
+                    //require("mainMenu").showLayer_e_Main("园区信息");
+                    require("mainMenu").showLayer_e_Main(3);
                     break;
                 case "20"://楼宇
-                    //require("mainMenu").showLayer_gMain('楼宇');
-                    require("gl_GardenBuilding").loadBuilding();
-                    $("#bottom_menu ul li").eq(0).addClass("active");
+                    require("mainMenu").showLayer_gMain(0);
+                    //require("gl_GardenBuilding").loadBuilding();
+                    //$("#bottom_menu ul li").eq(0).addClass("active");
                     break;
                 case "21"://停车场
-                    require("mainMenu").showLayer_gMain('停车');//没效果
-                    $("#bottom_menu ul li").eq(1).addClass("active");
+                    //require("mainMenu").showLayer_gMain('停车');//没效果
+                    //$("#bottom_menu ul li").eq(1).addClass("active");
+                    require("mainMenu").showLayer_gMain(1);
                     break;
                 case "22"://无人驾驶接驳车
-                    require("mainMenu").showLayer_gMain('无人驾驶接驳车');
-                    $("#bottom_menu ul li").eq(2).addClass("active");
+                    //require("mainMenu").showLayer_gMain('无人驾驶接驳车');
+                    //$("#bottom_menu ul li").eq(2).addClass("active");
+                    require("mainMenu").showLayer_gMain(2);
                     break;
                 case "23"://事件
-                    require("mainMenu").showLayer_gMain('事件');
-                    $("#bottom_menu ul li").eq(3).addClass("active");
+                    //require("mainMenu").showLayer_gMain('事件');
+                    //$("#bottom_menu ul li").eq(3).addClass("active");
+                    require("mainMenu").showLayer_gMain(3);
                     break;
                 case "24"://产业信息
-                    require("mainMenu").showLayer_gMain('产业信息');
-                    $("#bottom_menu ul li").eq(4).addClass("active");
+                    //require("mainMenu").showLayer_gMain('产业信息');
+                    //$("#bottom_menu ul li").eq(4).addClass("active");
+                    require("mainMenu").showLayer_gMain(4);
                     break;
                 }
         },
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////POI定位控制//////////////////////////////////////////////////////////
         //POI定位控制
         poiControl: function (str)
         {
@@ -416,7 +391,7 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////POI信息窗口控制/////////////////////////////////////////////////////
         //POI信息窗口控制
         poiInfoControl: function (str)
         {
@@ -445,6 +420,7 @@
                             else if (layer == 19) {  //园区
                                 if (id.indexOf("POIIndustryGTopCompany") > -1) {//代表企业POI（花瓣窗口，进入企业内部操作）
                                     //$(".cy-qy-navbar").click();
+                                    $(".cy-qy-navbar").removeClass("active");
                                     require("gl_TopCompany").flyToBuilding();
                                 } 
                             } else if (layer == 20) { //楼宇
