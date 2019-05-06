@@ -121,6 +121,54 @@
 
         },
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //图表控制
+        echartControl: function (str) {
+            console.log(str)
+            var res = { "menu": "", "massage": "", "seat": "", "command": "", }
+            var result = 1;
+            var massage = "";
+            try {
+                var json = $.parseJSON(str);
+
+                var menu = json.menu
+                var seat = json.seat
+                var command = json.command
+                switch (seat) {
+                    case "Left_First_02"://游客分析
+                        require("t_Echart").bigTouristAnalysis();
+                        break;
+                    case "Left_First_03"://游客趋势分析
+                        require("t_Echart").bigFutureVisitorTraffic();
+                        break;
+                    case "Left_First_04"://舆情分析
+                        require("t_Echart").bigYqfx();
+                        break;
+                    case "Left_Second_01"://无人机
+                        require("t_Echart").bigwrj();
+                        break;
+                    case "Left_Second_03"://交通信息
+                        require("t_Echart").bigJtxx();
+                        break;
+                    case "Right_First_01"://交通信息
+                        require("t_Echart").bigRycltj();
+                        break;
+                    case "Right_First_02"://停车场使用情况
+                        require("t_Echart").bigTccsyqk();
+                        break;
+                    case "Right_First_03"://近五日事件统计
+                        require("t_Echart").bigjwrsjtj();
+                        break;
+                    default:
+                }
+                result = 1;
+                message = "操作成功";
+            } catch (arr) {
+                result = 0;
+                message = "操作失败";
+            }
+        },
+
         //社区综治图层控制
         layerSocietyControl: function(layercode)
         {
@@ -309,6 +357,11 @@
             res = { "code ": result, " message ": message }
             return res
         },
+        //社区综合POI
+        //poiSocietyControl: function (id) {
+
+        //},
+        //产业POI
         poiIndustryControl: function (id) {
             //switch (menu) {
             //    case "1"://社区综治
