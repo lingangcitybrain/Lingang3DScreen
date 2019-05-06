@@ -309,6 +309,11 @@
             res = { "code ": result, " message ": message }
             return res
         },
+        //社区综合POI
+        //poiSocietyControl: function (id) {
+
+        //},
+        //产业POI
         poiIndustryControl: function (id) {
             //switch (menu) {
             //    case "1"://社区综治

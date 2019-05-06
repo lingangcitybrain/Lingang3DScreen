@@ -39,5 +39,10 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         loadEvent: function () {
             sl_Event.loadEvent();
         },
+        /*******************************POI操作********************************************/
+
+        PoiEvent: function (nodename) {
+            s_Main.PoiEvent(nodename);
+        },
     }
 });

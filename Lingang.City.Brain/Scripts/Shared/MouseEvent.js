@@ -14,7 +14,8 @@
 
                         
                         if (nodename.indexOf("POISociety") > -1) {   //社会综治POI
-                            s_Main.PoiEvent(nodename);
+                            require("s_Home").PoiEvent(nodename);
+                            //s_Main.PoiEvent(nodename);
                         }
                         else if(nodename.indexOf("POITour") > -1) {   //大客流POI
                             t_Main.PoiEvent(nodename);
