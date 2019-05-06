@@ -42,7 +42,7 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         /*******************************POI操作********************************************/
 
         PoiEvent: function (nodename) {
-            s_Main.PoiEvent(nodename);
+            s_Main.PoiEvent(nodename);//测试git
         },
     }
 });
