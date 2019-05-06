@@ -265,7 +265,7 @@
         //    require("s_Echart").myChartsxt3.setOption(option);// 为echarts对象加载数据
         //},
         //无人机
-        wrj: function () {      
+        wrj: function () {
             var wrjChart = document.getElementById('wrj-chart');
 
             //var post_data = { "communityId": "s012", "type": "" };

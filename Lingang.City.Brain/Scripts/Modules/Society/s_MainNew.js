@@ -1,5 +1,5 @@
-﻿define(["config", "common", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation'],
-function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation) {
+﻿define(["config", "common", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
+function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
     return {
         left01_02_video01: null,
         left01_02_video02: null,
@@ -92,7 +92,6 @@ function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT,
                     break;
                 case "摄像头":
                     sl_Camera.loadCamera();
-                    //sl_Camera.loadLeftSecond();
                     sl_IOT.loadLeftSecond();
                     this.loadCenter1Info();
                     break;
@@ -103,26 +102,39 @@ function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT,
                     break;
                 case "村居工作站":
                     sl_WorkStation.loadWorkStation();
-                    //sl_WorkStation.loadLeftSecond();
                     sl_IOT.loadLeftSecond();
                     this.loadCenter1Info();
                     break;
                 case "海岸线":
                     sl_SeaboardLine.layerSeaboard();
                     sl_SeaboardLine.loadLeftSecond();
-                    this.loadCenter1Info();
+                    this.loadCenter1();
                     break;
                 case "工地":
                     sl_WorkSite.loadWorkSite();
                     sl_WorkSite.loadLeftSecond();
-                    this.loadCenter1Info();
+                    this.loadCenter1();
+                    break;
+                case "街面":
+                    sl_Street.loadWorkSite();
+                    sl_Street.loadLeftSecond();
+                    this.loadCenter1();
+                    break;
+                case "网格":
+                    sl_Grid.loadGridPOI();
+                    sl_Grid.loadLeftSecond();
+                    this.loadCenter1();
                     break;
                 case "事件":
                     sl_Event.loadEvent();
-                    //sl_Event.loadLeftSecond();
                     sl_IOT.loadLeftSecond();
                     this.loadCenter1();
                     break;
+                //case "管网":
+                //    sl_Event.loadEvent();
+                //    sl_IOT.loadLeftSecond();
+                //    this.loadCenter1Info();
+                //    break;
                 default:
             }
         },
@@ -522,6 +534,9 @@ function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT,
             sl_SeaboardLine.Revert();
             sl_WorkSite.Revert();
             sl_WorkStation.Revert();
+            sl_Street.Revert();
+            sl_Grid.Revert();
+
         }
     }
 });
