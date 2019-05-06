@@ -453,14 +453,24 @@
             s_EchartAjax.getSocietyCgq(function (result) {
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data=require("s_Echart").cgqData;
-                
-                $('#cgq-ywgy').html(data[1].total)
-                $('#cgq-zndt').html(data[2].total)
-                $('#cgq-wxmc').html(data[3].total)
-                $('#cgq-wxkm').html(data[4].total)
-                $('#cgq-dzwl').html(data[5].total)
-                $('#cgq-znjg').html(data[6].total)
-                $('#cgq-tcdc').html(data[7].total)
+                console.info(data);
+                console.info(data.data.sensorNumList);
+                data = data.data.sensorNumList;
+                //$('#cgq-ywgy').html(data[1].sensorCount)
+                //$('#cgq-zndt').html(data[2].sensorCount)
+                //$('#cgq-wxmc').html(data[3].sensorCount)
+                //$('#cgq-wxkm').html(data[4].sensorCount)
+                //$('#cgq-dzwl').html(data[5].sensorCount)
+                //$('#cgq-znjg').html(data[6].sensorCount)
+                //$('#cgq-tcdc').html(data[7].sensorCount)
+
+                $('#cgq-ywgy').html(data[6].sensorCount)
+                $('#cgq-zndt').html(data[5].sensorCount)
+                $('#cgq-wxmc').html(data[3].sensorCount)
+                $('#cgq-wxkm').html(data[2].sensorCount)
+                $('#cgq-dzwl').html(data[8].sensorCount)
+                $('#cgq-znjg').html(data[4].sensorCount)
+                $('#cgq-tcdc').html(data[1].sensorCount)
             })
         },
         /*********************左侧图表-end*********************/

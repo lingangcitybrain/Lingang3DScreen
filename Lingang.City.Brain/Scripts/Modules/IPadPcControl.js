@@ -273,26 +273,25 @@
                 var id = json.id
 
 
-                switch (menu) {
-                    case "1"://社区综治
-                        //this.layerSocietyControl(layer);
-                        break;
-                    case "2"://大客流
-                        //this.layerTourControl(layer);
-                        break;
-                    case "3"://产业园区
-                        this.poiIndustryControl(id);
-                        break;
-                }
-
-
-                //if (id != null)
-                //{
-                //    var nodename = "POITourCamera_" + id;
-                //    require("tl_Camera").loadCameraDetial(nodename)
+                //switch (menu) {
+                //    case "1"://社区综治
+                //        //this.layerSocietyControl(layer);
+                //        break;
+                //    case "2"://大客流
+                //        //this.layerTourControl(layer);
+                //        break;
+                //    case "3"://产业fazhan
+                //        this.poiIndustryControl(id);
+                //        break;
                 //}
 
-
+                var layerValue = $.grep(controlData.poiControlData, function (n, i) {
+                if (n.menu == menu ) {
+                    var funcStr = n.func.replace('*',id);
+                    eval(funcStr);
+                    return n;
+                }
+            });
 
                 //视口切换
                 if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
