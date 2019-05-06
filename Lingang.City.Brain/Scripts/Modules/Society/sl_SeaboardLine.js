@@ -82,13 +82,57 @@
         },
 
         //加载第二列的div
+        //loadLeftSecond: function () {
+        //    var url = con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard.html';
+        //    require(['text!' + url], function (template) {
+        //        $("#left_second_01").html(template);
+
+
+        //    })
+        //},
+
+        //加载第二列的div
         loadLeftSecond: function () {
-            var url = con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard.html';
-            require(['text!' + url], function (template) {
-                $("#left_second_01").html(template);
+            this.loadLeftSecond1();
+            this.loadLeftSecond2();
+            this.loadLeftSecond3();
 
+            //左侧第1列第4个
+            var optionL14 = {
+                aniDom: "#left02_04",
+                htmlDom: "#left_second_04",
+                url: '',
+                leftOrRight: 'left'
+            }
+            com.UIControlAni(optionL14, null);
 
-            })
+        },
+        //加载第二列的div
+        loadLeftSecond1: function () {
+            var option = {
+                aniDom: "#left02_01",
+                htmlDom: "#left_second_01",
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard1.html'
+            }
+            com.UIControlAni(option, function () { return null });
+        },
+        //加载第二列的div
+        loadLeftSecond2: function () {
+            var option = {
+                aniDom: "#left02_02",
+                htmlDom: "#left_second_02",
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard2.html'
+            }
+            com.UIControlAni(option, function () { return null });
+        },
+        //加载第二列的div
+        loadLeftSecond3: function () {
+            var option = {
+                aniDom: "#left02_03",
+                htmlDom: "#left_second_03",
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard3.html'
+            }
+            com.UIControlAni(option, function () { return null });
         },
 
         Revert: function () {

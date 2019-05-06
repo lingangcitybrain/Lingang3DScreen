@@ -263,8 +263,8 @@
                 com.loopFun($('.sxt-circlediv')[3], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
                 com.loopFun($('.sxt-circlediv')[4], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
                 com.loopFun($('.sxt-circlediv')[5], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 15, 30, 1000);
-                com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 15, 30, 1000);
+                //com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 15, 30, 1000);
+                //com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 15, 30, 1000);
             } else if ($("body").width() == 11520) {
                 $("html").css({ fontSize: "130px" });
                 $(".sxt-circlediv").each(function () { $(this).empty() })
@@ -274,11 +274,14 @@
                 com.loopFun($('.sxt-circlediv')[3], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
                 com.loopFun($('.sxt-circlediv')[4], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
                 com.loopFun($('.sxt-circlediv')[5], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 20, 45, 1000);
-                com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 20, 45, 1000);
+                //com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 20, 45, 1000);
+                //com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 20, 45, 1000);
             }      
         },
 
+        Scrolldiv: function(){
+            $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+        },
         
         Revert: function () {
             this.clearIOTPOI();

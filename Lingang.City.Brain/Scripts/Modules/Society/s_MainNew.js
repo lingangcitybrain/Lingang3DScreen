@@ -1,5 +1,5 @@
-﻿define(["config", "common", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation'],
-function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation) {
+﻿define(["config", "common", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
+function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
     return {
         left01_02_video01: null,
         left01_02_video02: null,
@@ -103,10 +103,25 @@ function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT,
                 case "工地":
                     require("s_Home").loadWorkSite();
                     break;
+                case "街面":
+                    sl_Street.loadWorkSite();
+                    sl_Street.loadLeftSecond();
+                    this.loadCenter1();
+                    break;
+                case "网格":
+                    sl_Grid.loadGridPOI();
+                    sl_Grid.loadLeftSecond();
+                    this.loadCenter1();
+                    break;
                 case "事件":
                     //Q3D.globalCamera().flyTo(("395683.8080060399,286.4911804199219,-3416926.616417045").toVector3d(), ("-42.453548431396484,-2.83009672164917,-2.5931613445281982").toVector3(), 1, null);
                     require("s_Home").loadEvent();
                     break;
+                //case "管网":
+                //    sl_Event.loadEvent();
+                //    sl_IOT.loadLeftSecond();
+                //    this.loadCenter1Info();
+                //    break;
                 default:
             }
         },
@@ -506,6 +521,9 @@ function (con, com, s_LayerMenuAjax,s_LeftLayer, s_RightLayer, s_Echart, sl_IOT,
             sl_SeaboardLine.Revert();
             sl_WorkSite.Revert();
             sl_WorkStation.Revert();
+            sl_Street.Revert();
+            sl_Grid.Revert();
+
         }
     }
 });

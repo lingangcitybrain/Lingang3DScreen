@@ -185,6 +185,7 @@
                 require("sl_IOT").loadSocietyCarchart();
             })
         },
+
         Revert: function () {
             this.clearWorkStationPOI();
         }

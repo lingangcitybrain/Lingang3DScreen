@@ -219,10 +219,6 @@
                     }
                 }
             }
-
-            
-
-            
         },
         //隐藏三级多边形
         clearDecal: function () {
@@ -260,6 +256,224 @@
             }
         },
         
+        //加载第二列的div
+        loadLeftSecond: function () {
+            this.loadLeftSecond1();
+            this.loadLeftSecond2();
+            this.loadLeftSecond3();
+
+            //左侧第1列第4个
+            var optionL14 = {
+                aniDom: "#left02_04",
+                htmlDom: "#left_second_04",
+                url: '',
+                leftOrRight: 'left'
+            }
+            com.UIControlAni(optionL14, null);
+
+        },
+        //加载第二列的div
+        loadLeftSecond1: function () {
+            var option = {
+                aniDom: "#left02_01",
+                htmlDom: "#left_second_01",
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventGrid1.html'
+            }
+            com.UIControlAni(option, function () { require("sl_Grid").loadGridCZAJSLchart();
+        });
+        },
+        //加载第二列的div
+        loadLeftSecond2: function () {
+            var option = {
+                aniDom: "#left02_02",
+                htmlDom: "#left_second_02",
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventGrid2.html'
+            }
+            com.UIControlAni(option, function () { require("sl_Grid").loadCirclediv(); });
+        },
+        //加载第二列的div
+        loadLeftSecond3: function () {
+            var option = {
+                aniDom: "#left02_03",
+                htmlDom: "#left_second_03",
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventGrid3.html'
+            }
+            com.UIControlAni(option, function () { require("sl_Grid").loadGridCZZZBMchart();});
+        },
+
+
+        loadGridCZAJSLchart: function () {
+            if ($("#czajsl-chart").length <= 0) { return false;}
+
+            // echart
+	        var czajslChart = document.getElementById('czajsl-chart');
+	        var czajsldata =[];
+	        for (var i = 0; i < 12; i++) {
+		         czajsldata.push(Math.round((Math.random() *1000 +3000)));
+                }
+	        var myChartczajsl = echarts.init(czajslChart);
+	        czajslOption = {
+	            legend: {
+	            show: false
+	        },
+	            color: ['#3398DB'],
+		            tooltip: {
+	            trigger: 'axis',
+	                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+	                    type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+	                    }
+	                    },
+	                        grid: {
+	                            left: '1%',   // grid 组件离容器左侧的距离。
+	                        right: '2%',
+	                        bottom: '2%',
+	                    height: "88%",
+	            containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+	            },
+	                xAxis: {
+	                type: 'category',
+	                data: ["2018/1", "2018/2", "2018/3", "2018/4", "2018/5", "2018/6", "2018/7", "2018/8", "2018/9", "2018/10", "2018/11", "2018/12"],
+	                boundaryGap: ['10%', '10%'],
+	            axisTick: {
+	            show: true,
+	            },
+	                axisLine: {
+	                lineStyle: {
+	                color: "rgba(80,172,254,.2)"
+				        }
+			        },
+				            axisLabel: {
+	                textStyle: {
+	                fontSize: 20,
+	                    color: "#00d7fe"
+	            }
+	            },
+	                splitLine: {
+	                    lineStyle: {
+	                        color: "rgba(80,172,254,.2)"
+	                    }
+	                    }
+	            },
+	                yAxis: {
+	                name: "(记录数)",
+	                    nameTextStyle: {
+	                        color: "#00d7fe",
+	                            fontSize: 18,
+	                            align: 'center',
+	                            },
+	                            axisTick: {
+	                            show: true,
+	                },
+	                    axisLine: {
+	                lineStyle: {
+	                color: "rgba(80,172,254,.2)",
+	                }
+			        },
+			            interval: 1000,
+			                min: 0,
+			                max: 7000,
+			                axisLabel: {
+			                textStyle: {
+			                    fontSize: 22,
+			                color: "#00d7fe",
+	                }
+	                },
+	                    splitLine: {
+	                lineStyle: {
+	                    color: "rgba(80,172,254,.2)"
+	                    }
+	                    }
+	                    },
+	                        series: [
+		          {
+	                        type: 'line',
+		              //smooth:true,
+	                        color: "rgba(7,196,230,1)",
+	                        areaStyle: {
+	                opacity: .1,
+	        },
+	            lineStyle: {
+	                width: 2,
+	            },
+	                    symbolSize: 4,
+	                        data: czajsldata,
+	                        }
+	                    ]
+	                    };
+            myChartczajsl.setOption(czajslOption);
+        },
+
+        loadCirclediv: function () {
+            // 摄像头圆圈
+            if ($("body").width() == 7680) {
+                $("html").css({ fontSize: "90px" });
+                $(".czajlb-circlediv").each(function () { $(this).empty();})
+                com.loopFun($('.czajlb-circlediv')[0], 40, '#1f2533', '#eda637', 'transparent', '20px', 18, 36, 1000);
+                com.loopFun($('.czajlb-circlediv')[1], 32, '#1f2533', '#05c1f8', 'transparent', '20px', 18, 36, 1000);
+                com.loopFun($('.czajlb-circlediv')[2], 28, '#1f2533', '#55b400', 'transparent', '20px', 18, 36, 1000);
+            } else if ($("body").width() == 11520) {
+                $("html").css({ fontSize: "130px" });
+                $(".czajlb-circlediv").each(function () { $(this).empty(); })
+                com.loopFun($('.czajlb-circlediv')[0], 40, '#1f2533', '#eda637', 'transparent', '20px', 25, 54, 1000);
+                com.loopFun($('.czajlb-circlediv')[1], 32, '#1f2533', '#05c1f8', 'transparent', '20px', 25, 54, 1000);
+                com.loopFun($('.czajlb-circlediv')[2], 28, '#1f2533', '#55b400', 'transparent', '20px', 25, 54, 1000);
+            }
+        },
+        loadGridCZZZBMchart: function () {
+            if ($("#czajsl-chart").length <= 0) { return false;}
+
+            var czzzbmChart = document.getElementById('czzzbm-chart');
+
+	        var myChartczzzbm = echarts.init(czzzbmChart);
+	        czzzbmOption = {
+
+	            tooltip : {
+	    	        show:false,
+	                trigger: 'item',
+	                formatter: "{b} : {c} ({d}%)"
+	            },
+	            color:["#0b6ccd","#eb5501"],
+	            legend:{
+	    	        show:false,
+	            },
+		        grid: {
+		          left: '1%',   // grid 组件离容器左侧的距离。
+		          right: '1%',
+		          bottom: '2%',
+		          height: "94%",
+		          containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+		        },
+	            series : [
+	                {
+	                    type: 'pie',
+	                    radius : '58%',
+	                    center: ['50%', '50%'],
+	                    data:[
+	            	        {value: 12, selected:true},
+	            	        {value:88}
+	                    ],
+	                    selectedOffset:25,
+	                    label:{
+	            	        fontSize:22
+	                    },
+	                    labelLine:{
+	            	        show:false,
+	                    },
+	                    itemStyle: {
+	            	        show:false,
+	                        emphasis: {
+	                            shadowBlur: 10,
+	                            shadowOffsetX: 0,
+	                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+	                        }
+	                    }
+	                }
+	            ]
+	        };
+
+	        myChartczzzbm.setOption(czzzbmOption);
+        },
+
         //清空
         Revert: function () {
             require("sl_Grid").clearGridOneLevelLine();//隐藏一级网格

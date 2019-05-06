@@ -71,6 +71,8 @@
         sl_SeaboardLine: "Modules/Society/sl_SeaboardLine",
         sl_WorkSite: "Modules/Society/sl_WorkSite",
         sl_WorkStation: "Modules/Society/sl_WorkStation",
+        sl_Street: "Modules/Society/sl_Street",
+        sl_Grid: "Modules/Society/sl_Grid",
 
         s_Event: "Modules/Society/s_Event",
         s_PoiDetial: "Modules/Society/s_PoiDetial",

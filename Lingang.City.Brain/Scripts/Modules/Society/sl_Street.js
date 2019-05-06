@@ -57,7 +57,7 @@
             }
         },
         //清空工地POI
-        clearWorkSitePOI: function () {
+        clearStreetPOI: function () {
             var data = this.POIData;
             var areaName = con.AreaName;
             //设置POI隐藏
@@ -91,14 +91,23 @@
             this.loadLeftSecond1();
             this.loadLeftSecond2();
             this.loadLeftSecond3();
-            this.loadLeftSecond4();
+
+            //左侧第1列第4个
+            var optionL14 = {
+                aniDom: "#left02_04",
+                htmlDom: "#left_second_04",
+                url: '',
+                leftOrRight: 'left'
+            }
+            com.UIControlAni(optionL14, null);
+
         },
         //加载第二列的div
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
                 htmlDom: "#left_second_01",
-                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite1.html'
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet1.html'
             }
             com.UIControlAni(option, function () { return null });
         },
@@ -107,7 +116,7 @@
             var option = {
                 aniDom: "#left02_02",
                 htmlDom: "#left_second_02",
-                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite2.html'
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet2.html'
             }
             com.UIControlAni(option, function () { return null });
            // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
@@ -117,27 +126,14 @@
             var option = {
                 aniDom: "#left02_03",
                 htmlDom: "#left_second_03",
-                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite3.html'
+                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet3.html'
             }
             com.UIControlAni(option, function () { return null });
            // com.UIControlAni(option, function () { require("sl_IOT").loadCirclediv(); });
         },
-        //加载第二列的div
-        loadLeftSecond4: function () {
-            var option = {
-                aniDom: "#left02_04",
-                htmlDom: "#left_second_04",
-                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite4.html'
-            }
-            com.UIControlAni(option, function () { require("sl_IOT").Scrolldiv();});
-           // com.UIControlAni(option, function () { return null; });
-        },
-
-
-
 
         Revert: function () {
-            this.clearWorkSitePOI();
+            this.clearStreetPOI();
         }
     }
 })
