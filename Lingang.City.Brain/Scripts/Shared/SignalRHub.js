@@ -48,6 +48,13 @@
                 })
             };
 
+            //图表控制信息
+            control.client.broadcastEchartControlInfo = function (message) {
+                require(["iPad"], function (iPad) {
+                    iPad.echartControl(message)
+                })
+            };
+
             //POI控制信息
             control.client.broadcastPoiControlInfo = function (message) {
                 require(["iPad"], function (iPad) {

@@ -49,6 +49,22 @@ namespace Lingang.City.Brain.Web.Controllers
         }
 
         /// <summary>
+        /// 图表控制
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult echartcontrol(echartControlModel model)
+        {
+            string strModel = JsonConvert.SerializeObject(model);
+
+            ControlHub control = new ControlHub();
+            control.SendEchartControl(strModel);
+            logger.Trace("图表操作控制：" + strModel);
+            return Json(new returnResultModel() { code = "1", message = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 图层控制
         /// </summary>
         /// <param name="model"></param>
