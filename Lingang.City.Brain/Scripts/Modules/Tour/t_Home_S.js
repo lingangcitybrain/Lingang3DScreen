@@ -8,7 +8,6 @@
             },
             loadBigChart: function (seat) {
                 require("t_Echart").loadBigChart(seat);
-               
             },
             closeBigChart: function () {
                 require("t_Echart").closeBigChart()
