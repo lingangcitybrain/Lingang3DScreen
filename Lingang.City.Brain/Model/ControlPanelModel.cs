@@ -30,6 +30,13 @@ namespace Lingang.City.Brain.Web.Model
         public string angle { get; set; }
     }
 
+    public class echartControlModel
+    {
+        public string menu { get; set; }
+        public string seat { get; set; }
+        public string command { get; set; }
+    }
+
     public class poiControlModel
     {
         public string menu { get; set; }
