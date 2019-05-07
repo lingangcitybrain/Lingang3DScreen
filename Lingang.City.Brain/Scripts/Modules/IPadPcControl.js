@@ -286,7 +286,7 @@
                 var id = json.id
 
                 var layerValue = $.grep(controlData.poiControlData, function (n, i) {
-                    if (n.menu == menu && n.layer == layer) {
+                    if (n.menu == menu) {  //&& n.layer == layer
                     var funcStr = n.func.replace('*',id);
                     eval(funcStr);
                     return n;
