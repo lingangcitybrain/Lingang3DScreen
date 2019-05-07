@@ -1,4 +1,4 @@
-﻿define(["config", "common", "t_EchartAjax", "util"], function (con, com, t_EchartAjax, util) {
+﻿define(["config", "common", "t_EchartAjax", "util","t_Home"], function (con, com, t_EchartAjax, util,t_Home) {
 
     function xData() {//获取近6月日期
         var dataArr = [];
@@ -164,7 +164,6 @@
                         require("t_Echart").bigjwrsjtj();
                         break;
                     default:
-
                 }
             })
         },

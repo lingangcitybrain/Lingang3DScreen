@@ -2,7 +2,7 @@
 //define( function () {
     return {
         WebServiceUrl: "http://" + location.host + "/LingangCityBrain/",
-        WebServiceUrlForControl: "http://192.168.3.105/LingangCityBrain/",
+        WebServiceUrlForControl: "http://192.168.3.202/LingangCityBrain/",
         HtmlUrl: "/LingangCityBrain/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
         InterfaceUrl_test: "http://47.101.181.131:8080/",  //接口地址
@@ -14,9 +14,9 @@
         IsInterface: true,//是否走接口true:接口false本地
         AreaName: "gwh_xilou",
         CONFIG_NAME: "Example",
-        SERVER_PATH: "http://" + location.host + "/mapdata3d/LingangCityBrain20190321",
-        //SERVER_PATH: "http://192.168.3.207/mapdata3d/LingangCityBrain20190321",
-        //LICENSE_SVR: "http://www.q-map.com.cn:8280/",
+        //SERVER_PATH: "http://" + location.host + "/mapdata3d/LingangCityBrain20190321",
+        SERVER_PATH: "http://192.168.3.199/mapdata3d/LingangCityBrain20190321",
+        LICENSE_SVR: "http://192.168.3.199/",
         VideoInitialSize: null,//视频初始大小
         VideoInitialPosition: null,//视频初始位置
         isMonitorURL_service: false,

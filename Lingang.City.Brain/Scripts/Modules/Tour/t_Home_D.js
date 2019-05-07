@@ -11,77 +11,25 @@
                 control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
 
             },
-            loadBigChartleft2: function () {
-                t_Echart.loadBigChart();
+            loadBigChart: function (divname) {
+                
+                require("t_Echart").loadBigChart(divname);
                 var jsondata = {
                     'menu': '2',
-                    'seat': 'Left_First_02',
+                    'seat': divname,
                     'command': 'open',
                 };
+                //return divname;
                 control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
             },
-            loadBigChartleft3: function () {
-                t_Echart.loadBigChart();
+            closeBigChart: function () {
+                require("t_Echart").closeBigChart()
                 var jsondata = {
                     'menu': '2',
-                    'seat': 'Left_First_03',
-                    'command': 'open',
+                    'seat': '',
+                    'command': 'close',
                 };
                 control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
-            loadBigChartleft4: function () {
-                t_Echart.loadBigChart();
-                var jsondata = {
-                    'menu': '2',
-                    'seat': 'Left_First_04',
-                    'command': 'open',
-                };
-                control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
-            loadBigChartlefts1: function () {
-                t_Echart.loadBigChart();
-                var jsondata = {
-                    'menu': '2',
-                    'seat': 'Left_Second_01',
-                    'command': 'open',
-                };
-                control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
-            loadBigChartlefts3: function () {
-                t_Echart.loadBigChart();
-                var jsondata = {
-                    'menu': '2',
-                    'seat': 'Left_Second_03',
-                    'command': 'open',
-                };
-                control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
-            loadBigChartright1: function () {
-                t_Echart.loadBigChart();
-                var jsondata = {
-                    'menu': '2',
-                    'seat': 'Right_First_01',
-                    'command': 'open',
-                };
-                control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
-            loadBigChartright2: function () {
-                t_Echart.loadBigChart();
-                var jsondata = {
-                    'menu': '2',
-                    'seat': 'Right_First_02',
-                    'command': 'open',
-                };
-                control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
-            loadBigChartright3: function () {
-                t_Echart.loadBigChart();
-                var jsondata = {
-                    'menu': '2',
-                    'seat': 'Right_First_03',
-                    'command': 'open',
-                };
-                control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
-            },
+        }
         }
     });

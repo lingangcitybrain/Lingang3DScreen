@@ -1,4 +1,4 @@
-﻿define(["config", "common", "dataCache", "controlData"], function (con, com, dataCache, controlData) {
+﻿define(["config", "common", "dataCache", "controlData","t_Home"], function (con, com, dataCache, controlData,t_Home) {
     return {
         //地图控制
         mapControl: function (str)
@@ -130,36 +130,32 @@
             var massage = "";
             try {
                 var json = $.parseJSON(str);
-
                 var menu = json.menu
                 var seat = json.seat
                 var command = json.command
-                switch (seat) {
-                    case "Left_First_02"://游客分析
-                        require("t_Echart").bigTouristAnalysis();
-                        break;
-                    case "Left_First_03"://游客趋势分析
-                        require("t_Echart").bigFutureVisitorTraffic();
-                        break;
-                    case "Left_First_04"://舆情分析
-                        require("t_Echart").bigYqfx();
-                        break;
-                    case "Left_Second_01"://无人机
-                        require("t_Echart").bigwrj();
-                        break;
-                    case "Left_Second_03"://交通信息
-                        require("t_Echart").bigJtxx();
-                        break;
-                    case "Right_First_01"://交通信息
-                        require("t_Echart").bigRycltj();
-                        break;
-                    case "Right_First_02"://停车场使用情况
-                        require("t_Echart").bigTccsyqk();
-                        break;
-                    case "Right_First_03"://近五日事件统计
-                        require("t_Echart").bigjwrsjtj();
-                        break;
-                    default:
+                if (menu == 1) {
+                    if (command == "open") {
+                        require("s_Home").loadBigChart(seat)
+                    }
+                    else {
+                        require('s_Home').closeBigChart()
+                    }
+                }
+                if (menu == 2) {                    
+                    if (command == "open") {
+                        require("t_Home").loadBigChart(seat)
+                    }
+                    else {
+                        require('t_Home').closeBigChart()
+                    }
+                }
+                else if (menu == 3) {
+                    if (command == "open") {
+                        require("g_Home").loadBigChart(seat)
+                    }
+                    else {
+                        require('g_Home').closeBigChart()
+                    }
                 }
                 result = 1;
                 message = "操作成功";
