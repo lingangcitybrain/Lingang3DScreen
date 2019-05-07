@@ -25,7 +25,7 @@
         echarts: "Tools/echarts",
         nicescroll: "Tools/divscroll",
         util: "Tools/util",
-        aliplayer: "https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
+        aliplayer: "Tools/Aliplayer",//"https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
         animsition: "Tools/jqueryUI/jquery.animsition.min",//JS特效
         weather: "Tools/Weather",
         pagination: "jquery.pagination",
