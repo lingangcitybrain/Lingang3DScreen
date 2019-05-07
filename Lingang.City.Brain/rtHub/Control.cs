@@ -75,5 +75,9 @@ namespace Lingang.City.Brain.Web.rtHub
         {
             Clients.All.broadcastPoiInfoControlInfo(message);
         }
+        private void BroadcastEchartControlInfo(string message)
+        {
+            Clients.All.broadcastEchartControlInfo(message);
+        }
     }
 }
