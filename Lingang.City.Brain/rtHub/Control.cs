@@ -45,6 +45,10 @@ namespace Lingang.City.Brain.Web.rtHub
         {
             BroadcastPoiControlInfo(msg);
         }
+        public void SendEchartControlInfo(string key, string msg)
+        {
+            BroadcastEchartControlInfo(msg);
+        }
         public void SendPoiInfoControlInfo(string key, string msg)
         {
             BroadcastPoiInfoControlInfo(msg);

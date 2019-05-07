@@ -58,6 +58,19 @@ namespace Lingang.City.Brain.Web.rtHub
             }
         }
 
+        // 图表控制信息
+        public void SendEchartControl(string msg)
+        {
+            try
+            {
+                _control.SendEchartControlInfo("", msg);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // POI控制信息
         public void SendPoiControl(string msg)
         {
