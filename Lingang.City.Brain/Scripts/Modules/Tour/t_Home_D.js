@@ -34,7 +34,7 @@
        
             /*******************底部菜单图层**************************/
             loadVisitorsMap: function () {
-                this.layerNO = 16;
+                this.layerNO = 1;
                 tl_VisitorsMap.loadVisitorsMap();
                 var jsondata = {
                     "menu": "2",
@@ -45,7 +45,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadRoadCondition: function () {
-                this.layerNO = 16;
+                this.layerNO = 2;
                 tl_RoadCondition.loadRoadCondition();
                 var jsondata = {
                     "menu": "2",
@@ -56,7 +56,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadCamera: function () {
-                this.layerNO = 16;
+                this.layerNO = 3;
                 tl_Camera.loadCamera();
                 var jsondata = {
                     "menu": "2",
@@ -67,7 +67,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadDrone: function () {
-                this.layerNO = 16;
+                this.layerNO = 4;
                 tl_Drone.loadDrone();
                 var jsondata = {
                     "menu": "2",
@@ -78,7 +78,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadParkingLot: function () {
-                this.layerNO = 16;
+                this.layerNO = 5;
                 tl_ParkingLot.loadParkingLot();
                 var jsondata = {
                     "menu": "2",
@@ -89,7 +89,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             PublicTransportation: function () {
-                this.layerNO = 16;
+                this.layerNO = 6;
                 tl_Bus.loadBus();
                 tl_Bus.loadBusLine();
                 tl_Metro.loadMetro();
@@ -102,7 +102,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadEvent: function () {
-                this.layerNO = 16;
+                this.layerNO = 7;
                 tl_Event.loadEvent();
                 var jsondata = {
                     "menu": "2",
@@ -113,7 +113,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadStream: function () {
-                this.layerNO = 16;
+                this.layerNO = 8;
                 tl_StreamCalculate.loadStream();
                 var jsondata = {
                     "menu": "2",
@@ -124,7 +124,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadTrafficSimulation: function () {
-                this.layerNO = 16;
+                this.layerNO = 9;
                 tl_TrafficSimulation.loadTrafficSimulation();
                 var jsondata = {
                     "menu": "2",

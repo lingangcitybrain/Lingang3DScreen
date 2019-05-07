@@ -64,13 +64,15 @@
         poiControlData: [
             { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", "func": "require('sl_Drone').loadDroneDetail('*');" },
 
-            { "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头-POI", "func": "require('t_Main').PoiEvent('*');" },
-
-            { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "园区信息", "func": "require('iPad').poiIndustryControl('*');" },
-            { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "园区信息-楼宇POI", "func": "require('iPad').poiIndustryControl('*');" },
-            { "menu": "3", "layer": "21", "menuNM": "产业发展", "layerNM": "园区信息-停车POI", "func": "require('iPad').poiIndustryControl('*');" },
-            { "menu": "3", "layer": "22", "menuNM": "产业发展", "layerNM": "园区信息-无人车POI", "func": "require('iPad').poiIndustryControl('*');" },
-            { "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "园区信息-事件POI", "func": "require('iPad').poiIndustryControl('*');" },
+            { "menu": "2", "layer": "", "menuNM": "景区管理", "layerNM": "所有POI", "func": "require('t_Main').PoiEvent('*');" },
+            //{ "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头-POI", "func": "require('t_Main').PoiEvent('*');" },
+            
+            { "menu": "3", "layer": "", "menuNM": "产业发展", "layerNM": "园区信息", "func": "require('iPad').poiIndustryControl('*');" },
+            //{ "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "园区信息", "func": "require('iPad').poiIndustryControl('*');" },
+            //{ "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "园区信息-楼宇POI", "func": "require('iPad').poiIndustryControl('*');" },
+            //{ "menu": "3", "layer": "21", "menuNM": "产业发展", "layerNM": "园区信息-停车POI", "func": "require('iPad').poiIndustryControl('*');" },
+            //{ "menu": "3", "layer": "22", "menuNM": "产业发展", "layerNM": "园区信息-无人车POI", "func": "require('iPad').poiIndustryControl('*');" },
+            //{ "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "园区信息-事件POI", "func": "require('iPad').poiIndustryControl('*');" },
         ],
 
         /************************UI事件************************/
