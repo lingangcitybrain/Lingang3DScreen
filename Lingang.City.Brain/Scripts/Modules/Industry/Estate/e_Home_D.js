@@ -10,7 +10,14 @@
             control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
         },
         openUnity3dWin: function () {
-            e_Main.openUnity3dWin();
+            e_Main.openUnity3dWin(con.TyHref_D);
+
+            var jsondata = {
+                "menu": "4",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
         },
     }
 });

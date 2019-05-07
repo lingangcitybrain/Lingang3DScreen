@@ -10,7 +10,7 @@
             //}, 1000);
         },
         openUnity3dWin: function () {
-            e_Main.openUnity3dWin();
+            e_Main.openUnity3dWin(con.TyHref_S);
         },
     }
 });
