@@ -12,7 +12,7 @@
             },
             closeBigChart: function () {
                 require("t_Echart").closeBigChart()
-            }
+            },
 
             //loadBigChartleft3: function () {
             //    t_Echart.loadBigChart();
