@@ -11,6 +11,25 @@
             { "menu": "1", "layer": "15", "menuNM": "社区综合", "layerNM": "事件", "func": "require('iPad').layerSocietyControl('15');" },
             { "menu": "1", "layer": "26", "menuNM": "社区综合", "layerNM": "工地", "func": "require('iPad').layerSocietyControl('26');" },
 
+            { "menu": "2", "layer": "1", "menuNM": "景区管理", "layerNM": "人流热力图", "func": "require('t_Main').showLayer(0);" },
+            /*{ "menu": "2", "layer": "2", "menuNM": "景区管理", "layerNM": "实时路况", "func": "require('iPad').layerSocietyControl('2');" },*/
+            { "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头", "func": "require('t_Main').showLayer(1);" },
+            { "menu": "2", "layer": "4", "menuNM": "景区管理", "layerNM": "无人机", "func": "require('t_Main').showLayer(2);" },
+            { "menu": "2", "layer": "5", "menuNM": "景区管理", "layerNM": "停车场", "func": "require('t_Main').showLayer(3);" },
+            { "menu": "2", "layer": "6", "menuNM": "景区管理", "layerNM": "公交", "func": "require('t_Main').showLayer(4);" },
+            { "menu": "2", "layer": "7", "menuNM": "景区管理", "layerNM": "事件", "func": "require('t_Main').showLayer(5);" },
+            { "menu": "2", "layer": "8", "menuNM": "景区管理", "layerNM": "人流预测", "func": "require('t_Main').showLayer(6);" },
+            { "menu": "2", "layer": "9", "menuNM": "景区管理", "layerNM": "交通仿真", "func": "require('t_Main').showLayer(7);" },
+            //{ "menu": "2", "layer": "1", "menuNM": "景区管理", "layerNM": "人流热力图", "func": "require('iPad').layerSocietyControl('1');" },
+            //{ "menu": "2", "layer": "2", "menuNM": "景区管理", "layerNM": "实时路况", "func": "require('iPad').layerSocietyControl('2');" },
+            //{ "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头", "func": "require('iPad').layerSocietyControl('3');" },
+            //{ "menu": "2", "layer": "4", "menuNM": "景区管理", "layerNM": "无人机", "func": "require('iPad').layerSocietyControl('4');" },
+            //{ "menu": "2", "layer": "5", "menuNM": "景区管理", "layerNM": "停车场", "func": "require('iPad').layerSocietyControl('5');" },
+            //{ "menu": "2", "layer": "6", "menuNM": "景区管理", "layerNM": "公交", "func": "require('iPad').layerSocietyControl('6');" },
+            //{ "menu": "2", "layer": "7", "menuNM": "景区管理", "layerNM": "事件", "func": "require('iPad').layerSocietyControl('7');" },
+            //{ "menu": "2", "layer": "8", "menuNM": "景区管理", "layerNM": "人流预测", "func": "require('iPad').layerSocietyControl('8');" },
+            //{ "menu": "2", "layer": "9", "menuNM": "景区管理", "layerNM": "交通仿真", "func": "require('iPad').layerSocietyControl('9');" },
+
 
             { "menu": "3", "layer": "16", "menuNM": "产业发展", "layerNM": "产业信息", "func": "require('iPad').layerIndustryControl('16');" },
             { "menu": "3", "layer": "17", "menuNM": "产业发展", "layerNM": "象限图谱", "func": "require('iPad').layerIndustryControl('17');" },
@@ -32,6 +51,10 @@
             //{ "menu": "3", "layer": "18", "menuNM": "产业发展", "layerNM": "人员分布", "func": "require('iPad').layerIndustryControl('18');" },
             { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", "func": "require('sl_Drone').loadDroneDetail('*');" },
             { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "园区信息", "func": "require('iPad').poiIndustryControl('*');" },
+            { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "园区信息-楼宇POI", "func": "require('iPad').poiIndustryControl('*');" },
+            { "menu": "3", "layer": "21", "menuNM": "产业发展", "layerNM": "园区信息-停车POI", "func": "require('iPad').poiIndustryControl('*');" },
+            { "menu": "3", "layer": "22", "menuNM": "产业发展", "layerNM": "园区信息-无人车POI", "func": "require('iPad').poiIndustryControl('*');" },
+            { "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "园区信息-事件POI", "func": "require('iPad').poiIndustryControl('*');" },
         ],
 
         /************************UI事件************************/

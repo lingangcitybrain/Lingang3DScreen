@@ -193,28 +193,7 @@
                     break;
                 case "15"://事件
                     require("s_Main").showLayer(8);
-                    break;
-                //case "10"://传感器
-                //    require("s_Main").showLayer('传感器');
-                //    break;
-                //case "11"://摄像头
-                //    require("s_Main").showLayer('摄像头');
-                //    break;
-                //case "12"://无人机
-                //    require("s_Main").showLayer('无人机');
-                //    break;
-                //case "13"://村居工作站
-                //    require("s_Main").showLayer('村居工作站');
-                //    break;
-                //case "14"://海岸线
-                //    require("s_Main").showLayer('海岸线');
-                //    break;
-                //case "26"://工地
-                //    require("s_Main").showLayer('工地');
-                //    break;
-                //case "15"://事件
-                //    require("s_Main").showLayer('事件');
-                //    break;
+                    break;               
             }
         },
         //旅游大客流图层控制
@@ -227,45 +206,34 @@
             //    $("#bottom_menu ul li").eq(index).addClass("active");//添加当前元素的样式
             //} catch (e)
             //{}
-         
-            $("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
 
             switch (layercode) {
                 case "1"://人流热力图
-                    require("t_Main").showLayer('人流热力图');
-                    $("#bottom_menu ul li").eq(0).addClass("active");
+                    require("t_Main").showLayer(0);                  
                     break;
                 //case "2"://实时路况
-                //    require("t_Main").showLayer('实时路况');
-                //    $("#bottom_menu ul li").eq(1).addClass("active");
+                //    require("t_Main").showLayer(1);
                 //    break;
                 case "3"://摄像头
-                    require("t_Main").showLayer('摄像头');
-                    $("#bottom_menu ul li").eq(1).addClass("active");
+                    require("t_Main").showLayer(1);
                     break;
                 case "4"://无人机
-                    require("t_Main").showLayer('无人机');
-                    $("#bottom_menu ul li").eq(2).addClass("active");
+                    require("t_Main").showLayer(2);
                     break;
                 case "5"://停车场
-                    require("t_Main").showLayer('停车场');
-                    $("#bottom_menu ul li").eq(3).addClass("active");
+                    require("t_Main").showLayer(3);
                     break;
                 case "6"://公交
-                    require("t_Main").showLayer('公交');
-                    $("#bottom_menu ul li").eq(4).addClass("active");
+                    require("t_Main").showLayer(4);
                     break;
                 case "7"://事件
-                    require("t_Main").showLayer('事件');
-                    $("#bottom_menu ul li").eq(5).addClass("active");
+                    require("t_Main").showLayer(5);
                     break;
                 case "8"://人流预测
-                    require("t_Main").showLayer('人流预测');
-                    $("#bottom_menu ul li").eq(6).addClass("active");
+                    require("t_Main").showLayer(6);
                     break;
                 case "9"://交通仿真
-                    require("t_Main").showLayer('交通仿真');
-                    $("#bottom_menu ul li").eq(7).addClass("active");
+                    require("t_Main").showLayer(7);
                     break;
             }
         },
