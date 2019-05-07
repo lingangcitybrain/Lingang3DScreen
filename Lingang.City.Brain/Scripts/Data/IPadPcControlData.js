@@ -79,8 +79,12 @@
         poiWinControlData: [
         { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", POISTR: "Drone", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//无人机视频窗口关闭
 
+        { "menu": "2", "layer": "4", "menuNM": "景区管理", "layerNM": "无人机", POISTR: "POITourDrone", "command": "close", "func": "require('tl_Drone').closeCameraDetial();" },//无人机窗口关闭
+
+
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "open", "func": "$('.cy-qy-navbar').removeClass('active');require('gl_TopCompany').flyToBuilding();" },//花展开
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//花隐藏
+        { "menu": "2", "layer": "4", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POITourDrone", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//无人机窗口关闭
        
 
         //{ "menu": "", "layer": "", "menuNM": "", "layerNM": "", POISTR: "POITourCamera", "command": "open", "func": 'require("tl_Camera").loadCameraDetial(nodename);' },

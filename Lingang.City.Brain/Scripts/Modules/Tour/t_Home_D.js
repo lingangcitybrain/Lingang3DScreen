@@ -2,6 +2,7 @@
     function (con, com, t_Main, control_Ajax, t_LayerMenuAjax, animsition, t_Echart, tl_Bus, tl_Metro, tl_Camera, tl_Drone, tl_Event, tl_ParkingLot, tl_RoadCondition, tl_TrafficSimulation, tl_StreamCalculate, tl_VisitorsMap, t_LayerMenuData) {
         return {
             layerNO: null,
+            POIName_Clk:null,
             loadMain: function () {
                 t_Main.loadMain();
                 var jsondata = {
@@ -137,6 +138,7 @@
             /************************END******************************/
             /**************************POI点击事件******************************/
             PoiEvent: function (nodename) {
+                this.POIName_Clk = nodename;
                 t_Main.PoiEvent(nodename);
                 var jsondata = {
                     "menu": "2",
@@ -148,5 +150,21 @@
                 control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
             },
             /******************************END********************************/
+
+            /********************************UI点击*********************************/
+            //关闭无人机视频窗口
+            closeCameraDetial: function () {
+                require('tl_Drone').closeCameraDetial();
+                var jsondata = {
+                    "menu": "2",
+                    "layer": this.layerNO,
+                    "id": this.POIName_Clk,
+                    "command": "close",
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            },
+            /**********************************END*********************************/
         }
     });
