@@ -96,5 +96,18 @@ namespace Lingang.City.Brain.Web.rtHub
                 throw ex;
             }
         }
+
+        // 信息窗口按钮信息
+        public void sendButtonInfoControl(string msg)
+        {
+            try
+            {
+                _control.sendButtonInfoControlInfo("", msg);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

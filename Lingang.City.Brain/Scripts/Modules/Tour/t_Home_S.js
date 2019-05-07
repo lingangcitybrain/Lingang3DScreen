@@ -13,6 +13,7 @@
             closeBigChart: function () {
                 require("t_Echart").closeBigChart()
             }
+
             //loadBigChartleft3: function () {
             //    t_Echart.loadBigChart();
             //},
@@ -34,5 +35,39 @@
             //loadBigChartright3: function () {
             //    t_Echart.loadBigChart();
             //},
+
+            /*******************底部菜单图层**************************/
+            loadVisitorsMap: function () {
+                tl_VisitorsMap.loadVisitorsMap();
+            },
+            loadRoadCondition: function () {
+                tl_RoadCondition.loadRoadCondition();
+            },
+            loadCamera: function () {
+                tl_Camera.loadCamera();
+            },
+            loadDrone: function () {
+                tl_Drone.loadDrone();
+            },
+            loadParkingLot: function () {
+                tl_ParkingLot.loadParkingLot();
+            },
+            PublicTransportation: function () {
+                tl_Bus.loadBus();
+                tl_Bus.loadBusLine();
+                tl_Metro.loadMetro();
+            },
+            loadEvent: function () {
+                tl_Event.loadEvent();
+            },
+            loadStream: function () {
+                tl_StreamCalculate.loadStream();
+            },
+            loadTrafficSimulation: function () {
+                tl_TrafficSimulation.loadTrafficSimulation();
+            },
+            /************************END******************************/
+           
+            
         }
     });

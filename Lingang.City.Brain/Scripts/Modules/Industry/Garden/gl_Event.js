@@ -4,6 +4,7 @@
         //事件图层
         loadEvent:function()
         {
+            require("reset").ClearDivHtmlOnCenter();
             com.LayerFlyto(23)
         
         },
