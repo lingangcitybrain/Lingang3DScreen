@@ -920,6 +920,7 @@
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\Shared\Cookie.js" />
     <Content Include="Scripts\Tools\ajaxfileupload.js" />
+    <Content Include="Scripts\Tools\Aliplayer.js" />
     <Content Include="Scripts\Tools\aliplayer\aliplayer-min.css" />
     <Content Include="Scripts\Tools\aliplayer\aliplayer-min.js" />
     <Content Include="Scripts\Tools\Animate-Number\jquery.animateNumber.js" />

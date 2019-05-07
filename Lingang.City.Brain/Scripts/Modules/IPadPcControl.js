@@ -1,5 +1,6 @@
 ﻿define(["config", "common", "dataCache", "controlData","t_Home"], function (con, com, dataCache, controlData,t_Home) {
     return {
+        ///////////////////////////////////////////////////地图控制//////////////////////////////////////////////////////////////////
         //地图控制
         mapControl: function (str)
         {
@@ -35,8 +36,9 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res            
         },
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；日景：11；夜景：12；还原：100
+
+        ///////////////////////////////////////////////////菜单控制//////////////////////////////////////////////////////////////////
+        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100
         menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
@@ -98,6 +100,7 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
+
         /////////////////////////////////////////////////////////图层控制////////////////////////////////////////////////////////////
         //图层控制
         layerControl: function (str) {
@@ -121,47 +124,52 @@
 
         },
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////图表控制////////////////////////////////////////////////////////////
         //图表控制
         echartControl: function (str) {
-            console.log(str)
-            var res = { "menu": "", "massage": "", "seat": "", "command": "", }
-            var result = 1;
-            var massage = "";
-            try {
-                var json = $.parseJSON(str);
-                var menu = json.menu
-                var seat = json.seat
-                var command = json.command
-                if (menu == 1) {
-                    if (command == "open") {
-                        require("s_Home").loadBigChart(seat)
-                    }
-                    else {
-                        require('s_Home').closeBigChart()
-                    }
+            var json = $.parseJSON(str);
+            var menu = json.menu
+            var seat = json.seat
+            var command = json.command
+            if (menu == 1) {
+                if (command == "open") {
+                    require("s_Home").loadBigChart(seat)
                 }
-                if (menu == 2) {                    
-                    if (command == "open") {
-                        require("t_Home").loadBigChart(seat)
-                    }
-                    else {
-                        require('t_Home').closeBigChart()
-                    }
+                else {
+                    require('s_Home').closeBigChart()
                 }
-                else if (menu == 3) {
-                    if (command == "open") {
-                        require("g_Home").loadBigChart(seat)
-                    }
-                    else {
-                        require('g_Home').closeBigChart()
-                    }
+            }
+            if (menu == 2) {
+                if (command == "open") {
+                    require("t_Home").loadBigChart(seat)
                 }
-                result = 1;
-                message = "操作成功";
-            } catch (arr) {
-                result = 0;
-                message = "操作失败";
+                else {
+                    require('t_Home').closeBigChart()
+                }
+            }
+            else if (menu == 3) {
+                if (command == "open") {
+                    require("e_Home").loadBigChart(seat)
+                }
+                else {
+                    require('e_Home').closeBigChart()
+                }
+            }
+            else if (menu == 31) { //园区
+                if (command == "open") {
+                    require("g_Home").loadBigChart(seat)
+                }
+                else {
+                    require('g_Home').closeBigChart()
+                }
+            }
+            else if (menu == 32) { //楼宇
+                if (command == "open") {
+                    require("b_Home").loadBigChart(seat)
+                }
+                else {
+                    require('b_Home').closeBigChart()
+                }
             }
         },
 
