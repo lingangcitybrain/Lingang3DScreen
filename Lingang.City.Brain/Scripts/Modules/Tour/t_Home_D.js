@@ -135,5 +135,18 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             /************************END******************************/
+            /**************************POI点击事件******************************/
+            PoiEvent: function (nodename) {
+                t_Main.PoiEvent(nodename);
+                var jsondata = {
+                    "menu": "2",
+                    "layer": this.layerNO,
+                    "id": nodename,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
+            },
+            /******************************END********************************/
         }
     });
