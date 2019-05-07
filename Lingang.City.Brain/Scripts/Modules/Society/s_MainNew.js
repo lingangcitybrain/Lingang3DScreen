@@ -73,17 +73,20 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
             //产业
             $("#bottom_menu ul li").each(function (index) {//便利对象
                 $(this).click(function () {//点击触发事件
-                    $("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
-                    $(this).addClass("active");//添加当前元素的样式
-                    var menuname = $("li").eq(index).text();
-                    require("s_Main").showLayer(menuname);
+                    //$("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
+                    //$(this).addClass("active");//添加当前元素的样式
+                    //var menuname = $("li").eq(index).text();
+                    require("s_Main").showLayer(index);
                 });
             });
         },
 
         //切换显示图层
-        showLayer: function (menuname) {
+        showLayer: function (index) {
             this.Revert();
+            var menuname = $("li").eq(index).text();
+            $("li").removeClass("active");//删除当前元素的样式
+            $("li").eq(index).addClass("active");//添加当前元素的样式
             switch (menuname) {
                 case "传感器":
                     require("s_Home").loadIOT();

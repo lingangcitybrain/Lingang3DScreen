@@ -173,27 +173,48 @@
         layerSocietyControl: function(layercode)
         {
             switch (layercode) {
-                case "10"://传感器
-                    require("s_Main").showLayer('传感器');
+             case "10"://传感器
+                    require("s_Main").showLayer(0);
                     break;
                 case "11"://摄像头
-                    require("s_Main").showLayer('摄像头');
+                    require("s_Main").showLayer(1);
                     break;
                 case "12"://无人机
-                    require("s_Main").showLayer('无人机');
+                    require("s_Main").showLayer(2);
                     break;
                 case "13"://村居工作站
-                    require("s_Main").showLayer('村居工作站');
+                    require("s_Main").showLayer(3);
                     break;
                 case "14"://海岸线
-                    require("s_Main").showLayer('海岸线');
+                    require("s_Main").showLayer(4);
                     break;
                 case "26"://工地
-                    require("s_Main").showLayer('工地');
+                    require("s_Main").showLayer(5);
                     break;
                 case "15"://事件
-                    require("s_Main").showLayer('事件');
+                    require("s_Main").showLayer(8);
                     break;
+                //case "10"://传感器
+                //    require("s_Main").showLayer('传感器');
+                //    break;
+                //case "11"://摄像头
+                //    require("s_Main").showLayer('摄像头');
+                //    break;
+                //case "12"://无人机
+                //    require("s_Main").showLayer('无人机');
+                //    break;
+                //case "13"://村居工作站
+                //    require("s_Main").showLayer('村居工作站');
+                //    break;
+                //case "14"://海岸线
+                //    require("s_Main").showLayer('海岸线');
+                //    break;
+                //case "26"://工地
+                //    require("s_Main").showLayer('工地');
+                //    break;
+                //case "15"://事件
+                //    require("s_Main").showLayer('事件');
+                //    break;
             }
         },
         //旅游大客流图层控制
@@ -334,7 +355,7 @@
                 //}
 
                 var layerValue = $.grep(controlData.poiControlData, function (n, i) {
-                if (n.menu == menu ) {
+                    if (n.menu == menu && n.layer == layer) {
                     var funcStr = n.func.replace('*',id);
                     eval(funcStr);
                     return n;
@@ -445,7 +466,8 @@
         },
         //////////////////////////////////////////////////POI信息窗口控制/////////////////////////////////////////////////////
         //POI信息窗口控制
-        poiInfoControl: function (str)
+        //(备用)
+        poiInfoControl1: function (str)
         {
             var res = { " code ": "", " message ": "" }
             var result = 1;
@@ -539,12 +561,80 @@
                         }
                     }
                 }
+                result = 1;
+                message = "操作成功";
 
+            } catch (e) {
+                result = 0;
+                message = "操作失败";
+            }
 
-                //视口切换
-                //if (xyz != null || angle != null) {
-                //    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
-                //}
+            var pos = this.getCameraPos();
+            re_xyz = pos.split(",")[0];
+            re_angle = pos.split(",")[1];
+
+            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+            return res
+        },
+        poiInfoControl: function (str) {
+            var res = { " code ": "", " message ": "" }
+            var result = 1;
+            var message = "";
+            try {
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
+                var angle = json.angle
+                var menu = json.menu
+                var layer = json.layer
+                var id = json.id
+                var command = json.command
+
+                var layerValue = $.grep(controlData.poiWinControlData, function (n, i) {
+                    if (n.command == command && id.indexOf(n.POISTR)>-1&&n.layer==layer&&n.menu==menu) {//ss
+                        eval(n.func);
+                        return n;
+                    }
+            });
+
+               
+                result = 1;
+                message = "操作成功";
+
+            } catch (e) {
+                result = 0;
+                message = "操作失败";
+            }
+
+            var pos = this.getCameraPos();
+            re_xyz = pos.split(",")[0];
+            re_angle = pos.split(",")[1];
+
+            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+            return res
+        },
+
+        UIButtonControl: function (str) {
+            var res = { " code ": "", " message ": "" }
+            var result = 1;
+            var message = "";
+            try {
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
+                var angle = json.angle
+                var menu = json.menu
+                var layer = json.layer
+                var id = json.id
+                var type = json.type
+
+                var layerValue = $.grep(controlData.UIButtonControlData, function (n, i) {
+                    if (n.type == type && n.layer == layer && n.menu == menu) {//ss
+                        var funcStr = n.func.replace('*', id);
+                        eval(funcStr);
+                        //eval(n.func);
+                        return n;
+                    }
+                });
+
 
                 result = 1;
                 message = "操作成功";
@@ -561,6 +651,7 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
+
         //获取当前的坐标和视口位置
         getCameraPos: function ()
         {
