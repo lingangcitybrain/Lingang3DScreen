@@ -1,4 +1,5 @@
-﻿require.config({
+﻿/// <reference path="../Tools/aliplayer/aliplayer-min.js" />
+require.config({
     baseUrl: "Scripts",
     paths: {
         //base
@@ -25,7 +26,7 @@
         echarts: "Tools/echarts",
         nicescroll: "Tools/divscroll",
         util: "Tools/util",
-        aliplayer: "Tools/Aliplayer",//"https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
+        aliplayer: "Tools/aliplayer/aliplayer-min",//"https://g.alicdn.com/de/prismplayer/2.8.1/aliplayer-min",
         animsition: "Tools/jqueryUI/jquery.animsition.min",//JS特效
         weather: "Tools/Weather",
         pagination: "jquery.pagination",
