@@ -26,6 +26,51 @@
             //require("e_Echart").xzsp();
             //require("e_Echart").gccrc();
         },
+        //显示大的图表
+        loadBigChart: function (divname) {
+
+            //if ($("#" + divname).length <= 0) { return false; }
+
+
+            var url = con.HtmlUrl + 'SocietyNew/Center_03.html';
+            require(['text!' + url], function (template) {
+                $("#center_03").html(template);
+                $("#center_03").show('drop', 1000);//左侧
+
+                switch (divname) {
+                    case "Left_First_01"://产业竞争力
+                        require("e_Echart").bigcyjzl();
+                        break;
+                    case "Left_Second_01"://企业变化趋势
+                        require("e_Echart").bigqybhqs();
+                        break;
+                    case "Left_Second_02"://税收变化趋势
+                        require("e_Echart").bigssbhqs();
+                        break;
+                    case "Left_Second_03"://固投变化趋势
+                        require("e_Echart").biggtbhqs();
+                        break;
+                    case "Right_First_01"://就业机会变化趋势
+                        require("e_Echart").bigjyjh();
+                        break;
+                    case "Right_First_02"://薪资水平变化趋势
+                        require("e_Echart").bigxzsp();
+                        break;
+                    case "Right_First_03"://高层次人才变化趋势
+                        require("e_Echart").biggccrc();
+                        break;
+                    default:
+                }
+
+            })
+        },
+        //关闭大的图表
+        closeBigChart: function () {
+            if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
+                require("t_Echart").mybigChart.dispose();
+            }
+            $("#center_03").html("");
+        },
         //产业竞争力
         cyjzl: function () {
             if ($("#cyjzl-chart").length <= 0) { return false; }
@@ -185,35 +230,169 @@
            
           
         },
+        //大产业竞争力
+        bigcyjzl: function () {
+            $("#bigechartHead").html('产业竞争力');
+            if ($("#cyjzl-chart").length <= 0) { return false; }
+            $.ajax({
+                type: 'POST',
+                url: 'http://47.101.181.131:8091/v1/industrial/matchIndex',
+                cache: false,
 
-        //战略新兴产业
-        //zlxxcy: function ()
-        //{
-        //        var zlxxcyNumHtmlArr = [];
-        //        var zlxxcyNumHtmlArrLength2 = 0;
-        //        var zlxxcyRightTimer = null;
+                // data:post_data,
+                dataType: 'json',
+                success: function (data) {
+                    var Max = 100;
+                    var Value = [data.data[2].score, data.data[1].score, data.data[0].score, data.data[3].score, data.data[4].score];
+                    cyjzlOption = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            show: false
+                        },
+                        radar: [
+                            {
+                                indicator: [
+                                    { text: data.data[2].model_item_name, max: Max },
+                                    { text: data.data[1].model_item_name, max: Max },
+                                    { text: data.data[0].model_item_name, max: Max },
+                                    { text: data.data[3].model_item_name, max: Max },
+                                    { text: data.data[4].model_item_name, max: Max }
+                                ],
+                                name: {
+                                    formatter: '【{value}】',
+                                    textStyle: {
+                                        color: '#0ff',
+                                        fontSize: 30
+                                    }
+                                },
+                                radius: 180,
+                                center: ['50%', '55%'],
+                                axisLine: {
+                                    lineStyle: {
+                                        width: 2,
+                                    },
+                                },
+                                splitLine: {
+                                    lineStyle: {
+                                        width: 2,
+                                    },
+                                },
+                                splitArea: {
+                                    areaStyle: {
+                                        color: "transparent",
+                                    },
+                                },
+                            }
+                        ],
+                        series: [
+                            {
+                                type: 'radar',
+                                data: [
+                                    {
+                                        value: Value,
+                                        areaStyle: {
+                                            normal: {
+                                                color: 'rgba(235,182,0,.4)'
+                                            }
+                                        },
+                                        lineStyle: {
+                                            normal: {
+                                                width: 6,
+                                                color: "rgba(235,182,0,1)"
+                                            }
+                                        }
+                                    }
+                                ],
+                            }
+                        ]
+                    };
+                    if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                        require("e_Echart").mybigChart.dispose();
+                    }
+                    require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                    require("e_Echart").mybigChart.setOption(cyjzlOption);
+                },
+                error: function () {
+                    var cyjzlChart = document.getElementById('cyjzl-chart');
+                    var Max = 100;
+                    var Value = [54, 25, 68, 38, 73];
+                    require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
 
-        //        zlxxcyRightTimer = setInterval(function(){
-
-        //        $(".zlxxcy-bar").each(function(index,element){
-        //            var thisRandom = parseInt(Math.random()*100);
-        //            var zlxxcyNumTimer = null;
-
-        //            if($(this).parent().width() >=  $(this).width() + thisRandom){
-        //                $(this).width( $(this).width() + thisRandom);
-        //                zlxxcyNumTimer = setInterval(function(){
-        //                    $(element).find("span").html( parseInt($(element).width()*100) );
-        //                    zlxxcyNumHtmlArr.push($(element).find("span").html())
-        //                },100)
-        //            }else{
-        //                clearInterval(zlxxcyRightTimer)
-        //                clearInterval(zlxxcyNumTimer)
-        //            }
-        //        })
-
-        //        $(".zlxxcy-year").html( +$(".zlxxcy-year").html() + 1 );
-        //        },1000)
-        //},
+                    cyjzlOption = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            show: false
+                        },
+                        radar: [
+                            {
+                                indicator: [
+                                    { text: '产业聚集性', max: Max },
+                                    { text: '规模竞争力', max: Max },
+                                    { text: '技术领先性', max: Max },
+                                    { text: '产业均衡性', max: Max },
+                                    { text: '产业前瞻性', max: Max }
+                                ],
+                                name: {
+                                    formatter: '【{value}】',
+                                    textStyle: {
+                                        color: '#0ff',
+                                        fontSize: 30
+                                    }
+                                },
+                                radius: 180,
+                                center: ['50%', '55%'],
+                                axisLine: {
+                                    lineStyle: {
+                                        width: 2,
+                                    },
+                                },
+                                splitLine: {
+                                    lineStyle: {
+                                        width: 2,
+                                    },
+                                },
+                                splitArea: {
+                                    areaStyle: {
+                                        color: "transparent",
+                                    },
+                                },
+                            }
+                        ],
+                        series: [
+                            {
+                                type: 'radar',
+                                data: [
+                                    {
+                                        value: Value,
+                                        areaStyle: {
+                                            normal: {
+                                                color: 'rgba(235,182,0,.4)'
+                                            }
+                                        },
+                                        lineStyle: {
+                                            normal: {
+                                                width: 6,
+                                                color: "rgba(235,182,0,1)"
+                                            }
+                                        }
+                                    }
+                                ],
+                            }
+                        ]
+                    };
+                                       
+                    if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                        require("e_Echart").mybigChart.dispose();
+                    }
+                    require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                    require("e_Echart").mybigChart.setOption(cyjzlOption);
+                }
+            })
+        },
         //企业变化趋势
         qybhqs: function () {
             if ($("#qybhqs-chart").length <= 0) { return false; }
