@@ -15,8 +15,8 @@
                 }
             },
         },
-        openUnity3dWin:function(){
-            window.location(con.TyHref);
+        openUnity3dWin:function(tyHref){
+            window.location(tyHref);
         },
         loadMain: function () {
 

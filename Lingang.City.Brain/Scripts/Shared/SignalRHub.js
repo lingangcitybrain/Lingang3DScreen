@@ -68,6 +68,13 @@
                     iPad.poiInfoControl(message)
                 })
             };
+
+            //窗口按钮控制信息
+            control.client.broadcastButtonInfoControlInfo = function (message) {
+                require(["iPad"], function (iPad) {
+                    iPad.UIButtonControl(message)
+                })
+            };
         }
         if ($.connection != "undefined" && $.connection != undefined) {
             $.connection.hub.logging = true;

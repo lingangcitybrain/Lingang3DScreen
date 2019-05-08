@@ -141,9 +141,10 @@
             map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);
         },
         loadDroneDetail:function(){
-            com.LayerFlyto(121, function () {
-                require("sl_Drone").loadDroneModel();
+         require("sl_Drone").loadDroneModel();
                 require("sl_Drone").loadDroneCamera();
+            com.LayerFlyto(121, function () {
+               
             })
         },
         //加载无人机视频

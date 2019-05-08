@@ -2,7 +2,7 @@
 //define( function () {
     return {
         WebServiceUrl: "http://" + location.host + "/LingangCityBrain/",
-        WebServiceUrlForControl: "http://192.168.3.105/LingangCityBrain/",
+        WebServiceUrlForControl: "http://192.168.3.202/LingangCityBrain/",
         HtmlUrl: "/LingangCityBrain/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
         InterfaceUrl_test: "http://47.101.181.131:8080/",  //接口地址
@@ -10,7 +10,8 @@
         InterfaceUrl_parking: "http://47.101.181.131:8093/",
         InterfaceUrl_HeatMap: "http://47.101.181.131:8094/",  //接口地址
         InterfaceUrl_Event:"http://47.101.181.131:8096/",//园区事件获取接口
-        TyHref: 'ME-SRE://1920,1080,0,0#{I/DPZJ2nKwh4LSzuco/cQkvXVlgp+TDvjq/cNLLkrjreGqbjCMrRauMS6zwQ327fX5A/CScvo4CnCmUWy4Qb5KX+tkPCMvUiD2TztEDdNx8rd1zLpkN8aDtEk23jcGaL}', //产业推演地址定向
+        TyHref_S: 'ME-SRE://1920,1080,0,0#{I/DPZJ2nKwh4LSzuco/cQkvXVlgp+TDvjq/cNLLkrjreGqbjCMrRauMS6zwQ327fX5A/CScvo4CnCmUWy4Qb5KX+tkPCMvUiD2TztEDdNx8rd1zLpkN8aDtEk23jcGaL}', //产业推演地址定向（大屏）
+        TyHref_D: 'ME-SRE://1920,1080,0,0#{I/DPZJ2nKwh4LSzuco/cQkvXVlgp+TDvjq/cNLLkrjreGqbjCMrRauMS6zwQ327fX5A/CScvo4CnCmUWy4Qb5KX+tkPCMvUiD2TztEDdNx8rd1zLpkN8aDtEk23jcGaL}', //产业推演地址定向（控制台）
         IsInterface: true,//是否走接口true:接口false本地
         AreaName: "gwh_xilou",
         CONFIG_NAME: "Example",

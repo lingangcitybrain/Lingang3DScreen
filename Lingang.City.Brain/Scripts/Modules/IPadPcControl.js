@@ -1,5 +1,6 @@
-﻿define(["config", "common", "dataCache", "controlData"], function (con, com, dataCache, controlData) {
+﻿define(["config", "common", "dataCache", "controlData","t_Home"], function (con, com, dataCache, controlData,t_Home) {
     return {
+        ///////////////////////////////////////////////////地图控制//////////////////////////////////////////////////////////////////
         //地图控制
         mapControl: function (str)
         {
@@ -35,8 +36,9 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res            
         },
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；日景：11；夜景：12；还原：100
+
+        ///////////////////////////////////////////////////菜单控制//////////////////////////////////////////////////////////////////
+        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100
         menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
@@ -98,6 +100,7 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
+
         /////////////////////////////////////////////////////////图层控制////////////////////////////////////////////////////////////
         //图层控制
         layerControl: function (str) {
@@ -121,185 +124,147 @@
 
         },
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////图表控制////////////////////////////////////////////////////////////
         //图表控制
         echartControl: function (str) {
-            console.log(str)
-            var res = { "menu": "", "massage": "", "seat": "", "command": "", }
-            var result = 1;
-            var massage = "";
-            try {
-                var json = $.parseJSON(str);
-
-                var menu = json.menu
-                var seat = json.seat
-                var command = json.command
-                switch (seat) {
-                    case "Left_First_02"://游客分析
-                        require("t_Echart").bigTouristAnalysis();
-                        break;
-                    case "Left_First_03"://游客趋势分析
-                        require("t_Echart").bigFutureVisitorTraffic();
-                        break;
-                    case "Left_First_04"://舆情分析
-                        require("t_Echart").bigYqfx();
-                        break;
-                    case "Left_Second_01"://无人机
-                        require("t_Echart").bigwrj();
-                        break;
-                    case "Left_Second_03"://交通信息
-                        require("t_Echart").bigJtxx();
-                        break;
-                    case "Right_First_01"://交通信息
-                        require("t_Echart").bigRycltj();
-                        break;
-                    case "Right_First_02"://停车场使用情况
-                        require("t_Echart").bigTccsyqk();
-                        break;
-                    case "Right_First_03"://近五日事件统计
-                        require("t_Echart").bigjwrsjtj();
-                        break;
-                    default:
+            var json = $.parseJSON(str);
+            var menu = json.menu
+            var seat = json.seat
+            var command = json.command
+            if (menu == 1) {
+                if (command == "open") {
+                    require("s_Home").loadBigChart(seat)
                 }
-                result = 1;
-                message = "操作成功";
-            } catch (arr) {
-                result = 0;
-                message = "操作失败";
+                else {
+                    require('s_Home').closeBigChart()
+                }
+            }
+            if (menu == 2) {
+                if (command == "open") {
+                    require("t_Home").loadBigChart(seat)
+                }
+                else {
+                    require('t_Home').closeBigChart()
+                }
+            }
+            else if (menu == 3) {
+                if (command == "open") {
+                    require("e_Home").loadBigChart(seat)
+                }
+                else {
+                    require('e_Home').closeBigChart()
+                }
+            }
+            else if (menu == 31) { //园区
+                if (command == "open") {
+                    require("g_Home").loadBigChart(seat)
+                }
+                else {
+                    require('g_Home').closeBigChart()
+                }
+            }
+            else if (menu == 32) { //楼宇
+                if (command == "open") {
+                    require("b_Home").loadBigChart(seat)
+                }
+                else {
+                    require('b_Home').closeBigChart()
+                }
             }
         },
 
-        //社区综治图层控制
-        layerSocietyControl: function(layercode)
-        {
-            switch (layercode) {
-                case "10"://传感器
-                    require("s_Main").showLayer('传感器');
-                    break;
-                case "11"://摄像头
-                    require("s_Main").showLayer('摄像头');
-                    break;
-                case "12"://无人机
-                    require("s_Main").showLayer('无人机');
-                    break;
-                case "13"://村居工作站
-                    require("s_Main").showLayer('村居工作站');
-                    break;
-                case "14"://海岸线
-                    require("s_Main").showLayer('海岸线');
-                    break;
-                case "26"://工地
-                    require("s_Main").showLayer('工地');
-                    break;
-                case "15"://事件
-                    require("s_Main").showLayer('事件');
-                    break;
-            }
-        },
-        //旅游大客流图层控制
-        layerTourControl: function (layercode) {
-
-            
-            //try {
-            //    var index = parseInt(layercode) - 1
-            //    $("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
-            //    $("#bottom_menu ul li").eq(index).addClass("active");//添加当前元素的样式
-            //} catch (e)
-            //{}
-         
-            $("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
-
-            switch (layercode) {
-                case "1"://人流热力图
-                    require("t_Main").showLayer('人流热力图');
-                    $("#bottom_menu ul li").eq(0).addClass("active");
-                    break;
-                //case "2"://实时路况
-                //    require("t_Main").showLayer('实时路况');
-                //    $("#bottom_menu ul li").eq(1).addClass("active");
-                //    break;
-                case "3"://摄像头
-                    require("t_Main").showLayer('摄像头');
-                    $("#bottom_menu ul li").eq(1).addClass("active");
-                    break;
-                case "4"://无人机
-                    require("t_Main").showLayer('无人机');
-                    $("#bottom_menu ul li").eq(2).addClass("active");
-                    break;
-                case "5"://停车场
-                    require("t_Main").showLayer('停车场');
-                    $("#bottom_menu ul li").eq(3).addClass("active");
-                    break;
-                case "6"://公交
-                    require("t_Main").showLayer('公交');
-                    $("#bottom_menu ul li").eq(4).addClass("active");
-                    break;
-                case "7"://事件
-                    require("t_Main").showLayer('事件');
-                    $("#bottom_menu ul li").eq(5).addClass("active");
-                    break;
-                case "8"://人流预测
-                    require("t_Main").showLayer('人流预测');
-                    $("#bottom_menu ul li").eq(6).addClass("active");
-                    break;
-                case "9"://交通仿真
-                    require("t_Main").showLayer('交通仿真');
-                    $("#bottom_menu ul li").eq(7).addClass("active");
-                    break;
-            }
-        },
+        //社区综治图层控制（无用）
+        //layerSocietyControl: function(layercode)
+        //{
+        //    switch (layercode) {
+        //     case "10"://传感器
+        //            require('s_Main').showLayer(0);
+        //            break;
+        //        case "11"://摄像头
+        //            require("s_Main").showLayer(1);
+        //            break;
+        //        case "12"://无人机
+        //            require("s_Main").showLayer(2);
+        //            break;
+        //        case "13"://村居工作站
+        //            require("s_Main").showLayer(3);
+        //            break;
+        //        case "14"://海岸线
+        //            require("s_Main").showLayer(4);
+        //            break;
+        //        case "26"://工地
+        //            require("s_Main").showLayer(5);
+        //            break;
+        //        case "15"://事件
+        //            require("s_Main").showLayer(8);
+        //            break;               
+        //    }
+        //},
+        //旅游大客流图层控制（无用）
+        //layerTourControl: function (layercode) {
+        //    switch (layercode) {
+        //        case "1"://人流热力图
+        //            require("t_Main").showLayer(0);                  
+        //            break;
+        //        //case "2"://实时路况
+        //        //    require("t_Main").showLayer(1);
+        //        //    break;
+        //        case "3"://摄像头
+        //            require("t_Main").showLayer(1);
+        //            break;
+        //        case "4"://无人机
+        //            require("t_Main").showLayer(2);
+        //            break;
+        //        case "5"://停车场
+        //            require("t_Main").showLayer(3);
+        //            break;
+        //        case "6"://公交
+        //            require("t_Main").showLayer(4);
+        //            break;
+        //        case "7"://事件
+        //            require("t_Main").showLayer(5);
+        //            break;
+        //        case "8"://人流预测
+        //            require("t_Main").showLayer(6);
+        //            break;
+        //        case "9"://交通仿真
+        //            require("t_Main").showLayer(7);
+        //            break;
+        //    }
+        //},
         //产业园区图层控制
-        layerIndustryControl: function (layercode) {
-            $("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
-
-            switch (layercode) {
-                case "16":
-                    //$("#bottom_menu ul li").eq(0).addClass("active");
-                    //require("mainMenu").showLayer_e_Main("产业信息");
-                    require("mainMenu").showLayer_e_Main(0);
-                    break;
-                case "17":
-                    //$("#bottom_menu ul li").eq(1).addClass("active");
-                    //require("mainMenu").showLayer_e_Main("象限图谱");  //没效果
-                    require("mainMenu").showLayer_e_Main(1);
-                    break;
-                case "18":
-                    //$("#bottom_menu ul li").eq(2).addClass("active");//没效果
-                    //require("mainMenu").showLayer_e_Main("人员分布");
-                    require("mainMenu").showLayer_e_Main(2);
-                    break;
-                case "19":
-                    //$("#bottom_menu ul li").eq(3).addClass("active");
-                    //require("mainMenu").showLayer_e_Main("园区信息");
-                    require("mainMenu").showLayer_e_Main(3);
-                    break;
-                case "20"://楼宇
-                    require("mainMenu").showLayer_gMain(0);
-                    //require("gl_GardenBuilding").loadBuilding();
-                    //$("#bottom_menu ul li").eq(0).addClass("active");
-                    break;
-                case "21"://停车场
-                    //require("mainMenu").showLayer_gMain('停车');//没效果
-                    //$("#bottom_menu ul li").eq(1).addClass("active");
-                    require("mainMenu").showLayer_gMain(1);
-                    break;
-                case "22"://无人驾驶接驳车
-                    //require("mainMenu").showLayer_gMain('无人驾驶接驳车');
-                    //$("#bottom_menu ul li").eq(2).addClass("active");
-                    require("mainMenu").showLayer_gMain(2);
-                    break;
-                case "23"://事件
-                    //require("mainMenu").showLayer_gMain('事件');
-                    //$("#bottom_menu ul li").eq(3).addClass("active");
-                    require("mainMenu").showLayer_gMain(3);
-                    break;
-                case "24"://产业信息
-                    //require("mainMenu").showLayer_gMain('产业信息');
-                    //$("#bottom_menu ul li").eq(4).addClass("active");
-                    require("mainMenu").showLayer_gMain(4);
-                    break;
-                }
-        },
+        //无用
+        //layerIndustryControl: function (layercode) {
+        //    switch (layercode) {
+        //        case "16":
+        //            require('mainMenu').showLayer_e_Main(0);
+        //            break;
+        //        case "17":
+        //            require("mainMenu").showLayer_e_Main(1);
+        //            break;
+        //        case "18":
+        //            require("mainMenu").showLayer_e_Main(2);
+        //            break;
+        //        case "19":
+        //            require("mainMenu").showLayer_e_Main(3);
+        //            break;
+        //        case "20"://楼宇
+        //            require('mainMenu').showLayer_gMain(0);
+        //            break;
+        //        case "21"://停车场
+        //            require("mainMenu").showLayer_gMain(1);
+        //            break;
+        //        case "22"://无人驾驶接驳车
+        //            require("mainMenu").showLayer_gMain(2);
+        //            break;
+        //        case "23"://事件
+        //            require("mainMenu").showLayer_gMain(3);
+        //            break;
+        //        case "24"://产业信息
+        //            require("mainMenu").showLayer_gMain(4);
+        //            break;
+        //        }
+        //},
         //////////////////////////////////////////////POI定位控制//////////////////////////////////////////////////////////
         //POI定位控制
         poiControl: function (str)
@@ -320,21 +285,8 @@
                 var layer = json.layer
                 var id = json.id
 
-
-                //switch (menu) {
-                //    case "1"://社区综治
-                //        //this.layerSocietyControl(layer);
-                //        break;
-                //    case "2"://大客流
-                //        //this.layerTourControl(layer);
-                //        break;
-                //    case "3"://产业fazhan
-                //        this.poiIndustryControl(id);
-                //        break;
-                //}
-
                 var layerValue = $.grep(controlData.poiControlData, function (n, i) {
-                if (n.menu == menu ) {
+                    if (n.menu == menu) {  //&& n.layer == layer
                     var funcStr = n.func.replace('*',id);
                     eval(funcStr);
                     return n;
@@ -363,89 +315,55 @@
         //},
         //产业POI
         poiIndustryControl: function (id) {
-            //switch (menu) {
-            //    case "1"://社区综治
-            //        //this.layerSocietyControl(layer);
-            //        break;
-                
-            //        this.poiIndustryControl(id);
-            //        break;
-            //    default:
-            //        require("g_Main").PoiEvent(id);
-            //}
             if (id.indexOf("UmmannedCarPOI") > -1) { //无人车POI
                 require("gl_UnmannedCar").showUnmannedCarTrajectors(id);
             }
-            //else if (id.indexOf("POIIndustryGTopCompany") > -1) { //代表企业POI
-            //    $(".cy-qy-navbar").click();
-            //    //require("gl_UnmannedCar").showUnmannedCarTrajectors(id);
-            //}
             else {
                 require("g_Main").PoiEvent(id);
             }
             
         },
-        poiSocietyControl: function (layer,id)
-        {
-            var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
-            var result = 1;
-            var message = "";
-            var re_xyz = "";
-            var re_angle = "";
+        //无用
+        //poiSocietyControl: function (layer,id)
+        //{
+        //    var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
+        //    var result = 1;
+        //    var message = "";
+        //    var re_xyz = "";
+        //    var re_angle = "";
+        //    console.log(str)
+        //    try {
+        //        var json = $.parseJSON(str);
+        //        var xyz = json.xyz
+        //        var angle = json.angle
+        //        var menu = json.menu
+        //        var layer = json.layer
+        //        var id = json.id
+        //        if (id != null) {
+        //            var nodename = "POITourCamera_" + id;
+        //            require("tl_Camera").loadCameraDetial(nodename)
+        //        }
+        //        //视口切换
+        //        //if (xyz != null || angle != null) {
+        //        //    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
+        //        //}
+        //        result = 1;
+        //        message = "操作成功";
+        //    } catch (e) {
+        //        result = 0;
+        //        message = "操作失败";
+        //    }
+        //    var pos = this.getCameraPos();
+        //    re_xyz = pos.split(",")[0];
+        //    re_angle = pos.split(",")[1];
+        //    res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+        //    return res
+        //},
 
-            console.log(str)
-
-            try {
-                var json = $.parseJSON(str);
-                var xyz = json.xyz
-                var angle = json.angle
-                var menu = json.menu
-                var layer = json.layer
-                var id = json.id
-
-
-                //switch (menuname) {
-                //    case "1"://社区综治
-                //        //this.layerSocietyControl(layer);
-                //        break;
-                //    case "2"://大客流
-                //        //this.layerTourControl(layer);
-                //        break;
-                //    case "3"://产业园区
-                //        //this.layerIndustryControl(layer);
-                //        break;
-                //}
-
-
-                if (id != null) {
-                    var nodename = "POITourCamera_" + id;
-                    require("tl_Camera").loadCameraDetial(nodename)
-                }
-
-
-                //视口切换
-                //if (xyz != null || angle != null) {
-                //    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
-                //}
-
-                result = 1;
-                message = "操作成功";
-
-            } catch (e) {
-                result = 0;
-                message = "操作失败";
-            }
-
-            var pos = this.getCameraPos();
-            re_xyz = pos.split(",")[0];
-            re_angle = pos.split(",")[1];
-
-            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
-            return res
-        },
         //////////////////////////////////////////////////POI信息窗口控制/////////////////////////////////////////////////////
         //POI信息窗口控制
-        poiInfoControl: function (str)
+        //(备用)
+        poiInfoControl1: function (str)
         {
             var res = { " code ": "", " message ": "" }
             var result = 1;
@@ -539,12 +457,80 @@
                         }
                     }
                 }
+                result = 1;
+                message = "操作成功";
 
+            } catch (e) {
+                result = 0;
+                message = "操作失败";
+            }
 
-                //视口切换
-                //if (xyz != null || angle != null) {
-                //    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
-                //}
+            var pos = this.getCameraPos();
+            re_xyz = pos.split(",")[0];
+            re_angle = pos.split(",")[1];
+
+            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+            return res
+        },
+        poiInfoControl: function (str) {
+            var res = { " code ": "", " message ": "" }
+            var result = 1;
+            var message = "";
+            try {
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
+                var angle = json.angle
+                var menu = json.menu
+                var layer = json.layer
+                var id = json.id
+                var command = json.command
+
+                var layerValue = $.grep(controlData.poiWinControlData, function (n, i) {
+                    if (n.command == command && id.indexOf(n.POISTR)>-1&&n.layer==layer&&n.menu==menu) {//ss
+                        eval(n.func);
+                        return n;
+                    }
+            });
+
+               
+                result = 1;
+                message = "操作成功";
+
+            } catch (e) {
+                result = 0;
+                message = "操作失败";
+            }
+
+            var pos = this.getCameraPos();
+            re_xyz = pos.split(",")[0];
+            re_angle = pos.split(",")[1];
+
+            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+            return res
+        },
+
+        UIButtonControl: function (str) {
+            var res = { " code ": "", " message ": "" }
+            var result = 1;
+            var message = "";
+            try {
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
+                var angle = json.angle
+                var menu = json.menu
+                var layer = json.layer
+                var id = json.id
+                var type = json.type
+
+                var layerValue = $.grep(controlData.UIButtonControlData, function (n, i) {
+                    if (n.type == type && n.layer == layer && n.menu == menu) {//ss
+                        var funcStr = n.func.replace('*', id);
+                        eval(funcStr);
+                        //eval(n.func);
+                        return n;
+                    }
+                });
+
 
                 result = 1;
                 message = "操作成功";
@@ -561,6 +547,7 @@
             res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
             return res
         },
+
         //获取当前的坐标和视口位置
         getCameraPos: function ()
         {

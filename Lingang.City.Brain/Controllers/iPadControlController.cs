@@ -115,5 +115,22 @@ namespace Lingang.City.Brain.Web.Controllers
             return Json(new returnResultModel() { code = "1", message = "success" }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 信息窗按钮控制
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult buttoncontrol(buttoninfoControlModel model)
+        {
+            string strModel = JsonConvert.SerializeObject(model);
+
+            ControlHub control = new ControlHub();
+            control.sendButtonInfoControl(strModel);
+
+            logger.Trace("POI信息框按钮操作控制：" + strModel);
+            return Json(new returnResultModel() { code = "1", message = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

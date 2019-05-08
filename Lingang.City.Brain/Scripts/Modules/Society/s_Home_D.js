@@ -2,6 +2,7 @@
 function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation) {
     return {
         layerNO: null,
+        POIName:null,
         loadMain: function () {
             s_Main.loadMain();
             var jsondata = {
@@ -128,6 +129,7 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
         /*******************************POI操作********************************************/
 
         PoiEvent: function (nodename) {
+            this.POIName = nodename;
             s_Main.PoiEvent(nodename);
             var jsondata = {
                 "menu": "1",
@@ -138,5 +140,22 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
             };
             control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
         },
+
+        /***********************************END****************************************************/
+
+        /**********************UI事件****************************/
+        closeCameraDetial: function () {
+            require('sl_Drone').closeCameraDetial();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": this.POIName,
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        /**********************END******************************/
     }
 });

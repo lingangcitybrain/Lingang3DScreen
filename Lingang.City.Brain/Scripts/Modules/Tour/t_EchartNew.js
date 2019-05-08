@@ -167,7 +167,6 @@
                         require("t_Echart").bigjwrsjtj();
                         break;
                     default:
-
                 }
 
             })
@@ -189,32 +188,7 @@
                 yqyjLevelLeftArr[index] = parseInt($(this).css("left")) / $(this).parent().width() * 100;
             })
 
-            //function yqyjLevelbgFn(num) {
-            //    var numLittle = 0;
-            //    num = parseInt(Math.random() * 100);
-
-            //    num = num > 20 ? num < 40 ? num : 40 - parseInt(Math.random() * 10) : 20 + parseInt(Math.random() * 10);
-            //    yqyjLevelbgTimer = setTimeout(function () {
-            //        clearTimeout(yqyjLevelbgTimer);
-            //        $(".yqyj-levelbg").width(num + "%");
-
-            //        if (num >= yqyjLevelLeftArr[0]) {
-            //            do {
-            //                numLittle++;
-            //            } while (num > yqyjLevelLeftArr[numLittle])
-            //            numLittle--;
-            //            $(".yqyj-levelbox>.yqyj-level").eq(numLittle).addClass("active").siblings().removeClass("active");
-            //        } 
-            //        //else {
-            //        //    $(".yqyj-levelbox>.yqyj-level").eq(0).removeClass("active").siblings().removeClass("active");
-            //        //}
-
-            //        yqyjLevelbgFn(mathRandom);
-            //    }, 1000)
-
-            //}
-
-            //yqyjLevelbgFn(mathRandom);
+            
 
 
 
@@ -968,7 +942,6 @@
                         }
                     ]
                 };
-
                 if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
                     require("t_Echart").mybigChart.dispose();
                 }
@@ -1101,7 +1074,6 @@
                                     { value: data.wrj_flying_cnt, name: '执飞中' },
                                     { value: data.wrj_charging_cnt, name: '充电中' },
                                     { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
-
                                 ]
                             }
                         ]
@@ -1113,7 +1085,6 @@
                         require("t_Echart").myChartwrj.setOption(wrjOption, true)
                     });
                     require("t_Echart").myChartwrj.setOption(wrjOption, true);
-
                 })
             }, 5000);
         },
@@ -1122,7 +1093,6 @@
             if ($("#wrj-chart").length <= 0) { return false; }
             $("#bigechartHead").html("无人机（统计）");
             t_EchartAjax.getBigwrj(function (data) {
-
                 var data = require("t_Echart").wrjData;
                 wrjOption = {
                     title: {
@@ -1191,7 +1161,6 @@
                                 { value: data.wrj_flying_cnt, name: '执飞中' },
                                 { value: data.wrj_charging_cnt, name: '充电中' },
                                 { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
-
                             ]
                         }
                     ]

@@ -105,46 +105,45 @@
                 //旅游大客流
                 $("#bottom_menu ul li").each(function (index) {//便利对象
                     $(this).click(function () {//点击触发事件
-                        $("li").removeClass("active");//删除当前元素的样式
-                        $("li").eq(index).addClass("active");//添加当前元素的样式
-                        var menuname = $("li").eq(index).text();
-                        require("t_Main").showLayer(menuname);
+                        
+                        require("t_Main").showLayer(index);
                     });
                 });
             },
 
             //切换显示图层
-            showLayer: function (menuname) {
+            showLayer: function (index) {
                 this.Revert();
+                $("li").removeClass("active");//删除当前元素的样式
+                $("li").eq(index).addClass("active");//添加当前元素的样式
+                var menuname = $("li").eq(index).text();
                 switch (menuname) {
                     case "人流热力图":
-                        tl_VisitorsMap.loadVisitorsMap();
+                        require("t_Home").loadVisitorsMap();
                         break;
                     case "实时路况":
-                        tl_RoadCondition.loadRoadCondition();
+                        require("t_Home").loadRoadCondition();
                         break;
                     case "摄像头":
-                        tl_Camera.loadCamera();
+                        require("t_Home").loadCamera();
                         break;
                     case "无人机":
-                        tl_Drone.loadDrone();
+                        require("t_Home").loadDrone();
                         break;
                     case "停车场":
-                        tl_ParkingLot.loadParkingLot();
+                        require("t_Home").loadParkingLot();
                         break;
                     case "公交":
-                        tl_Bus.loadBus();
-                        tl_Bus.loadBusLine();
-                        tl_Metro.loadMetro();
+                        require("t_Home").PublicTransportation();
                         break;
                     case "事件":
-                        tl_Event.loadEvent();
+                        require("t_Home").loadEvent();
                         break;
                     case "人流预测":
-                        tl_StreamCalculate.loadStream();
+                        require("t_Home").loadStream();
                         break;
                     case "交通仿真":
-                        tl_TrafficSimulation.loadTrafficSimulation();
+                        require("t_Home").loadTrafficSimulation();
                         break;
                     default:
                 }

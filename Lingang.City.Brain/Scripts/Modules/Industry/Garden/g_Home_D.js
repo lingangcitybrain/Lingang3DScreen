@@ -1,7 +1,9 @@
 ﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap) {
     /****************************园区****************************/
     return {
-        layerNO:null,
+        layerNO: null,
+        //FlowerClickIndex: 0,
+        //floor:1,
         /**********************************底部菜单操作********************************************/
         loadMain_e_Main: function () {
             e_Main.loadMain();
@@ -146,20 +148,6 @@
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
         },
 
-        //花瓣点击事件
-        FlowerClickFn: function (index) {
-            //$(e).addClass("active").parents(".cy-qy-menuli").siblings().find("a").removeClass("active").find(".cy-qy-divcont").removeClass("active");
-            //$(e).find(".cy-qy-divcont").css({ "transition-duration": ".8s" }).addClass("active");
-            var jsondata = {
-                "menu": "3",
-                "layer": this.layerNO,
-                "id": require("gl_TopCompany").LastPOI_Clk+"/"+index,
-                "command": "",
-                "xyz": "",
-                "angle": "",
-            };
-            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
-        },
         //点击进入企业详情
         clickCompany: function () {
             //require("gl_TopCompany").conrolFlower();
@@ -176,18 +164,34 @@
             };
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
         },
+
+        //花瓣点击事件
+        FlowerClickFn: function (index) {
+            //this.FlowerClickIndex = index;
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "type":"flowerClk",
+                "id": index,
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+        },
+      
         //楼宇揭楼层
         openFloor: function (floor) {
+            //this.floor = floor;
             require("b_BuildingFloor").openFloor(floor);
             var jsondata = {
                 "menu": "3",
                 "layer": this.layerNO,
-                "id": "buildingFloor/"+floor,
-                "command": "open",
+                "type": "buildingFloor",
+                "id": floor,
                 "xyz": "",
                 "angle": "",
             };
-            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
         },
         /*********************************END*********************************************/
     }
