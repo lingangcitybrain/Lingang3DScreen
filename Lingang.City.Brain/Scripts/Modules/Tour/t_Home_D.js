@@ -191,6 +191,19 @@
                 };
                 control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
             },
+            //关闭交通仿真窗口
+            closeCameraDetialTraffic: function () {
+                require('tl_TrafficSimulation').closeCameraDetial();
+                var jsondata = {
+                    "menu": "2",
+                    "layer": this.layerNO,
+                    "id": "TrafficSimulation",
+                    "command": "close",
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            },
             /**********************************END*********************************/
         }
     });

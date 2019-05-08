@@ -144,8 +144,34 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
         /***********************************END****************************************************/
 
         /**********************UI事件****************************/
-        closeCameraDetial: function () {
+        //无人机实时视频窗口
+        closeDroneCameraDetial: function () {
             require('sl_Drone').closeCameraDetial();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": this.POIName,
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        //摄像头视频窗口
+        closeCameraDetial: function () {
+            require('sl_Camera').closeCameraDetial();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": this.POIName,
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        closeDetail: function () {
+            require('sl_Event').closeDetail();
             var jsondata = {
                 "menu": "1",
                 "layer": this.layerNO,

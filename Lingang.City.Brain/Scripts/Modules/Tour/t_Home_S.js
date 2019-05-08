@@ -64,6 +64,10 @@
             closeEventDetail: function () {
                 require('tl_Event').closeDetail();               
             },
+            //关闭交通仿真窗口
+            closeCameraDetialTraffic: function () {
+                require('tl_TrafficSimulation').closeCameraDetial();
+            },
             /**********************************END*********************************/
         }
     });

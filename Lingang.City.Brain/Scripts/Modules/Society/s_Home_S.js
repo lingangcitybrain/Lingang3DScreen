@@ -47,8 +47,17 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         /**********************END******************************/
 
         /**********************UI事件****************************/
+        //无人机实时视频窗口
+        closeDroneCameraDetial: function () {
+            require('sl_Drone').closeCameraDetial();            
+        },
+        //摄像头视频窗口
         closeCameraDetial: function () {
-            require('sl_Drone').closeCameraDetial()
+            require('sl_Camera').closeCameraDetial();           
+        },
+        //关闭事件详情
+        closeDetail: function () {
+            require('sl_Event').closeDetail();          
         },
         /**********************END******************************/
     }
