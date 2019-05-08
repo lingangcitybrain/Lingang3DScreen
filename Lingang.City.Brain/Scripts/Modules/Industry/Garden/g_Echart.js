@@ -642,12 +642,6 @@
                     show: false
                 },
                 color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow',
-                    }
-                },
                 grid: {
                     left: '0',
                     right: '2%',
@@ -742,7 +736,7 @@
         },
         //大停车服务
         bigtcfw: function () {
-            $("#GbigechartHead").html('停车服务');
+            $("#GbigechartHead").html('停车服务(辆)');
             if ($("#tcfw-chart").length <= 0) { return false; }
             var tcfwdata = [];
             for (var i = 1; i < 100; i++) {
@@ -750,30 +744,25 @@
             }
             tcfwOption = {
                 title: {
-                    text: "(辆)",
-                    left: "0",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
-                    },
+                    show:false,
+                    //text: "(辆)",
+                    //left: "0",
+                    //top: 8,
+                    //textStyle: {
+                    //    fontSize: 24,
+                    //    color: "#00d7fe",
+                    //    fontWeight: "normal",
+                    //},
                 },
                 legend: {
                     show: false
                 },
                 color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow',
-                    }
-                },
                 grid: {
-                    left: '0',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "82%",
+                    left: '5%',
+                    right: '5%',
+                    bottom: '5%',
+                    height: "86%",
                     containLabel: true
                 },
                 tooltip: {
@@ -783,8 +772,10 @@
                         label: {
                             show: false,
                         }
-
                     },
+                    textStyle: {
+                        fontSize: 50,
+                    }
                 },
                 xAxis: {
                     type: 'category',
@@ -796,18 +787,20 @@
                     axisLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
                     axisLabel: {
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         show: true,
                         lineStyle: {
+                        width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     }
@@ -820,6 +813,7 @@
                     axisLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
@@ -828,14 +822,14 @@
                     min: 2000,
                     axisLabel: {
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
                         }
                     }
                 },
@@ -848,9 +842,9 @@
                           opacity: .1,
                       },
                       lineStyle: {
-                          width: 2,
+                          width: 10,
                       },
-                      symbolSize: 10,
+                      symbolSize: 20,
                       data: tcfwdata,
                   }
                 ]
@@ -888,12 +882,6 @@
                     show: false
                 },
                 color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow',
-                    }
-                },
                 grid: {
                     left: '1%',
                     right: '2%',
@@ -982,34 +970,30 @@
         },
         //大无人接驳车
         bigwrjsjbc: function () {
-            $("#GbigechartHead").html('无人接驳车');
+            $("#GbigechartHead").html('无人接驳车(%)');
             if ($("#wrjsjbc-chart").length <= 0) { return false; }
             wrjsjbcOption = {
                 title: {
-                    text: "(%)",
-                    left: "0",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
-                    },
+                    show:false,
+                    //text: "(%)",
+                    //left: "0",
+                    //top: 8,
+                    //textStyle: {
+                    //    fontSize: 24,
+                    //    color: "#00d7fe",
+                    //    fontWeight: "normal",
+                    //},
                 },
                 legend: {
                     show: false
                 },
                 color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow',
-                    }
-                },
+
                 grid: {
-                    left: '1%',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "82%",
+                    left: '5%',
+                    right: '5%',
+                    bottom: '5%',
+                    height: "86%",
                     containLabel: true
                 },
                 tooltip: {
@@ -1019,8 +1003,10 @@
                         label: {
                             show: false,
                         }
-
                     },
+                    textStyle: {
+                        fontSize:50,
+                    }
                 },
                 xAxis: {
                     type: 'category',
@@ -1032,18 +1018,20 @@
                     axisLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
                     axisLabel: {
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     }
@@ -1055,6 +1043,7 @@
                     axisLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
@@ -1062,14 +1051,14 @@
                     max: 100,
                     axisLabel: {
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
                         }
                     }
                 },
@@ -1082,9 +1071,9 @@
                           opacity: .1,
                       },
                       lineStyle: {
-                          width: 2,
+                          width: 10,
                       },
-                      symbolSize: 10,
+                      symbolSize: 20,
                       data: [50, 55, 60, 20, 35, 65, 70],
                   }
                 ]
@@ -1120,12 +1109,6 @@
                     show: false
                 },
                 color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow',
-                    }
-                },
                 grid: {
                     left: '0',
                     right: '2%',
@@ -1215,7 +1198,7 @@
         },
         //大智慧物业
         bigzhwy: function () {
-            $("#GbigechartHead").html('智慧物业');
+            $("#GbigechartHead").html('智慧物业(近一周报修量分布)');
             if ($("#zhwy-chart").length <= 0) { return false; }
             var zhwydata = [];
             for (var i = 1; i < 100; i++) {
@@ -1223,30 +1206,25 @@
             }
             zhwyOption = {
                 title: {
-                    text: "近一周报修量分布",
-                    left: "center",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
-                    },
+                    show:false,
+                    //text: "近一周报修量分布",
+                    //left: "center",
+                    //top: 8,
+                    //textStyle: {
+                    //    fontSize: 24,
+                    //    color: "#00d7fe",
+                    //    fontWeight: "normal",
+                    //},
                 },
                 legend: {
                     show: false
                 },
                 color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow',
-                    }
-                },
                 grid: {
-                    left: '0',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "85%",
+                    left: '5%',
+                    right: '5%',
+                    bottom: '5%',
+                    height: "86%",
                     containLabel: true
                 },
                 tooltip: {
@@ -1256,8 +1234,10 @@
                         label: {
                             show: false,
                         }
-
                     },
+                    textStyle: {
+                        fontSize:50,
+                    }
                 },
                 xAxis: {
                     type: 'category',
@@ -1269,18 +1249,20 @@
                     axisLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
                     axisLabel: {
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     }
@@ -1293,6 +1275,7 @@
                     axisLine: {
                         show: true,
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
@@ -1300,14 +1283,14 @@
                     max: 70,
                     axisLabel: {
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
                         }
                     }
                 },
@@ -1320,9 +1303,9 @@
                           opacity: .1,
                       },
                       lineStyle: {
-                          width: 2,
+                          width: 10,
                       },
-                      symbolSize: 4,
+                      symbolSize: 20,
                       data: zhwydata,
                   }
                 ]
@@ -1442,7 +1425,7 @@
         },
         //大智慧能耗
         bigzhnh: function () {
-            $("#GbigechartHead").html('智慧能耗');
+            $("#GbigechartHead").html('园区日用电量峰值（近一周）');
             if ($("#zhnh-chart").length <= 0) { return false; }
             var zhnhdata = [];
             for (var i = 0; i < 7; i++) {
@@ -1450,14 +1433,15 @@
             }
             zhnhOption = {
                 title: {
-                    text: "园区日用电量峰值（近一周）",
-                    left: 2,
-                    top: 8,
-                    textStyle: {
-                        fontWeight: "normal",
-                        fontSize: 24,
-                        color: "#fff",
-                    },
+                    show:false,
+                    //text: "",
+                    //left: 2,
+                    //top: 8,
+                    //textStyle: {
+                    //    fontWeight: "normal",
+                    //    fontSize: 24,
+                    //    color: "#fff",
+                    //},
                 },
                 legend: {
                     show: false
@@ -1467,13 +1451,16 @@
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                    },
+                    textStyle: {
+                        fontSize:50,
                     }
                 },
                 grid: {
-                    left: '1%',   // grid 组件离容器左侧的距离。
-                    right: '2%',
-                    bottom: '2%',
-                    height: "80%",
+                    left: '5%',   // grid 组件离容器左侧的距离。
+                    right: '5%',
+                    bottom: '5%',
+                    height: "86%",
                     containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                 },
                 xAxis: {
@@ -1485,17 +1472,19 @@
                     },
                     axisLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,.2)"
                         }
                     },
                     axisLabel: {
                         textStyle: {
-                            fontSize: 20,
+                            fontSize: 50,
                             color: "#00d7fe"
                         }
                     },
                     splitLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,.2)"
                         }
                     }
@@ -1506,6 +1495,7 @@
                     },
                     axisLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,.2)",
                         }
                     },
@@ -1513,12 +1503,13 @@
                     max: 70,
                     axisLabel: {
                         textStyle: {
-                            fontSize: 25,
+                            fontSize: 50,
                             color: "#00d7fe",
                         }
                     },
                     splitLine: {
                         lineStyle: {
+                            width:4,
                             color: "rgba(80,172,254,.2)"
                         }
                     }
@@ -1526,10 +1517,10 @@
                 series: [
                   {
                       type: 'bar',
-                      barWidth: 50,
+                      barWidth: 140,
                       itemStyle: {
                           normal: {
-                              barBorderRadius: 10,
+                              barBorderRadius: 20,
                               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   offset: 0,
                                   color: '#04cafc'

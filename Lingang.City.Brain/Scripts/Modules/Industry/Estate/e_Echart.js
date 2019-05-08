@@ -259,19 +259,19 @@
                                     formatter: '【{value}】',
                                     textStyle: {
                                         color: '#0ff',
-                                        fontSize: 30
+                                        fontSize: 70
                                     }
                                 },
-                                radius: 180,
-                                center: ['50%', '55%'],
+                                radius: 420,
+                                center: ['50%', '54%'],
                                 axisLine: {
                                     lineStyle: {
-                                        width: 2,
+                                        width: 6,
                                     },
                                 },
                                 splitLine: {
                                     lineStyle: {
-                                        width: 2,
+                                        width: 6,
                                     },
                                 },
                                 splitArea: {
@@ -294,7 +294,7 @@
                                         },
                                         lineStyle: {
                                             normal: {
-                                                width: 6,
+                                                width: 12,
                                                 color: "rgba(235,182,0,1)"
                                             }
                                         }
@@ -332,19 +332,19 @@
                                     formatter: '【{value}】',
                                     textStyle: {
                                         color: '#0ff',
-                                        fontSize: 30
+                                        fontSize: 60
                                     }
                                 },
-                                radius: 180,
+                                radius: 420,
                                 center: ['50%', '55%'],
                                 axisLine: {
                                     lineStyle: {
-                                        width: 2,
+                                        width: 6,
                                     },
                                 },
                                 splitLine: {
                                     lineStyle: {
-                                        width: 2,
+                                        width: 6,
                                     },
                                 },
                                 splitArea: {
@@ -367,7 +367,7 @@
                                         },
                                         lineStyle: {
                                             normal: {
-                                                width: 6,
+                                                width: 12,
                                                 color: "rgba(235,182,0,1)"
                                             }
                                         }
@@ -505,7 +505,7 @@
         },
         //大企业变化趋势
         bigqybhqs: function () {
-            $("#EbigechartHead").html('企业变化趋势');
+            $("#EbigechartHead").html('企业变化趋势(企业数/千)');
             if ($("#qybhqs-chart").length <= 0) { return false; }
             e_EchartAjax.qybhqs(function (result) {
                 if (require("e_Echart").qybhqsData == null) { return false; }
@@ -518,10 +518,10 @@
                     },
                     color: ['#02d8e3'],
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "88%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -531,8 +531,10 @@
                             label: {
                                 show: false,
                             }
-
                         },
+                        textStyle:{
+                            fontSize:50,
+                        }
                     },
                     xAxis: {
                         type: 'category',
@@ -545,35 +547,38 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
 
                     },
                     yAxis: {
-                        name: "        (企业数/千)",
-                        nameTextStyle: {
-                            color: "#00d7fe",
-                            fontSize: 22,
-                        },
+                        //name: " (企业数/千)",
+                        //nameTextStyle: {
+                        //    color: "#00d7fe",
+                        //    fontSize: 50,
+                        //},
                         axisTick: {
                             show: false,
                         },
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
@@ -581,18 +586,17 @@
                         //max: 90,
                         axisLabel: {
                             formatter: function (value, index) {
-
                                 value = value / 1000;
-
                                 return value;
                             },
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.2)",
                             }
                         }
@@ -601,9 +605,9 @@
                       {
                           type: 'line',
                           lineStyle: {
-                              width: 2,
+                              width: 10,
                           },
-                          symbolSize: 10,
+                          symbolSize: 20,
                           areaStyle: {
                               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   offset: 0,
@@ -749,7 +753,7 @@
         //大税收变化趋势
         bigssbhqs: function () {
             if ($("#ssbhqs-chart").length <= 0) { return false; }
-            $("#EbigechartHead").html('税收变化趋势');
+            $("#EbigechartHead").html('税收变化趋势(金额/亿)');
             e_EchartAjax.ssbhqs(function (result) {
                 if (require("e_Echart").ssbhqsData == null) { return false; }
                 var data = require("e_Echart").ssbhqsData;
@@ -761,10 +765,10 @@
                     },
                     color: ['#02d8e3'],
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "88%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -774,8 +778,10 @@
                             label: {
                                 show: false,
                             }
-
                         },
+                        textStyle: {
+                            fontSize: 50,
+                        }
                     },
                     xAxis: {
                         show: true,
@@ -788,40 +794,41 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
 
                     },
                     yAxis: {
-                        name: "        (金额/亿)",
-                        nameTextStyle: {
-                            color: "#00d7fe",
-                            fontSize: 22,
-                        },
+                        //name: "(金额/亿)",
+                        //nameTextStyle: {
+                        //    color: "#00d7fe",
+                        //    fontSize: 50,
+                        //},
                         axisTick: {
                             show: false,
                         },
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        //interval: 10,
-                        //max: 90,
                         axisLabel: {
                             formatter: function (value, index) {
                                 if (value >= 100000000) {
@@ -830,12 +837,13 @@
                                 return value;
                             },
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)",
                             }
                         }
@@ -846,9 +854,9 @@
                           //smooth:true,
                           //color:"rgba(7,196,230,1)",
                           lineStyle: {
-                              width: 2,
+                              width: 10,
                           },
-                          symbolSize: 10,
+                          symbolSize: 20,
                           areaStyle: {
                               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   offset: 0,
@@ -1001,7 +1009,7 @@
         },
         //大固投变化趋势
         biggtbhqs: function () {
-            $("#EbigechartHead").html('固投变化趋势');
+            $("#EbigechartHead").html('固投变化趋势(金额/百万)');
             if ($("#gtbhqs-chart").length <= 0) { return false; }
             e_EchartAjax.gtbhqs(function (result) {
                 if (require("e_Echart").gtbhqsData == null) { return false; }
@@ -1018,10 +1026,10 @@
                     },
                     color: ['#e3a102'],
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "88%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -1031,8 +1039,10 @@
                             label: {
                                 show: false,
                             }
-
                         },
+                        textStyle: {
+                            fontSize: 50,
+                        }
                     },
                     xAxis: {
                         show: true,
@@ -1045,42 +1055,45 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
 
                     },
                     yAxis: {
-                        name: "        (金额/百万)",
-                        nameTextStyle: {
-                            color: "#00d7fe",
-                            fontSize: 22,
-                        },
+                        //name: "(金额/百万)",
+                        //nameTextStyle: {
+                        //    color: "#00d7fe",
+                        //    fontSize: 50,
+                        //},
                         axisTick: {
                             show: false,
                         },
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         //interval: 10,
                         max: 2000000,
                         axisLabel: {
-                            margin: 2,
+                            margin: 4,
 
                             formatter: function (value, index) {
 
@@ -1089,12 +1102,13 @@
                                 return value;
                             },
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)",
                             }
                         }
@@ -1105,9 +1119,9 @@
                           //smooth:true,
                           //color:"rgba(7,196,230,1)",
                           lineStyle: {
-                              width: 2,
+                              width: 10,
                           },
-                          symbolSize: 10,
+                          symbolSize: 20,
                           areaStyle: {
                               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   offset: 0,
@@ -1250,10 +1264,10 @@
                         show: false
                     },
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "94%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -1264,6 +1278,9 @@
                                 show: false,
                             }
                         },
+                        textStyle: {
+                            fontSize: 50,
+                        }
                     },
                     xAxis: {
                         show: true,
@@ -1273,22 +1290,23 @@
                         axisTick: {
                             show: false,
                         },
-
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
@@ -1302,18 +1320,20 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         //interval: 10,
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)",
                             }
                         }
@@ -1324,7 +1344,7 @@
                           smooth: true,
                           color: "rgba(7,196,230,1)",
                           lineStyle: {
-                              width: 2,
+                              width: 10,
                           },
                           //symbolSize:10,
                           areaStyle: {
@@ -1469,10 +1489,10 @@
                         show: false
                     },
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "94%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -1483,6 +1503,9 @@
                                 show: false,
                             }
                         },
+                        textStyle: {
+                            fontSize: 50,
+                        }
                     },
                     xAxis: {
                         show: true,
@@ -1495,18 +1518,20 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
@@ -1521,18 +1546,20 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         interval: 300,
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)",
                             }
                         }
@@ -1543,7 +1570,7 @@
                           smooth: true,
                           color: "rgba(7,230,75,1)",
                           lineStyle: {
-                              width: 2,
+                              width: 10,
                           },
                           //symbolSize:10,
                           areaStyle: {
@@ -1689,10 +1716,10 @@
                     },
                     color: ['#02d8e3'],
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "94%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -1703,8 +1730,10 @@
                                 show: false,
                             }
                         },
+                        textStyle: {
+                            fontSize: 50,
+                        }
                     },
-
                     xAxis: {
                         show: true,
                         type: 'category',
@@ -1716,22 +1745,23 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
-
                     },
                     yAxis: {
                         axisTick: {
@@ -1740,6 +1770,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
@@ -1747,12 +1778,13 @@
                         //max: 90,
                         axisLabel: {
                             textStyle: {
-                                fontSize: 22,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.2)",
                             }
                         }
@@ -1760,10 +1792,10 @@
                     series: [
                       {
                           type: 'bar',
-                          barWidth: 50,
+                          barWidth: 140,
                           itemStyle: {
                               normal: {
-                                  barBorderRadius: 8,
+                                  barBorderRadius: 16,
                                   // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   //     offset: 0,
                                   //     color: '#04cafc'
