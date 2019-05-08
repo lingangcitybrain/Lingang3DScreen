@@ -40,7 +40,8 @@
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("tl_Camera").POIData = data.data;
-                        callback(data)
+                        if ($.isFunction(callback))
+                            callback(data)
                     },
                     error: function () {
                         console.log('景区管理---获取摄像头点位数据失败')
@@ -50,7 +51,8 @@
             }
             else {//执行本地
                 require("tl_Camera").POIData = t_LayerMenuData.CameraData.data;
-                callback();
+                if ($.isFunction(callback))
+                    callback();
             }
         },
         //根据sbbm获取视频地址

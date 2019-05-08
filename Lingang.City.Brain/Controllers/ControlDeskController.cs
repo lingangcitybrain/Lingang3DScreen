@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Lingang.City.Brain.Web.Services;
+//using Lingang.City.Brain.Web.Services;
 using Lingang.City.Brain.Web.Model;
 
 namespace Lingang.City.Brain.Web.Controllers
@@ -21,7 +21,7 @@ namespace Lingang.City.Brain.Web.Controllers
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public string getSpeechRecongnizerResult(aliSpeechRecognizerModel json)
+        /*public string getSpeechRecongnizerResult(aliSpeechRecognizerModel json)
         {
             string token = json.token;
             string appkey = json.appkey;
@@ -39,6 +39,6 @@ namespace Lingang.City.Brain.Web.Controllers
 
 
             return result;
-        }
+        }*/
     }
 }

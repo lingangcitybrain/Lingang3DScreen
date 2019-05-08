@@ -13,40 +13,45 @@
             com.LayerFlyto(3)
 
             this.LayerType = require("t_Main").LayerCatalog.Camera;
-            var post_data = { "offset": "0", "count": "1000" }
+            var post_data = { "offset": "0", "count": "1000" };
+            require("t_LayerMenuAjax").getCameraList(post_data);
 
-            require("t_LayerMenuAjax").getCameraList(post_data, function (result) {
-                var areaName = con.AreaName;
-                var icon = require("tl_Camera").LayerType.UnChooseIcon;
-                var pois = [];
-                require("tl_Camera").POIData = result.data;
-                for (var i = 0; i < require("tl_Camera").POIData.length; i++) {
-                    var row  = require("tl_Camera").POIData[i];
-                    var sbmc = row.sbmc
+            if (require("tl_Camera").POIData) {
+                require("tl_Camera").createCameraPoi(require("tl_Camera").POIData);
+            }
+            else {
+                require("t_LayerMenuAjax").getCameraList(post_data, function (result) {
+                    require("tl_Camera").createCameraPoi(result.data);
+                });
+            }
+        },
+        createCameraPoi: function (cameraData) {
+            var areaName = con.AreaName;
+            var icon = require("tl_Camera").LayerType.UnChooseIcon;
+            var pois = [];
+            for (var i = 0; i < cameraData.length; i++) {
+                var row = cameraData[i];
+                var sbmc = row.sbmc
 
-                    if (sbmc.indexOf("海洋小区") <= -1) {
-                        require("tl_Camera").CameraListData.put(row.id, row);
-                        var poiName = "POITour" + require("tl_Camera").LayerType.Name + "_" + row.id;//POIIOT_01
+                if (sbmc.indexOf("海洋小区") <= -1) {
+                    require("tl_Camera").CameraListData.put(row.id, row);
+                    var poiName = "POITour" + require("tl_Camera").LayerType.Name + "_" + row.id;//POIIOT_01
 
-                        var iconSize = Q3D.vector2(41, 45);
-                        var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转84坐标
-                        var pos = Coordinate + ",0";
-                        var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                    var iconSize = Q3D.vector2(41, 45);
+                    var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转84坐标
+                    var pos = Coordinate + ",0";
+                    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                        var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
-                        var node = map.getSceneNode(areaName + "/" + poiName);
-                        if (node) {
-                            node.setVisible(1);//显示当前父节点
-                        } else {
-                            pois.push(poi);
-                        }
+                    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+                    var node = map.getSceneNode(areaName + "/" + poiName);
+                    if (node) {
+                        node.setVisible(1);//显示当前父节点
+                    } else {
+                        pois.push(poi);
                     }
-                    //else {
-                    //    console.log(sbmc)
-                    //}
                 }
-                com.InitPois(areaName, pois);
-            });
+            }
+            com.InitPois(areaName, pois);
         },
         //摄像头点击事件
         loadCameraDetial: function (nodeName) {
@@ -92,7 +97,7 @@
                                 $("#detail_tourplayer").show();
                                 $("#detail_tourplayer").html(template);
                                 $("#cameradetail").hide()
-                                $("#cameradetail").show('drop', 1000);
+                                $("#cameradetail").show('drop', 500);
 
                                 require("tl_Camera").loadaliplayer1(cameraurl);
                             });
@@ -100,16 +105,17 @@
                         }
                         else {
                             $("#detail_tourplayer").show();
-                            //$("#cameradetail").hide()
-                            //$("#cameradetail").show('drop', 1000);
+                            $("#cameradetail").hide()
+                            $("#cameradetail").show('drop', 500);
                             try {
                                 require("tl_Camera").changealiplayer(cameraurl);
                             } catch (e) {
                             }
                         }
                     }
-                    else {
+                    else {                        
                         com.alert("视频地址为空");
+                        return;
                     }
                 });
             }
@@ -195,6 +201,7 @@
         //清空摄像头POI
         clearCameraPOI: function () {
             var areaName = con.AreaName;
+            this.LayerType = require("t_Main").LayerCatalog.Camera;
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
                 var layername = this.LastPOI_Clk.split('_')[0].replace("POITour", "");
                 var level = this.LayerType.Level;
@@ -220,8 +227,8 @@
                         node.setVisible(0);
                     }
                 }
-                this.LayerType = null;
-                this.POIData = null;
+                //this.LayerType = null;
+                //this.POIData = null;
             }
 
 
