@@ -1,6 +1,7 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu) {
     return {
-        cgqData: null,  
+        mybigChart: null, //大的图表显示
+        cgqData: null,
         myChartsxt1:null,   //摄像头
         myChartsxt2: null,   //摄像头
         myChartsxt3: null,   //摄像头
@@ -27,6 +28,47 @@
             //require("s_Echart").sxt2();               //摄像头 Left_First_04
             //require("s_Echart").sxt3();               //摄像头 Left_First_04
         },
+
+        loadBigChart: function (divname) {
+            var url = con.HtmlUrl + 'SocietyNew/Center_03.html';
+            require(['text!' + url], function (template) {
+                $("#center_03").html(template);
+                $("#center_03").show('drop', 1000);//左侧
+                //rycltjChartClose = true;
+
+                switch (divname) {
+                    case "Left_First_03"://无人机
+                        require("s_Echart").bigWrj2();
+                        break;
+                    case "Left_Second_EventIOT2"://社区车辆
+                        require("sl_IOT").bigLoadSocietyCarchart();
+                        break;
+                    case "Right_Second_02"://事件处理成功数
+                        require("s_Echart").bigSjcg();
+                        break;
+                    case "Left_Second_EventGrid1"://处置案件数量
+                        require("sl_Grid").bigLoadGridCZAJSLchart();
+                        break;
+                    case "Left_Second_EventGrid3"://处置主责部门
+                        require("sl_Grid").bigLoadGridCZZZBMchart();
+                        break;
+                    default:
+                }
+                
+            })
+        },
+        //关闭大的图表
+        closeBigChart: function () {
+            if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
+                require("s_Echart").mybigChart.dispose();
+            }
+            //rycltjChartClose = true;
+            $("#center_03").html("");           
+        },
+
+
+
+
         //加载头部日期时间  
 
         tick: function () {
@@ -92,179 +134,7 @@
             });
         },
         /*********************左侧图表-start*********************/
-      
 
-        //sxt1: function () {
-        //    if ($("#sxt1-chart").length <= 0) { return false; }
-        //    var myChart = echarts.init(document.getElementById('sxt1-chart'));
-        //    require("s_Echart").myChartsxt1 = echarts.init(myChart);
-        //    var option =
-        //        {
-        //        calculable: true,
-        //    series: [
-        //        {
-        //            name: "人员",
-        //            type: "pie",
-        //            radius: ["90%", "95%"],
-        //            itemStyle: {
-        //                normal: {
-        //                    label: {
-        //                        show: false,
-        //                        position: "left",
-        //                        formatter: "{b}{c}",
-        //                        textStyle: {
-        //                            color: "rgb(66, 162, 206)",
-        //                            fontSize: 30,
-        //                            fontWeight: "bold"
-        //                        }
-        //                    },
-        //                    labelLine: {
-        //                        show: false
-        //                    }
-        //                },
-        //            },
- 
-
-        //            data: [
-        //                {
-        //                    value: 4000,
-        //                    name: "正常",
-        //                    itemStyle:
-        //                    {
-        //                        color: 'rgba(0,120,255,1)',//颜色设定
-        //                    },
-        //                },
-        //                {
-        //                    value: 6000,
-        //                    name: "嫌疑",
-        //                    itemStyle:
-        //                    {
-        //                        color: 'rgba(0,120,255,0.5)',//颜色设定
-                        
-        //                    },
-        //                }
-        //            ],
-        //            startAngle: 150
-        //        }
-        //    ]
-        //}
-        //    require("s_Echart").myChartsxt1.setOption(option);// 为echarts对象加载数据
-        //},
-        //sxt2: function () {
-        //    if ($("#sxt2-chart").length <= 0) { return false; }
-        //    var myChart = echarts.init(document.getElementById('sxt2-chart'));
-        //    require("s_Echart").myChartsxt2 = echarts.init(myChart);
-
-        //    var option =
-        //        {
-        //            calculable: true,
-        //            series: [
-        //                {
-        //                    name: "人员",
-        //                    type: "pie",
-        //                    radius: ["90%", "95%"],
-        //                    itemStyle: {
-        //                        normal: {
-        //                            label: {
-        //                                show: false,
-        //                                position: "left",
-        //                                formatter: "{b}{c}",
-        //                                textStyle: {
-        //                                    color: "rgb(66, 162, 206)",
-        //                                    fontSize: 30,
-        //                                    fontWeight: "bold"
-        //                                }
-        //                            },
-        //                            labelLine: {
-        //                                show: false
-        //                            }
-        //                        },
-        //                    },
-
-
-        //                    data: [
-        //                        {
-        //                            value: 6000,
-        //                            name: "正常",
-        //                            itemStyle:
-        //                            {
-        //                                color: 'rgb(6,207,17)',//颜色设定
-        //                            },
-        //                        },
-        //                        {
-        //                            value: 4000,
-        //                            name: "嫌疑",
-        //                            itemStyle:
-        //                            {
-        //                                color: 'rgba(6,207,17,0.5)',//颜色设定
-
-        //                            },
-        //                        }
-        //                    ],
-        //                    startAngle: 150
-        //                }
-        //            ]
-        //        }
-        //    require("s_Echart").myChartsxt2.setOption(option);// 为echarts对象加载数据
-        //},
-        //sxt3: function () {
-        //    if ($("#sxt3-chart").length <= 0) { return false; }           
-        //    var myChart = echarts.init(document.getElementById('sxt3-chart'));
-        //    require("s_Echart").myChartsxt3 = echarts.init(myChart);
-
-        //    var option =
-        //        {
-        //            calculable: true,
-        //            series: [
-        //                {
-        //                    name: "人员",
-        //                    type: "pie",
-        //                    radius: ["90%", "95%"],
-        //                    itemStyle: {
-        //                        normal: {
-        //                            label: {
-        //                                show: false,
-        //                                position: "left",
-        //                                formatter: "{b}{c}",
-        //                                textStyle: {
-        //                                    color: "rgb(66, 162, 206)",
-        //                                    fontSize: 30,
-        //                                    fontWeight: "bold"
-        //                                }
-        //                            },
-        //                            labelLine: {
-        //                                show: false
-        //                            }
-        //                        },
-        //                    },
-
-
-        //                    data: [
-        //                        {
-        //                            value: 9000,
-        //                            name: "正常",
-        //                            itemStyle:
-        //                            {
-        //                                color: 'rgb(247,176,1)',//颜色设定
-        //                            },
-        //                        },
-        //                        {
-        //                            value: 1000,
-        //                            name: "嫌疑",
-        //                            itemStyle:
-        //                            {
-        //                                color: 'rgba(247,176,1,0.5)',//颜色设定
-
-        //                            },
-        //                        }
-        //                    ],
-        //                    startAngle: 150
-        //                }
-        //            ]
-        //        }
-        //    require("s_Echart").myChartsxt3.setOption(option);// 为echarts对象加载数据
-        //},
-        //无人机
         wrj: function () {
             var wrjChart = document.getElementById('wrj-chart');
 
@@ -352,102 +222,174 @@
                 require("s_Echart").myChartwrj.setOption(wrjOption);
             })
         },
-        cgq1: function () {
-            //(function (obj) {
-            //    obj.win = {
-            //        /**
-            //            * 环形进度条
-            //            * @param el：DOM对象
-            //            * @param val:数值
-            //            * @param bg:背景颜色
-            //            * @param color:环颜色
-            //            * @param textColor：数字颜色
-            //            * @param fontSize：数字字体大小
-            //            * @param size:环宽度
-            //            * @param r:环内半径
-            //            * @param time:动画时间
-            //            * @param easing:动画类型:
-            //            *  'linear'
-            //            *  '<' or 'easeIn' or 'ease-in'
-            //            *  '>' or 'easeOut' or 'ease-out'
-            //            *  '<>' or 'easeInOut' or 'ease-in-out'
-            //            *  'backIn'or 'back-in'
-            //            *  'backOut' or 'back-out'
-            //            *  'elastic'
-            //            *  'bounce'
-            //            */
-            //        loopFun: function (el, val, bg, color, textColor, fontSize, size, r, time, easing) {
-            //            var si = r + size / 2;
-            //            var xy = r + size;
-            //            if (val < 0 || val > 100) {
-            //                return alert('请输入0~100之间的数')
-            //            }
-            //            var paper = Raphael(el, (r + size) * 2, (r + size) * 2);
-            //            paper.circle(xy, xy, r).attr({
-            //                'stroke-width': size,
-            //                stroke: bg
-            //            });
-            //            paper.customAttributes.arc = function (val) {
-            //                var v = 360 * val / 100,
-            //                    s = -180,
-            //                    e = s + v,
-            //                    x = xy,
-            //                    y = xy,
-            //                    rad = Math.PI / 180,
-            //                    x1 = x + r * Math.sin(-s * rad),
-            //                    y1 = y + r * Math.cos(-s * rad),
-            //                    x2 = x + r * Math.sin(-e * rad),
-            //                    y2 = y + r * Math.cos(-e * rad),
-            //                    path = [
-            //                        ['M', x1, y1],
-            //                        ['A', r, r, 0, +(e - s > 180), 1, x2, y2]
-            //                    ];
-            //                return {
-            //                    path: path
-            //                };
-            //            };
-            //            var an = paper.path().attr({
-            //                'stroke-width': size,
-            //                stroke: color,
-            //                arc: 0.01
-            //            });
-            //            an.animate({
-            //                stroke: color,
-            //                arc: val
-            //            }, time, easing);
-            //            setTimeout(function () {
-            //                if (val == 100) {
-            //                    paper.circle(xy, xy, r).attr({
-            //                        'stroke-width': size,
-            //                        stroke: color
-            //                    });
-            //                }
-            //            }, time);
-            //            paper.customAttributes.txt = function (val) {
-            //                return {
-            //                    text: Math.floor(val * 100) / 100 + '%'
-            //                }
-            //            };
-            //            var l = paper.text(xy, xy).attr({
-            //                txt: 0,
-            //                'fill': textColor,
-            //                'font-size': fontSize,
-            //                'font-weight': 700
-            //            });
-            //            l.animate({
-            //                txt: val
-            //            }, time);
-            //        },
-            //    };
-            //})(window);
-            //if ($("body").width() <= 7680) {
-            //    win.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 15, 30, 1000);
-            //    win.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 15, 30, 1000);
-            //} else if ($("body").width() > 7680) {
-            //    win.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 20, 45, 1000);
-            //    win.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 20, 45, 1000);
-            //}
+
+        wrj2: function () {
+            if ($("#wrj-chart").length <= 0) { return false; }
+            var wrjChart = document.getElementById('wrj-chart');
+            require("s_Echart").myChartwrj = echarts.init(wrjChart);
+
+            wrjOption = {
+                title: {
+                    // text: data.data[0].wrj_cnt,
+                    text: 3,
+                    subtext: '总数',
+                    x: 'center',
+                    y: '38%',
+                    textStyle: {
+                        color: '#ea6604',
+                        fontSize: 24,
+                        fontFamily: "Aerial"
+                    },
+                    subtextStyle: {
+                        color: '#fff',
+                        fontSize: 20
+                    }
+                },
+                tooltip: {},
+                legend: {
+                    show: false
+                },
+                color: ["#09d10e", "#0024fe", "#7d43f3"],
+                series: [
+                    {
+                        type: 'pie',
+                        radius: ['50%', '64%'],
+                        center: ["center", "center"],
+                        itemStyle: {
+                            borderWidth: 0,
+                            borderColor: "#000",
+                        },
+                        labelLine: {
+                            normal: {
+                                length: 20,
+                                length2: 60,
+                                lineStyle: {
+                                    width: 2,
+                                    color: "#0996d1"
+                                }
+                            }
+                        },
+                        label: {
+                            normal: {
+                                fontSize: 20,
+                                formatter: '{b|{b}}\n{per|{d}}%',
+                                padding: [0, -70],
+                                color: "#0996d1",
+                                rich: {
+                                    b: {
+                                        fontSize: 20,
+                                        lineHeight: 36,
+                                        color: "#fff",
+
+                                    },
+                                    per: {
+                                        fontSize: 20,
+                                        color: "#0996d1",
+                                        fontFamily: "Aerial",
+                                    },
+                                    center: {
+                                        position: "center",
+                                    }
+                                }
+                            }
+                        },
+                        data: [
+                            { value: 0, name: '执飞中' },
+                            { value: 0, name: '充电中' },
+                            { value: 3, name: '待命中' }
+                        ]
+                    }
+                ]
+            };
+            require("s_Echart").myChartwrj.setOption(wrjOption);
+
         },
+        bigWrj2: function () {
+            if ($("#wrj-chart").length <= 0) { return false; }
+            $("#bigechartHead").html("无人机");
+            option = {
+                title: {
+                    // text: data.data[0].wrj_cnt,
+                    text: 3,
+                    subtext: '总数',
+                    x: 'center',
+                    y: '38%',
+                    textStyle: {
+                        color: '#ea6604',
+                        fontSize: 140,
+                        fontFamily: "Aerial"
+                    },
+                    subtextStyle: {
+                        color: '#fff',
+                        fontSize: 100
+                    }
+
+                },
+                tooltip: {
+                    show:false,
+                },
+                legend: {
+                    show: false
+                },
+                color: ["#09d10e", "#0024fe", "#7d43f3"],
+                series: [
+                    {
+                        type: 'pie',
+                        radius: ['48%', '62%'],
+                        center: ["center", "center"],
+                        itemStyle: {
+                            borderWidth: 0,
+                            borderColor: "#000",
+                        },
+                        labelLine: {
+                            normal: {
+                                length: 40,
+                                length2: 300,
+                                lineStyle: {
+                                    width: 8,
+                                    color: "#0996d1"
+                                }
+                            }
+                        },
+                        label: {
+                            normal: {
+                                fontSize: 70,
+                                formatter: '{b|{b}}\n{per|{d}}%',
+                                padding: [0, -200],
+                                color: "#0996d1",
+                                rich: {
+                                    b: {
+                                        fontSize: 70,
+                                        lineHeight: 76,
+                                        color: "#fff",
+                                    },
+                                    per: {
+                                        fontSize: 70,
+                                        color: "#0996d1",
+                                        fontFamily: "Aerial",
+                                    },
+                                    center: {
+                                        position: "center",
+                                    }
+                                }
+                            }
+                        },
+                        data: [
+                            { value: 0, name: '执飞中' },
+                            { value: 0, name: '充电中' },
+                            { value: 3, name: '待命中' }
+                        ]
+                    }
+                ]
+            };
+            if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
+                require("s_Echart").mybigChart.dispose();
+            }
+            require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+            require("s_Echart").mybigChart.setOption(option);
+
+        },
+
         //传感器数据
         cgq: function () {
             s_EchartAjax.getSocietyCgq(function (result) {
@@ -456,13 +398,6 @@
                 console.info(data);
                 console.info(data.data.sensorNumList);
                 data = data.data.sensorNumList;
-                //$('#cgq-ywgy').html(data[1].sensorCount)
-                //$('#cgq-zndt').html(data[2].sensorCount)
-                //$('#cgq-wxmc').html(data[3].sensorCount)
-                //$('#cgq-wxkm').html(data[4].sensorCount)
-                //$('#cgq-dzwl').html(data[5].sensorCount)
-                //$('#cgq-znjg').html(data[6].sensorCount)
-                //$('#cgq-tcdc').html(data[7].sensorCount)
 
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
@@ -478,98 +413,8 @@
 
         /*********************右侧图表-start*********************/
         //右侧事件
-        yq: function () {
-            //    (function (obj) {
-            //        $('.sj-circlediv').empty();
-            //        obj.win = {
-            //            /**
-            //             * 环形进度条
-            //             * @param el：DOM对象
-            //             * @param val:数值
-            //             * @param bg:背景颜色
-            //             * @param color:环颜色
-            //             * @param textColor：数字颜色
-            //             * @param fontSize：数字字体大小
-            //             * @param size:环宽度
-            //             * @param r:环内半径
-            //             * @param time:动画时间
-            //             * @param easing:动画类型:
-            //             *  'linear'
-            //             *  '<' or 'easeIn' or 'ease-in'
-            //             *  '>' or 'easeOut' or 'ease-out'
-            //             *  '<>' or 'easeInOut' or 'ease-in-out'
-            //             *  'backIn'or 'back-in'
-            //             *  'backOut' or 'back-out'
-            //             *  'elastic'
-            //             *  'bounce'
-            //             */
-            //            loopFun: function (el, val, bg, color, textColor, fontSize, size, r, time, easing) {
-            //                var si = r + size / 2;
-            //                var xy = r + size;
-            //                if (val < 0 || val > 100) {
-            //                    return alert('请输入0~100之间的数')
-            //                }
-            //                var paper = Raphael(el, (r + size) * 2, (r + size) * 2);
-            //                paper.circle(xy, xy, r).attr({
-            //                    'stroke-width': size,
-            //                    stroke: bg
-            //                });
-            //                paper.customAttributes.arc = function (val) {
-            //                    var v = 360 * val / 100,
-            //                        s = -180,
-            //                        e = s + v,
-            //                        x = xy,
-            //                        y = xy,
-            //                        rad = Math.PI / 180,
-            //                        x1 = x + r * Math.sin(-s * rad),
-            //                        y1 = y + r * Math.cos(-s * rad),
-            //                        x2 = x + r * Math.sin(-e * rad),
-            //                        y2 = y + r * Math.cos(-e * rad),
-            //                        path = [
-            //                            ['M', x1, y1],
-            //                            ['A', r, r, 0, +(e - s > 180), 1, x2, y2]
-            //                        ];
-            //                    return {
-            //                        path: path
-            //                    };
-            //                };
-            //                var an = paper.path().attr({
-            //                    'stroke-width': size,
-            //                    stroke: color,
-            //                    arc: 0.01
-            //                });
-            //                an.animate({
-            //                    stroke: color,
-            //                    arc: val
-            //                }, time, easing);
-            //                setTimeout(function () {
-            //                    if (val == 100) {
-            //                        paper.circle(xy, xy, r).attr({
-            //                            'stroke-width': size,
-            //                            stroke: color
-            //                        });
-            //                    }
-            //                }, time);
-            //                paper.customAttributes.txt = function (val) {
-            //                    return {
-            //                        text: Math.floor(val * 100) / 100 + '%'
-            //                    }
-            //                };
-            //                var l = paper.text(xy, xy).attr({
-            //                    txt: 0,
-            //                    'fill': textColor,
-            //                    'font-size': fontSize,
-            //                    'font-weight': 700
-            //                });
-            //                l.animate({
-            //                    txt: val
-            //                }, time);
-            //            },
-            //        };
-            //    })
-        
-        },
-        sj: function () {
+ 
+       sj: function () {
             if ($("#sj-chart").length <= 0) { return false; }
 
             var sjChart = document.getElementById('sj-chart');
@@ -609,118 +454,235 @@
             require("s_Echart").myChartsj.setOption(sjOption);
         },
         //事件处理成功
-        sjcg: function () {
-            s_EchartAjax.getSocietySjcg(function (result) {
-                if (require("s_Echart").sjcgData == null) { return false; }
-                if ($("#sjcg-chart").length <= 0) { return false; }
-                var data = require("s_Echart").sjcgData;
+       sjcg: function () {
+           s_EchartAjax.getSocietySjcg(function (result) {
+               if (require("s_Echart").sjcgData == null) { return false; }
+               if ($("#sjcg-chart").length <= 0) { return false; }
+               var data = require("s_Echart").sjcgData;
 
-                var myChart = echarts.init(document.getElementById('sjcg-chart'));
-                require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
-                option = {
+               var myChart = echarts.init(document.getElementById('sjcg-chart'));
+               require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+               option = {
 
-                    tooltip: {
-                        trigger: 'axis',
-                    },
-                    legend: {
-                        top: '1%',
-                        left: 'center',
-                        itemWidth: 10,
-                        itemHeight: 10,
-                        itemGap: 25,
-                        selectedMode: 'single',
-                        textStyle: {
-                            color: '#e4e4e4',
-                            fontSize: 16,
-                        },
-                        data: [
+                   tooltip: {
+                       trigger: 'axis',
+                   },
+                   legend: {
+                       top: '1%',
+                       left: 'center',
+                       itemWidth: 10,
+                       itemHeight: 10,
+                       itemGap: 25,
+                       selectedMode: 'single',
+                       textStyle: {
+                           color: '#e4e4e4',
+                           fontSize: 16,
+                       },
+                       data: [
 
-                        ]
-                    },
-                    grid: {
-                        top: '10%',
-                        left: '0',
-                        right: '2%',
-                        bottom: '3%',
-                        containLabel: true,
-                    },
-                    xAxis: [{
-                        type: 'category',
-                        boundaryGap: false,
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: '#3d4147'
-                            },
-                        },
-                        axisLabel: {
-                            interval: 0,
-                            margin: 15,
-                            textStyle: {
-                                color: '#ebebeb',
-                                fontFamily: 'Helvetica',
-                                fontSize: 22,
-                            },
-                        },
-                        axisTick: { show: false, },
-                        data: ['4', '5', '6', '7', '8', '9',
-                                 '10', '11', '12', '1', '2', '3'],
-                    }],
-                    yAxis: [{
-                        type: 'value',
-                        min: 0,
-                        max: 5000,
-                        splitNumber: 5,
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: '#3d4147'
-                            }
-                        },
-                        axisLine: { show: false, },
-                        axisLabel: {
-                            margin: 30,
-                            textStyle: {
-                                color: '#ebebeb',
-                                fontFamily: 'Helvetica',
-                                fontSize: 22,
+                       ]
+                   },
+                   grid: {
+                       top: '10%',
+                       left: '0',
+                       right: '2%',
+                       bottom: '3%',
+                       containLabel: true,
+                   },
+                   xAxis: [{
+                       type: 'category',
+                       boundaryGap: false,
+                       axisLine: {
+                           show: true,
+                           lineStyle: {
+                               color: '#3d4147'
+                           },
+                       },
+                       axisLabel: {
+                           interval: 0,
+                           margin: 15,
+                           textStyle: {
+                               color: '#ebebeb',
+                               fontFamily: 'Helvetica',
+                               fontSize: 22,
+                           },
+                       },
+                       axisTick: { show: false, },
+                       data: ['4', '5', '6', '7', '8', '9',
+                                '10', '11', '12', '1', '2', '3'],
+                   }],
+                   yAxis: [{
+                       type: 'value',
+                       min: 0,
+                       max: 5000,
+                       splitNumber: 5,
+                       splitLine: {
+                           show: true,
+                           lineStyle: {
+                               color: '#3d4147'
+                           }
+                       },
+                       axisLine: { show: false, },
+                       axisLabel: {
+                           margin: 30,
+                           textStyle: {
+                               color: '#ebebeb',
+                               fontFamily: 'Helvetica',
+                               fontSize: 22,
 
-                            },
-                        },
-                        axisTick: { show: false, },
-                    }],
-                    series: [{
-                        name: '月',
-                        type: 'line',
-                        symbol: 'circle',
-                        symbolSize: 12,
-                        areaStyle: {
-                            color: 'rgba(1,98,133,0.3)'
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: "#42e2fa",
-                                borderWidth: 4,
-                                borderColor: "#000"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                color: "#42e2fa"
-                            }
-                        },
-                        data: data.data
-                    },
-                    ]
-                };
+                           },
+                       },
+                       axisTick: { show: false, },
+                   }],
+                   series: [{
+                       name: '月',
+                       type: 'line',
+                       symbol: 'circle',
+                       symbolSize: 12,
+                       areaStyle: {
+                           color: 'rgba(1,98,133,0.3)'
+                       },
+                       itemStyle: {
+                           normal: {
+                               color: "#42e2fa",
+                               borderWidth: 4,
+                               borderColor: "#000"
+                           }
+                       },
+                       lineStyle: {
+                           normal: {
+                               color: "#42e2fa"
+                           }
+                       },
+                       data: data.data
+                   },
+                   ]
+               };
 
 
-                require("s_Echart").myChartsjcg.setOption(option);// 为echarts对象加载数据
-            })
-           
-        },
+               require("s_Echart").myChartsjcg.setOption(option);// 为echarts对象加载数据
+           })
+
+       },
+       bigSjcg: function () {
+           s_EchartAjax.getSocietySjcg(function (result) {
+               if (require("s_Echart").sjcgData == null) { return false; }
+               if ($("#sjcg-chart").length <= 0) { return false; }
+               $("#bigechartHead").html("事件处理成功数");
+               var data = require("s_Echart").sjcgData;
+
+             //  var myChart = echarts.init(document.getElementById('sjcg-chart'));
+              // require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+               option = {
+                   tooltip: {
+                       trigger: 'axis',
+                       textStyle: {
+                           fontSize: 50,
+                       }
+                   },
+                   legend: {
+                        show:false,
+                   },
+                   grid: {
+                       bottom: '5%',
+                       left: '5%',
+                       right: '5%',
+                       height: '86%',
+                       containLabel: true,
+                   },
+                   xAxis: [{
+                       type: 'category',
+                       boundaryGap: false,
+                       axisLine: {
+                           lineStyle: {
+                               width: 4,
+                               color: "rgba(80,172,254,.2)",
+                           }
+                       },
+                       axisLabel: {
+                           interval: 0,
+                           margin: 15,
+                           textStyle: {
+                               color: "#00d7fe",
+                               fontFamily: 'Helvetica',
+                               fontSize: 60,
+                           },
+                       },
+                       splitLine: {
+                           lineStyle: {
+                               width: 4,
+                               color: "rgba(80,172,254,.2)"
+                           }
+                       },
+                       axisTick: { show: false, },
+                       data: ['4', '5', '6', '7', '8', '9',
+                                '10', '11', '12', '1', '2', '3'],
+                   }],
+                   yAxis: [{
+                       type: 'value',
+                       min: 0,
+                       max: 5000,
+                       splitNumber: 5,
+                       splitLine: {
+                           show: true,
+                           lineStyle: {
+                               width: 4,
+                               color: "rgba(80,172,254,.2)",
+                           }
+                       },
+                       axisLine: {
+                           lineStyle: {
+                               width: 4,
+                               color: "rgba(80,172,254,.2)",
+                           }
+                       },
+                       axisLabel: {
+                           margin: 30,
+                           textStyle: {
+                               color: '#00d7fe',
+                               fontFamily: 'Helvetica',
+                               fontSize: 60,
+
+                           },
+                       },
+                       axisTick: { show: false, },
+                   }],
+                   series: [{
+                       name: '月',
+                       type: 'line',
+                       symbol: 'circle',
+                       symbolSize: 30,
+                       areaStyle: {
+                           color: 'rgba(1,98,133,0.3)'
+                       },
+                       itemStyle: {
+                           normal: {
+                               color: "#42e2fa",
+                               borderWidth: 8,
+                               borderColor: "#000"
+                           }
+                       },
+                       lineStyle: {
+                           normal: {
+                               width:12,
+                               color: "#42e2fa"
+                           }
+                       },
+                       data: data.data
+                   },
+                   ]
+               };
+
+                if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
+                    require("s_Echart").mybigChart.dispose();
+                }
+                require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+                require("s_Echart").mybigChart.setOption(option);
+           })
+
+       },
         //中间大数字
-        bigNumber: function () {
+       bigNumber: function () {
             s_EchartAjax.getSocietyBigNum(function (result) {
 
                 if (require("s_Echart").bigNumData == null) { return false; }

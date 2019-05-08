@@ -2114,6 +2114,9 @@
                                     show: false,
                                 }
                             },
+                            textStyle: {//默认值，
+                                fontSize: 50,//默认值，
+                            },
                         },
                         xAxis: {
                             type: 'category',
@@ -2208,7 +2211,7 @@
         },
 
         //停车场使用情况
-        tccsyqk: function () {
+       tccsyqk: function () {
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -2484,7 +2487,7 @@
             })
         },
         /*大停车场使用情况*/
-        bigTccsyqk: function () {
+       bigTccsyqk: function () {
             $("#bigechartHead").html("停车场使用情况");
             function MyDate(n) {
                 var n = n;
@@ -2558,6 +2561,9 @@
                             trigger: 'axis',
                             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            },
+                            textStyle: {//默认值，
+                                fontSize: 50,//默认值，
                             }
                         },
                         legend: [
@@ -3169,6 +3175,9 @@
                             label: {
                                 show: false,
                             }
+                        },
+                        textStyle: {//默认值，
+                            fontSize: 50,//默认值，
                         },
                     },
                     xAxis: {
