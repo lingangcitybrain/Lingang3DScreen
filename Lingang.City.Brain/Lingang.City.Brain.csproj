@@ -1055,6 +1055,7 @@
     <Content Include="View\Industry\Estate\Right_First_03.html" />
     <Content Include="View\Industry\Estate\Right_Second_01.html" />
     <Content Include="View\Industry\Estate\Right_Second_02.html" />
+    <Content Include="View\Industry\Garden\Center_02.html" />
     <Content Include="View\Industry\Garden\CompanyStatistic.html" />
     <Content Include="View\Industry\Garden\UnmannedCarDetail.html" />
     <Content Include="View\Industry\Garden\TopCompanyInfo.html" />
@@ -1077,6 +1078,7 @@
     <Content Include="View\SocietyNew\Bottom_Menu.html" />
     <Content Include="View\SocietyNew\Center_01.html" />
     <Content Include="View\SocietyNew\Center_01_Info.html" />
+    <Content Include="View\Industry\Estate\Center_03.html" />
     <Content Include="View\SocietyNew\Left_First_01.html" />
     <Content Include="View\SocietyNew\Left_First_02.html" />
     <Content Include="View\SocietyNew\Left_First_03.html" />

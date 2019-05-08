@@ -2,6 +2,7 @@
     var gauge_value = 0;
     /****************************园区****************************/
     return {
+        mybigChart: null,
         myChartleida: null,//招商雷达
         zsldInterval: null,//雷达计时器
         zsldData: null,     //招商雷达数据
@@ -19,10 +20,10 @@
         },
         //显示大的图表
         loadBigChart: function (divname) {
-            var url = con.HtmlUrl + 'Industry/Garden/Center_03.html';
+            var url = con.HtmlUrl + 'Industry/Garden/Center_02.html';
             require(['text!' + url], function (template) {
-                $("#center_03").html(template);
-                $("#center_03").show('drop', 1000);//左侧
+                $("#center_02").html(template);
+                $("#center_02").show('drop', 1000);//左侧
                 switch (divname) {
                     case "Left_Second_02"://停车服务
                         require("g_Echart").bigtcfw();
@@ -38,7 +39,6 @@
                         break;
                     default:
                 }
-
             })
         },
         //关闭大的图表
@@ -46,7 +46,7 @@
             if (require("g_Echart").mybigChart != null && require("g_Echart").mybigChart != "" && require("g_Echart").mybigChart != undefined) {
                 require("g_Echart").mybigChart.dispose();
             }
-            $("#center_03").html("");
+            $("#center_02").html("");
         },
         //招商雷达
         zsld: function () {
@@ -981,7 +981,7 @@
             myChartwrjsjbc.setOption(wrjsjbcOption);
         },
         //大无人接驳车
-        bigtcfw: function () {
+        bigwrjsjbc: function () {
             $("#GbigechartHead").html('无人接驳车');
             if ($("#wrjsjbc-chart").length <= 0) { return false; }
             wrjsjbcOption = {
@@ -1214,7 +1214,7 @@
             myChartzhwy.setOption(zhwyOption);
         },
         //大智慧物业
-        bigtcfw: function () {
+        bigzhwy: function () {
             $("#GbigechartHead").html('智慧物业');
             if ($("#zhwy-chart").length <= 0) { return false; }
             var zhwydata = [];
@@ -1441,7 +1441,7 @@
             myChartzhnh.setOption(zhnhOption);
         },
         //大智慧能耗
-        bigtcfw: function () {
+        bigzhnh: function () {
             $("#GbigechartHead").html('智慧能耗');
             if ($("#zhnh-chart").length <= 0) { return false; }
             var zhnhdata = [];

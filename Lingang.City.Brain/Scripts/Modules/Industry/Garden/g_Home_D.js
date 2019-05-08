@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap) {
+﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop","g_Echart", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop,g_Echart, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap) {
     /****************************园区****************************/
     return {
         layerNO: null,
@@ -110,7 +110,7 @@
         loadBigChart: function (divname) {
             require("g_Echart").loadBigChart(divname);
             var jsondata = {
-                'menu': '3',
+                'menu': '31',
                 'seat': divname,
                 'command': 'open',
             };
@@ -119,7 +119,7 @@
         closeBigChart: function () {
             require("g_Echart").closeBigChart()
             var jsondata = {
-                'menu': '3',
+                'menu': '31',
                 'seat': '',
                 'command': 'close',
             };
