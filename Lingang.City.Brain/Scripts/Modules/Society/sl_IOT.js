@@ -1,6 +1,7 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_LayerMenuAjax"], function (con, com, s_layerMenuData,s_LayerMenuAjax) {
     /**************************************传感器**************************************/
     return {
+
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
@@ -152,107 +153,213 @@
             com.UIControlAni(option, function () {return null;});
         },
         //加载社区车辆图表
-        loadSocietyCarchart: function ()
-        {
-           if ($("#sqcl-chart").length <= 0) { return false; }
+        loadSocietyCarchart: function () {
+            if ($("#sqcl-chart").length <= 0) { return false; }
 
-	       // echart
-	        var sqclChart = document.getElementById('sqcl-chart');
-	        var sqcldata = [531,485,462,136,8];
-	        
-	        var myChartsqcl = echarts.init(sqclChart);
-	                sqclOption = {
-		                legend:{
-			                show:false	
-		                },
-		                color: ['#3398DB'],
-		                tooltip : {
-			                trigger: 'axis',
-			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-				                type : 'shadow' ,       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
-			                }
-		                },
-		                grid: {
-		                  left: '1%',   // grid 组件离容器左侧的距离。
-		                  right: '2%',
-		                  bottom: '2%',
-		                  height: "90%",
-		                  containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-		                },
-		                xAxis : {
-			                type : 'category',
-			                data : ['进入车辆', '出去车辆', '小区车辆', '外来车辆', '异常车辆'],
-			                boundaryGap: ['20%', '20%'],
-			                axisTick:{
-				                show:false,
-			                },
-			                axisLine:{
-				                lineStyle:{
-					                color:"rgba(80,172,254,.2)"
-				                }
-			                },
-			                axisLabel:{
-				                textStyle:{
-					                fontSize:25,
-					                color:"#00d7fe"
-				                }
-			                },
-			                splitLine:{
-				                lineStyle:{
-					                color:"rgba(80,172,254,.2)"
-				                }
-			                }
-	                  },
-		                yAxis : {
-			                axisTick:{
-				                show:false,
-			                },
-			                axisLine:{
-				                lineStyle:{
-					                color:"rgba(80,172,254,.2)",
-				                }
-			                },
-			                interval :100,
-			                min:0,
-			                max:600,
-			                axisLabel:{
-				                textStyle:{
-					                fontSize:25,
-					                color:"#00d7fe",
-				                }
-			                },
-			                splitLine:{
-				                lineStyle:{
-					                color:"rgba(80,172,254,.2)"
-				                }
-			                }
-	                  },
-		                series : [
-		                  {
-				                type:'bar',
-				                barWidth: 50,
-				                itemStyle: {
-				                    normal: {
-				                        barBorderRadius: 10,
-				                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-				                            offset: 0,
-				                            color: '#04cafc'
-				                        }, {
-				                            offset: 1,
-				                            color: '#0e4abc'
-				                        }]),
-				                    }
-				                },
+            // echart
+            var sqclChart = document.getElementById('sqcl-chart');
+            var sqcldata = [531, 485, 462, 136, 8];
 
-				                data:sqcldata,
-		                  }
-		                ]
-	                };
-	                myChartsqcl.setOption(sqclOption);
+            var myChartsqcl = echarts.init(sqclChart);
+            sqclOption = {
+                legend: {
+                    show: false
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '1%',   // grid 组件离容器左侧的距离。
+                    right: '2%',
+                    bottom: '2%',
+                    height: "90%",
+                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['进入车辆', '出去车辆', '小区车辆', '外来车辆', '异常车辆'],
+                    boundaryGap: ['20%', '20%'],
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 25,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    }
+                },
+                yAxis: {
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)",
+                        }
+                    },
+                    interval: 100,
+                    min: 0,
+                    max: 600,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 25,
+                            color: "#00d7fe",
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    }
+                },
+                series: [
+		            {
+		                type: 'bar',
+		                barWidth: 50,
+		                itemStyle: {
+		                    normal: {
+		                        barBorderRadius: 10,
+		                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+		                            offset: 0,
+		                            color: '#04cafc'
+		                        }, {
+		                            offset: 1,
+		                            color: '#0e4abc'
+		                        }]),
+		                    }
+		                },
+
+		                data: sqcldata,
+		            }
+                ]
+            };
+            myChartsqcl.setOption(sqclOption);
+        },
+        bigLoadSocietyCarchart: function () {
+            if ($("#sqcl-chart").length <= 0) { return false; }
+            $("#bigechartHead").html("社区车辆（车辆数）");
+            // echart
+            var sqcldata = [531, 485, 462, 136, 8];
+            option = {
+                legend: {
+                    show: false
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                    },
+                    textStyle: {
+                        fontSize:50,
+                    }
+                },
+                grid: {
+                    left: '5%',   // grid 组件离容器左侧的距离。
+                    right: '5%',
+                    bottom: '5%',
+                    height: "86%",
+                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['进入车辆', '出去车辆', '小区车辆', '外来车辆', '异常车辆'],
+                    boundaryGap: ['20%', '20%'],
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 4,
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 50,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            width: 4,
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    }
+                },
+                yAxis: {
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 4,
+                            color: "rgba(80,172,254,.2)",
+                        }
+                    },
+                    interval: 100,
+                    min: 0,
+                    max: 600,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 50,
+                            color: "#00d7fe",
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            width: 4,
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    }
+                },
+                series: [
+		            {
+		                type: 'bar',
+		                barWidth: 140,
+		                itemStyle: {
+		                    normal: {
+		                        barBorderRadius: 20,
+		                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+		                            offset: 0,
+		                            color: '#04cafc'
+		                        }, {
+		                            offset: 1,
+		                            color: '#0e4abc'
+		                        }]),
+		                    }
+		                },
+
+		                data: sqcldata,
+		            }
+                ]
+            };
+
+            if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
+                require("s_Echart").mybigChart.dispose();
+            }
+            require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+            require("s_Echart").mybigChart.setOption(option);
+
+            //myChartsqcl.setOption(sqclOption);
         },
 
-        loadCirclediv: function ()
-        {
+        loadCirclediv: function (){
             // 摄像头圆圈
             if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
