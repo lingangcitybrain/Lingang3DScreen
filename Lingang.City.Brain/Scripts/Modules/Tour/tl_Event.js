@@ -185,7 +185,7 @@
                         carNumber = data.cardNo;
                     html += '<div class=\"box-top\">' +
                             '    事件-' + data.sj + '-' + data.id +
-                            '    <button type=\"button\" class=\"box-close\"  onclick=\"require(\'tl_Event\').closeDetail()\"></button>' +
+                            '    <button type=\"button\" class=\"box-close\"  onclick=\"require(\'t_Home\').closeEventDetail()\"></button>' +
                             '</div>' +
                             '<div class=\"boxcont\">' +
                             '<div class=\"box-leftpic\" style = \"text-align:center\"><img src=\"' + data.snapshoturiwithrect + '\"></div>' +
@@ -292,6 +292,17 @@
         },
         closeDetail:function(){
             $("#center_02").html("");
+             var areaName = con.AreaName;
+            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+                var layername = this.LastPOI_Clk.split('_')[0].replace("POITour", "");
+                var level = require("tl_Event").LayerType.Level;
+                var icon = require("tl_Event").LayerType.UnChooseIcon;
+                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
+                if (lastNode) {
+                    lastNode.asPOI().setIcon(icon);
+                    //lastNode.setVisible(0);
+                }
+            }
         },
         /************************右侧事件列表-end************************/
         //清空

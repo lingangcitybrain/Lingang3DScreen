@@ -2,6 +2,7 @@
     var oRycltjChartRqaIndex = -1;
     var oRycltjChartData1 = null;
     var oRycltjChartData2 = null;
+    var rycltjChartClose = true;
 
     function xData() {//获取近6月日期
         var dataArr = [];
@@ -134,12 +135,13 @@
         loadBigChart: function (divname) {
 
             //if ($("#" + divname).length <= 0) { return false; }
-
+            
 
             var url = con.HtmlUrl + 'TourNew/Center_03.html';
             require(['text!' + url], function (template) {
                 $("#center_03").html(template);
                 $("#center_03").show('drop', 1000);//左侧
+                rycltjChartClose = true;
 
                 switch (divname) {
                     case "Left_First_02"://游客分析
@@ -158,6 +160,7 @@
                         require("t_Echart").bigJtxx();
                         break;
                     case "Right_First_01"://人员车辆统计
+                        rycltjChartClose = false;
                         require("t_Echart").bigRycltj(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                         break;
                     case "Right_First_02"://停车场使用情况
@@ -176,6 +179,7 @@
             if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
                 require("t_Echart").mybigChart.dispose();
             }
+            rycltjChartClose = true;
             $("#center_03").html("");           
         },
         //园区预警指标动画
@@ -1102,15 +1106,17 @@
                         y: '38%',
                         textStyle: {
                             color: '#ea6604',
-                            fontSize: 50,
+                            fontSize: 140,
                             fontFamily: "Aerial"
                         },
                         subtextStyle: {
                             color: '#fff',
-                            fontSize: 46
+                            fontSize: 100
                         }
                     },
-                    tooltip: {},
+                    tooltip: {
+                        show:false
+                    },
                     legend: {
                         show: false
                     },
@@ -1118,7 +1124,7 @@
                     series: [
                         {
                             type: 'pie',
-                            radius: ['50%', '64%'],
+                            radius: ['48%', '62%'],
                             center: ["center", "center"],
                             itemStyle: {
                                 borderWidth: 0,
@@ -1129,25 +1135,25 @@
                                     length: 40,
                                     length2: 300,
                                     lineStyle: {
-                                        width: 4,
+                                        width: 8,
                                         color: "#0996d1"
                                     }
                                 }
                             },
                             label: {
                                 normal: {
-                                    fontSize: 50,
+                                    fontSize: 70,
                                     formatter: '{b|{b}}\n{per|{d}}%',
                                     padding: [0, -200],
                                     color: "#0996d1",
                                     rich: {
                                         b: {
-                                            fontSize: 50,
-                                            lineHeight: 54,
+                                            fontSize: 70,
+                                            lineHeight: 76,
                                             color: "#fff",
                                         },
                                         per: {
-                                            fontSize: 50,
+                                            fontSize: 70,
                                             color: "#0996d1",
                                             fontFamily: "Aerial",
                                         },
@@ -2058,140 +2064,146 @@
         },
         bigRycltj: function (oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
 
-            var bigRycltjIndex = -1;
-            $(".rycltj-tabbox>button").each(function () {
-                if ($(this).hasClass("active")) {
-                    bigRycltjIndex = $(this).index();
+            if (rycltjChartClose) {
+                return false;
+            } else {
+                var bigRycltjIndex = -1;
+                $(".rycltj-tabbox>button").each(function () {
+                    if ($(this).hasClass("active")) {
+                        bigRycltjIndex = $(this).index();
+                    }
+                })
+
+                var rqa = $("#rq a");
+                console.log(bigRycltjIndex, oRycltjChartRqaIndex)
+
+                if (bigRycltjIndex === 0) {
+                    $("#bigechartHead").html('入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                    tb(rycltjdata1, rycltjdata2);
+
+                } else if (bigRycltjIndex === 1) {
+                    $("#bigechartHead").html('地铁人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                    tb(rycltjdata1);
+
+                } else if (bigRycltjIndex === 2) {
+                    $("#bigechartHead").html('进出临港车辆统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                    tb(rycltjdata1, rycltjdata2);
                 }
-            })
 
-            var rqa = $("#rq a");
-            console.log(bigRycltjIndex, oRycltjChartRqaIndex)
+                function tb(rycltjdata1, rycltjdata2) {
 
-            if (bigRycltjIndex === 0) {
-                $("#bigechartHead").html('入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
-                tb(rycltjdata1, rycltjdata2);
-
-            } else if (bigRycltjIndex === 1) {
-                $("#bigechartHead").html('地铁人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
-                tb(rycltjdata1);
-
-            } else if (bigRycltjIndex === 2) {
-                $("#bigechartHead").html('进出临港车辆统计--' + rqa.eq(oRycltjChartRqaIndex).html());
-                tb(rycltjdata1, rycltjdata2);
-            }
-
-            function tb(rycltjdata1, rycltjdata2) {
-
-                if ($("#Big-chart").length <= 0) { return false; }
-                rycltjOption = {
-                    legend: {
-                        show: false,
-                    },
-                    color: ['#3398DB'],
-                    //backgroundColor: "rgba(74,128,244,.15)",
-                    grid: {
-                        left: '5%',
-                        right: '5%',
-                        bottom: '5%',
-                        height: "86%",
-                        containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'cross',
-                            label: {
+                    if ($("#Big-chart").length <= 0) { return false; }
+                    rycltjOption = {
+                        legend: {
+                            show: false,
+                        },
+                        color: ['#3398DB'],
+                        //backgroundColor: "rgba(74,128,244,.15)",
+                        grid: {
+                            left: '5%',
+                            right: '5%',
+                            bottom: '5%',
+                            height: "86%",
+                            containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross',
+                                label: {
+                                    show: false,
+                                }
+                            },
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'],
+                            boundaryGap: false,
+                            nameTextStyle: {
+                                color: "#00d7fe",
+                                fontSize: 50,
+                            },
+                            axisTick: {
                                 show: false,
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 4,
+                                    color: "rgba(80,172,254,0.5)"
+                                }
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    fontSize: 50,
+                                    color: "#00d7fe"
+                                }
+                            },
+                            splitLine: {
+                                show: false,
+                                lineStyle: {
+                                    color: "rgba(80,172,254,0.5)"
+                                }
                             }
                         },
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'],
-                        boundaryGap: false,
-                        nameTextStyle: {
-                            color: "#00d7fe",
-                            fontSize: 50,
-                        },
-                        axisTick: {
-                            show: false,
-                        },
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                        yAxis: {
+                            axisTick: {
+                                show: false,
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 4,
+                                    color: "rgba(80,172,254,0.5)"
+                                }
+                            },
+                            //interval: 1500,
+                            axisLabel: {
+                                textStyle: {
+                                    fontSize: 50,
+                                    color: "#00d7fe"
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    width: 4,
+                                    color: "rgba(80,172,254,0.5)",
+                                }
                             }
                         },
-                        axisLabel: {
-                            textStyle: {
-                                fontSize: 50,
-                                color: "#00d7fe"
-                            }
-                        },
-                        splitLine: {
-                            show: false,
-                            lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
-                            }
-                        }
-                    },
-                    yAxis: {
-                        axisTick: {
-                            show: false,
-                        },
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
-                            }
-                        },
-                        //interval: 1500,
-                        axisLabel: {
-                            textStyle: {
-                                fontSize: 50,
-                                color: "#00d7fe"
-                            }
-                        },
-                        splitLine: {
-                            lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)",
-                            }
-                        }
-                    },
-                    series: [
-                      {
-                          type: 'line',
-                          color: "#4085ed",
-                          lineStyle: {
-                              width: 8,
+                        series: [
+                          {
+                              type: 'line',
+                              color: "#4085ed",
+                              lineStyle: {
+                                  width: 8,
+                              },
+                              symbolSize: 20,
+                              data: rycltjdata1
                           },
-                          symbolSize: 20,
-                          data: rycltjdata1
-                      },
-                      {
-                          type: 'line',
-                          color: "#46d1c2",
-                          lineStyle: {
-                              width: 8,
+                          {
+                              type: 'line',
+                              color: "#46d1c2",
+                              lineStyle: {
+                                  width: 8,
+                              },
+                              symbolSize: 20,
+                              data: rycltjdata2
                           },
-                          symbolSize: 20,
-                          data: rycltjdata2
-                      },
-                    ]
-                };
-                $("#renche").click(function () {
-                    require("t_Echart").myChartrycltj.clear()
-                    require("t_Echart").myChartrycltj.setOption(rycltjOption, true)
-                });
-                if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
-                    require("t_Echart").mybigChart.dispose();
+                        ]
+                    };
+                    $("#renche").click(function () {
+                        require("t_Echart").myChartrycltj.clear()
+                        require("t_Echart").myChartrycltj.setOption(rycltjOption, true)
+                    });
+
+                    if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
+                        require("t_Echart").mybigChart.dispose();
+                    }
+                    require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+                    require("t_Echart").mybigChart.setOption(rycltjOption);
+
                 }
-                require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-                require("t_Echart").mybigChart.setOption(rycltjOption);
             }
         },
 
