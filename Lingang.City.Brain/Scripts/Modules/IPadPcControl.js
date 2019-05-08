@@ -173,98 +173,6 @@
             }
         },
 
-        //社区综治图层控制（无用）
-        //layerSocietyControl: function(layercode)
-        //{
-        //    switch (layercode) {
-        //     case "10"://传感器
-        //            require('s_Main').showLayer(0);
-        //            break;
-        //        case "11"://摄像头
-        //            require("s_Main").showLayer(1);
-        //            break;
-        //        case "12"://无人机
-        //            require("s_Main").showLayer(2);
-        //            break;
-        //        case "13"://村居工作站
-        //            require("s_Main").showLayer(3);
-        //            break;
-        //        case "14"://海岸线
-        //            require("s_Main").showLayer(4);
-        //            break;
-        //        case "26"://工地
-        //            require("s_Main").showLayer(5);
-        //            break;
-        //        case "15"://事件
-        //            require("s_Main").showLayer(8);
-        //            break;               
-        //    }
-        //},
-        //旅游大客流图层控制（无用）
-        //layerTourControl: function (layercode) {
-        //    switch (layercode) {
-        //        case "1"://人流热力图
-        //            require("t_Main").showLayer(0);                  
-        //            break;
-        //        //case "2"://实时路况
-        //        //    require("t_Main").showLayer(1);
-        //        //    break;
-        //        case "3"://摄像头
-        //            require("t_Main").showLayer(1);
-        //            break;
-        //        case "4"://无人机
-        //            require("t_Main").showLayer(2);
-        //            break;
-        //        case "5"://停车场
-        //            require("t_Main").showLayer(3);
-        //            break;
-        //        case "6"://公交
-        //            require("t_Main").showLayer(4);
-        //            break;
-        //        case "7"://事件
-        //            require("t_Main").showLayer(5);
-        //            break;
-        //        case "8"://人流预测
-        //            require("t_Main").showLayer(6);
-        //            break;
-        //        case "9"://交通仿真
-        //            require("t_Main").showLayer(7);
-        //            break;
-        //    }
-        //},
-        //产业园区图层控制
-        //无用
-        //layerIndustryControl: function (layercode) {
-        //    switch (layercode) {
-        //        case "16":
-        //            require('mainMenu').showLayer_e_Main(0);
-        //            break;
-        //        case "17":
-        //            require("mainMenu").showLayer_e_Main(1);
-        //            break;
-        //        case "18":
-        //            require("mainMenu").showLayer_e_Main(2);
-        //            break;
-        //        case "19":
-        //            require("mainMenu").showLayer_e_Main(3);
-        //            break;
-        //        case "20"://楼宇
-        //            require('mainMenu').showLayer_gMain(0);
-        //            break;
-        //        case "21"://停车场
-        //            require("mainMenu").showLayer_gMain(1);
-        //            break;
-        //        case "22"://无人驾驶接驳车
-        //            require("mainMenu").showLayer_gMain(2);
-        //            break;
-        //        case "23"://事件
-        //            require("mainMenu").showLayer_gMain(3);
-        //            break;
-        //        case "24"://产业信息
-        //            require("mainMenu").showLayer_gMain(4);
-        //            break;
-        //        }
-        //},
         //////////////////////////////////////////////POI定位控制//////////////////////////////////////////////////////////
         //POI定位控制
         poiControl: function (str)
@@ -323,43 +231,7 @@
             }
             
         },
-        //无用
-        //poiSocietyControl: function (layer,id)
-        //{
-        //    var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
-        //    var result = 1;
-        //    var message = "";
-        //    var re_xyz = "";
-        //    var re_angle = "";
-        //    console.log(str)
-        //    try {
-        //        var json = $.parseJSON(str);
-        //        var xyz = json.xyz
-        //        var angle = json.angle
-        //        var menu = json.menu
-        //        var layer = json.layer
-        //        var id = json.id
-        //        if (id != null) {
-        //            var nodename = "POITourCamera_" + id;
-        //            require("tl_Camera").loadCameraDetial(nodename)
-        //        }
-        //        //视口切换
-        //        //if (xyz != null || angle != null) {
-        //        //    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
-        //        //}
-        //        result = 1;
-        //        message = "操作成功";
-        //    } catch (e) {
-        //        result = 0;
-        //        message = "操作失败";
-        //    }
-        //    var pos = this.getCameraPos();
-        //    re_xyz = pos.split(",")[0];
-        //    re_angle = pos.split(",")[1];
-        //    res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
-        //    return res
-        //},
-
+        
         //////////////////////////////////////////////////POI信息窗口控制/////////////////////////////////////////////////////
         //POI信息窗口控制
         //(备用)
