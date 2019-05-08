@@ -19,5 +19,26 @@
             };
             control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
         },
+        ////////////////////////图表控制/////////////////////////////////////
+        loadBigChart: function (divname) {
+
+            require("e_Echart").loadBigChart(divname);
+            var jsondata = {
+                'menu': '3',
+                'seat': divname,
+                'command': 'open',
+            };
+            control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
+        },
+        closeBigChart: function () {
+            require("e_Echart").closeBigChart()
+            var jsondata = {
+                'menu': '3',
+                'seat': '',
+                'command': 'close',
+            };
+            control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
+        },
+        ///////////////////////////////end////////////////////////////////////
     }
 });

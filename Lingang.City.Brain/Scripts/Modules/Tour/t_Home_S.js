@@ -13,28 +13,6 @@
                 require("t_Echart").closeBigChart()
             },
 
-            //loadBigChartleft3: function () {
-            //    t_Echart.loadBigChart();
-            //},
-            //loadBigChartleft4: function () {
-            //    t_Echart.loadBigChart();
-            //},
-            //loadBigChartlefts1: function () {
-            //    t_Echart.loadBigChart();
-            //},
-            //loadBigChartlefts3: function () {
-            //    t_Echart.loadBigChart();
-            //},
-            //loadBigChartright1: function () {
-            //    t_Echart.loadBigChart();
-            //},
-            //loadBigChartright2: function () {
-            //    t_Echart.loadBigChart();
-            //},
-            //loadBigChartright3: function () {
-            //    t_Echart.loadBigChart();
-            //},
-
             /*******************底部菜单图层**************************/
             loadVisitorsMap: function () {
                 tl_VisitorsMap.loadVisitorsMap();

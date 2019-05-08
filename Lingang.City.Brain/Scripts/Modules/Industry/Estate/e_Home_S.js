@@ -12,5 +12,13 @@
         openUnity3dWin: function () {
             e_Main.openUnity3dWin(con.TyHref_S);
         },
+        /////////////////////////////////////图表控制///////////////////////////////////////////////////
+        loadBigChart: function (seat) {
+            require("e_Echart").loadBigChart(seat);
+        },
+        closeBigChart: function () {
+            require("e_Echart").closeBigChart()
+        },
+        ///////////////////////////////////end////////////////////////////////////////////////////////
     }
 });

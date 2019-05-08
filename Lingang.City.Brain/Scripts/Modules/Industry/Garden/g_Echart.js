@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_EchartAjax"], function (con, com, g_EchartAjax) {
+﻿  define(["config", "common", "g_EchartAjax"], function (con, com, g_EchartAjax) {
     var gauge_value = 0;
     /****************************园区****************************/
     return {
@@ -16,6 +16,37 @@
         loadEcharts:function()
         {
 
+        },
+        //显示大的图表
+        loadBigChart: function (divname) {
+            var url = con.HtmlUrl + 'Industry/Garden/Center_03.html';
+            require(['text!' + url], function (template) {
+                $("#center_03").html(template);
+                $("#center_03").show('drop', 1000);//左侧
+                switch (divname) {
+                    case "Left_Second_02"://停车服务
+                        require("g_Echart").bigtcfw();
+                        break;
+                    case "Left_Second_03"://无人驾驶接驳车
+                        require("g_Echart").bigwrjsjbc();
+                        break;
+                    case "Right_First_01"://智慧物业
+                        require("g_Echart").bigzhwy();
+                        break;
+                    case "Right_First_02"://智慧能耗
+                        require("g_Echart").bigzhnh();
+                        break;
+                    default:
+                }
+
+            })
+        },
+        //关闭大的图表
+        closeBigChart: function () {
+            if (require("g_Echart").mybigChart != null && require("g_Echart").mybigChart != "" && require("g_Echart").mybigChart != undefined) {
+                require("g_Echart").mybigChart.dispose();
+            }
+            $("#center_03").html("");
         },
         //招商雷达
         zsld: function () {
@@ -709,7 +740,129 @@
 
         
         },
+        //大停车服务
+        bigtcfw: function () {
+            $("#GbigechartHead").html('停车服务');
+            if ($("#tcfw-chart").length <= 0) { return false; }
+            var tcfwdata = [];
+            for (var i = 1; i < 100; i++) {
+                tcfwdata.push(Math.round((Math.random() * 5000 + 3000)));
+            }
+            tcfwOption = {
+                title: {
+                    text: "(辆)",
+                    left: "0",
+                    top: 8,
+                    textStyle: {
+                        fontSize: 24,
+                        color: "#00d7fe",
+                        fontWeight: "normal",
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow',
+                    }
+                },
+                grid: {
+                    left: '0',
+                    right: '2%',
+                    bottom: '2%',
+                    height: "82%",
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            show: false,
+                        }
 
+                    },
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    boundaryGap: ["5%", "5%"],
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 22,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    }
+
+                },
+                yAxis: {
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    },
+                    interval: 1000,
+                    max: 9000,
+                    min: 2000,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 22,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)",
+                            //color:"#50acfe"
+                        }
+                    }
+                },
+                series: [
+                  {
+                      type: 'line',
+                      // smooth:true,
+                      color: "rgba(7,196,230,1)",
+                      areaStyle: {
+                          opacity: .1,
+                      },
+                      lineStyle: {
+                          width: 2,
+                      },
+                      symbolSize: 10,
+                      data: tcfwdata,
+                  }
+                ]
+            };
+            if (require("g_Echart").mybigChart != null && require("g_Echart").mybigChart != "" && require("g_Echart").mybigChart != undefined) {
+                require("g_Echart").mybigChart.dispose();
+            }
+            require("g_Echart").mybigChart = echarts.init(document.getElementById('Gbig-chart'));
+            require("g_Echart").mybigChart.setOption(tcfwOption);
+
+
+        },
         //无人接驳车
         wrjsjbc:function()
         {
@@ -826,12 +979,122 @@
                 ]
             };
             myChartwrjsjbc.setOption(wrjsjbcOption);
-
-
-
-        
         },
+        //大无人接驳车
+        bigtcfw: function () {
+            $("#GbigechartHead").html('无人接驳车');
+            if ($("#wrjsjbc-chart").length <= 0) { return false; }
+            wrjsjbcOption = {
+                title: {
+                    text: "(%)",
+                    left: "0",
+                    top: 8,
+                    textStyle: {
+                        fontSize: 24,
+                        color: "#00d7fe",
+                        fontWeight: "normal",
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow',
+                    }
+                },
+                grid: {
+                    left: '1%',
+                    right: '2%',
+                    bottom: '2%',
+                    height: "82%",
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            show: false,
+                        }
 
+                    },
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    boundaryGap: ["5%", "5%"],
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 22,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    }
+                },
+                yAxis: {
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    },
+                    interval: 10,
+                    max: 100,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 22,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)",
+                            //color:"#50acfe"
+                        }
+                    }
+                },
+                series: [
+                  {
+                      type: 'line',
+                      // smooth:true,
+                      color: "rgba(7,196,230,1)",
+                      areaStyle: {
+                          opacity: .1,
+                      },
+                      lineStyle: {
+                          width: 2,
+                      },
+                      symbolSize: 10,
+                      data: [50, 55, 60, 20, 35, 65, 70],
+                  }
+                ]
+            };
+            if (require("g_Echart").mybigChart != null && require("g_Echart").mybigChart != "" && require("g_Echart").mybigChart != undefined) {
+                require("g_Echart").mybigChart.dispose();
+            }
+            require("g_Echart").mybigChart = echarts.init(document.getElementById('Gbig-chart'));
+            require("g_Echart").mybigChart.setOption(wrjsjbcOption);
+        },
         //智慧物业
         zhwy:function()
         {
@@ -949,12 +1212,127 @@
                 ]
             };
             myChartzhwy.setOption(zhwyOption);
-
-
-
-        
         },
+        //大智慧物业
+        bigtcfw: function () {
+            $("#GbigechartHead").html('智慧物业');
+            if ($("#zhwy-chart").length <= 0) { return false; }
+            var zhwydata = [];
+            for (var i = 1; i < 100; i++) {
+                zhwydata.push(Math.round((Math.random() * 70)));
+            }
+            zhwyOption = {
+                title: {
+                    text: "近一周报修量分布",
+                    left: "center",
+                    top: 8,
+                    textStyle: {
+                        fontSize: 24,
+                        color: "#00d7fe",
+                        fontWeight: "normal",
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow',
+                    }
+                },
+                grid: {
+                    left: '0',
+                    right: '2%',
+                    bottom: '2%',
+                    height: "85%",
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            show: false,
+                        }
 
+                    },
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    boundaryGap: ["5%", "5%"],
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 22,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    }
+
+                },
+                yAxis: {
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)"
+                        }
+                    },
+                    interval: 10,
+                    max: 70,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 22,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,0.2)",
+                            //color:"#50acfe"
+                        }
+                    }
+                },
+                series: [
+                  {
+                      type: 'line',
+                      smooth: true,
+                      color: "rgba(7,196,230,1)",
+                      areaStyle: {
+                          opacity: .1,
+                      },
+                      lineStyle: {
+                          width: 2,
+                      },
+                      symbolSize: 4,
+                      data: zhwydata,
+                  }
+                ]
+            };
+            if (require("g_Echart").mybigChart != null && require("g_Echart").mybigChart != "" && require("g_Echart").mybigChart != undefined) {
+                require("g_Echart").mybigChart.dispose();
+            }
+            require("g_Echart").mybigChart = echarts.init(document.getElementById('Gbig-chart'));
+            require("g_Echart").mybigChart.setOption(zhwyOption);
+        },
         //智慧能耗
         zhnh:function(){
             if ($("#zhnh-chart").length <= 0) { return false; }
@@ -1061,9 +1439,116 @@
                 ]
             };
             myChartzhnh.setOption(zhnhOption);
+        },
+        //大智慧能耗
+        bigtcfw: function () {
+            $("#GbigechartHead").html('智慧能耗');
+            if ($("#zhnh-chart").length <= 0) { return false; }
+            var zhnhdata = [];
+            for (var i = 0; i < 7; i++) {
+                zhnhdata.push(Math.round((Math.random() * 60 + 10)));
+            }
+            zhnhOption = {
+                title: {
+                    text: "园区日用电量峰值（近一周）",
+                    left: 2,
+                    top: 8,
+                    textStyle: {
+                        fontWeight: "normal",
+                        fontSize: 24,
+                        color: "#fff",
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '1%',   // grid 组件离容器左侧的距离。
+                    right: '2%',
+                    bottom: '2%',
+                    height: "80%",
+                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['19/02/10', '19/02/11', '19/02/12', '19/02/13', '19/02/14', '19/02/15', '19/02/16'],
+                    boundaryGap: ['20%', '20%'],
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 20,
+                            color: "#00d7fe"
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    }
+                },
+                yAxis: {
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)",
+                        }
+                    },
+                    interval: 10,
+                    max: 70,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 25,
+                            color: "#00d7fe",
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(80,172,254,.2)"
+                        }
+                    }
+                },
+                series: [
+                  {
+                      type: 'bar',
+                      barWidth: 50,
+                      itemStyle: {
+                          normal: {
+                              barBorderRadius: 10,
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: '#04cafc'
+                              }, {
+                                  offset: 1,
+                                  color: '#0e4abc'
+                              }]),
+                          }
+                      },
 
-
-
+                      data: zhnhdata,
+                  }
+                ]
+            };
+            if (require("g_Echart").mybigChart != null && require("g_Echart").mybigChart != "" && require("g_Echart").mybigChart != undefined) {
+                require("g_Echart").mybigChart.dispose();
+            }
+            require("g_Echart").mybigChart = echarts.init(document.getElementById('Gbig-chart'));
+            require("g_Echart").mybigChart.setOption(zhnhOption);
         },
         //事件统计
         sjtj: function () {
@@ -1087,7 +1572,7 @@
             if (require("g_Echart").myChartleida != null && require("g_Echart").myChartleida != "" && require("g_Echart").myChartleida != undefined) {
                 clearInterval(require("g_Echart").zsldInterval);//清空计时器
                 require("g_Echart").myChartleida.dispose();
-                //require("e_Echart").myChartleida.restore();
+                //require("g_Echart").myChartleida.restore();
             }
         }
     }

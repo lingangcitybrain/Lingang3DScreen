@@ -28,11 +28,7 @@
         },
         //显示大的图表
         loadBigChart: function (divname) {
-
-            //if ($("#" + divname).length <= 0) { return false; }
-
-
-            var url = con.HtmlUrl + 'SocietyNew/Center_03.html';
+            var url = con.HtmlUrl + 'Industry/Estate/Center_03.html';
             require(['text!' + url], function (template) {
                 $("#center_03").html(template);
                 $("#center_03").show('drop', 1000);//左侧
@@ -66,8 +62,8 @@
         },
         //关闭大的图表
         closeBigChart: function () {
-            if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
-                require("t_Echart").mybigChart.dispose();
+            if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                require("e_Echart").mybigChart.dispose();
             }
             $("#center_03").html("");
         },
@@ -232,14 +228,12 @@
         },
         //大产业竞争力
         bigcyjzl: function () {
-            $("#bigechartHead").html('产业竞争力');
+            $("#EbigechartHead").html('产业竞争力');
             if ($("#cyjzl-chart").length <= 0) { return false; }
             $.ajax({
                 type: 'POST',
                 url: 'http://47.101.181.131:8091/v1/industrial/matchIndex',
                 cache: false,
-
-                // data:post_data,
                 dataType: 'json',
                 success: function (data) {
                     var Max = 100;
@@ -315,11 +309,8 @@
                     require("e_Echart").mybigChart.setOption(cyjzlOption);
                 },
                 error: function () {
-                    var cyjzlChart = document.getElementById('cyjzl-chart');
                     var Max = 100;
                     var Value = [54, 25, 68, 38, 73];
-                    require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
-
                     cyjzlOption = {
                         tooltip: {
                             trigger: 'axis'
@@ -384,7 +375,6 @@
                             }
                         ]
                     };
-                                       
                     if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
                         require("e_Echart").mybigChart.dispose();
                     }
@@ -512,12 +502,132 @@
                 require("e_Echart").myChartqybhqs.setOption(qybhqsOption);
             })
         },
+        //大企业变化趋势
+        bigqybhqs: function () {
+            $("#EbigechartHead").html('企业变化趋势');
+            if ($("#qybhqs-chart").length <= 0) { return false; }
+            e_EchartAjax.qybhqs(function (result) {
+                if (require("e_Echart").qybhqsData == null) { return false; }
+                var data = require("e_Echart").qybhqsData;
+                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT]
+                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year]
+                qybhqsOption = {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#02d8e3'],
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '1%',
+                        bottom: '2%',
+                        height: "88%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        nameLocation: "start",
+                        data: arryear,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+
+                    },
+                    yAxis: {
+                        name: "        (企业数/千)",
+                        nameTextStyle: {
+                            color: "#00d7fe",
+                            fontSize: 22,
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        //max: 90,
+                        axisLabel: {
+                            formatter: function (value, index) {
+
+                                value = value / 1000;
+
+                                return value;
+                            },
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'line',
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 10,
+                          areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: "rgba(74,128,244,.1)",
+                              }, {
+                                  offset: 1,
+                                  color: "rgba(74,128,244,.3)",
+                              }])
+                          },
+                          data: arrvalue
+                      }
+                    ]
+                };
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(qybhqsOption);
+            })
+        },
         //税收变化趋势
         ssbhqs: function () {
             if ($("#ssbhqs-chart").length <= 0) { return false; }
             var ssbhqsChart = document.getElementById('ssbhqs-chart');
             e_EchartAjax.ssbhqs(function (result) {
-
                 if (require("e_Echart").ssbhqsData == null) { return false; }
                 var data = require("e_Echart").ssbhqsData;
                 var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, ]
@@ -634,6 +744,130 @@
 
             })
 
+        },
+        //大税收变化趋势
+        bigssbhqs: function () {
+            if ($("#ssbhqs-chart").length <= 0) { return false; }
+            $("#EbigechartHead").html('税收变化趋势');
+            e_EchartAjax.ssbhqs(function (result) {
+                if (require("e_Echart").ssbhqsData == null) { return false; }
+                var data = require("e_Echart").ssbhqsData;
+                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, ]
+                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, ]
+                ssbhqsOption = {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#02d8e3'],
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '1%',
+                        bottom: '2%',
+                        height: "88%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        show: true,
+                        type: 'category',
+                        data: arryear,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+
+                    },
+                    yAxis: {
+                        name: "        (金额/亿)",
+                        nameTextStyle: {
+                            color: "#00d7fe",
+                            fontSize: 22,
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        //max: 90,
+                        axisLabel: {
+                            formatter: function (value, index) {
+                                if (value >= 100000000) {
+                                    value = value / 100000000;
+                                }
+                                return value;
+                            },
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'line',
+                          //smooth:true,
+                          //color:"rgba(7,196,230,1)",
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 10,
+                          areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: "rgba(74,128,244,.1)",
+                              }, {
+                                  offset: 1,
+                                  color: "rgba(74,128,244,.3)",
+                              }])
+                          },
+                          data: arrvalue
+                      }
+                    ]
+                };
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(ssbhqsOption);
+
+            })
         },
         //固投变化趋势
         gtbhqs: function () {
@@ -764,6 +998,135 @@
             })
           
         },
+        //大固投变化趋势
+        biggtbhqs: function () {
+            $("#EbigechartHead").html('固投变化趋势');
+            if ($("#gtbhqs-chart").length <= 0) { return false; }
+            e_EchartAjax.gtbhqs(function (result) {
+                if (require("e_Echart").gtbhqsData == null) { return false; }
+                var data = require("e_Echart").gtbhqsData;
+                var gtbhqsdata = [
+                    parseInt(data.investmentInfo['2009年']), parseInt(data.investmentInfo['2010年']), parseInt(data.investmentInfo['2011年']),
+                    parseInt(data.investmentInfo['2012年']), parseInt(data.investmentInfo['2013年']), parseInt(data.investmentInfo['2014年']),
+                    parseInt(data.investmentInfo['2015年']), parseInt(data.investmentInfo['2016年']), parseInt(data.investmentInfo['2017年']),
+                    parseInt(data.investmentInfo['2018年'])
+                ];
+                gtbhqsOption = {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#e3a102'],
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '1%',
+                        bottom: '2%',
+                        height: "88%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        show: true,
+                        type: 'category',
+                        data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+
+                    },
+                    yAxis: {
+                        name: "        (金额/百万)",
+                        nameTextStyle: {
+                            color: "#00d7fe",
+                            fontSize: 22,
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        max: 2000000,
+                        axisLabel: {
+                            margin: 2,
+
+                            formatter: function (value, index) {
+
+                                value = value / 1000000;
+
+                                return value;
+                            },
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'line',
+                          //smooth:true,
+                          //color:"rgba(7,196,230,1)",
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 10,
+                          areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: "rgba(227,161,2,.1)",
+                              }, {
+                                  offset: 1,
+                                  color: "rgba(227,161,2,.3)",
+                              }])
+                          },
+                          data: gtbhqsdata
+                      }
+                    ]
+                };
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(gtbhqsOption);
+            })
+        },
         //就业机会
         jyjh: function () {
             if ($("#jyjh-chart").length <= 0) { return false; }
@@ -870,6 +1233,117 @@
                     ]
                 };
                 require("e_Echart").myChartjyjh.setOption(jyjhOption);
+            })
+        },
+        //大就业机会
+        bigjyjh: function () {
+            $("#EbigechartHead").html('就业机会变化趋势');
+            if ($("#jyjh-chart").length <= 0) { return false; }
+            e_EchartAjax.jyjhbhqs(function (result) {
+                if (require("e_Echart").jyjhbhqsData == null) { return false; }
+                var data = require("e_Echart").jyjhbhqsData;
+                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
+                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year, ]
+                jyjhOption = {
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '1%',
+                        bottom: '2%',
+                        height: "94%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+                        },
+                    },
+                    xAxis: {
+                        show: true,
+                        type: 'category',
+                        data: arryear,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
+                            show: false,
+                        },
+
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        //max: 90,
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'line',
+                          smooth: true,
+                          color: "rgba(7,196,230,1)",
+                          lineStyle: {
+                              width: 2,
+                          },
+                          //symbolSize:10,
+                          areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: "rgba(7,196,230,.3)",
+                              }, {
+                                  offset: 1,
+                                  color: "rgba(7,196,230,0)",
+                              }])
+                          },
+                          data: arrvalue
+                      }
+                    ]
+                };
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(jyjhOption);
             })
         },
         //薪资水平
@@ -980,6 +1454,117 @@
                 require("e_Echart").myChartxzsp.setOption(xzspOption);
             })
         },
+        //大薪资水平
+        bigxzsp: function () {
+            $("#EbigechartHead").html('薪资水平变化趋势');
+            if ($("#xzsp-chart").length <= 0) { return false; }
+            e_EchartAjax.xzspbhqs(function (result) {
+                if (require("e_Echart").xzspbhqsData == null) { return false; }
+                var data = require("e_Echart").xzspbhqsData;
+                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
+                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year, ]
+                xzspOption = {
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '1%',
+                        bottom: '2%',
+                        height: "94%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+                        },
+                    },
+                    xAxis: {
+                        show: true,
+                        type: 'category',
+                        data: arryear,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        min: 7500,
+                        //max: 8500,
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        interval: 300,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'line',
+                          smooth: true,
+                          color: "rgba(7,230,75,1)",
+                          lineStyle: {
+                              width: 2,
+                          },
+                          //symbolSize:10,
+                          areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: "rgba(7,230,75,.3)",
+                              }, {
+                                  offset: 1,
+                                  color: "rgba(7,230,75,0)",
+                              }])
+                          },
+                          data: arrvalue
+                      }
+                    ]
+                };
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(xzspOption);
+            })
+        },
         //高层次人才
         gccrc: function () {
             if ($("#gccrc-chart").length <= 0) { return false; }
@@ -1086,6 +1671,117 @@
                     ]
                 };
                 require("e_Echart").myChartgccrc.setOption(gccrcOption);
+            })
+        },
+        //大高层次人才
+        biggccrc: function () {
+            $("#EbigechartHead").html('高层次人才变化趋势');
+            if ($("#gccrc-chart").length <= 0) { return false; }
+            e_EchartAjax.gccrcbhqs(function (result) {
+                if (require("e_Echart").gccrcbhqsData == null) { return false; }
+                var data = require("e_Echart").gccrcbhqsData;
+                var arrdq = [data[0].dq, data[1].dq, data[2].dq, data[3].dq, data[4].dq, ]
+                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
+                gccrcOption = {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#02d8e3'],
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '1%',
+                        bottom: '2%',
+                        height: "94%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+                        },
+                    },
+
+                    xAxis: {
+                        show: true,
+                        type: 'category',
+                        data: arrdq,
+                        boundaryGap: ["20%", "20%"],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        //max: 90,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'bar',
+                          barWidth: 50,
+                          itemStyle: {
+                              normal: {
+                                  barBorderRadius: 8,
+                                  // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  //     offset: 0,
+                                  //     color: '#04cafc'
+                                  // }, {
+                                  //     offset: 1,
+                                  //     color: '#0e4abc'
+                                  // }]),
+                              }
+                          },
+                          color: "#0065fc",
+                          data: arrvalue
+                      }
+                    ]
+                };
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(gccrcOption);
             })
         },
         //风控雷达
