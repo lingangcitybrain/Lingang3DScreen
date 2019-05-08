@@ -125,7 +125,26 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
             };
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
-
+        ////////////////////////图表控制/////////////////////////////////////
+        loadBigChart: function (divname) {
+            require("s_Echart").loadBigChart(divname);
+            var jsondata = {
+                'menu': '1',
+                'seat': divname,
+                'command': 'open',
+            };
+            control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
+        },
+        closeBigChart: function () {
+            require("s_Echart").closeBigChart()
+            var jsondata = {
+                'menu': '1',
+                'seat': '',
+                'command': 'close',
+            };
+            control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
+        },
+        ///////////////////////////////end////////////////////////////////////
         /*******************************POI操作********************************************/
 
         PoiEvent: function (nodename) {

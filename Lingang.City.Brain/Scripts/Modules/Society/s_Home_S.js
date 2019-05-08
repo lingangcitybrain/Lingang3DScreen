@@ -39,6 +39,14 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         loadEvent: function () {
             sl_Event.loadEvent();
         },
+        /////////////////////////////////////图表控制///////////////////////////////////////////////////
+        loadBigChart: function (seat) {
+            require("s_Echart").loadBigChart(seat);
+        },
+        closeBigChart: function () {
+            require("s_Echart").closeBigChart()
+        },
+        ///////////////////////////////////end////////////////////////////////////////////////////////
         /*******************************POI操作********************************************/
 
         PoiEvent: function (nodename) {
