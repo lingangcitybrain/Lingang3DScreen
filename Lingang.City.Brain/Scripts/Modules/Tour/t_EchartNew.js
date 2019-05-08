@@ -1,4 +1,7 @@
 ﻿define(["config", "common", "t_EchartAjax", "util"], function (con, com, t_EchartAjax, util) {
+    var oRycltjChartRqaIndex = -1;
+    var oRycltjChartData1 = null;
+    var oRycltjChartData2 = null;
 
     function xData() {//获取近6月日期
         var dataArr = [];
@@ -154,8 +157,8 @@
                     case "Left_Second_03"://交通信息
                         require("t_Echart").bigJtxx();
                         break;
-                    case "Right_First_01"://交通信息
-                        require("t_Echart").bigRycltj();
+                    case "Right_First_01"://人员车辆统计
+                        require("t_Echart").bigRycltj(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                         break;
                     case "Right_First_02"://停车场使用情况
                         require("t_Echart").bigTccsyqk();
@@ -166,6 +169,7 @@
                     default:
 
                 }
+
             })
         },
         //关闭大的图表
@@ -173,7 +177,7 @@
             if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
                 require("t_Echart").mybigChart.dispose();
             }
-            $("#center_03").html("");
+            $("#center_03").html("");           
         },
         //园区预警指标动画
         dh: function () {
@@ -419,8 +423,7 @@
         },
         //游客分析（用户年龄分布）
         bigTouristAnalysis: function () {
-            $("#bigechartHead").html("游客分析（用户年龄分布）")
-
+            $("#bigechartHead").html('游客分析（用户年龄分布）');
             t_EchartAjax.getTouristAnalysis(function (result) {
 
                 if (require("t_Echart").TouristAnalysisData == null) { return false; }
@@ -444,14 +447,14 @@
                             type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
                         },
                         textStyle: {//默认值，
-                            fontSize: 35,//默认值，
+                            fontSize: 50,//默认值，
                         },
                     },
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '2%',
-                        bottom: '2%',
-                        height: "90%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     xAxis: {
@@ -460,19 +463,20 @@
                         boundaryGap: ['20%', '20%'],
                         nameTextStyle: {     //  坐标轴标题
                             color: "#00d7fe",
-                            fontSize: 16,
+                            fontSize: 50,
                         },
                         axisTick: {
                             show: false,
                         },
                         axisLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,.6)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 35,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
@@ -488,6 +492,7 @@
                         },
                         axisLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,.6)",
                             }
                         },
@@ -500,12 +505,13 @@
                                 return value;
                             },
                             textStyle: {
-                                fontSize: 35,
+                                fontSize: 50,
                                 color: "#00d7fe",
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,.6)"
                             }
                         }
@@ -678,7 +684,7 @@
         },
         ///游客趋势分析（当前时间游客趋势分析）
         bigFutureVisitorTraffic: function () {
-            $("#bigechartHead").html("游客趋势分析（当前时间游客趋势分析）")
+            $("#bigechartHead").html( "游客趋势分析（当前时间游客趋势分析）");
             var post_data = {
                 "Timenow": getNowFormatDate()
             }
@@ -695,24 +701,23 @@
                     },
                     color: ['#3398DB'],
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '1%',
-                        bottom: '2%',
-                        height: "90%",
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'cross',
-
                             label: {
                                 show: false,
                             }
 
                         },
                         textStyle: {//默认值，
-                            fontSize: 35,//默认值，
+                            fontSize: 50,//默认值，
                         },
                     },
                     xAxis: {
@@ -721,7 +726,7 @@
                         boundaryGap: false,
                         nameTextStyle: {
                             color: "#00d7fe",
-                            fontSize: 16,
+                            fontSize: 50,
                         },
                         axisTick: {
                             show: false,
@@ -729,18 +734,20 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 35,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width:4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         }
@@ -753,6 +760,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
@@ -765,12 +773,13 @@
                                 return value;
                             },
                             textStyle: {
-                                fontSize: 35,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)",
                             }
                         }
@@ -781,9 +790,9 @@
                           //smooth:true,
                           color: "rgba(7,196,230,1)",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 20,
                           data: ykqsfxdata
                       }
                     ]
@@ -882,7 +891,7 @@
         },
         //舆情分析（统计图表）
         bigYqfx: function () {
-            $('#bigechartHead').html('舆情分析（统计图表）')
+            $("#bigechartHead").html("舆情分析（统计图表）");
             if ($("#yqfx-chart").length <= 0) { return false; }
             if ($("#Big-chart").length <= 0) { return false; }
 
@@ -904,7 +913,7 @@
                         {
                             name: '访问来源',
                             type: 'pie',
-                            radius: '50%',
+                            radius: '65%',
                             minAngle: 15,//最小角度
                             startAngle: 45, //起始角度
                             center: ["center", "center"],
@@ -925,28 +934,28 @@
                             },
                             labelLine: {
                                 normal: {
-                                    length: 20,
-                                    length2: 90,
+                                    length: 40,
+                                    length2: 200,
                                     lineStyle: {
-                                        width: 2,
+                                        width: 4,
                                         color: "#0996d1"
                                     }
                                 }
                             },
                             label: {
                                 normal: {
-                                    fontSize: 20,
+                                    fontSize: 50,
                                     formatter: '{b|{b}}{per|{d}}%\n\n',
-                                    padding: [0, -90],
+                                    padding: [0, -180],
                                     //color:"#0996d1",
                                     rich: {
                                         b: {
-                                            fontSize: 20,
-                                            lineHeight: 36,
+                                            fontSize: 50,
+                                            lineHeight: 52,
                                             //color:"#fff",
                                         },
                                         per: {
-                                            fontSize: 20,
+                                            fontSize: 50,
                                             // color:"#0996d1",
                                             fontFamily: "Aerial",
                                         },
@@ -1111,12 +1120,7 @@
         //大无人机(统计)
         bigwrj: function () {
             if ($("#wrj-chart").length <= 0) { return false; }
-            $("#bigechartHead").html("无人机（统计）")
-
-            if ($("#wrj-chart").length <= 0) { return false; }
-
-            var wrjChart = document.getElementById('wrj-chart');
-
+            $("#bigechartHead").html("无人机（统计）");
             t_EchartAjax.getBigwrj(function (data) {
 
                 var data = require("t_Echart").wrjData;
@@ -1128,12 +1132,12 @@
                         y: '38%',
                         textStyle: {
                             color: '#ea6604',
-                            fontSize: 24,
+                            fontSize: 50,
                             fontFamily: "Aerial"
                         },
                         subtextStyle: {
                             color: '#fff',
-                            fontSize: 20
+                            fontSize: 46
                         }
                     },
                     tooltip: {},
@@ -1152,28 +1156,28 @@
                             },
                             labelLine: {
                                 normal: {
-                                    length: 20,
-                                    length2: 80,
+                                    length: 40,
+                                    length2: 300,
                                     lineStyle: {
-                                        width: 2,
+                                        width: 4,
                                         color: "#0996d1"
                                     }
                                 }
                             },
                             label: {
                                 normal: {
-                                    fontSize: 20,
+                                    fontSize: 50,
                                     formatter: '{b|{b}}\n{per|{d}}%',
-                                    padding: [0, -70],
+                                    padding: [0, -200],
                                     color: "#0996d1",
                                     rich: {
                                         b: {
-                                            fontSize: 20,
-                                            lineHeight: 36,
+                                            fontSize: 50,
+                                            lineHeight: 54,
                                             color: "#fff",
                                         },
                                         per: {
-                                            fontSize: 20,
+                                            fontSize: 50,
                                             color: "#0996d1",
                                             fontFamily: "Aerial",
                                         },
@@ -1482,7 +1486,7 @@
         },
         //大交通信息
         bigJtxx: function () {
-            $("#bigechartHead").html("交通信息（实时人流量）")
+            $("#bigechartHead").html("交通信息（实时人流量）");
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -1528,32 +1532,59 @@
                     function JtxxChartFun(jgclData, cgclData, tccData) {
                         jtxxOption = {
                             title: {
+                                show:false,
                                 text: "实时流量",
                                 left: "1%",
                                 top: "5%",
                                 textStyle: {
-                                    fontSize: 30,
+                                    fontSize: 50,
                                     color: "#00fddc"
                                 },
                             },
-                            legend: {
-                                left: '25%',
-                                top: " 5%",
-                                data: ['进港车辆', '出港车辆', '停车场'],
-                                icon: 'rect',
-                                itemWidth: 26,
-                                itemHeight: 26,
-                                textStyle: {
-                                    fontSize: 28,
-                                    color: "#fff"
+                            legend: [
+                                {
+                                    left: '20%',
+                                    top: "1%",
+                                    icon: 'rect',
+                                    itemWidth: 50,
+                                    itemHeight: 50,
+                                    textStyle: {
+                                        fontSize: 50,
+                                        color: "#fff"
+                                    },
+                                    data: ['进港车辆']
                                 },
-                            },
+                                {
+                                    left: '40%',
+                                    top: "1%",
+                                    icon: 'rect',
+                                    itemWidth: 50,
+                                    itemHeight: 50,
+                                    textStyle: {
+                                        fontSize: 50,
+                                        color: "#fff"
+                                    },
+                                    data: ['出港车辆']
+                                },
+                                {
+                                    left: '60%',
+                                    top: "1%",
+                                    icon: 'rect',
+                                    itemWidth: 50,
+                                    itemHeight: 50,
+                                    textStyle: {
+                                        fontSize: 50,
+                                        color: "#fff"
+                                    },
+                                    data: ['停车场']
+                                },
+                            ],
                             color: ['#3398DB'],
                             grid: {
                                 left: '5%',   // grid 组件离容器左侧的距离。
                                 right: '5%',
-                                bottom: '2%',
-                                height: "76%",
+                                bottom: '5%',
+                                height: "86%",
                                 containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                             },
                             tooltip: {
@@ -1562,8 +1593,10 @@
                                     type: 'cross',
                                     label: {
                                         show: false,
-                                    }
-
+                                    },
+                                },
+                                textStyle: {//默认值，
+                                    fontSize: 50,//默认值，
                                 },
                             },
                             xAxis: {
@@ -1572,7 +1605,7 @@
                                 boundaryGap: false,
                                 nameTextStyle: {
                                     color: "#00d7fe",
-                                    fontSize: 16,
+                                    fontSize: 50,
                                 },
                                 axisTick: {
                                     show: false,
@@ -1581,6 +1614,7 @@
                                 axisLine: {
                                     show: true,
                                     lineStyle: {
+                                        width: 4,
                                         color: "rgba(80,172,254,0.5)"
                                     }
                                 },
@@ -1588,7 +1622,7 @@
                                     //interval: 0,
                                     //rotate:40,
                                     textStyle: {
-                                        fontSize: 18,
+                                        fontSize: 50,
                                         color: "#00d7fe"
                                     }
                                 },
@@ -1607,6 +1641,7 @@
                                 axisLine: {
                                     show: true,
                                     lineStyle: {
+                                        width: 4,
                                         color: "rgba(80,172,254,0.5)"
                                     }
                                 },
@@ -1619,12 +1654,13 @@
                                         return value;
                                     },
                                     textStyle: {
-                                        fontSize: 18,
+                                        fontSize: 50,
                                         color: "#00d7fe"
                                     }
                                 },
                                 splitLine: {
                                     lineStyle: {
+                                        width: 4,
                                         color: "rgba(80,172,254,0.5)",
                                     }
                                 }
@@ -1634,9 +1670,9 @@
                                   type: 'line',
                                   color: "rgba(253,238,0,.5)",
                                   lineStyle: {
-                                      width: 3,
+                                      width: 8,
                                   },
-                                  symbolSize: 0,
+                                  symbolSize: 10,
                                   name: "进港车辆",
                                   data: jgclData
                               },
@@ -1644,9 +1680,9 @@
                                   type: 'line',
                                   color: "rgba(11,239,215,.5)",
                                   lineStyle: {
-                                      width: 3,
+                                      width: 8,
                                   },
-                                  symbolSize: 0,
+                                  symbolSize: 10,
                                   name: "出港车辆",
                                   data: cgclData
                               },
@@ -1654,9 +1690,9 @@
                                   type: 'line',
                                   color: "rgba(195,70,2,.8)",
                                   lineStyle: {
-                                      width: 3,
+                                      width: 8,
                                   },
-                                  symbolSize: 0,
+                                  symbolSize: 10,
                                   name: "停车场",
                                   data: tccData
                               }
@@ -1768,6 +1804,9 @@
                 clearInterval(window.personCarTimer2)
                 clearInterval(window.personCarTimer3);
                 clearInterval(window.personCarTimer4);
+                window.personCarTimer2 = null;
+                window.personCarTimer3 = null;
+                window.personCarTimer4 = null;
 
                 $(this).addClass("active").siblings().removeClass("active");
 
@@ -1782,7 +1821,6 @@
                         sum = MyDate(i);
                         require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
                     }
-
                     window.personCarTimer2 = setInterval(function () {
                         if (datetemp == 0) {
                             datetemp = 6;
@@ -1790,7 +1828,8 @@
                         else {
                             datetemp--;
                         }
-                        cryFun()
+                        cryFun();
+                       
                     }, 60000);
 
 
@@ -1802,6 +1841,7 @@
                         var data = require("t_Echart").personcarData.get(key);
 
                         rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
 
                         if (data != null) {
                             for (var item in data.入园) {
@@ -1815,9 +1855,9 @@
                                     cysum[Number(item) - 9] = data.出园[item];
                                 }
                             }
-                            //console.log("A:" + datetemp + ":" + rysum)
-                            //console.log("B:" + datetemp + ":" + cysum)
-                            tb(rysum, cysum);
+                            oRycltjChartData1 = rysum;
+                            oRycltjChartData2 = cysum;
+                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                         }
                     }
 
@@ -1828,6 +1868,9 @@
                 clearInterval(window.personCarTimer2)
                 clearInterval(window.personCarTimer3);
                 clearInterval(window.personCarTimer4);
+                window.personCarTimer2 = null;
+                window.personCarTimer3 = null;
+                window.personCarTimer4 = null;
 
                 $(this).addClass("active").siblings().removeClass("active");
 
@@ -1857,6 +1900,7 @@
                         var data = require("t_Echart").personcarData.get(key);
 
                         rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
 
                         if (data != null) {
                             for (var item in data) {
@@ -1864,10 +1908,9 @@
                                     dtsum[parseInt(item) - 9] = data[item]
                                 }
                             }
-
-                            // console.log("A:" + datetemp + ":" + dtsum)
-                            //console.log("B:" + datetemp + ":" + cysum)
-                            tb(dtsum);
+                            oRycltjChartData1 = dtsum;
+                            oRycltjChartData2 = null;
+                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                         }
                     }
                 })
@@ -1877,6 +1920,9 @@
                 clearInterval(window.personCarTimer2)
                 clearInterval(window.personCarTimer3);
                 clearInterval(window.personCarTimer4);
+                window.personCarTimer2 = null;
+                window.personCarTimer3 = null;
+                window.personCarTimer4 = null;
 
                 $(this).addClass("active").siblings().removeClass("active");
 
@@ -1889,7 +1935,7 @@
                     }
 
                     var datetemp = 6;
-                    window.personCarTimer2 = setInterval(function () {
+                    window.personCarTimer4 = setInterval(function () {
                         if (datetemp == 0) {
                             datetemp = 6;
                         }
@@ -1907,6 +1953,7 @@
                         var data = require("t_Echart").personcarData.get(key);
 
                         rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
 
                         if (data != null) {
                             for (var item in data.入临港) {
@@ -1920,20 +1967,20 @@
                                     cysum[Number(item) - 9] = data.出临港[item];
                                 }
                             }
-                            //console.log("A:" + datetemp + ":" + rysum)
-                            //console.log("B:" + datetemp + ":" + cysum)
-                            tb(rysum, cysum);
+                            oRycltjChartData1 = rysum;
+                            oRycltjChartData2 = cysum;
+                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                         }
                     }
                 })
             })
 
-
-            function tb(rycltjdata1, rycltjdata2) {
+            function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
                 var rycltjChart = document.getElementById('rycltj-chart');
                 require("t_Echart").myChartrycltj = echarts.init(rycltjChart);
+
                 rycltjOption = {
                     legend: {
                         show: false,
@@ -2035,194 +2082,39 @@
                     require("t_Echart").myChartrycltj.setOption(rycltjOption, true)
                 });
                 require("t_Echart").myChartrycltj.setOption(rycltjOption, true);
+
+                require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
+
             }
         },
-        bigRycltj: function () {
-            $("#bigechartHead").html("人员车辆统计")
-            setTimeout(function () {
-                // IE
-                if (document.all && $("#ry").length > 0) {
-                    document.getElementById("ry").click();
+        bigRycltj: function (oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
+
+            var bigRycltjIndex = -1;
+            $(".rycltj-tabbox>button").each(function () {
+                if ($(this).hasClass("active")) {
+                    bigRycltjIndex = $(this).index();
                 }
-                    // 其它浏览器
-                else {
-                    var e = document.createEvent("MouseEvents");
-                    e.initEvent("click", true, true);
-                    document.getElementById("clickMe").dispatchEvent(e);
-                }
-            }, 10);
+            })
+
             var rqa = $("#rq a");
+            console.log(bigRycltjIndex, oRycltjChartRqaIndex)
 
-            $("#ry").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
+            if (bigRycltjIndex === 0) {
+                $("#bigechartHead").html('入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                tb(rycltjdata1, rycltjdata2);
 
-                $(this).addClass("active").siblings().removeClass("active");
+            } else if (bigRycltjIndex === 1) {
+                $("#bigechartHead").html('地铁人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                tb(rycltjdata1);
 
-                t_EchartAjax.bigrycltj(function () {
-
-                    var datetemp = 6;
-                    var dataAll = require("t_Echart").rycltjData;
-
-                    if (!dataAll) { return false; }
-                    var sum = "";
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        sum = MyDate(i);
-                        require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
-                    }
-
-                    window.personCarTimer2 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-
-
-                    cryFun()
-                    function cryFun() {
-                        var rysum = [];
-                        var cysum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-
-                        if (data != null) {
-                            for (var item in data.入园) {
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    rysum[Number(item) - 9] = data.入园[item];
-                                }
-                            }
-                            for (var item in data.出园) {
-
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    cysum[Number(item) - 9] = data.出园[item];
-                                }
-                            }
-                            //console.log("A:" + datetemp + ":" + rysum)
-                            //console.log("B:" + datetemp + ":" + cysum)
-                            tb(rysum, cysum);
-                        }
-                    }
-
-                })
-            })
-
-            $("#dt").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-
-                $(this).addClass("active").siblings().removeClass("active");
-
-                t_EchartAjax.bigrycltjdt(function () {
-                    var dataAll = require("t_Echart").rycltjdtData;
-                    if (!dataAll) { return false; }
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        var sumdt = MyDate(i);
-                        require("t_Echart").personcarData.put(sumdt, dataAll[i][sumdt]);
-                    }
-
-                    var datetemp = 6;
-                    window.personCarTimer3 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-
-                    cryFun()
-                    function cryFun() {
-                        var dtsum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-
-                        if (data != null) {
-                            for (var item in data) {
-                                if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
-                                    dtsum[parseInt(item) - 9] = data[item]
-                                }
-                            }
-
-                            // console.log("A:" + datetemp + ":" + dtsum)
-                            //console.log("B:" + datetemp + ":" + cysum)
-                            tb(dtsum);
-                        }
-                    }
-                })
-            })
-
-            $("#jccl").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-
-                $(this).addClass("active").siblings().removeClass("active");
-
-                t_EchartAjax.bigrycltjjccl(function () {
-                    var dataAll = require("t_Echart").rycltjjcclData;
-                    if (!dataAll) { return false; }
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        var sum = MyDate(i);
-                        require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
-                    }
-
-                    var datetemp = 6;
-                    window.personCarTimer2 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-
-                    cryFun()
-                    function cryFun() {
-                        var rysum = [];
-                        var cysum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-
-                        if (data != null) {
-                            for (var item in data.入临港) {
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    rysum[Number(item) - 9] = data.入临港[item];
-                                }
-                            }
-                            for (var item in data.出临港) {
-
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    cysum[Number(item) - 9] = data.出临港[item];
-                                }
-                            }
-                            //console.log("A:" + datetemp + ":" + rysum)
-                            //console.log("B:" + datetemp + ":" + cysum)
-                            tb(rysum, cysum);
-                        }
-                    }
-                })
-            })
-
+            } else if (bigRycltjIndex === 2) {
+                $("#bigechartHead").html('进出临港车辆统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                tb(rycltjdata1, rycltjdata2);
+            }
 
             function tb(rycltjdata1, rycltjdata2) {
 
-                if ($("#rycltj-chart").length <= 0) { return false; }
-
-
+                if ($("#Big-chart").length <= 0) { return false; }
                 rycltjOption = {
                     legend: {
                         show: false,
@@ -2230,10 +2122,10 @@
                     color: ['#3398DB'],
                     //backgroundColor: "rgba(74,128,244,.15)",
                     grid: {
-                        left: '1%',
-                        right: '1%',
-                        bottom: '2%',
-                        height: "90%",
+                        left: '5%',
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -2251,7 +2143,7 @@
                         boundaryGap: false,
                         nameTextStyle: {
                             color: "#00d7fe",
-                            fontSize: 16,
+                            fontSize: 50,
                         },
                         axisTick: {
                             show: false,
@@ -2259,12 +2151,13 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 18,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
@@ -2282,18 +2175,20 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
                         //interval: 1500,
                         axisLabel: {
                             textStyle: {
-                                fontSize: 18,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)",
                             }
                         }
@@ -2303,18 +2198,18 @@
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 20,
                           data: rycltjdata1
                       },
                       {
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 20,
                           data: rycltjdata2
                       },
                     ]
@@ -2330,6 +2225,7 @@
                 require("t_Echart").mybigChart.setOption(rycltjOption);
             }
         },
+
         //停车场使用情况
         tccsyqk: function () {
             function MyDate(n) {
@@ -2454,12 +2350,7 @@
                                     color: "#0296d4"
                                 },
                                 data: ['港城新天地停车场']
-                            },
-
-
-
-
-
+                            }
                         ],
                         grid: {
                             left: '1%',
@@ -2613,7 +2504,7 @@
         },
         /*大停车场使用情况*/
         bigTccsyqk: function () {
-            $("#bigechartHead").html("停车场使用情况")
+            $("#bigechartHead").html("停车场使用情况");
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -2691,62 +2582,58 @@
                         legend: [
                             {
                                 left: '4%',
-                                bottom: " 2%",
+                                bottom: "5%",
                                 icon: 'rect',
-                                itemWidth: 20,
-                                itemHeight: 20,
+                                itemWidth: 50,
+                                itemHeight: 50,
                                 textStyle: {
-                                    fontSize: 22,
+                                    fontSize: 50,
                                     color: "#0296d4"
                                 },
                                 data: ['海昌公园停车场']
                             },
                             {
                                 left: '27%',
-                                bottom: " 2%",
+                                bottom: "5%",
                                 icon: 'rect',
-                                itemWidth: 20,
-                                itemHeight: 20,
+                                itemWidth: 50,
+                                itemHeight: 50,
                                 textStyle: {
-                                    fontSize: 22,
+                                    fontSize: 50,
                                     color: "#0296d4"
                                 },
                                 data: ['雪绒花停车场']
                             },
                             {
                                 left: '50%',
-                                bottom: " 2%",
+                                bottom: "5%",
                                 icon: 'rect',
-                                itemWidth: 20,
-                                itemHeight: 20,
+                                itemWidth: 50,
+                                itemHeight: 50,
                                 textStyle: {
-                                    fontSize: 22,
+                                    fontSize: 50,
                                     color: "#0296d4"
                                 },
                                 data: ['临港大道停车场']
                             },
                             {
                                 left: '75%',
-                                bottom: " 2%",
+                                bottom: "5%",
                                 icon: 'rect',
-                                itemWidth: 20,
-                                itemHeight: 20,
+                                itemWidth: 50,
+                                itemHeight: 50,
                                 textStyle: {
-                                    fontSize: 22,
+                                    fontSize: 50,
                                     color: "#0296d4"
                                 },
                                 data: ['港城新天地停车场']
                             },
-
-
-
-
-
                         ],
                         grid: {
-                            left: '1%',
-                            right: '1%',
-                            top: '6%',
+                            left: '5%',
+                            right: '5%',
+                            bottom: '14%',
+                            height: "82%",
                             containLabel: true
                         },
                         xAxis: [
@@ -2755,7 +2642,7 @@
                                 data: [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)],
                                 nameTextStyle: {
                                     color: "#00d7fe",
-                                    fontSize: 16,
+                                    fontSize: 50,
                                 },
                                 axisTick: {
                                     show: false,
@@ -2763,12 +2650,13 @@
                                 axisLine: {
                                     show: true,
                                     lineStyle: {
+                                        width: 4,
                                         color: "rgba(80,172,254,0.5)"
                                     }
                                 },
                                 axisLabel: {
                                     textStyle: {
-                                        fontSize: 22,
+                                        fontSize: 50,
                                         color: "#00d7fe"
                                     }
                                 },
@@ -2789,18 +2677,20 @@
                                 axisLine: {
                                     show: true,
                                     lineStyle: {
+                                        width: 4,
                                         color: "rgba(80,172,254,0.5)"
                                     }
                                 },
                                 //interval: 1000,
                                 axisLabel: {
                                     textStyle: {
-                                        fontSize: 22,
+                                        fontSize: 50,
                                         color: "#00d7fe"
                                     }
                                 },
                                 splitLine: {
                                     lineStyle: {
+                                        width: 4,
                                         color: "rgba(80,172,254,0.5)",
                                     }
                                 }
@@ -2810,10 +2700,10 @@
                             {
                                 name: '海昌公园停车场',
                                 type: 'bar',
-                                barWidth: 14,
+                                barWidth: 30,
                                 itemStyle: {
                                     normal: {
-                                        barBorderRadius: 3,
+                                        barBorderRadius: 5,
                                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                             offset: 0,
                                             color: '#fffd00'
@@ -2828,10 +2718,10 @@
                             {
                                 name: '雪绒花停车场',
                                 type: 'bar',
-                                barWidth: 14,
+                                barWidth: 30,
                                 itemStyle: {
                                     normal: {
-                                        barBorderRadius: 3,
+                                        barBorderRadius: 5,
                                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                             offset: 0,
                                             color: '#02fdf6'
@@ -2846,10 +2736,10 @@
                             {
                                 name: '临港大道停车场',
                                 type: 'bar',
-                                barWidth: 14,
+                                barWidth: 30,
                                 itemStyle: {
                                     normal: {
-                                        barBorderRadius: 3,
+                                        barBorderRadius: 5,
                                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                             offset: 0,
                                             color: '#ace419'
@@ -2864,10 +2754,10 @@
                             {
                                 name: '港城新天地停车场',
                                 type: 'bar',
-                                barWidth: 14,
+                                barWidth: 30,
                                 itemStyle: {
                                     normal: {
-                                        barBorderRadius: 3,
+                                        barBorderRadius: 5,
                                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                             offset: 0,
                                             color: '#d9d9d9'
@@ -3162,7 +3052,7 @@
 
         /*大近五日事件统计（当前事件）*/
         bigjwrsjtj: function () {
-            $("#bigechartHead").html("近五日事件统计（当前事件）")
+            $("#bigechartHead").html("近五日事件统计（当前事件数）");
             if ($("#jwrsjtj-chart").length <= 0) { return false; }
 
             function MyDate2(n) {
@@ -3223,61 +3113,61 @@
                 jwrsjtjOption = {
                     legend: [
                          {
-                             left: '2%',
-                             bottom: " 2%",
+                             left: '5%',
+                             bottom: "5%",
                              icon: 'circle',
-                             itemWidth: 20,
-                             itemHeight: 20,
+                             itemWidth: 50,
+                             itemHeight: 50,
                              textStyle: {
-                                 fontSize: 18,
+                                 fontSize: 50,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[0]]
                          },
                          {
-                             left: '20%',
-                             bottom: " 2%",
+                             left: '25%',
+                             bottom: "5%",
                              icon: 'circle',
-                             itemWidth: 20,
-                             itemHeight: 20,
+                             itemWidth: 50,
+                             itemHeight: 50,
                              textStyle: {
-                                 fontSize: 18,
+                                 fontSize: 50,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[1]]
                          },
                          {
-                             left: '40%',
-                             bottom: " 2%",
+                             left: '45%',
+                             bottom: "5%",
                              icon: 'circle',
-                             itemWidth: 20,
-                             itemHeight: 20,
+                             itemWidth: 50,
+                             itemHeight: 50,
                              textStyle: {
-                                 fontSize: 18,
+                                 fontSize: 50,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[2]]
                          },
                          {
-                             left: '60%',
-                             bottom: " 2%",
+                             left: '65%',
+                             bottom: "5%",
                              icon: 'circle',
-                             itemWidth: 20,
-                             itemHeight: 20,
+                             itemWidth: 50,
+                             itemHeight: 50,
                              textStyle: {
-                                 fontSize: 18,
+                                 fontSize: 50,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[3]]
                          },
                          {
-                             left: '78%',
-                             bottom: " 2%",
+                             left: '85%',
+                             bottom: "5%",
                              icon: 'circle',
-                             itemWidth: 20,
-                             itemHeight: 20,
+                             itemWidth: 50,
+                             itemHeight: 50,
                              textStyle: {
-                                 fontSize: 18,
+                                 fontSize: 50,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[4]]
@@ -3287,7 +3177,8 @@
                     grid: {
                         left: '5%',
                         right: '5%',
-                        top: '6%',
+                        bottom: '14%',
+                        height:"82%",
                         containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
@@ -3305,7 +3196,7 @@
                         boundaryGap: false,
                         nameTextStyle: {
                             color: "#00d7fe",
-                            fontSize: 16,
+                            fontSize: 50,
                         },
                         axisTick: {
                             show: false,
@@ -3313,12 +3204,13 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
                         axisLabel: {
                             textStyle: {
-                                fontSize: 18,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
@@ -3336,18 +3228,20 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
                         // interval :5,
                         axisLabel: {
                             textStyle: {
-                                fontSize: 18,
+                                fontSize: 50,
                                 color: "#00d7fe"
                             }
                         },
                         splitLine: {
                             lineStyle: {
+                            width: 4,
                                 color: "rgba(80,172,254,0.5)",
                             }
                         }
@@ -3358,7 +3252,7 @@
                           name: keyTemp[0],
                           color: "#02e32c",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
                           symbolSize: 10,
                           data: jwrsjtjdata1
@@ -3368,7 +3262,7 @@
                           name: keyTemp[1],
                           color: "#02d8e3",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
                           symbolSize: 10,
                           data: jwrsjtjdata2
@@ -3378,7 +3272,7 @@
                           name: keyTemp[2],
                           color: "#e3a102",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
                           symbolSize: 10,
                           data: jwrsjtjdata3
@@ -3388,7 +3282,7 @@
                           name: keyTemp[3],
                           color: "#025ce3",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
                           symbolSize: 10,
                           data: jwrsjtjdata4
@@ -3398,7 +3292,7 @@
                           name: keyTemp[4],
                           color: "#5702e3",
                           lineStyle: {
-                              width: 2,
+                              width: 8,
                           },
                           symbolSize: 10,
                           data: jwrsjtjdata5
