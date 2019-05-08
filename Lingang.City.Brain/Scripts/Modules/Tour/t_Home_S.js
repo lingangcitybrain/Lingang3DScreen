@@ -75,8 +75,16 @@
 
             /********************************UI点击*********************************/
             //关闭无人机视频窗口
-            closeCameraDetial: function () {
+            closeDroneCameraDetial: function () {
                 require('tl_Drone').closeCameraDetial();
+            },
+            //关闭摄像头窗口
+            closeCameraDetial: function () {
+                require('tl_Camera').closeCameraDetial();               
+            },
+             //关闭事件窗口
+            closeEventDetail: function () {
+                require('tl_Event').closeDetail();               
             },
             /**********************************END*********************************/
         }
