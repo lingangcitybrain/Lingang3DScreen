@@ -21,7 +21,6 @@
         },
         ////////////////////////图表控制/////////////////////////////////////
         loadBigChart: function (divname) {
-
             require("e_Echart").loadBigChart(divname);
             var jsondata = {
                 'menu': '3',
