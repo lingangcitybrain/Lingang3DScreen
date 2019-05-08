@@ -37,7 +37,8 @@
 
         /***************************POI控制*****************************/
         poiControlData: [
-            { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", "func": "require('sl_Drone').loadDroneDetail('*');" },
+            { "menu": "1", "layer": "", "menuNM": "社区综合", "layerNM": "所有POI", "func": "require('s_Main').PoiEvent('*');" },
+            //{ "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", "func": "require('sl_Drone').loadDroneDetail('*');" },
 
             { "menu": "2", "layer": "", "menuNM": "景区管理", "layerNM": "所有POI", "func": "require('t_Main').PoiEvent('*');" },
             //{ "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头-POI", "func": "require('t_Main').PoiEvent('*');" },
@@ -52,15 +53,23 @@
 
         /************************UI事件************************/
         poiWinControlData: [
-        { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", POISTR: "Drone", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//无人机视频窗口关闭
+
+        //{ "menu": "1", "layer": "10", "menuNM": "社区综合", "layerNM": "传感器", POISTR: "POISocietyIOT", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//传感器没有详情窗口
+        //{ "menu": "1", "layer": "13", "menuNM": "社区综合", "layerNM": "村居工作站", POISTR: "POISocietyWorkSite", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//
+        //{ "menu": "1", "layer": "14", "menuNM": "社区综合", "layerNM": "海岸线", POISTR: "POISociety", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//
+
+        { "menu": "1", "layer": "11", "menuNM": "社区综合", "layerNM": "摄像头", POISTR: "POISocietyCamera", "command": "close", "func": "require('sl_Camera').closeCameraDetial();" },//摄像头视频窗口关闭
+        { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", POISTR: "POISocietyDrone", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//无人机视频窗口关闭
+        { "menu": "1", "layer": "15", "menuNM": "社区综合", "layerNM": "事件", POISTR: "POISocietyEvent", "command": "close", "func": "require('sl_Event').closeDetail();" },//事件窗口关闭
 
         { "menu": "2", "layer": "4", "menuNM": "景区管理", "layerNM": "无人机", POISTR: "POITourDrone", "command": "close", "func": "require('tl_Drone').closeCameraDetial();" },//无人机窗口关闭
         { "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头", POISTR: "POITourCamera", "command": "close", "func": "require('tl_Camera').closeCameraDetial();" },//摄像头窗口关闭
         { "menu": "2", "layer": "7", "menuNM": "景区管理", "layerNM": "事件", POISTR: "POITourEvent", "command": "close", "func": "require('tl_Event').closeDetail();" },//事件窗口关闭
+        { "menu": "2", "layer": "9", "menuNM": "景区管理", "layerNM": "交通仿真", POISTR: "TrafficSimulation", "command": "close", "func": "require('tl_TrafficSimulation').closeCameraDetial();" },//交通仿真窗口关闭
 
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "open", "func": "$('.cy-qy-navbar').removeClass('active');require('gl_TopCompany').flyToBuilding();" },//花展开
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//花隐藏
-        { "menu": "2", "layer": "4", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POITourDrone", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//无人机窗口关闭       
+        //{ "menu": "2", "layer": "4", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POITourDrone", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//      
         ],
 
         /************************UI Button事件*******************************/

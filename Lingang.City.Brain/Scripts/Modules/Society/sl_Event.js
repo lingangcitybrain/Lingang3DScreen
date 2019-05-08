@@ -206,9 +206,6 @@
 
             })
         },
-        closeEventDetail: function () {
-            $("#detail_02").html("");
-        },
         //显示事件视频详情
         loadEventVedioDetail: function (id) {
             var areaName = con.AreaName;
@@ -728,7 +725,7 @@
 
                     html += "<div class=\"box-top\">"
                     html += "    事件" + id
-                    html += "    <button type=\"button\" class=\"box-close\"  onclick=\"require('sl_Event').closeDetail()\"></button>"
+                    html += "    <button type=\"button\" class=\"box-close\"  onclick=\"require('s_Home').closeDetail()\"></button>"
                     html += "</div>"
                     html += "<div class=\"boxcont\">"
                     html += "<div class=\"box-leftpic\"><img src=\"Content/images/poi-leftpic.png\"></div>"
