@@ -30,7 +30,7 @@
 
                 //tl_VisitorsMap.loadVisitorsMap();
                 //this.Revert();
-                this.loadBottomMenu();//加载底部图层
+                //this.loadBottomMenu();//加载底部图层
 
                 this.loadLeftFirst1();//加载左侧第一列第一个div
                 this.loadLeftFirst2();//
@@ -90,64 +90,7 @@
                 $("#right_second_03").css('display', 'none');
                 $("#right_second_04").css('display', 'none');
             },
-            /*****************************图层*****************************/
-            //加载底部图层
-            loadBottomMenu: function () {
-                var url = con.HtmlUrl + 'TourNew/Bottom_Menu.html';
-                require(['text!' + url], function (template) {
-                    $("#bottom_menu").html(template);
-                    $("#bottom_menu").show('drop', 1000);//左侧
-                    require("t_Main").ChangeLayer();
-                })
-            },
-            //点击底部的菜单
-            ChangeLayer: function () {
-                //旅游大客流
-                $("#bottom_menu ul li").each(function (index) {//便利对象
-                    $(this).click(function () {//点击触发事件
-                        
-                        require("t_Main").showLayer(index);
-                    });
-                });
-            },
 
-            //切换显示图层
-            showLayer: function (index) {
-                this.Revert();
-                $("li").removeClass("active");//删除当前元素的样式
-                $("li").eq(index).addClass("active");//添加当前元素的样式
-                var menuname = $("li").eq(index).text();
-                switch (menuname) {
-                    case "人流热力图":
-                        require("t_Home").loadVisitorsMap();
-                        break;
-                    case "实时路况":
-                        require("t_Home").loadRoadCondition();
-                        break;
-                    case "摄像头":
-                        require("t_Home").loadCamera();
-                        break;
-                    case "无人机":
-                        require("t_Home").loadDrone();
-                        break;
-                    case "停车场":
-                        require("t_Home").loadParkingLot();
-                        break;
-                    case "公交":
-                        require("t_Home").PublicTransportation();
-                        break;
-                    case "事件":
-                        require("t_Home").loadEvent();
-                        break;
-                    case "人流预测":
-                        require("t_Home").loadStream();
-                        break;
-                    case "交通仿真":
-                        require("t_Home").loadTrafficSimulation();
-                        break;
-                    default:
-                }
-            },
             /*****************************左侧第一列*****************************/
 
             //加载第一个div
