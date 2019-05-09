@@ -414,6 +414,7 @@ body{
 .cgq-li{
 	float: left;
 	width: 25%;
+    height:.8rem;
 	margin-top: .2rem;
 }
 .cgq-li>.item-l{

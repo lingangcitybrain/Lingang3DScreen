@@ -955,9 +955,15 @@
                       type: 'line',
                       // smooth:true,
                       color: "rgba(7,196,230,1)",
-                      areaStyle: {
-                          opacity: .1,
-                      },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "rgba(74,128,244,.1)",
+                            }, {
+                                offset: 1,
+                                color: "rgba(74,128,244,.3)",
+                            }])
+                        },
                       lineStyle: {
                           width: 2,
                       },

@@ -233,7 +233,7 @@
 		                barWidth: 50,
 		                itemStyle: {
 		                    normal: {
-		                        barBorderRadius: 10,
+		                        barBorderRadius: [10,10,0,0],
 		                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
 		                            offset: 0,
 		                            color: '#04cafc'
@@ -334,7 +334,7 @@
 		                barWidth: 140,
 		                itemStyle: {
 		                    normal: {
-		                        barBorderRadius: 20,
+		                        barBorderRadius: [20,20,0,0],
 		                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
 		                            offset: 0,
 		                            color: '#04cafc'

@@ -107,6 +107,8 @@
                     $(this).click(function () {//点击触发事件
                         
                         require("t_Main").showLayer(index);
+                        //关闭放大图表
+                        require('mainMenu').closeBigChartHtml();
                     });
                 });
             },
