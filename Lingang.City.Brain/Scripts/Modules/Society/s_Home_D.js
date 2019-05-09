@@ -5,7 +5,7 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
         POIName:null,
         loadMain: function () {
             s_Main.loadMain();
-            setTimeout(function () { $('.chartzoomin').hide() }, 1000);
+
             var jsondata = {
                 "menu": "1",
                 "xyz": "",
