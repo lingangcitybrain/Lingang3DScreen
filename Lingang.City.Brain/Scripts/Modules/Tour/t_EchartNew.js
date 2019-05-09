@@ -662,7 +662,7 @@
         },
         ///游客趋势分析（当前时间游客趋势分析）
         bigFutureVisitorTraffic: function () {
-            $("#bigechartHead").html( "游客趋势分析（当前时间游客趋势分析）");
+            $("#bigechartHead").html( "游客趋势分析");
             var post_data = {
                 "Timenow": getNowFormatDate()
             }
@@ -1461,7 +1461,7 @@
         },
         //大交通信息
         bigJtxx: function () {
-            $("#bigechartHead").html("交通信息（实时人流量）");
+            $("#bigechartHead").html("交通信息（实时流量）");
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
