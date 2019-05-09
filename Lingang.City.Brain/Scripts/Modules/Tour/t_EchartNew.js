@@ -380,7 +380,7 @@
                         barWidth: 50,
                         itemStyle: {
                             normal: {
-                                barBorderRadius: 10,
+                                barBorderRadius: [10,10,0,0],
                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
                                     color: '#04cafc'
@@ -500,7 +500,7 @@
                         barWidth: 120,
                         itemStyle: {
                             normal: {
-                                barBorderRadius: 10,
+                                barBorderRadius: [20,20,0,0],
                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
                                     color: '#04cafc'
@@ -662,7 +662,7 @@
         },
         ///游客趋势分析（当前时间游客趋势分析）
         bigFutureVisitorTraffic: function () {
-            $("#bigechartHead").html( "游客趋势分析（当前时间游客趋势分析）");
+            $("#bigechartHead").html( "游客趋势分析");
             var post_data = {
                 "Timenow": getNowFormatDate()
             }
@@ -1461,7 +1461,7 @@
         },
         //大交通信息
         bigJtxx: function () {
-            $("#bigechartHead").html("交通信息（实时人流量）");
+            $("#bigechartHead").html("交通信息（实时流量）");
             function MyDate(n) {
                 var n = n;
                 var d = new Date();

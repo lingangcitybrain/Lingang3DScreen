@@ -56,6 +56,8 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
             this.loadRightSecond3();
 
             this.closeOtherUi();
+
+            
         },
 
         /*****************************左侧第一列*****************************/
@@ -150,26 +152,26 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
 
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").cgq();
+               // require("s_Echart").cgq1();
                 require("s_Echart").gradient();
                 require("s_Echart").sj();
-                require("s_Echart").yq();
-                if($("body").width() == 7680){
-                    $("html").css({fontSize: "90px"});
-                    $(".sj-circlediv").each(function () { 
-                        $(this).empty();
-                    })
-                    com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 15, 30, 1000);
-                    com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 15, 30, 1000);
+                //require("s_Echart").yq();
+                //if($("body").width() == 7680){
+                //    $("html").css({fontSize: "90px"});
+                //    $(".sj-circlediv").each(function () { 
+                //        $(this).empty();
+                //    })
+                //    com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 15, 30, 1000);
+                //    com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 15, 30, 1000);
                
-                }else if($("body").width() == 11520){
-                    $("html").css({fontSize: "130px"});
-                    $(".sj-circlediv").each(function () {
-                        $(this).empty();
-                    })
-                    com.loopFun($('.sj-circlediv')[0], 35,'#564009','#f7b001','transparent','20px', 20,45,1000);
-                    com.loopFun($('.sj-circlediv')[1], 80,'#564009','#098bdc','transparent','20px', 20,45,1000);
-                }
+                //}else if($("body").width() == 11520){
+                //    $("html").css({fontSize: "130px"});
+                //    $(".sj-circlediv").each(function () {
+                //        $(this).empty();
+                //    })
+                //    com.loopFun($('.sj-circlediv')[0], 35,'#564009','#f7b001','transparent','20px', 20,45,1000);
+                //    com.loopFun($('.sj-circlediv')[1], 80,'#564009','#098bdc','transparent','20px', 20,45,1000);
+                //}
                 //$(window).resize();
 
 

@@ -580,8 +580,11 @@
             $("#bigechartHead").html("处置主责部门");
             option = {
                 tooltip: {
-                    show: false,
+                    //show: false,
                     trigger: 'item',
+                    textStyle: {
+                        fontSize:70,
+                    },
                     formatter: "{b} : {c} ({d}%)"
                 },
                 color: ["#0b6ccd", "#eb5501"],

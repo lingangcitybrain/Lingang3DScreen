@@ -567,11 +567,6 @@
 
                     },
                     yAxis: {
-                        //name: " (企业数/千)",
-                        //nameTextStyle: {
-                        //    color: "#00d7fe",
-                        //    fontSize: 50,
-                        //},
                         axisTick: {
                             show: false,
                         },
@@ -1683,7 +1678,7 @@
                           barWidth: 50,
                           itemStyle: {
                               normal: {
-                                  barBorderRadius: 8,
+                                  barBorderRadius: [8,8,0,0],
                                   // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   //     offset: 0,
                                   //     color: '#04cafc'
@@ -1795,7 +1790,7 @@
                           barWidth: 140,
                           itemStyle: {
                               normal: {
-                                  barBorderRadius: 16,
+                                  barBorderRadius: [20,20,0,0],
                                   // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                   //     offset: 0,
                                   //     color: '#04cafc'

@@ -37,7 +37,8 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
 
             //默认夜景模式
             require("specialEff").nighttime();
-
+            //关闭放大图表
+            require('mainMenu').closeBigChartHtml();
             //加载div数据
             switch (menuname) {
                 case "社区综合":// 社区综合
@@ -103,6 +104,9 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             $("li").removeClass("active");//删除当前元素的样式
             $("li").eq(index).addClass("active");//添加当前元素的样式
             e_Main.Revert();
+            //关闭放大图表
+            require('mainMenu').closeBigChartHtml();
+
             switch (menuname) {
                 case "产业信息":
                     require("g_Home").loadEstateInfo();
@@ -138,6 +142,8 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
                 $(this).click(function () {//点击触发事件
                     
                     require("mainMenu").showLayer_gMain(index);
+                    //关闭放大图表
+                    require('mainMenu').closeBigChartHtml();
 
                 });
             });

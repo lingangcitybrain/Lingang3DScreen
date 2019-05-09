@@ -1,7 +1,6 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu) {
     return {
         mybigChart: null, //大的图表显示
-        cgqData: null,
         myChartsxt1:null,   //摄像头
         myChartsxt2: null,   //摄像头
         myChartsxt3: null,   //摄像头
@@ -10,6 +9,7 @@
         myChartsjcg: null,     //事件成功
         wrjData: null,    //无人机数据
         cgqData: null,    //传感器数据
+        sxtData: null,    //摄像头数据
         sjcgData: null,    //事件成功数据
         bigNumData: null,  //大数字数据
 
@@ -394,11 +394,12 @@
         cgq: function () {
             s_EchartAjax.getSocietyCgq(function (result) {
                 if (require("s_Echart").cgqData == null) { return false; }
-                var data=require("s_Echart").cgqData;
-                console.info(data);
-                console.info(data.data.sensorNumList);
+                var data = require("s_Echart").cgqData;
+                //console.info(data);
+                //console.info(data.data.sensorNumList);
                 data = data.data.sensorNumList;
 
+                
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
                 $('#cgq-wxmc').html(data[3].sensorCount)
@@ -406,8 +407,42 @@
                 $('#cgq-dzwl').html(data[8].sensorCount)
                 $('#cgq-znjg').html(data[4].sensorCount)
                 $('#cgq-tcdc').html(data[1].sensorCount)
+
+                if (data[6].alarmSensorCount) {
+                    $('#cgq-ywgy').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[6].alarmSensorCount)
+                }
+                if (data[5].alarmSensorCount) {
+                    $('#cgq-zndt').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[5].alarmSensorCount)
+                }
+                if (data[3].alarmSensorCount) {
+                    $('#cgq-wxmc').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[3].alarmSensorCount)
+                }
+                if (data[2].alarmSensorCount) {
+                    $('#cgq-wxkm').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[2].alarmSensorCount)
+                }
+                if (data[8].alarmSensorCount) {
+                    $('#cgq-dzwl').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[8].alarmSensorCount)
+                }
+                if (data[4].alarmSensorCount) {
+                    $('#cgq-znjg').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[4].alarmSensorCount)
+                }
+                if (data[1].alarmSensorCount) {
+                    $('#cgq-tcdc').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[1].alarmSensorCount)
+                }
             })
         },
+
+        //摄像头数据
+        //sxt:function(){
+        //    s_EchartAjax.getSocietySxtNum(function (result) {
+        //        if (require("s_Echart").sxtData == null) { return false; }
+        //        var data = require("s_Echart").sxtData;
+        //        data = data.data.sensorNumList;
+        //    });
+           
+
+        //},
+
         /*********************左侧图表-end*********************/
 
 
@@ -813,7 +848,7 @@
             //}
 
         },
-
+        yq:function(){},
         /*********************左侧图表-end*********************/
         Revert: function () {
             //摄像头
