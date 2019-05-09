@@ -20,24 +20,37 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         loadIOT: function () {
             sl_IOT.loadIOT();
             sl_IOT.loadLeftSecond();
+            require("s_Main").loadCenter1Info();  //当中大数字显示
         },
         loadCamera: function () {
             sl_Camera.loadCamera();
+            sl_IOT.loadLeftSecond();
+            require("s_Main").loadCenter1Info();
         },
         loadDrone: function () {
             sl_Drone.loadDrone();
+            sl_Drone.loadLeftSecond();
+            require("s_Main").loadCenter1Info();
         },
         loadWorkStation: function () {
             sl_WorkStation.loadWorkStation();
+            sl_IOT.loadLeftSecond();
+            require("s_Main").loadCenter1Info();
         },
         layerSeaboard: function () {
             sl_SeaboardLine.layerSeaboard();
+            sl_SeaboardLine.loadLeftSecond();
+            require("s_Main").loadCenter1Info();
         },
         loadWorkSite: function () {
             sl_WorkSite.loadWorkSite();
+            sl_WorkSite.loadLeftSecond();
+            require("s_Main").loadCenter1Info();
         },
         loadEvent: function () {
             sl_Event.loadEvent();
+            sl_IOT.loadLeftSecond();
+            require("s_Main").loadCenter1();
         },
         /////////////////////////////////////图表控制///////////////////////////////////////////////////
         loadBigChart: function (seat) {
