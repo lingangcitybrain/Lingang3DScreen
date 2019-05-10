@@ -38,7 +38,7 @@
 
                 switch (divname) {
                     case "Left_First_03"://无人机
-                        require("s_Echart").bigWrj2();
+                        require("s_Echart").bigWrj();
                         break;
                     case "Left_Second_EventIOT2"://社区车辆
                         require("sl_IOT").bigLoadSocietyCarchart();
@@ -149,7 +149,7 @@
                 var data = require("s_Echart").wrjData;
                 wrjOption = {
                     title: {
-                        text: data.data[0].wrj_cnt,
+                        text: data.wrj_cnt,
                         subtext: '总数',
                         x: 'center',
                         y: '38%',
@@ -212,9 +212,9 @@
                                 }
                             },
                             data: [
-                                { value: data.data[0].wrj_flying_cnt, name: '执飞中' },
-                                { value: data.data[0].wrj_charging_cnt, name: '充电中' },
-                                { value: data.data[0].wrj_idle_cnt, name: '待命中' }
+                                { value: data.wrj_flying_cnt, name: '执飞中' },
+                                { value: data.wrj_charging_cnt, name: '充电中' },
+                                { value: data.wrj_idle_cnt + data.wrj_lost_cnt, name: '待命中' }
                             ]
                         }
                     ]
@@ -223,171 +223,93 @@
             })
         },
 
-        wrj2: function () {
-            if ($("#wrj-chart").length <= 0) { return false; }
-            var wrjChart = document.getElementById('wrj-chart');
-            require("s_Echart").myChartwrj = echarts.init(wrjChart);
-
-            wrjOption = {
-                title: {
-                    // text: data.data[0].wrj_cnt,
-                    text: 3,
-                    subtext: '总数',
-                    x: 'center',
-                    y: '38%',
-                    textStyle: {
-                        color: '#ea6604',
-                        fontSize: 24,
-                        fontFamily: "Aerial"
-                    },
-                    subtextStyle: {
-                        color: '#fff',
-                        fontSize: 20
-                    }
-                },
-                tooltip: {},
-                legend: {
-                    show: false
-                },
-                color: ["#09d10e", "#0024fe", "#7d43f3"],
-                series: [
-                    {
-                        type: 'pie',
-                        radius: ['50%', '64%'],
-                        center: ["center", "center"],
-                        itemStyle: {
-                            borderWidth: 0,
-                            borderColor: "#000",
-                        },
-                        labelLine: {
-                            normal: {
-                                length: 20,
-                                length2: 60,
-                                lineStyle: {
-                                    width: 2,
-                                    color: "#0996d1"
-                                }
-                            }
-                        },
-                        label: {
-                            normal: {
-                                fontSize: 20,
-                                formatter: '{b|{b}}\n{per|{d}}%',
-                                padding: [0, -70],
-                                color: "#0996d1",
-                                rich: {
-                                    b: {
-                                        fontSize: 20,
-                                        lineHeight: 36,
-                                        color: "#fff",
-
-                                    },
-                                    per: {
-                                        fontSize: 20,
-                                        color: "#0996d1",
-                                        fontFamily: "Aerial",
-                                    },
-                                    center: {
-                                        position: "center",
-                                    }
-                                }
-                            }
-                        },
-                        data: [
-                            { value: 0, name: '执飞中' },
-                            { value: 0, name: '充电中' },
-                            { value: 3, name: '待命中' }
-                        ]
-                    }
-                ]
-            };
-            require("s_Echart").myChartwrj.setOption(wrjOption);
-
-        },
-        bigWrj2: function () {
+        bigWrj: function () {
             if ($("#wrj-chart").length <= 0) { return false; }
             $("#bigechartHead").html("无人机");
-            option = {
-                title: {
-                    // text: data.data[0].wrj_cnt,
-                    text: 3,
-                    subtext: '总数',
-                    x: 'center',
-                    y: '38%',
-                    textStyle: {
-                        color: '#ea6604',
-                        fontSize: 140,
-                        fontFamily: "Aerial"
-                    },
-                    subtextStyle: {
-                        color: '#fff',
-                        fontSize: 100
-                    }
+            s_EchartAjax.getSocietyWrj(function (result) {
+                if (require("s_Echart").wrjData == null) { return false; }
+                if ($("#wrj-chart").length <= 0) { return false; }
+                var data = require("s_Echart").wrjData;
+                option = {
+                    title: {
+                        text: data.wrj_cnt,
+                        subtext: '总数',
+                        x: 'center',
+                        y: '38%',
+                        textStyle: {
+                            color: '#ea6604',
+                            fontSize: 140,
+                            fontFamily: "Aerial"
+                        },
+                        subtextStyle: {
+                            color: '#fff',
+                            fontSize: 100
+                        }
 
-                },
-                tooltip: {
-                    show:false,
-                },
-                legend: {
-                    show: false
-                },
-                color: ["#09d10e", "#0024fe", "#7d43f3"],
-                series: [
-                    {
-                        type: 'pie',
-                        radius: ['48%', '62%'],
-                        center: ["center", "center"],
-                        itemStyle: {
-                            borderWidth: 0,
-                            borderColor: "#000",
-                        },
-                        labelLine: {
-                            normal: {
-                                length: 40,
-                                length2: 300,
-                                lineStyle: {
-                                    width: 8,
-                                    color: "#0996d1"
-                                }
-                            }
-                        },
-                        label: {
-                            normal: {
-                                fontSize: 70,
-                                formatter: '{b|{b}}\n{per|{d}}%',
-                                padding: [0, -200],
-                                color: "#0996d1",
-                                rich: {
-                                    b: {
-                                        fontSize: 70,
-                                        lineHeight: 76,
-                                        color: "#fff",
-                                    },
-                                    per: {
-                                        fontSize: 70,
-                                        color: "#0996d1",
-                                        fontFamily: "Aerial",
-                                    },
-                                    center: {
-                                        position: "center",
+                    },
+                    tooltip: {
+                        show:false,
+                    },
+                    legend: {
+                        show: false
+                    },
+                    color: ["#09d10e", "#0024fe", "#7d43f3"],
+                    series: [
+                        {
+                            type: 'pie',
+                            radius: ['48%', '62%'],
+                            center: ["center", "center"],
+                            itemStyle: {
+                                borderWidth: 0,
+                                borderColor: "#000",
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 40,
+                                    length2: 300,
+                                    lineStyle: {
+                                        width: 8,
+                                        color: "#0996d1"
                                     }
                                 }
-                            }
-                        },
-                        data: [
-                            { value: 0, name: '执飞中' },
-                            { value: 0, name: '充电中' },
-                            { value: 3, name: '待命中' }
-                        ]
-                    }
-                ]
-            };
-            if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
-                require("s_Echart").mybigChart.dispose();
-            }
-            require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-            require("s_Echart").mybigChart.setOption(option);
-
+                            },
+                            label: {
+                                normal: {
+                                    fontSize: 70,
+                                    formatter: '{b|{b}}\n{per|{d}}%',
+                                    padding: [0, -200],
+                                    color: "#0996d1",
+                                    rich: {
+                                        b: {
+                                            fontSize: 70,
+                                            lineHeight: 76,
+                                            color: "#fff",
+                                        },
+                                        per: {
+                                            fontSize: 70,
+                                            color: "#0996d1",
+                                            fontFamily: "Aerial",
+                                        },
+                                        center: {
+                                            position: "center",
+                                        }
+                                    }
+                                }
+                            },
+                            data: [
+                                { value: data.wrj_flying_cnt, name: '执飞中' },
+                                { value: data.wrj_charging_cnt, name: '充电中' },
+                                { value: data.wrj_idle_cnt + data.wrj_lost_cnt, name: '待命中' }
+                            ]
+                        }
+                    ]
+                };
+                if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
+                    require("s_Echart").mybigChart.dispose();
+                }
+                require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+                require("s_Echart").mybigChart.setOption(option);
+            })
         },
 
         //传感器数据
@@ -432,16 +354,20 @@
             })
         },
 
-        //摄像头数据
-        //sxt:function(){
-        //    s_EchartAjax.getSocietySxtNum(function (result) {
-        //        if (require("s_Echart").sxtData == null) { return false; }
-        //        var data = require("s_Echart").sxtData;
-        //        data = data.data.sensorNumList;
-        //    });
-           
+        //主责部门
+        zzbm:function(){
+            s_EchartAjax.getSocietyZzbm(function (result) {
+                if (require("s_Echart").zzbmData == null) { return false; }
+                var data = require("s_Echart").zzbmData;
+                data = data.data.dealDeptList;
 
-        //},
+                for (var i = 0; i < data.length; i++) {
+                    $("#zzbm-table>tbody>tr").eq(i).children().eq(0).html(data[i].executeDeptname);
+                    $("#zzbm-table>tbody>tr").eq(i).children().eq(1).html(data[i].infoScname);
+                    $("#zzbm-table>tbody>tr").eq(i).children().eq(2).html(data[i].taskNums);
+                }
+            });
+        },
 
         /*********************左侧图表-end*********************/
 

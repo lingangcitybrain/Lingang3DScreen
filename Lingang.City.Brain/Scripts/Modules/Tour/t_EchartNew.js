@@ -1,8 +1,21 @@
 ﻿define(["config", "common", "t_EchartAjax", "util"], function (con, com, t_EchartAjax, util) {
-    var oRycltjChartRqaIndex = -1;
+    //人员车辆统计图表数据
+    var oRycltjChartRqaIndex = -1; 
     var oRycltjChartData1 = null;
     var oRycltjChartData2 = null;
     var rycltjChartClose = true;
+
+    //交通信息图表数据
+    var JtxxCharData1 = null;
+    var JtxxCharData2 = null;
+    var JtxxCharData3 = null;
+    var JtxxCharxAxisData = null;
+
+    //停车场使用情况图表数据
+    var tccsyqkChartData1 = null;
+    var tccsyqkChartData2 = null;
+    var tccsyqkChartData3 = null;
+    var tccsyqkChartxAxisData = null;
 
     function xData() {//获取近6月日期
         var dataArr = [];
@@ -662,7 +675,7 @@
         },
         ///游客趋势分析（当前时间游客趋势分析）
         bigFutureVisitorTraffic: function () {
-            $("#bigechartHead").html( "游客趋势分析");
+            $("#bigechartHead").html( "游客趋势分析（当前时间游客趋势分析）");
             var post_data = {
                 "Timenow": getNowFormatDate()
             }
@@ -1300,11 +1313,15 @@
                         tccData.push(data[i].停车场)
                         TempData++
                     }
+                    JtxxCharxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
 
                     if (TempData >= 7) {
-                        JtxxChartFun(jgclData, cgclData, tccData)
+                        JtxxCharData1 = jgclData;
+                        JtxxCharData2 = cgclData;
+                        JtxxCharData3 = tccData;
+                        JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3, JtxxCharxAxisData)
                     }
-                    function JtxxChartFun(jgclData, cgclData, tccData) {
+                    function JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3, JtxxCharxAxisData) {
                         jtxxOption = {
                             title: {
                                 text: "实时流量",
@@ -1347,7 +1364,7 @@
                             },
                             xAxis: {
                                 type: 'category',
-                                data: [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)],
+                                data: JtxxCharxAxisData,
                                 boundaryGap: false,
                                 nameTextStyle: {
                                     color: "#00d7fe",
@@ -1364,8 +1381,6 @@
                                     }
                                 },
                                 axisLabel: {
-                                    //interval: 0,
-                                    //rotate:40,
                                     textStyle: {
                                         fontSize: 18,
                                         color: "#00d7fe"
@@ -1417,7 +1432,7 @@
                                   },
                                   symbolSize: 0,
                                   name: "进港车辆",
-                                  data: jgclData
+                                  data: JtxxCharData1
                               },
                               {
                                   type: 'line',
@@ -1427,7 +1442,7 @@
                                   },
                                   symbolSize: 0,
                                   name: "出港车辆",
-                                  data: cgclData
+                                  data: JtxxCharData2
                               },
                               {
                                   type: 'line',
@@ -1437,20 +1452,27 @@
                                   },
                                   symbolSize: 0,
                                   name: "停车场",
-                                  data: tccData
+                                  data: JtxxCharData3
                               }
                             ]
                         };
 
                         require("t_Echart").myChartjtxx = echarts.init(jtxxChart);
+                        require("t_Echart").myChartjtxx.setOption(jtxxOption, true);
+
                         //require("t_Echart").myChartjtxx.clear();
                         $("#ssll").click(function () {
                             require("t_Echart").myChartjtxx.clear()
-                            require("t_Echart").jtxx()
+                            require("t_Echart").myChartjtxx = echarts.init(jtxxChart);
+                            require("t_Echart").myChartjtxx.setOption(jtxxOption, true);
+
+
+                           // require("t_Echart").jtxx()
+                            require("t_Echart").mybigChart.clear()
+                            require("t_Echart").bigJtxx()
                             require("t_Echart").jtxxtj()
 
                         });
-                        require("t_Echart").myChartjtxx.setOption(jtxxOption, true);
 
                     }
                 } catch (error) {
@@ -1461,245 +1483,184 @@
         },
         //大交通信息
         bigJtxx: function () {
-            $("#bigechartHead").html("交通信息（实时流量）");
-            function MyDate(n) {
-                var n = n;
-                var d = new Date();
-                var year = d.getFullYear();
-                var mon = d.getMonth() + 1;
-                var day = d.getDate();
-                if (day <= n) {
-                    if (mon > 1) {
-                        mon = mon - 1;
-                    }
-                    else {
-                        year = year - 1;
-                        mon = 12;
-                    }
-                }
-                d.setDate(d.getDate() - n);
-                year = d.getFullYear();
-                mon = d.getMonth() + 1;
-                //day = d.getDate(); s = (mon < 10 ? ('0' + mon) : mon) + "月" + (day < 10 ? ('0' + day+'日') : day);//日期类型2019-03-07
-                day = d.getDate(); s = mon + "月" + day + "日";
-                //day=d.getDate();      s = year+(mon<10?('0'+mon):mon)+(day<10?('0'+day):day);//日期类型20190307(字符串)
-                return s;
-            }
-            var jtxxChart = document.getElementById('jtxx-chart');
-            if ($("#jtxx-chart").length <= 0) { return false; }
-            t_EchartAjax.getJtxxData(function (data) {
-                // var dtData = [0, 0, 0, 0, 0, 0, 0], jcgData = [129116, 137918, 118433, 126314, 121394, 127931, 93626], tccData = [28887, 25124, 15987, 10006, 19017, 19364, 14042];
-                var jgclData = [], cgclData = [], tccData = []
-
-                var TempData = 0;
-                var data = require("t_Echart").jtxxData;//数据
-                try {
-                    for (var i in data) {
-                        jgclData.push(data[i].进港)
-                        cgclData.push(data[i].出港)
-                        tccData.push(data[i].停车场)
-                        TempData++
-                    }
-
-                    if (TempData >= 7) {
-                        JtxxChartFun(jgclData, cgclData, tccData)
-                    }
-                    function JtxxChartFun(jgclData, cgclData, tccData) {
-                        jtxxOption = {
-                            title: {
-                                show:false,
-                                text: "实时流量",
-                                left: "1%",
-                                top: "5%",
-                                textStyle: {
-                                    fontSize: 50,
-                                    color: "#00fddc"
-                                },
+            $("#bigechartHead").html("交通信息（实时人流量）");
+            try {
+                option = {
+                    title: {
+                        show:false,
+                        text: "实时流量",
+                        left: "1%",
+                        top: "5%",
+                        textStyle: {
+                            fontSize: 50,
+                            color: "#00fddc"
+                        },
+                    },
+                    legend: [
+                        {
+                            left: '20%',
+                            top: "1%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#fff"
                             },
-                            legend: [
-                                {
-                                    left: '20%',
-                                    top: "1%",
-                                    icon: 'rect',
-                                    itemWidth: 50,
-                                    itemHeight: 50,
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#fff"
-                                    },
-                                    data: ['进港车辆']
-                                },
-                                {
-                                    left: '40%',
-                                    top: "1%",
-                                    icon: 'rect',
-                                    itemWidth: 50,
-                                    itemHeight: 50,
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#fff"
-                                    },
-                                    data: ['出港车辆']
-                                },
-                                {
-                                    left: '60%',
-                                    top: "1%",
-                                    icon: 'rect',
-                                    itemWidth: 50,
-                                    itemHeight: 50,
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#fff"
-                                    },
-                                    data: ['停车场']
-                                },
-                            ],
-                            color: ['#3398DB'],
-                            grid: {
-                                left: '5%',   // grid 组件离容器左侧的距离。
-                                right: '5%',
-                                bottom: '5%',
-                                height: "86%",
-                                containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                            data: ['进港车辆']
+                        },
+                        {
+                            left: '40%',
+                            top: "1%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#fff"
                             },
-                            tooltip: {
-                                trigger: 'axis',
-                                axisPointer: {
-                                    type: 'cross',
-                                    label: {
-                                        show: false,
-                                    },
-                                },
-                                textStyle: {//默认值，
-                                    fontSize: 50,//默认值，
-                                },
+                            data: ['出港车辆']
+                        },
+                        {
+                            left: '60%',
+                            top: "1%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#fff"
                             },
-                            xAxis: {
-                                type: 'category',
-                                data: [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)],
-                                boundaryGap: false,
-                                nameTextStyle: {
-                                    color: "#00d7fe",
-                                    fontSize: 50,
-                                },
-                                axisTick: {
-                                    show: false,
-                                    //length:2
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        width: 4,
-                                        color: "rgba(80,172,254,0.5)"
-                                    }
-                                },
-                                axisLabel: {
-                                    //interval: 0,
-                                    //rotate:40,
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#00d7fe"
-                                    }
-                                },
-                                splitLine: {
-                                    show: false,
-                                    lineStyle: {
-                                        color: "rgba(80,172,254,0.5)"
-                                    }
-                                }
-
+                            data: ['停车场']
+                        },
+                    ],
+                    color: ['#3398DB'],
+                    grid: {
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
+                        height: "86%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
                             },
-                            yAxis: {
-                                axisTick: {
-                                    show: false,
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        width: 4,
-                                        color: "rgba(80,172,254,0.5)"
-                                    }
-                                },
-                                //interval: 1000,
-                                axisLabel: {
-                                    formatter: function (value, index) {
-                                        if (value >= 10000 && value < 10000000) {
-                                            value = value / 10000 + "万";
-                                        }
-                                        return value;
-                                    },
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#00d7fe"
-                                    }
-                                },
-                                splitLine: {
-                                    lineStyle: {
-                                        width: 4,
-                                        color: "rgba(80,172,254,0.5)",
-                                    }
-                                }
-                            },
-                            series: [
-                              {
-                                  type: 'line',
-                                  color: "rgba(253,238,0,.5)",
-                                  lineStyle: {
-                                      width: 8,
-                                  },
-                                  symbolSize: 10,
-                                  name: "进港车辆",
-                                  data: jgclData
-                              },
-                              {
-                                  type: 'line',
-                                  color: "rgba(11,239,215,.5)",
-                                  lineStyle: {
-                                      width: 8,
-                                  },
-                                  symbolSize: 10,
-                                  name: "出港车辆",
-                                  data: cgclData
-                              },
-                              {
-                                  type: 'line',
-                                  color: "rgba(195,70,2,.8)",
-                                  lineStyle: {
-                                      width: 8,
-                                  },
-                                  symbolSize: 10,
-                                  name: "停车场",
-                                  data: tccData
-                              }
-                            ]
-                        };
-
-
-                        //require("t_Echart").myChartjtxx.clear();
-                        $("#ssll").click(function () {
-                            require("t_Echart").myChartjtxx.clear()
-                            require("t_Echart").jtxx()
-                            require("t_Echart").jtxxtj()
-
-                        });
-                        if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
-                            require("t_Echart").mybigChart.dispose();
+                        },
+                        textStyle: {//默认值，
+                            fontSize: 50,//默认值，
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: JtxxCharxAxisData,
+                        boundaryGap: false,
+                        nameTextStyle: {
+                            color: "#00d7fe",
+                            fontSize: 50,
+                        },
+                        axisTick: {
+                            show: false,
+                            //length:2
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,0.5)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: false,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.5)"
+                            }
                         }
-                        require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-                        require("t_Echart").mybigChart.setOption(jtxxOption);
 
-                    }
-                } catch (error) {
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,0.5)"
+                            }
+                        },
+                        //interval: 1000,
+                        axisLabel: {
+                            formatter: function (value, index) {
+                                if (value >= 10000 && value < 10000000) {
+                                    value = value / 10000 + "万";
+                                }
+                                return value;
+                            },
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,0.5)",
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'line',
+                            color: "rgba(253,238,0,.5)",
+                            lineStyle: {
+                                width: 8,
+                            },
+                            symbolSize: 10,
+                            name: "进港车辆",
+                            data: JtxxCharData1
+                        },
+                        {
+                            type: 'line',
+                            color: "rgba(11,239,215,.5)",
+                            lineStyle: {
+                                width: 8,
+                            },
+                            symbolSize: 10,
+                            name: "出港车辆",
+                            data: JtxxCharData2
+                        },
+                        {
+                            type: 'line',
+                            color: "rgba(195,70,2,.8)",
+                            lineStyle: {
+                                width: 8,
+                            },
+                            symbolSize: 10,
+                            name: "停车场",
+                            data: JtxxCharData3
+                        }
+                    ]
+                };
 
+                if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
+                    require("t_Echart").mybigChart.dispose();
                 }
+                require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+                require("t_Echart").mybigChart.setOption(option);
 
-            })
+            } catch (error) {
 
-
-
-
-
-
+            }
 
         },
         //在线摄像头
@@ -1954,7 +1915,6 @@
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
                 var rycltjChart = document.getElementById('rycltj-chart');
-                require("t_Echart").myChartrycltj = echarts.init(rycltjChart);
 
                 rycltjOption = {
                     legend: {
@@ -2052,18 +2012,26 @@
                       },
                     ]
                 };
-                $("#renche").click(function () {
-                    require("t_Echart").myChartrycltj.clear()
-                    require("t_Echart").myChartrycltj.setOption(rycltjOption, true)
-                });
+
+                require("t_Echart").myChartrycltj = echarts.init(rycltjChart);
                 require("t_Echart").myChartrycltj.setOption(rycltjOption, true);
 
                 require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
 
+                $("#renche").click(function () {
+                    require("t_Echart").myChartrycltj.clear();
+                    require("t_Echart").myChartrycltj.setOption(rycltjOption, true);
+
+                    rycltjChartClose = false;
+                    require("t_Echart").mybigChart.clear();
+                    require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
+                });
             }
         },
         bigRycltj: function (oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
-
+            console.log(rycltjChartClose)
+            console.log(oRycltjChartRqaIndex)
+            console.log(rycltjdata1,rycltjdata2)
             if (rycltjChartClose) {
                 return false;
             } else {
@@ -2075,7 +2043,7 @@
                 })
 
                 var rqa = $("#rq a");
-                console.log(bigRycltjIndex, oRycltjChartRqaIndex)
+                //console.log(bigRycltjIndex, oRycltjChartRqaIndex)
 
                 if (bigRycltjIndex === 0) {
                     $("#bigechartHead").html('入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
@@ -2093,7 +2061,7 @@
                 function tb(rycltjdata1, rycltjdata2) {
 
                     if ($("#Big-chart").length <= 0) { return false; }
-                    rycltjOption = {
+                    option = {
                         legend: {
                             show: false,
                         },
@@ -2195,23 +2163,19 @@
                           },
                         ]
                     };
-                    $("#renche").click(function () {
-                        require("t_Echart").myChartrycltj.clear()
-                        require("t_Echart").myChartrycltj.setOption(rycltjOption, true)
-                    });
 
                     if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
                         require("t_Echart").mybigChart.dispose();
                     }
                     require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-                    require("t_Echart").mybigChart.setOption(rycltjOption);
+                    require("t_Echart").mybigChart.setOption(option, true);
 
                 }
             }
         },
 
         //停车场使用情况
-       tccsyqk: function () {
+        tccsyqk: function () {
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -2277,7 +2241,12 @@
                         tccsyqkdata4.push(gcxtd[i])
                     }
 
-                    require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
+                    //缓存图表数据
+                    tccsyqkChartData1 = tccsyqkdata1;
+                    tccsyqkChartData2 = tccsyqkdata2;
+                    tccsyqkChartData3 = tccsyqkdata3;
+                    tccsyqkChartData4 = tccsyqkdata4;
+                    tccsyqkChartxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
 
                     tccsyqkOption = {
                         tooltip: {
@@ -2345,7 +2314,7 @@
                         xAxis: [
                             {
                                 type: 'category',
-                                data: [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)],
+                                data: tccsyqkChartxAxisData,
                                 nameTextStyle: {
                                     color: "#00d7fe",
                                     fontSize: 16,
@@ -2416,7 +2385,7 @@
                                         }]),
                                     }
                                 },
-                                data: tccsyqkdata1
+                                data: tccsyqkChartData1
                             },
                             {
                                 name: '雪绒花停车场',
@@ -2434,7 +2403,7 @@
                                         }]),
                                     }
                                 },
-                                data: tccsyqkdata2
+                                data: tccsyqkChartData2
                             },
                             {
                                 name: '临港大道停车场',
@@ -2452,7 +2421,7 @@
                                         }]),
                                     }
                                 },
-                                data: tccsyqkdata3
+                                data: tccsyqkChartData3
                             },
                             {
                                 name: '港城新天地停车场',
@@ -2470,16 +2439,24 @@
                                         }]),
                                     }
                                 },
-                                data: tccsyqkdata4
+                                data: tccsyqkChartData4
                             }
                         ]
                     };
-                    //require("t_Echart").myCharttccsyqk.clear();
+
+                    require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
+                    require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
+
                     $("#tcc").click(function () {
                         require("t_Echart").myCharttccsyqk.clear()
-                        require("t_Echart").tccsyqk()
+                        require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
+                        require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
+
+                        require("t_Echart").mybigChart.clear()
+                        require("t_Echart").bigTccsyqk();
+
                     });
-                    require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
+
                 } catch (error) {
 
                 }
@@ -2487,298 +2464,221 @@
             })
         },
         /*大停车场使用情况*/
-       bigTccsyqk: function () {
+        bigTccsyqk: function () {
             $("#bigechartHead").html("停车场使用情况");
-            function MyDate(n) {
-                var n = n;
-                var d = new Date();
-                var year = d.getFullYear();
-                var mon = d.getMonth() + 1;
-                var day = d.getDate();
-                if (day <= n) {
-                    if (mon > 1) {
-                        mon = mon - 1;
-                    }
-                    else {
-                        year = year - 1;
-                        mon = 12;
-                    }
-                }
-                d.setDate(d.getDate() - n);
-                year = d.getFullYear();
-                mon = d.getMonth() + 1;
-                //day = d.getDate(); s = (mon < 10 ? ('0' + mon) : mon) + "月" + (day < 10 ? ('0' + day+'日') : day);//日期类型2019-03-07
-                day = d.getDate(); s = mon + "月" + day + "日";
-                //day=d.getDate();      s = year+(mon<10?('0'+mon):mon)+(day<10?('0'+day):day);//日期类型20190307(字符串)
-
-                return s;
-            }
-            if ($("#wrj-chart").length <= 0) { return false; }
-
-
-            var post_data = {
-                "count": "666"
-            }
-            t_EchartAjax.bigtccsyqk(post_data, function (data) {
-                var tccsyqkdata1 = [], tccsyqkdata2 = [], tccsyqkdata3 = [], tccsyqkdata4 = [];
-                var data = require("t_Echart").tccsyqkData;
-                try {
-                    var outer = {};
-                    outer["临港大道"] = {};
-                    outer["港城新天地"] = {};
-                    outer["海昌公园"] = {};
-                    outer["雪绒花"] = {};
-                    for (var key in data) {
-                        var dateItem = data[key];
-                        for (var name in dateItem) {
-                            if (!outer[name][key]) {
-                                outer[name][key] = 0;
-                            }
-                            outer[name][key] += dateItem[name]
+            try {
+                option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            
+                            type: 'shadow' 
+                        },
+                        textStyle: {//默认值，
+                            fontSize: 50,//默认值，
                         }
-                    }
-                    var hcgy = outer.海昌公园
-                    for (var i in hcgy) {
-                        tccsyqkdata1.push(hcgy[i])
-                    }
-                    var xrh = outer.雪绒花
-                    for (var i in xrh) {
-                        tccsyqkdata2.push(xrh[i])
-                    }
-                    var lgdd = outer.临港大道
-                    for (var i in lgdd) {
-                        tccsyqkdata3.push(lgdd[i])
-                    }
-                    var gcxtd = outer.港城新天地
-                    for (var i in gcxtd) {
-                        tccsyqkdata4.push(gcxtd[i])
-                    }
-
-
-
-                    tccsyqkOption = {
-                        tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    legend: [
+                        {
+                            left: '4%',
+                            bottom: "5%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#0296d4"
                             },
-                            textStyle: {//默认值，
-                                fontSize: 50,//默认值，
-                            }
+                            data: ['海昌公园停车场']
                         },
-                        legend: [
-                            {
-                                left: '4%',
-                                bottom: "5%",
-                                icon: 'rect',
-                                itemWidth: 50,
-                                itemHeight: 50,
-                                textStyle: {
-                                    fontSize: 50,
-                                    color: "#0296d4"
-                                },
-                                data: ['海昌公园停车场']
+                        {
+                            left: '27%',
+                            bottom: "5%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#0296d4"
                             },
-                            {
-                                left: '27%',
-                                bottom: "5%",
-                                icon: 'rect',
-                                itemWidth: 50,
-                                itemHeight: 50,
-                                textStyle: {
-                                    fontSize: 50,
-                                    color: "#0296d4"
-                                },
-                                data: ['雪绒花停车场']
-                            },
-                            {
-                                left: '50%',
-                                bottom: "5%",
-                                icon: 'rect',
-                                itemWidth: 50,
-                                itemHeight: 50,
-                                textStyle: {
-                                    fontSize: 50,
-                                    color: "#0296d4"
-                                },
-                                data: ['临港大道停车场']
-                            },
-                            {
-                                left: '75%',
-                                bottom: "5%",
-                                icon: 'rect',
-                                itemWidth: 50,
-                                itemHeight: 50,
-                                textStyle: {
-                                    fontSize: 50,
-                                    color: "#0296d4"
-                                },
-                                data: ['港城新天地停车场']
-                            },
-                        ],
-                        grid: {
-                            left: '5%',
-                            right: '5%',
-                            bottom: '14%',
-                            height: "82%",
-                            containLabel: true
+                            data: ['雪绒花停车场']
                         },
-                        xAxis: [
-                            {
-                                type: 'category',
-                                data: [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)],
-                                nameTextStyle: {
-                                    color: "#00d7fe",
+                        {
+                            left: '50%',
+                            bottom: "5%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#0296d4"
+                            },
+                            data: ['临港大道停车场']
+                        },
+                        {
+                            left: '75%',
+                            bottom: "5%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#0296d4"
+                            },
+                            data: ['港城新天地停车场']
+                        },
+                    ],
+                    grid: {
+                        left: '5%',
+                        right: '5%',
+                        bottom: '14%',
+                        height: "82%",
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: tccsyqkChartxAxisData,
+                            nameTextStyle: {
+                                color: "#00d7fe",
+                                fontSize: 50,
+                            },
+                            axisTick: {
+                                show: false,
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 4,
+                                    color: "rgba(80,172,254,0.5)"
+                                }
+                            },
+                            axisLabel: {
+                                textStyle: {
                                     fontSize: 50,
-                                },
-                                axisTick: {
-                                    show: false,
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        width: 4,
-                                        color: "rgba(80,172,254,0.5)"
-                                    }
-                                },
-                                axisLabel: {
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#00d7fe"
-                                    }
-                                },
-                                splitLine: {
-                                    show: false,
-                                    lineStyle: {
-                                        color: "rgba(80,172,254,0.5)"
-                                    }
+                                    color: "#00d7fe"
+                                }
+                            },
+                            splitLine: {
+                                show: false,
+                                lineStyle: {
+                                    color: "rgba(80,172,254,0.5)"
                                 }
                             }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value',
-                                axisTick: {
-                                    show: false,
-                                },
-                                axisLine: {
-                                    show: true,
-                                    lineStyle: {
-                                        width: 4,
-                                        color: "rgba(80,172,254,0.5)"
-                                    }
-                                },
-                                //interval: 1000,
-                                axisLabel: {
-                                    textStyle: {
-                                        fontSize: 50,
-                                        color: "#00d7fe"
-                                    }
-                                },
-                                splitLine: {
-                                    lineStyle: {
-                                        width: 4,
-                                        color: "rgba(80,172,254,0.5)",
-                                    }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            axisTick: {
+                                show: false,
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 4,
+                                    color: "rgba(80,172,254,0.5)"
+                                }
+                            },
+                            //interval: 1000,
+                            axisLabel: {
+                                textStyle: {
+                                    fontSize: 50,
+                                    color: "#00d7fe"
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    width: 4,
+                                    color: "rgba(80,172,254,0.5)",
                                 }
                             }
-                        ],
-                        series: [
-                            {
-                                name: '海昌公园停车场',
-                                type: 'bar',
-                                barWidth: 30,
-                                itemStyle: {
-                                    normal: {
-                                        barBorderRadius: 5,
-                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                            offset: 0,
-                                            color: '#fffd00'
-                                        }, {
-                                            offset: 1,
-                                            color: '#ff6f02'
-                                        }]),
-                                    }
-                                },
-                                data: tccsyqkdata1
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '海昌公园停车场',
+                            type: 'bar',
+                            barWidth: 30,
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 5,
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0,
+                                        color: '#fffd00'
+                                    }, {
+                                        offset: 1,
+                                        color: '#ff6f02'
+                                    }]),
+                                }
                             },
-                            {
-                                name: '雪绒花停车场',
-                                type: 'bar',
-                                barWidth: 30,
-                                itemStyle: {
-                                    normal: {
-                                        barBorderRadius: 5,
-                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                            offset: 0,
-                                            color: '#02fdf6'
-                                        }, {
-                                            offset: 1,
-                                            color: '#00a3ff'
-                                        }]),
-                                    }
-                                },
-                                data: tccsyqkdata2
+                            data: tccsyqkChartData1
+                        },
+                        {
+                            name: '雪绒花停车场',
+                            type: 'bar',
+                            barWidth: 30,
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 5,
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0,
+                                        color: '#02fdf6'
+                                    }, {
+                                        offset: 1,
+                                        color: '#00a3ff'
+                                    }]),
+                                }
                             },
-                            {
-                                name: '临港大道停车场',
-                                type: 'bar',
-                                barWidth: 30,
-                                itemStyle: {
-                                    normal: {
-                                        barBorderRadius: 5,
-                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                            offset: 0,
-                                            color: '#ace419'
-                                        }, {
-                                            offset: 1,
-                                            color: '#5aad0b'
-                                        }]),
-                                    }
-                                },
-                                data: tccsyqkdata3
+                            data: tccsyqkChartData2
+                        },
+                        {
+                            name: '临港大道停车场',
+                            type: 'bar',
+                            barWidth: 30,
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 5,
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0,
+                                        color: '#ace419'
+                                    }, {
+                                        offset: 1,
+                                        color: '#5aad0b'
+                                    }]),
+                                }
                             },
-                            {
-                                name: '港城新天地停车场',
-                                type: 'bar',
-                                barWidth: 30,
-                                itemStyle: {
-                                    normal: {
-                                        barBorderRadius: 5,
-                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                            offset: 0,
-                                            color: '#d9d9d9'
-                                        }, {
-                                            offset: 1,
-                                            color: '#808080'
-                                        }]),
-                                    }
-                                },
-                                data: tccsyqkdata4
-                            }
-                        ]
-                    };
-                    //require("t_Echart").myCharttccsyqk.clear();
-                    $("#tcc").click(function () {
-                        require("t_Echart").myCharttccsyqk.clear()
-                        require("t_Echart").tccsyqk()
-                    });
-                    if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
-                        require("t_Echart").mybigChart.dispose();
-                    }
-                    require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-                    require("t_Echart").mybigChart.setOption(tccsyqkOption);
-                } catch (error) {
+                            data: tccsyqkChartData3
+                        },
+                        {
+                            name: '港城新天地停车场',
+                            type: 'bar',
+                            barWidth: 30,
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 5,
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0,
+                                        color: '#d9d9d9'
+                                    }, {
+                                        offset: 1,
+                                        color: '#808080'
+                                    }]),
+                                }
+                            },
+                            data: tccsyqkChartData4
+                        }
+                    ]
+                };
 
+                if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
+                    require("t_Echart").mybigChart.dispose();
                 }
+                require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+                require("t_Echart").mybigChart.setOption(option);
+            } catch (error) {
 
-            })
-
-
-
+            }
         },
-
-
 
         /*近五日事件统计*/
         jwrsjtj: function () {
@@ -3026,14 +2926,19 @@
                       }
                     ]
                 };
-                //myChartjwrsjtj.clear();
-                //myChartjwrsjtj.setOption(jwrsjtjOption);
+
+                require("t_Echart").myChartjwrsjtj.setOption(jwrsjtjOption);
+
                 $("#jwrsjtjsx").click(function () {
                     require("t_Echart").myChartjwrsjtj.clear()
-                    require("t_Echart").jwrsjtj()
+                   // require("t_Echart").jwrsjtj()
                     require("t_Echart").myChartjwrsjtj.setOption(jwrsjtjOption, true)
+
+                    require("t_Echart").mybigChart.clear()
+                    require("t_Echart").bigjwrsjtj()
+
+
                 });
-                require("t_Echart").myChartjwrsjtj.setOption(jwrsjtjOption);
             })
         },
 
@@ -3095,9 +3000,7 @@
                     jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
                     jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
                 }
-
-
-                jwrsjtjOption = {
+                option = {
                     legend: [
                          {
                              left: '5%',
@@ -3290,16 +3193,11 @@
                     ]
                 };
 
-                $("#jwrsjtjsx").click(function () {
-                    require("t_Echart").myChartjwrsjtj.clear()
-                    require("t_Echart").jwrsjtj()
-                    require("t_Echart").myChartjwrsjtj.setOption(jwrsjtjOption, true)
-                });
                 if (require("t_Echart").mybigChart != null && require("t_Echart").mybigChart != "" && require("t_Echart").mybigChart != undefined) {
                     require("t_Echart").mybigChart.dispose();
                 }
                 require("t_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-                require("t_Echart").mybigChart.setOption(jwrsjtjOption);
+                require("t_Echart").mybigChart.setOption(option);
             })
 
         },

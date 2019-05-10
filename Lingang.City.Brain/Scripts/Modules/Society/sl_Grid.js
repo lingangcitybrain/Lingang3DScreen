@@ -580,7 +580,7 @@
             $("#bigechartHead").html("处置主责部门");
             option = {
                 tooltip: {
-                    //show: false,
+                    show: false,
                     trigger: 'item',
                     textStyle: {
                         fontSize:70,
@@ -588,36 +588,9 @@
                     formatter: "{b} : {c} ({d}%)"
                 },
                 color: ["#0b6ccd", "#eb5501"],
-                legend: [
-                    {
-                        orient: 'vertical',
-                        left: "65%",
-                        top: "38%",
-                        icon: 'rect',
-                        itemWidth: 120,
-                        itemHeight: 60,
-                        borderRadius: 16,
-                        textStyle: {
-                            fontSize: 80,
-                            color: "#00d7fe",
-                        },
-                        data: ["TOP15"],
-                    },
-                    {
-                        orient: 'vertical',
-                        left: "65%",
-                        top: "53%",
-                        icon: 'rect',
-                        itemWidth: 120,
-                        itemHeight: 60,
-                        borderRadius: 16,
-                        textStyle: {
-                            fontSize: 80,
-                            color: "#00d7fe",
-                        },
-                        data: ["其它"],
-                    },
-                ],
+                legend: {
+                    show:false,
+                },
                 grid: {
                     left: '5%',   // grid 组件离容器左侧的距离。
                     right: '5%',
@@ -629,18 +602,47 @@
 	                {
 	                    type: 'pie',
 	                    radius: '65%',
-	                    center: ['38%', '50%'],
+	                    center: ['50%', '50%'],
 	                    data: [
 	            	        { value: 12, name: "其它", selected: true },
 	            	        { value: 88, name: "TOP15" }
 	                    ],
 	                    selectedOffset: 25,
 	                    label: {
-	                        fontSize: 50,
-                            show: false,
+                            fontSize:80,
+	                        formatter: '{b|{b}}\n{c|{c}}({per|{d}}%)',
+                            padding: [0, -500],
+                            color: "#fff",
+                            rich: {
+                                b: {
+                                    fontSize: 80,
+                                    lineHeight: 80,
+                                    color: "#fff",
+                                },
+                                c: {
+                                    fontSize: 80,
+                                    lineHeight: 80,
+                                    color: "#f7b001",
+                                    fontFamily: "Aerial",
+                                },
+                                per: {
+                                    fontSize: 80,
+                                    lineHeight: 80,
+                                    color: "#fff",
+                                    fontFamily: "Aerial",
+                                },
+
+                            }
 	                    },
 	                    labelLine: {
-	                        show: false,
+	                        normal: {
+	                            length: 40,
+	                            length2: 500,
+	                            lineStyle: {
+	                                width: 8,
+	                                color: "#fff"
+	                            }
+	                        }
 	                    },
 	                    itemStyle: {
 	                        show: false,
