@@ -168,11 +168,11 @@
                         radar: [
                             {
                                 indicator: [
-                                    { text: data.data[2].model_item_name, max: Max },
-                                    { text: data.data[1].model_item_name, max: Max },
-                                    { text: data.data[0].model_item_name, max: Max },
-                                    { text: data.data[3].model_item_name, max: Max },
-                                    { text: data.data[4].model_item_name, max: Max }
+                                    { text: data[2].model_item_name, max: Max },
+                                    { text: data[1].model_item_name, max: Max },
+                                    { text: data[0].model_item_name, max: Max },
+                                    { text: data[3].model_item_name, max: Max },
+                                    { text: data[4].model_item_name, max: Max }
                                 ],
                                 name: {
                                     formatter: '【{value}】',
