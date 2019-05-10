@@ -75,9 +75,10 @@
             e_EchartAjax.cyjzl(function (result) {
                 if (require("e_Echart").cyjzlData == null) { return false; }
                 var data = require("e_Echart").cyjzlData;
+               
                 var cyjzlChart = document.getElementById('cyjzl-chart');
                 var Max = 100;
-                var Value = [data.data[2].score, data.data[1].score, data.data[0].score, data.data[3].score, data.data[4].score];
+                
                 require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
                 cyjzlOption = {
                     tooltip: {
@@ -89,11 +90,11 @@
                     radar: [
                         {
                             indicator: [
-                                { text: data.data[2].model_item_name, max: Max },
-                                { text: data.data[1].model_item_name, max: Max },
-                                { text: data.data[0].model_item_name, max: Max },
-                                { text: data.data[3].model_item_name, max: Max },
-                                { text: data.data[4].model_item_name, max: Max }
+                                { text: data[2].model_item_name, max: Max },
+                                { text: data[1].model_item_name, max: Max },
+                                { text: data[0].model_item_name, max: Max },
+                                { text: data[3].model_item_name, max: Max },
+                                { text: data[4].model_item_name, max: Max }
                             ],
                             name: {
                                 formatter: '【{value}】',
@@ -126,7 +127,7 @@
                             type: 'radar',
                             data: [
                                 {
-                                    value: Value,
+                                    value: [data[2].score, data[1].score, data[0].score, data[3].score, data[4].score],
                                     areaStyle: {
                                         normal: {
                                             color: 'rgba(235,182,0,.4)'
@@ -153,8 +154,10 @@
             e_EchartAjax.cyjzl(function (result) {
                 if (require("e_Echart").cyjzlData == null) { return false; }
                 var data = require("e_Echart").cyjzlData;
+               
                     var Max = 100;
-                    var Value = [data.data[2].score, data.data[1].score, data.data[0].score, data.data[3].score, data.data[4].score];
+                    
+           
                     cyjzlOption = {
                         tooltip: {
                             trigger: 'axis'
@@ -165,11 +168,11 @@
                         radar: [
                             {
                                 indicator: [
-                                    { text: data.data[2].model_item_name, max: Max },
-                                    { text: data.data[1].model_item_name, max: Max },
-                                    { text: data.data[0].model_item_name, max: Max },
-                                    { text: data.data[3].model_item_name, max: Max },
-                                    { text: data.data[4].model_item_name, max: Max }
+                                    { text: data[2].model_item_name, max: Max },
+                                    { text: data[1].model_item_name, max: Max },
+                                    { text: data[0].model_item_name, max: Max },
+                                    { text: data[3].model_item_name, max: Max },
+                                    { text: data[4].model_item_name, max: Max }
                                 ],
                                 name: {
                                     formatter: '【{value}】',
@@ -202,7 +205,7 @@
                                 type: 'radar',
                                 data: [
                                     {
-                                        value: Value,
+                                        value: [data[2].score, data[1].score, data[0].score, data[3].score, data[4].score],
                                         areaStyle: {
                                             normal: {
                                                 color: 'rgba(235,182,0,.4)'
@@ -225,12 +228,7 @@
                     require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
                     require("e_Echart").mybigChart.setOption(cyjzlOption);
                 
-                    if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
-                        require("e_Echart").mybigChart.dispose();
-                    }
-                    require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
-                    require("e_Echart").mybigChart.setOption(cyjzlOption);
-                
+                    
             })
         },
         //企业变化趋势
