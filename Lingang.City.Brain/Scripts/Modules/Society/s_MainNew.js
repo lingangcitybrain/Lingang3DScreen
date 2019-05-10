@@ -170,7 +170,7 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
                 url: con.HtmlUrl + 'SocietyNew/Left_First_03.html'
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").wrj2();
+                require("s_Echart").wrj();
                 //加载摄像头视频
                 setTimeout(function () { require("s_Main").loadLeft01_02_Video() }, 800);
                 //加载无人机视频
@@ -185,7 +185,9 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
                 htmlDom: "#left_first_04",
                 url: con.HtmlUrl + 'SocietyNew/Left_First_04.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("s_Echart").zzbm();
+            });
 
         },
 

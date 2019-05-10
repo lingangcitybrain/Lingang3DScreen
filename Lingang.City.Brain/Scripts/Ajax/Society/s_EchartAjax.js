@@ -79,7 +79,28 @@
                 require("s_Echart").cgqData = s_EchartData.cgqData;
                 callback();
             }
-
+        },
+        //主责部门
+        getSocietyZzbm: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + '/v1/affair/comunity/taskOverview',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").zzbmData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").cgqData = s_EchartData.zzbmData;
+                callback();
+            }
         },
         //事件处理成功
         getSocietySjcg: function (callback) {
