@@ -77,15 +77,16 @@
                     url: con.InterfaceUrl + "v1/affairs/list?communityId=S012",  // yii 控制器/方法   
                     //contentType: 'application/json;charset=UTF-8',
                     cache: false,
-                    data: post_data,  //传送的数据
+                    //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("sl_Event").POIData = data.data.list;
-                        callback(data)
-                    },
-                    error: function () {
-                        //alert("数据传输错误");
-                    }
+                        if ($.isFunction(data))
+                            callback(data)
+                },
+                        error: function () {
+                            //alert("数据传输错误");
+                }
                 });
             }
             else {//执行本地
