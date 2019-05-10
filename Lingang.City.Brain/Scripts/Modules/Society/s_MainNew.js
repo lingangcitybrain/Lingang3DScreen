@@ -41,7 +41,7 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
         loadMain: function () {
             sl_Event.loadEvent();  
 
-            this.loadBottomMenu();//加载底部图层
+            //this.loadBottomMenu();//加载底部图层
 
             this.loadLeftFirst1();//加载左侧第一列第一个div
             this.loadLeftFirst2();//
@@ -60,78 +60,6 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
             
         },
 
-        /*****************************图层*****************************/
-        //加载底部图层
-        loadBottomMenu: function () {
-            var url = con.HtmlUrl + 'SocietyNew/Bottom_Menu.html';
-            require(['text!' + url], function (template) {
-                $("#bottom_menu").html(template);
-                $("#bottom_menu").show('drop', 1000);//左侧
-                require("s_Main").ChangeLayer();
-            })
-        },
-        //点击底部的菜单
-        ChangeLayer: function () {
-            //产业
-            $("#bottom_menu ul li").each(function (index) {//便利对象
-                $(this).click(function () {//点击触发事件
-                    //$("#bottom_menu ul li").removeClass("active");//删除当前元素的样式
-                    //$(this).addClass("active");//添加当前元素的样式
-                    //var menuname = $("li").eq(index).text();
-                    require("s_Main").showLayer(index);
-                    //关闭放大图表
-                    require('mainMenu').closeBigChartHtml();
-                });
-            });
-        },
-
-        //切换显示图层
-        showLayer: function (index) {
-            this.Revert();
-            var menuname = $("li").eq(index).text();
-            $("li").removeClass("active");//删除当前元素的样式
-            $("li").eq(index).addClass("active");//添加当前元素的样式
-            switch (menuname) {
-                case "传感器":
-                    require("s_Home").loadIOT();
-                    break;
-                case "摄像头":
-                    require("s_Home").loadCamera();
-                    break;
-                case "无人机":
-                    require("s_Home").loadDrone();
-                    break;
-                case "村居工作站":
-                    require("s_Home").loadWorkStation();
-                    break;
-                case "海岸线":
-                    require("s_Home").layerSeaboard();
-                    break;
-                case "工地":
-                    require("s_Home").loadWorkSite();
-                    break;
-                case "街面":
-                    sl_Street.loadWorkSite();
-                    sl_Street.loadLeftSecond();
-                    this.loadCenter1();
-                    break;
-                case "网格":
-                    sl_Grid.loadGridPOI();
-                    sl_Grid.loadLeftSecond();
-                    this.loadCenter1();
-                    break;
-                case "事件":
-                    //Q3D.globalCamera().flyTo(("395683.8080060399,286.4911804199219,-3416926.616417045").toVector3d(), ("-42.453548431396484,-2.83009672164917,-2.5931613445281982").toVector3(), 1, null);
-                    require("s_Home").loadEvent();
-                    break;
-                //case "管网":
-                //    sl_Event.loadEvent();
-                //    sl_IOT.loadLeftSecond();
-                //    this.loadCenter1Info();
-                //    break;
-                default:
-            }
-        },
         /*****************************左侧第一列*****************************/
         //加载第一个div
         loadLeftFirst1: function () {

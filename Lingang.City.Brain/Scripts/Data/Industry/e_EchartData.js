@@ -1,6 +1,48 @@
 ﻿define(["config"], function (con) {
     return {
         /***************************产业-Echart数据*****************************/
+        //产业竞争力
+        cyjzlData: {
+            "auth": {},
+            "data": [{
+                "score": "67",
+                "model_item_code": "1",
+                "model_item_name": "产业聚集性",
+                "stand_all_score": "56",
+                "region_co": "1",
+                "id": 1
+            }, {
+                "score": "35",
+                "model_item_code": "2",
+                "model_item_name": "规模竞争力",
+                "stand_all_score": "56",
+                "region_co": "1",
+                "id": 4
+            }, {
+                "score": "40",
+                "model_item_code": "3",
+                "model_item_name": "技术领先性",
+                "stand_all_score": "56",
+                "region_co": "1",
+                "id": 7
+            }, {
+                "score": "35",
+                "model_item_code": "4",
+                "model_item_name": "产业均衡性",
+                "stand_all_score": "56",
+                "region_co": "1",
+                "id": 10
+            }, {
+                "score": "42",
+                "model_item_code": "5",
+                "model_item_name": "产业前瞻性",
+                "stand_all_score": "56",
+                "region_co": "1",
+                "id": 13
+            }],
+            "errCode": 0,
+            "errMsg": "SUCCESS"
+        },
         //企业变化趋势
         qybhqsData: {
             "auth": {},

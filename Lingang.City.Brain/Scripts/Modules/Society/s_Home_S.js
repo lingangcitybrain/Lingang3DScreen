@@ -1,5 +1,5 @@
-﻿define(["config", "common", "s_Main", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation'],
-function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation) {
+﻿define(["config", "common", "s_Main", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
+function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
     return {
         loadMain: function () {
             s_Main.loadMain(function () {
@@ -50,6 +50,16 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         loadEvent: function () {
             sl_Event.loadEvent();
             sl_IOT.loadLeftSecond();
+            require("s_Main").loadCenter1();
+        },
+        loadStreet: function () {
+            sl_Street.loadWorkSite();
+            sl_Street.loadLeftSecond();
+            require("s_Main").loadCenter1();
+        },
+        loadGrid:function(){
+            sl_Grid.loadGridPOI();
+            sl_Grid.loadLeftSecond();
             require("s_Main").loadCenter1();
         },
         /////////////////////////////////////图表控制///////////////////////////////////////////////////

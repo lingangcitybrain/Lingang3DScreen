@@ -1,6 +1,33 @@
 ﻿define(["config", "common", "e_EchartData"], function (con, common, e_EchartData) {
     return {
         /*************************产业-园区Echart********************************/
+        //产业竞争力
+        cyjzl: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/industrial/matchIndex',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("e_Echart").cyjzlData = data.data;
+                        callback(data);
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        require("e_Echart").cyjzlData = e_EchartData.cyjzlData.data;
+                        callback();
+                    }
+                });
+            }
+            else {//执行本地
+                require("e_Echart").cyjzlData = e_EchartData.cyjzlData.data;
+                callback();
+            }
+        },
+
+        //企业变化趋势
         qybhqs:function(callback){
             if (con.IsInterface)//执行接口
             {
@@ -25,6 +52,8 @@
                 callback();
             }
         },
+
+        //税收变化趋势
         ssbhqs:function(callback){
             if (con.IsInterface)//执行接口
             {
@@ -49,6 +78,8 @@
                 callback();
             }
         },
+
+        //固投变化趋势
         gtbhqs: function (callback) {
             if (con.IsInterface)//执行接口
             {
@@ -73,6 +104,8 @@
                 callback();
             }
         },
+
+        //就业机会变化趋势
         jyjhbhqs: function (callback) {
             if (con.IsInterface)//执行接口
             {
@@ -97,6 +130,8 @@
                 callback();
             }
         },
+
+        //薪资水平变化趋势
         xzspbhqs: function (callback) {
             if (con.IsInterface)//执行接口
             {
@@ -121,6 +156,8 @@
                 callback();
             }
         },
+
+        //高层次人才变化趋势
         gccrcbhqs: function (callback) {
             if (con.IsInterface)//执行接口
             {

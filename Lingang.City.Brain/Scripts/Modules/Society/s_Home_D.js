@@ -1,5 +1,5 @@
-﻿define(["config", "common", "s_Main", "control_Ajax", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation'],
-function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation) {
+﻿define(["config", "common", "s_Main", "control_Ajax", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
+function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
     return {
         layerNO: null,
         POIName:null,
@@ -121,6 +121,32 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
             var jsondata = {
                 "menu": "1",
                 "layer": "15",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
+        },
+        loadStreet: function () {
+            this.layerNO = 27;
+            sl_Street.loadWorkSite();
+            sl_Street.loadLeftSecond();
+            require("s_Main").loadCenter1();
+            var jsondata = {
+                "menu": "1",
+                "layer": "27",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
+        },
+        loadGrid: function () {
+            this.layerNO = 28;
+            sl_Grid.loadGridPOI();
+            sl_Grid.loadLeftSecond();
+            require("s_Main").loadCenter1();
+            var jsondata = {
+                "menu": "1",
+                "layer": "28",
                 "xyz": "",
                 "angle": "",
             };

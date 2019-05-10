@@ -976,7 +976,7 @@
         },
         //大无人接驳车
         bigwrjsjbc: function () {
-            $("#GbigechartHead").html('无人接驳车(%)');
+            $("#GbigechartHead").html('无人驾驶接驳车(%)');
             if ($("#wrjsjbc-chart").length <= 0) { return false; }
             wrjsjbcOption = {
                 title: {
