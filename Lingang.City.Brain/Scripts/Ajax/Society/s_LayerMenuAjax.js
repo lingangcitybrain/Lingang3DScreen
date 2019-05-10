@@ -69,18 +69,18 @@
             });
         },
         //获取所有事件数据
-        getEventList: function (callback) {
+        getEventList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/affair/comunity/list?communityId=S012",  // yii 控制器/方法   
+                    url: con.InterfaceUrl + "v1/affairs/list?communityId=S012",  // yii 控制器/方法   
                     //contentType: 'application/json;charset=UTF-8',
                     cache: false,
-                    //data: post_data,  //传送的数据
+                    data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_Event").POIData = data.list;
+                        require("sl_Event").POIData = data.data.list;
                         callback(data)
                     },
                     error: function () {

@@ -304,5 +304,12 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             }
         },
         /********************************END*******************************/
+
+        closeBigChartHtml: function () {
+            require("s_Echart").closeBigChart();//关闭放大图表
+            require("t_Echart").closeBigChart();
+            require("g_Echart").closeBigChart();
+            require("e_Echart").closeBigChart();
+        },
     }
 })
