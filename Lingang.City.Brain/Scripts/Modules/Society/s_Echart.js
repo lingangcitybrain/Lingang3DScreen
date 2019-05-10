@@ -355,8 +355,9 @@
         },
 
         //主责部门
-        zzbm:function(){
-            s_EchartAjax.getSocietyZzbm(function (result) {
+        zzbm: function () {
+
+            s_EchartAjax.getSocietyCgq(function(result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
                 data = data.data.dealDeptList;

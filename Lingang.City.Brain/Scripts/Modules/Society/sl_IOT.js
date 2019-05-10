@@ -150,8 +150,11 @@
                 htmlDom: "#left_second_04",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT4.html'
             }
-            com.UIControlAni(option, function () {return null;});
+            com.UIControlAni(option, function () {  require("sl_IOT").loadSocietyIOT() });
         },
+
+
+
         //加载社区车辆图表
         loadSocietyCarchart: function () {
             if ($("#sqcl-chart").length <= 0) { return false; }
@@ -358,9 +361,8 @@
 
             //myChartsqcl.setOption(sqclOption);
         },
-
-        loadCirclediv: function (){
-            // 摄像头圆圈
+        // 摄像头圆圈
+        loadCirclediv: function (){         
             if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
                 $(".sxt-circlediv").each(function () { $(this).empty() })
@@ -384,6 +386,31 @@
                 //com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 20, 45, 1000);
                 //com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 20, 45, 1000);
             }      
+        },
+
+        //社区IOT
+        loadSocietyIOT: function () {
+            s_EchartAjax.getSocietyCgq(function (result) {
+                if (require("s_Echart").cgqData == null) { return false; }
+                var data = require("s_Echart").cgqData;
+                data = data.data.sensorNumList;
+
+                //$("#iot-total1").html(data[6].sensorCount);
+                //$("#iot-normal1").html(data[6].OnlineSensorCount);
+                //$("#iot-false1").html(data[6].alarmSensorCount + data[6].LossSensorCount);
+
+                $("#society-iot>.iot-li").eq(0).find(".item-l-data").html(data[6].sensorCount);
+                $("#society-iot>.iot-li").eq(0).find("span").eq(0).html(data[6].OnlineSensorCount);
+                $("#society-iot>.iot-li").eq(0).find("span").eq(1).html(data[6].alarmSensorCount + data[6].LossSensorCount);
+
+                $("#society-iot>.iot-li").eq(1).find(".item-l-data").html(data[4].sensorCount);
+                $("#society-iot>.iot-li").eq(1).find("span").eq(0).html(data[4].OnlineSensorCount);
+                $("#society-iot>.iot-li").eq(1).find("span").eq(1).html(data[4].alarmSensorCount + data[4].LossSensorCount);
+
+                $("#society-iot>.iot-li").eq(2).find(".item-l-data").html(data[3].sensorCount);
+                $("#society-iot>.iot-li").eq(2).find("span").eq(0).html(data[3].OnlineSensorCount);
+                $("#society-iot>.iot-li").eq(2).find("span").eq(1).html(data[3].alarmSensorCount + data[3].LossSensorCount);
+            });
         },
 
         Scrolldiv: function(){

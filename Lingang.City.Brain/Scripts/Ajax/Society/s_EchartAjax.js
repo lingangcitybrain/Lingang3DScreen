@@ -98,7 +98,7 @@
                     }
                 });
             } else {//执行本地
-                require("s_Echart").cgqData = s_EchartData.zzbmData;
+                require("s_Echart").zzbmData = s_EchartData.zzbmData;
                 callback();
             }
         },
@@ -135,5 +135,16 @@
                 callback();
             }
         },
+
+
+
+
+
+
+
+
+
+
+
     }
 });
