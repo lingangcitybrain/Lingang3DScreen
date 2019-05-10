@@ -4,8 +4,8 @@
     return {
         mybigChart:null,
         myChartcyjzl: null,             //产业竞争力
-        myChartqybhqs: null,            //企业变化趋势
         cyjzlData:null,                 //产业竞争力数据
+        myChartqybhqs: null,            //企业变化趋势
         qybhqsData: null,               //企业变化趋势数据
         ssbhqsData: null,               //税收变化趋势数据
         myChartssbhqs: null,            //税收变化趋势
