@@ -3,21 +3,22 @@
     /****************************产业****************************/
     return {
         mybigChart:null,
-        myChartcyjzl: null,//产业竞争力
-        myChartqybhqs: null,//企业变化趋势
-        qybhqsData: null,//企业变化趋势数据
-        ssbhqsData: null,//税收变化趋势数据
-        myChartssbhqs: null,//税收变化趋势
-        gtbhqsData:null,//固投变化趋势数据
-        myChartgtbhqs: null,//固投变化趋势
-        jyjhbhqsData:null,//就业机会数据
-        myChartjyjh: null,//就业机会
-        myChartxzsp: null,//薪资水平
-        xzspbhqsData: null,//薪资水平数据
-        myChartgccrc: null,//高层次人才
-        gccrcData: null,//高层次人才数据
-        myChartleida: null,//风控雷达
-        fkldInterval: null,//雷达计时器
+        myChartcyjzl: null,             //产业竞争力
+        myChartqybhqs: null,            //企业变化趋势
+        cyjzlData:null,                 //产业竞争力数据
+        qybhqsData: null,               //企业变化趋势数据
+        ssbhqsData: null,               //税收变化趋势数据
+        myChartssbhqs: null,            //税收变化趋势
+        gtbhqsData:null,                //固投变化趋势数据
+        myChartgtbhqs: null,            //固投变化趋势
+        jyjhbhqsData:null,              //就业机会数据
+        myChartjyjh: null,              //就业机会
+        myChartxzsp: null,              //薪资水平
+        xzspbhqsData: null,             //薪资水平数据
+        myChartgccrc: null,             //高层次人才
+        gccrcData: null,                //高层次人才数据
+        myChartleida: null,             //风控雷达
+        fkldInterval: null,             //雷达计时器
 
         //加载图表
         loadEcharts:function()
@@ -71,172 +72,87 @@
         //产业竞争力
         cyjzl: function () {
             if ($("#cyjzl-chart").length <= 0) { return false; }
-            $.ajax({
-                type: 'POST',
-                url: 'http://47.101.181.131:8091/v1/industrial/matchIndex',
-                cache: false,
-
-                // data:post_data,
-                dataType: 'json',
-                success: function (data) {
-                    
-                    var cyjzlChart = document.getElementById('cyjzl-chart');
-                    var Max = 100;
-                    var Value = [data.data[2].score, data.data[1].score, data.data[0].score, data.data[3].score, data.data[4].score];
-                    require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
-
-                    cyjzlOption = {
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            show: false
-                        },
-                        radar: [
-                            {
-                                indicator: [
-                                    { text: data.data[2].model_item_name, max: Max },
-                                    { text: data.data[1].model_item_name, max: Max },
-                                    { text: data.data[0].model_item_name, max: Max },
-                                    { text: data.data[3].model_item_name, max: Max },
-                                    { text: data.data[4].model_item_name, max: Max }
-                                ],
-                                name: {
-                                    formatter: '【{value}】',
-                                    textStyle: {
-                                        color: '#0ff',
-                                        fontSize: 30
-                                    }
+            e_EchartAjax.cyjzl(function (result) {
+                if (require("e_Echart").cyjzlData == null) { return false; }
+                var data = require("e_Echart").cyjzlData;
+                var cyjzlChart = document.getElementById('cyjzl-chart');
+                var Max = 100;
+                var Value = [data.data[2].score, data.data[1].score, data.data[0].score, data.data[3].score, data.data[4].score];
+                require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
+                cyjzlOption = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        show: false
+                    },
+                    radar: [
+                        {
+                            indicator: [
+                                { text: data.data[2].model_item_name, max: Max },
+                                { text: data.data[1].model_item_name, max: Max },
+                                { text: data.data[0].model_item_name, max: Max },
+                                { text: data.data[3].model_item_name, max: Max },
+                                { text: data.data[4].model_item_name, max: Max }
+                            ],
+                            name: {
+                                formatter: '【{value}】',
+                                textStyle: {
+                                    color: '#0ff',
+                                    fontSize: 30
+                                }
+                            },
+                            radius: 180,
+                            center: ['50%', '55%'],
+                            axisLine: {
+                                lineStyle: {
+                                    width: 2,
                                 },
-                                radius: 180,
-                                center: ['50%', '55%'],
-                                axisLine: {
-                                    lineStyle: {
-                                        width: 2,
-                                    },
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    width: 2,
                                 },
-                                splitLine: {
-                                    lineStyle: {
-                                        width: 2,
-                                    },
+                            },
+                            splitArea: {
+                                areaStyle: {
+                                    color: "transparent",
                                 },
-                                splitArea: {
+                            },
+                        }
+                    ],
+                    series: [
+                        {
+                            type: 'radar',
+                            data: [
+                                {
+                                    value: Value,
                                     areaStyle: {
-                                        color: "transparent",
+                                        normal: {
+                                            color: 'rgba(235,182,0,.4)'
+                                        }
                                     },
-                                },
-                            }
-                        ],
-                        series: [
-                            {
-                                type: 'radar',
-                                data: [
-                                    {
-                                        value: Value,
-                                        areaStyle: {
-                                            normal: {
-                                                color: 'rgba(235,182,0,.4)'
-                                            }
-                                        },
-                                        lineStyle: {
-                                            normal: {
-                                                width: 6,
-                                                color: "rgba(235,182,0,1)"
-                                            }
+                                    lineStyle: {
+                                        normal: {
+                                            width: 6,
+                                            color: "rgba(235,182,0,1)"
                                         }
                                     }
-                                ],
-                            }
-                        ]
-                    };
-                      require("e_Echart").myChartcyjzl.setOption(cyjzlOption);
-                },
-                error: function () {
-                    var cyjzlChart = document.getElementById('cyjzl-chart');
-                    var Max = 100;
-                    var Value = [54, 25, 68, 38, 73];
-                    require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
-
-                    cyjzlOption = {
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            show: false
-                        },
-                        radar: [
-                            {
-                                indicator: [
-                                    { text: '产业聚集性', max: Max },
-                                    { text: '规模竞争力', max: Max },
-                                    { text: '技术领先性', max: Max },
-                                    { text: '产业均衡性', max: Max },
-                                    { text: '产业前瞻性', max: Max }
-                                ],
-                                name: {
-                                    formatter: '【{value}】',
-                                    textStyle: {
-                                        color: '#0ff',
-                                        fontSize: 30
-                                    }
-                                },
-                                radius: 180,
-                                center: ['50%', '55%'],
-                                axisLine: {
-                                    lineStyle: {
-                                        width: 2,
-                                    },
-                                },
-                                splitLine: {
-                                    lineStyle: {
-                                        width: 2,
-                                    },
-                                },
-                                splitArea: {
-                                    areaStyle: {
-                                        color: "transparent",
-                                    },
-                                },
-                            }
-                        ],
-                        series: [
-                            {
-                                type: 'radar',
-                                data: [
-                                    {
-                                        value: Value,
-                                        areaStyle: {
-                                            normal: {
-                                                color: 'rgba(235,182,0,.4)'
-                                            }
-                                        },
-                                        lineStyle: {
-                                            normal: {
-                                                width: 6,
-                                                color: "rgba(235,182,0,1)"
-                                            }
-                                        }
-                                    }
-                                ],
-                            }
-                        ]
-                    };
-                    require("e_Echart").myChartcyjzl.setOption(cyjzlOption);
-                }
+                                }
+                            ],
+                        }
+                    ]
+                };
+                require("e_Echart").myChartcyjzl.setOption(cyjzlOption);
             })
-           
-          
         },
         //大产业竞争力
         bigcyjzl: function () {
             $("#EbigechartHead").html('产业竞争力');
             if ($("#cyjzl-chart").length <= 0) { return false; }
-            $.ajax({
-                type: 'POST',
-                url: 'http://47.101.181.131:8091/v1/industrial/matchIndex',
-                cache: false,
-                dataType: 'json',
-                success: function (data) {
+            e_EchartAjax.cyjzl(function (result) {
+                if (require("e_Echart").cyjzlData == null) { return false; }
+                var data = require("e_Echart").cyjzlData;
                     var Max = 100;
                     var Value = [data.data[2].score, data.data[1].score, data.data[0].score, data.data[3].score, data.data[4].score];
                     cyjzlOption = {
@@ -308,80 +224,13 @@
                     }
                     require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
                     require("e_Echart").mybigChart.setOption(cyjzlOption);
-                },
-                error: function () {
-                    var Max = 100;
-                    var Value = [54, 25, 68, 38, 73];
-                    cyjzlOption = {
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            show: false
-                        },
-                        radar: [
-                            {
-                                indicator: [
-                                    { text: '产业聚集性', max: Max },
-                                    { text: '规模竞争力', max: Max },
-                                    { text: '技术领先性', max: Max },
-                                    { text: '产业均衡性', max: Max },
-                                    { text: '产业前瞻性', max: Max }
-                                ],
-                                name: {
-                                    formatter: '【{value}】',
-                                    textStyle: {
-                                        color: '#0ff',
-                                        fontSize: 60
-                                    }
-                                },
-                                radius: 420,
-                                center: ['50%', '55%'],
-                                axisLine: {
-                                    lineStyle: {
-                                        width: 6,
-                                    },
-                                },
-                                splitLine: {
-                                    lineStyle: {
-                                        width: 6,
-                                    },
-                                },
-                                splitArea: {
-                                    areaStyle: {
-                                        color: "transparent",
-                                    },
-                                },
-                            }
-                        ],
-                        series: [
-                            {
-                                type: 'radar',
-                                data: [
-                                    {
-                                        value: Value,
-                                        areaStyle: {
-                                            normal: {
-                                                color: 'rgba(235,182,0,.4)'
-                                            }
-                                        },
-                                        lineStyle: {
-                                            normal: {
-                                                width: 12,
-                                                color: "rgba(235,182,0,1)"
-                                            }
-                                        }
-                                    }
-                                ],
-                            }
-                        ]
-                    };
+                
                     if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
                         require("e_Echart").mybigChart.dispose();
                     }
                     require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
                     require("e_Echart").mybigChart.setOption(cyjzlOption);
-                }
+                
             })
         },
         //企业变化趋势
