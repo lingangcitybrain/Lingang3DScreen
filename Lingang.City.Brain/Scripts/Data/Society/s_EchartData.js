@@ -15,15 +15,20 @@
             "data": [2220, 2510, 2791, 3055, 3856, 3230, 2910, 3521, 4404, 3254, 2680, 4254]
         },
         //中间大数字
-        bigNumberData: {
-            "inspectorCount": 28,   //巡查总数
-            "uavCount": "4",       //无人机总数
-            "cameraCount": "739",  //摄像头总数
-            "loopRate": 99.35,      //闭环率 
-            "totalCount": "46,874", //案件累计数
-            "monthCount": "4,690",  //当月案件数
-            "dispatchRate": "83",   //智能派单率
-            "autoRate": 15.9,       //主动发现率 
+        societyBigNumData: {
+	        "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "inspectorCount": 28,  //巡查总数
+                "uavCount": "4",       //无人机总数
+                "cameraCount": "739",  //摄像头总数
+                "loopRate": 99.35,     //闭环率 
+                "totalCount": "55266", //案件累计数
+                "monthCount": "62",    //当月案件数
+                "dispatchRate": "83",  //智能派单率
+                "autoRate": 15.9       //主动发现率 
+            }
         },
 
         //主责部门
@@ -137,7 +142,7 @@
 			            "LossSensorCount": 5,
 			            "sensorName": "电子围栏",
 			            "sensorType": "5",
-			            "alarmSensorCount": 10
+			            "alarmSensorCount": 15
 		            }, {
 			            "sensorCount": 100,
 			            "OnlineSensorCount": 0,
@@ -162,7 +167,23 @@
 		            }
                 ]
 	        }
-        }
+        },
+
+        //事件信息
+        societySjData: {
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "dealDeptList": [{
+                    "eventCounts": "3219",
+                    "saveTime": "1341.25小时",
+                    "accuracyRate": "83%",
+                    "autoRate": "35%"
+                }]
+            }
+        },
+
     }
 })
 

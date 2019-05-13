@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_LayerMenuAjax"], function (con, com, s_layerMenuData,s_LayerMenuAjax) {
+﻿define(["config", "common", "s_layerMenuData", "s_LayerMenuAjax", "s_EchartAjax"], function (con, com, s_layerMenuData, s_LayerMenuAjax, s_EchartAjax) {
     /**************************************传感器**************************************/
     return {
 
@@ -394,10 +394,6 @@
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data = require("s_Echart").cgqData;
                 data = data.data.sensorNumList;
-
-                //$("#iot-total1").html(data[6].sensorCount);
-                //$("#iot-normal1").html(data[6].OnlineSensorCount);
-                //$("#iot-false1").html(data[6].alarmSensorCount + data[6].LossSensorCount);
 
                 $("#society-iot>.iot-li").eq(0).find(".item-l-data").html(data[6].sensorCount);
                 $("#society-iot>.iot-li").eq(0).find("span").eq(0).html(data[6].OnlineSensorCount);
