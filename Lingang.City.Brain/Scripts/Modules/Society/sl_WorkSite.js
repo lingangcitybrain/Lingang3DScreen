@@ -133,9 +133,6 @@
            // com.UIControlAni(option, function () { return null; });
         },
 
-
-
-
         Revert: function () {
             this.clearWorkSitePOI();
         }

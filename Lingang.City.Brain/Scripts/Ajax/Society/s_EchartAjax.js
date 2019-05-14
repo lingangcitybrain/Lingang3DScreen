@@ -85,7 +85,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + '/v1/affair/comunity/taskOverview',
+                    url: con.InterfaceUrl + 'v1/affair/comunity/taskOverview',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -98,7 +98,7 @@
                     }
                 });
             } else {//执行本地
-                require("s_Echart").cgqData = s_EchartData.zzbmData;
+                require("s_Echart").zzbmData = s_EchartData.zzbmData;
                 callback();
             }
         },
@@ -113,17 +113,17 @@
                 callback();
             }
         },
-        //中间大数字
-        getSocietyBigNum: function (callback) {
+        //事件信息
+        getSocietySj: function (callback) {
             if (con.IsInterface) {
                 $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/comunity/people/communityPopulationData',
+                    type: "POST",    
+                    url: con.InterfaceUrl + 'v1/affair/comunity/dealOvertime',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("s_Echart").bigNumData = data;
+                        require("s_Echart").societySjData = data;
                         callback(data)
                     },
                     error: function () {
@@ -131,9 +131,44 @@
                     }
                 });
             } else {//执行本地
-                require("s_Echart").bigNumData = s_EchartData.bigNumberData;
+                require("s_Echart").societySjData = s_EchartData.societySjData;
                 callback();
             }
         },
+        //中间大数字
+        getSocietyBigNum: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    // /v1/communities/communitySummary  
+                    // 同社区人口数据   'v1/comunity/people/communityPopulationData'
+                    url: con.InterfaceUrl + 'v1/comunity/people/communityPopulationData',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").societyBigNumData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").societyBigNumData = s_EchartData.societyBigNumData;
+                callback();
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
     }
 });

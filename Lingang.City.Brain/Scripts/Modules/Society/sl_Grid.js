@@ -1,5 +1,8 @@
-﻿define(["config", "common", "util", "s_layerMenuData"], function (con, com, util, s_layerMenuData) {
+﻿define(["config", "common", "util", "s_layerMenuData", "s_EchartAjax"], function (con, com, util, s_layerMenuData, s_EchartAjax) {
     /**************************************网格*************************************/
+    var gridTotalNum = 0;
+    var gridTop15Num = 0;
+
     return {
         oneLevelData: null,//1级网格线
         areaListData: null,//3级网格区域
@@ -272,7 +275,7 @@
             com.UIControlAni(optionL14, null);
 
         },
-        //加载第二列的div
+        //加载第二列的div1
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
@@ -282,7 +285,7 @@
             com.UIControlAni(option, function () { require("sl_Grid").loadGridCZAJSLchart();
         });
         },
-        //加载第二列的div
+        //加载第二列的div2
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
@@ -291,14 +294,18 @@
             }
             com.UIControlAni(option, function () { require("sl_Grid").loadCirclediv(); });
         },
-        //加载第二列的div
+        //加载第二列的div3
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
                 htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventGrid3.html'
             }
-            com.UIControlAni(option, function () { require("sl_Grid").loadGridCZZZBMchart();});
+            com.UIControlAni(option, function () {
+               // require("sl_Grid").loadGridCZZZBMchart();
+                require("sl_Grid").gridData();
+                require("sl_IOT").Scrolldiv();
+            });
         },
 
 
@@ -521,60 +528,7 @@
                 com.loopFun($('.czajlb-circlediv')[2], 28, '#1f2533', '#55b400', 'transparent', '20px', 25, 54, 1000);
             }
         },
-        loadGridCZZZBMchart: function () {
-            if ($("#czajsl-chart").length <= 0) { return false; }
-
-            var czzzbmChart = document.getElementById('czzzbm-chart');
-
-            var myChartczzzbm = echarts.init(czzzbmChart);
-            czzzbmOption = {
-
-                tooltip: {
-                    show: false,
-                    trigger: 'item',
-                    formatter: "{b} : {c} ({d}%)"
-                },
-                color: ["#0b6ccd", "#eb5501"],
-                legend: {
-                    show: false,
-                },
-                grid: {
-                    left: '1%',   // grid 组件离容器左侧的距离。
-                    right: '1%',
-                    bottom: '2%',
-                    height: "94%",
-                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-                },
-                series: [
-	                {
-	                    type: 'pie',
-	                    radius: '58%',
-	                    center: ['50%', '50%'],
-	                    data: [
-	            	        { value: 12, selected: true },
-	            	        { value: 88 }
-	                    ],
-	                    selectedOffset: 25,
-	                    label: {
-	                        fontSize: 22
-	                    },
-	                    labelLine: {
-	                        show: false,
-	                    },
-	                    itemStyle: {
-	                        show: false,
-	                        emphasis: {
-	                            shadowBlur: 10,
-	                            shadowOffsetX: 0,
-	                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-	                        }
-	                    }
-	                }
-                ]
-            };
-
-            myChartczzzbm.setOption(czzzbmOption);
-        },
+ 
         bigLoadGridCZZZBMchart: function () {
             if ($("#czajsl-chart").length <= 0) { return false; }
             $("#bigechartHead").html("处置主责部门");
@@ -604,8 +558,8 @@
 	                    radius: '65%',
 	                    center: ['50%', '50%'],
 	                    data: [
-	            	        { value: 12, name: "其它", selected: true },
-	            	        { value: 88, name: "TOP15" }
+	            	        { value: gridTotalNum - gridTop15Num, name: "其它", selected: true },
+	            	        { value: gridTop15Num, name: "TOP15" }
 	                    ],
 	                    selectedOffset: 25,
 	                    label: {
@@ -617,7 +571,7 @@
                                 b: {
                                     fontSize: 80,
                                     lineHeight: 80,
-                                    color: "#fff",
+                                    color: "#05c1f8",
                                 },
                                 c: {
                                     fontSize: 80,
@@ -661,6 +615,86 @@
             }
             require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
             require("s_Echart").mybigChart.setOption(option);
+        },
+
+        gridData: function () {
+            s_EchartAjax.getSocietyZzbm(function (result) {
+                if (require("s_Echart").zzbmData == null) { return false; }
+                var data = require("s_Echart").zzbmData;
+                data = data.data.dealDeptList;
+
+                gridTotalNum = 0;
+                gridTop15Num = 0;
+                var top15NumRate = 0;
+                var elseNumRate = 0;
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#grid-czzzbm").append("<li><span>" + data[i].executeDeptname + "</span><em>" + data[i].taskNums + "</em></li>");
+                    gridTotalNum += Number(data[i].taskNums);
+                    if (i <= 15 && data[i]) {
+                        gridTop15Num += Number(data[i].taskNums);
+                    }
+                }
+
+                top15NumRate = gridTop15Num / gridTotalNum * 100; //没有百分号
+                elseNumRate = parseInt(100 - top15NumRate);
+
+                if ($("#czajsl-chart").length <= 0) { return false; }
+                var czzzbmChart = document.getElementById('czzzbm-chart');
+                var myChartczzzbm = echarts.init(czzzbmChart);
+                czzzbmOption = {
+                    tooltip: {
+                        show: false,
+                        trigger: 'item',
+                        formatter: "{b} : {c} ({d}%)"
+                    },
+                    color: ["#0b6ccd", "#eb5501"],
+                    legend: {
+                        show: false,
+                    },
+                    grid: {
+                        left: '1%',  
+                        right: '1%',
+                        bottom: '2%',
+                        height: "94%",
+                        containLabel: true   
+                    },
+                    series: [
+                        {
+                            type: 'pie',
+                            radius: '58%',
+                            center: ['50%', '50%'],
+                            data: [
+                                { value: gridTotalNum - gridTop15Num, selected: true },
+                                { value: gridTotalNum }
+                            ],
+                            selectedOffset: 25,
+                            label: {
+                                fontSize: 22
+                            },
+                            labelLine: {
+                                show: false,
+                            },
+                            itemStyle: {
+                                show: false,
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                myChartczzzbm.setOption(czzzbmOption);
+
+                $("#zzbm-top15").append('<div class=\"czzzbm-legendtitle\"><span>TOP15</span><em>(' +
+                     top15NumRate + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop15Num + '</div>');
+
+                $("#zzbm-else").append('<div class=\"czzzbm-legendtitle\"><span>其他</span><em>(' +
+                     elseNumRate + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop15Num) + '</div>');
+
+            });
         },
 
         //清空

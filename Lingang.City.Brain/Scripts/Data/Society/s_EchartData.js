@@ -9,58 +9,26 @@
             "wrj_cnt": 7,
             "wrj_charging_cnt": 0
         },
-        //传感器
-        cgqData: {//传感器类型 1 无线烟感 2 电梯传感器 3 无线门磁 4 微信开门 5 电子围栏 6 井盖传感器 7 地磁
-            "1": {
-                "normal": 479,
-                "total": 480,
-                "lost": 1
-            },
-            "2": {
-                "normal": 8,
-                "total": 8,
-                "lost": 0
-            },
-            "3": {
-                "normal": 99,
-                "total": 102,
-                "lost": 3
-            },
-            "4": {
-                "normal": 0,
-                "total": 88,
-                "lost": 88
-            },
-            "5": {
-                "normal": 7,
-                "total": 8,
-                "lost": 1
-            },
-            "6": {
-                "normal": 100,
-                "total": 102,
-                "lost": 2
-            },
-            "7": {
-                "normal": 6,
-                "total": 6,
-                "lost": 0
-            }
-        },
+
         //事件处理成功
         sjcgData: {
             "data": [2220, 2510, 2791, 3055, 3856, 3230, 2910, 3521, 4404, 3254, 2680, 4254]
         },
         //中间大数字
-        bigNumberData: {
-            "inspectorCount": 28,   //巡查总数
-            "uavCount": "4",       //无人机总数
-            "cameraCount": "739",  //摄像头总数
-            "loopRate": 99.35,      //闭环率 
-            "totalCount": "46,874", //案件累计数
-            "monthCount": "4,690",  //当月案件数
-            "dispatchRate": "83",   //智能派单率
-            "autoRate": 15.9,       //主动发现率 
+        societyBigNumData: {
+	        "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "inspectorCount": 28,  //巡查总数
+                "uavCount": "4",       //无人机总数
+                "cameraCount": "739",  //摄像头总数
+                "loopRate": 99.35,     //闭环率 
+                "totalCount": "55266", //案件累计数
+                "monthCount": "62",    //当月案件数
+                "dispatchRate": "83",  //智能派单率
+                "autoRate": 15.9       //主动发现率 
+            }
         },
 
         //主责部门
@@ -103,6 +71,117 @@
 			        "taskNums": "75"
 		        }]
 	        }
+        },
+
+        //传感器  社区IOT
+        cgqData: {
+	        "errorCode": "0",
+	        "errorMessage": "成功",
+	        "resultType": "0",
+	        "data": {
+	            "sensorNumList": [
+	                {
+			            "sensorCount": 5,
+			            "OnlineSensorCount": 5,
+			            "LossSensorCount": 0,
+			            "sensorName": "人体红外传感",
+			            "sensorType": "11",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 30,
+			            "OnlineSensorCount": 30,
+			            "LossSensorCount": 0,
+			            "sensorName": "停车地磁",
+			            "sensorType": "7",
+			            "alarmSensorCount": 5
+		            }, {
+			            "sensorCount": 445,
+			            "OnlineSensorCount": 445,
+			            "LossSensorCount": 0,
+			            "sensorName": "微信开门",
+			            "sensorType": "4",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 510,
+			            "OnlineSensorCount": 500,
+			            "LossSensorCount": 10,
+			            "sensorName": "无线门磁",
+			            "sensorType": "3",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 515,
+			            "OnlineSensorCount": 515,
+			            "LossSensorCount": 0,
+			            "sensorName": "智能井盖",
+			            "sensorType": "6",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 40,
+			            "OnlineSensorCount": 40,
+			            "LossSensorCount": 0,
+			            "sensorName": "智能电梯",
+			            "sensorType": "2",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 2405,
+			            "OnlineSensorCount": 2390,
+			            "LossSensorCount": 15,
+			            "sensorName": "烟感感应",
+			            "sensorType": "1",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 5,
+			            "OnlineSensorCount": 0,
+			            "LossSensorCount": 5,
+			            "sensorName": "燃气报警",
+			            "sensorType": "10",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 40,
+			            "OnlineSensorCount": 35,
+			            "LossSensorCount": 5,
+			            "sensorName": "电子围栏",
+			            "sensorType": "5",
+			            "alarmSensorCount": 15
+		            }, {
+			            "sensorCount": 100,
+			            "OnlineSensorCount": 0,
+			            "LossSensorCount": 100,
+			            "sensorName": "电子巡更",
+			            "sensorType": "8",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 5,
+			            "OnlineSensorCount": 0,
+			            "LossSensorCount": 5,
+			            "sensorName": "睡眠看护仪",
+			            "sensorType": "9",
+			            "alarmSensorCount": 0
+		            }, {
+			            "sensorCount": 2,
+			            "OnlineSensorCount": 2,
+			            "LossSensorCount": 0,
+			            "sensorName": "智能车闸",
+			            "sensorType": "8",
+			            "alarmSensorCount": 0
+		            }
+                ]
+	        }
+        },
+
+        //事件信息
+        societySjData: {
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "dealDeptList": [{
+                    "eventCounts": "3219",
+                    "saveTime": "1341.25小时",
+                    "accuracyRate": "83%",
+                    "autoRate": "35%"
+                }]
+            }
         },
 
     }

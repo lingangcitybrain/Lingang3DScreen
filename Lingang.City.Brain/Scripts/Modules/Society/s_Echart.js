@@ -325,10 +325,10 @@
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
                 $('#cgq-wxmc').html(data[3].sensorCount)
+                $('#cgq-tcdc').html(data[1].sensorCount)
                 $('#cgq-wxkm').html(data[2].sensorCount)
                 $('#cgq-dzwl').html(data[8].sensorCount)
                 $('#cgq-znjg').html(data[4].sensorCount)
-                $('#cgq-tcdc').html(data[1].sensorCount)
 
                 if (data[6].alarmSensorCount) {
                     $('#cgq-ywgy').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[6].alarmSensorCount)
@@ -339,6 +339,9 @@
                 if (data[3].alarmSensorCount) {
                     $('#cgq-wxmc').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[3].alarmSensorCount)
                 }
+                if (data[1].alarmSensorCount) {
+                    $('#cgq-tcdc').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[1].alarmSensorCount)
+                }
                 if (data[2].alarmSensorCount) {
                     $('#cgq-wxkm').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[2].alarmSensorCount)
                 }
@@ -348,23 +351,25 @@
                 if (data[4].alarmSensorCount) {
                     $('#cgq-znjg').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[4].alarmSensorCount)
                 }
-                if (data[1].alarmSensorCount) {
-                    $('#cgq-tcdc').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[1].alarmSensorCount)
-                }
+
             })
         },
 
         //主责部门
-        zzbm:function(){
+        zzbm: function () {
+
             s_EchartAjax.getSocietyZzbm(function (result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
                 data = data.data.dealDeptList;
 
+                
                 for (var i = 0; i < data.length; i++) {
-                    $("#zzbm-table>tbody>tr").eq(i).children().eq(0).html(data[i].executeDeptname);
-                    $("#zzbm-table>tbody>tr").eq(i).children().eq(1).html(data[i].infoScname);
-                    $("#zzbm-table>tbody>tr").eq(i).children().eq(2).html(data[i].taskNums);
+                    $("#zzbm-tbody").append("<tr><td>" + data[i].executeDeptname  + "</td><td>"+ 
+                    data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
+                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(0).html(data[i].executeDeptname);
+                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(1).html(data[i].infoScname);
+                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(2).html(data[i].taskNums);
                 }
             });
         },
@@ -373,13 +378,10 @@
 
 
         /*********************右侧图表-start*********************/
-        //右侧事件
- 
+        //右侧事件---好像没用到
        sj: function () {
             if ($("#sj-chart").length <= 0) { return false; }
-
             var sjChart = document.getElementById('sj-chart');
-
             require("s_Echart").myChartsj = echarts.init(sjChart);
 
             sjOption = {
@@ -413,7 +415,26 @@
                 ]
             };
             require("s_Echart").myChartsj.setOption(sjOption);
+       },
+
+        //右侧事件信息
+        sjxx: function () {
+            s_EchartAjax.getSocietySj(function (result) {
+                if (require("s_Echart").societySjData == null) { return false; }
+                var data = require("s_Echart").societySjData;
+                data = data.data.dealDeptList[0];
+
+                var saveTimeHtml = data.eventCounts + "*" + parseInt(parseFloat(data.saveTime) * 60 / data.eventCounts);
+
+                $('#sj-saveTime').html(saveTimeHtml)
+                $('#sj-eventCounts').html(data.eventCounts)
+                $('#sj-autoRate').html(data.autoRate)
+                $('#sj-accuracyRate').html(data.accuracyRate)
+            })
         },
+
+
+
         //事件处理成功
        sjcg: function () {
            s_EchartAjax.getSocietySjcg(function (result) {

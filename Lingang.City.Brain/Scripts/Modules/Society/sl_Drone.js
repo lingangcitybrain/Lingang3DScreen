@@ -411,7 +411,7 @@
                 htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventDrone3.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () { require("sl_IOT").Scrolldiv(); });
         },
         //加载无人机视频
         loadLeft02_01_Video: function () {

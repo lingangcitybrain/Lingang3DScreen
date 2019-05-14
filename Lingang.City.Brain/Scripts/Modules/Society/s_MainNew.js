@@ -1,5 +1,5 @@
-﻿define(["config", "common", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
-function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
+﻿define(["config", "common", 's_LayerMenuAjax', 's_EchartAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
+function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
     return {
         left01_02_video01: null,
         left01_02_video02: null,
@@ -115,19 +115,21 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
             }
             com.UIControlAni(option, function () {
                 require("s_Echart").zzbm();
+                require("sl_IOT").Scrolldiv();
+
             });
 
         },
 
         //////////////////////////////////////////////中间页面//////////////////////////////////////////////////
-        //加载中间DIV  事件时显示该内容
+        //加载中间DIV  事件 时显示该内容
         loadCenter1: function () {
             var url = con.HtmlUrl + 'SocietyNew/Center_01.html';
             require(['text!' + url], function (template) {
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
 
-                require('s_Main').numberAni1();
+                require('s_Main').SocietyBigNum();
             })
         },
         //加载中间DIV  传感器、摄像头、无人机、村居工作站显示该内容
@@ -137,7 +139,9 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
 
-                require('s_Main').numberAni2();
+               require('s_Main').numberAni2();
+               // require('s_Main').getSocietyBigNum
+
             })
         },
         ////////////////////////////////////////////////右侧页面//////////////////////////////////////////////////////
@@ -147,16 +151,13 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
             var option = {
                 aniDom: "#right02_01",
                 htmlDom: "#right_second_01",
-
                 url: con.HtmlUrl + 'SocietyNew/Right_second_01.html',
-
                 leftOrRight: 'right'
-
             }
             com.UIControlAni(option, function () {
-               // require("s_Echart").cgq1();
+                require("s_Echart").sjxx();
                 require("s_Echart").gradient();
-                require("s_Echart").sj();
+                //require("s_Echart").sj();
                 //require("s_Echart").yq();
                 //if($("body").width() == 7680){
                 //    $("html").css({fontSize: "90px"});
@@ -175,8 +176,6 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
                 //    com.loopFun($('.sj-circlediv')[1], 80,'#564009','#098bdc','transparent','20px', 20,45,1000);
                 //}
                 //$(window).resize();
-
-
 
                 //require("s_Echart").bigNumber();//中间大数字
             });
@@ -422,18 +421,29 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
                 default:
             }
         },
-        numberAni1: function () {
-            com.numberAnimation($('#dsz-ajljs'), 47266 - 20, 47266, 2000);
-            com.numberAnimation($('#dsz-dyajs'), 5082 - 20, 5082, 2000);
-            com.numberAnimation($('#dsz-znpds'), 90 - 20, 90, 2000);
-            com.numberAnimation($('#dsz-zdfxl'), 75.9 - 5, 75.9, 2000);
-            com.numberAnimation($('#dsz-bhl'), 99.35 - 20, 99.35, 2000);
+
+        SocietyBigNum: function () {
+            s_EchartAjax.getSocietyBigNum(function (result) {
+                if (require("s_Echart").societyBigNumData == null) { return false; }
+                var data = require("s_Echart").societyBigNumData;
+                data = data.data;
+                require('s_Main').numberAni1(data);
+            });
+        },
+
+        numberAni1: function (data) {
+            com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
+            com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
+            com.numberAnimation($('#dsz-znpds'), Number(data.dispatchRate) - 20, Number(data.dispatchRate), 2000);
+            com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
+            com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 20, Number(data.loopRate), 2000);
         },
         numberAni2: function () {
             com.numberAnimation($('#s_xcxcysl'), 128 - 20, 128, 2000);
             com.numberAnimation($('#s_xcwrjsl'), 4- 1, 4, 1000);
             com.numberAnimation($('#s_jrsxtsl'), 163 - 20, 163, 2000);
         },
+
         htmlRevert: function () {
             this.clearVideo();
             //左一
@@ -449,6 +459,7 @@ function (con, com, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT
             $("#center_01").html("");
             //s_LeftLayer.Revert();//视频清空
         },
+
         Revert: function () {
             this.closeBottomVideo();
             sl_IOT.Revert();
