@@ -46,28 +46,22 @@
         //企业变化趋势
         qybhqsData: {
             "auth": {},
-            "data": [
-                {
-                    "year": 2014,
-                    "COUNT": 19290
-                },
-                {
-                    "year": 2015,
-                    "COUNT": 29965
-                },
-                {
-                    "year": 2016,
-                    "COUNT": 43603
-                },
-                {
-                    "year": 2017,
-                    "COUNT": 58441
-                },
-                {
-                    "year": 2018,
-                    "COUNT": 66159
-                }
-            ],
+            "data": [{
+                "year": 2014,
+                "COUNT": 19289
+            }, {
+                "year": 2015,
+                "COUNT": 29964
+            }, {
+                "year": 2016,
+                "COUNT": 43602
+            }, {
+                "year": 2017,
+                "COUNT": 58440
+            }, {
+                "year": 2018,
+                "COUNT": 67825
+            }],
             "errCode": 0,
             "errMsg": "SUCCESS"
         },
