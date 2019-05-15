@@ -423,7 +423,7 @@
        },
 
         //右侧事件信息
-        sjxx: function () {
+       sjxx: function () {
             s_EchartAjax.getSocietySj(function (result) {
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
@@ -435,11 +435,10 @@
                 $('#sj-autoRate').html(data.autoRate);
                 $('#sj-accuracyRate').html(data.accuracyRate);
             })
-        },
+       },
 
         //事件处理成功
-        sjcg: function () {
-
+       sjcg: function () {
             s_EchartAjax.getSocietySjcg(function (result) {
                 clearInterval(window.sjcgTimer);
                 window.sjcgTimer = null;
@@ -458,7 +457,8 @@
                seriesDataMax = Math.max.apply(null, seriesData);
                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
 
-               var sjcgTimerIndex = 0; // 图表成功数成功率循环
+               // 图表成功数成功率循环
+               var sjcgTimerIndex = 0;
                window.sjcgTimer = setInterval(function () {
                    if (sjcgTimerIndex) {
                        oSjcgseriesData = seriesData;
@@ -483,7 +483,7 @@
 
                }, 60000);
 
-
+                //事件处理成功图表加载
                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
                oSjcgseriesData = seriesData;
                sjcgSeriesDataMax = seriesDataMax;
@@ -597,7 +597,7 @@
            })
 
        },
-        bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
+       bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
 
             if (sjcgChartClose) {
                 return false;
