@@ -1,7 +1,7 @@
 ﻿define(["config", "common", "util", "s_layerMenuData", "s_EchartAjax"], function (con, com, util, s_layerMenuData, s_EchartAjax) {
     /**************************************网格*************************************/
-    var gridTotalNum = 0;
-    var gridTop15Num = 0;
+    var gridTotalNum = 0; //主责部门事件数量总数
+    var gridTop15Num = 0; //主责部门Top15事件数量
 
     return {
         oneLevelData: null,//1级网格线
@@ -623,13 +623,14 @@
                 var data = require("s_Echart").zzbmData;
                 data = data.data.dealDeptList;
 
-                gridTotalNum = 0;
-                gridTop15Num = 0;
-                var top15NumRate = 0;
+                gridTotalNum = 0; //主责部门事件数量总数
+                gridTop15Num = 0; //主责部门Top15事件数量
+                var top15NumRate = 0; 
                 var elseNumRate = 0;
-
+                //主责部门右侧列表
                 for (var i = 0; i < data.length; i++) {
                     $("#grid-czzzbm").append("<li><span>" + data[i].executeDeptname + "</span><em>" + data[i].taskNums + "</em></li>");
+
                     gridTotalNum += Number(data[i].taskNums);
                     if (i <= 15 && data[i]) {
                         gridTop15Num += Number(data[i].taskNums);
@@ -639,6 +640,7 @@
                 top15NumRate = gridTop15Num / gridTotalNum * 100; //没有百分号
                 elseNumRate = parseInt(100 - top15NumRate);
 
+                // 加载图表
                 if ($("#czajsl-chart").length <= 0) { return false; }
                 var czzzbmChart = document.getElementById('czzzbm-chart');
                 var myChartczzzbm = echarts.init(czzzbmChart);
@@ -688,11 +690,11 @@
                 };
                 myChartczzzbm.setOption(czzzbmOption);
 
-                $("#zzbm-top15").append('<div class=\"czzzbm-legendtitle\"><span>TOP15</span><em>(' +
-                     top15NumRate + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop15Num + '</div>');
+                $("#zzbm-top15").append('<div class=\"czzzbm-legendtitle\"><span>TOP15</span><em>(' + top15NumRate
+                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop15Num + '</div>');
 
-                $("#zzbm-else").append('<div class=\"czzzbm-legendtitle\"><span>其他</span><em>(' +
-                     elseNumRate + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop15Num) + '</div>');
+                $("#zzbm-else").append('<div class=\"czzzbm-legendtitle\"><span>其他</span><em>(' + elseNumRate
+                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop15Num) + '</div>');
 
             });
         },

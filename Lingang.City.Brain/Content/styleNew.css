@@ -397,7 +397,7 @@ body{
 	color:#2de9ff;
 }
 .czdw-table>tbody>tr{
-	height: .5rem;
+	height: .6rem;
 	font-size: .26rem;
 	padding-left: .06rem;
 	border-bottom: .02rem dashed rgba(31,134,146,.3);
@@ -752,8 +752,8 @@ button.arrowbtn.btnright{
 
 /*   社区IOT数据 */
 .iot-li{
-	height: 1.9rem;
-	padding:.5rem  .8rem .6rem;
+	height: 1.6rem;
+	padding:.38rem  .8rem;
 	margin-top: .1rem;
 	font-size: .26rem;
 	border-radius: .1rem;
@@ -765,11 +765,12 @@ button.arrowbtn.btnright{
 .iot-li .item-l{
 	float: left;
 	width: 2.3rem;
+    height:100%;
 }
 .iot-li .item-r{
 	float: left;
 	width: calc(100% - 2.4rem);
-	height: .7rem;
+	height: 100%;
 	line-height: .7rem;
 	padding-left: .6rem;
 	border-left: .04rem solid rgba(9,144,207,.5);
@@ -2208,8 +2209,8 @@ dd.pjc-statistic-star >form{
 	float: left;
 	width: calc(100% - 1.71rem);
     line-height: .5rem;
-    margin-top: .05rem;
-    margin-left: .3rem;
+    margin-top: .1rem;
+    margin-left: .2rem;
 }
 .sqzz-xcyxx-liul>li>div{ float: left; color: #04e6df; }
 
@@ -2241,7 +2242,7 @@ dd.pjc-statistic-star >form{
 }
 .sqzz-hax-lr1-ul{
 	margin-top: .2rem;
-	height: 1.22rem;
+	height: 1.4rem;
 }
 .sqzz-hax-lr1-li{
 	/*width: calc((100% - .45rem) / 3);*/
@@ -2280,9 +2281,8 @@ dd.pjc-statistic-star >form{
 }
 .sqzz-hax-lr2-ul>li{
 	padding-top: .2rem;
-	line-height: .45rem;
+	line-height: .5rem;
 	border-bottom: .05rem solid rgba(20,124,156,.3);
-
 }
 .sqzz-hax-lr2-ul>li>em{ 
 	float: right; 
@@ -2292,8 +2292,8 @@ dd.pjc-statistic-star >form{
 .sqzz-hax-lr2-pic{
 	width: calc(100% - 5.6rem);
 	border:.1rem solid rgba(53,93,242,.3);
-	border-left-width: .6rem;
-	border-right-width: .6rem;
+	/*border-left-width: .6rem;
+	border-right-width: .6rem;*/
 	background:url(../Content/images/sqzz-hax-lr-11.png) no-repeat;
 	background-size: 100% 100%;
 	box-sizing: border-box;
@@ -2301,7 +2301,7 @@ dd.pjc-statistic-star >form{
 .sqzz-hax-lr3-li{
 	float: left;
 	width: calc((100% - .21rem) / 3);
-	height: 1.9rem;
+	height: 2rem;
 	padding:.24rem .12rem;
 	margin-right: .1rem;
 	margin-top: .14rem;

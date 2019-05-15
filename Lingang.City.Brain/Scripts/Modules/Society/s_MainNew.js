@@ -189,8 +189,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").sjcg();//时间处理成功数
-                 require("sl_Event").generateEventList();
+                require("s_Echart").sjcg();//事件处理成功数
+                require("sl_Event").generateEventList();
             });
         },
         //加载第三个div

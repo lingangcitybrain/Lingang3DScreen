@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData"], function (con, com, s_layerMenuData) {
+﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax"], function (con, com, s_layerMenuData, s_EchartAjax) {
     /**************************************WorkSite**************************************/
     return {
         LayerType: null,//选择传感器
@@ -93,7 +93,7 @@
             this.loadLeftSecond3();
             this.loadLeftSecond4();
         },
-        //加载第二列的div
+        //加载第二列的div1
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
@@ -102,7 +102,7 @@
             }
             com.UIControlAni(option, function () { return null });
         },
-        //加载第二列的div
+        //加载第二列的div2
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
@@ -112,7 +112,7 @@
             com.UIControlAni(option, function () { return null });
            // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
         },
-        //加载第二列的div
+        //加载第二列的div3
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
@@ -122,16 +122,41 @@
             com.UIControlAni(option, function () { return null });
            // com.UIControlAni(option, function () { require("sl_IOT").loadCirclediv(); });
         },
-        //加载第二列的div
+        //加载第二列的div4
         loadLeftSecond4: function () {
             var option = {
                 aniDom: "#left02_04",
                 htmlDom: "#left_second_04",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite4.html'
             }
-            com.UIControlAni(option, function () { require("sl_IOT").Scrolldiv();});
-           // com.UIControlAni(option, function () { return null; });
+            com.UIControlAni(option, function () {
+                require("sl_WorkSite").loadGdXcyData();
+                require("sl_IOT").Scrolldiv();
+            });
         },
+        loadGdXcyData:function(){
+            s_EchartAjax.getJmXcyData(function (result) {
+                if (require("s_Echart").jmXcyData == null) { return false; }
+                var data = require("s_Echart").jmXcyData;
+                data = data.data.data;
+                for(var i=0; i<data.length; i++){
+                    $("#worksite-xcy").append(
+                        '<li class=\"sqzz-xcyxx-li\">'
+                           + '<div class=\"item-l\"><img src=\"' + data[i].photoUrl + '\" style=\"width:1.4rem !important; height:1.7rem !important;\"></div>'
+                           + '<div class=\"item-r\">'
+                               + '<ul class=\"sqzz-xcyxx-liul\">'
+                                   + '<li><div>接单员：</div><span>' + data[i].inspectorName + '</span></li>'
+                                   + '<li><div>性&nbsp;别：</div><span>' + data[i].sex + '</span></li>'
+                                   + '<li><div>职&nbsp;位：</div><span>' + data[i].position + '</span></li>'
+                               + '</ul>'
+                           + '</div>'
+                       + '</li>'
+                    )
+                }
+            });
+        },
+
+
 
         Revert: function () {
             this.clearWorkSitePOI();
