@@ -8,7 +8,7 @@
 
     return {
         sjcgTimer:null,
-        mybigChart: null, //大的图表显示
+        mybigChart: null, //大的图表显示  
         myChartsxt1:null,   //摄像头
         myChartsxt2: null,   //摄像头
         myChartsxt3: null,   //摄像头
@@ -42,7 +42,7 @@
             require(['text!' + url], function (template) {
                 $("#center_03").html(template);
                 $("#center_03").show('drop', 1000);//左侧
-                //rycltjChartClose = true;
+                sjcgChartClose = true;
 
                 switch (divname) {
                     case "Left_First_03"://无人机
@@ -71,7 +71,7 @@
             if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
                 require("s_Echart").mybigChart.dispose();
             }
-            //rycltjChartClose = true;
+            sjcgChartClose = true;
             $("#center_03").html("");           
         },
 
@@ -371,14 +371,10 @@
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
                 data = data.data.dealDeptList;
-
-                
+        
                 for (var i = 0; i < data.length; i++) {
                     $("#zzbm-tbody").append("<tr><td>" + data[i].executeDeptname  + "</td><td>"+ 
                     data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
-                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(0).html(data[i].executeDeptname);
-                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(1).html(data[i].infoScname);
-                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(2).html(data[i].taskNums);
                 }
             });
         },
@@ -444,8 +440,10 @@
         //事件处理成功
         sjcg: function () {
 
+            s_EchartAjax.getSocietySjcg(function (result) {
+                clearInterval(window.sjcgTimer);
+                window.sjcgTimer = null;
 
-           s_EchartAjax.getSocietySjcg(function (result) {
                if (require("s_Echart").societySjcgData == null) { return false; }
                if ($("#sjcg-chart").length <= 0) { return false; }
                var data = require("s_Echart").societySjcgData;
@@ -460,7 +458,7 @@
                seriesDataMax = Math.max.apply(null, seriesData);
                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
 
-               var sjcgTimerIndex = 1; // 图表成功数成功率循环
+               var sjcgTimerIndex = 0; // 图表成功数成功率循环
                window.sjcgTimer = setInterval(function () {
                    if (sjcgTimerIndex) {
                        oSjcgseriesData = seriesData;
@@ -483,8 +481,20 @@
 
                    require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
 
+               }, 60000);
 
-               }, 3000);
+
+               $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+               oSjcgseriesData = seriesData;
+               sjcgSeriesDataMax = seriesDataMax;
+               sjcgFun(sjcgSeriesDataMax, oSjcgseriesData);
+               if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                   require("s_Echart").myChartsjcg.dispose();
+               }
+               require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+               require("s_Echart").myChartsjcg.setOption(sjcgOption);
+
+               require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
 
                function sjcgFun(yAxisMax, seriesData) {
                    sjcgOption = {
@@ -835,8 +845,8 @@
         /*********************左侧图表-end*********************/
         Revert: function () {
             //事件成功
-            if (this.sjcgTimer != null) {
-                clearInterval(this.sjcgTimer)
+            if (window.sjcgTimer != null) {
+                clearInterval(window.sjcgTimer)
             }
 
             //摄像头
