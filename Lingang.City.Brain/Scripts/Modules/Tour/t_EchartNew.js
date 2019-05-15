@@ -2029,9 +2029,6 @@
             }
         },
         bigRycltj: function (oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
-            console.log(rycltjChartClose)
-            console.log(oRycltjChartRqaIndex)
-            console.log(rycltjdata1,rycltjdata2)
             if (rycltjChartClose) {
                 return false;
             } else {
@@ -2729,7 +2726,6 @@
                 for (var key in data) {
                     keyTemp.push(key)
                 }
-
                 for (var i = 0; i < 5; i++) {
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])

@@ -238,9 +238,27 @@
             e_EchartAjax.qybhqs(function (result) {
                 if (require("e_Echart").qybhqsData == null) { return false; }
                 var data = require("e_Echart").qybhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT]
-                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year]
-                
+                var arrvalue = [], arryear = [], arr = [], temp = []
+                for (var i = 0; i < data.length; i++) {
+                    if (typeof data[i] == "object") {
+                        for (var key in data[i]) {
+                            arr.push(data[i][key])
+                        }
+                    }
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    if (temp.indexOf(arr[i]) == -1) {
+                        temp.push(arr[i]);
+                    }
+                }
+                console.log(temp);
+                for (var a = 0; a < arr.length; a++) {
+                    if (a % 2 != 0) {
+                        arrvalue.push(temp[a])
+                    } else {
+                        arryear.push(temp[a])
+                    }
+                }
                 require("e_Echart").myChartqybhqs = echarts.init(qybhqsChart);
                 qybhqsOption = {
                     legend: {
@@ -357,8 +375,30 @@
             e_EchartAjax.qybhqs(function (result) {
                 if (require("e_Echart").qybhqsData == null) { return false; }
                 var data = require("e_Echart").qybhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT]
-                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year]
+                //console.log(data);
+                var arrvalue = [], arryear = [], arr = [], temp = []
+                for (var i = 0; i < data.length; i++) {
+                    if (typeof data[i] == "object") {
+                        for (var key in data[i]) {
+                            arr.push(data[i][key])
+                        }
+                    }
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    if (temp.indexOf(arr[i]) == -1) {
+                        temp.push(arr[i]);
+                    }
+                }
+               
+                for (var a = 0; a < arr.length; a++) {
+                    if (a % 2 != 0) {
+                        arrvalue.push(temp[a])
+                    } else {
+                        arryear.push(temp[a])
+                    }
+                }
+               
+             
                 qybhqsOption = {
                     legend: {
                         show: false
@@ -411,7 +451,6 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         }
-
                     },
                     yAxis: {
                         axisTick: {
@@ -783,7 +822,6 @@
                                     color: "rgba(80,172,254,0.2)"
                                 }
                             }
-
                         },
                         yAxis: {
                             name: "        (金额/百万)",

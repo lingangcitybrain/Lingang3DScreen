@@ -44,8 +44,6 @@ define(["config"], function (con) {
         FutureVisitorTrafficData: {
             "auth": {},
             "data": [
-                
-               
                 { "month": "2", "visnumber": 116427 },
                 { "month": "3", "visnumber": 153648 }
 
@@ -150,7 +148,7 @@ define(["config"], function (con) {
                   }
                 },
      
-        //入园车辆统计
+        //人园车辆统计
         rycltjData: [{
                 "20190329": {
                     "入园": {
