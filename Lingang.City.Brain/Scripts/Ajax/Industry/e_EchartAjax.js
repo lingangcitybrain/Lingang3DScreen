@@ -59,7 +59,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/industrial/companyTrendByYear',
+                    url: con.InterfaceUrl + 'v1/industrial/taxTrendByYear',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -85,22 +85,22 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/industrial/investmentInfo',
+                    url: con.InterfaceUrl + 'v1/industrial/investmentInfo',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").gtbhqsData = data;
+                        require("e_Echart").gtbhqsData = data.data;
                         callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        require("e_Echart").gtbhqsData = e_EchartData.gtbhqsData;
+                        require("e_Echart").gtbhqsData = e_EchartData.gtbhqsData.data;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").gtbhqsData = e_EchartData.gtbhqsData;
+                require("e_Echart").gtbhqsData = e_EchartData.gtbhqsData.data;
                 callback();
             }
         },

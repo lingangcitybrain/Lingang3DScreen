@@ -389,7 +389,6 @@
                         temp.push(arr[i]);
                     }
                 }
-               
                 for (var a = 0; a < arr.length; a++) {
                     if (a % 2 != 0) {
                         arrvalue.push(temp[a])
@@ -397,8 +396,6 @@
                         arryear.push(temp[a])
                     }
                 }
-               
-             
                 qybhqsOption = {
                     legend: {
                         show: false
@@ -516,8 +513,26 @@
             e_EchartAjax.ssbhqs(function (result) {
                 if (require("e_Echart").ssbhqsData == null) { return false; }
                 var data = require("e_Echart").ssbhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, ]
-                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, ]
+                var arrvalue = [], arryear = [], arr = [], temp = []
+                for (var i = 0; i < data.length; i++) {
+                    if (typeof data[i] == "object") {
+                        for (var key in data[i]) {
+                            arr.push(data[i][key])
+                        }
+                    }
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    if (temp.indexOf(arr[i]) == -1) {
+                        temp.push(arr[i]);
+                    }
+                }
+                for (var a = 0; a < arr.length; a++) {
+                    if (a % 2 != 0) {
+                        arrvalue.push(temp[a])
+                    } else {
+                        arryear.push(temp[a])
+                    }
+                }
                 require("e_Echart").myChartssbhqs = echarts.init(ssbhqsChart);
                 ssbhqsOption = {
                     legend: {
@@ -638,8 +653,26 @@
             e_EchartAjax.ssbhqs(function (result) {
                 if (require("e_Echart").ssbhqsData == null) { return false; }
                 var data = require("e_Echart").ssbhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, ]
-                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, ]
+                var arrvalue = [], arryear = [], arr = [], temp = []
+                for (var i = 0; i < data.length; i++) {
+                    if (typeof data[i] == "object") {
+                        for (var key in data[i]) {
+                            arr.push(data[i][key])
+                        }
+                    }
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    if (temp.indexOf(arr[i]) == -1) {
+                        temp.push(arr[i]);
+                    }
+                }
+                for (var a = 0; a < arr.length; a++) {
+                    if (a % 2 != 0) {
+                        arrvalue.push(temp[a])
+                    } else {
+                        arryear.push(temp[a])
+                    }
+                }
                 ssbhqsOption = {
                     legend: {
                         show: false
@@ -770,9 +803,7 @@
                         parseInt(data.investmentInfo['2009年']), parseInt(data.investmentInfo['2010年']), parseInt(data.investmentInfo['2011年']),
                         parseInt(data.investmentInfo['2012年']), parseInt(data.investmentInfo['2013年']), parseInt(data.investmentInfo['2014年']),
                         parseInt(data.investmentInfo['2015年']), parseInt(data.investmentInfo['2016年']), parseInt(data.investmentInfo['2017年']),
-                        parseInt(data.investmentInfo['2018年'])
                     ];
-                   
                     require("e_Echart").myChartgtbhqs = echarts.init(gtbhqsChart);
                     gtbhqsOption = {
                         legend: {
@@ -793,13 +824,12 @@
                                 label: {
                                     show: false,
                                 }
-
                             },
                         },
                         xAxis: {
                             show: true,
                             type: 'category',
-                            data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+                            data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
                             boundaryGap: ["5%", "5%"],
                             axisTick: {
                                 show: false,
@@ -824,7 +854,7 @@
                             }
                         },
                         yAxis: {
-                            name: "        (金额/百万)",
+                            name: "        (金额/亿)",
                             nameTextStyle: {
                                 color: "#00d7fe",
                                 fontSize: 22,
@@ -838,14 +868,14 @@
                                     color: "rgba(80,172,254,0.2)"
                                 }
                             },
-                            //interval: 10,
-                            max: 2000000,
+                            //interval: 5,
+                            //max: 2000000,
                             axisLabel: {
                                 margin: 2,
                                 
                         formatter: function (value, index) {
                            
-                                value = value / 1000000 ;
+                                value = value / 10000 ;
                          
                             return value;
                         },
@@ -889,7 +919,7 @@
         },
         //大固投变化趋势
         biggtbhqs: function () {
-            $("#EbigechartHead").html('固投变化趋势(金额/百万)');
+            $("#EbigechartHead").html('固投变化趋势(金额/亿)');
             if ($("#gtbhqs-chart").length <= 0) { return false; }
             e_EchartAjax.gtbhqs(function (result) {
                 if (require("e_Echart").gtbhqsData == null) { return false; }
@@ -898,7 +928,6 @@
                     parseInt(data.investmentInfo['2009年']), parseInt(data.investmentInfo['2010年']), parseInt(data.investmentInfo['2011年']),
                     parseInt(data.investmentInfo['2012年']), parseInt(data.investmentInfo['2013年']), parseInt(data.investmentInfo['2014年']),
                     parseInt(data.investmentInfo['2015年']), parseInt(data.investmentInfo['2016年']), parseInt(data.investmentInfo['2017年']),
-                    parseInt(data.investmentInfo['2018年'])
                 ];
                 gtbhqsOption = {
                     legend: {
@@ -927,7 +956,7 @@
                     xAxis: {
                         show: true,
                         type: 'category',
-                        data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+                        data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
                         boundaryGap: ["5%", "5%"],
                         axisTick: {
                             show: false,
@@ -970,14 +999,14 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        //interval: 10,
-                        max: 2000000,
+                        //interval: 5,
+                        //max: 2000000,
                         axisLabel: {
                             margin: 4,
 
                             formatter: function (value, index) {
 
-                                value = value / 1000000;
+                                value = value / 10000;
 
                                 return value;
                             },
