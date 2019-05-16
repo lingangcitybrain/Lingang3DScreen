@@ -49,7 +49,7 @@
                         require("s_Echart").bigWrj();
                         break;
                     case "Left_Second_EventIOT2"://社区车辆
-                        require("sl_IOT").bigLoadSocietyCarchart();
+                        require("sl_IOT").bigLoadCarPersonInOutData(require("sl_IOT").carInOutCount, require("sl_IOT").personInOutCount, require("sl_IOT").seriesDataMax);
                         break;
                     case "Right_Second_02"://事件处理成功数
                         sjcgChartClose = false;
@@ -364,9 +364,64 @@
             })
         },
 
+        loadCirclediv: function () {
+            if ($("body").width() == 7680) {
+                $("html").css({ fontSize: "90px" });
+                $('#sqzz-sxt1>.sxt-circlediv').empty();
+                $('#sqzz-sxt2>.sxt-circlediv').empty();
+                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+
+            } else if ($("body").width() == 11520) {
+                $("html").css({ fontSize: "130px" });
+                $('#sqzz-sxt1>.sxt-circlediv').empty();
+                $('#sqzz-sxt2>.sxt-circlediv').empty();
+                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
+            }
+        },
+
+        //摄像头--摄像头
+        sxtCamera: function () {
+            var post_data = "S012";
+            s_EchartAjax.getSxtCameraData(post_data, function (result) {
+                if (require("s_Echart").sxtCameraData == null) { return false; }
+                var data = require("s_Echart").sxtCameraData;
+                data = data;
+
+            });
+        },
+
+        //摄像头--车辆
+        sxtCar: function (str) {
+            var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
+
+            s_EchartAjax.getSxtCarData(post_data, function (result) {
+                if (require("s_Echart").sxtCarData == null) { return false; }
+                var data = require("s_Echart").sxtCarData;
+                data = data.data;
+
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total - data.illegally);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.illegally);
+            });
+        },
+
+        //摄像头--人员
+        sxtCamera: function () {
+            s_EchartAjax.getSxtPersonData(function (result) {
+                if (require("s_Echart").sxtPersonData == null) { return false; }
+                var data = require("s_Echart").sxtPersonData;
+                data = data;
+            });
+        },
+
         //主责部门
         zzbm: function () {
-
             s_EchartAjax.getSocietyZzbm(function (result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
@@ -512,9 +567,6 @@
                                color: '#e4e4e4',
                                fontSize: 16,
                            },
-                           data: [
-
-                           ]
                        },
                        grid: {
                            top: '10%',
@@ -602,7 +654,7 @@
             if (sjcgChartClose) {
                 return false;
             } else {
-                $("#bigechartHead").html("事件处理成功数");
+                $("#bigechartHead").html("事件处理成功数/成功率（%）");
                 option = {
                     tooltip: {
                         trigger: 'axis',

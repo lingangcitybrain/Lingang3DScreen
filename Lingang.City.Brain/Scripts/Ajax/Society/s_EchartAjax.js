@@ -1,38 +1,7 @@
 ﻿define(["config", "common", "s_EchartData"], function (con, common, s_EchartData) {
     return {
         /*************************社区综治-Echart********************************/
-        getcgq: function (post_data, callback) {
 
-            $.ajax({
-                url: con.InterfaceUrl + 'v1/iot/comunity/sensorNum',
-                type: "post",
-                async: false,
-                data: post_data,
-                success: function (result) {
-                    callback(result);
-                },
-                error: function (result) {
-                    callback(result);
-                    //alert('数据传输错误')
-                }
-            })
-        },
-        getsqsj: function (callback) {          
-            $.ajax({
-                type: 'post',
-                url: con.InterfaceUrl + 'v1/affair/comunity/list?communityId=S012',
-                casync: false,
-                contentType: 'application/json;charset=UTF-8',
-                dataType: 'json',
-                success: function (data) {
-                    //console.log(data);
-                    callback(data)
-                },
-                error: function () {
-                    //console.log('错误')
-                }
-            })
-        },
         //社区综治无人机
         getSocietyWrj: function (callback) {
             if (con.IsInterface)//执行接口
@@ -80,6 +49,101 @@
                 callback();
             }
         },
+
+
+        //进出车辆人员数据
+        getCarPersonInOutData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/comunity/people/personCarStatistics',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").carPersonInOutData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").carPersonInOutData = s_EchartData.carPersonInOutData;
+                callback();
+            }
+        },
+
+
+        //摄像头--摄像头
+        getSxtCameraData: function (post_data, callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/camera/comunity/camerasList',
+                    cache: false,
+                    data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").sxtCameraData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").sxtCameraData = s_EchartData.sxtCameraData;
+                callback();
+            }
+        },
+
+        //摄像头--车辆
+        getSxtCarData: function (post_data, callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/camera/comunity/vehicleStatistics',
+                    cache: false,
+                    data: post_data,   //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").sxtCarData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").sxtCarData = s_EchartData.sxtCarData;
+                callback();
+            }
+        },
+
+        //摄像头--人员
+        getSxtPersonData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/camera/comunity/vehicleStatistics',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").sxtPersonData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").sxtPersonData = s_EchartData.sxtPersonData;
+                callback();
+            }
+        },
+
         //主责部门
         getSocietyZzbm: function (callback) {
             if (con.IsInterface) {
@@ -148,9 +212,6 @@
                 callback();
             }
         },
-
-
-
 
         //中间大数字
         getSocietyBigNum: function (callback) {
