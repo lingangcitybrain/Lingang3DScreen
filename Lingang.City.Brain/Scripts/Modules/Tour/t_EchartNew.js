@@ -204,11 +204,6 @@
             $(".yqyj-levelbox>.yqyj-level").each(function (index, element) {
                 yqyjLevelLeftArr[index] = parseInt($(this).css("left")) / $(this).parent().width() * 100;
             })
-
-            
-
-
-
             // 园区事件统计
             var yqsjNum = 0;
             var yqsjTimer = null;
@@ -1767,8 +1762,6 @@
                         cryFun();
                        
                     }, 60000);
-
-
                     cryFun()
                     function cryFun() {
                         var rysum = [];
@@ -1828,7 +1821,6 @@
                         }
                         cryFun()
                     }, 60000);
-
                     cryFun()
                     function cryFun() {
                         var dtsum = [];
@@ -1861,7 +1853,6 @@
                 window.personCarTimer4 = null;
 
                 $(this).addClass("active").siblings().removeClass("active");
-
                 t_EchartAjax.bigrycltjjccl(function () {
                     var dataAll = require("t_Echart").rycltjjcclData;
                     if (!dataAll) { return false; }
