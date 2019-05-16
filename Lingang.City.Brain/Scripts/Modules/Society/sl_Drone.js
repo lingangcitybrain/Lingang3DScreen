@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_LayerMenuAjax", "s_layerMenuData"], function (con, com, s_LayerMenuAjax, s_layerMenuData) {
+﻿define(["config", "common", "s_LayerMenuAjax", "s_layerMenuData", "s_EchartAjax"], function (con, com, s_LayerMenuAjax, s_layerMenuData, s_EchartAjax) {
     /**************************************无人机**************************************/
     return {
         LayerType: null,//选择无人机
@@ -411,8 +411,35 @@
                 htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventDrone3.html'
             }
-            com.UIControlAni(option, function () { require("sl_IOT").Scrolldiv(); });
+            com.UIControlAni(option, function () {
+                require("sl_Drone").loadWrjXcyData();
+                require("sl_IOT").Scrolldiv();
+            });
         },
+
+        loadWrjXcyData:function(){
+            s_EchartAjax.getJmXcyData(function (result) {
+                if (require("s_Echart").jmXcyData == null) { return false; }
+                var data = require("s_Echart").jmXcyData;
+                data = data.data.data;
+                for(var i=0; i<data.length; i++){
+                    $("#drone-xcy").append(
+                        '<li class=\"sqzz-xcyxx-li\">'
+                           + '<div class=\"item-l\"><img src=\"' + data[i].photoUrl + '\" style=\"width:1.4rem !important; height:1.7rem !important;\"></div>'
+                           + '<div class=\"item-r\">'
+                               + '<ul class=\"sqzz-xcyxx-liul\">'
+                                   + '<li><div>接单员：</div><span>' + data[i].inspectorName + '</span></li>'
+                                   + '<li><div>性&nbsp;别：</div><span>' + data[i].sex + '</span></li>'
+                                   + '<li><div>职&nbsp;位：</div><span>' + data[i].position + '</span></li>'
+                               + '</ul>'
+                           + '</div>'
+                       + '</li>'
+                    )
+                }
+            });
+        },
+
+
         //加载无人机视频
         loadLeft02_01_Video: function () {
 
