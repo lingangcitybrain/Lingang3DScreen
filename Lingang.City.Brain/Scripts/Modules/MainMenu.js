@@ -195,6 +195,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
                     //$(this).addClass("active");//添加当前元素的样式
                     //var menuname = $("li").eq(index).text();
                     require("mainMenu").showLayer_smain(index);
+
                 });
             });
         },
@@ -202,6 +203,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
         //切换显示图层
         showLayer_smain: function (index) {
             s_Main.Revert();
+            require('mainMenu').closeBigChartHtml();
             var menuname = $("li").eq(index).text();
             $("li").removeClass("active");//删除当前元素的样式
             $("li").eq(index).addClass("active");//添加当前元素的样式

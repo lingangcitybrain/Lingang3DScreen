@@ -61,7 +61,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
 
         /*****************************左侧第一列*****************************/
-        //加载第一个div
+        //加载第一个div1
         loadLeftFirst1: function () {
             var option = {
                 aniDom: "#left01_01",
@@ -74,7 +74,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             });
 
         },
-        //加载第二个div
+        //加载第二个div2
         loadLeftFirst2: function () {
             var option = {
                 aniDom: "#left01_02",
@@ -83,14 +83,15 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             }
 
             com.UIControlAni(option, function () {
-                //require("s_Echart").sxt1();
-                //require("s_Echart").sxt2();
-                //require("s_Echart").sxt3();
+                require("s_Echart").loadCirclediv();
+                //require("s_Echart").sxtCamera();
+                require("s_Echart").sxtCar("#sqzz-sxt2");
+                //require("s_Echart").sxtCamera();
 
             });
 
         },
-        //加载第三个div
+        //加载第三个div3
         loadLeftFirst3: function () {
             var option = {
                 aniDom: "#left01_03",
@@ -106,7 +107,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             });
 
         },
-        //加载第四个div
+        //加载第四个div4
         loadLeftFirst4: function () {
             var option = {
                 aniDom: "#left01_04",
@@ -146,7 +147,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
         ////////////////////////////////////////////////右侧页面//////////////////////////////////////////////////////
         /*****************************右侧第二列*****************************/
-        //加载第一个div
+        //加载第一个div1
         loadRightSecond1: function () {
             var option = {
                 aniDom: "#right02_01",
@@ -180,7 +181,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 //require("s_Echart").bigNumber();//中间大数字
             });
         },
-        //加载第二个div
+        //加载第二个div2
         loadRightSecond2: function () {
             var option = {
                 aniDom: "#right02_02",
@@ -189,8 +190,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").sjcg();//时间处理成功数
-                 require("sl_Event").generateEventList();
+                require("s_Echart").sjcg();//事件处理成功数
+                require("sl_Event").generateEventList();
             });
         },
         //加载第三个div

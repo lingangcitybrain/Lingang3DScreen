@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData"], function (con, com, s_layerMenuData) {
+﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax"], function (con, com, s_layerMenuData, s_EchartAjax) {
     /**************************************WorkSite**************************************/
     return {
         LayerType: null,//选择传感器
@@ -102,7 +102,7 @@
             com.UIControlAni(optionL14, null);
 
         },
-        //加载第二列的div
+        //加载第二列的div1
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
@@ -111,7 +111,7 @@
             }
             com.UIControlAni(option, function () { return null });
         },
-        //加载第二列的div
+        //加载第二列的div2
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
@@ -121,16 +121,44 @@
             com.UIControlAni(option, function () { return null });
            // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
         },
-        //加载第二列的div
+        //加载第二列的div3
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
                 htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet3.html'
             }
-            com.UIControlAni(option, function () { return null });
-           // com.UIControlAni(option, function () { require("sl_IOT").loadCirclediv(); });
+            com.UIControlAni(option, function () {
+                require("sl_Street").loadJmXcyData();
+                require("sl_IOT").Scrolldiv();
+            });
         },
+
+        loadJmXcyData:function(){
+            s_EchartAjax.getJmXcyData(function (result) {
+                if (require("s_Echart").jmXcyData == null) { return false; }
+                var data = require("s_Echart").jmXcyData;
+                data = data.data.data;
+
+                for(var i=0; i<data.length; i++){
+                    $("#stree-xcy").append(
+                        '<li class=\"sqzz-xcyxx-li\">'
+                            + '<div class=\"item-l\"><img src=\"' + data[i].photoUrl + '\" style=\"height:1.4rem !important;\"></div>'
+                            + '<div class="item-r" style=\"margin-top:.2rem;\">'
+                                + '<ul class=\"sqzz-xcyxx-liul\">'
+                                    + '<li><div>姓名：</div><span>' + data[i].inspectorName + '</span></li>'
+                                    + '<li><div>单位：</div><span>' + data[i].belongCommunities + '</span></li>'
+                                + '</ul>'
+                            + '</div>'
+                        + '</li>'
+                    )
+                }
+
+            });
+        },
+
+
+
 
         Revert: function () {
             this.clearStreetPOI();

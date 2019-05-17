@@ -10,10 +10,6 @@
             "wrj_charging_cnt": 0
         },
 
-        //事件处理成功
-        sjcgData: {
-            "data": [2220, 2510, 2791, 3055, 3856, 3230, 2910, 3521, 4404, 3254, 2680, 4254]
-        },
         //中间大数字
         societyBigNumData: {
 	        "errorCode": "0",
@@ -169,6 +165,41 @@
 	        }
         },
 
+        //摄像头--摄像头
+        sxtCameraData: {
+
+        },
+
+        //摄像头--车辆
+        sxtCarData: {
+	        "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "owner": 65,
+                "total": 83,
+                "illegally": 3,
+                "foreign": 15
+            }
+        },
+
+        //摄像头--人员
+        sxtPersonData: {
+
+        },
+
+        //进出车辆人员数据
+        carPersonInOutData:{
+	        "errorCode": "0",
+	        "errorMessage": "成功",
+	        "resultType": "0",
+	        "data": {
+		        "carInOutCount": ["42", "62", "53", "37", "47", "128", "94", "23", "6", "2", "3", "6", "4", "7", "15", "18", "28", "52", "36", "80", "124", "108", "67", "18"],
+		        "personInOutCount": [351, 304, 506, 502, 523, 1107, 1019, 312, 155, 21, 13, 2, 8, 6, 41, 37, 54, 53, 86, 187, 619, 1697, 762, 190],
+		        "dateLists": ["2019-05-16 13", "2019-05-16 12", "2019-05-16 11", "2019-05-16 10", "2019-05-16 09", "2019-05-16 08", "2019-05-16 07", "2019-05-16 06", "2019-05-16 05", "2019-05-16 04", "2019-05-16 03", "2019-05-16 02", "2019-05-16 01", "2019-05-16 00", "2019-05-15 23", "2019-05-15 22", "2019-05-15 21", "2019-05-15 20", "2019-05-15 19", "2019-05-15 18", "2019-05-15 17", "2019-05-15 16", "2019-05-15 15", "2019-05-15 14"]
+	        }
+        },
+
         //事件信息
         societySjData: {
             "errorCode": "0",
@@ -184,6 +215,298 @@
             }
         },
 
+        //事件处理成功数
+        societySjcgData:{
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "taskInfo": [{
+                    "months": "1",
+                    "counts": "6918"
+                }, {
+                    "months": "2",
+                    "counts": "5547"
+                }, {
+                    "months": "3",
+                    "counts": "5971"
+                }, {
+                    "months": "4",
+                    "counts": "2897"
+                }, {
+                    "months": "5",
+                    "counts": "68"
+                }, {
+                    "months": "6",
+                    "counts": "73"
+                }, {
+                    "months": "7",
+                    "counts": "2762"
+                }, {
+                    "months": "8",
+                    "counts": "4096"
+                }, {
+                    "months": "9",
+                    "counts": "3652"
+                }, {
+                    "months": "10",
+                    "counts": "4061"
+                }, {
+                    "months": "11",
+                    "counts": "3244"
+                }, {
+                    "months": "12",
+                    "counts": "4412"
+                }]
+            }
+        },
+
+        //街面\工地巡查员信息
+        jmXcyData:{
+	        "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "data": [{
+                    "id": 1,
+                    "inspectorName": "杨育峰",
+                    "sex": "男",
+                    "belongCommunities": "综合社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/yangyufeng.jpg"
+                }, {
+                    "id": 2,
+                    "inspectorName": "周勇",
+                    "sex": "男",
+                    "belongCommunities": "综合社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhouyong.jpg"
+                }, {
+                    "id": 3,
+                    "inspectorName": "范欢欢",
+                    "sex": "女",
+                    "belongCommunities": "申港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/fanhuanhuan.jpg"
+                }, {
+                    "id": 4,
+                    "inspectorName": "吴春丽",
+                    "sex": "女",
+                    "belongCommunities": "申港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/wuchunli.jpg"
+                }, {
+                    "id": 5,
+                    "inspectorName": "孙小红",
+                    "sex": "女",
+                    "belongCommunities": "申港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/sunxiaohong.jpg"
+                }, {
+                    "id": 6,
+                    "inspectorName": "康红霞",
+                    "sex": "女",
+                    "belongCommunities": "申港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/kanghongxia.jpg"
+                }, {
+                    "id": 7,
+                    "inspectorName": "黄海玉",
+                    "sex": "女",
+                    "belongCommunities": "申港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/huanghaiyu.jpg"
+                }, {
+                    "id": 8,
+                    "inspectorName": "袁承相",
+                    "sex": "男",
+                    "belongCommunities": "申港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/yuanchengxiang.jpg"
+                }, {
+                    "id": 9,
+                    "inspectorName": "朱红",
+                    "sex": "女",
+                    "belongCommunities": "申港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhuhong.jpg"
+                }, {
+                    "id": 10,
+                    "inspectorName": "李波",
+                    "sex": "男",
+                    "belongCommunities": "申港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/libo.jpg"
+                }, {
+                    "id": 11,
+                    "inspectorName": "孙琴芳",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/sunqinfang.jpg"
+                }, {
+                    "id": 12,
+                    "inspectorName": "康叶红",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/kangyehong.jpg"
+                }, {
+                    "id": 13,
+                    "inspectorName": "陆新苗",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/luxinmiao.jpg"
+                }, {
+                    "id": 14,
+                    "inspectorName": "潘虹",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/panhong.jpg"
+                }, {
+                    "id": 15,
+                    "inspectorName": "苏小平",
+                    "sex": "男",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/suxiaoping.jpg"
+                }, {
+                    "id": 16,
+                    "inspectorName": "姚中华",
+                    "sex": "男",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/yaozhonghua.jpg"
+                }, {
+                    "id": 17,
+                    "inspectorName": "袁中华",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/yuanzhonghua.jpg"
+                }, {
+                    "id": 18,
+                    "inspectorName": "姚伟",
+                    "sex": "男",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/yaowei.jpg"
+                }, {
+                    "id": 19,
+                    "inspectorName": "樊玲芳",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/fanlingfang.jpg"
+                }, {
+                    "id": 20,
+                    "inspectorName": "施文彬",
+                    "sex": "男",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/shiwenbing.jpg"
+                }, {
+                    "id": 21,
+                    "inspectorName": "张燕",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhangyan.jpg"
+                }, {
+                    "id": 22,
+                    "inspectorName": "季天恩",
+                    "sex": "男",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/jitianen.jpg"
+                }, {
+                    "id": 23,
+                    "inspectorName": "董萍萍",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/dongpingping.jpg"
+                }, {
+                    "id": 24,
+                    "inspectorName": "陈萍",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/chenping.jpg"
+                }, {
+                    "id": 25,
+                    "inspectorName": "张亚萍",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhangyaping.jpg"
+                }, {
+                    "id": 26,
+                    "inspectorName": "袁莉",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/yuanli.jpg"
+                }, {
+                    "id": 27,
+                    "inspectorName": "茅鲜敏",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组长",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/maoxianmin.jpg"
+                }, {
+                    "id": 28,
+                    "inspectorName": "施君玲",
+                    "sex": "女",
+                    "belongCommunities": "芦潮港社区",
+                    "position": "组员",
+                    "photoUrl": "http://106.14.149.153/bigScreen/image/shijunling.jpg"
+                }]
+            }
+        },
+
+        //海岸线涨潮
+        costlineTideData:{
+	        "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "pagination": {
+                    "pageSize": 5,
+                    "current": 0,
+                    "total": 193
+                },
+                "total": 193,
+                "list": [{
+                    "id": 1,
+                    "hrs": "2019-02-12T16:00:00.000+0000",
+                    "tideheight": 144.0,
+                    "flag": 0
+                }, {
+                    "id": 2,
+                    "hrs": "2019-02-12T17:00:00.000+0000",
+                    "tideheight": 219.0,
+                    "flag": 0
+                }, {
+                    "id": 3,
+                    "hrs": "2019-02-12T18:00:00.000+0000",
+                    "tideheight": 298.0,
+                    "flag": 0
+                }, {
+                    "id": 4,
+                    "hrs": "2019-02-12T19:00:13.000+0000",
+                    "tideheight": 357.0,
+                    "flag": 0
+                }, {
+                    "id": 5,
+                    "hrs": "2019-02-12T20:00:00.000+0000",
+                    "tideheight": 382.0,
+                    "flag": 0
+                }]
+            }
+        }
     }
 })
 

@@ -1,6 +1,14 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu) {
+
+    var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
+    var oSjcgseriesData = []; //事件处理成功数据
+    var oSjcgseriesRateDataMax = 100;
+    var oSjcgseriesRateData = [80, 85, 78, 83, 65, 56, 78, 93, 67, 87, 65, 43]; //事件处理成功率数据
+    var sjcgChartClose = true;
+
     return {
-        mybigChart: null, //大的图表显示
+        sjcgTimer:null,
+        mybigChart: null, //大的图表显示  
         myChartsxt1:null,   //摄像头
         myChartsxt2: null,   //摄像头
         myChartsxt3: null,   //摄像头
@@ -34,17 +42,18 @@
             require(['text!' + url], function (template) {
                 $("#center_03").html(template);
                 $("#center_03").show('drop', 1000);//左侧
-                //rycltjChartClose = true;
+                sjcgChartClose = true;
 
                 switch (divname) {
                     case "Left_First_03"://无人机
                         require("s_Echart").bigWrj();
                         break;
                     case "Left_Second_EventIOT2"://社区车辆
-                        require("sl_IOT").bigLoadSocietyCarchart();
+                        require("sl_IOT").bigLoadCarPersonInOutData(require("sl_IOT").carInOutCount, require("sl_IOT").personInOutCount, require("sl_IOT").seriesDataMax);
                         break;
                     case "Right_Second_02"://事件处理成功数
-                        require("s_Echart").bigSjcg();
+                        sjcgChartClose = false;
+                        require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
                         break;
                     case "Left_Second_EventGrid1"://处置案件数量
                         require("sl_Grid").bigLoadGridCZAJSLchart();
@@ -62,7 +71,7 @@
             if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
                 require("s_Echart").mybigChart.dispose();
             }
-            //rycltjChartClose = true;
+            sjcgChartClose = true;
             $("#center_03").html("");           
         },
 
@@ -355,21 +364,72 @@
             })
         },
 
+        loadCirclediv: function () {
+            if ($("body").width() == 7680) {
+                $("html").css({ fontSize: "90px" });
+                $('#sqzz-sxt1>.sxt-circlediv').empty();
+                $('#sqzz-sxt2>.sxt-circlediv').empty();
+                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+
+            } else if ($("body").width() == 11520) {
+                $("html").css({ fontSize: "130px" });
+                $('#sqzz-sxt1>.sxt-circlediv').empty();
+                $('#sqzz-sxt2>.sxt-circlediv').empty();
+                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
+            }
+        },
+
+        //摄像头--摄像头
+        sxtCamera: function () {
+            var post_data = "S012";
+            s_EchartAjax.getSxtCameraData(post_data, function (result) {
+                if (require("s_Echart").sxtCameraData == null) { return false; }
+                var data = require("s_Echart").sxtCameraData;
+                data = data;
+
+            });
+        },
+
+        //摄像头--车辆
+        sxtCar: function (str) {
+            var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
+
+            s_EchartAjax.getSxtCarData(post_data, function (result) {
+                if (require("s_Echart").sxtCarData == null) { return false; }
+                var data = require("s_Echart").sxtCarData;
+                data = data.data;
+
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total - data.illegally);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.illegally);
+            });
+        },
+
+        //摄像头--人员
+        sxtCamera: function () {
+            s_EchartAjax.getSxtPersonData(function (result) {
+                if (require("s_Echart").sxtPersonData == null) { return false; }
+                var data = require("s_Echart").sxtPersonData;
+                data = data;
+            });
+        },
+
         //主责部门
         zzbm: function () {
-
             s_EchartAjax.getSocietyZzbm(function (result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
                 data = data.data.dealDeptList;
-
-                
+        
                 for (var i = 0; i < data.length; i++) {
                     $("#zzbm-tbody").append("<tr><td>" + data[i].executeDeptname  + "</td><td>"+ 
                     data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
-                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(0).html(data[i].executeDeptname);
-                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(1).html(data[i].infoScname);
-                    //$("#zzbm-table>tbody>tr").eq(i).children().eq(2).html(data[i].taskNums);
                 }
             });
         },
@@ -418,265 +478,303 @@
        },
 
         //右侧事件信息
-        sjxx: function () {
+       sjxx: function () {
             s_EchartAjax.getSocietySj(function (result) {
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
                 data = data.data.dealDeptList[0];
 
                 var saveTimeHtml = data.eventCounts + "*" + parseInt(parseFloat(data.saveTime) * 60 / data.eventCounts);
-
-                $('#sj-saveTime').html(saveTimeHtml)
-                $('#sj-eventCounts').html(data.eventCounts)
-                $('#sj-autoRate').html(data.autoRate)
-                $('#sj-accuracyRate').html(data.accuracyRate)
+                $('#sj-saveTime').html(saveTimeHtml);
+                $('#sj-eventCounts').html(data.eventCounts);
+                $('#sj-autoRate').html(data.autoRate);
+                $('#sj-accuracyRate').html(data.accuracyRate);
             })
-        },
-
-
+       },
 
         //事件处理成功
        sjcg: function () {
-           s_EchartAjax.getSocietySjcg(function (result) {
-               if (require("s_Echart").sjcgData == null) { return false; }
+            s_EchartAjax.getSocietySjcg(function (result) {
+                clearInterval(window.sjcgTimer);
+                window.sjcgTimer = null;
+
+               if (require("s_Echart").societySjcgData == null) { return false; }
                if ($("#sjcg-chart").length <= 0) { return false; }
-               var data = require("s_Echart").sjcgData;
+               var data = require("s_Echart").societySjcgData;
+               data = data.data.taskInfo;
 
-               var myChart = echarts.init(document.getElementById('sjcg-chart'));
+               var seriesData = []; //事件处理成功数
+               var seriesDataMax = 0; //事件处理成功数最大值
+
+               for (var i = 0; i < data.length; i++) {
+                   seriesData.push(Number(data[i].counts));
+               }
+               seriesDataMax = Math.max.apply(null, seriesData);
+               seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
+
+               // 图表成功数成功率循环
+               var sjcgTimerIndex = 0;
+               window.sjcgTimer = setInterval(function () {
+                   if (sjcgTimerIndex) {
+                       oSjcgseriesData = seriesData;
+                       sjcgSeriesDataMax = seriesDataMax;
+                       sjcgTimerIndex--;
+                   } else {
+                       oSjcgseriesData = oSjcgseriesRateData;
+                       sjcgSeriesDataMax = oSjcgseriesRateDataMax;
+                       sjcgTimerIndex++;
+                   }
+                   $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+
+                   sjcgFun(sjcgSeriesDataMax, oSjcgseriesData);
+
+                   if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                       require("s_Echart").myChartsjcg.dispose();
+                   }
+                   require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+                   require("s_Echart").myChartsjcg.setOption(sjcgOption);
+
+                   require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
+
+               }, 60000);
+
+                //事件处理成功图表加载
+               $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+               oSjcgseriesData = seriesData;
+               sjcgSeriesDataMax = seriesDataMax;
+               sjcgFun(sjcgSeriesDataMax, oSjcgseriesData);
+               if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                   require("s_Echart").myChartsjcg.dispose();
+               }
                require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
-               option = {
+               require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
-                   tooltip: {
-                       trigger: 'axis',
-                   },
-                   legend: {
-                       top: '1%',
-                       left: 'center',
-                       itemWidth: 10,
-                       itemHeight: 10,
-                       itemGap: 25,
-                       selectedMode: 'single',
-                       textStyle: {
-                           color: '#e4e4e4',
-                           fontSize: 16,
+               require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
+
+               function sjcgFun(yAxisMax, seriesData) {
+                   sjcgOption = {
+                       tooltip: {
+                           trigger: 'axis',
                        },
-                       data: [
+                       legend: {
+                           top: '1%',
+                           left: 'center',
+                           itemWidth: 10,
+                           itemHeight: 10,
+                           itemGap: 25,
+                           selectedMode: 'single',
+                           textStyle: {
+                               color: '#e4e4e4',
+                               fontSize: 16,
+                           },
+                       },
+                       grid: {
+                           top: '10%',
+                           left: '0',
+                           right: '2%',
+                           bottom: '3%',
+                           containLabel: true,
+                       },
+                       xAxis: [{
+                           type: 'category',
+                           boundaryGap: false,
+                           axisLine: {
+                               show: true,
+                               lineStyle: {
+                                   color: '#3d4147'
+                               },
+                           },
+                           axisLabel: {
+                               interval: 0,
+                               margin: 15,
+                               textStyle: {
+                                   color: '#ebebeb',
+                                   fontFamily: 'Helvetica',
+                                   fontSize: 22,
+                               },
+                           },
+                           axisTick: { show: false, },
+                           data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                       }],
+                       yAxis: [{
+                           type: 'value',
+                           min: 0,
+                           max: yAxisMax,
+                           splitNumber: 5,
+                           splitLine: {
+                               show: true,
+                               lineStyle: {
+                                   color: '#3d4147'
+                               }
+                           },
+                           axisLine: { show: false, },
+                           axisLabel: {
+                               margin: 30,
+                               textStyle: {
+                                   color: '#ebebeb',
+                                   fontFamily: 'Helvetica',
+                                   fontSize: 22,
 
+                               },
+                           },
+                           axisTick: { show: false, },
+                       }],
+                       series: [{
+                           name: '月',
+                           type: 'line',
+                           symbol: 'circle',
+                           symbolSize: 12,
+                           areaStyle: {
+                               color: 'rgba(1,98,133,0.3)'
+                           },
+                           itemStyle: {
+                               normal: {
+                                   color: "#42e2fa",
+                                   borderWidth: 4,
+                                   borderColor: "#000"
+                               }
+                           },
+                           lineStyle: {
+                               normal: {
+                                   color: "#42e2fa"
+                               }
+                           },
+                           data: seriesData
+                       },
                        ]
-                   },
-                   grid: {
-                       top: '10%',
-                       left: '0',
-                       right: '2%',
-                       bottom: '3%',
-                       containLabel: true,
-                   },
-                   xAxis: [{
-                       type: 'category',
-                       boundaryGap: false,
-                       axisLine: {
-                           show: true,
-                           lineStyle: {
-                               color: '#3d4147'
-                           },
-                       },
-                       axisLabel: {
-                           interval: 0,
-                           margin: 15,
-                           textStyle: {
-                               color: '#ebebeb',
-                               fontFamily: 'Helvetica',
-                               fontSize: 22,
-                           },
-                       },
-                       axisTick: { show: false, },
-                       data: ['4', '5', '6', '7', '8', '9',
-                                '10', '11', '12', '1', '2', '3'],
-                   }],
-                   yAxis: [{
-                       type: 'value',
-                       min: 0,
-                       max: 5000,
-                       splitNumber: 5,
-                       splitLine: {
-                           show: true,
-                           lineStyle: {
-                               color: '#3d4147'
-                           }
-                       },
-                       axisLine: { show: false, },
-                       axisLabel: {
-                           margin: 30,
-                           textStyle: {
-                               color: '#ebebeb',
-                               fontFamily: 'Helvetica',
-                               fontSize: 22,
+                   };
 
-                           },
-                       },
-                       axisTick: { show: false, },
-                   }],
-                   series: [{
-                       name: '月',
-                       type: 'line',
-                       symbol: 'circle',
-                       symbolSize: 12,
-                       areaStyle: {
-                           color: 'rgba(1,98,133,0.3)'
-                       },
-                       itemStyle: {
-                           normal: {
-                               color: "#42e2fa",
-                               borderWidth: 4,
-                               borderColor: "#000"
-                           }
-                       },
-                       lineStyle: {
-                           normal: {
-                               color: "#42e2fa"
-                           }
-                       },
-                       data: data.data
-                   },
-                   ]
-               };
+               }
 
-
-               require("s_Echart").myChartsjcg.setOption(option);// 为echarts对象加载数据
            })
 
        },
-       bigSjcg: function () {
-           s_EchartAjax.getSocietySjcg(function (result) {
-               if (require("s_Echart").sjcgData == null) { return false; }
-               if ($("#sjcg-chart").length <= 0) { return false; }
-               $("#bigechartHead").html("事件处理成功数");
-               var data = require("s_Echart").sjcgData;
+       bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
 
-             //  var myChart = echarts.init(document.getElementById('sjcg-chart'));
-              // require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
-               option = {
-                   tooltip: {
-                       trigger: 'axis',
-                       textStyle: {
-                           fontSize: 50,
-                       }
-                   },
-                   legend: {
-                        show:false,
-                   },
-                   grid: {
-                       bottom: '5%',
-                       left: '5%',
-                       right: '5%',
-                       height: '86%',
-                       containLabel: true,
-                   },
-                   xAxis: [{
-                       type: 'category',
-                       boundaryGap: false,
-                       axisLine: {
-                           lineStyle: {
-                               width: 4,
-                               color: "rgba(80,172,254,.2)",
-                           }
-                       },
-                       axisLabel: {
-                           interval: 0,
-                           margin: 15,
-                           textStyle: {
-                               color: "#00d7fe",
-                               fontFamily: 'Helvetica',
-                               fontSize: 60,
-                           },
-                       },
-                       splitLine: {
-                           lineStyle: {
-                               width: 4,
-                               color: "rgba(80,172,254,.2)"
-                           }
-                       },
-                       axisTick: { show: false, },
-                       data: ['4', '5', '6', '7', '8', '9',
-                                '10', '11', '12', '1', '2', '3'],
-                   }],
-                   yAxis: [{
-                       type: 'value',
-                       min: 0,
-                       max: 5000,
-                       splitNumber: 5,
-                       splitLine: {
-                           show: true,
-                           lineStyle: {
-                               width: 4,
-                               color: "rgba(80,172,254,.2)",
-                           }
-                       },
-                       axisLine: {
-                           lineStyle: {
-                               width: 4,
-                               color: "rgba(80,172,254,.2)",
-                           }
-                       },
-                       axisLabel: {
-                           margin: 30,
-                           textStyle: {
-                               color: '#00d7fe',
-                               fontFamily: 'Helvetica',
-                               fontSize: 60,
+            if (sjcgChartClose) {
+                return false;
+            } else {
+                $("#bigechartHead").html("事件处理成功数/成功率（%）");
+                option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        textStyle: {
+                            fontSize: 50,
+                        }
+                    },
+                    legend: {
+                        show: false,
+                    },
+                    grid: {
+                        bottom: '5%',
+                        left: '5%',
+                        right: '5%',
+                        height: '86%',
+                        containLabel: true,
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        axisLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        axisLabel: {
+                            interval: 0,
+                            margin: 15,
+                            textStyle: {
+                                color: "#00d7fe",
+                                fontFamily: 'Helvetica',
+                                fontSize: 60,
+                            },
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        },
+                        axisTick: { show: false, },
+                        data: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+                                '10', '11', '12'],
+                    }],
+                    yAxis: [{
+                        type: 'value',
+                        min: 0,
+                        max: sjcgSeriesDataMax,
+                        splitNumber: 5,
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        axisLabel: {
+                            margin: 30,
+                            textStyle: {
+                                color: '#00d7fe',
+                                fontFamily: 'Helvetica',
+                                fontSize: 60,
 
-                           },
-                       },
-                       axisTick: { show: false, },
-                   }],
-                   series: [{
-                       name: '月',
-                       type: 'line',
-                       symbol: 'circle',
-                       symbolSize: 30,
-                       areaStyle: {
-                           color: 'rgba(1,98,133,0.3)'
-                       },
-                       itemStyle: {
-                           normal: {
-                               color: "#42e2fa",
-                               borderWidth: 8,
-                               borderColor: "#000"
-                           }
-                       },
-                       lineStyle: {
-                           normal: {
-                               width:12,
-                               color: "#42e2fa"
-                           }
-                       },
-                       data: data.data
-                   },
-                   ]
-               };
+                            },
+                        },
+                        axisTick: { show: false, },
+                    }],
+                    series: [{
+                        name: '月',
+                        type: 'line',
+                        symbol: 'circle',
+                        symbolSize: 30,
+                        areaStyle: {
+                            color: 'rgba(1,98,133,0.3)'
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: "#42e2fa",
+                                borderWidth: 8,
+                                borderColor: "#000"
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                width: 12,
+                                color: "#42e2fa"
+                            }
+                        },
+                        data: oSjcgseriesData
+                    },
+                    ]
+                };
 
                 if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
                     require("s_Echart").mybigChart.dispose();
                 }
+
                 require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
                 require("s_Echart").mybigChart.setOption(option);
-           })
+            }
+
 
        },
         //中间大数字
        bigNumber: function () {
             s_EchartAjax.getSocietyBigNum(function (result) {
-
-                if (require("s_Echart").bigNumData == null) { return false; }
-
-                var data = require("s_Echart").bigNumData;
-                
-                $('#dsz-ajljs').html(data.totalCount)
-                $('#dsz-dyajs').html(data.monthCount)
-                $('#dsz-znpds').html(data.dispatchRate+"%")
-                $('#dsz-zdfxl').html(data.autoRate+"%")
-                $('#dsz-bhl').html(data.loopRate+"%")
-               
+                if (require("s_Echart").bigNumData == null) { return false; };
+                var data = require("s_Echart").bigNumData;                
+                $('#dsz-ajljs').html(data.totalCount);
+                $('#dsz-dyajs').html(data.monthCount);
+                $('#dsz-znpds').html(data.dispatchRate + "%");
+                $('#dsz-zdfxl').html(data.autoRate + "%");
+                $('#dsz-bhl').html(data.loopRate + "%");
             })
         },
         //无人机事件天气预报
@@ -798,6 +896,11 @@
         yq:function(){},
         /*********************左侧图表-end*********************/
         Revert: function () {
+            //事件成功
+            if (window.sjcgTimer != null) {
+                clearInterval(window.sjcgTimer)
+            }
+
             //摄像头
             if (require("s_Echart").myChartsxt1 != null && require("s_Echart").myChartsxt1 != "" && require("s_Echart").myChartsxt1 != undefined) {
                 require("s_Echart").myChartsxt1.dispose();

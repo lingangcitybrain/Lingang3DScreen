@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_Main"], function (con, com, s_layerMenuData,s_Main) {
+﻿define(["config", "common", "s_layerMenuData", "s_Main", "s_EchartAjax"], function (con, com, s_layerMenuData, s_Main, s_EchartAjax) {
     /**************************************海岸线**************************************/
     return {
         //海岸线图层打开或关闭
@@ -107,7 +107,7 @@
             com.UIControlAni(optionL14, null);
 
         },
-        //加载第二列的div
+        //加载第二列的div1
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
@@ -116,7 +116,7 @@
             }
             com.UIControlAni(option, function () { return null });
         },
-        //加载第二列的div
+        //加载第二列的div2
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
@@ -125,15 +125,41 @@
             }
             com.UIControlAni(option, function () { return null });
         },
-        //加载第二列的div
+        //加载第二列的div3
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
                 htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard3.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_SeaboardLine").loadCostlineTideData();
+                require("sl_IOT").Scrolldiv();
+            });
         },
+
+        loadCostlineTideData: function () {
+            s_EchartAjax.getCostlineTideData(function (result) {
+                if (require("s_Echart").costlineTideData == null) { return false; }
+                var data = require("s_Echart").costlineTideData;
+                data = data.data.list;
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#costline-tide").append(
+                        '<li class=\"sqzz-hax-lr3-li\">'
+                          + '<table cellpadding=\"0\" cellspacing=\"0\" class=\"table\">'
+                               + '<thead><tr><td>日期</td><td>涨潮</td><td>退潮</td></tr></thead>'
+                               + '<tbody>'
+                                   + '<tr><td rowspan=\"2\"><div class=\"sqzz-hax-lr3-date\">11</div></td><td>00:27</td><td>06:00</td></tr>'
+                                   + '<tr><td>12:27</td><td>18:00</td></tr>'
+                               + '</tbody>'
+                           + '</table>'
+                        + '</li>'
+                    )
+                }
+            });
+        },
+
 
         Revert: function () {
             this.clearSeaboardLine();
