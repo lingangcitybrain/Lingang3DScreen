@@ -70,6 +70,10 @@
             require("b_BuildingFloor").openFloor(floor);
             
         },
+         //关闭楼宇详情
+        closeBuildingDetail: function () {
+            require('b_BuildingFloor').closeBuidingDetail();            
+        }
         /*********************************END*********************************************/
     }
 

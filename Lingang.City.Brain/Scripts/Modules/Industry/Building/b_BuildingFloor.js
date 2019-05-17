@@ -9,6 +9,7 @@
         HideLayerArr:[],
         Revert: function () {
             this.resetBuildingMaterial();
+            this.hideBuilding(0);//显示所有楼栋
         },
          //加载楼栋信息
         loadBuidingDetail: function (nodename) {
@@ -38,7 +39,7 @@
                     $("#occupancyRate_detail").html(data.occupancyRate);
 
                     $("#loudong-ul li").click(function (e) {
-                        $(this).addClass("active");
+                        $(this).addClass("active").siblings().removeClass("active");
                         var floor = $(this).attr("value");
                         require("g_Home").openFloor(floor);
                         //require("b_BuildingFloor").openFloor(floor);
@@ -47,6 +48,11 @@
             });
             
 
+        },
+        closeBuidingDetail: function () {
+            $("#center_01").html("");
+            require("b_BuildingFloor").hideBuilding(0);//显示所有楼栋
+            require("gl_GardenBuilding").loadPOI();//显示所有楼栋POI
         },
         openFloor: function (floor) {
             require("b_BuildingFloor").resetHideLayer();
@@ -73,6 +79,7 @@
         buildingOperation: function (nodename) {            
             
             require("b_BuildingFloor").resetBuildingMaterial();
+            
             var areaName = con.AreaName;
             var node = map.getSceneNode(areaName, nodename);
             if (node) {
@@ -81,6 +88,8 @@
             require("b_BuildingFloor").POINodeClk = nodename;
             require("b_BuildingFloor").loadBuidingDetail(nodename);
             var id = nodename.split("_")[1];
+            require("b_BuildingFloor").hideBuilding(id);//隐藏楼栋
+            require("gl_GardenBuilding").clearPOI(nodename);//隐藏楼栋POI
             /**********************测试半透明************************/
             var lg = Q3D.layerGroup();
             var layerArr = require("e_LayerMenuData").FloorLayerData[id].layerName;
@@ -109,6 +118,27 @@
                 }
             }
             /****************************************************/
+        },
+        //隐藏楼栋
+        hideBuilding: function (id) {
+            var buildingData = require("e_LayerMenuData").FloorLayerData;
+            $.each(buildingData, function (i, val) {
+                if (id != i && id !=0 ) {
+                    for (var j = 0; j < val.layerName.length; j++) {
+                        var layer = Q3D.layerGroup().getLayer(val.layerName[j]);
+                        if (layer) {
+                            layer.setVisible(0);
+                        }
+                    }                   
+                } else {
+                    for (var j = 0; j < val.layerName.length; j++) {
+                        var layer = Q3D.layerGroup().getLayer(val.layerName[j]);
+                        if (layer) {
+                            layer.setVisible(1);
+                        }
+                    }
+                }
+            })
         },
         //还原隐藏的楼层
         resetHideLayer: function () {

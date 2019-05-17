@@ -214,6 +214,19 @@
             };
             control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
         },
+        //关闭楼宇详情
+        closeBuildingDetail: function () {
+            require('b_BuildingFloor').closeBuidingDetail();
+            var jsondata = {
+                "menu": "3",
+                "layer":this.layerNO,
+                "id": require("gl_GardenBuilding").LastPOI_Clk,
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        }
         /*********************************END*********************************************/
     }
 
