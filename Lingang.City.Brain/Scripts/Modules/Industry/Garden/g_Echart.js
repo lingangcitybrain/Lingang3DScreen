@@ -51,48 +51,53 @@
         //招商雷达
         zsld: function () {
             g_EchartAjax.getzsldDataFun(function (result) {
-            if (require("g_Echart").zsldData == null) { return false; }
-            var data = require("g_Echart").zsldData;
+                if (require("g_Echart").zsldData == null) { return false; }
+                var data = require("g_Echart").zsldData;
                 
                 if ($("#zsld-chart").length <= 0) { return false; }
                 require("g_Echart").myChartleida = echarts.init(document.getElementById('zsld-chart'));
 
-                gauge_value = 0;
-               //各个产业的占比数据
-                var jnhbData = data.节能环保产业 / 100,
-                    gdzbData = data.高端装备制造产业 / 100,
-                    xnycyData = data.新能源产业 / 100,
-                    szcyData = data.数字创意产业 / 100,
-                    xclcyData = data.新材料产业 / 100,
-                    xnyqcData = data.新能源汽车 / 100,
-                    xydxxData = data.信息技术产业 / 100,
-                    swcyData = data.生物产业 / 100,
-                    xgfwyData = data.相关服务产业 / 100;
-                   
-                var dataArr = [jnhbData, gdzbData, xnycyData, szcyData, xclcyData, xnyqcData, xydxxData, swcyData, xgfwyData];
-                //节能环保产业，高端装备制造产业，新能源产业，数字创意产业，新材料产业，新能源汽车产业，新一代信息技术产业，生物产业，相关服务业
-                var jnhb = dataArr[0],
-                    gdzb = dataArr[0] + dataArr[1],
-                    xnycy = dataArr[0] + dataArr[1] + dataArr[2],
-                    szcy = dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3],
-                    xclcy = dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3] + dataArr[4],
-                    xnyqc = dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3] + dataArr[4] + dataArr[5],
-                    xydxx = dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3] + dataArr[4] + dataArr[5] + dataArr[6],
-                    swcy = dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3] + dataArr[4] + dataArr[5] + dataArr[6] + dataArr[7],
-                    xgfwy = dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3] + dataArr[4] + dataArr[5] + dataArr[6] + dataArr[7] + dataArr[8];
-                //产业颜色
-                var industryColor = [
-                                        [jnhb, '#b356d8'],
-                                        [gdzb, '#184370'],
-                                        [xnycy, '#547ae5'],
-                                        [szcy, '#1588e5'],
-                                        [xclcy, '#de7869'],
-                                        [xnyqc, '#e57f01'],
-                                        [xydxx, '#e4e100'],
-                                        [swcy, '#07d8ae'],
-                                        [xgfwy, '#70d367'],
-                ]
+                // data json 转换成数组
+                var dataToArr = [], dataToArrIndex = -1;
+                for (key in data) {
+                    dataToArrIndex++;
+                    dataToArr[dataToArrIndex] = data[key];
+                }
 
+                //各产业的百分比小-----总和为 1；
+                var dataArr = [];
+                for (var i = 0; i < dataToArr.length; i++) {
+                    dataArr.push(dataToArr[i]["招商雷达"] / 100);
+                }
+
+                // 前index之和组成的数组   
+                var dataArrSum = 0;
+                var dataArrIndexSum = [];
+                for (var i = 0; i < dataArr.length; i++) {
+                    dataArrSum += dataArr[i];
+                    dataArrIndexSum.push(dataArrSum);
+                }
+
+                //产业数据number ---计算出长度百分比
+                var industryNumber = [];
+                for (var i = 0; i < dataArr.length; i++) {
+                    industryNumber.push(  JSON.parse(dataToArr[i]["产业数据"]).number);
+                }
+                var industryNumberMax = Math.max.apply(null, industryNumber); //最大数
+                var industryNumberPercent = []; //百分数
+                for (var i = 0; i < dataArr.length; i++) {
+                    industryNumberPercent.push(Number((industryNumber[i] / industryNumberMax * 100).toFixed(2)));
+                }
+
+                //产业颜色
+                var dataArrColor = ["#b356d8", "#184370", "#547ae5", "#1588e5", "#de7869", "#e57f01", "#e4e100", "#07d8ae", "#70d367"]
+                var industryColor = [];
+                for (var i = 0; i < dataArr.length; i++) {
+                    industryColor.push([dataArrIndexSum[i], dataArrColor[i]])
+                }
+
+                var paramLevel = -1;
+                gauge_value = 0;
                 require("g_Echart").zsldInterval = setInterval(function () {
                     gauge_value++;  //递增
                     if (gauge_value >= 100) { //重置
@@ -137,15 +142,6 @@
                                     width: 15,
                                     shadowBlur: 10,         //发光
                                     shadowColor: "#8e26dc",
-                                    // borderWidth: 10,
-                                    // shadowOffsetX: 10,
-                                    // shadowOffsetY: 5,
-                                    // color: [                
-                                    //     [0.2, '#a6f08f'],
-                                    //     [0.4, '#3dd4de'],
-                                    //     [0.8, '#7CBB55'],
-                                    //     [1, '#8e26dc'],
-                                    // ]
                                     color: industryColor
                                 }
                             },
@@ -162,39 +158,6 @@
                             },
                             axisLabel: {
                                 show: false,
-                                // formatter: function(e) {
-                                //     switch (e + "") {
-                                //         case "410":
-                                //             return "较差";
-                                //             //return "";
-                                //         case "470":
-                                //             return "550";
-
-                                //         case "530":
-                                //             return "中等";
-                                //             //return "";
-                                //         case "590":
-                                //             return "600";
-
-                                //         case "650":
-                                //             return "良好";
-                                //             //return "";
-                                //         case "710":
-                                //             return "650";
-
-                                //         case "770":
-                                //             return "优秀";
-                                //             //return "";
-                                //         case "830":
-                                //             return "700";
-
-                                //         case "890":
-                                //             return "极好";
-                                //             //return "";
-                                //         default:
-                                //             return e;
-                                //     }
-                                // },
                                 textStyle: {
                                     fontSize: 12,
                                     fontWeight: ""
@@ -208,10 +171,6 @@
                             itemStyle: { //仪表盘指针样式
 
                                 normal: {
-                                    //   color: '#55e1eb',
-                                    // areaColor: '#006fff',
-                                    // shadowOffsetX: 2,
-                                    // shadowOffsetY: 2
                                     shadowColor: '#55e1eb',
                                     shadowBlur: 10,
                                     borderWidth: 3,//设置外层边框
@@ -222,221 +181,77 @@
                                 }
                             },
                             detail: {
-
-                                //  formatter: '{value}%', //显示的值
-
-                                //show:true,
                                 formatter: function (param) {
                                     var level = '';
-                                    if (param <= jnhb * 100) {
-                                        level = dataArr[0] * 100 + '%'
-                                        var html = '';
-                                        html += '<div class="zsld-result">节能环保产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 3rem" data-text="131"></div></div></li>';
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海欣河水利市政工程有限公司</dd>';
-                                        html += '<dd class="">上海强强财务咨询有限公司</dd>';
-                                        html += '<dd class="">上海华琪实业有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>	';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= gdzb * 100) {
-                                        level = dataArr[1] * 100 + '%'
-                                        var html = '';
-                                        html += '<div class="zsld-result">高端装备制造产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 5rem" data-text="361"></div></div></li>';
+                                    var index = 0;
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海凯群金属制品有限公司</dd>';
-                                        html += '<dd class="">上海御拓电机有限公司</dd>';
-                                        html += '<dd class="">上海思章机械设备有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= xnycy * 100) {//新能源产业
-                                        level = dataArr[2] * 100 + '%'
-                                        var html = '';
-                                        html += '<div class="zsld-result">新能源产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 2rem" data-text="33"></div></div></li>';
+                                    function loadZsldFormatterFun(index) {
+                                        paramLevel = index;
+                                        level = (dataArr[index] * 100).toFixed(0) + '%';
+                                        var str = '<div class="zsld-result">产业聚集地</div>'
+                                                  + '<ul class="zsld-ul"></ul>'
+                                                  + '<div class="zsld-company flex">'
+                                                      + '<dl class="zsld-dl" id="zsld-cymx">'
+                                                        + '<dt class="">产业明星企业</dt>'
+                                                      + '</dl>'
+                                                      + '<dl class="zsld-dl"  id="zsld-zytzjg">'
+                                                        + '<dt class="">产业主要投资机构</dt>'
+                                                      + '</dl>'
+                                                    + '</div>';
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">上海雄淼船舶机械有限公司</dt>';
-                                        html += '<dd class="">上海宏宇船舶有限公司</dd>';
-                                        html += '<dd class="">上海铁纽电力工程有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= szcy * 100) {//数字创意
-                                        level = dataArr[3] * 100 + '%'
-                                        var html = '';
-                                        html += '<div class="zsld-result">数字创意产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 5rem" data-text="361"></div></div></li>';
+                                        $("#zsld").html(str);
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海秋霞圃文化传播有限公司</dd>';
-                                        html += '<dd class="">上海今典广昊影院管理有限公司</dd>';
-                                        html += '<dd class="">上海弘歌城镇数字电影院线有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>	';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= xclcy * 100) {//新材料产业
-                                        level = dataArr[4] * 100 + '%'
-                                        var html = '';
-                                        html += '<div class="zsld-result">新材料产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 4rem" data-text="185"></div></div></li>';
+                                        $("#zsld>.zsld-result").html(JSON.parse(dataToArr[index]["产业数据"]).industry);
+                                        $("#zsld>.zsld-ul").append(
+                                            '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div data-text="' +
+                                                 industryNumber[index]
+                                            + '"></div></div></li>'
+                                        );
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海辉成实业有限公司</dd>';
-                                        html += '<dd class="">上海郎峰电子技术有限公司</dd>';
-                                        html += '<dd class="">上海杰斐金属制品有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>	';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= xnyqc * 100) {
-                                        level = dataArr[5] * 100 + '%' //新能源汽车
-                                        var html = '';
-                                        html += '<div class="zsld-result">新能源产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 2rem" data-text="33"></div></div></li>';
+                                        $(".zsld-bar>div").css({ width: industryNumberPercent[index] + '%' });
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海雄淼船舶机械有限公司</dd>';
-                                        html += '<dd class="">上海宏宇船舶有限公司</dd>';
-                                        html += '<dd class="">上海铁纽电力工程有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= xydxx * 100) {
-                                        level = dataArr[6] * 100 + '%'//新一代信息技术产业
-                                        var html = '';
-                                        html += '<div class="zsld-result">新一代信息技术产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 6rem" data-text="604"></div></div></li>';
+                                        //产业明星企业
+                                        var starCompany = dataToArr[index]["明星企业"].split(",");
+                                        for (var j = 0; j < starCompany.length; j++) {
+                                            $("#zsld-cymx").append("<dd>" + starCompany[j] + "</dd>");
+                                        }
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海桑磊互联网上网服务有限公司</dd>';
-                                        html += '<dd class="">上海华夕网络科技有限公司</dd>';
-                                        html += '<dd class="">上海偕氪有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '<dd class="">上海遇象网络科技有限公司</dd>';
-                                        html += '<dd class="">上海晚鲤网络科技有限公司</dd>';
-                                        html += '<dd class="">上海车瑞信息科技有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        $('#zsld').html(html);
-                                    }
-                                    else if (param <= swcy * 100) {
-                                        level = dataArr[7] * 100 + '%'//生物产业
-                                        var html = '';
-                                        html += '<div class="zsld-result">生物产业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 7rem" data-text="817"></div></div></li>';
+                                        //产业主要投资机构
+                                        var mainBody = dataToArr[index]["主要投资机构"].split(",");
+                                        if (mainBody.length && mainBody[0] != ' ') {
+                                            for (var j = 0; j < mainBody.length; j++) {
+                                                $("#zsld-zytzjg").append("<dd>" + mainBody[j] + "</dd>");
+                                            }
+                                        } else {
+                                            $("#zsld-zytzjg").remove()
+                                        }
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">韩佑利信息科技（上海）有限公司</dd>';
-                                        html += '<dd class="">上海福贵生物科技有限公司</dd>';
-                                        html += '<dd class="">上海诚竺生物科技有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>	';
-                                        $('#zsld').html(html);
+                                        //zsld-legend
+                                        for (var n = 0; n < $("#zsld-legend>li").length; n++) {
+                                            if (JSON.parse(dataToArr[index]["产业数据"]).industry === $("#zsld-legend>li").eq(n).html()) { 
+                                                $("#zsld-legend>li").eq(n).addClass("active").siblings().removeClass("active")
+                                            }
+                                        }
                                     }
-                                    else if (param <= xgfwy * 100) {
-                                        level = dataArr[8] * 100 + '%'//相关服务业
-                                        var html = '';
-                                        html += '<div class="zsld-result">相关服务业</div>';
-                                        html += '<ul class="zsld-ul">';
-                                        html += '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div style="width: 1rem" data-text="14"></div></div></li>';
 
-                                        html += '</ul>';
-                                        html += '<div class="zsld-company flex">';
-                                        html += '<dl class="zsld-dl">';
-                                        html += '<dt class="">产业明星企业</dt>';
-                                        html += '<dd class="">上海浦海测绘有限公司</dd>';
-                                        html += '<dd class="">上海露磊电脑技术有限公司</dd>';
-                                        html += '<dd class="">上海井园市政工程有限公司</dd>';
-                                        html += '</dl>';
-                                        html += '<dl class="zsld-dl">';
-                                        //html += '<dt class="">产业主要投资机构</dt>';
-                                        html += '</dl>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        html += '</div>';
-                                        $('#zsld').html(html);
-                                    }
-                                    else {
+                                    if (param > dataArrIndexSum[0] * 100) {
+                                        do {
+                                            index++;
+                                        } while (param > dataArrIndexSum[index] * 100)
+
+                                        if (paramLevel === index) {
+                                            return level = (dataArr[index] * 100).toFixed(0) + '%';
+                                        } else {
+                                            loadZsldFormatterFun(index);
+                                        }
+
+                                    } else if (param <= dataArrIndexSum[0] * 100) {
+                                        if (paramLevel === index) {
+                                            return level = (dataArr[index] * 100).toFixed(0) + '%';
+                                        } else {
+                                            loadZsldFormatterFun(0);
+                                        }
+                                    } else {
                                         level = '暂无';
                                     }
                                     return level;
@@ -456,7 +271,7 @@
 
                     require("g_Echart").myChartleida.setOption(option);
 
-                }, 300);
+                }, 800);
             })
         
         },

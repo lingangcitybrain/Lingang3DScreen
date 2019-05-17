@@ -1999,11 +1999,11 @@ dd.pjc-statistic-star >form{
 }
 .zsld-bar>div{
 	position: relative;
-	width: 80%;
+	width: 0%;
 	height: 100%;
 	background:#0f84d1;
 	border-radius: inherit;
-	transition: .8s all ease;
+	transition: .5s width ease;
 }
 .zsld-bar>div:after{
 	content:attr(data-text);
@@ -2012,8 +2012,8 @@ dd.pjc-statistic-star >form{
 	right: -.05rem;
 	transform: translate(100%, -50%);
 }
-.zsld-ul>.zsld-li:nth-child(2)>.zsld-bar>div{ width: 70%; background:#8a7d1f; }
-.zsld-ul>.zsld-li:nth-child(3)>.zsld-bar>div{ width: 60%; background:#db9e8a;}
+.zsld-ul>.zsld-li:nth-child(2)>.zsld-bar>div{ background:#8a7d1f; }
+.zsld-ul>.zsld-li:nth-child(3)>.zsld-bar>div{ background:#db9e8a;}
 
 .zsld-company>.zsld-dl{ width: 50%; }
 .zsld-company>.zsld-dl>dt{ margin-bottom: .1rem;}
@@ -2868,8 +2868,11 @@ dd.pjc-statistic-star >form{
 .fkld-legend-list >li:nth-child(4){ color: #00dbaf; }
 
 .zsld-legend-list{
+    right:auto;
+    left:5.5rem;
 	font-size: .25rem;
 	line-height: 1.5em;
+    transition: .3s all ease;
 }
 .zsld-legend-list >li{ color:#0395bc; }
 .zsld-legend-list >li:nth-child(1):after{ color: #b659d8; }
@@ -2881,6 +2884,13 @@ dd.pjc-statistic-star >form{
 .zsld-legend-list >li:nth-child(7):after{ color: #e7e200; }
 .zsld-legend-list >li:nth-child(8):after{ color: #00dbaf; }
 .zsld-legend-list >li:nth-child(9):after{ color: #71d859; }
+
+.zsld-legend-list > li.active {
+    color:#ff8401;
+    font-size:.35rem;
+}
+
+
 
 
 .sqzz-sj-poi,

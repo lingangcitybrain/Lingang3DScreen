@@ -30,7 +30,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/BusinessRadar/getRadar',
+                    url: con.InterfaceUrl + 'v1/BusinessRadar/getRadar',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
