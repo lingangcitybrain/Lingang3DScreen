@@ -26,7 +26,12 @@
                 require("s_Main").DanaoAnimation = setTimeout(function () {
                     require("sl_Event").loadDanaoAnimation();
                 }, 10000);
-                require("s_LayerMenuAjax").getEventList(function (result) {
+
+                var nowdata = require("common").getNowFormatDate();//当前时间
+                var before7 = require("common").getDaysBefore(nowdata,7);//7天前的时间
+                var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+                //获取最近7天事件
+                require("s_LayerMenuAjax").getEventList(post_data,function (result) {
 
                     var areaName = con.AreaName;
                     var pois = [];
@@ -97,6 +102,42 @@
             //map.getArea(areaName).destroySceneNode(poiname);
 
         },
+        //点击POI显示详情事件
+        loadPoiDetail:function()
+        {
+            require("sl_Event").jumppoilist = [];
+            var areaName = con.AreaName;
+            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+                var type = this.LastPOI_Clk.split('_')[1];
+                var icon = this.LayerType.List[type].UnChooseIcon;
+
+                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
+                if (lastNode) {
+                    lastNode.asPOI().setIcon(icon);
+                    //lastNode.setVisible(0);
+                }
+            }
+            this.LastPOI_Clk = nodeName;
+            var node = map.getSceneNode(areaName, nodeName);
+            if (node != null) {
+
+                var poi = node.asPOI();
+                var type = nodeName.split('_')[1];
+                var icon = this.LayerType.List[type].ChooseIcon;
+                poi.setIcon(icon);
+            }
+            require("sl_Event").jumppoilist.push(areaName + "/" + nodeName);
+            map.setBatchPOIJump(require("sl_Event").jumppoilist, 50);
+
+            var id = nodeName.split('_')[2];
+
+            //获取大脑坐标
+            var danao_absPos= Q3D.vector3d(map.getSceneNode("danao/danao_zhdn").getAbsPos());
+            var danao_coordinate = require("common").planeToCoordinate(danao_absPos.x + "," + danao_absPos.y + "," + danao_absPos.z);//获取大脑经纬度坐标
+
+            //画事件到大脑的连接
+
+        },
         /*********************加载事件POI-end*********************/
 
 
@@ -126,6 +167,7 @@
                 var icon = this.LayerType.List[type].ChooseIcon;
                 poi.setIcon(icon);
             }
+            require("sl_Event").jumppoilist = [];
             require("sl_Event").jumppoilist.push(areaName + "/" + nodeName);
             map.setBatchPOIJump(require("sl_Event").jumppoilist, 50);
 
@@ -142,10 +184,22 @@
                     require("sl_Event").loadEventVedioDetail(id);
                     break;
                 default:
+                    //视角定位到坐标,默认显示图片
+                    var pos = Q3D.vector3d(map.getSceneNode(areaName,nodeName).getAbsPos());
+                    var postr = pos.x + "," + pos.y + "," + pos.z;
+                    var height = parseFloat(postr.split(',')[2]) - 1300,
+                        x = parseFloat(postr.split(',')[0]) + 2600,
+                        z = parseFloat(postr.split(',')[1]) + 2200;
+                    var pointlast = x + "," + z + "," + height;
+                    Q3D.globalCamera().flyTo(pointlast.toVector3d(), ("-72.18743133544922,56.96735382080078,69.03022766113281").toVector3(), 2, function () {
+                            require("sl_Event").loadEventPicDetail(id);
+                        });
+                    break;
             }
         },
         //显示事件图片详情
         loadEventPicDetail: function (id) {
+            console.log(id);
             var areaName = con.AreaName;
             var data = require("sl_Event").EventList.get(id);
             //加载页面内容
@@ -153,55 +207,95 @@
             require(['text!' + url], function (template) {
                 $("#detail_02").html(template);
                 $("#detail_02").show('slide', { direction: 'left' }, 500);
-                $(".poiinfo").css("left", "42%");
+                $(".poiinfo").css("left", "32%");
                 $(".poiinfo").css("top", "19%");
 
-                $("#eventdetail").hide()
-                $("#eventdetail").show('drop', 1000);
+                $("#div_eventdetail").hide()
+                $("#div_eventdetail").show('drop', 1000);
 
                 $("#eventhead").html(data.eventName);
-                var html = '<div class="boxcont flex"><div class="box-leftpic fl" style="text-align:center;">' +
-                    '<img src="' + con.WebServiceUrl + 'Content/images/eventdetail_car.png" style="width:3rem;" />' +
-                '</div>' +
-                '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
+                var html = '<div class="boxcont flex">';
+                //图片不为空 显示图片
+                if (!data.dealImage && data.dealImage != "") {
+                    var html = '<div class="box-leftpic fl" style="text-align:center;">' +
+                                    '<img src="' + data.dealImage + '" style="width:3rem;" />' +
+                                '</div>';
+                }
+                var html = '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
                     '<ul>' +
                         '<li><span>事件时间：</span><em>' + data.createTime + '</em></li>' +
                         '<li><span>事件地点：</span><em>' + data.address + '</em></li>' +
                         '<li><span>事件类型：</span><em' + data.eventTypeName + '</em></li>' +
                         '<li><span>事件描述：</span><em>' + data.eventDes + '</em></li>' +
                         '<li><span>事件状态：</span><em>' + data.statusName + '</em></li>' +
+                        '<li><span>小区名称：</span><em>' + data.regionName + '</em></li>' +
                     '</ul>' +
                 '</dic></div>';
                 $("#eventdetail").html(html);
 
                 //require("sl_Event").loadVedio();
 
-                map.getSceneNode("danao/" + data.todanaoLine).setVisible(1);
+                //map.getSceneNode("danao/" + data.todanaoLine).setVisible(1);
 
-                Q3D.globalCamera().flyTo((data.xyz).toVector3d(), (data.angle).toVector3(), 1, function () {
+                //Q3D.globalCamera().flyTo((data.xyz).toVector3d(), (data.angle).toVector3(), 1, function () {
 
-                    map.getSceneNode("danao/" + data.danaoLineTo).setVisible(1);
+                //    map.getSceneNode("danao/" + data.danaoLineTo).setVisible(1);
 
-                    setTimeout(function () {
-                        /*派单POI*/
-                        var fullNodePath2 = areaName + "/paidan01";
-                        var pos2 = data.plng + "," + data.plat + ",0";
-                        var position2 = Q3D.vector3(pos2.toGlobalVec3d().toLocalPos(areaName));
+                //获取大脑坐标
+                var danao_absPos = Q3D.vector3d(map.getSceneNode("danao/danao_zhdn").getAbsPos());
+                var danao_coordinate = require("common").planeToCoordinate(danao_absPos.x + "," + danao_absPos.y + "," + danao_absPos.z);//获取大脑经纬度坐标
+                var danao_coordinatestr = danao_coordinate.longitude + "," + danao_coordinate.latitude + "," + danao_coordinate.height;
+                //画事件到大脑的连接
+                var option = {
+                    AreaName: "gwh_xilou",
+                    //AreaName: "Shanghai",
+                    Name: "shijian_" + id,
+                    LineAlias: "mark",
+                    LineWidth: 50,
+                    showAuxIcon: false,
+                    MaterialName: "Material/aaaa.mtr",
+                }
 
-                        var data2 = {
-                            Position: position2, Text: "", Icon: "Texture/Common/paidan.png", IconSize: Q3D.vector2(100, 97)
-                        }
-                        if (map.getSceneNode(fullNodePath2)) {
-                            map.clearPOIJump();
-                            map.getArea(areaName).destroySceneNode("paidan01");
-                        }
-                        require("sl_Event").createPOI(fullNodePath2, data2);
+                var eventpos = data.lng + "," + data.lat + ",0";
+                require("common").getRadianLine(eventpos, danao_coordinatestr, 500, option);//显示事件到大脑的连线
 
-                        require("sl_Event").jumppoilist.push(fullNodePath2);
-                        map.setBatchPOIJump(require("sl_Event").jumppoilist, 50);
-                        require("sl_Event").loadPaidan(id);
-                    }, 1000);
-                });
+                //定位视角到大脑
+                //399242.5915524868,3584.834014892578,-3418567.276543012|-73.44865417480469,51.54043960571289,69.21678161621094
+                //Q3D.globalCamera().flyTo(("399242.5915524868,3584.834014892578,-3418567.276543012").toVector3d(), ("-73.44865417480469,51.54043960571289,69.21678161621094").toVector3(), 2, null);
+
+                setTimeout(function () {
+                    /*派单数据暂未提供，先静态页面*/
+
+                    //画大脑到派单员的连接
+                    var option = {
+                        AreaName: "gwh_xilou",
+                        //AreaName: "Shanghai",
+                        Name: "paidan_" + id,
+                        LineAlias: "mark",
+                        LineWidth: 50,
+                        showAuxIcon: false,
+                        MaterialName: "Material/aaaa.mtr",
+                    }
+                    var pos2 = "121.911372,30.914259,-0.016449";//派单坐标（静态，未提供坐标）
+                    require("common").getRadianLine(danao_coordinatestr, pos2, 500, option);//显示事件到大脑的连线
+
+                    var fullNodePath2 = areaName + "/paidan01";
+
+                    var position2 = Q3D.vector3(pos2.toGlobalVec3d().toLocalPos(areaName));
+
+                    var data2 = {
+                        Position: position2, Text: "", Icon: "Texture/Common/paidan.png", IconSize: Q3D.vector2(100, 97)
+                    }
+                    if (map.getSceneNode(fullNodePath2)) {
+                        map.clearPOIJump();
+                        map.getArea(areaName).destroySceneNode("paidan01");
+                    }
+                    require("sl_Event").createPOI(fullNodePath2, data2);
+
+                    require("sl_Event").jumppoilist.push(fullNodePath2);
+                    map.setBatchPOIJump(require("sl_Event").jumppoilist, 50);
+                    require("sl_Event").loadPaidan(id);
+                }, 1000);
 
 
             })
@@ -348,7 +442,7 @@
         clearEventPaidan: function () {
             var areaName = con.AreaName;
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
-                var type = this.LastPOI_Clk.split('_')[1];
+                var type = require("sl_Event").LastPOI_Clk.split('_')[1];
                 var icon = this.LayerType.List[type].UnChooseIcon;
 
                 var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
@@ -356,17 +450,18 @@
                     lastNode.asPOI().setIcon(icon);
                     //lastNode.setVisible(0);
                 }
+
+                var id = require("sl_Event").LastPOI_Clk.split('_')[2];
+                //清除发光动线连线
+                map.getArea(areaName).destroySceneNode("shijian_" + id);
+                map.getArea(areaName).destroySceneNode("paidan_" + id);
             }
             if (require("sl_Event").SocietyEvent_player) {
                 require("sl_Event").SocietyEvent_player.dispose();
                 require("sl_Event").SocietyEvent_player = null;
             }
-            for (var i = 0; i <= 7; i++) {
-                if (map.getSceneNode("danao/" + require("sl_Event").Linelist[i])) {
-                    map.getSceneNode("danao/" + require("sl_Event").Linelist[i]).setVisible(0);
-                }
-            }
 
+            
             $("#detail_02").html("");
             $("#detail_03").html("");
         },
@@ -556,6 +651,11 @@
                         padanname = "郭飞";
                         break;
                     default:
+                        $(".sqzz-sjjd-poi").css("left", "69%");
+                        $(".sqzz-sjjd-poi").css("top", "22%");
+                        padanimg = "yangyufeng.jpg";
+                        padanname = "杨育峰";
+                        break;
                 }
                 var data = require("sl_Event").EventList.get(id);
                 var html = '<dic class="sqzz-sjjd-div flex">'+
@@ -702,6 +802,22 @@
 
         //事件点击事件
         loadEventDetial: function (id) {
+
+            var option = {
+                AreaName: "gwh_xilou",
+                //AreaName: "Shanghai",
+                Name: "11112",
+                LineAlias: "mark",
+                LineWidth: 50,
+                showAuxIcon: false,
+                MaterialName: "Material/aaaa.mtr",
+            }
+
+            var fromPos = "121.901576,30.895399,3.999176";
+            var toPos = "121.912923,30.896909,3.999176";
+            require('common').getRadianLine(fromPos, toPos, 500, option);
+
+
             s_LeftLayer.loadLeft2Html();
             com.delNodeLineToScreen("lineTooltip");
 
