@@ -220,7 +220,7 @@
             var jsondata = {
                 "menu": "3",
                 "layer":this.layerNO,
-                "id": require("gl_GardenBuilding").LastPOI_Clk,
+                "id": require("b_BuildingFloor").POINodeClk,
                 "command": "close",
                 "xyz": "",
                 "angle": "",

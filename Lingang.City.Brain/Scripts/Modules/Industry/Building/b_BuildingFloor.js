@@ -172,6 +172,7 @@
                 if (node) {
                     node.asPOI().setIcon(require("b_BuildingFloor").buildingPOI);
                 }
+                require("b_BuildingFloor").POINodeClk = "";
             }
         },
     }

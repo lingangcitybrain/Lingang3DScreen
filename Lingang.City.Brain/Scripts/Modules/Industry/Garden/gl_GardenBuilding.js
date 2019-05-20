@@ -231,19 +231,19 @@
         //隐藏POI
         clearPOI: function (nodename) {
             var areaName = con.AreaName;
-            if (nodename == "undefined") {//type==undefined表示全部还原
-                if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
-                    var layername = this.LastPOI_Clk.split('_')[0].replace("POIIndustryG", "");
-                    var level = this.LayerType.Level;
-                    var icon = this.LayerType.UnChooseIcon;
-                    var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
-                    if (lastNode) {
-                        lastNode.asPOI().setIcon(icon);
-                        //lastNode.setVisible(0);
-                    }
-                }
-                this.LastPOI_Clk = "";
-            }
+            //if (nodename == "undefined") {//type==undefined表示全部还原
+            //    if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+            //        var layername = this.LastPOI_Clk.split('_')[0].replace("POIIndustryG", "");
+            //        var level = this.LayerType.Level;
+            //        var icon = this.LayerType.UnChooseIcon;
+            //        var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
+            //        if (lastNode) {
+            //            lastNode.asPOI().setIcon(icon);
+            //            //lastNode.setVisible(0);
+            //        }
+            //    }
+            //    this.LastPOI_Clk = "";
+            //}
             var data = this.POIData;
             //设置POI隐藏
             if (data != null) {
