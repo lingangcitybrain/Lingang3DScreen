@@ -53,6 +53,7 @@
             $("#center_01").html("");
             require("b_BuildingFloor").hideBuilding(0);//显示所有楼栋
             require("gl_GardenBuilding").loadPOI();//显示所有楼栋POI
+            require("b_BuildingFloor").resetBuildingMaterial();//还原楼宇材质
         },
         openFloor: function (floor) {
             require("b_BuildingFloor").resetHideLayer();
@@ -100,7 +101,7 @@
                     var node = map.getSceneNode(nodeArr[j]);
                     if (node) {
                         var nodeName = node.getName();
-                        if (nodeName.indexOf("shell") > -1 || nodeName.indexOf("area") > -1) {
+                        if (nodeName.indexOf("shell") > -1) {  // || nodeName.indexOf("area") > -1
                             var model = node.asModel();
                             var qmaterial = model.getMaterial(0);
                             // console.info(qmaterial.getName());
@@ -113,6 +114,14 @@
                             //var qmaterial = model.getMaterial(k);
                             //    qmaterial.setAlpha(0.5);
                             //}	
+                        }
+
+                        if (nodeName.indexOf("area") > -1) {  //房间节点设置不透明
+                            var model = node.asModel();
+                            var qmaterial = model.getMaterial(0);
+                            var materialName = qmaterial.getName();
+                            require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
+                            model.setMaterial(0, "material/hcy_area.mtr");  //批量替换模型材质
                         }
                     }
                 }
