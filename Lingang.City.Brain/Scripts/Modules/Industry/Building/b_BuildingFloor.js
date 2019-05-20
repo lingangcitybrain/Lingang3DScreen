@@ -3,6 +3,7 @@
     return {
         buildingID: null,
         changeMaterialModel: [],
+        //changeAlphaNode:[],
         POINodeClk: "",
         buildingPOI: "Texture/common/building.png",
         buildingPOI_hover: "Texture/common/building_hover.png",
@@ -50,6 +51,10 @@
 
         },
         closeBuidingDetail: function () {
+            //飞行到园区视角
+            com.LayerFlyto(311, function () {
+
+            })
             $("#center_01").html("");
             require("b_BuildingFloor").hideBuilding(0);//显示所有楼栋
             require("gl_GardenBuilding").loadPOI();//显示所有楼栋POI
@@ -122,6 +127,13 @@
                             var materialName = qmaterial.getName();
                             require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
                             model.setMaterial(0, "material/hcy_area.mtr");  //批量替换模型材质
+                            //require("b_BuildingFloor").changeAlphaNode.push(model);
+                            //设置材质透明度没效果
+                            var MaterialCount=model.getMaterialCount();
+                            for(var k=0;k<MaterialCount;k++){
+                            var qmaterial = model.getMaterial(k);
+                                qmaterial.setAlpha(0.8);
+                            }	
                         }
                     }
                 }
