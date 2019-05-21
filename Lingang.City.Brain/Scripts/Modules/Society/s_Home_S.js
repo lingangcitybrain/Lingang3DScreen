@@ -40,12 +40,14 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
         layerSeaboard: function () {
             sl_SeaboardLine.layerSeaboard();
             sl_SeaboardLine.loadLeftSecond();
-            require("s_Main").loadCenter1Info();
+           // require("s_Main").loadCenter1Info();
+            require("s_Main").loadCenter1();
         },
         loadWorkSite: function () {
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
-            require("s_Main").loadCenter1Info();
+           // require("s_Main").loadCenter1Info();
+            require("s_Main").loadCenter1();
         },
         loadEvent: function () {
             sl_Event.loadEvent();

@@ -69,8 +69,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 url: con.HtmlUrl + 'SocietyNew/Left_First_01.html'
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").cgq();
-                 
+                require("s_Echart").cgq();               
             });
 
         },
@@ -86,7 +85,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 require("s_Echart").loadCirclediv();
                 require("s_Echart").sxtCamera("#sqzz-sxt1", { "communityId": "S012" });
                 require("s_Echart").sxtCar("#sqzz-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
-                require("s_Echart").sxtPerson();
+                require("s_Echart").sxtPerson("#sqzz-sxt3");
 
             });
 
@@ -142,8 +141,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
 
-               require('s_Main').numberAni2();
-               // require('s_Main').getSocietyBigNum
+                require('s_Main').cgqBigNum();
 
             })
         },
@@ -434,6 +432,14 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             });
         },
 
+        cgqBigNum: function () {
+            s_EchartAjax.getCgqBigNum(function (result) {
+                if (require("s_Echart").cgqBigNumData == null) { return false; }
+                var data = require("s_Echart").cgqBigNumData;
+                require('s_Main').numberAni2(data);
+            });
+        },
+
         numberAni1: function (data) {
             com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
             com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
@@ -441,10 +447,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
             com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 20, Number(data.loopRate), 2000);
         },
-        numberAni2: function () {
-            com.numberAnimation($('#s_xcxcysl'), 128 - 20, 128, 2000);
-            com.numberAnimation($('#s_xcwrjsl'), 4- 1, 4, 1000);
-            com.numberAnimation($('#s_jrsxtsl'), 163 - 20, 163, 2000);
+        numberAni2: function (data) {
+            com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
+            com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
+            com.numberAnimation($('#s_bignum3'), Number(data.occupy) * 100 - 20, Number(data.occupy) * 100, 2000);
+            com.numberAnimation($('#s_bignum4'), Number(data.grade) * 100 - 20, Number(data.grade) * 100, 2000);            
         },
 
         htmlRevert: function () {
