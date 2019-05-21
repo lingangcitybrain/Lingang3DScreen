@@ -73,7 +73,7 @@
 
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "open", "func": "$('.cy-qy-navbar').removeClass('active');require('gl_TopCompany').flyToBuilding();" },//花展开
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//花隐藏
-        //{ "menu": "2", "layer": "4", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POITourDrone", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//      
+        { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", POISTR: "POIIndustryGBuilding", "command": "close", "func": "require('b_BuildingFloor').closeBuidingDetail();" },//      
         ],
 
         /************************UI Button事件*******************************/

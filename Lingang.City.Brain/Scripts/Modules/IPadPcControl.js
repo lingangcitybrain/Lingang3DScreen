@@ -61,10 +61,10 @@
                     case "2"://大客流
                         require('mainMenu').mainMenuSelect(2);
                         break;
-                    case "3"://产业园区
+                    case "3"://产业发展
                         require('mainMenu').mainMenuSelect(3);
                         break;
-                    case "4"://产业发展
+                    case "4"://产业推演
                         require('mainMenu').mainMenuSelect(4);
                         break;
                     case "11"://实景

@@ -1,6 +1,9 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_LayerMenuAjax", "s_EchartAjax"], function (con, com, s_layerMenuData, s_LayerMenuAjax, s_EchartAjax) {
     /**************************************传感器**************************************/
     return {
+        carInOutCount: null, //08:00--16:00点的进出车辆数
+        personInOutCount: null, //08:00--16:00点的进出人员数
+        seriesDataMax: 2000, //进出人员车辆数图表Y轴最大值
 
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
@@ -116,7 +119,7 @@
             this.loadLeftSecond3();
             this.loadLeftSecond4();
         },
-        //加载第二列的div
+        //加载第二列的div1
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
@@ -125,25 +128,30 @@
             }
             com.UIControlAni(option, function () { return null });
         },
-        //加载第二列的div
+        //加载第二列的div2
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
                 htmlDom: "#left_second_02",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT2.html'
             }
-            com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
+            com.UIControlAni(option, function () {
+                require("sl_IOT").loadCarPersonInOutData();
+            });
         },
-        //加载第二列的div
+        //加载第二列的div3
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
                 htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT3.html'
             }
-            com.UIControlAni(option, function () { require("sl_IOT").loadCirclediv(); });
+            com.UIControlAni(option, function () {
+                require("sl_IOT").loadCirclediv();
+                require("s_Echart").sxtCar("#iot-sxt2");
+            });
         },
-        //加载第二列的div
+        //加载第二列的div4
         loadLeftSecond4: function () {
             var option = {
                 aniDom: "#left02_04",
@@ -153,116 +161,168 @@
             com.UIControlAni(option, function () {  require("sl_IOT").loadSocietyIOT() });
         },
 
-
-
         //加载社区车辆图表
-        loadSocietyCarchart: function () {
-            if ($("#sqcl-chart").length <= 0) { return false; }
+        loadCarPersonInOutData: function () {
+            s_EchartAjax.getCarPersonInOutData(function (result) {
+                if (require("s_Echart").carPersonInOutData == null) { return false; }
+                var data = require("s_Echart").carPersonInOutData;
+                data = data.data;
 
-            // echart
-            var sqclChart = document.getElementById('sqcl-chart');
-            var sqcldata = [531, 485, 462, 136, 8];
+                require("sl_IOT").carInOutCount = []; //08:00--16:00点的进出车辆数
+                require("sl_IOT").personInOutCount = [];//08:00--16:00点的进出人员数
 
-            var myChartsqcl = echarts.init(sqclChart);
-            sqclOption = {
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                for (var i = 0; i < data.dateLists.length; i++) {
+                    var dateTime = data.dateLists[i].split(" ")[1];
+                    switch (dateTime) {
+                        case "08":
+                            require("sl_IOT").carInOutCount[0] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[0] = data.personInOutCount[i];
+                            break;
+                        case "09":
+                            require("sl_IOT").carInOutCount[1] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[1] = data.personInOutCount[i];
+                            break;
+                        case "10":
+                            require("sl_IOT").carInOutCount[2] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[2] = data.personInOutCount[i];
+                            break;
+                        case "11":
+                            require("sl_IOT").carInOutCount[3] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[3] = data.personInOutCount[i];
+                            break;
+                        case "12":
+                            require("sl_IOT").carInOutCount[4] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[4] = data.personInOutCount[i];
+                            break;
+                        case "13":
+                            require("sl_IOT").carInOutCount[5] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[5] = data.personInOutCount[i];
+                            break;
+                        case "14":
+                            require("sl_IOT").carInOutCount[6] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[6] = data.personInOutCount[i];
+                            break;
+                        case "15":
+                            require("sl_IOT").carInOutCount[7] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[7] = data.personInOutCount[i];
+                            break;
+                        case "16":
+                            require("sl_IOT").carInOutCount[8] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[8] = data.personInOutCount[i];
+                            break;
+                        default:
                     }
-                },
-                grid: {
-                    left: '1%',   // grid 组件离容器左侧的距离。
-                    right: '2%',
-                    bottom: '2%',
-                    height: "90%",
-                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-                },
-                xAxis: {
-                    type: 'category',
-                    data: ['进入车辆', '出去车辆', '小区车辆', '外来车辆', '异常车辆'],
-                    boundaryGap: ['20%', '20%'],
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 25,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                yAxis: {
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)",
-                        }
-                    },
-                    interval: 100,
-                    min: 0,
-                    max: 600,
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 25,
-                            color: "#00d7fe",
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                series: [
-		            {
-		                type: 'bar',
-		                barWidth: 50,
-		                itemStyle: {
-		                    normal: {
-		                        barBorderRadius: [10,10,0,0],
-		                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-		                            offset: 0,
-		                            color: '#04cafc'
-		                        }, {
-		                            offset: 1,
-		                            color: '#0e4abc'
-		                        }]),
-		                    }
-		                },
+                }
 
-		                data: sqcldata,
-		            }
-                ]
-            };
-            myChartsqcl.setOption(sqclOption);
+                var seriesDataMaxCar = Math.max.apply(null, require("sl_IOT").carInOutCount);
+                var seriesDataMaxperson = Math.max.apply(null, require("sl_IOT").personInOutCount);
+                var seriesDataMax = seriesDataMaxCar >= seriesDataMaxperson ? seriesDataMaxCar : seriesDataMaxperson;
+
+                require("sl_IOT").seriesDataMax = (Math.ceil(seriesDataMax / 100) * 100).toFixed(0);
+
+                if ($("#sqcl-chart").length <= 0) { return false; }
+                var sqclChart = document.getElementById('sqcl-chart');
+                var myChartsqcl = echarts.init(sqclChart);
+
+                sqclOption = {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#3398DB', '#00f81f'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '2%',
+                        bottom: '2%',
+                        height: "90%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
+                        boundaryGap: ['20%', '20%'],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 25,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        }
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        min: 0,
+                        max: require("sl_IOT").seriesDataMax,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 25,
+                                color: "#00d7fe",
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            name: '进出人员',
+                            type: 'line',
+                            smooth: true,
+                            data: require("sl_IOT").personInOutCount
+                        },
+                        {
+                            name: '进出车辆',
+                            type: 'line',
+                            smooth: true,
+                            data: require("sl_IOT").carInOutCount
+                        },
+                    ]
+                };
+                myChartsqcl.setOption(sqclOption);
+
+            });
+
+
+
         },
-        bigLoadSocietyCarchart: function () {
+
+        bigLoadCarPersonInOutData: function (carInOutCount, personInOutCount, seriesDataMax) {
             if ($("#sqcl-chart").length <= 0) { return false; }
-            $("#bigechartHead").html("社区车辆（车辆数）");
+            $("#bigechartHead").html("进出人员车辆曲线图");
+
+
             // echart
-            var sqcldata = [531, 485, 462, 136, 8];
             option = {
                 legend: {
                     show: false
                 },
-                color: ['#3398DB'],
+                color: ['#3398DB', '#00f81f'],
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -281,7 +341,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['进入车辆', '出去车辆', '小区车辆', '外来车辆', '异常车辆'],
+                    data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
                     boundaryGap: ['20%', '20%'],
                     axisTick: {
                         show: false,
@@ -315,9 +375,8 @@
                             color: "rgba(80,172,254,.2)",
                         }
                     },
-                    interval: 100,
                     min: 0,
-                    max: 600,
+                    max: seriesDataMax,
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -332,24 +391,28 @@
                     }
                 },
                 series: [
-		            {
-		                type: 'bar',
-		                barWidth: 140,
-		                itemStyle: {
-		                    normal: {
-		                        barBorderRadius: [20,20,0,0],
-		                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-		                            offset: 0,
-		                            color: '#04cafc'
-		                        }, {
-		                            offset: 1,
-		                            color: '#0e4abc'
-		                        }]),
-		                    }
-		                },
-
-		                data: sqcldata,
-		            }
+                    {
+                        name: '进出人员',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            width: 6,
+                        },
+                        symbol: 'circle',
+                        symbolSize: 22,
+                        data: personInOutCount
+                    },
+                    {
+                        name: '进出车辆',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            width: 6,
+                        },
+                        symbol: 'circle',
+                        symbolSize: 22,
+                        data: carInOutCount
+                    }
                 ]
             };
 
@@ -362,29 +425,24 @@
             //myChartsqcl.setOption(sqclOption);
         },
         // 摄像头圆圈
-        loadCirclediv: function (){         
+        loadCirclediv: function (str){         
             if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
-                $(".sxt-circlediv").each(function () { $(this).empty() })
-                com.loopFun($('.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('.sxt-circlediv')[1], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('.sxt-circlediv')[2], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('.sxt-circlediv')[3], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('.sxt-circlediv')[4], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('.sxt-circlediv')[5], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
-                //com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 15, 30, 1000);
-                //com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 15, 30, 1000);
+                $('#iot-sxt1>.sxt-circlediv').empty();
+                $('#iot-sxt2>.sxt-circlediv').empty();
+                $('#iot-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#iot-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+
             } else if ($("body").width() == 11520) {
                 $("html").css({ fontSize: "130px" });
-                $(".sxt-circlediv").each(function () { $(this).empty() })
-                com.loopFun($('.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('.sxt-circlediv')[1], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('.sxt-circlediv')[2], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('.sxt-circlediv')[3], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('.sxt-circlediv')[4], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('.sxt-circlediv')[5], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
-                //com.loopFun($('.sj-circlediv')[0], 35, '#564009', '#f7b001', 'transparent', '20px', 20, 45, 1000);
-                //com.loopFun($('.sj-circlediv')[1], 80, '#564009', '#098bdc', 'transparent', '20px', 20, 45, 1000);
+                $('#iot-sxt1>.sxt-circlediv').empty();
+                $('#iot-sxt2>.sxt-circlediv').empty();
+                $('#iot-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#iot-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
             }      
         },
 

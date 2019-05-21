@@ -62,7 +62,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
 
         /*****************************左侧第一列*****************************/
-        //加载第一个div
+        //加载第一个div1
         loadLeftFirst1: function () {
             var option = {
                 aniDom: "#left01_01",
@@ -75,7 +75,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             });
 
         },
-        //加载第二个div
+        //加载第二个div2
         loadLeftFirst2: function () {
             var option = {
                 aniDom: "#left01_02",
@@ -84,13 +84,15 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             }
 
             com.UIControlAni(option, function () {
-                //require("s_Echart").sxt1();
-                //require("s_Echart").sxt2();
-                //require("s_Echart").sxt3();
+                require("s_Echart").loadCirclediv();
+                require("s_Echart").sxtCamera("#sqzz-sxt1", { "communityId": "S012" });
+                require("s_Echart").sxtCar("#sqzz-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
+                require("s_Echart").sxtPerson();
+
             });
 
         },
-        //加载第三个div
+        //加载第三个div3
         loadLeftFirst3: function () {
             var option = {
                 aniDom: "#left01_03",
@@ -99,14 +101,16 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             }
             com.UIControlAni(option, function () {
                 require("s_Echart").wrj();
+
                 //加载摄像头视频
                 setTimeout(function () { require("s_Main").loadLeft01_02_Video() }, 800);
+
                 //加载无人机视频
                 setTimeout(function () { require("s_Main").loadLeft01_03_Video() }, 800);
             });
 
         },
-        //加载第四个div
+        //加载第四个div4
         loadLeftFirst4: function () {
             var option = {
                 aniDom: "#left01_04",
@@ -144,7 +148,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
         ////////////////////////////////////////////////右侧页面//////////////////////////////////////////////////////
         /*****************************右侧第二列*****************************/
-        //加载第一个div
+        //加载第一个div1
         loadRightSecond1: function () {
             var option = {
                 aniDom: "#right02_01",
@@ -178,7 +182,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 //require("s_Echart").bigNumber();//中间大数字
             });
         },
-        //加载第二个div
+        //加载第二个div2
         loadRightSecond2: function () {
             var option = {
                 aniDom: "#right02_02",

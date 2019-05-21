@@ -1,6 +1,95 @@
 ﻿define(["config"], function (con) {
     return {
 
+        //画弧度发光东线 fromPos，toPos（经纬度坐标）radianHeight 弧度的高度
+        getRadianLine: function (fromPos, toPos,radianHeight, option) {
+            var defaultOption = {
+                AreaName: '',
+                Name: '',//动线名称
+                LineAlias: '',//节点别名
+                LineWidth: 5,
+                LineType: 1,//0 直线1 弧线
+                ShowAuxIcon: false,//显示节点图标
+                MaterialName: '',
+                //EmissiveColor: Q3D.colourValue(data.Color, 1),
+            }
+            $.extend(defaultOption, option);
+            var areaName = defaultOption.AreaName;
+            var lineName = defaultOption.Name
+            var node = map.getSceneNode(areaName, lineName)
+            if (node) {
+                map.destroySceneNode(areaName, lineName)
+            }
+
+            var linenode1 = map.getArea(areaName).createTopNode(19, lineName);//19 SNODE_Line，,线元素
+            linenode1.setAlias(defaultOption.LineAlias);
+            linenode = linenode1.asLine();
+            var line = linenode.addLine();
+
+            //起点
+            var fromPosV3 = Q3D.vector3(fromPos.toGlobalVec3d().toLocalPos(areaName)).get();
+            //中间点
+            var middlePos = this.radianPoint(fromPos, toPos, radianHeight);//计算中心弧度点位
+            var middlePosV3 = Q3D.vector3(middlePos.toGlobalVec3d().toLocalPos(areaName)).get();
+            //终点
+            var toPosV3 = Q3D.vector3(toPos.toGlobalVec3d().toLocalPos(areaName)).get();
+
+            line.addPoint(fromPosV3);
+            line.addPoint(middlePosV3);
+            line.addPoint(toPosV3);
+
+            line.setLineWidth(defaultOption.LineWidth);
+            line.setLineType(defaultOption.LineType);//0 直线1 弧线
+            linenode.showAuxIcon(defaultOption.ShowAuxIcon);//显示点位图标
+            line.setWrapLen(0.0);//设置这个的平铺长度
+            linenode.enableAuxIcon();//设置是否开启显示编辑状态图标
+            linenode.setLineStyle(1);
+
+            var material = mapObj._map3d.getResourceManager().registerResource(7, defaultOption.MaterialName).asMaterial();
+            material.createEmpty();
+
+            material.setDiffuseColor(Q3D.colourValue("#ffffff", 1).get());
+            material.setSpecularColor(Q3D.colourValue("#ffffff", 1).get());
+            material.setEmissiveColor(Q3D.colourValue("#000000", 1).get());
+            material.setBlendType(1);
+            material.setLightEnable(0);
+            material.setEmissiveIntensity(5);//设置自发光强度
+            material.setDepthWriteEnable(0);//设置是否允许写深度1 - 是； 0 - 否
+            material.setCullMode(1);//设置裁剪模式(默认值2)mode：1 - 双面； 2 - 顺时针剔除；3 - 逆时针剔除
+
+            //getTextureUnit返回QTextureUnit对象
+            //1684629094 DIFFUSE
+            //1936745827 SPECULAR
+            //1852797549 NORMAL
+            //1818847080 LIGHT
+            var textureunit = material.getTextureUnit(1684629094);
+            textureunit.setTexture("Texture/a_renliudongxian.png", 1);
+            textureunit.setLoop(1);
+            textureunit.setTextureFilter(2, 2, 2);
+            textureunit.setTextureAddressingMode(0, 0, 0);
+
+            var v2 = mapObj._map3d.createObject("QMap3DCtl.QVector2");
+            v2.x = -1;
+            v2.y = 0;
+            textureunit.setRoll(v2);
+            //	textureunit.setScale(v2);
+            //textureunit.setTextureFilter(0,0,0);
+            linenode.setMaterial("Material/renliudongxian.mtr");
+        },
+
+        //弧度点位 posstart起点;posend终点;height弧度的高度(起点的高度+height)（经纬度坐标）
+        radianPoint: function (posstart, posend, height) {
+            var lng_start = parseFloat(posstart.split(",")[0])
+            var lat_start = parseFloat(posstart.split(",")[1])
+            var hgt_start = parseFloat(posstart.split(",")[2])
+
+            var lng_end = parseFloat(posend.split(",")[0])
+            var lat_end = parseFloat(posend.split(",")[1])
+            var hgt_end = parseFloat(posend.split(",")[2])
+            var pos = (lng_start + lng_end) / 2 + "," + (lat_start + lat_end) / 2 + "," + (hgt_start + height);
+            return pos;
+        },
+
         CloseHtmlwidget: function (dialogname) {
             //var htmlSys = map[0].getExternUIWidgetSys();
             var htmlSys = mapObj._map3d.getExternUIWidgetSys();
@@ -1274,7 +1363,7 @@
 
                             $(defaultOpt.aniDom).css("opacity", "0.1");
                             $(defaultOpt.aniDom).offset({ left: leftPx });
-                            $(defaultOpt.aniDom).animate({ left: px, opacity: "1" }, 800, function () {  });
+                            $(defaultOpt.aniDom).animate({ left: px, opacity: "1" }, 800, function () { });
                             callback();
                         })
 
@@ -1299,7 +1388,7 @@
 
                         $(defaultOpt.aniDom).css("opacity", "0.1");
                         $(defaultOpt.aniDom).offset({ left: leftPx });
-                        $(defaultOpt.aniDom).animate({ left: px, opacity: "1" }, 1600, function () {  });
+                        $(defaultOpt.aniDom).animate({ left: px, opacity: "1" }, 1600, function () { });
 
                         callback();
                     })
@@ -1371,7 +1460,17 @@
                     + seperator2 + date.getSeconds();
             return currentdate;
         },
-
+        //获取N天前的时间 date:时间，daynum：daynum天前
+        getDaysBefore: function (date, daynum) {
+            var date = date || new Date(),
+                timestamp, newDate;
+            if (!(date instanceof Date)) {
+                date = new Date(date.replace(/-/g, '/'));
+            }
+            timestamp = date.getTime();
+            newDate = new Date(timestamp - daynum * 24 * 3600 * 1000);
+            return [[newDate.getFullYear(), newDate.getMonth() + 1, newDate.getDate()].join('-'), [newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()].join(':')].join(' ');
+        },
         //数字动画
         numberAnimation: function (dom, startNumber, endNumber, second) {
             if (dom.length > 0) {
@@ -1421,7 +1520,7 @@
             else
                 $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideDown();
         },
-         //数值区间取值
+        //数值区间取值
         random: function (lower, upper) {
             return Math.floor(Math.random() * (upper - lower)) + lower;
         },

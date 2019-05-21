@@ -1,4 +1,4 @@
-﻿define(["config", "common", "e_EchartData"], function (con, common, e_EchartData) {
+﻿define(["config", "common", "e_EchartData","e_LayerMenuData"], function (con, common, e_EchartData,e_LayerMenuData) {
     return {
         /*************************产业-园区Echart********************************/
         //产业竞争力
@@ -181,6 +181,33 @@
                 require("e_Echart").gccrcbhqsData = e_EchartData.gccrcbhqsData.data;
                 callback();
             }
+        },
+        //象限图谱数据
+        getAtlasData: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    //url: con.InterfaceUrl + 'v1/industrial/dclineCompanyInfo',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        //require("e_Echart").gccrcbhqsData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        //require("e_Echart").gccrcbhqsData = e_EchartData.gccrcbhqsData.data;
+                        
+                        callback(e_LayerMenuData.AtlasPOI.Data);
+                    }
+                });
+            }
+            else {//执行本地
+                
+                callback(e_LayerMenuData.AtlasPOI.Data);
+            }
+        },
         },
         getfkldData: function (callback) {
             if (con.IsInterface)//执行接口

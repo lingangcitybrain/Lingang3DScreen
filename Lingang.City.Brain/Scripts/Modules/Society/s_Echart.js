@@ -52,7 +52,7 @@
                         require("s_Echart").bigWrj();
                         break;
                     case "Left_Second_EventIOT2"://社区车辆
-                        require("sl_IOT").bigLoadSocietyCarchart();
+                        require("sl_IOT").bigLoadCarPersonInOutData(require("sl_IOT").carInOutCount, require("sl_IOT").personInOutCount, require("sl_IOT").seriesDataMax);
                         break;
                     case "Right_Second_02"://事件处理成功数
                         sjcgChartClose = false;
@@ -368,9 +368,67 @@
             })
         },
 
+        loadCirclediv: function () {
+            if ($("body").width() == 7680) {
+                $("html").css({ fontSize: "90px" });
+                $('#sqzz-sxt1>.sxt-circlediv').empty();
+                $('#sqzz-sxt2>.sxt-circlediv').empty();
+                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
+                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+
+            } else if ($("body").width() == 11520) {
+                $("html").css({ fontSize: "130px" });
+                $('#sqzz-sxt1>.sxt-circlediv').empty();
+                $('#sqzz-sxt2>.sxt-circlediv').empty();
+                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
+                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
+            }
+        },
+
+        //摄像头--摄像头
+        sxtCamera: function (str, post_data) {
+            //var post_data = { "communityId": "S012"};
+            s_EchartAjax.getSxtCameraData(post_data, function (result) {
+                if (require("s_Echart").sxtCameraData == null) { return false; }
+                var data = require("s_Echart").sxtCameraData;
+                data = data.data;
+
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(0);
+            });
+        },
+
+        //摄像头--车辆
+        sxtCar: function (str, post_data) {
+           // var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
+
+            s_EchartAjax.getSxtCarData(post_data, function (result) {
+                if (require("s_Echart").sxtCarData == null) { return false; }
+                var data = require("s_Echart").sxtCarData;
+                data = data.data;
+
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total - data.illegally);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.illegally);
+            });
+        },
+
+        //摄像头--人员
+        sxtPerson: function () {
+            s_EchartAjax.getSxtPersonData(function (result) {
+                if (require("s_Echart").sxtPersonData == null) { return false; }
+                var data = require("s_Echart").sxtPersonData;
+                data = data;
+            });
+        },
+
         //主责部门
         zzbm: function () {
-
             s_EchartAjax.getSocietyZzbm(function (result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
@@ -427,7 +485,7 @@
        },
 
         //右侧事件信息
-        sjxx: function () {
+       sjxx: function () {
             s_EchartAjax.getSocietySj(function (result) {
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
@@ -439,11 +497,10 @@
                 $('#sj-autoRate').html(data.autoRate);
                 $('#sj-accuracyRate').html(data.accuracyRate);
             })
-        },
+       },
 
         //事件处理成功
-        sjcg: function () {
-
+       sjcg: function () {
             s_EchartAjax.getSocietySjcg(function (result) {
                 clearInterval(window.sjcgTimer);
                 window.sjcgTimer = null;
@@ -462,7 +519,8 @@
                seriesDataMax = Math.max.apply(null, seriesData);
                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
 
-               var sjcgTimerIndex = 0; // 图表成功数成功率循环
+               // 图表成功数成功率循环
+               var sjcgTimerIndex = 0;
                window.sjcgTimer = setInterval(function () {
                    if (sjcgTimerIndex) {
                        oSjcgseriesData = seriesData;
@@ -487,7 +545,7 @@
 
                }, 60000);
 
-
+                //事件处理成功图表加载
                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
                oSjcgseriesData = seriesData;
                sjcgSeriesDataMax = seriesDataMax;
@@ -516,9 +574,6 @@
                                color: '#e4e4e4',
                                fontSize: 16,
                            },
-                           data: [
-
-                           ]
                        },
                        grid: {
                            top: '10%',
@@ -601,12 +656,12 @@
            })
 
        },
-        bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
+       bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
 
             if (sjcgChartClose) {
                 return false;
             } else {
-                $("#bigechartHead").html("事件处理成功数");
+                $("#bigechartHead").html("事件处理成功数/成功率（%）");
                 option = {
                     tooltip: {
                         trigger: 'axis',
