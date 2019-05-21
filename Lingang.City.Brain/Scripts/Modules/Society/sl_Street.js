@@ -118,7 +118,9 @@
                 htmlDom: "#left_second_02",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet2.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+
+            });
            // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
         },
         //加载第二列的div3
@@ -133,7 +135,18 @@
                 require("sl_IOT").Scrolldiv();
             });
         },
+        //街面无人机
+        loadJmDroneData:function(){
+            s_EchartAjax.getJmDroneData(function (result) {
+                if (require("s_Echart").jmDroneData == null) { return false; }
+                var data = require("s_Echart").jmDroneData;
+                $("#jm_drone1").html(data.flightNumber);
+                $("#jm_drone2").html(data.flightCount);
+                $("#jm_drone3").html(data.flightTime);
+            })
+        },
 
+        //街面巡查员
         loadJmXcyData:function(){
             s_EchartAjax.getJmXcyData(function (result) {
                 if (require("s_Echart").jmXcyData == null) { return false; }
@@ -156,9 +169,6 @@
 
             });
         },
-
-
-
 
         Revert: function () {
             this.clearStreetPOI();

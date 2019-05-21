@@ -189,7 +189,8 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").zhnh()
+                // yyyyMMddHHmmss   这里 20190501120000 表示时间 2019-05-01 12:00:00 
+                require("g_Echart").zhnh({ datetime: "20190501120000" })
             });
         },
 

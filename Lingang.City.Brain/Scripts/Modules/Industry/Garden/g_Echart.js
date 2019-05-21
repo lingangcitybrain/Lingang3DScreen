@@ -1015,9 +1015,9 @@
             require("g_Echart").mybigChart.setOption(zhwyOption);
         },
         //智慧能耗
-        zhnh: function () {
+        zhnh: function (post_data) {
 
-            g_EchartAjax.getZhnh(function (result) {
+            g_EchartAjax.getZhnh(post_data, function (result) {
                 if (require("g_Echart").zhnhData == null) { return false; }
                 var data = require("g_Echart").zhnhData;
 
@@ -1293,7 +1293,7 @@
                         }
                     }
 
-                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+                    //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                     //加载分页控件内容 
                     if (pageindex == 0) {
                         var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);     // Create pagination element with options from form
