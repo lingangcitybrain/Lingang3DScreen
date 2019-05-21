@@ -179,6 +179,7 @@
         /*************楼宇-start*************/
        
         loadBuilding: function () {
+            require('mainMenu').dayNightMenuSelect(1);
             require("reset").ClearDivHtmlOnLeft();
             require("reset").ClearDivHtmlOnCenter();
             require("gl_GardenBuilding").loadPOI();
