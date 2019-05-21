@@ -198,8 +198,7 @@
 
 
         //事件统计数据
-        sjtjData: {
-            "data": [
+        sjtjData: [
                 {
                     "id": 1,
                     "category": "一卡通",
@@ -441,6 +440,5 @@
 	                "status": "已完成"
 	            }
             ]
-        },
     }
 })

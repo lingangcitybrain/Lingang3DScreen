@@ -1,4 +1,4 @@
-﻿define(["config","g_EchartData"], function (con,g_EchartData) {
+﻿define(["config", "g_EchartData"], function (con, g_EchartData) {
     return {
        
         //中间大数字
@@ -55,7 +55,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'ywtb/dsparkdata/DsparkDetial',
+                    url: con.InterfaceUrl_garden + 'ywtb/dsparkdata/DsparkDetial',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -126,7 +126,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/repair/lastest',
+                    url: con.InterfaceUrl_parking + 'v1/repair/lastest',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -152,7 +152,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/inspection/lastest',
+                    url: con.InterfaceUrl_parking + 'v1/inspection/lastest',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -178,7 +178,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/power/lastest',
+                    url: con.InterfaceUrl_parking + 'v1/power/lastest',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -203,7 +203,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'ywtb/dsparkevent/eventList',
+                    url: con.InterfaceUrl_garden + 'ywtb/dsparkevent/eventList',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {

@@ -1263,15 +1263,14 @@
         },
         //事件统计
         sjtj: function (pageindex) {
-            var items_per_page = 15;                            //每页显示的条数
-            var edge_entries = 2;                               //后面显示的页码数
+            var items_per_page = 15;       //每页显示的条数
+            var edge_entries = 2;          //后面显示的页码数
             var display_entries = 3;
             g_EchartAjax.getSjtj(function (data) {
                 if (require("g_Echart").sjtjData == null) { return false; }
                 var data = require("g_Echart").sjtjData;
-                data = data.data;
 
-                $('#ul-parkingEnvent').empty()
+                $('#ul-parkingEnvent').empty();
 
                 var maxLength = pageindex * items_per_page + items_per_page;
                 var minLength = pageindex * items_per_page;

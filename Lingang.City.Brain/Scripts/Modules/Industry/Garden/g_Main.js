@@ -193,7 +193,6 @@
             }
             com.UIControlAni(option, function () {
                 require("g_Echart").sjtj(0);
-                return null;
             });
         },
         // 关闭其他的
