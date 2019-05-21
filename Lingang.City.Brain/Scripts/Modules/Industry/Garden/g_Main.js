@@ -121,7 +121,7 @@
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_01.html'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").zsFunnel()
+                require("g_Echart").zsFunnel();
             });
         },
         //加载第二个div
@@ -166,7 +166,7 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").zhwy()
+                require("g_Echart").zhwyRepair();
             });
         },
         //加载第二个div
@@ -192,8 +192,7 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").sjtj();
-                require("gl_Event").loadEvnetList(0);
+                require("g_Echart").sjtj(0);
                 return null;
             });
         },

@@ -402,7 +402,6 @@
             }
             com.UIControlAni(option, function () {
                 require("s_Echart").DroneWeather()
-                //return null
             });
         },
         loadLeftSecond3: function () {

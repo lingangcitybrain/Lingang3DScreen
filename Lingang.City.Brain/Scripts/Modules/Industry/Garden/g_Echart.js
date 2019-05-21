@@ -1,4 +1,4 @@
-﻿  define(["config", "common", "g_EchartAjax"], function (con, com, g_EchartAjax) {
+﻿define(["config", "common", "g_EchartAjax", "pagination", "nicescroll"], function (con, com, g_EchartAjax, pagination, nicescroll) {
     var gauge_value = 0;
     /****************************园区****************************/
     return {
@@ -64,7 +64,7 @@
                     dataToArr[dataToArrIndex] = data[key];
                 }
 
-                //各产业的百分比小-----总和为 1；
+                //各产业的百分比-----总和为 1
                 var dataArr = [];
                 for (var i = 0; i < dataToArr.length; i++) {
                     dataArr.push(dataToArr[i]["招商雷达"] / 100);
@@ -197,17 +197,16 @@
                                                       + '<dl class="zsld-dl"  id="zsld-zytzjg">'
                                                         + '<dt class="">产业主要投资机构</dt>'
                                                       + '</dl>'
-                                                    + '</div>';
+                                                  + '</div>';
 
                                         $("#zsld").html(str);
 
                                         $("#zsld>.zsld-result").html(JSON.parse(dataToArr[index]["产业数据"]).industry);
                                         $("#zsld>.zsld-ul").append(
                                             '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div data-text="' +
-                                                 industryNumber[index]
-                                            + '"></div></div></li>'
+                                                 industryNumber[index]+ '"></div></div></li>'
                                         );
-
+                                        //zsld-bar 宽度
                                         $(".zsld-bar>div").css({ width: industryNumberPercent[index] + '%' });
 
                                         //产业明星企业
@@ -277,159 +276,14 @@
         },
         
         //招商漏斗
-        zsFunnel: function ()
-        {
-            if ($("#qyzhpfldt-chart").length <= 0) { return false; }
-            var qyzhpfldtChart = document.getElementById('qyzhpfldt-chart');
-            var myChartqyzhpfldt = echarts.init(qyzhpfldtChart);
-
-            qyzhpfldtOption = {
-                title: {
-
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    show: false
-                },
-                radar: [
-                    {
-                        indicator: [
-                            { text: '产业聚集性', max: 100 },
-                            { text: '产业前瞻性', max: 100 },
-                            { text: '产业均衡性', max: 100 },
-                            { text: '技术领先性', max: 100 },
-                            { text: '规模竞争力', max: 100 }
-                        ],
-                        name: {
-                            formatter: '{value}',
-                            textStyle: {
-                                color: '#0ff',
-                                fontSize: 20
-                            }
-                        },
-                        radius: 80,
-                        center: ['25%', '64%'],
-                        axisLine: {
-                            lineStyle: {
-                                width: 2,
-                            },
-                        },
-                        splitLine: {
-                            lineStyle: {
-                                width: 2,
-                            },
-                        },
-                        splitArea: {
-                            areaStyle: {
-                                color: "transparent",
-                            },
-                        },
-                    },
-                    {
-                        indicator: [
-                            { text: '污染防治', max: 100 },
-                            { text: '污染控制', max: 100 },
-                            { text: '环境管理', max: 100 },
-                            { text: '生态保护', max: 100 }
-                        ],
-                        name: {
-                            formatter: '{value}',
-                            textStyle: {
-                                color: '#0ff',
-                                fontSize: 20
-                            }
-                        },
-                        radius: 80,
-                        center: ['75%', '64%'],
-                        axisLine: {
-                            lineStyle: {
-                                width: 2,
-                            },
-                        },
-                        splitLine: {
-                            lineStyle: {
-                                width: 2,
-                            },
-                        },
-                        splitArea: {
-                            areaStyle: {
-                                color: "transparent",
-                            },
-                        },
-                    }
-
-                ],
-                series: [
-                    {
-                        type: 'radar',
-                        tooltip: {
-                            trigger: 'item'
-                        },
-                        itemStyle: {
-                            normal: {
-                                areaStyle: {
-                                    type: 'default'
-                                }
-                            }
-                        },
-                        data: [
-                            {
-                                value: [70, 65, 80, 75, 78],
-                                areaStyle: {
-                                    normal: {
-                                        color: 'rgba(235,182,0,.4)'
-                                    }
-                                },
-                                lineStyle: {
-                                    normal: {
-                                        width: 4,
-                                        color: "rgba(235,182,0,1)"
-                                    }
-                                }
-                            }
-                        ],
-                    },
-                    {
-                        type: 'radar',
-                        radarIndex: 1,
-                        tooltip: {
-                            trigger: 'item'
-                        },
-                        itemStyle: {
-                            normal: {
-                                areaStyle: {
-                                    type: 'default'
-                                }
-                            }
-                        },
-                        data: [
-                            {
-                                value: [60, 73, 85, 40],
-                                areaStyle: {
-                                    normal: {
-                                        color: 'rgba(26,234,187,.4)'
-                                    }
-                                },
-                                lineStyle: {
-                                    normal: {
-                                        width: 4,
-                                        color: "rgba(26,234,187,1)"
-                                    }
-                                }
-
-                            }
-                        ]
-                    },
-
-
-                ]
-            };
-            myChartqyzhpfldt.setOption(qyzhpfldtOption);
-
-
-
+        zsFunnel: function (){
+            g_EchartAjax.getZsFunnel(function (result) {
+                if (require("g_Echart").zsFunnelData == null) { return false; }
+                var data = require("g_Echart").zsFunnelData;
+                data = data[0];
+                $("#zsfunnel").append('<div>接洽数<span class=\"testAerial\">' + data.totalMerchantsProjects + '</span></div><div>成功数<span class=\"testAerial\">' +
+                             data.successedMerchantsProjects + '</span></div>');
+            });
         },
 
         //停车服务
@@ -905,9 +759,32 @@
             require("g_Echart").mybigChart = echarts.init(document.getElementById('Gbig-chart'));
             require("g_Echart").mybigChart.setOption(wrjsjbcOption);
         },
+
         //智慧物业
-        zhwy:function()
-        {
+        zhwyRepair: function () {
+            g_EchartAjax.getZhwyRepair(function (result) {
+                if (require("g_Echart").zhwyRepairData == null) { return false; }
+                var data = require("g_Echart").zhwyRepairData;
+                $("#zhwy-repair").append(
+                    '<li class=""><span>总数：</span><em class="testAerial">' + Number(data.todayrepaircount) + Number(data.todaywaitrepaircount) + '</em></li>'
+                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.todayrepaircount + '</em></li>'
+                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.todaywaitrepaircount + '</em></li>'
+                )
+            });
+
+            g_EchartAjax.getZhwInspect(function (result) {
+                if (require("g_Echart").zhwyInspectData == null) { return false; }
+                var data = require("g_Echart").zhwyInspectData;
+                $("#zhwy-inspect").append(
+                    '<li class=""><span>总数：</span><em class="testAerial">' + Number(data.todaychecked) + Number(data.todayuncheck) + '</em></li>'
+                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.todaychecked + '</em></li>'
+                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.todayuncheck + '</em></li>'
+                );
+                $("#zhwy-weekaveragerate").append('<span class="testAerial">' + data.weekaveragerate + '%</span>')
+            });
+
+
+            //图表
             if ($("#zhwy-chart").length <= 0) { return false; }
             var zhwyChart = document.getElementById('zhwy-chart');
             var zhwydata = [];
@@ -1138,7 +1015,29 @@
             require("g_Echart").mybigChart.setOption(zhwyOption);
         },
         //智慧能耗
-        zhnh:function(){
+        zhnh: function () {
+
+            g_EchartAjax.getZhnh(function (result) {
+                if (require("g_Echart").zhnhData == null) { return false; }
+                var data = require("g_Echart").zhnhData;
+
+                //单位面积能耗排行
+                var unitEnergyRank = JSON.parse(data.unitenergyrank);
+                for (var i = 0; i < unitEnergyRank.length; i++) {
+                    $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy + '</span></li>');
+                }
+                // 同比和环比
+                // $("#zhnh-common").append('<span class="testAerial colorgreen">'+ +'<em></em></span>')
+
+                //zhnh-dailyenergy
+                $("#zhnh-dailyenergy>span").html(data.dailyenergy);
+                $("#zhnh-monthenergy>span").html(data.monthenergy);
+                $("#zhnh-yearenergy>span").html(data.yearenergy);
+
+            });
+
+
+
             if ($("#zhnh-chart").length <= 0) { return false; }
             var zhnhChart = document.getElementById('zhnh-chart');
             var zhnhdata = [];
@@ -1363,22 +1262,66 @@
             require("g_Echart").mybigChart.setOption(zhnhOption);
         },
         //事件统计
-        sjtj: function () {
-            //g_EchartAjax.sjtj(function (result) {
-            //    var data = rerquire("g_Echart").sjtjData
-            //    var html = '';
-            //    for (var i = 0; i < data.length; i++) {
-            //        html += '<li class="cy-ly-rr1-li active">';
-            //        html += '<div class="cy-ly-rr1-lidiv clearfix active">';
-            //        html += '<span class="cy-ly-rr1-num">00'+i+'</span>';
-            //        html += '<span class="cy-ly-rr1-name">'+data[i].eventName+'+<em>'+data[i].solver+'</em></span>';
-            //        html += '<span class="cy-ly-rr1-date">2019/02/01</span>';
-            //        html += '</div>';
-            //        html += '<div class="cy-ly-rr1-state">' + data[i].status + '</div>';
-            //        html += '</li>';
-            //    }
-            //    $('.cy-ly-rr1-ul').html(html)
-            //})
+        sjtj: function (pageindex) {
+            var items_per_page = 15;                            //每页显示的条数
+            var edge_entries = 2;                               //后面显示的页码数
+            var display_entries = 3;
+            g_EchartAjax.getSjtj(function (data) {
+                if (require("g_Echart").sjtjData == null) { return false; }
+                var data = require("g_Echart").sjtjData;
+                data = data.data;
+
+                $('#ul-parkingEnvent').empty()
+
+                var maxLength = pageindex * items_per_page + items_per_page;
+                var minLength = pageindex * items_per_page;
+                //var cnt_processed = 0, cnt_Untreated = 0,cnt_inprocess=0;
+                if (data.length > 0) {
+                    for (var i = minLength; i < data.length; i++) {
+                        if (maxLength < i + 1) {
+                            break;
+                        } else {
+                            $('#ul-parkingEnvent').append(
+                                 '<li class="cy-ly-rr1-li">'
+                                   + '<div class="cy-ly-rr1-lidiv clearfix active">'
+                                       + '<span class="cy-ly-rr1-num">' + (i+1) + '</span>'
+                                       + '<span class="cy-ly-rr1-name">' + data[i].eventName + '</span>'
+                                   + '</div>'
+                                   + '<div class="cy-ly-rr1-state">' + data[i].status + '</div>'
+                                   + '<span class="cy-ly-rr1-date">' + myTime(data[i].eventTime) + '</span>'
+                               + '</li>'
+                            );
+                        }
+                    }
+
+                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+                    //加载分页控件内容 
+                    if (pageindex == 0) {
+                        var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);     // Create pagination element with options from form
+                        $("#pagination-parkingEnvent").pagination(data.length, optInit);
+                    }
+                }          
+            })
+
+
+            function myTime(date) {
+                var arr = date.split("T");
+                var d = arr[0];
+                var darr = d.split('-');
+
+                var t = arr[1];
+                var tarr = t.split('.000');
+                var marr = tarr[0].split(':');
+
+                var dd = parseInt(darr[0]) + "/" + parseInt(darr[1]) + "/" + parseInt(darr[2]) + " " + addZero(parseInt(marr[0])) + ":" + addZero(parseInt(marr[1])) + ":" + addZero(parseInt(marr[2]));
+                return dd;
+            }
+
+            // 数字补0操作
+            function addZero(num) {
+                return num < 10 ? '0' + num : num;
+            }
+
         },
         Revert: function () {
             if (require("g_Echart").myChartleida != null && require("g_Echart").myChartleida != "" && require("g_Echart").myChartleida != undefined) {
