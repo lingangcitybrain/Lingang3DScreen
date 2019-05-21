@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop","g_Echart", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop,g_Echart, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap) {
+﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop","g_Echart", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap","b_BuildingFloor"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop,g_Echart, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap,b_BuildingFloor) {
     /****************************园区****************************/
     return {
         layerNO: null,
@@ -61,7 +61,7 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadBuilding: function () {
-            gl_GardenBuilding.loadBuilding();
+            b_BuildingFloor.loadBuilding();
             this.layerNO = 20;
             var jsondata = {
                 "menu": "3",
