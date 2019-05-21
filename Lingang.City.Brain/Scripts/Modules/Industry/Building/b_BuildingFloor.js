@@ -1,6 +1,12 @@
-﻿define(["config", "common"], function (con, com) {
+﻿define(["config", "common", "e_LayerMenuData", "util", "gl_GardenBuildingAjax"], function (con, com, e_LayerMenuData, util, gl_GardenBuildingAjax) {
     /****************************楼宇****************************/
     return {
+        LayerType: null,//选择楼宇
+        POIData: null,//POI详情数据
+        //LastPOI_Clk: null,//鼠标选中POI
+        //poiListData: new util.HashMap,
+        BuildingListData: new util.HashMap,
+
         buildingID: null,
         changeMaterialModel: [],
         //changeAlphaNode:[],
@@ -11,6 +17,7 @@
         Revert: function () {
             this.resetBuildingMaterial();
             this.hideBuilding(0);//显示所有楼栋
+            this.clearPOI();
         },
          //加载楼栋信息
         loadBuidingDetail: function (nodename) {
@@ -24,7 +31,7 @@
                 //获取建筑信息
                 var id = nodename.split("_")[1];
                 require("b_BuildingFloor").buildingID = id;
-                var data = require("gl_GardenBuilding").BuildingListData.get(id);
+                var data = require("b_BuildingFloor").BuildingListData.get(id);
                 if (data) {
                     $("#buildingName_detail").html(data.buildingName);
                     $("#").html();
@@ -57,7 +64,7 @@
             })
             $("#center_01").html("");
             require("b_BuildingFloor").hideBuilding(0);//显示所有楼栋
-            require("gl_GardenBuilding").loadPOI();//显示所有楼栋POI
+            require("b_BuildingFloor").loadPOI();//显示所有楼栋POI
             require("b_BuildingFloor").resetBuildingMaterial();//还原楼宇材质
         },
         openFloor: function (floor) {
@@ -74,19 +81,15 @@
                         require("b_BuildingFloor").HideLayerArr.push(layer);
                     }
                 }
-                //var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + id + "#rooftop");//固定飞到每栋楼的指定节点位置
-                //if (node) {
-                //    //飞行位置暂定
-                //    var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3(); 1
-                //    Q3D.globalCamera().flyToNode(node, viewPos, 1, function () { })
-                //}
-
-                var lg = Q3D.layerGroup();
-                var nodeArr = lg.getLayerAllNodeNames(data[parseInt(floor)]);
-                var node = map.getSceneNode(nodeArr[0]);
-                if (node) {
-                    var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3(); 1
-                    Q3D.globalCamera().flyToNode(node, viewPos, 1, function () { })
+                var areaName = con.AreaName;
+                var POIName = "POIIndustryGBuilding_" + id;
+                var poiNode = map.getSceneNode(areaName, POIName);
+                if (poiNode) {
+                    var a = poiNode.getPosition();
+                    //var pos = (a.x + 2) + "," + (a.y + 20) + "," + (a.z + 10);
+                    var pos = ((a.x + 45) + "," + (a.y - a.y / parseInt(floor) + 40) + "," + (a.z - 15)).toVector3().toGlobalPos(areaName);
+                    var viewPos = " -96.42108917236328,38.283626556396484,100.29450225830078".toVector3();
+                    Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
                 }
 
             }
@@ -104,7 +107,7 @@
             require("b_BuildingFloor").loadBuidingDetail(nodename);
             var id = nodename.split("_")[1];
             require("b_BuildingFloor").hideBuilding(id);//隐藏楼栋
-            require("gl_GardenBuilding").clearPOI(nodename);//隐藏楼栋POI
+            require("b_BuildingFloor").clearPOI(nodename);//隐藏楼栋POI
             /**********************测试半透明************************/
             var lg = Q3D.layerGroup();
             var layerArr = require("e_LayerMenuData").FloorLayerData[id].layerName;
@@ -205,9 +208,140 @@
                 var node = map.getSceneNode(areaName, require("b_BuildingFloor").POINodeClk);
                 if (node) {
                     node.asPOI().setIcon(require("b_BuildingFloor").buildingPOI);
+                    //node.setVisible(0);
                 }
-                require("b_BuildingFloor").POINodeClk = "";
+                //require("b_BuildingFloor").POINodeClk = "";
             }
         },
+
+        /*************楼宇-start*************/
+
+        loadBuilding: function () {
+            require('mainMenu').dayNightMenuSelect(1);
+            require("reset").ClearDivHtmlOnLeft();
+            require("reset").ClearDivHtmlOnCenter();
+            require("b_BuildingFloor").loadPOI();
+            require("b_BuildingFloor").showGardenShowWindow();
+            //飞行到园区视角
+            com.LayerFlyto(311, function () {
+
+            })
+            //存储楼宇信息到本地
+            gl_GardenBuildingAjax.getBuildingListData(function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    require("b_BuildingFloor").BuildingListData.put(result[i].id, result[i]);
+                }
+            })
+        },
+        //加载楼宇POI
+        loadPOI: function () {
+            this.LayerType = require("g_Main").LayerCatalog.Building;
+
+            require("b_BuildingFloor").POIData = e_LayerMenuData.GardenPOI.Data;
+
+
+            var areaName = con.AreaName;
+            var icon = require("b_BuildingFloor").LayerType.UnChooseIcon;
+            var pois = [];
+            //for (var i = 0; i < require("gl_GardenBuilding").POIData.length; i++) {
+            //$.each(require("gl_GardenBuilding").POIData,function)
+            for (var i in require("b_BuildingFloor").POIData) {
+                var row = require("b_BuildingFloor").POIData[i];
+                //require("gl_GardenBuilding").poiListData.put(row.id, row);
+
+                var poiName = "POIIndustryG" + require("b_BuildingFloor").LayerType.Name + "_" + row.id;//POIIOT_01
+
+                var iconSize = Q3D.vector2(41, 45);
+                //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
+                //var pos = Coordinate + ",0";
+                var pos = row.lng + "," + row.lat + ",21";
+                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+
+                var poi = { POIName: poiName, Position: position, Text: row.name, Icon: icon, IconSize: iconSize, FontColor: "#00a600" };
+                var node = map.getSceneNode(areaName + "/" + poiName);
+                if (node) {
+                    node.setVisible(1);//显示当前父节点
+                } else {
+                    pois.push(poi);
+                }
+            }
+            com.InitPois(areaName, pois);
+        },
+        //隐藏POI
+        clearPOI: function (nodename) {
+            var areaName = con.AreaName;
+            if (nodename == undefined) {//type==undefined表示全部还原
+                if (this.POINodeClk && this.POINodeClk != "") {
+                    var lastNode = map.getSceneNode(areaName, this.POINodeClk);
+                    if (lastNode) {
+                        map.destroySceneNode(areaName, this.POINodeClk);
+                        //lastNode.asPOI().setIcon(icon);
+                        //lastNode.setVisible(0);
+                    }
+                }
+            //    this.POINodeClk = "";
+            }
+            var data = this.POIData;
+            //设置POI隐藏
+            if (data != null) {
+                for (var i in data) {
+                    var name = this.LayerType.Name;
+
+                    var poiname = "POIIndustryG" + name + "_" + data[i].id;
+                    if (poiname != nodename) {  //nodename有值表示从楼宇详情来，故不隐藏当前点击的POI
+                        var node = map.getSceneNode(areaName + "/" + poiname);
+                        if (node) {
+                            map.destroySceneNode(areaName, poiname);
+                        }
+                    }
+                }
+                this.LayerType = null;
+                this.POIData = null;
+            }
+        },
+
+        //加载园区展示窗口
+        showGardenShowWindow: function () {
+            require("b_BuildingFloor").CompanyStatisticWindow();
+        },
+        //入驻企业统计
+        CompanyStatisticWindow: function () {
+            var option = {
+                aniDom: "#left01_01",
+                htmlDom: "#left_first_01",
+                url: con.HtmlUrl + 'Industry/Garden/CompanyStatistic.html'
+            }
+            com.UIControlAni(option, function () {
+                require("b_BuildingFloor").loadCompanyInfo();
+            });
+        },
+        //加载企业信息 
+        loadCompanyInfo: function () {
+            gl_GardenBuildingAjax.getCompanyStatisticsData(function (result) {
+                var data = result[0];
+                $("#companyTotal").html(data.successedMerchantsProjects);
+                $("#totalOutputValue").html(data.outputValue);
+                $("#totalPerson").html(data.servicesCount);
+            })
+            require("b_BuildingFloor").loadCompanyList(0);
+        },
+        loadCompanyList: function (pageIndex) {
+            gl_GardenBuildingAjax.getCompanyData(function (result) {
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    html += ' <li class="cy-ly-rr1-li ">' +
+                    '<div class="cy-ly-rr1-lidiv clearfix ">' +
+                        '<span class="cy-ly-rr1-num">00' + (i + 1) + '</span>' +
+                        '<span class="cy-ly-rr1-name">' + result[i].companyName + '</span>' +
+                        '<span class="cy-ly-rr1-date">' + result[i].preYearOutputValue + '万元</span>' +
+                    '</div>' +
+                    //'<div class="cy-ly-rr1-person">新材料产业</div>'+
+                    //'<div class="cy-ly-rr1-state">5620人</div>' +
+                '</li>';
+                    $("#ul-companylist").html(html);
+                }
+            })
+        },
+        /*************楼宇-end*************/
     }
 })

@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_Main", "e_Main", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap"], function (con, com, g_Main, e_Main, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap) {
+﻿define(["config", "common", "g_Main", "e_Main", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap","b_BuildingFloor"], function (con, com, g_Main, e_Main, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap,b_BuildingFloor) {
     /****************************园区****************************/
     return {
         loadMain_e_Main: function () {
@@ -17,7 +17,7 @@
             g_Main.loadMain();
         },
         loadBuilding: function () {
-            gl_GardenBuilding.loadBuilding();
+            b_BuildingFloor.loadBuilding();
         },
         loadStop: function () {
             gl_Stop.loadStop();
