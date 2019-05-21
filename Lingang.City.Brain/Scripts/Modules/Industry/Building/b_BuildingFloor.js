@@ -86,7 +86,7 @@
                 var poiNode = map.getSceneNode(areaName, POIName);
                 if (poiNode) {
                     var a = poiNode.getPosition();
-                    var pos = ((a.x + 90) + "," + (a.y - a.y / parseInt(floor)+40) + "," + (a.z + 25)).toVector3().toGlobalPos(areaName);
+                    var pos = ((a.x + 60) + "," + (a.y - a.y / parseInt(floor)+25) + "," + (a.z + 25)).toVector3().toGlobalPos(areaName);
 
                     var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
                     Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
