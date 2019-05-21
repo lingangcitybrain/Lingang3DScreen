@@ -179,6 +179,7 @@
         /*************楼宇-start*************/
        
         loadBuilding: function () {
+            require('mainMenu').dayNightMenuSelect(1);
             require("reset").ClearDivHtmlOnLeft();
             require("reset").ClearDivHtmlOnCenter();
             require("gl_GardenBuilding").loadPOI();
@@ -229,20 +230,21 @@
             com.InitPois(areaName, pois);
         },
         //隐藏POI
-        clearPOI: function () {
+        clearPOI: function (nodename) {
             var areaName = con.AreaName;
-            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
-                var layername = this.LastPOI_Clk.split('_')[0].replace("POIIndustryG", "");
-                var level = this.LayerType.Level;
-                var icon = this.LayerType.UnChooseIcon;
-                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
-                if (lastNode) {
-                    lastNode.asPOI().setIcon(icon);
-                    //lastNode.setVisible(0);
-                }
-            }
-            this.LastPOI_Clk = "";
-
+            //if (nodename == "undefined") {//type==undefined表示全部还原
+            //    if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+            //        var layername = this.LastPOI_Clk.split('_')[0].replace("POIIndustryG", "");
+            //        var level = this.LayerType.Level;
+            //        var icon = this.LayerType.UnChooseIcon;
+            //        var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
+            //        if (lastNode) {
+            //            lastNode.asPOI().setIcon(icon);
+            //            //lastNode.setVisible(0);
+            //        }
+            //    }
+            //    this.LastPOI_Clk = "";
+            //}
             var data = this.POIData;
             //设置POI隐藏
             if (data != null) {
@@ -250,9 +252,11 @@
                     var name = this.LayerType.Name;
 
                     var poiname = "POIIndustryG" + name + "_" + data[i].id;
-                    var node = map.getSceneNode(areaName + "/" + poiname);
-                    if (node) {
-                        map.destroySceneNode(areaName, poiname);
+                    if (poiname != nodename) {  //nodename有值表示从楼宇详情来，故不隐藏当前点击的POI
+                        var node = map.getSceneNode(areaName + "/" + poiname);
+                        if (node) {
+                            map.destroySceneNode(areaName, poiname);
+                        }
                     }
                 }
                 this.LayerType = null;
@@ -315,7 +319,7 @@
                 }
             })
         },
-        /*************楼宇-start*************/
+        /*************楼宇-end*************/
 
         Revert: function () {
             this.clearGardenPOI();

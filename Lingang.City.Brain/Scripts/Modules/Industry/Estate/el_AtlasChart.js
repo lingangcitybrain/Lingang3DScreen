@@ -1,4 +1,4 @@
-﻿define(["config", "common", "e_LayerMenuData", "util"], function (con, com, e_LayerMenuData, util) {
+﻿define(["config", "common", "e_LayerMenuData", "util", "e_EchartAjax"], function (con, com, e_LayerMenuData, util, e_EchartAjax) {
     /****************************象限图谱****************************/
     return {
         LayerType: null,//选择象限图谱
@@ -21,41 +21,44 @@
         },
         loadPOI: function () {
             this.LayerType = require("e_Main").LayerCatalog.Atlas;
-            this.POIData = e_LayerMenuData.AtlasPOI.Data;
-            var areaName = con.AreaName;
-            var pois = [];
-            for (var i = 0; i < require("el_AtlasChart").POIData.length; i++) {
-                var row = require("el_AtlasChart").POIData[i];
-                var icon = require("el_AtlasChart").LayerType.List[row.type].UnChooseIcon;
-                var poiName = "POIIndustry" + require("el_AtlasChart").LayerType.List[row.type].Name + "_" + row.id;//POIIOT_01
-                var iconSize = Q3D.vector2(40, 40);
-                switch (row.iconsize) {
-                    case 1://大
-                        iconSize = Q3D.vector2(40, 40);
-                        break;
-                    case 2://中
-                        iconSize = Q3D.vector2(25, 25);
-                        break;
-                    case 3://小
-                        iconSize = Q3D.vector2(15, 15);
-                        break;
-                    default:  
+            e_EchartAjax.getAtlasData(function (AtlasData) {
+                require("el_AtlasChart").POIData = AtlasData;//e_LayerMenuData.AtlasPOI.Data;
+                var areaName = con.AreaName;
+                var pois = [];
+                console.info(require("el_AtlasChart").POIData);
+                for (var i = 0; i < AtlasData.length; i++) {
+                    var row = AtlasData[i];
+                    var icon = require("el_AtlasChart").LayerType.List[row.type].UnChooseIcon;  
+                    var poiName = "POIIndustry" + require("el_AtlasChart").LayerType.List[row.type].Name + "_" + row.id;//POIIOT_01                  
+                    var iconSize = Q3D.vector2(40, 40);
+                    switch (row.iconsize) {
+                        case 1://大
+                            iconSize = Q3D.vector2(40, 40);
+                            break;
+                        case 2://中
+                            iconSize = Q3D.vector2(25, 25);
+                            break;
+                        case 3://小
+                            iconSize = Q3D.vector2(15, 15);
+                            break;
+                        default:
+                    }
+
+                    var pos = row.lng + "," + row.lat + ",0";
+                    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+
+                    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+
+                    var node = map.getSceneNode(areaName + "/" + poiName);
+                    if (node) {
+                        node.setVisible(1);
+                    } else {
+                        pois.push(poi);
+
+                    }
                 }
-                
-                var pos = row.lng + "," + row.lat + ",0";
-                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-
-                var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize};
-
-                var node = map.getSceneNode(areaName + "/" + poiName);
-                if (node) {
-                    node.setVisible(1);
-                } else {
-                    pois.push(poi);
-
-                }
-            }
-            com.InitPois(areaName, pois);
+                com.InitPois(areaName, pois);
+            })
         },
         //清空POI
         clearPOI: function () {
