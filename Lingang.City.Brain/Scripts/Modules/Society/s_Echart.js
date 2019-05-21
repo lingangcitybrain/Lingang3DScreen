@@ -386,19 +386,22 @@
         },
 
         //摄像头--摄像头
-        sxtCamera: function () {
-            var post_data = "S012";
+        sxtCamera: function (str, post_data) {
+            //var post_data = { "communityId": "S012"};
             s_EchartAjax.getSxtCameraData(post_data, function (result) {
                 if (require("s_Echart").sxtCameraData == null) { return false; }
                 var data = require("s_Echart").sxtCameraData;
-                data = data;
+                data = data.data;
 
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(0);
             });
         },
 
         //摄像头--车辆
-        sxtCar: function (str) {
-            var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
+        sxtCar: function (str, post_data) {
+           // var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
 
             s_EchartAjax.getSxtCarData(post_data, function (result) {
                 if (require("s_Echart").sxtCarData == null) { return false; }
@@ -412,7 +415,7 @@
         },
 
         //摄像头--人员
-        sxtCamera: function () {
+        sxtPerson: function () {
             s_EchartAjax.getSxtPersonData(function (result) {
                 if (require("s_Echart").sxtPersonData == null) { return false; }
                 var data = require("s_Echart").sxtPersonData;

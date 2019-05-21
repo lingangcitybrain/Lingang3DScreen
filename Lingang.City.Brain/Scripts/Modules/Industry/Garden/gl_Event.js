@@ -25,18 +25,17 @@
                     for (var i = minLength; i < data.length; i++) {
                         if (maxLength < i + 1) {
                             break;
-                        } else {                          //前面显示的页码数  
-                           
+                        } else {   //前面显示的页码数  
                             html += '<li class="cy-ly-rr1-li active">'+
-                    '<div class="cy-ly-rr1-lidiv clearfix active">'+
-                        '<span class="cy-ly-rr1-num">'+(i+1)+'</span>'+
-                        '<span class="cy-ly-rr1-name">' + data[i].eventname + '</span>' +
-                        //'<span class="cy-ly-rr1-date">' + myTime(data[i].eventTime) + '</span>' +
-                        //'<span class="cy-ly-rr1-date">' + data[i].eventTime + '</span>' +
-                    '</div>' +
-                    '<div class="cy-ly-rr1-state">' + data[i].status + '</div>' +
-                    '<span class="cy-ly-rr1-date">' + data[i].timestamp + '</span>' +
-                '</li>';
+                                        '<div class="cy-ly-rr1-lidiv clearfix active">'+
+                                            '<span class="cy-ly-rr1-num">'+(i+1)+'</span>'+
+                                            '<span class="cy-ly-rr1-name">' + data[i].eventname + '</span>' +
+                                            //'<span class="cy-ly-rr1-date">' + myTime(data[i].eventTime) + '</span>' +
+                                            //'<span class="cy-ly-rr1-date">' + data[i].eventTime + '</span>' +
+                                        '</div>' +
+                                        '<div class="cy-ly-rr1-state">' + data[i].status + '</div>' +
+                                        '<span class="cy-ly-rr1-date">' + data[i].timestamp + '</span>' +
+                                    '</li>';
                         }
                     }
                     $("#ul-parkingEnvent").html(html);

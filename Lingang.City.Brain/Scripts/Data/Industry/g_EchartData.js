@@ -1,8 +1,7 @@
 ﻿define(["config"], function (con) {
     return {
         /***************************产业-海创园-Echart数据*****************************/
-        //招商漏斗数据
-        zsFunnelData: {},
+
         //招商雷达数据
         zsldData:{
 	        "相关服务产业": {
@@ -60,6 +59,19 @@
 		        "明星企业": "上海耀圣新型墙体材料厂,上海肖奕电器设备厂,上海点创金属制品有限公司"
 	        }
         },
+
+        //招商漏斗数据
+        zsFunnelData: [{
+	        "id": 1,
+	        "investmentValue": 5702.93,
+	        "successedMerchantsProjects": 2764,
+	        "totalMerchantsProjects": 3158,
+	        "updateTime": "2019-03-12T11:13:38.000+0000",
+	        "companyCount": "61",
+	        "tax": 18554.5,
+	        "servicesCount": 310,
+	        "outputValue": 520687.98
+        }],
 
         //停车服务数据
         tcfwData: {
@@ -143,13 +155,50 @@
         },
         //中间大数字数据
         bigNumData: {},
-        //智慧物业数据
-        zhwyData: {},
+
+        //智慧物业维修数据
+        zhwyRepairData: {
+            "appid": "8",
+            "groupid": 1553961520429,
+            "timestamp": 1553961520429,
+            "todayapplycount": "73",
+            "todayholdoncount": "50",
+            "todaywaitrepaircount": "24",
+            "yesterdayreoairdistribution": "[{\"count\":24,\"type\":1},{\"count\":25,\"type\":2},{\"count\":27,\"type\":3},{\"count\":30,\"type\":4}]",
+            "todayrepaircount": "50"
+        },   
+        
+        //智慧物业巡检数据
+        zhwyInspectData: {
+            "appid": "9",
+            "groupid": 1553961520385,
+            "timestamp": 1553961520385,
+            "todayuncheck": "36",
+            "todaychecked": "20",
+            "lastdaycompleterate": "99",
+            "todaycompleterate": "58",
+            "weekaveragerate": "50.35"
+        },
+
         //智慧能耗数据
-        zhnhData: {},
+        zhnhData: {
+            "appid": "11",
+            "groupid": 1553961520273,
+            "timestamp": 1553961520273,
+            "dailyenergy": "340",
+            "monthenergy": "1000",
+            "yearenergy": "10000",
+            "dailyenergytop": "30",
+            "lastdailyenergy": "[{\"energy\":\"10\",\"hour\":\"0\"},{\"energy\":\"10\",\"hour\":\"1\"},{\"energy\":\"10\",\"hour\":\"2\"},{\"energy\":\"10\",\"hour\":\"3\"},{\"energy\":\"10\",\"hour\":\"4\"},{\"energy\":\"15\",\"hour\":\"5\"},{\"energy\":\"15\",\"hour\":\"6\"},{\"energy\":\"15\",\"hour\":\"7\"},{\"energy\":\"15\",\"hour\":\"8\"},{\"energy\":\"15\",\"hour\":\"9\"},{\"energy\":\"20\",\"hour\":\"10\"},{\"energy\":\"30\",\"hour\":\"11\"},{\"energy\":\"20\",\"hour\":\"12\"},{\"energy\":\"20\",\"hour\":\"13\"},{\"energy\":\"15\",\"hour\":\"14\"},{\"energy\":\"15\",\"hour\":\"15\"},{\"energy\":\"15\",\"hour\":\"16\"},{\"energy\":\"15\",\"hour\":\"17\"},{\"energy\":\"15\",\"hour\":\"18\"},{\"energy\":\"10\",\"hour\":\"19\"},{\"energy\":\"10\",\"hour\":\"20\"},{\"energy\":\"10\",\"hour\":\"21\"},{\"energy\":\"10\",\"hour\":\"22\"},{\"energy\":\"10\",\"hour\":\"23\"}]",
+            "lastmonthrank": "[{\"buildingname\":\"A\",\"energy\":\"100\"},{\"buildingname\":\"B\",\"energy\":\"90\"},{\"buildingname\":\"C\",\"energy\":\"80\"}]",
+            "unitenergyrank": "[{\"buildingname\":\"A\",\"energy\":\"100\"},{\"buildingname\":\"B\",\"energy\":\"90\"},{\"buildingname\":\"C\",\"energy\":\"85\"}]",
+            "commonsizeanalysis": "[{\"currentenergy\":\"950\",\"currentmonth\":\"1\",\"lastenergy\":\"900\",\"lastmonth\":\"1\"},{\"currentenergy\":\"990\",\"currentmonth\":\"2\",\"lastenergy\":\"880\",\"lastmonth\":\"2\"},{\"currentenergy\":\"1000\",\"currentmonth\":\"3\",\"lastenergy\":\"800\",\"lastmonth\":\"3\"}]",
+            "chainratioanalysis": "[{\"energy\":\"950\",\"month\":\"1\"},{\"energy\":\"990\",\"month\":\"2\"},{\"energy\":\"1000\",\"month\":\"3\"}]"
+        },
+
+
         //事件统计数据
-        sjtjData: {
-            "data": [
+        sjtjData: [
                 {
                     "id": 1,
                     "category": "一卡通",
@@ -391,6 +440,5 @@
 	                "status": "已完成"
 	            }
             ]
-        },
     }
 })
