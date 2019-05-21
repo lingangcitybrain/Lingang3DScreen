@@ -181,6 +181,31 @@
                 require("e_Echart").gccrcbhqsData = e_EchartData.gccrcbhqsData.data;
                 callback();
             }
-        }
+        },
+        getfkldData: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: 'http://47.101.181.131:8081/v1/risk/fkldjyfx',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("e_Echart").fkldData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        console.log("数据传输错误");
+                        callback(data);
+                        //require("e_Echart").fkldData = e_EchartData.fkldData.data;
+                    }
+                });
+            }
+            else {//执行本地
+                console.log("数据传输错误")
+                callback(data);
+            }
+        },
+
     }
 });

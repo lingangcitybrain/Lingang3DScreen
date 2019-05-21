@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu) {
+﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu","s_Main"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu,s_Main) {
 
     var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
     var oSjcgseriesData = []; //事件处理成功数据
@@ -45,6 +45,9 @@
                 sjcgChartClose = true;
 
                 switch (divname) {
+                    case "Left_First_02"://无人机视频
+                        require("s_Echart").wrjsp();
+                        break;
                     case "Left_First_03"://无人机
                         require("s_Echart").bigWrj();
                         break;
@@ -63,7 +66,6 @@
                         break;
                     default:
                 }
-                
             })
         },
         //关闭大的图表
@@ -74,8 +76,6 @@
             sjcgChartClose = true;
             $("#center_03").html("");           
         },
-
-
 
 
         //加载头部日期时间  
@@ -133,7 +133,13 @@
             $('.twocol-right').addClass('yin').stop().animate({ opacity: '1' }, 2000);
             //$('.pjr').addClass('yin').stop().animate({ opacity: '1' }, 2000);
         },
-
+        //无人机视频
+        wrjsp: function () {
+            console.log("asdfas")
+            $("#bigechartHead").empty();
+            require("s_Main").loadCenter_Video();
+            
+        },
         num: function () {
             require(['countup'], function () {
                 $('.counter').countUp({ 
@@ -329,7 +335,6 @@
                 //console.info(data);
                 //console.info(data.data.sensorNumList);
                 data = data.data.sensorNumList;
-
                 
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
@@ -360,7 +365,6 @@
                 if (data[4].alarmSensorCount) {
                     $('#cgq-znjg').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[4].alarmSensorCount)
                 }
-
             })
         },
 

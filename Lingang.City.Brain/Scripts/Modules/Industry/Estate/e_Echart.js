@@ -18,6 +18,7 @@
         myChartgccrc: null,             //高层次人才
         gccrcData: null,                //高层次人才数据
         myChartleida: null,             //风控雷达
+        fkldData:null,                  //风控雷达数据
         fkldInterval: null,             //雷达计时器
 
         //加载图表
@@ -1730,6 +1731,14 @@
         fkld: function () {
             if ($("#fkld-chart").length <= 0) { return false; }
             require("e_Echart").myChartleida = echarts.init(document.getElementById('fkld-chart'));
+            e_EchartAjax.getfkldData(function (result) {
+                var data = require("e_Echart").fkldData;
+                console.log(data)
+               
+                console.log('111....'+data.舆情风险.business)
+                console.log('222....' + data.totalBusiness)
+                console.log('333....' + data.舆情风险.list[0].name)
+            })
 
             var dataArr = [0.01,0.33, 0.11, 0.54 ];
 

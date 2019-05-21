@@ -5,6 +5,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         left01_02_video02: null,
         left01_02_video03: null,
         left01_03_video01: null,
+        leftcenter_video: null,
 
         LayerCatalog: {
             IOT: {
@@ -86,7 +87,6 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 //require("s_Echart").sxt1();
                 //require("s_Echart").sxt2();
                 //require("s_Echart").sxt3();
-
             });
 
         },
@@ -116,7 +116,6 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             com.UIControlAni(option, function () {
                 require("s_Echart").zzbm();
                 require("sl_IOT").Scrolldiv();
-
             });
 
         },
@@ -141,7 +140,6 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
                require('s_Main').numberAni2();
                // require('s_Main').getSocietyBigNum
-
             })
         },
         ////////////////////////////////////////////////右侧页面//////////////////////////////////////////////////////
@@ -305,8 +303,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 require("s_Main").left01_02_video02 = new Aliplayer({
                     "id": "Societyleft01_02_video02",
                     "source": cameraurl,
-                    //"width": "100%",
-                    //"height": "100%",
+                    //"width": "20%",
+                    //"height": "20%",
                     "autoplay": true,
                     "isLive": true,
                     "rePlay": false,
@@ -330,7 +328,6 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 require("s_Main").left01_03_video01.dispose();
                 require("s_Main").left01_03_video01 = null;
             }
-
             $("#Societyleft01_03_video01").empty();
             require(['aliplayer'], function (data) {
                 require("s_Main").left01_03_video01 = new Aliplayer({
@@ -354,6 +351,43 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 })
             });
         },
+        //加载中间无人机视频
+        loadCenter_Video: function () {
+
+            var videowidth = $("#Big-chart").width();
+            var videoheight = $("#Big-chart").height();
+            if (require("s_Main").leftcenter_video) {
+                require("s_Main").leftcenter_video.dispose();
+                require("s_Main").leftcenter_video = null;
+            }
+            $("#Big-chart").empty();
+            require(['aliplayer'], function (data) {
+                require("s_Main").leftcenter_video = new Aliplayer({
+                    "id": "Big-chart",
+                    "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
+                    "width": videowidth + "px",
+                    "height": videoheight + "px",
+                    "autoplay": true,
+                    "isLive": false,
+                    "rePlay": true,
+                    "showBuffer": true,
+                    "snapshot": false,
+                    "showBarTime": 5000,
+                    "useFlashPrism": true,
+                    "mediaType": "audio"
+
+                }, function (player) {
+                    //加载成功,清空错误提示
+                    $(".prism-ErrorMessage").empty();
+                })
+            });
+        },
+        closevideo:function(){
+             if (require("s_Main").leftcenter_video) {
+                require("s_Main").leftcenter_video.dispose();
+                require("s_Main").leftcenter_video = null;
+            }
+        },
         clearVideo: function () {
 
             if (require("s_Main").left01_02_video01) {
@@ -376,6 +410,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 require("s_Main").left01_03_video01.dispose();
                 require("s_Main").left01_03_video01 = null;
             }
+            
         },
         closeBottomVideo:function(){
             //社会综治-事件视频清空
