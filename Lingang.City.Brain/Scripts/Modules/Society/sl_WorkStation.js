@@ -9,72 +9,74 @@
         loadWorkStation: function () {
             this.Revert();
             this.LayerType = require("s_Main").LayerCatalog.WorkStation;
-            this.POIData = s_layerMenuData.WorkStationData;
+            //this.POIData = s_layerMenuData.WorkStationData;
 
             //Q3D.globalCamera().flyTo(("395687.1677625096,257.72499084472656,-3416907.1926804725").toVector3d(), ("-36.82597732543945,-2.9202616214752197,-2.19104266166687").toVector3(), 1, null);
              com.LayerFlyto(13)
-
-            var areaName = con.AreaName;
-            var icon = this.LayerType.UnChooseIcon;
-            var iconSize = Q3D.vector2(41, 45);
+            //村居工作站数据
+             require("s_LayerMenuAjax").getWorkStationList(function (result) {
+                 var areaName = con.AreaName;
+                 var icon = require("sl_WorkStation").LayerType.UnChooseIcon;
+                 var iconSize = Q3D.vector2(41, 45);
           
-            for (var i = 0; i < this.POIData.length; i++) {
-                var row = this.POIData[i];
-                var pos = row.lat + "," + row.lng + ",0";
-                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-                var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
-                //创建POI
-                var options = {
-                    Position: position,//封装Vector3对象
-                    Orientation: null,//封装Vector3对象
-                    OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                    Scale: Q3D.vector3(1, 1, 1),//封装Vector3对象
-                    POIOptions: {
-                        FontSize: 14,
-                        FontName: "微软雅黑",
-                        FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
-                        CharScale: 1.0,
-                        Text: "",
-                        Icon: icon,
-                        IconSize: iconSize,//封装Vector2对象
-                        POILayout: Q3D.Enums.poiLayOut.Bottom,
-                        POILayoutCustom: null,	//支持负数，取值0相当于LeftTop，1.0相当于LeftBottom，0.5相当于Left；只对POILayout为LeftCustom、TopCustom、RightCustom、BottomCustom时有效
-                        UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                        IconAlphaEnabled: true,
-                        FontOutLine: 0, //同描边有关
-                        FontEdgeColor: Q3D.colourValue("#000000", 1),//封装ColourValue对象
-                        AlphaTestRef: null,
-                        Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                        LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用，封装Vector2对象
-                        BackFrameBorderSize: null, //同边框有关
-                        BackBorderColor: null,//封装ColourValue对象
-                        BackFillColor: null,//封装ColourValue对象
-                        LabelMargin: null,//封装Vector2对象
-                        IconLabelMargin: null,//封装Vector2对象，左右布局X分量有效，上下布局的Y分量有效
-                        SpecialTransparent: true,
-                        AlwaysOnScreen: true,
-                        AbsPriority: null,
-                        RelPriority: null,
-                    },
-                    OnLoaded: function () {//加载结束回调
-                        //创建子POI显示
-                        require("sl_WorkStation").loadWorkStationPOIDetial(areaName, poiName, "Texture/Common/cunju_" + row.id + ".png", row.id);
-                    },
-                }
-                map.createPOI(areaName + "/" + poiName, options)
-            }
-            //var pois = [];
-            //for (var i = 0; i < this.POIData.length; i++) {
-            //    var row = this.POIData[i];
-            //    var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
-            //    var iconSize = Q3D.vector2(41, 45);
-            //    var pos = row.lat + "," + row.lng + ",0";
-            //    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                 for (var i = 0; i < require("sl_WorkStation").POIData.length; i++) {
+                     var row = require("sl_WorkStation").POIData[i];
+                     var pos = row.lat + "," + row.lng + ",0";
+                     var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                     var poiName = "POISociety" + require("sl_WorkStation").LayerType.Name + "_" + row.siteName;//POIIOT_01
+                     //创建POI
+                     var options = {
+                         Position: position,//封装Vector3对象
+                         Orientation: null,//封装Vector3对象
+                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
+                         Scale: Q3D.vector3(1, 1, 1),//封装Vector3对象
+                         POIOptions: {
+                             FontSize: 14,
+                             FontName: "微软雅黑",
+                             FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
+                             CharScale: 1.0,
+                             Text: "",
+                             Icon: icon,
+                             IconSize: iconSize,//封装Vector2对象
+                             POILayout: Q3D.Enums.poiLayOut.Bottom,
+                             POILayoutCustom: null,	//支持负数，取值0相当于LeftTop，1.0相当于LeftBottom，0.5相当于Left；只对POILayout为LeftCustom、TopCustom、RightCustom、BottomCustom时有效
+                             UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
+                             IconAlphaEnabled: true,
+                             FontOutLine: 0, //同描边有关
+                             FontEdgeColor: Q3D.colourValue("#000000", 1),//封装ColourValue对象
+                             AlphaTestRef: null,
+                             Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
+                             LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用，封装Vector2对象
+                             BackFrameBorderSize: null, //同边框有关
+                             BackBorderColor: null,//封装ColourValue对象
+                             BackFillColor: null,//封装ColourValue对象
+                             LabelMargin: null,//封装Vector2对象
+                             IconLabelMargin: null,//封装Vector2对象，左右布局X分量有效，上下布局的Y分量有效
+                             SpecialTransparent: true,
+                             AlwaysOnScreen: true,
+                             AbsPriority: null,
+                             RelPriority: null,
+                         },
+                         OnLoaded: function () {//加载结束回调
+                             //创建子POI显示
+                             require("sl_WorkStation").loadWorkStationPOIDetial(areaName, poiName, "Texture/Common/cunju_" + row.id + ".png", row.id);
+                         },
+                     }
+                     map.createPOI(areaName + "/" + poiName, options)
+                 }
+                 //var pois = [];
+                 //for (var i = 0; i < this.POIData.length; i++) {
+                 //    var row = this.POIData[i];
+                 //    var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
+                 //    var iconSize = Q3D.vector2(41, 45);
+                 //    var pos = row.lat + "," + row.lng + ",0";
+                 //    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-            //    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
-            //    pois.push(poi);
-            //}
-            //com.InitPois(areaName, pois);
+                 //    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+                 //    pois.push(poi);
+                 //}
+                 //com.InitPois(areaName, pois);
+             })
 
         },
         loadWorkStationPOIDetial: function (AreaName, parentName, icon, id) {

@@ -11,7 +11,7 @@
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_IOT").POIData = data.list;
+                        require("sl_IOT").POIData = data.data.list;
                         callback(data)
                     },
                     error: function () {
@@ -32,13 +32,13 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/camera/comunity/camerasList",  // yii 控制器/方法   
+                    url: con.InterfaceUrl + "v1/camera/comunity/cameraListByType",  // yii 控制器/方法   
                     //contentType: 'application/json;charset=UTF-8',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_Camera").POIData = data.cameraBaseInfos;
+                        require("sl_Camera").POIData = data.data.list;
                         callback(data)
                     },
                     error: function () {
@@ -56,7 +56,7 @@
             //var post_data = { "sbbm": "31011900081326012006" }
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
-                url: "http://47.101.181.131:8091/videoPlay/playing",
+                url: con.InterfaceUrl + "v1/videoPlay/playing",//"http://47.101.181.131:8091/videoPlay/playing",
                 cache: false,
                 data: post_data,  //传送的数据
                 dataType: 'json',  // 返回数据的数据类型json
@@ -69,7 +69,7 @@
             });
         },
         //获取所有事件数据
-        getEventList: function (post_data,callback) {
+        getEventList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -80,21 +80,24 @@
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("sl_Event").POIData = data.data.list;
-                        callback()
-                },
-                        error: function () {
-                            //alert("数据传输错误");
-                }
+                        if ($.isFunction(callback))
+                            callback()
+
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
                 });
             }
             else {//执行本地
                 require("sl_Event").POIData = s_layerMenuData.EventData.list;
-                callback();
+                if ($.isFunction(callback))
+                    callback()
             }
         },
 
         //获取无人机库列表
-        getDroneList: function (post_data,callback) {
+        getDroneList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -105,7 +108,8 @@
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("sl_Drone").POIData = data.data;
-                        callback(data)
+                        if ($.isFunction(callback))
+                            callback()
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -114,7 +118,33 @@
             }
             else {//执行本地
                 require("sl_Drone").POIData = s_layerMenuData.DroneData.data;
-                callback();
+                 if ($.isFunction(callback))
+                            callback()
+            }
+        },
+        //获取社区工作站列表
+        getWorkStationList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl +"v1/station/list",  // yii 控制器/方法   
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("sl_WorkStation").POIData = data.data;
+                         if ($.isFunction(callback))
+                            callback()
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                require("sl_WorkStation").POIData = s_layerMenuData.WorkStationData;
+                if ($.isFunction(callback))
+                    callback()
             }
         },
     }
