@@ -80,11 +80,11 @@
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("sl_Event").POIData = data.data.list;
-                        callback()
-                },
-                        error: function () {
-                            //alert("数据传输错误");
-                }
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
                 });
             }
             else {//执行本地

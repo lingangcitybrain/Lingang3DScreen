@@ -2070,7 +2070,16 @@ dd.pjc-statistic-star >form{
 	color: #eb8002;
 }
 .qytop10-bar2{ color: #0395bc;}
-.qytop10-barbox>div:after{
+.qytop10-barbox>div>span{
+	position: absolute;
+	top: 50%;
+	left: 3rem;
+	font-size: .2rem;
+	word-break: keep-all;
+	border-radius: inherit;
+	transform: translate(0, -50%);
+}
+/*.qytop10-barbox>div:after{
 	content: attr(data-text);
 	position: absolute;
 	top: 50%;
@@ -2079,7 +2088,7 @@ dd.pjc-statistic-star >form{
 	word-break: keep-all;
 	border-radius: inherit;
 	transform: translate(0, -50%);
-}
+}*/
 
 .qyzhpfldt-title{
 	position: absolute;
