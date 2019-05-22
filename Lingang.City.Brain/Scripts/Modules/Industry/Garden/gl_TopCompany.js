@@ -502,22 +502,25 @@
                 //var str = companyInfo.buildingName;  //"海立方一期/12号楼/12#-5", 海立方一期/14号楼/14# //14#代表楼，-5代表公司所在层，没有-，表示整栋楼都是该公司
                 //var index = str.lastIndexOf("\/");
                 //var floor = str.substring(index + 1, str.length);
-                var floor = "12-4";
-                if (floor.indexOf("-") > -1) {//表示公司在某层，否则整栋楼都是该公司
-                    require("b_BuildingFloor").buildingID = companyInfo.buildingID;
+                var floor = "12";
+                require("b_BuildingFloor").buildingID = companyInfo.buildingID;
+                if (floor.indexOf("-") > -1) {//表示公司在某层，否则整栋楼都是该公司                  
                     require("b_BuildingFloor").openFloor(floor.split("-")[1]);
                 } else {
-                    var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + companyInfo.buildingID + "#rooftop");//飞到公司所属楼栋的指定节点位置
-                    if (node) {
-                        //飞行位置暂定
-                        var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
-                        Q3D.globalCamera().flyToNode(node, viewPos, 1, function () {
-                            //b_BuildingFloor.buildingOperation(nodename);
-
-                        })
-
-                    }
+                    require("b_BuildingFloor").openFloor(7);//最高六层，不揭楼层
                 }
+                //else {
+                    //var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + companyInfo.buildingID + "#rooftop");//飞到公司所属楼栋的指定节点位置
+                    //if (node) {
+                    //    //飞行位置暂定
+                    //    var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
+                    //    Q3D.globalCamera().flyToNode(node, viewPos, 1, function () {
+                    //        //b_BuildingFloor.buildingOperation(nodename);
+
+                    //    })
+
+                    //}
+               // }
             }
         },
         //清空div内容
