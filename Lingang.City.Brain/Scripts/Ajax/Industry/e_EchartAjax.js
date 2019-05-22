@@ -163,11 +163,11 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/industrial/investmentInfo',
+                    url: con.InterfaceUrl + 'v1/industrial/eliteDistrbution',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").gccrcbhqsData = data;
+                        require("e_Echart").gccrcbhqsData = data.data;
                         callback(data);
                     },
                     error: function () {
@@ -208,7 +208,7 @@
                 callback(e_LayerMenuData.AtlasPOI.Data);
             }
         },
-        },
+        
         getfkldData: function (callback) {
             if (con.IsInterface)//执行接口
             {
@@ -222,14 +222,13 @@
                         callback(data);
                     },
                     error: function () {
-                        console.log("数据传输错误");
+                        require("e_Echart").fkldData = e_EchartData.fkldData.data;
                         callback(data);
-                        //require("e_Echart").fkldData = e_EchartData.fkldData.data;
                     }
                 });
             }
             else {//执行本地
-                console.log("数据传输错误")
+                require("e_Echart").fkldData = e_EchartData.fkldData.data;
                 callback(data);
             }
         },

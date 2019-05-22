@@ -1510,8 +1510,8 @@
             e_EchartAjax.gccrcbhqs(function (result) {
                 if (require("e_Echart").gccrcbhqsData == null) { return false; }
                 var data = require("e_Echart").gccrcbhqsData;
-                var arrdq = [data[0].dq, data[1].dq, data[2].dq, data[3].dq, data[4].dq,]
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
+                var arrdq = [data[0]["年份"], data[1]["年份"], data[2]["年份"], data[3]["年份"], data[4]["年份"], ]
+                var arrvalue = [data[0]["高层次人才数"], data[1]["高层次人才数"], data[2]["高层次人才数"], data[3]["高层次人才数"], data[4]["高层次人才数"], ]
                 require("e_Echart").myChartgccrc = echarts.init(gccrcChart);
                 gccrcOption = {
                     legend: {
@@ -1618,8 +1618,8 @@
             e_EchartAjax.gccrcbhqs(function (result) {
                 if (require("e_Echart").gccrcbhqsData == null) { return false; }
                 var data = require("e_Echart").gccrcbhqsData;
-                var arrdq = [data[0].dq, data[1].dq, data[2].dq, data[3].dq, data[4].dq, ]
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
+                var arrdq = [data[0]["年份"], data[1]["年份"], data[2]["年份"], data[3]["年份"], data[4]["年份"], ]
+                var arrvalue = [data[0]["高层次人才数"], data[1]["高层次人才数"], data[2]["高层次人才数"], data[3]["高层次人才数"], data[4]["高层次人才数"], ]
                 gccrcOption = {
                     legend: {
                         show: false
@@ -1738,9 +1738,7 @@
                 console.log('111....'+data.舆情风险.business)
                 console.log('222....' + data.totalBusiness)
                 console.log('333....' + data.舆情风险.list[0].name)
-            })
-
-            var dataArr = [0.01,0.33, 0.11, 0.54 ];
+                var dataArr = [0.004,0.48, 0.11, 0.41 ];
 
             require("e_Echart").fkldInterval = setInterval(function () {
                 gauge_value++;  //递增
@@ -1786,15 +1784,6 @@
                                 width: 15,
                                 shadowBlur: 10,         //发光
                                 shadowColor: "#8e26dc",
-                                // borderWidth: 10,
-                                // shadowOffsetX: 10,
-                                // shadowOffsetY: 5,
-                                // color: [                
-                                //     [0.2, '#a6f08f'],
-                                //     [0.4, '#3dd4de'],
-                                //     [0.8, '#7CBB55'],
-                                //     [1, '#8e26dc'],
-                                // ]
                                 color: [
                                     [dataArr[0], '#a6f08f'],
                                     [dataArr[0] + dataArr[1], '#3dd4de'],
@@ -1816,39 +1805,6 @@
                         },
                         axisLabel: {
                             show: false,
-                            // formatter: function(e) {
-                            //     switch (e + "") {
-                            //         case "410":
-                            //             return "较差";
-                            //             //return "";
-                            //         case "470":
-                            //             return "550";
-
-                            //         case "530":
-                            //             return "中等";
-                            //             //return "";
-                            //         case "590":
-                            //             return "600";
-
-                            //         case "650":
-                            //             return "良好";
-                            //             //return "";
-                            //         case "710":
-                            //             return "650";
-
-                            //         case "770":
-                            //             return "优秀";
-                            //             //return "";
-                            //         case "830":
-                            //             return "700";
-
-                            //         case "890":
-                            //             return "极好";
-                            //             //return "";
-                            //         default:
-                            //             return e;
-                            //     }
-                            // },
                             textStyle: {
                                 fontSize: 12,
                                 fontWeight: ""
@@ -1888,48 +1844,18 @@
                                     html+= '<div class="fkld-div">';
                                     html+= ' <div class="fkld-result">舆情风险</div>';
                                     html+= '<div class="fkld-button flex">';
-                                    html+= '<button class="">企业数<span>297</span></button>';
-                                         html+= '<button class="">信息数<span>1,238</span></button>';
+                                    html += '<button class="">企业数<span>'+ data.舆情风险.business +'</span></button>';
+                                    html += '<button class="">信息数<span>' + data.舆情风险.records + '</span></button>';
                                          html+= '</div>'
                                          html+= '<ul class="fkld-list">';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">其他风险<span>21|84</span></div>';
-                                         html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">服务质量<span>101|432</span></div>';
-                                         html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">产品品质<span>117|558</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">企业高管<span>32|82</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">公司品牌<span>26|82</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html+= '</li>';
-                                         //html+= '<li class="fkld-li">';
-                                         //html+= '<div class="fkld-title">车船使用税<span>6,234|5,123</span></div>';
-                                         //    html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         //html+= '</li>';
-                                         //html+= '<li class="fkld-li">';
-                                         //html+= '<div class="fkld-title">印花税<span>3,055|6,136</span></div>';
-                                         //html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         //html+= '</li>';
-                                         //html+= '<li class="fkld-li">';
-                                         //html+= '<div class="fkld-title">城建税<span>8,091|5,785</span></div>';
-                                         //    html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         //    html+= '</li>';
-                                         //    html+= '<li class="fkld-li">';
-                                         //    html+= '<div class="fkld-title">营改税<span>7,791|5,091</span></div>';
-                                         //    html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         //    html+= '</li>';
-                                          html+= '</ul>';
-                                          html += '</div>';
+                                         for (var i = 0; i < data.舆情风险.list.length;i++){
+                                             html += '<li class="fkld-li">';
+                                             html += '<div class="fkld-title">' + data.舆情风险.list[i].name + '<span>' + data.舆情风险.list[i].business + '|' + data.舆情风险.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+                                             html += '</li>';
+                                         }
+                                         html+= '</ul>';
+                                         html += '</div>';
                                  $('#fkld').html(html);
                                 }
                                 else if (param <= (dataArr[0] + dataArr[1]) * 100) { //税收异常
@@ -1938,46 +1864,16 @@
                                     html += '<div class="fkld-div">';
                                     html += ' <div class="fkld-result">税收异常</div>';
                                     html += '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>30,452</span></button>';
-                                    html += '<button class="">信息数<span>41,158</span></button>';
+                                    html += '<button class="">企业数<span>' + data.税收异常.business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data.税收异常.records + '</span></button>';
                                     html += '</div>'
                                     html += '<ul class="fkld-list">';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">企业所得税<span>5,433|10,938</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">增值税异常<span>10,239|20,608</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">营业税异常<span>1,418|2,862</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">消费税<span>7|14</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">房产税<span>300|600</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    //html += '<li class="fkld-li">';
-                                    //html += '<div class="fkld-title">车船使用税<span>6,234|5,123</span></div>';
-                                    //html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    //html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">印花税<span>3,055|6,136</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    //html += '<li class="fkld-li">';
-                                    //html += '<div class="fkld-title">城建税<span>8,091|5,785</span></div>';
-                                    //html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    //html += '</li>';
-                                    //html += '<li class="fkld-li">';
-                                    //html += '<div class="fkld-title">营改税<span>7,791|5,091</span></div>';
-                                    //html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    //html += '</li>';
+                                    for (var i = 0; i < data.税收异常.list.length; i++) {
+                                             html += '<li class="fkld-li">';
+                                             html += '<div class="fkld-title">' + data.税收异常.list[i].name + '<span>' + data.税收异常.list[i].business + '|' + data.税收异常.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+                                             html += '</li>';
+                                    }
                                     html += '</ul>';
                                     html += '</div>';
                                     $('#fkld').html(html);
@@ -1988,46 +1884,16 @@
                                     html += '<div class="fkld-div">';
                                     html += ' <div class="fkld-result">司法监管</div>';
                                     html += '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>6,990</span></button>';
-                                    html += '<button class="">信息数<span>32,244</span></button>';
+                                    html += '<button class="">企业数<span>' + data.司法监管.business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data.司法监管.records + '</span></button>';
                                     html += '</div>'
                                     html += '<ul class="fkld-list">';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">海关处罚<span>13|28</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">开庭公告<span>1,518|10,844</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">法院公告<span>172|768</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">查封冻结<span>33|42</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">裁判文书<span>1,296|7,181</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">案件流程<span>722|2,673</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">执行信息<span>2,526|8,709</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    html += '</li>';
-                                    html += '<li class="fkld-li">';
-                                    html += '<div class="fkld-title">失信信息<span>710|1,999</span></div>';
-                                    html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    //html += '</li>';
-                                    //html += '<li class="fkld-li">';
-                                    //html += '<div class="fkld-title">营改税<span>7,791|5,091</span></div>';
-                                    //html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                    //html += '</li>';
+                                    for (var i = 0; i < data.司法监管.list.length; i++) {
+                                             html += '<li class="fkld-li">';
+                                             html += '<div class="fkld-title">' + data.司法监管.list[i].name + '<span>' + data.司法监管.list[i].business + '|' + data.司法监管.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+                                             html += '</li>';
+                                    }
                                     html += '</ul>';
                                     html += '</div>';
                                     $('#fkld').html(html);
@@ -2038,46 +1904,16 @@
                                     html+= '<div class="fkld-div">';
                                     html+= ' <div class="fkld-result">经营风险</div>';
                                     html+= '<div class="fkld-button flex">';
-                                    html+= '<button class="">企业数<span>33,906</span></button>';
-                                         html+= '<button class="">信息数<span>160,399</span></button>';
+                                    html += '<button class="">企业数<span>' + data.经营风险.business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data.经营风险.records + '</span></button>';
                                          html+= '</div>'
                                          html+= '<ul class="fkld-list">';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">股权冻结<span>13|23</span></div>';
-                                         html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">经营异常<span>6,950|10,157</span></div>';
-                                         html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">工商变更<span>24,204|141,015</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">涉税处罚<span>12|25</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">纳税非正常户<span>199|261</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">欠税公告<span>2,390|8,549</span></div>';
-                                             html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         html+= '<li class="fkld-li">';
-                                         html+= '<div class="fkld-title">股权质押<span>138|369</span></div>';
-                                         html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         html+= '</li>';
-                                         //html+= '<li class="fkld-li">';
-                                         //html+= '<div class="fkld-title">城建税<span>8,091|5,785</span></div>';
-                                         //    html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         //    html+= '</li>';
-                                         //    html+= '<li class="fkld-li">';
-                                         //    html+= '<div class="fkld-title">营改税<span>7,791|5,091</span></div>';
-                                         //    html+= '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                         //    html+= '</li>';
+                                         for (var i = 0; i < data.经营风险.list.length; i++) {
+                                             html += '<li class="fkld-li">';
+                                             html += '<div class="fkld-title">' + data.经营风险.list[i].name + '<span>' + data.经营风险.list[i].business + '|' + data.经营风险.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+                                             html += '</li>';
+                                         }
                                              html+= '</ul>';
                                              html += '</div>';
                                  $('#fkld').html(html);
@@ -2103,6 +1939,7 @@
                 require("e_Echart").myChartleida.setOption(option, true);
 
             }, 300);
+            })
         },
         
         fkldFun: function () {
