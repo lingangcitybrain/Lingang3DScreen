@@ -156,7 +156,9 @@
                 htmlDom: "#left_second_01",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT1.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_IOT").loadSocietyPerson();
+            });
         },
         //加载第二列的div2
         loadLeftSecond2: function () {
@@ -178,7 +180,10 @@
             }
             com.UIControlAni(option, function () {
                 require("sl_IOT").loadCirclediv();
-                require("s_Echart").sxtCar("#iot-sxt2");
+                require("s_Echart").sxtCamera("#iot-sxt1", { "communityId": "S012" });
+                require("s_Echart").sxtCar("#iot-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
+                require("s_Echart").sxtPerson("#iot-sxt3");
+
             });
         },
         //加载第二列的div4
@@ -189,6 +194,19 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT4.html'
             }
             com.UIControlAni(option, function () {  require("sl_IOT").loadSocietyIOT() });
+        },
+
+        loadSocietyPerson: function () {
+            s_EchartAjax.getSocietyPersonData(function (result) {
+                if (require("s_Echart").societyPersonData == null) { return false; }
+                var data = require("s_Echart").societyPersonData;
+
+                $("#society-person>li").eq(0).find(".item-r-data").html(data.realTimeCount);
+                $("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
+                $("#society-person>li").eq(2).find(".item-r-data").html(data.total);
+                $("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
+            });
+
         },
 
         //加载社区车辆图表
@@ -256,7 +274,16 @@
 
                 sqclOption = {
                     legend: {
-                        show: false
+                        top: '1%',
+                        left: 'center',
+                        icon: 'rect',
+                        itemWidth: 30,
+                        itemHeight: 10,
+                        itemGap: 40,
+                        textStyle: {
+                            color: '#e4e4e4',
+                            fontSize: 25,
+                        },
                     },
                     color: ['#3398DB', '#00f81f'],
                     tooltip: {
@@ -269,7 +296,7 @@
                         left: '1%',   // grid 组件离容器左侧的距离。
                         right: '2%',
                         bottom: '2%',
-                        height: "90%",
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     xAxis: {
@@ -350,7 +377,16 @@
             // echart
             option = {
                 legend: {
-                    show: false
+                    top: '1%',
+                    left: 'center',
+                    icon: 'rect',
+                    itemWidth: 60,
+                    itemHeight: 20,
+                    itemGap: 80,
+                    textStyle: {
+                        color: '#e4e4e4',
+                        fontSize: 50,
+                    },
                 },
                 color: ['#3398DB', '#00f81f'],
                 tooltip: {
@@ -366,7 +402,7 @@
                     left: '5%',   // grid 组件离容器左侧的距离。
                     right: '5%',
                     bottom: '5%',
-                    height: "86%",
+                    height: "82%",
                     containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                 },
                 xAxis: {

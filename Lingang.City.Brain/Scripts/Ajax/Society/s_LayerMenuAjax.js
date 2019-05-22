@@ -64,7 +64,7 @@
                     callback(data)
                 },
                 error: function () {
-                    alert("数据传输错误");
+                    //alert("数据传输错误");
                 }
             });
         },

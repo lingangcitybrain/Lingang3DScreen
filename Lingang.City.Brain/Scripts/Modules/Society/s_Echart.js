@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu) {
+﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu","s_Main"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu,s_Main) {
 
     var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
     var oSjcgseriesData = []; //事件处理成功数据
@@ -45,6 +45,9 @@
                 sjcgChartClose = true;
 
                 switch (divname) {
+                    case "Left_First_02"://无人机视频
+                        require("s_Echart").wrjsp();
+                        break;
                     case "Left_First_03"://无人机
                         require("s_Echart").bigWrj();
                         break;
@@ -63,7 +66,6 @@
                         break;
                     default:
                 }
-                
             })
         },
         //关闭大的图表
@@ -74,8 +76,6 @@
             sjcgChartClose = true;
             $("#center_03").html("");           
         },
-
-
 
 
         //加载头部日期时间  
@@ -133,7 +133,13 @@
             $('.twocol-right').addClass('yin').stop().animate({ opacity: '1' }, 2000);
             //$('.pjr').addClass('yin').stop().animate({ opacity: '1' }, 2000);
         },
-
+        //无人机视频
+        wrjsp: function () {
+            console.log("asdfas")
+            $("#bigechartHead").empty();
+            require("s_Main").loadCenter_Video();
+            
+        },
         num: function () {
             require(['countup'], function () {
                 $('.counter').countUp({ 
@@ -329,7 +335,6 @@
                 //console.info(data);
                 //console.info(data.data.sensorNumList);
                 data = data.data.sensorNumList;
-
                 
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
@@ -360,7 +365,6 @@
                 if (data[4].alarmSensorCount) {
                     $('#cgq-znjg').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[4].alarmSensorCount)
                 }
-
             })
         },
 
@@ -386,19 +390,22 @@
         },
 
         //摄像头--摄像头
-        sxtCamera: function () {
-            var post_data = "S012";
+        sxtCamera: function (str, post_data) {
+            //var post_data = { "communityId": "S012"};
             s_EchartAjax.getSxtCameraData(post_data, function (result) {
                 if (require("s_Echart").sxtCameraData == null) { return false; }
                 var data = require("s_Echart").sxtCameraData;
-                data = data;
+                data = data.data;
 
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(0);
             });
         },
 
         //摄像头--车辆
-        sxtCar: function (str) {
-            var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
+        sxtCar: function (str, post_data) {
+           // var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
 
             s_EchartAjax.getSxtCarData(post_data, function (result) {
                 if (require("s_Echart").sxtCarData == null) { return false; }
@@ -410,13 +417,17 @@
                 $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.illegally);
             });
         },
-
+        
         //摄像头--人员
-        sxtCamera: function () {
+        sxtPerson: function (str) {
             s_EchartAjax.getSxtPersonData(function (result) {
                 if (require("s_Echart").sxtPersonData == null) { return false; }
                 var data = require("s_Echart").sxtPersonData;
-                data = data;
+
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total - data.count);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.count);
+
             });
         },
 
@@ -557,16 +568,7 @@
                            trigger: 'axis',
                        },
                        legend: {
-                           top: '1%',
-                           left: 'center',
-                           itemWidth: 10,
-                           itemHeight: 10,
-                           itemGap: 25,
-                           selectedMode: 'single',
-                           textStyle: {
-                               color: '#e4e4e4',
-                               fontSize: 16,
-                           },
+                           show:false,
                        },
                        grid: {
                            top: '10%',
@@ -594,7 +596,7 @@
                                },
                            },
                            axisTick: { show: false, },
-                           data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                           data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                        }],
                        yAxis: [{
                            type: 'value',
@@ -620,7 +622,7 @@
                            axisTick: { show: false, },
                        }],
                        series: [{
-                           name: '月',
+                          // name: '月',
                            type: 'line',
                            symbol: 'circle',
                            symbolSize: 12,
@@ -697,8 +699,8 @@
                             }
                         },
                         axisTick: { show: false, },
-                        data: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-                                '10', '11', '12'],
+                        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+
                     }],
                     yAxis: [{
                         type: 'value',
@@ -730,7 +732,7 @@
                         axisTick: { show: false, },
                     }],
                     series: [{
-                        name: '月',
+                       // name: '月',
                         type: 'line',
                         symbol: 'circle',
                         symbolSize: 30,
