@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_LayerMenuAjax", "s_EchartAjax"], function (con, com, s_layerMenuData, s_LayerMenuAjax, s_EchartAjax) {
+﻿define(["config", "common", "util", "s_layerMenuData", "s_LayerMenuAjax", "s_EchartAjax"], function (con, com,util, s_layerMenuData, s_LayerMenuAjax, s_EchartAjax) {
     /**************************************传感器**************************************/
     return {
         carInOutCount: null, //08:00--16:00点的进出车辆数
