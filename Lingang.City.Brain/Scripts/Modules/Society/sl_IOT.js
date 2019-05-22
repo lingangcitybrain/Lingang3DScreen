@@ -8,7 +8,7 @@
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
-
+        IOTList: new util.HashMap,
         //加载传感器IOT
         loadIOT: function () {
             this.Revert();
@@ -19,7 +19,7 @@
             com.LayerFlyto(10)
 
 
-            var post_data = {"communityId": "s012","type":""}
+            var post_data = { "communityId": "s012", "page": 0,"rows":1000 }
 
             require("s_LayerMenuAjax").getSensorList(post_data, function (result) {
                 //require("sl_IOT").POIData = result.list;
@@ -28,20 +28,23 @@
                 var pois = [];
                 for (var i = 0; i < require("sl_IOT").POIData.length; i++) {
                     var row = require("sl_IOT").POIData[i];
-                    var icon = require("sl_IOT").LayerType.List[row.sensorType].UnChooseIcon;
-                    var poiName = "POISociety" + require("sl_IOT").LayerType.List[row.sensorType].Name + "_" + row.id;//POIIOT_01
-                    var iconSize = Q3D.vector2(41, 45);
-                    var pos = row.wgs84Lng + "," + row.wgs84Lat + ",0";
-                    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                    require("sl_Event").EventList.put(row.sensorNum, row);
+                    if (row.wgs84Lng && row.wgs84Lat) {
+                        var icon = require("sl_IOT").LayerType.List[row.sensorType].UnChooseIcon;
+                        var poiName = "POISociety" + require("sl_IOT").LayerType.List[row.sensorType].Name + "_" + row.sensorNum;//POIIOT_01
+                        var iconSize = Q3D.vector2(41, 45);
+                        var pos = row.wgs84Lng + "," + row.wgs84Lat + ",0";
+                        var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+                        var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
 
-                    var node = map.getSceneNode(areaName + "/" + poiName);
-                    if (node) {
-                        node.setVisible(1);
-                    } else {
-                        pois.push(poi);
+                        var node = map.getSceneNode(areaName + "/" + poiName);
+                        if (node) {
+                            node.setVisible(1);
+                        } else {
+                            pois.push(poi);
 
+                        }
                     }
                 }
                 com.InitPois(areaName, pois);
@@ -80,6 +83,33 @@
                 poi.setIcon(icon);
                 //});
             }
+            var sensorNum = nodeName.split('_')[2];
+            var data = require("sl_IOT").IOTList.get(sensorNum);
+            //加载页面内容
+            var url = con.HtmlUrl + 'SocietyNew/Bottom_IOTDetail.html';
+            require(['text!' + url], function (template) {
+                $("#detail_02").html(template);
+                $("#detail_02").show('slide', { direction: 'left' }, 500);
+                $(".poiinfo").css("left", "52%");
+                $(".poiinfo").css("top", "19%");
+
+                $("#div_iotdetail").hide()
+                $("#div_iotdetail").show('drop', 1000);
+
+                $("#eventhead").html(data.sensorType);
+                var html = '<div class="boxcont flex">';
+                var html = '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
+                    '<ul>' +
+                     '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
+                     '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
+                        '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
+                        '<li><span>所属区域：</span><em>' + data.belongRegion + '</em></li>' +
+                        '<li><span>所属街道：</span><em' + data.belongStreet + '</em></li>' +
+                        '<li><span>安装时间：</span><em>' + data.installationTime + '</em></li>' +
+                    '</ul>' +
+                '</dic></div>';
+                $("#iotdetail").html(html);
+            })
         },
         //清空传感器POI
         clearIOTPOI: function () {
