@@ -73,14 +73,56 @@
             var layerArr = require("e_LayerMenuData").FloorLayerData[id];
             if (layerArr) {
                 var data = layerArr.layerName;
+                var lg = Q3D.layerGroup();
                 for (var i = parseInt(floor) ; i <= data.length; i++) {
-                    var lg = Q3D.layerGroup();
+                    //var lg = Q3D.layerGroup();
                     var layer = lg.getLayer(data[i]);
                     if (layer) {
                         layer.setVisible(0);
                         require("b_BuildingFloor").HideLayerArr.push(layer);
                     }
                 }
+
+                /*******************换楼层房间的材质***********************/
+                /*****************************还原上一层材质******************************/
+                var modelArr = require("b_BuildingFloor").changeMaterialModel;
+                if (modelArr.length > 0) {
+                    for (var i = 0; i < modelArr.length; i++) {
+                        var model = modelArr[i].model;
+                        model.setMaterial(0, modelArr[i].materialName);  //恢复原始材质
+                    }
+                    require("b_BuildingFloor").changeMaterialModel = [];
+                }
+                require("b_BuildingFloor").resetHideLayer();
+                /************************************END**********************************/
+                //for (var i = 0; i < layerArr.length; i++) {
+                var nodeArr = lg.getLayerAllNodeNames(data[parseInt(floor)-1]);
+                    for (var j = 0; j < nodeArr.length; j++) {
+                        var node = map.getSceneNode(nodeArr[j]);
+                        if (node) {
+                            var nodeName = node.getName();                            
+                            if (nodeName.indexOf("area") > -1) {  //房间节点设置不透明
+                                var model = node.asModel();
+                                var qmaterial = model.getMaterial(0);
+                                if (qmaterial) {
+                                    var materialName = qmaterial.getName();
+                                    require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
+                                    model.setMaterial(0, "material/69_chengse.mtr");  //批量替换模型材质  69_chengse.mtr  hcy_area.mtr
+                                    //require("b_BuildingFloor").changeAlphaNode.push(model);
+                                    //设置材质透明度没效果
+                                    var MaterialCount = model.getMaterialCount();
+                                    for (var k = 0; k < MaterialCount; k++) {
+                                        var qmaterial = model.getMaterial(k);
+                                        if (qmaterial) {
+                                            qmaterial.setAlpha(1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+               // }
+                /***************************END*************************/
                 var areaName = con.AreaName;
                 var POIName = "POIIndustryGBuilding_" + id;
                 var poiNode = map.getSceneNode(areaName, POIName);
@@ -131,30 +173,7 @@
                                 // console.info(qmaterial.getName());
                                 var materialName = qmaterial.getName();
                                 require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
-                                model.setMaterial(0, "material/69_lanse.mtr");  //批量替换模型材质
-                                //设置材质透明度没效果
-                                //var MaterialCount=model.getMaterialCount();
-                                //for(var k=0;k<MaterialCount;k++){
-                                //var qmaterial = model.getMaterial(k);
-                                //    qmaterial.setAlpha(0.5);
-                                //}	
-                            }
-                        }
-
-                        if (nodeName.indexOf("area") > -1) {  //房间节点设置不透明
-                            var model = node.asModel();
-                            var qmaterial = model.getMaterial(0);
-                            if (qmaterial) {
-                                var materialName = qmaterial.getName();
-                                require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
-                                model.setMaterial(0, "material/69_chengse.mtr");  //批量替换模型材质
-                                //require("b_BuildingFloor").changeAlphaNode.push(model);
-                                //设置材质透明度没效果
-                                var MaterialCount = model.getMaterialCount();
-                                for (var k = 0; k < MaterialCount; k++) {
-                                    var qmaterial = model.getMaterial(k);
-                                    qmaterial.setAlpha(0.8);
-                                }
+                                model.setMaterial(0, "material/69_lanse.mtr");  //批量替换模型材质                               
                             }
                         }
                     }
