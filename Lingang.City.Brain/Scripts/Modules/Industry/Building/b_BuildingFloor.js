@@ -84,14 +84,20 @@
                 var areaName = con.AreaName;
                 var POIName = "POIIndustryGBuilding_" + id;
                 var poiNode = map.getSceneNode(areaName, POIName);
-                if (poiNode) {
-                    var a = poiNode.getPosition();
-                    var pos = ((a.x + 90) + "," + (a.y - a.y / parseInt(floor)+40) + "," + (a.z + 25)).toVector3().toGlobalPos(areaName);
-
-                    var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
-                    Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
+                var a = null;
+                if (poiNode == null) {//不存在poi，则取poi数据里的经纬度
+                    var poiData = e_LayerMenuData.GardenPOI.Data[id];
+                    if (poiData) {
+                        var pos = poiData.lng + "," + poiData.lat + ",21";
+                        a = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                    }
+                } else {
+                     a = poiNode.getPosition();
                 }
+                var pos = ((a.x + 60) + "," + (a.y - a.y / parseInt(floor) + 25) + "," + (a.z + 15)).toVector3().toGlobalPos(areaName);
 
+                var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
+                Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
             }
         },
         buildingOperation: function (nodename) {            
@@ -141,7 +147,7 @@
                             if (qmaterial) {
                                 var materialName = qmaterial.getName();
                                 require("b_BuildingFloor").changeMaterialModel.push({ model: model, materialName: qmaterial.getName() });
-                                model.setMaterial(0, "material/hcy_area.mtr");  //批量替换模型材质
+                                model.setMaterial(0, "material/69_chengse.mtr");  //批量替换模型材质
                                 //require("b_BuildingFloor").changeAlphaNode.push(model);
                                 //设置材质透明度没效果
                                 var MaterialCount = model.getMaterialCount();

@@ -15,7 +15,7 @@
             this.LayerType = require("s_Main").LayerCatalog.Camera;
              com.LayerFlyto(11)
 
-            var post_data = {"communityId": "s012","id": "1"}
+            var post_data = {"communityId": "s012"}
 
             require("s_LayerMenuAjax").getCameraList(post_data, function (result) {
 
