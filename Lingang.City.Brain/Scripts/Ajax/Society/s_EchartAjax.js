@@ -128,7 +128,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/camera/comunity/vehicleStatistics',
+                    url: con.InterfaceUrl + 'v1/camera/comunity/illeagalPeopleCount',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -168,6 +168,40 @@
                 callback();
             }
         },
+
+        //社区人口
+        getSocietyPersonData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/camera/comunity/peopleStatistic',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").societyPersonData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").societyPersonData = s_EchartData.societyPersonData;
+                callback();
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
 
         //事件信息
         getSocietySj: function (callback) {
@@ -222,7 +256,7 @@
                     type: "POST",      //data 传送数据类型。post 传递 
                     // 同社区事件数据  
                     // url: con.InterfaceUrl + 'v1/comunity/people/communityPopulationData',
-                    url: con.InterfaceUrl + 'v1/communities/communitySummary',                  
+                    url: con.InterfaceUrl + 'v1/communities/communitySummary',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -240,15 +274,60 @@
             }
         },
 
+
+        //社综--传感器事件大数字
+        getCgqBigNum: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/communities/communityCounts',              
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").cgqBigNumData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").cgqBigNumData = s_EchartData.cgqBigNumData;
+                callback();
+            }
+        },
+
         //******************************************************************************************/
         //街面无人机数据
+        getJmDroneData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/drone/communityDroneOverviewo',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").jmDroneData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").jmDroneData = s_EchartData.jmDroneData;
+                callback();
+            }
+        },
 
-        //巡查员信息
+        //街面巡查员信息
         getJmXcyData: function (callback) {
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + '/v1/buildingsites/inspectorInfo',
+                    url: con.InterfaceUrl + 'v1/buildingsites/inspectorInfo',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -266,7 +345,7 @@
             }
         },
 
-        //巡查员信息
+        //潮汐时间表
         getCostlineTideData: function (callback) {
             if (con.IsInterface) {
                 $.ajax({
@@ -288,6 +367,76 @@
                 callback();
             }
         },
+
+        //工地施工单位
+        getWorkSiteBuilderData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/buildingsites/siteeInfo',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").workSiteBuilderData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").workSiteBuilderData = s_EchartData.workSiteBuilderData;
+                callback();
+            }
+        },
+
+        //工地无人机
+        getWorkSiteWrjData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/drone/constructionSite',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").workSiteWrjData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").workSiteWrjData = s_EchartData.workSiteWrjData;
+                callback();
+            }
+        },
+
+        //工地天气预报
+        getWorkSiteWeatherData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/weather/city5d3h',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").workSiteWeatherData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").workSiteWeatherData = s_EchartData.workSiteWeatherData;
+                callback();
+            }
+        },
+
 
 
 

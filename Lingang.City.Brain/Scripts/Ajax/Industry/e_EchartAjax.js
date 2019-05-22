@@ -209,7 +209,6 @@
                 callback(e_LayerMenuData.AtlasPOI.Data);
             }
         },
-        
         getfkldData: function (callback) {
             if (con.IsInterface)//执行接口
             {

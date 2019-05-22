@@ -67,18 +67,20 @@
                     }
                     break;
                 case "Building": //楼宇
-                    //tl_Camera.loadCameraDetial(nodename)
-                    //var node = map.getSceneNode(con.AreaName, nodename);
+                    //tl_Camera.loadCameraDetial(nodename)                   
                     b_BuildingFloor.buildingOperation(nodename);
-                    var node = map.getSceneNode("hcy_baimo/hcy_baimo_" + id + "#rooftop");//固定飞到每栋楼的指定节点位置
-                    if (node) {
-                        //飞行位置暂定
+                    var areaName = con.AreaName;
+                    var poiNode = map.getSceneNode(con.AreaName, nodename);
+                    //var POIName = "POIIndustryGBuilding_" + id;
+                    //var poiNode = map.getSceneNode(areaName, POIName);
+                    if (poiNode) {
+                        var a = poiNode.getPosition();
+                        //var pos = (a.x + 2) + "," + (a.y + 20) + "," + (a.z + 10);
+                        var pos = ((a.x + 60) + "," + (a.y + 25) + "," + (a.z + 15)).toVector3().toGlobalPos(areaName);
                         var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
-                        Q3D.globalCamera().flyToNode(node, viewPos, 1, function () {
-                            
-                       })
-                        
+                        Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
                     }
+
                     break;
                 default:
             }
@@ -178,7 +180,8 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").zhnh()
+                // yyyyMMddHHmmss   这里 20190501120000 表示时间 2019-05-01 12:00:00 
+                require("g_Echart").zhnh({ datetime: "20190501120000" })
             });
         },
 

@@ -17,7 +17,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     4: { Id: 1004, TextName: "微信开门", Name: "IOT_4", Type: 4, ChooseIcon: "Texture/Common/IOT4_hover.png", UnChooseIcon: "Texture/Common/IOT4.png" },
                     5: { Id: 1005, TextName: "电子围栏", Name: "IOT_5", Type: 5, ChooseIcon: "Texture/Common/IOT5_hover.png", UnChooseIcon: "Texture/Common/IOT5.png", },
                     6: { Id: 1006, TextName: "井盖传感器", Name: "IOT_6", Type: 6, ChooseIcon: "Texture/Common/IOT6_hover.png", UnChooseIcon: "Texture/Common/IOT6.png" },
-                    7: { Id: 1007, TextName: "地磁", Name: "IOT_7", Type: 7, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" }
+                    7: { Id: 1007, TextName: "地磁", Name: "IOT_7", Type: 7, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
+                    8: { Id: 1008, TextName: "智能车闸", Name: "IOT_8", Type: 8, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
+                    9: { Id: 1009, TextName: "睡眠看护仪", Name: "IOT_9", Type: 9, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
+                    10: { Id: 1010, TextName: "燃气报警", Name: "IOT_10", Type: 10, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
+                    11: { Id: 1011, TextName: "人体红外传感", Name: "IOT_11", Type: 11, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" }
                 }
             },
             Camera: { Id: 2, TextName: "摄像头", Name: "Camera", Level: 1, ChooseIcon: "Texture/Common/camera_hover.png", UnChooseIcon: "Texture/Common/camera.png" },
@@ -70,8 +74,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 url: con.HtmlUrl + 'SocietyNew/Left_First_01.html'
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").cgq();
-                 
+                require("s_Echart").cgq();               
             });
 
         },
@@ -87,7 +90,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 require("s_Echart").loadCirclediv();
                 require("s_Echart").sxtCamera("#sqzz-sxt1", { "communityId": "S012" });
                 require("s_Echart").sxtCar("#sqzz-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
-                require("s_Echart").sxtPerson();
+                require("s_Echart").sxtPerson("#sqzz-sxt3");
 
             });
 
@@ -142,8 +145,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
 
-               require('s_Main').numberAni2();
-               // require('s_Main').getSocietyBigNum
+                require('s_Main').cgqBigNum();
+
             })
         },
         ////////////////////////////////////////////////右侧页面//////////////////////////////////////////////////////
@@ -470,6 +473,14 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             });
         },
 
+        cgqBigNum: function () {
+            s_EchartAjax.getCgqBigNum(function (result) {
+                if (require("s_Echart").cgqBigNumData == null) { return false; }
+                var data = require("s_Echart").cgqBigNumData;
+                require('s_Main').numberAni2(data);
+            });
+        },
+
         numberAni1: function (data) {
             com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
             com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
@@ -477,10 +488,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
             com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 20, Number(data.loopRate), 2000);
         },
-        numberAni2: function () {
-            com.numberAnimation($('#s_xcxcysl'), 128 - 20, 128, 2000);
-            com.numberAnimation($('#s_xcwrjsl'), 4- 1, 4, 1000);
-            com.numberAnimation($('#s_jrsxtsl'), 163 - 20, 163, 2000);
+        numberAni2: function (data) {
+            com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
+            com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
+            com.numberAnimation($('#s_bignum3'), Number(data.occupy) * 100 - 20, Number(data.occupy) * 100, 2000);
+            com.numberAnimation($('#s_bignum4'), Number(data.grade) * 100 - 20, Number(data.grade) * 100, 2000);            
         },
 
         htmlRevert: function () {

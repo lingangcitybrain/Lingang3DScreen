@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_LayerMenuAjax", "s_EchartAjax"], function (con, com, s_layerMenuData, s_LayerMenuAjax, s_EchartAjax) {
+﻿define(["config", "common", "util", "s_layerMenuData", "s_LayerMenuAjax", "s_EchartAjax"], function (con, com,util, s_layerMenuData, s_LayerMenuAjax, s_EchartAjax) {
     /**************************************传感器**************************************/
     return {
         carInOutCount: null, //08:00--16:00点的进出车辆数
@@ -8,7 +8,7 @@
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
-
+        IOTList: new util.HashMap,
         //加载传感器IOT
         loadIOT: function () {
             this.Revert();
@@ -19,7 +19,7 @@
             com.LayerFlyto(10)
 
 
-            var post_data = {"communityId": "s012","type":""}
+            var post_data = { "communityId": "s012", "page": 0,"rows":1000 }
 
             require("s_LayerMenuAjax").getSensorList(post_data, function (result) {
                 //require("sl_IOT").POIData = result.list;
@@ -28,20 +28,23 @@
                 var pois = [];
                 for (var i = 0; i < require("sl_IOT").POIData.length; i++) {
                     var row = require("sl_IOT").POIData[i];
-                    var icon = require("sl_IOT").LayerType.List[row.sensorType].UnChooseIcon;
-                    var poiName = "POISociety" + require("sl_IOT").LayerType.List[row.sensorType].Name + "_" + row.id;//POIIOT_01
-                    var iconSize = Q3D.vector2(41, 45);
-                    var pos = row.wgs84Lng + "," + row.wgs84Lat + ",0";
-                    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                    require("sl_IOT").IOTList.put(row.sensorNum, row);
+                    if (row.wgs84Lng && row.wgs84Lat) {
+                        var icon = require("sl_IOT").LayerType.List[row.sensorType].UnChooseIcon;
+                        var poiName = "POISociety" + require("sl_IOT").LayerType.List[row.sensorType].Name + "_" + row.sensorNum;//POIIOT_01
+                        var iconSize = Q3D.vector2(41, 45);
+                        var pos = row.wgs84Lng + "," + row.wgs84Lat + ",0";
+                        var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+                        var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
 
-                    var node = map.getSceneNode(areaName + "/" + poiName);
-                    if (node) {
-                        node.setVisible(1);
-                    } else {
-                        pois.push(poi);
+                        var node = map.getSceneNode(areaName + "/" + poiName);
+                        if (node) {
+                            node.setVisible(1);
+                        } else {
+                            pois.push(poi);
 
+                        }
                     }
                 }
                 com.InitPois(areaName, pois);
@@ -80,6 +83,36 @@
                 poi.setIcon(icon);
                 //});
             }
+            var sensorNum = nodeName.split('_')[2];
+            var data = require("sl_IOT").IOTList.get(sensorNum);
+            //加载页面内容
+            var url = con.HtmlUrl + 'SocietyNew/Bottom_IOTDetail.html';
+            require(['text!' + url], function (template) {
+                $("#detail_02").html(template);
+                $("#detail_02").show('slide', { direction: 'left' }, 500);
+                $(".poiinfo").css("left", "52%");
+                $(".poiinfo").css("top", "19%");
+
+                $("#div_iotdetail").hide()
+                $("#div_iotdetail").show('drop', 1000);
+
+                $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
+
+                var installationTime=data.installationTime==null?"":data.installationTime;
+
+                var html = '<div class="boxcont flex">'+
+                '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
+                    '<ul>' +
+                     '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
+                     '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
+                        '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
+                        '<li><span>所属区域：</span><em>' + data.belongRegion + '</em></li>' +
+                        '<li><span>所属街道：</span><em' + data.belongStreet + '</em></li>' +
+                        '<li><span>安装时间：</span><em>' + installationTime + '</em></li>' +
+                    '</ul>' +
+                '</dic></div>';
+                $("#iotdetail").html(html);
+            })
         },
         //清空传感器POI
         clearIOTPOI: function () {
@@ -126,7 +159,9 @@
                 htmlDom: "#left_second_01",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT1.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_IOT").loadSocietyPerson();
+            });
         },
         //加载第二列的div2
         loadLeftSecond2: function () {
@@ -148,7 +183,10 @@
             }
             com.UIControlAni(option, function () {
                 require("sl_IOT").loadCirclediv();
-                require("s_Echart").sxtCar("#iot-sxt2");
+                require("s_Echart").sxtCamera("#iot-sxt1", { "communityId": "S012" });
+                require("s_Echart").sxtCar("#iot-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
+                require("s_Echart").sxtPerson("#iot-sxt3");
+
             });
         },
         //加载第二列的div4
@@ -159,6 +197,19 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT4.html'
             }
             com.UIControlAni(option, function () {  require("sl_IOT").loadSocietyIOT() });
+        },
+
+        loadSocietyPerson: function () {
+            s_EchartAjax.getSocietyPersonData(function (result) {
+                if (require("s_Echart").societyPersonData == null) { return false; }
+                var data = require("s_Echart").societyPersonData;
+
+                $("#society-person>li").eq(0).find(".item-r-data").html(data.realTimeCount);
+                $("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
+                $("#society-person>li").eq(2).find(".item-r-data").html(data.total);
+                $("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
+            });
+
         },
 
         //加载社区车辆图表
@@ -226,7 +277,16 @@
 
                 sqclOption = {
                     legend: {
-                        show: false
+                        top: '1%',
+                        left: 'center',
+                        icon: 'rect',
+                        itemWidth: 30,
+                        itemHeight: 10,
+                        itemGap: 40,
+                        textStyle: {
+                            color: '#e4e4e4',
+                            fontSize: 25,
+                        },
                     },
                     color: ['#3398DB', '#00f81f'],
                     tooltip: {
@@ -239,7 +299,7 @@
                         left: '1%',   // grid 组件离容器左侧的距离。
                         right: '2%',
                         bottom: '2%',
-                        height: "90%",
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     xAxis: {
@@ -320,7 +380,16 @@
             // echart
             option = {
                 legend: {
-                    show: false
+                    top: '1%',
+                    left: 'center',
+                    icon: 'rect',
+                    itemWidth: 60,
+                    itemHeight: 20,
+                    itemGap: 80,
+                    textStyle: {
+                        color: '#e4e4e4',
+                        fontSize: 50,
+                    },
                 },
                 color: ['#3398DB', '#00f81f'],
                 tooltip: {
@@ -336,7 +405,7 @@
                     left: '5%',   // grid 组件离容器左侧的距离。
                     right: '5%',
                     bottom: '5%',
-                    height: "86%",
+                    height: "82%",
                     containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                 },
                 xAxis: {

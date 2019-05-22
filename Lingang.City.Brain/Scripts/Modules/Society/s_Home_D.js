@@ -91,7 +91,8 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
             this.layerNO = 14;
             sl_SeaboardLine.layerSeaboard();
             sl_SeaboardLine.loadLeftSecond();
-            require("s_Main").loadCenter1Info();
+            //require("s_Main").loadCenter1Info();
+            require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "14",
@@ -104,7 +105,8 @@ function (con, com, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightL
             this.layerNO = 26;
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
-            require("s_Main").loadCenter1Info();
+           // require("s_Main").loadCenter1Info();
+            require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "26",

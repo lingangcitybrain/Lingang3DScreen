@@ -417,13 +417,17 @@
                 $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.illegally);
             });
         },
-
+        
         //摄像头--人员
-        sxtPerson: function () {
+        sxtPerson: function (str) {
             s_EchartAjax.getSxtPersonData(function (result) {
                 if (require("s_Echart").sxtPersonData == null) { return false; }
                 var data = require("s_Echart").sxtPersonData;
-                data = data;
+
+                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
+                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total - data.count);
+                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.count);
+
             });
         },
 
@@ -564,16 +568,7 @@
                            trigger: 'axis',
                        },
                        legend: {
-                           top: '1%',
-                           left: 'center',
-                           itemWidth: 10,
-                           itemHeight: 10,
-                           itemGap: 25,
-                           selectedMode: 'single',
-                           textStyle: {
-                               color: '#e4e4e4',
-                               fontSize: 16,
-                           },
+                           show:false,
                        },
                        grid: {
                            top: '10%',
@@ -601,7 +596,7 @@
                                },
                            },
                            axisTick: { show: false, },
-                           data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                           data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                        }],
                        yAxis: [{
                            type: 'value',
@@ -627,7 +622,7 @@
                            axisTick: { show: false, },
                        }],
                        series: [{
-                           name: '月',
+                          // name: '月',
                            type: 'line',
                            symbol: 'circle',
                            symbolSize: 12,
@@ -704,8 +699,8 @@
                             }
                         },
                         axisTick: { show: false, },
-                        data: ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-                                '10', '11', '12'],
+                        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+
                     }],
                     yAxis: [{
                         type: 'value',
@@ -737,7 +732,7 @@
                         axisTick: { show: false, },
                     }],
                     series: [{
-                        name: '月',
+                       // name: '月',
                         type: 'line',
                         symbol: 'circle',
                         symbolSize: 30,

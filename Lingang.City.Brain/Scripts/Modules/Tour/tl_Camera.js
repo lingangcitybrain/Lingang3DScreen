@@ -13,13 +13,14 @@
             com.LayerFlyto(3)
 
             this.LayerType = require("t_Main").LayerCatalog.Camera;
-            var post_data = { "offset": "0", "count": "1000" };
-            require("t_LayerMenuAjax").getCameraList(post_data);
+            //var post_data = { "offset": "0", "count": "1000" };
+            //require("t_LayerMenuAjax").getCameraList(post_data);
 
             if (require("tl_Camera").POIData) {
                 require("tl_Camera").createCameraPoi(require("tl_Camera").POIData);
             }
             else {
+                var post_data = { "offset": "0", "count": "1000" };
                 require("t_LayerMenuAjax").getCameraList(post_data, function (result) {
                     require("tl_Camera").createCameraPoi(result.data);
                 });

@@ -100,7 +100,9 @@
                 htmlDom: "#left_second_01",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite1.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_WorkSite").loadWorkSiteBuilderData();
+            });
         },
         //加载第二列的div2
         loadLeftSecond2: function () {
@@ -109,8 +111,9 @@
                 htmlDom: "#left_second_02",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite2.html'
             }
-            com.UIControlAni(option, function () { return null });
-           // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
+            com.UIControlAni(option, function () {
+                require("sl_WorkSite").loadWorkSiteWrjData();
+            });
         },
         //加载第二列的div3
         loadLeftSecond3: function () {
@@ -120,7 +123,7 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite3.html'
             }
             com.UIControlAni(option, function () { return null });
-           // com.UIControlAni(option, function () { require("sl_IOT").loadCirclediv(); });
+            // com.UIControlAni(option, function () { require("sl_IOT").loadCirclediv(); });
         },
         //加载第二列的div4
         loadLeftSecond4: function () {
@@ -134,6 +137,54 @@
                 require("sl_IOT").Scrolldiv();
             });
         },
+
+        //工地施工单位
+        loadWorkSiteBuilderData: function () {
+            s_EchartAjax.getWorkSiteBuilderData(function (result) {
+                if (require("s_Echart").workSiteBuilderData == null) { return false; }
+                var data = require("s_Echart").workSiteBuilderData;
+                data = data[0];
+
+                $("#worksite_startTime").html(data.startTime.replace(data.startTime.slice(4, 6), "-" + data.startTime.slice(4, 6) + "-"))
+                $("#worksite_builder").html(data.builder)
+                $("#worksite_usefor").html(data.usage)
+
+            });
+        },
+
+        //工地无人机
+        loadWorkSiteWrjData: function () {
+            s_EchartAjax.getWorkSiteWrjData(function (result) {
+                if (require("s_Echart").workSiteWrjData == null) { return false; }
+                var data = require("s_Echart").workSiteWrjData;
+                data = data.data.communityDetail;
+
+                $("#worksite_wrj_flightCounts").html(data.flightCounts);
+                $("#worksite_wrj_eventCounts").html(data.eventCounts);
+                $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
+                $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
+                //$("#worksite_wrj_communityCarNums").html(parseFloat(data.communityCarNums))
+                //$("#worksite_wrj_communityGrade").html(parseFloat(data.communityGrade))
+            });
+        },
+
+        //工地天气预报
+        loadWorkSiteWeatherData: function () {
+            s_EchartAjax.getWorkSiteWeatherData(function (result) {
+                if (require("s_Echart").workSiteWeatherData == null) { return false; }
+                var data = require("s_Echart").workSiteWeatherData;
+                data = data.data.communityDetail;
+
+                $("#worksite_wrj_flightCounts").html(data.flightCounts);
+                $("#worksite_wrj_eventCounts").html(data.eventCounts);
+                $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
+                $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
+                //$("#worksite_wrj_communityCarNums").html(parseFloat(data.communityCarNums))
+                //$("#worksite_wrj_communityGrade").html(parseFloat(data.communityGrade))
+            });
+        },
+
+        //工地巡查员
         loadGdXcyData:function(){
             s_EchartAjax.getJmXcyData(function (result) {
                 if (require("s_Echart").jmXcyData == null) { return false; }

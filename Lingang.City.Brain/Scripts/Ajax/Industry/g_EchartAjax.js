@@ -135,8 +135,6 @@
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        //require("g_Echart").zhwyRepairData = g_EchartData.zhwyRepairData;
-                        //callback();
                     }
                 });
             }
@@ -161,8 +159,6 @@
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        //require("g_Echart").zhwyInspectData = g_EchartData.zhwyInspectData;
-                        //callback();
                     }
                 });
             }
@@ -180,6 +176,7 @@
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl_parking + 'v1/power/lastest',
                     cache: false,
+                    data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("g_Echart").zhnhData = data;
@@ -187,8 +184,6 @@
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        //require("g_Echart").zhnhData = g_EchartData.zhnhData;
-                        //callback();
                     }
                 });
             }
@@ -212,8 +207,6 @@
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        //require("g_Echart").sjtjData = g_EchartData.sjtjData;
-                        //callback();
                     }
                 });
             }

@@ -199,7 +199,7 @@
         },
         //显示事件图片详情
         loadEventPicDetail: function (id) {
-            console.log(id);
+            //console.log(id);
             var areaName = con.AreaName;
             var data = require("sl_Event").EventList.get(id);
             //加载页面内容
