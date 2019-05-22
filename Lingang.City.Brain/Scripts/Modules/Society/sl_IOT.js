@@ -28,7 +28,7 @@
                 var pois = [];
                 for (var i = 0; i < require("sl_IOT").POIData.length; i++) {
                     var row = require("sl_IOT").POIData[i];
-                    require("sl_Event").EventList.put(row.sensorNum, row);
+                    require("sl_IOT").IOTList.put(row.sensorNum, row);
                     if (row.wgs84Lng && row.wgs84Lat) {
                         var icon = require("sl_IOT").LayerType.List[row.sensorType].UnChooseIcon;
                         var poiName = "POISociety" + require("sl_IOT").LayerType.List[row.sensorType].Name + "_" + row.sensorNum;//POIIOT_01
@@ -96,16 +96,19 @@
                 $("#div_iotdetail").hide()
                 $("#div_iotdetail").show('drop', 1000);
 
-                $("#eventhead").html(data.sensorType);
-                var html = '<div class="boxcont flex">';
-                var html = '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
+                $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
+
+                var installationTime=data.installationTime==null?"":data.installationTime;
+
+                var html = '<div class="boxcont flex">'+
+                '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
                     '<ul>' +
                      '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
                      '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
                         '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
                         '<li><span>所属区域：</span><em>' + data.belongRegion + '</em></li>' +
                         '<li><span>所属街道：</span><em' + data.belongStreet + '</em></li>' +
-                        '<li><span>安装时间：</span><em>' + data.installationTime + '</em></li>' +
+                        '<li><span>安装时间：</span><em>' + installationTime + '</em></li>' +
                     '</ul>' +
                 '</dic></div>';
                 $("#iotdetail").html(html);
