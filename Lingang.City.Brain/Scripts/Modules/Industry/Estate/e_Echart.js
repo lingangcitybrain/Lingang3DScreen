@@ -1059,7 +1059,7 @@
             e_EchartAjax.jyjhbhqs(function (result) {
                 if (require("e_Echart").jyjhbhqsData == null) { return false; }
                 var data = require("e_Echart").jyjhbhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT,]
+                var arrvalue = [data[0].totality, data[1].totality, data[2].totality, data[3].totality, data[4].totality, ]
                 var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year,]
                 require("e_Echart").myChartjyjh = echarts.init(jyjhChart);
                 jyjhOption = {
@@ -1112,6 +1112,11 @@
 
                     },
                     yAxis: {
+                        name: "        (就业机会/千)",
+                        nameTextStyle: {
+                            color: "#00d7fe",
+                            fontSize: 22,
+                        },
                         axisTick: {
                             show: false,
                         },
@@ -1124,6 +1129,13 @@
                         },
                         //interval: 10,
                         axisLabel: {
+                            
+                            formatter: function (value, index) {
+                                
+                                value = value / 1000;
+                                
+                                return value;
+                            },
                             textStyle: {
                                 fontSize: 22,
                                 color: "#00d7fe"
@@ -1162,12 +1174,12 @@
         },
         //大就业机会
         bigjyjh: function () {
-            $("#EbigechartHead").html('就业机会变化趋势');
+            $("#EbigechartHead").html('就业机会变化趋势(千)');
             if ($("#jyjh-chart").length <= 0) { return false; }
             e_EchartAjax.jyjhbhqs(function (result) {
                 if (require("e_Echart").jyjhbhqsData == null) { return false; }
                 var data = require("e_Echart").jyjhbhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
+                var arrvalue = [data[0].totality, data[1].totality, data[2].totality, data[3].totality, data[4].totality, ]
                 var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year, ]
                 jyjhOption = {
                     legend: {
@@ -1236,6 +1248,13 @@
                         },
                         //interval: 10,
                         axisLabel: {
+                           
+                            formatter: function (value, index) {
+                                
+                                value = value / 1000;
+                                
+                                return value;
+                            },
                             textStyle: {
                                 fontSize: 50,
                                 color: "#00d7fe"
@@ -1281,11 +1300,12 @@
         xzsp: function () {
             if ($("#xzsp-chart").length <= 0) { return false; }
             var xzspChart = document.getElementById('xzsp-chart');
-            e_EchartAjax.xzspbhqs(function (result) {
+            var postdata="year"; 
+            e_EchartAjax.xzspbhqs(postdata,function (result) {
                 if (require("e_Echart").xzspbhqsData == null) { return false; }
                 var data = require("e_Echart").xzspbhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT,]
-                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year,]
+                var arrvalue = [data[4].salaryTotality, data[3].salaryTotality, data[2].salaryTotality, data[1].salaryTotality, data[0].salaryTotality, ]
+                var arryear = [data[4].year, data[3].year, data[2].year, data[1].year, data[0].year,]
                 require("e_Echart").myChartxzsp = echarts.init(xzspChart);
                 xzspOption = {
                     legend: {
@@ -1336,10 +1356,15 @@
 
                     },
                     yAxis: {
+                        name: "       (薪资水平/万)",
+                        nameTextStyle: {
+                            color: "#00d7fe",
+                            fontSize: 22,
+                        },
                         axisTick: {
                             show: false,
                         },
-                        min:7500,
+                        //min:7500,
                         //max: 8500,
                         axisLine: {
                             show: true,
@@ -1347,8 +1372,15 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        interval: 300,
+                        //interval: 300,
                         axisLabel: {
+                          
+                            formatter: function (value, index) {
+                                
+                                value = value / 10000;
+                                Math.round(value)
+                                return value;
+                            },
                             textStyle: {
                                 fontSize: 22,
                                 color: "#00d7fe"
@@ -1387,13 +1419,15 @@
         },
         //大薪资水平
         bigxzsp: function () {
-            $("#EbigechartHead").html('薪资水平变化趋势');
+            $("#EbigechartHead").html('薪资水平变化趋势（万）');
             if ($("#xzsp-chart").length <= 0) { return false; }
-            e_EchartAjax.xzspbhqs(function (result) {
+            var postdata = "year";
+            e_EchartAjax.xzspbhqs(postdata,function (result) {
                 if (require("e_Echart").xzspbhqsData == null) { return false; }
                 var data = require("e_Echart").xzspbhqsData;
-                var arrvalue = [data[0].COUNT, data[1].COUNT, data[2].COUNT, data[3].COUNT, data[4].COUNT, ]
-                var arryear = [data[0].year, data[1].year, data[2].year, data[3].year, data[4].year, ]
+                console.log(data)
+                var arrvalue = [data[4].salaryTotality, data[3].salaryTotality, data[2].salaryTotality, data[1].salaryTotality, data[0].salaryTotality, ]
+                var arryear = [data[4].year, data[3].year, data[2].year, data[1].year, data[0].year, ]
                 xzspOption = {
                     legend: {
                         show: false
@@ -1451,7 +1485,7 @@
                         axisTick: {
                             show: false,
                         },
-                        min: 7500,
+                        //min: 7500,
                         //max: 8500,
                         axisLine: {
                             show: true,
@@ -1460,8 +1494,14 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        interval: 300,
+                        //interval: 300,
                         axisLabel: {
+                            formatter: function (value, index) {
+
+                                value = value / 10000;
+                                Math.round(value)
+                                return value;
+                            },
                             textStyle: {
                                 fontSize: 50,
                                 color: "#00d7fe"
@@ -1510,6 +1550,7 @@
             e_EchartAjax.gccrcbhqs(function (result) {
                 if (require("e_Echart").gccrcbhqsData == null) { return false; }
                 var data = require("e_Echart").gccrcbhqsData;
+                console.log(data);
                 var arrdq = [data[0]["年份"], data[1]["年份"], data[2]["年份"], data[3]["年份"], data[4]["年份"], ]
                 var arrvalue = [data[0]["高层次人才数"], data[1]["高层次人才数"], data[2]["高层次人才数"], data[3]["高层次人才数"], data[4]["高层次人才数"], ]
                 require("e_Echart").myChartgccrc = echarts.init(gccrcChart);
@@ -1618,6 +1659,7 @@
             e_EchartAjax.gccrcbhqs(function (result) {
                 if (require("e_Echart").gccrcbhqsData == null) { return false; }
                 var data = require("e_Echart").gccrcbhqsData;
+                console.log(data);
                 var arrdq = [data[0]["年份"], data[1]["年份"], data[2]["年份"], data[3]["年份"], data[4]["年份"], ]
                 var arrvalue = [data[0]["高层次人才数"], data[1]["高层次人才数"], data[2]["高层次人才数"], data[3]["高层次人才数"], data[4]["高层次人才数"], ]
                 gccrcOption = {

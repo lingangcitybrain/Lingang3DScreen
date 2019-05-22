@@ -109,58 +109,45 @@
         //就业机会数据
         jyjhbhqsData: {
             "auth": {},
-            "data": [
-                {
-                    "year": 2014,
-                    "COUNT":1335
-                },
-                {
-                    "year": 2015,
-                    "COUNT":11567
-                },
-                {
-                    "year": 2016,
-                    "COUNT":11948
-                },
-                {
-                    "year": 2017,
-                    "COUNT": 12645
-                },
-                {
-                    "year": 2018,
-                    "COUNT": 12710
-                },
-
-            ],
+            "data": [{
+                "year": 2014,
+                "totality": 19289
+            }, {
+                "year": 2015,
+                "totality": 29964
+            }, {
+                "year": 2016,
+                "totality": 43602
+            }, {
+                "year": 2017,
+                "totality": 58440
+            }, {
+                "year": 2018,
+                "totality": 67825
+            }],
             "errCode": 0,
             "errMsg": "SUCCESS"
-        },
+        }
+,
         //薪资水平数据
         xzspbhqsData: {
             "auth": {},
-            "data": [
-                {
-                    "year": 2014,
-                    "COUNT":7958
-                },
-                {
-                    "year": 2015,
-                    "COUNT":7989
-                },
-                {
-                    "year": 2016,
-                    "COUNT":8269
-                },
-                {
-                    "year": 2017,
-                    "COUNT": 8327
-                },
-                {
-                    "year": 2018,
-                    "COUNT": 8349
-                },
-
-            ],
+            "data": [{
+                "year": 2018,
+                "salaryTotality": 1995445.8016
+            }, {
+                "year": 2017,
+                "salaryTotality": 1906987.5516
+            }, {
+                "year": 2016,
+                "salaryTotality": 1571281.5315
+            }, {
+                "year": 2015,
+                "salaryTotality": 1158501.9221
+            }, {
+                "year": 2014,
+                "salaryTotality": 851601.9574
+            }],
             "errCode": 0,
             "errMsg": "SUCCESS"
         },
