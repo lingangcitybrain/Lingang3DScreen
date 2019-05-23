@@ -98,7 +98,7 @@
             }
             com.UIControlAni(option, function () {
                 clearInterval(require("g_Echart").zsldInterval);//清空计时器
-                require("g_Echart").zsld(); //招商雷达 
+                require("g_Echart").zsld({ "offset": 0, "count": 10 }); //招商雷达 
             });
         },
         //加载第二个div
@@ -109,7 +109,8 @@
                 url: con.HtmlUrl + 'Industry/Garden/Left_First_02.html'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").topTen({"offset":1, "count":10});
+                console.log('require("g_Echart").topTen({"offset":0, "count":10});')
+                require("g_Echart").topTen({"offset":0, "count":10});
             });
 
         },
