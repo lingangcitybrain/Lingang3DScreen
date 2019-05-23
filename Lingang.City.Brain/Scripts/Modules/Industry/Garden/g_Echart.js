@@ -54,8 +54,8 @@
             $("#center_02").html("");
         },
         //招商雷达
-        zsld: function () {
-            g_EchartAjax.getzsldDataFun(function (result) {
+        zsld: function (post_data) {
+            g_EchartAjax.getzsldDataFun(post_data, function (result) {
                 if (require("g_Echart").zsldData == null) { return false; }
                 var data = require("g_Echart").zsldData;
                 
@@ -283,37 +283,47 @@
         //企业top10列表
         //getTopTenData
         topTen: function (post_data) {
+            console.log("topTen: function (post_data) ")
             g_EchartAjax.getTopTenData(post_data, function (result) {
-                if (require("g_Echart").topTenData == null) { return false; }
-                var data = require("g_Echart").topTenData;
-                data = data.data;
+                console.log("g_EchartAjax.getTopTenData(post_data, function (result)")
+                //var dsfsf = setTimeout(function () {
+                //    clearTimeout(dsfsf);
+                //    dsfsf = null;
+               
+                    if (require("g_Echart").topTenData == null) { return false; }
+                    var data = require("g_Echart").topTenData;
+                    data = data.data;
 
-                var aTopTenRecCap = []; //前十注册资本
-                var aTopTenSubConam = []; //前十对外投资
+                    var aTopTenRecCap = []; //前十注册资本
+                    var aTopTenSubConam = []; //前十对外投资
+                
+                    for (var i = 0; i < data.length; i++) {
+                        aTopTenRecCap.push(Number(data[i].rec_cap) ? Number(data[i].rec_cap) : 0);
+                        aTopTenSubConam.push(Number(data[i].sub_conam) ? Number(data[i].sub_conam) : 0);
+                    }
 
-                for (var i = 0; i < data.length; i++) {
-                    aTopTenRecCap.push( Number(data[0].rec_cap)? Number(data[0].rec_cap) : 0);
-                    aTopTenSubConam.push(Number(data[0].sub_conam)? Number(data[0].sub_conam) : 0);
-                }
+                    //最大数
+                    var aTopTenRecCapMax = Math.max.apply(null, aTopTenRecCap);
+                    var aTopTenSubConamMax = Math.max.apply(null, aTopTenSubConam); 
 
-                //最大数
-                var aTopTenRecCapMax = Math.max.apply(null, aTopTenRecCap);
-                var aTopTenSubConamMax = Math.max.apply(null, aTopTenSubConam); 
+                    //bar 宽度百分比
+                    var aTopTenRecCapWidth = []; //前十注册资本 bar 宽度百分比
+                    var aTopTenSubConamWidth = []; //前十对外投 bar 宽度百分比
+                    for (var i = 0; i < aTopTenRecCap.length; i++) {
+                        aTopTenRecCapWidth.push((aTopTenRecCap[i] / aTopTenRecCapMax * 100).toFixed(2));
+                        aTopTenSubConamWidth.push((aTopTenSubConam[i] / aTopTenSubConamMax * 100).toFixed(2));
+                    }
 
-                //bar 宽度百分比
-                var aTopTenRecCapWidth = []; //前十注册资本 bar 宽度百分比
-                var aTopTenSubConamWidth = []; //前十对外投 bar 宽度百分比
-                for (var i = 0; i < data.length; i++) {
-                    aTopTenRecCapWidth.push((aTopTenRecCap[i] / aTopTenRecCapMax * 100).toFixed(0));
-                    aTopTenSubConamWidth.push((aTopTenSubConam[i] / aTopTenSubConamMax * 100).toFixed(0));
-                }
+                    for (var i = 0; i < aTopTenRecCap.length; i++) {
+                        $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].ent_name)
 
+                        $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar1").css({ width: aTopTenSubConamWidth[i] + '%' }).children().html(aTopTenSubConam[i])
 
+                        $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar2").css({ width: aTopTenRecCapWidth[i] + '%' }).children().html(aTopTenRecCap[i])
+                    }
+                    console.log('$("#topten-table>tbody>tr").eq(i)')
 
-
-               // ent_name
-               // $("#topten-table")
-
+               // }, 200)
 
             });
         },
