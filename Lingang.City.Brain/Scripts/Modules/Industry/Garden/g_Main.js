@@ -9,7 +9,7 @@
                 Id: 2, TextName: "龙头企业", Name: "TopCompany", Level: 1, ChooseIcon: "Texture/Common/topcompany_hover.png", UnChooseIcon: "Texture/Common/topcompany.png"
             },
             Building: {
-                Id: 3, TextName: "楼宇", Name: "Building", Level: 1, ChooseIcon: "Texture/Common/building_hover.png", UnChooseIcon: "Texture/Common/building.png"
+                Id: 3, TextName: "楼宇", Name: "Building", Level: 1, ChooseIcon: "Texture/Common/building_hover.png", UnChooseIcon: "Texture/Common/a4.png"
             },
         },
         loadMain: function () {
