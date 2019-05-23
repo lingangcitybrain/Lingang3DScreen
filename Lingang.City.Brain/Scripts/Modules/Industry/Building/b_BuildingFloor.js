@@ -12,7 +12,7 @@
         changeMaterialModel_floor:[],
         //changeAlphaNode:[],
         POINodeClk: "",
-        buildingPOI: "Texture/common/building.png",
+        buildingPOI: "Texture/common/a4.png",//building.png",
         buildingPOI_hover: "Texture/common/building_hover.png",
         HideLayerArr:[],
         Revert: function () {
@@ -300,13 +300,16 @@
 
                 var poiName = "POIIndustryG" + require("b_BuildingFloor").LayerType.Name + "_" + row.id;//POIIOT_01
 
-                var iconSize = Q3D.vector2(41, 45);
+                var iconSize = Q3D.vector2(41, 50);
                 //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
                 //var pos = Coordinate + ",0";
                 var pos = row.lng + "," + row.lat + ",21";
                 var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                var poi = { POIName: poiName, Position: position, Text: row.name, Icon: icon, IconSize: iconSize, FontColor: "#00a600" };
+                var poi = {
+                    POIName: poiName, Position: position, Text: row.name, Icon: icon, IconSize: iconSize, FontColor: "#ffffff", POILayout: Q3D.Enums.poiLayOut.Center, FontSize:10
+                    
+                };
                 var node = map.getSceneNode(areaName + "/" + poiName);
                 if (node) {
                     node.setVisible(1);//显示当前父节点
