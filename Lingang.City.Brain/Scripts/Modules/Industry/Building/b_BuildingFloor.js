@@ -93,7 +93,7 @@
                     }
                     require("b_BuildingFloor").changeMaterialModel = [];
                 }
-                require("b_BuildingFloor").resetHideLayer();
+                //require("b_BuildingFloor").resetHideLayer();
                 /************************************END**********************************/
                 //for (var i = 0; i < layerArr.length; i++) {
                 var nodeArr = lg.getLayerAllNodeNames(data[parseInt(floor)-1]);
