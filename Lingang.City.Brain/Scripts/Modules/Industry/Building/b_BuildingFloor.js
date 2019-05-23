@@ -307,8 +307,10 @@
                 var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                 var poi = {
-                    POIName: poiName, Position: position, Text: row.name, Icon: icon, IconSize: iconSize, FontColor: "#ffffff", POILayout: Q3D.Enums.poiLayOut.Center, FontSize:10
-                    
+                    POIName: poiName, Position: position, POIOptions: {
+                        Text: row.name, Icon: icon, IconSize: iconSize, FontColor: Q3D.colourValue("#ffffff",1), POILayout: Q3D.Enums.poiLayOut.Center, FontSize: 10
+
+                    }
                 };
                 var node = map.getSceneNode(areaName + "/" + poiName);
                 if (node) {
@@ -317,7 +319,7 @@
                     pois.push(poi);
                 }
             }
-            com.InitPois(areaName, pois);
+            com.InitPoisN(areaName, pois);
         },
         //隐藏POI
         clearPOI: function (nodename) {
