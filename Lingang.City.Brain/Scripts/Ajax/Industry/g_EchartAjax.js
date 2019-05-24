@@ -60,18 +60,15 @@
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        console.log('success: function (data)')
                         require("g_Echart").topTenData = data;
                         callback(data);
                     },
                     error: function () {
-                        console.log('error')
                         //alert("数据传输错误");
                     }
                 });
             }
             else {//执行本地
-                console.log('if (con.IsInterface): else')
                 require("g_Echart").topTenData = g_EchartData.topTenData;
                 callback();
             }
