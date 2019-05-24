@@ -55,7 +55,7 @@
                         //        break;
                         //    default:
                         //}
-                        var pos = row.lng + "," + row.lat + ",0";
+                        var pos = parseFloat(row.lng).toFixed(6) + "," +  parseFloat(row.lat).toFixed(6) + ",0";
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                         var poi = {
@@ -86,14 +86,14 @@
                 })
             }
 
-            for (var i in require("sl_Event").InspectorList.keys()) {
-                console.log(require("sl_Event").InspectorList.keys()[i]);
-            }
+            //for (var i in require("sl_Event").InspectorList.keys()) {
+            //    //console.log(require("sl_Event").InspectorList.keys()[i]);
+            //}
 
         },
         //清空事件POI
         clearEventPOI: function () {
-            var data = this.POIData;
+            var data = require("sl_Event").POIData;
             var areaName = con.AreaName;
             //设置POI隐藏
             if (data != null) {
@@ -1106,14 +1106,16 @@
         /*********************加载大脑转动特效-end*********************/
 
         Revert: function () {
+            this.clearEventPOI();
+            this.closeDetail();
+            this.clearEventPaidan();
+
             if (this.DanaoAnimation) {
                 clearTimeout(this.DanaoAnimation);
             }
-            this.clearEventPaidan();
             this.movieClear();
             map.unloadArea("danao");
-            this.clearEventPOI();
-            this.closeDetail();
+            
 
             //if (this.showTime != null) {
             //    window.clearInterval(this.showTime);

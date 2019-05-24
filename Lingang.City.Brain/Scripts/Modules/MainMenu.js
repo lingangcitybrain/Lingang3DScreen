@@ -26,6 +26,9 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             //默认加载社区综治底部菜单
             s_Home.loadMain();
             this.loadBottomMenu_smain();
+
+
+
         },
 
         mainMenuSelect: function (index) {

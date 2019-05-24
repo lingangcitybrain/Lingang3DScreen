@@ -33,7 +33,7 @@
                         var icon = require("sl_IOT").LayerType.List[row.sensorType].UnChooseIcon;
                         var poiName = "POISociety" + require("sl_IOT").LayerType.List[row.sensorType].Name + "_" + row.sensorNum;//POIIOT_01
                         var iconSize = Q3D.vector2(41, 45);
-                        var pos = row.wgs84Lng + "," + row.wgs84Lat + ",0";
+                        var pos = parseFloat(row.wgs84Lng).toFixed(6) + "," + parseFloat(row.wgs84Lat).toFixed(6) + ",0";
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                         var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
@@ -123,7 +123,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var name = this.LayerType.List[data[i].sensorType].Name;
 
-                    var poiname = "POISociety" + name + "_" + data[i].id;
+                    var poiname = "POISociety" + name + "_" + data[i].sensorNum;
                     var node = map.getSceneNode(areaName + "/" + poiname);
                     if (node) {
                         //map.getArea(areaName).destroySceneNode(poiname);

@@ -45,6 +45,7 @@
                 }
             }
         },
+        //加载无人机
         loadDronePOI: function () {
             this.LayerType = require("t_Main").LayerCatalog.Drone;
             var post_data = { "offset": "0", "count": "1000" }

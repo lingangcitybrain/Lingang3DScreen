@@ -58,8 +58,28 @@
                              RelPriority: null,
                          },
                          OnLoaded: function () {//加载结束回调
+                             var temp = 1;
+                             switch (row.siteName) {
+                                 case "临港家园社区居委会":
+                                     temp = 1;
+                                     break;
+                                 case "东岸涟城居委会":
+                                     temp = 2;
+                                     break;
+                                 case "滴水湖馨苑居委会":
+                                     temp = 3;
+                                     break;
+                                 case "宜浩佳园第一居委会":
+                                     temp = 4;
+                                     break;
+                                 case "宜浩佳园第二居委会":
+                                     temp = 5;
+                                     break;
+                                 default:
+
+                             }
                              //创建子POI显示
-                             require("sl_WorkStation").loadWorkStationPOIDetial(areaName, poiName, "Texture/Common/cunju_" + row.id + ".png", row.id);
+                             require("sl_WorkStation").loadWorkStationPOIDetial(areaName, poiName, "Texture/Common/cunju_" + temp + ".png", temp);
                          },
                      }
                      map.createPOI(areaName + "/" + poiName, options)
@@ -99,6 +119,7 @@
                     break;
                 default:
             }
+
             var iconSize = Q3D.vector2(388, 217);
             var createOptions = {
                 Position: pos,
@@ -160,7 +181,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var name = this.LayerType.Name;
 
-                    var poiname = "POISociety" + name + "_" + data[i].id;
+                    var poiname = "POISociety" + name + "_" + data[i].siteName;
                     var node = map.getSceneNode(areaName + "/" + poiname);
                     if (node) {
                         map.getArea(areaName).destroySceneNode(poiname);
