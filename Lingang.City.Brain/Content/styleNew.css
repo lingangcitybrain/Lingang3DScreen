@@ -955,6 +955,7 @@ button.arrowbtn.btnright{
 	color: #fff;
 	box-shadow: 0 0 .2rem rgba(14,160,156,.75);
 }
+#sjcg-status > button { padding-left:.2rem;}
 .sjxx-tab>button:last-child{ margin-right: 0; }
 .sjxx-tab>button>span{ color: #f98d02; font-size:.5rem; }
 
@@ -2120,7 +2121,7 @@ dd.pjc-statistic-star >form{
 }
 .qyzhpfldt-cont .qyzhpfldt-title:last-child{ 
 	color: #0a5b58;
-	left: 6.4rem;
+	left: 6rem;
 }
 /*qyjbxx-li*/
 .qyjbxx-li{
