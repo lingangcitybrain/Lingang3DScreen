@@ -13,7 +13,7 @@
         //changeAlphaNode:[],
         POINodeClk: "",
         buildingPOI: "Texture/common/a4.png",//building.png",
-        buildingPOI_hover: "Texture/common/building_hover.png",
+        buildingPOI_hover: "Texture/common/a4_hover.png",
         HideLayerArr:[],
         Revert: function () {
             this.resetBuildingMaterial();
@@ -342,7 +342,7 @@
 
                 var poiName = "POIIndustryG" + require("b_BuildingFloor").LayerType.Name + "_" + row.id;//POIIOT_01
 
-                var iconSize = Q3D.vector2(41, 50);
+                var iconSize = Q3D.vector2(48, 57);
                 //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
                 //var pos = Coordinate + ",0";
                 var pos = row.lng + "," + row.lat + ",21";
