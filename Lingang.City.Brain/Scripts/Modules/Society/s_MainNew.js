@@ -363,11 +363,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             var videowidth = $("#Big-chart").width();
             var videoheight = $("#Big-chart").height();
-            if (require("s_Main").leftcenter_video) {
-                require("s_Main").leftcenter_video.dispose();
-                require("s_Main").leftcenter_video = null;
-            }
-            $("#Big-chart").empty();
+               $("#Big-chart").empty();
             require(['aliplayer'], function (data) {
                 require("s_Main").leftcenter_video = new Aliplayer({
                     "id": "Big-chart",
@@ -383,9 +379,6 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     "useFlashPrism": true,
                     "mediaType": "audio"
 
-                }, function (player) {
-                    //加载成功,清空错误提示
-                    $(".prism-ErrorMessage").empty();
                 })
             });
         },

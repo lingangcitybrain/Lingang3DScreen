@@ -304,7 +304,13 @@
 			        "name": "海关处罚"
 		        }]
 	        }
-        },  
+        },
+        centernumberData: {
+	            total: 123452,
+	            potential: 1221,
+	            invested: 23232,
+	            abnormal: 1
+            }
     }
 })
 
