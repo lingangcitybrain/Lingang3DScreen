@@ -1,6 +1,6 @@
 ﻿define(["config", "common", "g_EchartAjax", "pagination", "nicescroll"], function (con, com, g_EchartAjax, pagination, nicescroll) {
     var gauge_value = 0;
-    var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
+    //var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
     var tcfwSeriesData = []; //停车服务数据 便于大图表引用
     var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
     var wrjsjbcSeriesDataMax = 0;
@@ -272,59 +272,46 @@
                             }]
                         }]
                     };
-
                     require("g_Echart").myChartleida.setOption(option);
-
                 }, 800);
             })
         
         },
 
         //企业top10列表
-        //getTopTenData
         topTen: function (post_data) {
-            console.log("topTen: function (post_data) ")
             g_EchartAjax.getTopTenData(post_data, function (result) {
-                console.log("g_EchartAjax.getTopTenData(post_data, function (result)")
-                //var dsfsf = setTimeout(function () {
-                //    clearTimeout(dsfsf);
-                //    dsfsf = null;
-               
-                    if (require("g_Echart").topTenData == null) { return false; }
-                    var data = require("g_Echart").topTenData;
-                    data = data.data;
+                if (require("g_Echart").topTenData == null) { return false; }
+                var data = require("g_Echart").topTenData;
+                data = data.data;
 
-                    var aTopTenRecCap = []; //前十注册资本
-                    var aTopTenSubConam = []; //前十对外投资
+                var aTopTenRecCap = []; //前十注册资本
+                var aTopTenSubConam = []; //前十对外投资
                 
-                    for (var i = 0; i < data.length; i++) {
-                        aTopTenRecCap.push(Number(data[i].rec_cap) ? Number(data[i].rec_cap) : 0);
-                        aTopTenSubConam.push(Number(data[i].sub_conam) ? Number(data[i].sub_conam) : 0);
-                    }
+                for (var i = 0; i < data.length; i++) {
+                    aTopTenRecCap.push(Number(data[i].rec_cap) ? Number(data[i].rec_cap) : 0);
+                    aTopTenSubConam.push(Number(data[i].sub_conam) ? Number(data[i].sub_conam) : 0);
+                }
 
-                    //最大数
-                    var aTopTenRecCapMax = Math.max.apply(null, aTopTenRecCap);
-                    var aTopTenSubConamMax = Math.max.apply(null, aTopTenSubConam); 
+                //最大数
+                var aTopTenRecCapMax = Math.max.apply(null, aTopTenRecCap);
+                var aTopTenSubConamMax = Math.max.apply(null, aTopTenSubConam); 
 
-                    //bar 宽度百分比
-                    var aTopTenRecCapWidth = []; //前十注册资本 bar 宽度百分比
-                    var aTopTenSubConamWidth = []; //前十对外投 bar 宽度百分比
-                    for (var i = 0; i < aTopTenRecCap.length; i++) {
-                        aTopTenRecCapWidth.push((aTopTenRecCap[i] / aTopTenRecCapMax * 100).toFixed(2));
-                        aTopTenSubConamWidth.push((aTopTenSubConam[i] / aTopTenSubConamMax * 100).toFixed(2));
-                    }
+                //bar 宽度百分比
+                var aTopTenRecCapWidth = []; //前十注册资本 bar 宽度百分比
+                var aTopTenSubConamWidth = []; //前十对外投 bar 宽度百分比
+                for (var i = 0; i < aTopTenRecCap.length; i++) {
+                    aTopTenRecCapWidth.push((aTopTenRecCap[i] / aTopTenRecCapMax * 100).toFixed(2));
+                    aTopTenSubConamWidth.push((aTopTenSubConam[i] / aTopTenSubConamMax * 100).toFixed(2));
+                }
 
-                    for (var i = 0; i < aTopTenRecCap.length; i++) {
-                        $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].ent_name)
+                for (var i = 0; i < aTopTenRecCap.length; i++) {
+                    $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].ent_name)
 
-                        $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar1").css({ width: aTopTenSubConamWidth[i] + '%' }).children().html(aTopTenSubConam[i])
+                    $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar1").css({ width: aTopTenSubConamWidth[i] + '%' }).children().html(aTopTenSubConam[i])
 
-                        $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar2").css({ width: aTopTenRecCapWidth[i] + '%' }).children().html(aTopTenRecCap[i])
-                    }
-                    console.log('$("#topten-table>tbody>tr").eq(i)')
-
-               // }, 200)
-
+                    $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar2").css({ width: aTopTenRecCapWidth[i] + '%' }).children().html(aTopTenRecCap[i])
+                }
             });
         },
 
@@ -348,6 +335,7 @@
                 $("#cyyq-tcfw-total").html(data.total);
                 $("#cyyq-tcfw-empty").html(data.total - data.occupied);
 
+                var xAxisData = []; //X轴数据
                 for (var i = 7; i > 0; i--) {
                     xAxisData.push( require("g_Echart").latestSevenDate(i)[0] )
                 }
@@ -484,6 +472,11 @@
         bigtcfw: function () {
             $("#GbigechartHead").html('进出车辆数');
             if ($("#tcfw-chart").length <= 0) { return false; }
+            var xAxisData = []; //X轴数据
+            for (var i = 7; i > 0; i--) {
+                xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
+            }
+
             var tcfwdata = [];
             for (var i = 1; i < 100; i++) {
                 tcfwdata.push(Math.round((Math.random() * 5000 + 3000)));
@@ -610,9 +603,11 @@
                 var wrjsjbcChart = document.getElementById('wrjsjbc-chart');
                 var myChartwrjsjbc = echarts.init(wrjsjbcChart);
 
+                var xAxisData = []; //X轴数据
                 for (var i = 7; i > 0; i--) {
                     xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
                 }
+
 
                 var chartData = data.weeklyCounts;
                 wrjsjbcSeriesData = [chartData[0] * 2, chartData[1] * 2, chartData[2] * 2, chartData[3] * 2, chartData[4] * 2, chartData[5] * 2, chartData[6] * 2];
@@ -732,6 +727,12 @@
         bigwrjsjbc: function () {
             $("#GbigechartHead").html('无人驾驶接驳车(使用车次)');
             if ($("#wrjsjbc-chart").length <= 0) { return false; }
+
+            var xAxisData = []; //X轴数据
+            for (var i = 7; i > 0; i--) {
+                xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
+            }
+
             wrjsjbcOption = {
                 title: {
                     show:false,

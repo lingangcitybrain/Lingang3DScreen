@@ -507,7 +507,7 @@
                                 FontOutLine: 0, //同描边有关
                                 FontEdgeColor: Q3D.colourValue("#000000", 1),
                                 AlphaTestRef: null,
-                                Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_LEFT,
+                                Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
                                 LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用
                                 BackFrameBorderSize: null,//2, //同边框有关 背景边框大小
                                 BackBorderColor: null,//Q3D.colourValue("#80ffff", 1),//背景边框颜色

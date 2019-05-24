@@ -115,7 +115,7 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard1.html'
             }
             com.UIControlAni(option, function () {
-                require("sl_SeaboardLine").loadDroneRecentFlight();
+                require("sl_SeaboardLine").loadRecentFlight();
             });
         },
         //加载第二列的div2
@@ -126,7 +126,7 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard2.html'
             }
             com.UIControlAni(option, function () {
-                require("sl_SeaboardLine").loadDroneRecenMonthtFlight();
+                require("sl_SeaboardLine").loadMonthlyRecentFlight();
             });
         },
         //加载第二列的div3
@@ -143,28 +143,23 @@
         },
 
         //海岸线无人机最近一次飞行统计
-        loadDroneRecentFlight: function () {
-            console.log("RecentFlight")
-            s_EchartAjax.getDroneRecentFlightData(function (result) {
-                if (require("s_Echart").droneRecentFlightData == null) { return false; }
-                var data = require("s_Echart").droneRecentFlightData;
-                console.log(data)
+        loadRecentFlight: function () {
+            s_EchartAjax.getRecentFlightData(function (result) {
+                if (require("s_Echart").recentFlightData == null) { return false; }
+                var data = require("s_Echart").recentFlightData;
                 $("#recent-flight").html(data.coastDistance);
                 $("#recent-flight-mess>li").eq(0).find("span").html(data.flightCount)
                 $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor + '%')
                 $("#recent-flight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-flight-mess>li").eq(3).find("span").html(data.stall)
-
             });
         },
 
         //海岸线无人机最近一个月飞行统计
-        loadDroneRecenMonthtFlight: function () {
-            console.log("RecenMonthtFlight")
-            s_EchartAjax.getDroneRecentMonthFlightData(function (result) {
-                if (require("s_Echart").droneRecentMonthFlightData == null) { return false; }
-                var data = require("s_Echart").droneRecentMonthFlightData;
-                console.log(data)
+        loadMonthlyRecentFlight: function () {
+            s_EchartAjax.getMonthlyRecentFlightData(function (result) {
+                if (require("s_Echart").monthlyRecentFlightData == null) { return false; }
+                var data = require("s_Echart").monthlyRecentFlightData;
                 $("#recent-monthflight>li").eq(0).find("em").html(data.totalDistance)
                 $("#recent-monthflight>li").eq(1).find("em").html(data.flightNumber)
                 $("#recent-monthflight>li").eq(2).find("em").html(data.coastDistance)
