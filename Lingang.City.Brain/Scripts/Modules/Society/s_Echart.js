@@ -135,7 +135,7 @@
         },
         //无人机视频
         wrjsp: function () {
-            console.log("asdfas")
+            //console.log("asdfas")
             $("#bigechartHead").empty();
             require("s_Main").loadCenter_Video();
             
@@ -519,7 +519,8 @@
 
                for (var i = 0; i < data.length; i++) {
                    seriesData.push(Number(data[i].counts));
-                   oSjcgseriesRateData.push((Number( data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(0) );
+                   //事件成功率 保留两位小数
+                   oSjcgseriesRateData.push((Number( data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(2) );
 
                }
                seriesDataMax = Math.max.apply(null, seriesData);
@@ -653,6 +654,50 @@
            })
 
        },
+
+        // 事件处理成功状态
+       loadSocietySjcgStatusData: function () {
+           s_EchartAjax.getSocietySjcgStatusData(function (result) {
+               if (require("s_Echart").societySjcgStatusData == null) { return false; };
+               var data = require("s_Echart").societySjcgStatusData;
+               data = data.data.dealDeptList;
+
+               $("#sjcg-status>button").eq(0).find("span").html(data[0].counts);
+               $("#sjcg-status>button").eq(1).find("span").html(data[1].counts);
+               $("#sjcg-status>button").eq(2).find("span").html(data[2].counts);
+
+           })
+       },
+
+
+        // 事件处理成功数列表
+       loadSocietySjcgList: function (post_data) {
+           s_EchartAjax.getSocietySjcgList(post_data, function (result) {
+               if (require("s_Echart").societySjcgListData == null) { return false; };
+               var data = require("s_Echart").societySjcgListData;
+               data = data.data.list;
+               var html = '';
+               var num = 0;
+               for (var i = 0; i < data.length; i++) {
+                    num++;
+                    html +=
+                       '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
+                        '<div class="sjxx-li-line1">' +
+                            '<span class="sjxx-id counter">' + num + '</span>' +
+                            '<span class="sjxx-event">' + data[i].eventName + '</span>' +
+                            '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+                        '</div>' +
+                        '<div class="sjxx-address">' + data[i].address +
+                            '<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
+                        '</div>' +
+                    '</li>';
+                }
+               $("#ul_eventlist").html(html);
+
+            })
+        },
+
+
        bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
 
             if (sjcgChartClose) {

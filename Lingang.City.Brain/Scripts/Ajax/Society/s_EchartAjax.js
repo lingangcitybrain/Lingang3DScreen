@@ -239,6 +239,56 @@
             }
         },
 
+        //事件处理成功状态
+        getSocietySjcgStatusData: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "v1/affair/comunity/taskNumByStatus", 
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").societySjcgStatusData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                require("s_Echart").societySjcgStatusData = s_EchartData.societySjcgStatusData;
+                callback()
+            }
+        },
+
+        //事件处理成功数列表
+        getSocietySjcgList: function (post_data, callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "v1/affairs/list", 
+                    cache: false,
+                    data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").societySjcgListData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                require("s_Echart").societySjcgListData = s_EchartData.societySjcgListData;
+                callback()
+            }
+        },
+
         //中间大数字
         getSocietyBigNum: function (callback) {
             if (con.IsInterface) {
@@ -336,7 +386,7 @@
         },
 
         //海岸线无人机最近一次飞行统计
-        getDroneRecentFlightData: function (callback) {
+        getRecentFlightData: function (callback) {
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
@@ -345,22 +395,21 @@
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("s_Echart").droneRecentFlightData = data;
+                        require("s_Echart").recentFlightData = data;
                         callback(data)
                     },
                     error: function () {
-                        console.log("RecentFlightData--error")
                         //alert("数据传输错误");
                     }
                 });
             } else {//执行本地
-                require("s_Echart").droneRecentFlightData = s_EchartData.droneRecentFlightData;
+                require("s_Echart").recentFlightData = s_EchartData.recentFlightData;
                 callback();
             }
         },
 
         //海岸线无人机最近一个月飞行统计
-        getDroneRecentMonthFlightData: function (callback) {
+        getMonthlyRecentFlightData: function (callback) {
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
@@ -369,16 +418,15 @@
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("s_Echart").droneRecentMonthFlightData = data;
+                        require("s_Echart").monthlyRecentFlightData = data;
                         callback(data)
                     },
                     error: function () {
-                        console.log("RecentMonthFlightData--error")
                         //alert("数据传输错误");
                     }
                 });
             } else {//执行本地
-                require("s_Echart").droneRecentMonthFlightData = s_EchartData.droneRecentMonthFlightData;
+                require("s_Echart").monthlyRecentFlightData = s_EchartData.monthlyRecentFlightData;
                 callback();
             }
         },

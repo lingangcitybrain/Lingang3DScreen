@@ -109,8 +109,7 @@
                 url: con.HtmlUrl + 'Industry/Garden/Left_First_02.html'
             }
             com.UIControlAni(option, function () {
-                console.log('require("g_Echart").topTen({"offset":0, "count":10});')
-                require("g_Echart").topTen({"offset":0, "count":10});
+                require("g_Echart").topTen();
             });
 
         },

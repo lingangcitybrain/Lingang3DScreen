@@ -95,14 +95,38 @@
                     callback()
             }
         },
-
+        //获取巡查员列表
+        getInspectorList: function (callback) {
+            if(con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "v1/buildingsites/inspectorInfo",  // yii 控制器/方法   
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("sl_Event").InspectorData = data.data.data;
+                        if ($.isFunction(callback))
+                            callback()
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                require("sl_Event").InspectorData = s_layerMenuData.InspectorData.data;
+                 if ($.isFunction(callback))
+                            callback()
+            }
+        },
         //获取无人机库列表
         getDroneList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/drone/droneHangerInfo",  // yii 控制器/方法   
+                    url: con.InterfaceUrl + "v1/drone/hangers/list",  // yii 控制器/方法   
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

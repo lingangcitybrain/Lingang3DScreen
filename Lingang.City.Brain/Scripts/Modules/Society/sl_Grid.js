@@ -328,7 +328,7 @@
                     czajslxAxisData.push(data[i].months.replace("-","/"));
                     czajslSeriesData.push(data[i].counts);
                 }
-                czajslxAxisDataMax = parseInt(Math.max.apply(null, czajslxAxisData)*1.1);
+                czajslxAxisDataMax = parseInt(Math.max.apply(null, czajslSeriesData) * 1.1);
 
 
                 //图表
@@ -440,7 +440,7 @@
                     czajslxAxisData.push(data[i].months.replace("-", "/"));
                     czajslSeriesData.push(data[i].counts);
                 }
-                czajslxAxisDataMax = parseInt(Math.max.apply(null, czajslxAxisData) * 1.1);
+                czajslxAxisDataMax = parseInt(Math.max.apply(null, czajslSeriesData) * 1.1);
 
                 //图表
                 if ($("#czajsl-chart").length <= 0) { return false; }
