@@ -20,6 +20,7 @@
         myChartleida: null,             //风控雷达
         fkldData:null,                  //风控雷达数据
         fkldInterval: null,             //雷达计时器
+        centernumberData: null,          //中间数字数据
 
         //加载图表
         loadEcharts:function()
@@ -252,7 +253,6 @@
                         temp.push(arr[i]);
                     }
                 }
-                console.log(temp);
                 for (var a = 0; a < arr.length; a++) {
                     if (a % 2 != 0) {
                         arrvalue.push(temp[a])
@@ -376,7 +376,6 @@
             e_EchartAjax.qybhqs(function (result) {
                 if (require("e_Echart").qybhqsData == null) { return false; }
                 var data = require("e_Echart").qybhqsData;
-                //console.log(data);
                 var arrvalue = [], arryear = [], arr = [], temp = []
                 for (var i = 0; i < data.length; i++) {
                     if (typeof data[i] == "object") {
@@ -1425,7 +1424,6 @@
             e_EchartAjax.xzspbhqs(postdata,function (result) {
                 if (require("e_Echart").xzspbhqsData == null) { return false; }
                 var data = require("e_Echart").xzspbhqsData;
-                console.log(data)
                 var arrvalue = [data[4].salaryTotality, data[3].salaryTotality, data[2].salaryTotality, data[1].salaryTotality, data[0].salaryTotality, ]
                 var arryear = [data[4].year, data[3].year, data[2].year, data[1].year, data[0].year, ]
                 xzspOption = {
@@ -1550,7 +1548,6 @@
             e_EchartAjax.gccrcbhqs(function (result) {
                 if (require("e_Echart").gccrcbhqsData == null) { return false; }
                 var data = require("e_Echart").gccrcbhqsData;
-                console.log(data);
                 var arrdq = [data[0]["年份"], data[1]["年份"], data[2]["年份"], data[3]["年份"], data[4]["年份"], ]
                 var arrvalue = [data[0]["高层次人才数"], data[1]["高层次人才数"], data[2]["高层次人才数"], data[3]["高层次人才数"], data[4]["高层次人才数"], ]
                 require("e_Echart").myChartgccrc = echarts.init(gccrcChart);
@@ -1659,7 +1656,6 @@
             e_EchartAjax.gccrcbhqs(function (result) {
                 if (require("e_Echart").gccrcbhqsData == null) { return false; }
                 var data = require("e_Echart").gccrcbhqsData;
-                console.log(data);
                 var arrdq = [data[0]["年份"], data[1]["年份"], data[2]["年份"], data[3]["年份"], data[4]["年份"], ]
                 var arrvalue = [data[0]["高层次人才数"], data[1]["高层次人才数"], data[2]["高层次人才数"], data[3]["高层次人才数"], data[4]["高层次人才数"], ]
                 gccrcOption = {
@@ -1775,11 +1771,6 @@
             require("e_Echart").myChartleida = echarts.init(document.getElementById('fkld-chart'));
             e_EchartAjax.getfkldData(function (result) {
                 var data = require("e_Echart").fkldData;
-                console.log(data)
-               
-                console.log('111....'+data.舆情风险.business)
-                console.log('222....' + data.totalBusiness)
-                console.log('333....' + data.舆情风险.list[0].name)
                 var dataArr = [0.004,0.48, 0.11, 0.41 ];
 
             require("e_Echart").fkldInterval = setInterval(function () {
@@ -1983,24 +1974,18 @@
             }, 300);
             })
         },
-        
-        fkldFun: function () {
+        //中间大数字
+        centernumber: function () {
             
-        //        var data = require("t_Echart").yqsjlblxData;
-        //        for (var i = 1; i < data.data.length; i++) {
-        //            html += '<li class="yqsj-item">';
-        //            html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data.data[i].name + '（<em class="testAerial">2</em>）</div>';
-        //            html += '<ol class="yqsj-itemol">';
-        //            html += '<li class="">' + data.data[i].label + '</li>';
-        //            html += '<li class="">' + data.data[i].content + '</li>';
-        //            html += '</ol>';
-        //            html += '</li>';
-        //        }
-            //        $('#sj').html(html);
-          
+            e_EchartAjax.centernumberajax(function (result) {
+                var data = require("e_Echart").centernumberData
+                $("#e_qyzs").html(data.total)
+                $("#e_zlxxqys").html(data.potential)
+                $("#e_ssgs").html(data.invested)
+                $("#e_ydqys").html(data.abnormal)
+            })
         },
-
-
+        
         Revert: function () {
             //产业竞争力
             if (require("e_Echart").myChartcyjzl != null && require("e_Echart").myChartcyjzl != "" && require("e_Echart").myChartcyjzl != undefined) {
