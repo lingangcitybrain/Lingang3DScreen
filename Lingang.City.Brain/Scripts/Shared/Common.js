@@ -1471,6 +1471,37 @@
             newDate = new Date(timestamp - daynum * 24 * 3600 * 1000);
             return [[newDate.getFullYear(), newDate.getMonth() + 1, newDate.getDate()].join('-'), [newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()].join(':')].join(' ');
         },
+        //时间格式化 new Date().getTime():1558515723754
+        formatDate:function (time) {
+            var date = new Date(time);
+
+            var year = date.getFullYear(),
+                month = date.getMonth() + 1,//月份是从0开始的
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds();
+            var newTime = year + '-' +
+                        month + '-' +
+                        day + ' ' +
+                        hour + ':' +
+                        min + ':' +
+                        sec;
+            return newTime;         
+        },
+        //时间格式化2019-05-20T08:35:55.000+0000
+        formatDate2: function(date) {
+             var arr=date.split("T");
+            var d=arr[0];
+            var darr = d.split('-');
+
+            var t=arr[1];
+            var tarr = t.split('.000');
+            var marr = tarr[0].split(':');
+
+            var dd = parseInt(darr[0])+"-"+parseInt(darr[1])+"-"+parseInt(darr[2])+" "+parseInt(marr[0])+":"+parseInt(marr[1])+":"+parseInt(marr[2]);
+            return dd;
+        },
         //数字动画
         numberAnimation: function (dom, startNumber, endNumber, second) {
             if (dom.length > 0) {
