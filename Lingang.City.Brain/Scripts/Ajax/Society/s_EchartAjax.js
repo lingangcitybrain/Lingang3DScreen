@@ -193,16 +193,6 @@
         },
 
 
-
-
-
-
-
-
-
-
-
-
         //事件信息
         getSocietySj: function (callback) {
             if (con.IsInterface) {
@@ -345,14 +335,62 @@
             }
         },
 
-        //潮汐时间表
-        getCostlineTideData: function (callback) {
+        //海岸线无人机最近一次飞行统计
+        getDroneRecentFlightData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/drone/communityDroneRecentFlight',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").droneRecentFlightData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        console.log("RecentFlightData--error")
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").droneRecentFlightData = s_EchartData.droneRecentFlightData;
+                callback();
+            }
+        },
+
+        //海岸线无人机最近一个月飞行统计
+        getDroneRecentMonthFlightData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/drone/communityDroneRecentFlightMonthly',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").droneRecentMonthFlightData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        console.log("RecentMonthFlightData--error")
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").droneRecentMonthFlightData = s_EchartData.droneRecentMonthFlightData;
+                callback();
+            }
+        },
+
+        //海岸线潮汐时间表
+        getCostlineTideData: function (post_data, callback) {
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl + 'v1/costlines/tide',
                     cache: false,
-                    //data: post_data,  //传送的数据
+                    data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("s_Echart").costlineTideData = data;
@@ -437,8 +475,51 @@
             }
         },
 
+        //网格处置案件数量
+        getDealTaskNumData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/affairs/getDealTaskNum',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").dealTaskNumData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").dealTaskNumData = s_EchartData.dealTaskNumData;
+                callback();
+            }
+        },
 
-
+        //网格处置案件类别
+        getDealTaskTypeData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/affairs/getDealTaskType',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").dealTaskTypeData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").dealTaskTypeData = s_EchartData.dealTaskTypeData;
+                callback();
+            }
+        },
 
 
 

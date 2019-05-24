@@ -111,11 +111,11 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/industrial/investmentInfo',
+                    url: 'http://47.101.181.131:8081/v1/industrial/jobChance',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").jyjhbhqsData = data;
+                        require("e_Echart").jyjhbhqsData = data.data;
                         callback(data);
                     },
                     error: function () {
@@ -132,16 +132,17 @@
         },
 
         //薪资水平变化趋势
-        xzspbhqs: function (callback) {
+        xzspbhqs: function (postdata,callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/industrial/investmentInfo',
+                    url: 'http://47.101.181.131:8081/v1/industrial/salaryChange',
                     cache: false,
+                    data:{type:postdata},
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").xzspbhqsData = data;
+                        require("e_Echart").xzspbhqsData = data.data;
                         callback(data);
                     },
                     error: function () {
@@ -163,11 +164,11 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/industrial/investmentInfo',
+                    url: 'http://47.101.181.131:8081/v1/industrial/eliteDistrbution',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").gccrcbhqsData = data;
+                        require("e_Echart").gccrcbhqsData = data.data;
                         callback(data);
                     },
                     error: function () {
@@ -221,14 +222,13 @@
                         callback(data);
                     },
                     error: function () {
-                        console.log("数据传输错误");
+                        require("e_Echart").fkldData = e_EchartData.fkldData.data;
                         callback(data);
-                        //require("e_Echart").fkldData = e_EchartData.fkldData.data;
                     }
                 });
             }
             else {//执行本地
-                console.log("数据传输错误")
+                require("e_Echart").fkldData = e_EchartData.fkldData.data;
                 callback(data);
             }
         },

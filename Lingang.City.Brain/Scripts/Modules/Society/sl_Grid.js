@@ -3,6 +3,8 @@
     var gridTotalNum = 0; //主责部门事件数量总数
     var gridTop15Num = 0; //主责部门Top15事件数量
 
+    var TaskTypeDataPercent = []; //处置案件类别占百分比 
+
     return {
         oneLevelData: null,//1级网格线
         areaListData: null,//3级网格区域
@@ -282,8 +284,9 @@
                 htmlDom: "#left_second_01",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventGrid1.html'
             }
-            com.UIControlAni(option, function () { require("sl_Grid").loadGridCZAJSLchart();
-        });
+            com.UIControlAni(option, function () {
+                require("sl_Grid").loadDealTaskNumData();
+            });
         },
         //加载第二列的div2
         loadLeftSecond2: function () {
@@ -292,7 +295,10 @@
                 htmlDom: "#left_second_02",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventGrid2.html'
             }
-            com.UIControlAni(option, function () { require("sl_Grid").loadCirclediv(); });
+            com.UIControlAni(option, function () {
+                require("sl_Grid").loadDealTaskTypeData();
+                
+            });
         },
         //加载第二列的div3
         loadLeftSecond3: function () {
@@ -308,224 +314,288 @@
             });
         },
 
+        //处置案件数量
+        loadDealTaskNumData: function () {
+            s_EchartAjax.getDealTaskNumData(function (result) {
+                if (require("s_Echart").dealTaskNumData == null) { return false; }
+                var data = require("s_Echart").dealTaskNumData;
+                data = data.data;
+                
+                var czajslxAxisData = [];
+                var czajslxAxisDataMax = [];
+                var czajslSeriesData = [];
+                for (var i = 0; i < data.length; i++) {
+                    czajslxAxisData.push(data[i].months.replace("-","/"));
+                    czajslSeriesData.push(data[i].counts);
+                }
+                czajslxAxisDataMax = parseInt(Math.max.apply(null, czajslxAxisData)*1.1);
 
-        loadGridCZAJSLchart: function () {
-            if ($("#czajsl-chart").length <= 0) { return false; }
 
-            // echart
-            var czajslChart = document.getElementById('czajsl-chart');
-            var czajsldata = [];
-            for (var i = 0; i < 12; i++) {
-                czajsldata.push(Math.round((Math.random() * 1000 + 3000)));
-            }
-            var myChartczajsl = echarts.init(czajslChart);
-            czajslOption = {
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '1%',   // grid 组件离容器左侧的距离。
-                    right: '2%',
-                    bottom: '2%',
-                    height: "88%",
-                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-                },
-                xAxis: {
-                    type: 'category',
-                    data: ["2018/1", "2018/2", "2018/3", "2018/4", "2018/5", "2018/6", "2018/7", "2018/8", "2018/9", "2018/10", "2018/11", "2018/12"],
-                    boundaryGap: ['10%', '10%'],
-                    axisTick: {
-                        show: true,
+                //图表
+                if ($("#czajsl-chart").length <= 0) { return false; }
+                var czajslChart = document.getElementById('czajsl-chart');
+                var myChartczajsl = echarts.init(czajslChart);
+                czajslOption = {
+                    legend: {
+                        show: false
                     },
-                    axisLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
                         }
                     },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 20,
-                            color: "#00d7fe"
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '2%',
+                        bottom: '2%',
+                        height: "88%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: czajslxAxisData,
+                        boundaryGap: ['10%', '10%'],
+                        axisTick: {
+                            show: true,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 20,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
                         }
                     },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                yAxis: {
-                    name: "(记录数)",
-                    nameTextStyle: {
-                        color: "#00d7fe",
-                        fontSize: 18,
-                        align: 'center',
-                    },
-                    axisTick: {
-                        show: true,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)",
-                        }
-                    },
-                    interval: 1000,
-                    min: 0,
-                    max: 7000,
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
+                    yAxis: {
+                        name: "(记录数)",
+                        nameTextStyle: {
                             color: "#00d7fe",
+                            fontSize: 18,
+                            align: 'center',
+                        },
+                        axisTick: {
+                            show: true,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        interval: 1000,
+                        min: 0,
+                        max: czajslxAxisDataMax,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe",
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
                         }
                     },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
+                    series: [
+                        {
+                            type: 'line',
+                            //smooth:true,
+                            color: "rgba(7,196,230,1)",
+                            areaStyle: {
+                                opacity: .1,
+                            },
+                            lineStyle: {
+                                width: 2,
+                            },
+                            symbolSize: 4,
+                            data: czajslSeriesData,
                         }
-                    }
-                },
-                series: [
-                    {
-                        type: 'line',
-                        //smooth:true,
-                        color: "rgba(7,196,230,1)",
-                        areaStyle: {
-                            opacity: .1,
-                        },
-                        lineStyle: {
-                            width: 2,
-                        },
-                        symbolSize: 4,
-                        data: czajsldata,
-                    }
-                ]
-            };
-            myChartczajsl.setOption(czajslOption);
+                    ]
+                };
+                myChartczajsl.setOption(czajslOption);
+
+            });
         },
-        bigLoadGridCZAJSLchart: function () {
-            if ($("#czajsl-chart").length <= 0) { return false; }
-            $("#bigechartHead").html("处置案件数量");
-            var czajsldata = [];
-            for (var i = 0; i < 12; i++) {
-                czajsldata.push(Math.round((Math.random() * 1000 + 3000)));
-            }
-            option = {
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+        bigLoadDealTaskNumData: function () {
+            s_EchartAjax.getDealTaskNumData(function (result) {
+                if (require("s_Echart").dealTaskNumData == null) { return false; }
+                var data = require("s_Echart").dealTaskNumData;
+                data = data.data;
+
+                var czajslxAxisData = [];
+                var czajslxAxisDataMax = [];
+                var czajslSeriesData = [];
+                for (var i = 0; i < data.length; i++) {
+                    czajslxAxisData.push(data[i].months.replace("-", "/"));
+                    czajslSeriesData.push(data[i].counts);
+                }
+                czajslxAxisDataMax = parseInt(Math.max.apply(null, czajslxAxisData) * 1.1);
+
+                //图表
+                if ($("#czajsl-chart").length <= 0) { return false; }
+                $("#bigechartHead").html("处置案件数量");
+                option = {
+                    legend: {
+                        show: false
                     },
-                    textStyle: {
-                        fontSize:50,
-                    }
-                },
-                grid: {
-                    left: '5%',   // grid 组件离容器左侧的距离。
-                    right: '5%',
-                    bottom: '8%',
-                    height: "86%",
-                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-                },
-                xAxis: {
-                    type: 'category',
-                    data: ["2018/1", "2018/2", "2018/3", "2018/4", "2018/5", "2018/6", "2018/7", "2018/8", "2018/9", "2018/10", "2018/11", "2018/12"],
-                    boundaryGap: ['10%', '10%'],
-                    axisTick: {
-                        show: true,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            width: 4,
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    },
-                    axisLabel: {
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                        },
                         textStyle: {
                             fontSize: 50,
-                            color: "#00d7fe"
                         }
                     },
-                    splitLine: {
-                        lineStyle: {
-                            width: 4,
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                yAxis: {
-                    axisTick: {
-                        show: true,
+                    grid: {
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '8%',
+                        height: "86%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
-                    axisLine: {
-                        lineStyle: {
-                            width: 4,
-                            color: "rgba(80,172,254,.2)",
-                        }
-                    },
-                    interval: 1000,
-                    min: 0,
-                    max: 7000,
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 50,
-                            color: "#00d7fe",
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            width: 4,
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                series: [
-                    {
-                        type: 'line',
-                        //smooth:true,
-                        color: "rgba(7,196,230,1)",
-                        areaStyle: {
-                            opacity: .1,
+                    xAxis: {
+                        type: 'category',
+                        data: czajslxAxisData,
+                        boundaryGap: ['10%', '10%'],
+                        axisTick: {
+                            show: true,
                         },
-                        lineStyle: {
-                            width: 10,
+                        axisLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)"
+                            }
                         },
-                        symbolSize: 20,
-                        data: czajsldata,
-                    }
-                ]
-            };
-            if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
-                require("s_Echart").mybigChart.dispose();
-            }
-            require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
-            require("s_Echart").mybigChart.setOption(option);
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        }
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: true,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        interval: 1000,
+                        min: 0,
+                        max: czajslxAxisDataMax,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#00d7fe",
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                width: 4,
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'line',
+                            //smooth:true,
+                            color: "rgba(7,196,230,1)",
+                            areaStyle: {
+                                opacity: .1,
+                            },
+                            lineStyle: {
+                                width: 10,
+                            },
+                            symbolSize: 20,
+                            data: czajslSeriesData,
+                        }
+                    ]
+                };
+                if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
+                    require("s_Echart").mybigChart.dispose();
+                }
+                require("s_Echart").mybigChart = echarts.init(document.getElementById('Big-chart'));
+                require("s_Echart").mybigChart.setOption(option);
+            });
         },
 
-        loadCirclediv: function () {
+        //处置案件类别
+        loadDealTaskTypeData: function () {
+            s_EchartAjax.getDealTaskTypeData(function (result) {
+                if (require("s_Echart").dealTaskTypeData == null) { return false; }
+                var data = require("s_Echart").dealTaskTypeData;
+                data = data.data;
+                
+                var TaskTypeData = []; //各类别数据
+                var TaskTypeDataSum = 0; //各类别数据总和
+
+                for (var i = 0; i < data.length; i++) {
+                    TaskTypeData.push(Number(data[i].counts));
+                    TaskTypeDataSum += Number(data[i].counts);
+                }
+                TaskTypeData.sort(function (a, b) { return b - a; }) //排序  从大到小
+                TaskTypeDataPercent = [];  //占百分比 全局变量，便于下面引用
+                for (var i = 0; i < data.length; i++) {
+                    TaskTypeDataPercent.push(parseInt(TaskTypeData[i] / TaskTypeDataSum * 100));
+                }
+
+                var TaskTypeDataType = [];  //前三的类别
+                for (var i = 0; i < data.length; i++) {
+                    for (var j = 0; j < TaskTypeData.length; j++) {
+                        if (TaskTypeData[j] === Number(data[i].counts)) { TaskTypeDataType.push(data[i].infotypename) }
+                    }
+                }
+
+                // 加载数据
+                for (var i = 0; i < TaskTypeDataType.length; i++) {
+                    $("#dealtasktype>li").eq(i).find(".czajlb-circlediv").attr("data-text", TaskTypeDataPercent[i] + '%')
+                    $("#dealtasktype>li").eq(i).find(".item-r-data").html(TaskTypeData[i])
+
+                }
+
+                require("sl_Grid").loadCirclediv(TaskTypeDataPercent);
+
+            });
+
+        },
+
+        loadCirclediv: function (TaskTypeDataPercent) {
             // 摄像头圆圈
             if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
                 $(".czajlb-circlediv").each(function () { $(this).empty();})
-                com.loopFun($('.czajlb-circlediv')[0], 40, '#1f2533', '#eda637', 'transparent', '20px', 18, 36, 1000);
-                com.loopFun($('.czajlb-circlediv')[1], 32, '#1f2533', '#05c1f8', 'transparent', '20px', 18, 36, 1000);
-                com.loopFun($('.czajlb-circlediv')[2], 28, '#1f2533', '#55b400', 'transparent', '20px', 18, 36, 1000);
+                com.loopFun($('.czajlb-circlediv')[0], TaskTypeDataPercent[0], '#1f2533', '#eda637', 'transparent', '20px', 18, 36, 1000);
+                com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 18, 36, 1000);
+                com.loopFun($('.czajlb-circlediv')[2], TaskTypeDataPercent[2], '#1f2533', '#55b400', 'transparent', '20px', 18, 36, 1000);
             } else if ($("body").width() == 11520) {
                 $("html").css({ fontSize: "130px" });
                 $(".czajlb-circlediv").each(function () { $(this).empty(); })
-                com.loopFun($('.czajlb-circlediv')[0], 40, '#1f2533', '#eda637', 'transparent', '20px', 25, 54, 1000);
-                com.loopFun($('.czajlb-circlediv')[1], 32, '#1f2533', '#05c1f8', 'transparent', '20px', 25, 54, 1000);
-                com.loopFun($('.czajlb-circlediv')[2], 28, '#1f2533', '#55b400', 'transparent', '20px', 25, 54, 1000);
+                com.loopFun($('.czajlb-circlediv')[0], TaskTypeDataPercent[0], '#1f2533', '#eda637', 'transparent', '20px', 25, 54, 1000);
+                com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 25, 54, 1000);
+                com.loopFun($('.czajlb-circlediv')[2], TaskTypeDataPercent[2], '#1f2533', '#55b400', 'transparent', '20px', 25, 54, 1000);
             }
         },
  

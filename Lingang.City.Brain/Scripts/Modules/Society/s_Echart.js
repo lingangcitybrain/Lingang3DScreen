@@ -3,7 +3,7 @@
     var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
     var oSjcgseriesData = []; //事件处理成功数据
     var oSjcgseriesRateDataMax = 100;
-    var oSjcgseriesRateData = [80, 85, 78, 83, 65, 56, 78, 93, 67, 87, 65, 43]; //事件处理成功率数据
+    var oSjcgseriesRateData = []; //事件处理成功率数据
     var sjcgChartClose = true;
 
     return {
@@ -59,7 +59,7 @@
                         require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
                         break;
                     case "Left_Second_EventGrid1"://处置案件数量
-                        require("sl_Grid").bigLoadGridCZAJSLchart();
+                        require("sl_Grid").bigLoadDealTaskNumData();
                         break;
                     case "Left_Second_EventGrid3"://处置主责部门
                         require("sl_Grid").bigLoadGridCZZZBMchart();
@@ -519,6 +519,8 @@
 
                for (var i = 0; i < data.length; i++) {
                    seriesData.push(Number(data[i].counts));
+                   oSjcgseriesRateData.push((Number( data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(0) );
+
                }
                seriesDataMax = Math.max.apply(null, seriesData);
                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
@@ -783,7 +785,7 @@
         DroneWeather: function () {
             if (WeatherSevenData != null) {
                 //console.log("天气数据不为空");
-                var data = WeatherSevenData
+                var data = WeatherSevenData;
                 var weaimg_0 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[0].wea_img + ".png"
                 var weaimg_1 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[1].wea_img + ".png"
                 var weaimg_2 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[2].wea_img + ".png"

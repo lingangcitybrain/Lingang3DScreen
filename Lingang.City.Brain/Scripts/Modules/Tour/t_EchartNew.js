@@ -2034,7 +2034,7 @@
                 //console.log(bigRycltjIndex, oRycltjChartRqaIndex)
 
                 if (bigRycltjIndex === 0) {
-                    $("#bigechartHead").html('入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
+                    $("#bigechartHead").html('出入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
                     tb(rycltjdata1, rycltjdata2);
 
                 } else if (bigRycltjIndex === 1) {

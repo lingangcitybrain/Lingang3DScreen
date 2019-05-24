@@ -12,7 +12,7 @@
 
         //中间大数字
         societyBigNumData: {
-	        "errorCode": "0",
+            "errorCode": "0",
             "errorMessage": "成功",
             "resultType": "0",
             "data": {
@@ -28,419 +28,419 @@
         },
 
         cgqBigNumData:{
-	        "peopleCount": "2348",
-	        "carCounts": "231",
-	        "occupy": "0.8",
-	        "grade": "0.7"
+            "peopleCount": "2348",
+            "carCounts": "231",
+            "occupy": "0.8",
+            "grade": "0.7"
         },
 
         //主责部门
         zzbmData:{
-	        "errorCode": "0",
-	        "errorMessage": "成功",
-	        "resultType": "0",
-	        "data": {
-		        "dealDeptList": [{
-			        "executeDeptname": "南汇新城镇",
-			        "infoScname": "乱涂写、乱张贴、乱刻画",
-			        "taskNums": "25206"
-		        }, {
-			        "executeDeptname": "城发公司",
-			        "infoScname": "雨水井盖",
-			        "taskNums": "894"
-		        }, {
-			        "executeDeptname": "临港集团",
-			        "infoScname": "雨水井盖",
-			        "taskNums": "792"
-		        }, {
-			        "executeDeptname": "芦卫清运",
-			        "infoScname": "暴露垃圾",
-			        "taskNums": "327"
-		        }, {
-			        "executeDeptname": "浦东网格中心",
-			        "infoScname": "路灯",
-			        "taskNums": "177"
-		        }, {
-			        "executeDeptname": "城投集团",
-			        "infoScname": "雨水井盖",
-			        "taskNums": "101"
-		        }, {
-			        "executeDeptname": "芦潮港社区平台部门",
-			        "infoScname": "暴露垃圾",
-			        "taskNums": "100"
-		        }, {
-			        "executeDeptname": "南汇新城非联网单位",
-			        "infoScname": "架空线坠落、乱设",
-			        "taskNums": "75"
-		        }]
-	        }
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "dealDeptList": [{
+                    "executeDeptname": "南汇新城镇",
+                    "infoScname": "乱涂写、乱张贴、乱刻画",
+                    "taskNums": "25206"
+                }, {
+                    "executeDeptname": "城发公司",
+                    "infoScname": "雨水井盖",
+                    "taskNums": "894"
+                }, {
+                    "executeDeptname": "临港集团",
+                    "infoScname": "雨水井盖",
+                    "taskNums": "792"
+                }, {
+                    "executeDeptname": "芦卫清运",
+                    "infoScname": "暴露垃圾",
+                    "taskNums": "327"
+                }, {
+                    "executeDeptname": "浦东网格中心",
+                    "infoScname": "路灯",
+                    "taskNums": "177"
+                }, {
+                    "executeDeptname": "城投集团",
+                    "infoScname": "雨水井盖",
+                    "taskNums": "101"
+                }, {
+                    "executeDeptname": "芦潮港社区平台部门",
+                    "infoScname": "暴露垃圾",
+                    "taskNums": "100"
+                }, {
+                    "executeDeptname": "南汇新城非联网单位",
+                    "infoScname": "架空线坠落、乱设",
+                    "taskNums": "75"
+                }]
+            }
         },
 
         //传感器  社区IOT
         cgqData: {
-	        "errorCode": "0",
-	        "errorMessage": "成功",
-	        "resultType": "0",
-	        "data": {
-	            "sensorNumList": [
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "sensorNumList": [
 	                {
-			            "sensorCount": 5,
-			            "OnlineSensorCount": 5,
-			            "LossSensorCount": 0,
-			            "sensorName": "人体红外传感",
-			            "sensorType": "11",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 30,
-			            "OnlineSensorCount": 30,
-			            "LossSensorCount": 0,
-			            "sensorName": "停车地磁",
-			            "sensorType": "7",
-			            "alarmSensorCount": 5
-		            }, {
-			            "sensorCount": 445,
-			            "OnlineSensorCount": 445,
-			            "LossSensorCount": 0,
-			            "sensorName": "微信开门",
-			            "sensorType": "4",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 510,
-			            "OnlineSensorCount": 500,
-			            "LossSensorCount": 10,
-			            "sensorName": "无线门磁",
-			            "sensorType": "3",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 515,
-			            "OnlineSensorCount": 515,
-			            "LossSensorCount": 0,
-			            "sensorName": "智能井盖",
-			            "sensorType": "6",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 40,
-			            "OnlineSensorCount": 40,
-			            "LossSensorCount": 0,
-			            "sensorName": "智能电梯",
-			            "sensorType": "2",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 2405,
-			            "OnlineSensorCount": 2390,
-			            "LossSensorCount": 15,
-			            "sensorName": "烟感感应",
-			            "sensorType": "1",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 5,
-			            "OnlineSensorCount": 0,
-			            "LossSensorCount": 5,
-			            "sensorName": "燃气报警",
-			            "sensorType": "10",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 40,
-			            "OnlineSensorCount": 35,
-			            "LossSensorCount": 5,
-			            "sensorName": "电子围栏",
-			            "sensorType": "5",
-			            "alarmSensorCount": 15
-		            }, {
-			            "sensorCount": 100,
-			            "OnlineSensorCount": 0,
-			            "LossSensorCount": 100,
-			            "sensorName": "电子巡更",
-			            "sensorType": "8",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 5,
-			            "OnlineSensorCount": 0,
-			            "LossSensorCount": 5,
-			            "sensorName": "睡眠看护仪",
-			            "sensorType": "9",
-			            "alarmSensorCount": 0
-		            }, {
-			            "sensorCount": 2,
-			            "OnlineSensorCount": 2,
-			            "LossSensorCount": 0,
-			            "sensorName": "智能车闸",
-			            "sensorType": "8",
-			            "alarmSensorCount": 0
-		            }
+	                    "sensorCount": 5,
+	                    "OnlineSensorCount": 5,
+	                    "LossSensorCount": 0,
+	                    "sensorName": "人体红外传感",
+	                    "sensorType": "11",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 30,
+	                    "OnlineSensorCount": 30,
+	                    "LossSensorCount": 0,
+	                    "sensorName": "停车地磁",
+	                    "sensorType": "7",
+	                    "alarmSensorCount": 5
+	                }, {
+	                    "sensorCount": 445,
+	                    "OnlineSensorCount": 445,
+	                    "LossSensorCount": 0,
+	                    "sensorName": "微信开门",
+	                    "sensorType": "4",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 510,
+	                    "OnlineSensorCount": 500,
+	                    "LossSensorCount": 10,
+	                    "sensorName": "无线门磁",
+	                    "sensorType": "3",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 515,
+	                    "OnlineSensorCount": 515,
+	                    "LossSensorCount": 0,
+	                    "sensorName": "智能井盖",
+	                    "sensorType": "6",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 40,
+	                    "OnlineSensorCount": 40,
+	                    "LossSensorCount": 0,
+	                    "sensorName": "智能电梯",
+	                    "sensorType": "2",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 2405,
+	                    "OnlineSensorCount": 2390,
+	                    "LossSensorCount": 15,
+	                    "sensorName": "烟感感应",
+	                    "sensorType": "1",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 5,
+	                    "OnlineSensorCount": 0,
+	                    "LossSensorCount": 5,
+	                    "sensorName": "燃气报警",
+	                    "sensorType": "10",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 40,
+	                    "OnlineSensorCount": 35,
+	                    "LossSensorCount": 5,
+	                    "sensorName": "电子围栏",
+	                    "sensorType": "5",
+	                    "alarmSensorCount": 15
+	                }, {
+	                    "sensorCount": 100,
+	                    "OnlineSensorCount": 0,
+	                    "LossSensorCount": 100,
+	                    "sensorName": "电子巡更",
+	                    "sensorType": "8",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 5,
+	                    "OnlineSensorCount": 0,
+	                    "LossSensorCount": 5,
+	                    "sensorName": "睡眠看护仪",
+	                    "sensorType": "9",
+	                    "alarmSensorCount": 0
+	                }, {
+	                    "sensorCount": 2,
+	                    "OnlineSensorCount": 2,
+	                    "LossSensorCount": 0,
+	                    "sensorName": "智能车闸",
+	                    "sensorType": "8",
+	                    "alarmSensorCount": 0
+	                }
                 ]
-	        }
+            }
         },
 
         //摄像头--摄像头
         sxtCameraData: {
-	        "errorCode": "0",
-	        "errorMessage": "成功",
-	        "resultType": "0",
-	        "data": {
-		        "pagination": {
-			        "pageSize": 5,
-			        "current": 0,
-			        "total": 164
-		        },
-		        "total": 164,
-		        "list": [{
-			        "id": 8742,
-			        "globalNumber": "31011900011328041004",
-			        "pointCorrespondingNumber": null,
-			        "channelName": "海洋小区入口人脸识别机4",
-			        "communityId": "S012",
-			        "verticalBarCoding": "海洋小区入口车闸处",
-			        "lng": "121.913298",
-			        "lat": "30.881252",
-			        "vupperUnion": null,
-			        "upperLinkOlt": null,
-			        "ipAddress": "100.90.80.14",
-			        "bitStream": "4096Kbps",
-			        "nvrIpAddress": "100.90.80.14",
-			        "account": "admin",
-			        "password": "a123456",
-			        "nvrChannel": null,
-			        "nvrDeviceId": "31011900011188034000",
-			        "nvrChannelId": null,
-			        "cameraId": null,
-			        "gbId": "31011900011328041004",
-			        "registeredPorts": null,
-			        "nationalStandardGatewayIp": null,
-			        "deviceType": "枪击",
-			        "cameraHeight": "3m",
-			        "cameraAngle": "79.55",
-			        "cameraType": "普通枪击",
-			        "resolutionRatio": "1920*1080p",
-			        "directionLaneNumber": null,
-			        "updateTime": "2019-05-21T02:04:01.000+0000",
-			        "updateUser": "admin",
-			        "type": "3",
-			        "sbzt": "ON",
-			        "sxjlx": "2",
-			        "communityName": "海洋小区",
-			        "address": "上海市浦东新区南汇新城镇古棕路438弄",
-			        "committee": "临港家园",
-			        "communityOwn": "申港社区",
-			        "longitude": null,
-			        "laititude": null,
-			        "occupancyRate": 60.86,
-			        "totalPeoples": 1239,
-			        "totalCars": null,
-			        "videoUrl": null,
-			        "carInCount": null,
-			        "date": null,
-			        "carOutCount": null,
-			        "x": 0,
-			        "y1": 0,
-			        "y2": 0
-		        }, {
-			        "id": 8741,
-			        "globalNumber": "31011900011328041003",
-			        "pointCorrespondingNumber": null,
-			        "channelName": "海洋小区入口人脸识别机3",
-			        "communityId": "S012",
-			        "verticalBarCoding": "海洋小区入口车闸处",
-			        "lng": "121.913406",
-			        "lat": "30.881341",
-			        "vupperUnion": null,
-			        "upperLinkOlt": null,
-			        "ipAddress": "100.90.80.13",
-			        "bitStream": "4096Kbps",
-			        "nvrIpAddress": "100.90.80.13",
-			        "account": "admin",
-			        "password": "a123456",
-			        "nvrChannel": null,
-			        "nvrDeviceId": "31011900011188034000",
-			        "nvrChannelId": null,
-			        "cameraId": null,
-			        "gbId": "31011900011328041003",
-			        "registeredPorts": null,
-			        "nationalStandardGatewayIp": null,
-			        "deviceType": "枪击",
-			        "cameraHeight": "3m",
-			        "cameraAngle": "79.55",
-			        "cameraType": "普通枪击",
-			        "resolutionRatio": "1920*1080p",
-			        "directionLaneNumber": null,
-			        "updateTime": "2019-05-21T02:04:01.000+0000",
-			        "updateUser": "admin",
-			        "type": "3",
-			        "sbzt": "ON",
-			        "sxjlx": "2",
-			        "communityName": "海洋小区",
-			        "address": "上海市浦东新区南汇新城镇古棕路438弄",
-			        "committee": "临港家园",
-			        "communityOwn": "申港社区",
-			        "longitude": null,
-			        "laititude": null,
-			        "occupancyRate": 60.86,
-			        "totalPeoples": 1239,
-			        "totalCars": null,
-			        "videoUrl": null,
-			        "carInCount": null,
-			        "date": null,
-			        "carOutCount": null,
-			        "x": 0,
-			        "y1": 0,
-			        "y2": 0
-		        }, {
-			        "id": 8740,
-			        "globalNumber": "31011900011328041002",
-			        "pointCorrespondingNumber": null,
-			        "channelName": "海洋小区入口人脸识别机2",
-			        "communityId": "S012",
-			        "verticalBarCoding": "海洋小区入口车闸处",
-			        "lng": "121.913455",
-			        "lat": "30.881124",
-			        "vupperUnion": null,
-			        "upperLinkOlt": null,
-			        "ipAddress": "100.90.80.12",
-			        "bitStream": "4096Kbps",
-			        "nvrIpAddress": "100.90.80.12",
-			        "account": "admin",
-			        "password": "a123456",
-			        "nvrChannel": null,
-			        "nvrDeviceId": "31011900011188034000",
-			        "nvrChannelId": null,
-			        "cameraId": null,
-			        "gbId": "31011900011328041002",
-			        "registeredPorts": null,
-			        "nationalStandardGatewayIp": null,
-			        "deviceType": "枪击",
-			        "cameraHeight": "3m",
-			        "cameraAngle": "79.55",
-			        "cameraType": "普通枪击",
-			        "resolutionRatio": "1920*1080p",
-			        "directionLaneNumber": null,
-			        "updateTime": "2019-05-21T02:04:01.000+0000",
-			        "updateUser": "admin",
-			        "type": "3",
-			        "sbzt": "ON",
-			        "sxjlx": "2",
-			        "communityName": "海洋小区",
-			        "address": "上海市浦东新区南汇新城镇古棕路438弄",
-			        "committee": "临港家园",
-			        "communityOwn": "申港社区",
-			        "longitude": null,
-			        "laititude": null,
-			        "occupancyRate": 60.86,
-			        "totalPeoples": 1239,
-			        "totalCars": null,
-			        "videoUrl": null,
-			        "carInCount": null,
-			        "date": null,
-			        "carOutCount": null,
-			        "x": 0,
-			        "y1": 0,
-			        "y2": 0
-		        }, {
-			        "id": 8739,
-			        "globalNumber": "31011900011328041001",
-			        "pointCorrespondingNumber": null,
-			        "channelName": "海洋小区入口人脸识别机1",
-			        "communityId": "S012",
-			        "verticalBarCoding": "海洋小区入口车闸处",
-			        "lng": "121.91354",
-			        "lat": "30.881225",
-			        "vupperUnion": null,
-			        "upperLinkOlt": null,
-			        "ipAddress": "100.90.80.11",
-			        "bitStream": "4096Kbps",
-			        "nvrIpAddress": "100.90.80.11",
-			        "account": "admin",
-			        "password": "a123456",
-			        "nvrChannel": null,
-			        "nvrDeviceId": "31011900011188034000",
-			        "nvrChannelId": null,
-			        "cameraId": null,
-			        "gbId": "31011900011328041001",
-			        "registeredPorts": null,
-			        "nationalStandardGatewayIp": null,
-			        "deviceType": "枪击",
-			        "cameraHeight": "3m",
-			        "cameraAngle": "79.55",
-			        "cameraType": "普通枪击",
-			        "resolutionRatio": "1920*1080p",
-			        "directionLaneNumber": null,
-			        "updateTime": "2019-05-21T02:04:02.000+0000",
-			        "updateUser": "admin",
-			        "type": "3",
-			        "sbzt": "ON",
-			        "sxjlx": "2",
-			        "communityName": "海洋小区",
-			        "address": "上海市浦东新区南汇新城镇古棕路438弄",
-			        "committee": "临港家园",
-			        "communityOwn": "申港社区",
-			        "longitude": null,
-			        "laititude": null,
-			        "occupancyRate": 60.86,
-			        "totalPeoples": 1239,
-			        "totalCars": null,
-			        "videoUrl": null,
-			        "carInCount": null,
-			        "date": null,
-			        "carOutCount": null,
-			        "x": 0,
-			        "y1": 0,
-			        "y2": 0
-		        }, {
-			        "id": 8738,
-			        "globalNumber": "31011900011328040016",
-			        "pointCorrespondingNumber": null,
-			        "channelName": "海洋小区道路摄像机58",
-			        "communityId": "S012",
-			        "verticalBarCoding": "海洋小区50单元与47单元中间绿化带上",
-			        "lng": "121.912523",
-			        "lat": "30.883675",
-			        "vupperUnion": null,
-			        "upperLinkOlt": null,
-			        "ipAddress": "100.90.80.205",
-			        "bitStream": "4096Kbps",
-			        "nvrIpAddress": "100.90.80.205",
-			        "account": "admin",
-			        "password": "a123456",
-			        "nvrChannel": null,
-			        "nvrDeviceId": "31011900011188034000",
-			        "nvrChannelId": null,
-			        "cameraId": null,
-			        "gbId": "31011900011328040016",
-			        "registeredPorts": null,
-			        "nationalStandardGatewayIp": null,
-			        "deviceType": "枪击",
-			        "cameraHeight": "3m",
-			        "cameraAngle": "79.55",
-			        "cameraType": "普通枪击",
-			        "resolutionRatio": "1920*1080p",
-			        "directionLaneNumber": null,
-			        "updateTime": "2019-05-21T02:04:01.000+0000",
-			        "updateUser": "admin",
-			        "type": "2",
-			        "sbzt": "ON",
-			        "sxjlx": "2",
-			        "communityName": "海洋小区",
-			        "address": "上海市浦东新区南汇新城镇古棕路438弄",
-			        "committee": "临港家园",
-			        "communityOwn": "申港社区",
-			        "longitude": null,
-			        "laititude": null,
-			        "occupancyRate": 60.86,
-			        "totalPeoples": 1239,
-			        "totalCars": null,
-			        "videoUrl": null,
-			        "carInCount": null,
-			        "date": null,
-			        "carOutCount": null,
-			        "x": 0,
-			        "y1": 0,
-			        "y2": 0
-		        }]
-	        }
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "pagination": {
+                    "pageSize": 5,
+                    "current": 0,
+                    "total": 164
+                },
+                "total": 164,
+                "list": [{
+                    "id": 8742,
+                    "globalNumber": "31011900011328041004",
+                    "pointCorrespondingNumber": null,
+                    "channelName": "海洋小区入口人脸识别机4",
+                    "communityId": "S012",
+                    "verticalBarCoding": "海洋小区入口车闸处",
+                    "lng": "121.913298",
+                    "lat": "30.881252",
+                    "vupperUnion": null,
+                    "upperLinkOlt": null,
+                    "ipAddress": "100.90.80.14",
+                    "bitStream": "4096Kbps",
+                    "nvrIpAddress": "100.90.80.14",
+                    "account": "admin",
+                    "password": "a123456",
+                    "nvrChannel": null,
+                    "nvrDeviceId": "31011900011188034000",
+                    "nvrChannelId": null,
+                    "cameraId": null,
+                    "gbId": "31011900011328041004",
+                    "registeredPorts": null,
+                    "nationalStandardGatewayIp": null,
+                    "deviceType": "枪击",
+                    "cameraHeight": "3m",
+                    "cameraAngle": "79.55",
+                    "cameraType": "普通枪击",
+                    "resolutionRatio": "1920*1080p",
+                    "directionLaneNumber": null,
+                    "updateTime": "2019-05-21T02:04:01.000+0000",
+                    "updateUser": "admin",
+                    "type": "3",
+                    "sbzt": "ON",
+                    "sxjlx": "2",
+                    "communityName": "海洋小区",
+                    "address": "上海市浦东新区南汇新城镇古棕路438弄",
+                    "committee": "临港家园",
+                    "communityOwn": "申港社区",
+                    "longitude": null,
+                    "laititude": null,
+                    "occupancyRate": 60.86,
+                    "totalPeoples": 1239,
+                    "totalCars": null,
+                    "videoUrl": null,
+                    "carInCount": null,
+                    "date": null,
+                    "carOutCount": null,
+                    "x": 0,
+                    "y1": 0,
+                    "y2": 0
+                }, {
+                    "id": 8741,
+                    "globalNumber": "31011900011328041003",
+                    "pointCorrespondingNumber": null,
+                    "channelName": "海洋小区入口人脸识别机3",
+                    "communityId": "S012",
+                    "verticalBarCoding": "海洋小区入口车闸处",
+                    "lng": "121.913406",
+                    "lat": "30.881341",
+                    "vupperUnion": null,
+                    "upperLinkOlt": null,
+                    "ipAddress": "100.90.80.13",
+                    "bitStream": "4096Kbps",
+                    "nvrIpAddress": "100.90.80.13",
+                    "account": "admin",
+                    "password": "a123456",
+                    "nvrChannel": null,
+                    "nvrDeviceId": "31011900011188034000",
+                    "nvrChannelId": null,
+                    "cameraId": null,
+                    "gbId": "31011900011328041003",
+                    "registeredPorts": null,
+                    "nationalStandardGatewayIp": null,
+                    "deviceType": "枪击",
+                    "cameraHeight": "3m",
+                    "cameraAngle": "79.55",
+                    "cameraType": "普通枪击",
+                    "resolutionRatio": "1920*1080p",
+                    "directionLaneNumber": null,
+                    "updateTime": "2019-05-21T02:04:01.000+0000",
+                    "updateUser": "admin",
+                    "type": "3",
+                    "sbzt": "ON",
+                    "sxjlx": "2",
+                    "communityName": "海洋小区",
+                    "address": "上海市浦东新区南汇新城镇古棕路438弄",
+                    "committee": "临港家园",
+                    "communityOwn": "申港社区",
+                    "longitude": null,
+                    "laititude": null,
+                    "occupancyRate": 60.86,
+                    "totalPeoples": 1239,
+                    "totalCars": null,
+                    "videoUrl": null,
+                    "carInCount": null,
+                    "date": null,
+                    "carOutCount": null,
+                    "x": 0,
+                    "y1": 0,
+                    "y2": 0
+                }, {
+                    "id": 8740,
+                    "globalNumber": "31011900011328041002",
+                    "pointCorrespondingNumber": null,
+                    "channelName": "海洋小区入口人脸识别机2",
+                    "communityId": "S012",
+                    "verticalBarCoding": "海洋小区入口车闸处",
+                    "lng": "121.913455",
+                    "lat": "30.881124",
+                    "vupperUnion": null,
+                    "upperLinkOlt": null,
+                    "ipAddress": "100.90.80.12",
+                    "bitStream": "4096Kbps",
+                    "nvrIpAddress": "100.90.80.12",
+                    "account": "admin",
+                    "password": "a123456",
+                    "nvrChannel": null,
+                    "nvrDeviceId": "31011900011188034000",
+                    "nvrChannelId": null,
+                    "cameraId": null,
+                    "gbId": "31011900011328041002",
+                    "registeredPorts": null,
+                    "nationalStandardGatewayIp": null,
+                    "deviceType": "枪击",
+                    "cameraHeight": "3m",
+                    "cameraAngle": "79.55",
+                    "cameraType": "普通枪击",
+                    "resolutionRatio": "1920*1080p",
+                    "directionLaneNumber": null,
+                    "updateTime": "2019-05-21T02:04:01.000+0000",
+                    "updateUser": "admin",
+                    "type": "3",
+                    "sbzt": "ON",
+                    "sxjlx": "2",
+                    "communityName": "海洋小区",
+                    "address": "上海市浦东新区南汇新城镇古棕路438弄",
+                    "committee": "临港家园",
+                    "communityOwn": "申港社区",
+                    "longitude": null,
+                    "laititude": null,
+                    "occupancyRate": 60.86,
+                    "totalPeoples": 1239,
+                    "totalCars": null,
+                    "videoUrl": null,
+                    "carInCount": null,
+                    "date": null,
+                    "carOutCount": null,
+                    "x": 0,
+                    "y1": 0,
+                    "y2": 0
+                }, {
+                    "id": 8739,
+                    "globalNumber": "31011900011328041001",
+                    "pointCorrespondingNumber": null,
+                    "channelName": "海洋小区入口人脸识别机1",
+                    "communityId": "S012",
+                    "verticalBarCoding": "海洋小区入口车闸处",
+                    "lng": "121.91354",
+                    "lat": "30.881225",
+                    "vupperUnion": null,
+                    "upperLinkOlt": null,
+                    "ipAddress": "100.90.80.11",
+                    "bitStream": "4096Kbps",
+                    "nvrIpAddress": "100.90.80.11",
+                    "account": "admin",
+                    "password": "a123456",
+                    "nvrChannel": null,
+                    "nvrDeviceId": "31011900011188034000",
+                    "nvrChannelId": null,
+                    "cameraId": null,
+                    "gbId": "31011900011328041001",
+                    "registeredPorts": null,
+                    "nationalStandardGatewayIp": null,
+                    "deviceType": "枪击",
+                    "cameraHeight": "3m",
+                    "cameraAngle": "79.55",
+                    "cameraType": "普通枪击",
+                    "resolutionRatio": "1920*1080p",
+                    "directionLaneNumber": null,
+                    "updateTime": "2019-05-21T02:04:02.000+0000",
+                    "updateUser": "admin",
+                    "type": "3",
+                    "sbzt": "ON",
+                    "sxjlx": "2",
+                    "communityName": "海洋小区",
+                    "address": "上海市浦东新区南汇新城镇古棕路438弄",
+                    "committee": "临港家园",
+                    "communityOwn": "申港社区",
+                    "longitude": null,
+                    "laititude": null,
+                    "occupancyRate": 60.86,
+                    "totalPeoples": 1239,
+                    "totalCars": null,
+                    "videoUrl": null,
+                    "carInCount": null,
+                    "date": null,
+                    "carOutCount": null,
+                    "x": 0,
+                    "y1": 0,
+                    "y2": 0
+                }, {
+                    "id": 8738,
+                    "globalNumber": "31011900011328040016",
+                    "pointCorrespondingNumber": null,
+                    "channelName": "海洋小区道路摄像机58",
+                    "communityId": "S012",
+                    "verticalBarCoding": "海洋小区50单元与47单元中间绿化带上",
+                    "lng": "121.912523",
+                    "lat": "30.883675",
+                    "vupperUnion": null,
+                    "upperLinkOlt": null,
+                    "ipAddress": "100.90.80.205",
+                    "bitStream": "4096Kbps",
+                    "nvrIpAddress": "100.90.80.205",
+                    "account": "admin",
+                    "password": "a123456",
+                    "nvrChannel": null,
+                    "nvrDeviceId": "31011900011188034000",
+                    "nvrChannelId": null,
+                    "cameraId": null,
+                    "gbId": "31011900011328040016",
+                    "registeredPorts": null,
+                    "nationalStandardGatewayIp": null,
+                    "deviceType": "枪击",
+                    "cameraHeight": "3m",
+                    "cameraAngle": "79.55",
+                    "cameraType": "普通枪击",
+                    "resolutionRatio": "1920*1080p",
+                    "directionLaneNumber": null,
+                    "updateTime": "2019-05-21T02:04:01.000+0000",
+                    "updateUser": "admin",
+                    "type": "2",
+                    "sbzt": "ON",
+                    "sxjlx": "2",
+                    "communityName": "海洋小区",
+                    "address": "上海市浦东新区南汇新城镇古棕路438弄",
+                    "committee": "临港家园",
+                    "communityOwn": "申港社区",
+                    "longitude": null,
+                    "laititude": null,
+                    "occupancyRate": 60.86,
+                    "totalPeoples": 1239,
+                    "totalCars": null,
+                    "videoUrl": null,
+                    "carInCount": null,
+                    "date": null,
+                    "carOutCount": null,
+                    "x": 0,
+                    "y1": 0,
+                    "y2": 0
+                }]
+            }
         },
 
         //摄像头--车辆
         sxtCarData: {
-	        "errorCode": "0",
+            "errorCode": "0",
             "errorMessage": "成功",
             "resultType": "0",
             "data": {
@@ -453,20 +453,20 @@
 
         //摄像头--人员
         sxtPersonData: {
-           "count":"28",
-           "total":"1289"
+            "count":"28",
+            "total":"1289"
         },
 
         //进出车辆人员数据
         carPersonInOutData:{
-	        "errorCode": "0",
-	        "errorMessage": "成功",
-	        "resultType": "0",
-	        "data": {
-		        "carInOutCount": ["42", "62", "53", "37", "47", "128", "94", "23", "6", "2", "3", "6", "4", "7", "15", "18", "28", "52", "36", "80", "124", "108", "67", "18"],
-		        "personInOutCount": [351, 304, 506, 502, 523, 1107, 1019, 312, 155, 21, 13, 2, 8, 6, 41, 37, 54, 53, 86, 187, 619, 1697, 762, 190],
-		        "dateLists": ["2019-05-16 13", "2019-05-16 12", "2019-05-16 11", "2019-05-16 10", "2019-05-16 09", "2019-05-16 08", "2019-05-16 07", "2019-05-16 06", "2019-05-16 05", "2019-05-16 04", "2019-05-16 03", "2019-05-16 02", "2019-05-16 01", "2019-05-16 00", "2019-05-15 23", "2019-05-15 22", "2019-05-15 21", "2019-05-15 20", "2019-05-15 19", "2019-05-15 18", "2019-05-15 17", "2019-05-15 16", "2019-05-15 15", "2019-05-15 14"]
-	        }
+            "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": {
+                "carInOutCount": ["42", "62", "53", "37", "47", "128", "94", "23", "6", "2", "3", "6", "4", "7", "15", "18", "28", "52", "36", "80", "124", "108", "67", "18"],
+                "personInOutCount": [351, 304, 506, 502, 523, 1107, 1019, 312, 155, 21, 13, 2, 8, 6, 41, 37, 54, 53, 86, 187, 619, 1697, 762, 190],
+                "dateLists": ["2019-05-16 13", "2019-05-16 12", "2019-05-16 11", "2019-05-16 10", "2019-05-16 09", "2019-05-16 08", "2019-05-16 07", "2019-05-16 06", "2019-05-16 05", "2019-05-16 04", "2019-05-16 03", "2019-05-16 02", "2019-05-16 01", "2019-05-16 00", "2019-05-15 23", "2019-05-15 22", "2019-05-15 21", "2019-05-15 20", "2019-05-15 19", "2019-05-15 18", "2019-05-15 17", "2019-05-15 16", "2019-05-15 15", "2019-05-15 14"]
+            }
         },
 
         //社区人口
@@ -500,40 +500,52 @@
             "data": {
                 "taskInfo": [{
                     "months": "1",
-                    "counts": "6918"
+                    "counts": "6918",
+                    "totalCounts": "6920"
                 }, {
                     "months": "2",
-                    "counts": "5547"
+                    "counts": "5547",
+                    "totalCounts": "5550"
                 }, {
                     "months": "3",
-                    "counts": "5971"
+                    "counts": "5971",
+                    "totalCounts": "5986"
                 }, {
                     "months": "4",
-                    "counts": "2897"
+                    "counts": "2897",
+                    "totalCounts": "2910"
                 }, {
                     "months": "5",
-                    "counts": "68"
+                    "counts": "22",
+                    "totalCounts": "22"
                 }, {
                     "months": "6",
-                    "counts": "73"
+                    "counts": "73",
+                    "totalCounts": "73"
                 }, {
                     "months": "7",
-                    "counts": "2762"
+                    "counts": "2762",
+                    "totalCounts": "2766"
                 }, {
                     "months": "8",
-                    "counts": "4096"
+                    "counts": "4096",
+                    "totalCounts": "4103"
                 }, {
                     "months": "9",
-                    "counts": "3652"
+                    "counts": "3652",
+                    "totalCounts": "3659"
                 }, {
                     "months": "10",
-                    "counts": "4061"
+                    "counts": "4061",
+                    "totalCounts": "4063"
                 }, {
                     "months": "11",
-                    "counts": "3244"
+                    "counts": "3244",
+                    "totalCounts": "3246"
                 }, {
                     "months": "12",
-                    "counts": "4412"
+                    "counts": "4412",
+                    "totalCounts": "4415"
                 }]
             }
         },
@@ -548,7 +560,7 @@
 
         //街面巡查员信息
         jmXcyData:{
-	        "errorCode": "0",
+            "errorCode": "0",
             "errorMessage": "成功",
             "resultType": "0",
             "data": {
@@ -752,9 +764,31 @@
             }
         },
 
+        //海岸线无人机最近一次飞行统计
+        droneRecentFlightData: {
+            "coastDistance": 12,
+            "url": ["https://vku.youku.com/live/ilpshare?id=8018484"],
+            "flightCount": 2,
+            "visitor": 10,
+            "garbage": 11,
+            "stall": 5
+        },
+
+        //海岸线无人机最近一个月飞行统计
+        droneRecentMonthFlightData: {
+	        "totalDistance": 300,
+            "coastDistance": 240,
+            "url": ["https://vku.youku.com/live/ilpshare?id=8018484"],
+            "flightCount": 24,
+            "flightNumber": 300,
+            "visitor": 50,
+            "garbage": 24,
+            "stall": 50
+        },
+
         //海岸线涨潮
         costlineTideData:{
-	        "errorCode": "0",
+            "errorCode": "0",
             "errorMessage": "成功",
             "resultType": "0",
             "data": {
@@ -795,10 +829,10 @@
 
         //工地施工单位
         workSiteBuilderData:[{
-	        "name": "测试工地",
-	        "startTime": "20190520",
-	        "builder": "测试1",
-	        "usage": "商业"
+            "name": "测试工地",
+            "startTime": "20190520",
+            "builder": "测试1",
+            "usage": "商业"
         }],
 
         //工地无人机
@@ -818,7 +852,7 @@
 
         //工地天气预报
         workSiteWeatherData: {
-	        "cod": "200",
+            "cod": "200",
             "message": 0.0061,
             "cnt": 40,
             "list": [{
@@ -2022,9 +2056,86 @@
                 "country": "CN",
                 "population": 1000
             }
-        }
+        },
 
-
+        //网格处置案件数量
+        dealTaskNumData:{
+	        "errorCode": "0",
+            "errorMessage": "成功",
+            "resultType": "0",
+            "data": [{
+                "months": "2018-07",
+                "counts": "3323",
+                "infotypename": null
+            }, {
+                "months": "2018-08",
+                "counts": "6024",
+                "infotypename": null
+            }, {
+                "months": "2018-09",
+                "counts": "4689",
+                "infotypename": null
+            }, {
+                "months": "2018-10",
+                "counts": "4935",
+                "infotypename": null
+            }, {
+                "months": "2018-11",
+                "counts": "3869",
+                "infotypename": null
+            }, {
+                "months": "2018-12",
+                "counts": "5194",
+                "infotypename": null
+            }, {
+                "months": "2019-01",
+                "counts": "7455",
+                "infotypename": null
+            }, {
+                "months": "2019-02",
+                "counts": "6678",
+                "infotypename": null
+            }, {
+                "months": "2019-03",
+                "counts": "6531",
+                "infotypename": null
+            }, {
+                "months": "2019-04",
+                "counts": "3349",
+                "infotypename": null
+            }]
+        },
+        //网格处置案件类别
+        dealTaskTypeData: {
+	        "errorCode": "0",
+	        "errorMessage": "成功",
+	        "resultType": "0",
+	        "data": [{
+		        "months": null,
+		        "counts": "20253",
+		        "infotypename": "事件"
+	        }, {
+		        "months": null,
+		        "counts": "3760",
+		        "infotypename": "部件"
+	        }, {
+		        "months": null,
+		        "counts": "2047",
+		        "infotypename": "部件TOP3"
+	        }, {
+		        "months": null,
+		        "counts": "19554",
+		        "infotypename": "事件TOP3"
+	        }, {
+		        "months": null,
+		        "counts": "0",
+		        "infotypename": "市民服务热线"
+	        }, {
+		        "months": null,
+		        "counts": "0",
+		        "infotypename": "市民服务热线TOP3"
+	        }]
+        },
 
     }
 })

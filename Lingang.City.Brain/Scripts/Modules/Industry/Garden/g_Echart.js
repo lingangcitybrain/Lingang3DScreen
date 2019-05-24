@@ -1,5 +1,10 @@
 ﻿define(["config", "common", "g_EchartAjax", "pagination", "nicescroll"], function (con, com, g_EchartAjax, pagination, nicescroll) {
     var gauge_value = 0;
+    var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
+    var tcfwSeriesData = []; //停车服务数据 便于大图表引用
+    var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
+    var wrjsjbcSeriesDataMax = 0;
+
     /****************************园区****************************/
     return {
         mybigChart: null,
@@ -49,8 +54,8 @@
             $("#center_02").html("");
         },
         //招商雷达
-        zsld: function () {
-            g_EchartAjax.getzsldDataFun(function (result) {
+        zsld: function (post_data) {
+            g_EchartAjax.getzsldDataFun(post_data, function (result) {
                 if (require("g_Echart").zsldData == null) { return false; }
                 var data = require("g_Echart").zsldData;
                 
@@ -274,7 +279,55 @@
             })
         
         },
-        
+
+        //企业top10列表
+        //getTopTenData
+        topTen: function (post_data) {
+            console.log("topTen: function (post_data) ")
+            g_EchartAjax.getTopTenData(post_data, function (result) {
+                console.log("g_EchartAjax.getTopTenData(post_data, function (result)")
+                //var dsfsf = setTimeout(function () {
+                //    clearTimeout(dsfsf);
+                //    dsfsf = null;
+               
+                    if (require("g_Echart").topTenData == null) { return false; }
+                    var data = require("g_Echart").topTenData;
+                    data = data.data;
+
+                    var aTopTenRecCap = []; //前十注册资本
+                    var aTopTenSubConam = []; //前十对外投资
+                
+                    for (var i = 0; i < data.length; i++) {
+                        aTopTenRecCap.push(Number(data[i].rec_cap) ? Number(data[i].rec_cap) : 0);
+                        aTopTenSubConam.push(Number(data[i].sub_conam) ? Number(data[i].sub_conam) : 0);
+                    }
+
+                    //最大数
+                    var aTopTenRecCapMax = Math.max.apply(null, aTopTenRecCap);
+                    var aTopTenSubConamMax = Math.max.apply(null, aTopTenSubConam); 
+
+                    //bar 宽度百分比
+                    var aTopTenRecCapWidth = []; //前十注册资本 bar 宽度百分比
+                    var aTopTenSubConamWidth = []; //前十对外投 bar 宽度百分比
+                    for (var i = 0; i < aTopTenRecCap.length; i++) {
+                        aTopTenRecCapWidth.push((aTopTenRecCap[i] / aTopTenRecCapMax * 100).toFixed(2));
+                        aTopTenSubConamWidth.push((aTopTenSubConam[i] / aTopTenSubConamMax * 100).toFixed(2));
+                    }
+
+                    for (var i = 0; i < aTopTenRecCap.length; i++) {
+                        $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].ent_name)
+
+                        $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar1").css({ width: aTopTenSubConamWidth[i] + '%' }).children().html(aTopTenSubConam[i])
+
+                        $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar2").css({ width: aTopTenRecCapWidth[i] + '%' }).children().html(aTopTenRecCap[i])
+                    }
+                    console.log('$("#topten-table>tbody>tr").eq(i)')
+
+               // }, 200)
+
+            });
+        },
+
         //招商漏斗
         zsFunnel: function (){
             g_EchartAjax.getZsFunnel(function (result) {
@@ -287,125 +340,149 @@
         },
 
         //停车服务
-        tcfw: function ()
-        {
-            if ($("#tcfw-chart").length <= 0) { return false; }
-            var tcfwChart = document.getElementById('tcfw-chart');
-            var tcfwdata = [];
-            for (var i = 1; i < 100; i++) {
-                tcfwdata.push(Math.round((Math.random() * 5000 + 3000)));
-            }
-            var myCharttcfw = echarts.init(tcfwChart);
-            tcfwOption = {
-                title: {
-                    text: "(辆)",
-                    left: "0",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
+        tcfw: function (post_data) {
+            g_EchartAjax.getTcfw(post_data, function (result) {
+                if (require("g_Echart").tcfwData == null) { return false; }
+                var data = require("g_Echart").tcfwData;
+
+                $("#cyyq-tcfw-total").html(data.total);
+                $("#cyyq-tcfw-empty").html(data.total - data.occupied);
+
+                for (var i = 7; i > 0; i--) {
+                    xAxisData.push( require("g_Echart").latestSevenDate(i)[0] )
+                }
+
+                if ($("#tcfw-chart").length <= 0) { return false; }
+                var tcfwChart = document.getElementById('tcfw-chart');
+
+                var tcfwdata = [];
+                for (var i = 1; i < 100; i++) {
+                    tcfwdata.push(Math.round((Math.random() * 5000 +3000)));
+                }
+                //var parkingsData = JSON.parse(data.parkings);
+                //var parkingsDataIndex = -1;
+                //var parkingsDateData = [];
+
+                //for (var i = 0; i < 7;) {
+                //    for (key in parkingsData[i]) {
+                //        if (require("g_Echart").latestSevenDate(i)[1] == key) {
+                //            parkingsDateData.push(parkingsData[i].key);
+                //        }
+                //    }
+                //}
+
+                var myCharttcfw = echarts.init(tcfwChart);
+                tcfwOption = {
+                    title: {
+                        text: "(进出车辆数)",
+                        left: "0",
+                        top: 8,
+                        textStyle: {
+                            fontSize: 24,
+                            color: "#00d7fe",
+                            fontWeight: "normal",
+                        },
                     },
-                },
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                grid: {
-                    left: '0',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "82%",
-                    containLabel: true
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#3398DB'],
+                    grid: {
+                        left: '0',
+                        right: '2%',
+                        bottom: '2%',
+                        height: "82%",
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: xAxisData,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
                             show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
                         }
 
                     },
-                },
-                xAxis: {
-                    type: 'category',
-                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
-                    boundaryGap: ["5%", "5%"],
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        interval: 1000,
+                        max: 9000,
+                        min: 2000,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                                //color:"#50acfe"
+                            }
                         }
                     },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    }
-
-                },
-                yAxis: {
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    },
-                    interval: 1000,
-                    max: 9000,
-                    min: 2000,
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
-                        }
-                    }
-                },
-                series: [
-                  {
-                      type: 'line',
-                      // smooth:true,
-                      color: "rgba(7,196,230,1)",
-                      areaStyle: {
-                          opacity: .1,
-                      },
-                      lineStyle: {
-                          width: 2,
-                      },
-                      symbolSize: 10,
-                      data: tcfwdata,
-                  }
-                ]
-            };
-            myCharttcfw.setOption(tcfwOption);
+                    series: [
+                      {
+                          type: 'line',
+                          // smooth:true,
+                          color: "rgba(7,196,230,1)",
+                          areaStyle: {
+                              opacity: .1,
+                          },
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 10,
+                          data: tcfwdata,
+                      }
+                    ]
+                };
+                myCharttcfw.setOption(tcfwOption);
 
 
 
-        
+
+            });        
         },
         //大停车服务
         bigtcfw: function () {
-            $("#GbigechartHead").html('停车服务(辆)');
+            $("#GbigechartHead").html('进出车辆数');
             if ($("#tcfw-chart").length <= 0) { return false; }
             var tcfwdata = [];
             for (var i = 1; i < 100; i++) {
@@ -414,14 +491,6 @@
             tcfwOption = {
                 title: {
                     show:false,
-                    //text: "(辆)",
-                    //left: "0",
-                    //top: 8,
-                    //textStyle: {
-                    //    fontSize: 24,
-                    //    color: "#00d7fe",
-                    //    fontWeight: "normal",
-                    //},
                 },
                 legend: {
                     show: false
@@ -448,7 +517,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    data: xAxisData,
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
@@ -527,137 +596,145 @@
 
         },
         //无人驾驶接驳车
-        wrjsjbc:function()
-        {
-            if ($("#wrjsjbc-chart").length <= 0) { return false; }
-            var wrjsjbcChart = document.getElementById('wrjsjbc-chart');
-            //var wrjsjbcdata = [50,55,60,20,35,65,70];
-            //for (var i = 1; i < 100; i++) {
-            //    wrjsjbcdata.push(Math.round((Math.random() * 50 + 25)));
-            //}
-            var myChartwrjsjbc = echarts.init(wrjsjbcChart);
-            wrjsjbcOption = {
-                title: {
-                    text: "(%)",
-                    left: "0",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
-                    },
-                },
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                grid: {
-                    left: '1%',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "82%",
-                    containLabel: true
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            show: false,
-                        }
+        wrjsjbc: function (){
+            g_EchartAjax.getWrjsjb(function (result) {
+                if (require("g_Echart").wrjsjbData == null) { return false; }
+                var data = require("g_Echart").wrjsjbData;
 
-                    },
-                },
-                xAxis: {
-                    type: 'category',
-                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
-                    boundaryGap: ["5%", "5%"],
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    },
-                    axisLabel: {
+                $("#cyyq-wrjs-total").html(data.total);
+                $("#cyyq-wrjs-normal").html(data.normal);
+                $("#cyyq-wrjs-fail").html(data.fail);
+
+                //图表
+                if ($("#wrjsjbc-chart").length <= 0) { return false; }
+                var wrjsjbcChart = document.getElementById('wrjsjbc-chart');
+                var myChartwrjsjbc = echarts.init(wrjsjbcChart);
+
+                for (var i = 7; i > 0; i--) {
+                    xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
+                }
+
+                var chartData = data.weeklyCounts;
+                wrjsjbcSeriesData = [chartData[0] * 2, chartData[1] * 2, chartData[2] * 2, chartData[3] * 2, chartData[4] * 2, chartData[5] * 2, chartData[6] * 2];
+
+                wrjsjbcSeriesDataMax = Math.max.apply(null, wrjsjbcSeriesData) + 10;
+
+                wrjsjbcOption = {
+                    title: {
+                        text: "(使用车次)",
+                        left: "0",
+                        top: 8,
                         textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    }
-                },
-                yAxis: {
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    },
-                    interval: 10,
-                    max: 100,
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
-                        }
-                    }
-                },
-                series: [
-                  {
-                      type: 'line',
-                      // smooth:true,
-                      color: "rgba(7,196,230,1)",
-                        areaStyle: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: "rgba(74,128,244,.1)",
-                            }, {
-                                offset: 1,
-                                color: "rgba(74,128,244,.3)",
-                            }])
+                            fontSize: 24,
+                            color: "#00d7fe",
+                            fontWeight: "normal",
                         },
-                      lineStyle: {
-                          width: 2,
-                      },
-                      symbolSize: 10,
-                      data: [50, 55, 60, 20, 35, 65, 70],
-                  }
-                ]
-            };
-            myChartwrjsjbc.setOption(wrjsjbcOption);
+                    },
+                    legend: {
+                        show: false
+                    },
+                    color: ['#3398DB'],
+                    grid: {
+                        left: '1%',
+                        right: '2%',
+                        bottom: '2%',
+                        height: "82%",
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: xAxisData,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        }
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        interval: 10,
+                        max: wrjsjbcSeriesDataMax,
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                                //color:"#50acfe"
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'line',
+                          // smooth:true,
+                          color: "rgba(7,196,230,1)",
+                          areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                  offset: 0,
+                                  color: "rgba(74,128,244,.1)",
+                              }, {
+                                  offset: 1,
+                                  color: "rgba(74,128,244,.3)",
+                              }])
+                          },
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 10,
+                          data: wrjsjbcSeriesData,
+                      }
+                    ]
+                };
+                myChartwrjsjbc.setOption(wrjsjbcOption);
+
+            });
         },
         //大无人驾驶接驳车
         bigwrjsjbc: function () {
-            $("#GbigechartHead").html('无人驾驶接驳车(%)');
+            $("#GbigechartHead").html('无人驾驶接驳车(使用车次)');
             if ($("#wrjsjbc-chart").length <= 0) { return false; }
             wrjsjbcOption = {
                 title: {
                     show:false,
-                    //text: "(%)",
-                    //left: "0",
-                    //top: 8,
-                    //textStyle: {
-                    //    fontSize: 24,
-                    //    color: "#00d7fe",
-                    //    fontWeight: "normal",
-                    //},
                 },
                 legend: {
                     show: false
@@ -685,7 +762,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    data: xAxisData,
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
@@ -723,7 +800,7 @@
                         }
                     },
                     interval: 10,
-                    max: 100,
+                    max: wrjsjbcSeriesDataMax,
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -749,7 +826,7 @@
                           width: 10,
                       },
                       symbolSize: 20,
-                      data: [50, 55, 60, 20, 35, 65, 70],
+                      data: wrjsjbcSeriesData,
                   }
                 ]
             };
@@ -759,7 +836,6 @@
             require("g_Echart").mybigChart = echarts.init(document.getElementById('Gbig-chart'));
             require("g_Echart").mybigChart.setOption(wrjsjbcOption);
         },
-
         //智慧物业
         zhwyRepair: function () {
             g_EchartAjax.getZhwyRepair(function (result) {
@@ -1296,7 +1372,8 @@
                     //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                     //加载分页控件内容 
                     if (pageindex == 0) {
-                        var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);     // Create pagination element with options from form
+                        var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);
+                        // Create pagination element with options from form
                         $("#pagination-parkingEnvent").pagination(data.length, optInit);
                     }
                 }          
@@ -1322,6 +1399,49 @@
             }
 
         },
+
+        latestSevenDate: function (n) {
+            function addZero(num) {
+                num = num < 10 ? ('0' + num) : num;
+                return num
+            }
+
+            function MyDate(n) {
+                var n = n;
+                var d = new Date();
+                var year = d.getFullYear();
+                var mon = d.getMonth() + 1;
+                var day = d.getDate();
+                if (day <= n) {
+                    if (mon > 1) {
+                        mon = mon - 1;
+                    }
+                    else {
+                        year = year - 1;
+                        mon = 12;
+                    }
+                }
+                d.setDate(d.getDate() - n);
+                year = d.getFullYear();
+                mon = d.getMonth() + 1;
+                day = d.getDate();
+                hours = d.getHours();
+                minute = d.getMinutes();
+                second = d.getSeconds();
+                hour = d.getHours();
+                minute = d.getMinutes();
+                second = d.getSeconds();
+
+                var mmdd1 = addZero(mon) + "/" + addZero(day);
+                var mmdd2 = addZero(mon) + "/" + addZero(day);
+                var yymmddhhmmss = '' +year + addZero(mon) +addZero(day) +addZero(hour) +addZero(minute) +addZero(second);
+
+                return [mmdd1, mmdd2, yymmddhhmmss];
+            };
+            return MyDate(n);
+
+        },
+
         Revert: function () {
             if (require("g_Echart").myChartleida != null && require("g_Echart").myChartleida != "" && require("g_Echart").myChartleida != undefined) {
                 clearInterval(require("g_Echart").zsldInterval);//清空计时器
@@ -1329,5 +1449,7 @@
                 //require("g_Echart").myChartleida.restore();
             }
         }
+
+
     }
 })
