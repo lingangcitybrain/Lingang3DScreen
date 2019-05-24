@@ -7,8 +7,8 @@
                 Bus: { Id: 1, TextName: "公交", Name: "Bus", Level: 2, ChooseIcon: "Texture/Common/bus_hover.png", UnChooseIcon: "Texture/Common/bus.png" },
                 Metro: { Id: 1, TextName: "地铁", Name: "Metro", Level: 1, ChooseIcon: "Texture/Common/metro_hover.png", UnChooseIcon: "Texture/Common/metro.png" },
                 Event: { Id: 5, TextName: "事件", Name: "Event", Level: 1, ChooseIcon: "Texture/Common/event_hover.png", UnChooseIcon: "Texture/Common/event.png" },
-                Drone: {
-                    Id: 6, TextName: "无人机", Name: "Drone", Level: 1, ChooseIcon: "Texture/Common/wurenjiku_hover.png", UnChooseIcon: "Texture/Common/wurenjiku.png"
+                DroneHangar: {
+                    Id: 6, TextName: "无人机库", Name: "DHangar", Level: 1, ChooseIcon: "Texture/Common/wurenjiku_hover.png", UnChooseIcon: "Texture/Common/wurenjiku.png"
                 }
             },
             left02_video01: null,

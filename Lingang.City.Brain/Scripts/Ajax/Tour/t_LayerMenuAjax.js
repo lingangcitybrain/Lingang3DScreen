@@ -153,7 +153,7 @@
             }
         },
         //获取无人机库列表
-        getDroneList: function (post_data, callback) {
+        getDroneHangarList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -169,16 +169,40 @@
                     error: function () {
                         //alert("数据传输错误");
                         console.log('景区管理---获取无人机库列表失败')
-                        require("tl_Drone").POIData = t_LayerMenuData.DroneData.data;
+                        require("tl_Drone").POIData = t_LayerMenuData.DroneHangarData.data;
                     }
                 });
             }
             else {//执行本地
-                require("tl_Drone").POIData = t_LayerMenuData.DroneData.data;
+                require("tl_Drone").POIData = t_LayerMenuData.DroneHangarData.data;
                 callback();
             }
         },
-
+        //获取无人机列表
+        getDroneList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "/v1/drone/list",  // yii 控制器/方法   
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("tl_Drone").DroneData = data.data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        console.log('景区管理---获取无人机列表失败')
+                        require("tl_Drone").DroneData = t_LayerMenuData.DroneData.data;
+                    }
+                });
+            }
+            else {//执行本地
+                require("tl_Drone").DroneData = t_LayerMenuData.DroneData.data;
+                callback();
+            }
+        },
         //获取无人机视频
         getDroneVideo:function(post_data, callback)
         {
@@ -186,8 +210,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    //url: con.InterfaceUrl + "videoPlay/playing",  // yii 控制器/方法   
-                    url: con.InterfaceUrl + "/v1/drone/list",
+                    url: con.InterfaceUrl + "v1/videoPlay/playing",  // yii 控制器/方法   
+                    //url: con.InterfaceUrl + "/v1/drone/list",
 
                     cache: false,
                     data: post_data,  //传送的数据
