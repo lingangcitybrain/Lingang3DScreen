@@ -197,6 +197,8 @@
             }
             com.UIControlAni(option, function () {
                 require("g_Echart").sjtj(0);
+                //require("gl_Event").loadEvnetList(0);
+                
             });
         },
         // 关闭其他的

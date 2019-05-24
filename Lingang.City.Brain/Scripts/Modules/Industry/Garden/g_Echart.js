@@ -1,8 +1,8 @@
 ﻿define(["config", "common", "g_EchartAjax", "pagination", "nicescroll"], function (con, com, g_EchartAjax, pagination, nicescroll) {
     var gauge_value = 0;
-    var xAxisData = null; //停车服务、无人驾驶接驳车X轴日期
-    var tcfwSeriesData = null; //停车服务数据 便于大图表引用
-    var wrjsjbcSeriesData = null; //无人驾驶接驳车数据 
+    var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
+    var tcfwSeriesData = []; //停车服务数据 便于大图表引用
+    var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
     var wrjsjbcSeriesDataMax = 0;
 
     /****************************园区****************************/
@@ -348,14 +348,29 @@
                 $("#cyyq-tcfw-total").html(data.total);
                 $("#cyyq-tcfw-empty").html(data.total - data.occupied);
 
-                xAxisData = require("g_Echart").latestSevenDate();
+                for (var i = 7; i > 0; i--) {
+                    xAxisData.push( require("g_Echart").latestSevenDate(i)[0] )
+                }
 
                 if ($("#tcfw-chart").length <= 0) { return false; }
                 var tcfwChart = document.getElementById('tcfw-chart');
+
                 var tcfwdata = [];
                 for (var i = 1; i < 100; i++) {
-                    tcfwdata.push(Math.round((Math.random() * 5000 + 3000)));
+                    tcfwdata.push(Math.round((Math.random() * 5000 +3000)));
                 }
+                //var parkingsData = JSON.parse(data.parkings);
+                //var parkingsDataIndex = -1;
+                //var parkingsDateData = [];
+
+                //for (var i = 0; i < 7;) {
+                //    for (key in parkingsData[i]) {
+                //        if (require("g_Echart").latestSevenDate(i)[1] == key) {
+                //            parkingsDateData.push(parkingsData[i].key);
+                //        }
+                //    }
+                //}
+
                 var myCharttcfw = echarts.init(tcfwChart);
                 tcfwOption = {
                     title: {
@@ -595,6 +610,10 @@
                 var wrjsjbcChart = document.getElementById('wrjsjbc-chart');
                 var myChartwrjsjbc = echarts.init(wrjsjbcChart);
 
+                for (var i = 7; i > 0; i--) {
+                    xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
+                }
+
                 var chartData = data.weeklyCounts;
                 wrjsjbcSeriesData = [chartData[0] * 2, chartData[1] * 2, chartData[2] * 2, chartData[3] * 2, chartData[4] * 2, chartData[5] * 2, chartData[6] * 2];
 
@@ -634,7 +653,7 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: require("g_Echart").latestSevenDate(),
+                        data: xAxisData,
                         boundaryGap: ["5%", "5%"],
                         axisTick: {
                             show: false,
@@ -743,7 +762,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: require("g_Echart").latestSevenDate(),
+                    data: xAxisData,
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
@@ -1353,7 +1372,8 @@
                     //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                     //加载分页控件内容 
                     if (pageindex == 0) {
-                        var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);     // Create pagination element with options from form
+                        var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);
+                        // Create pagination element with options from form
                         $("#pagination-parkingEnvent").pagination(data.length, optInit);
                     }
                 }          
@@ -1380,7 +1400,12 @@
 
         },
 
-        latestSevenDate: function () {
+        latestSevenDate: function (n) {
+            function addZero(num) {
+                num = num < 10 ? ('0' + num) : num;
+                return num
+            }
+
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -1399,11 +1424,21 @@
                 d.setDate(d.getDate() - n);
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
-                day = d.getDate(); s = (mon < 10 ? ('0' + mon) : mon) + "/" + (day < 10 ? ('0' + day) : day);
-                return s;
-            };
+                day = d.getDate();
+                hours = d.getHours();
+                minute = d.getMinutes();
+                second = d.getSeconds();
+                hour = d.getHours();
+                minute = d.getMinutes();
+                second = d.getSeconds();
 
-            return [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
+                var mmdd1 = addZero(mon) + "/" + addZero(day);
+                var mmdd2 = addZero(mon) + "/" + addZero(day);
+                var yymmddhhmmss = '' +year + addZero(mon) +addZero(day) +addZero(hour) +addZero(minute) +addZero(second);
+
+                return [mmdd1, mmdd2, yymmddhhmmss];
+            };
+            return MyDate(n);
 
         },
 
