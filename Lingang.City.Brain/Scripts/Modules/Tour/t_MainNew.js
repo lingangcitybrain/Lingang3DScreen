@@ -493,38 +493,6 @@
 
                 });
             },
-            //加载中间无人机视频
-            loadCenter_Video: function () {
-                var videowidth = $("#Big-chart").width();
-                var videoheight = $("#Big-chart").height();
-                if (require("t_Main").tourhtml_wurenji01) {
-                    require("t_Main").tourhtml_wurenji01.dispose();
-                    require("t_Main").tourhtml_wurenji01 = null;
-                }
-
-                $("#Big-chart").empty();
-                require(['aliplayer'], function (data) {
-                    var post_data = { "offset": "0", "count": "1000" }
-                    var playurl = con.WebServiceUrl + "/Content/video/dakeliu.flv";
-                    require("t_Main").tourhtml_wurenji01 = new Aliplayer({
-                        "id": "Big-chart",
-                        "source": playurl,
-                        "width": videowidth + "px",
-                        "height": videoheight + "px",
-                        "autoplay": true,
-                        "isLive": false,
-                        "rePlay": true,
-                        "showBuffer": true,
-                        "snapshot": false,
-                        "showBarTime": 5000,
-                        "useFlashPrism": true,
-                        "mediaType": "audio"
-                    }, function (player) {
-                        //加载成功,清空错误提示
-                        $("#Big-chart").empty();
-                    }); 
-                });
-            },
             //加载中间列
             loadCenter: function () {
                 var url = con.HtmlUrl + 'Tour/Centre_Container.html';
