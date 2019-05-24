@@ -1,4 +1,4 @@
-﻿define(["config", "common", "t_EchartAjax", "util"], function (con, com, t_EchartAjax, util) {
+﻿define(["config", "common", "t_EchartAjax", "util", "t_Main"], function (con, com, t_EchartAjax, util, t_Main) {
     //人员车辆统计图表数据
     var oRycltjChartRqaIndex = -1; 
     var oRycltjChartData1 = null;
@@ -166,6 +166,9 @@
                     case "Left_First_04"://舆情分析
                         require("t_Echart").bigYqfx();
                         break;
+                    case "Left_First_wrj"://无人机视频
+                        require("t_Echart").wrjsp();
+                        break;
                     case "Left_Second_01"://无人机
                         require("t_Echart").bigwrj();
                         break;
@@ -286,6 +289,10 @@
             html += '<a class="rycltj-datetab">' + MyDate(1) + '</a>';
             html += '<a class="rycltj-datetab">' + MyDate(0) + '</a>';
             $('#rq').html(html)
+        },
+        wrjsp:function(){
+            $("#bigechartHead").empty();
+            require("t_Main").loadCenter_Video();
         },
         //游客分析
         ykfx: function () {
