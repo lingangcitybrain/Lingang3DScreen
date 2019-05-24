@@ -14,8 +14,7 @@
             })
     },
         //加载事件列表
-        loadEventList: function ()
-        {
+        loadEventList: function (){
             $("#right_EventList").hide();
             var url = con.HtmlUrl + 'Society/R_EventList.html';
             require(['text!' + url], function (template) {
@@ -27,9 +26,9 @@
             })
         },
         //生成事件列表
-        generateEventList:function()
-        {
-            require("s_LayerMenuAjax").getEventList(function (result) {
+
+        generateEventList: function (post_data) {
+            require("s_LayerMenuAjax").getEventList(post_data, function (result) {
                 var data = require("sl_Event").POIData;
                 var html = '';
                 var num = 0;
@@ -37,14 +36,14 @@
                     num++;
                     html +=
                        '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
-                        '<div class="sjxx-li-line1">'+
+                        '<div class="sjxx-li-line1">' +
                             '<span class="sjxx-id counter">' + num + '</span>' +
                             '<span class="sjxx-event">' + data[i].eventName + '</span>' +
                             '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-                        '</div>'+
+                        '</div>' +
                         '<div class="sjxx-address">' + data[i].address +
                             '<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
-                        '</div>'+
+                        '</div>' +
                     '</li>';
                     require("s_RightLayer").EventData.put(data[i].id, data[i]);
                 }
@@ -52,7 +51,7 @@
             });
         },
 
-        loadEventDetail:function(id)
+        loadEventDetail: function (id)
         {
             //显示左侧社区页面
             $("#society_twocolright").hide()

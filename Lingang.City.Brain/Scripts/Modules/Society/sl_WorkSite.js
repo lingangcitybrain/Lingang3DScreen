@@ -173,14 +173,15 @@
             s_EchartAjax.getWorkSiteWeatherData(function (result) {
                 if (require("s_Echart").workSiteWeatherData == null) { return false; }
                 var data = require("s_Echart").workSiteWeatherData;
-                data = data.data.communityDetail;
+                data = data.list;
 
-                $("#worksite_wrj_flightCounts").html(data.flightCounts);
-                $("#worksite_wrj_eventCounts").html(data.eventCounts);
-                $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
-                $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
-                //$("#worksite_wrj_communityCarNums").html(parseFloat(data.communityCarNums))
-                //$("#worksite_wrj_communityGrade").html(parseFloat(data.communityGrade))
+                $("#worksite-weather")
+                
+
+
+
+
+
             });
         },
 

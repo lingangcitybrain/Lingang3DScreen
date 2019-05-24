@@ -5,8 +5,10 @@
         UnmannedCarPOIIcon_hover: "Texture/common/wurenche_hover.png",
         RouterPointPOI: "Texture/common/IOT6.png",
         RouterPointPOI_hover: "Texture/common/IOT6_hover.png",
+        UnmannedClk_Car:null,
         UnmannedCarPOIs: [],
-        UnmannedCarTrajectors:[],
+        StartAndEndPointPOIs_last:[],
+        UnmannedCarTrajectors:null,//[],
         RoutePointPOIs:[],
         DrivingRoutes:[],
         //加载无人车图层
@@ -23,13 +25,13 @@
             //隐藏无人车POI,轨迹线
             for (var i = 0; i < require("gl_UnmannedCar").UnmannedCarPOIs.length; i++) {
                 var node = map.getSceneNode(require("gl_UnmannedCar").UnmannedCarPOIs[i]);
-                var nodeTrajector = map.getSceneNode(require("gl_UnmannedCar").UnmannedCarTrajectors[i]);
+                //var nodeTrajector = map.getSceneNode(require("gl_UnmannedCar").UnmannedCarTrajectors[i]);
                 if (node) {
                     node.setVisible(0);
                 }
-                if (nodeTrajector) {
-                    nodeTrajector.setVisible(0);
-                }
+                //if (nodeTrajector) {
+                //    nodeTrajector.setVisible(0);
+                //}
             }
 
             for (var i = 0; i < require("gl_UnmannedCar").DrivingRoutes.length; i++) {
@@ -39,6 +41,7 @@
                 }
             }
             
+            this.clearLastUnmannedCar();
         },
 
         //加载无人车实时行驶轨迹，漫游
@@ -91,7 +94,10 @@
                     map.createPOI(areaName + "/" + POINodeName, poiOptions);
                     require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + POINodeName);
                     /************************END*******************************/
-                }                /******************************漫游起点和终点POI***************************************/                var RouteStartNode = "RouteStartPOI_" + i, RouteEndNode="RouteEndPOI_"+i;
+                }
+
+                /******************************漫游起点和终点POI***************************************/
+                var RouteStartNode = "RouteStartPOI_" + i, RouteEndNode="RouteEndPOI_"+i;
                 var RouteStartPOIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName),
                     RouteEndPOIPosition = data[data.length-1].pos.toGlobalVec3d().toLocalPos(areaName);
                 var iconSize = Q3D.vector2(31, 35),
@@ -99,7 +105,7 @@
                 //起点
                 var node = map.getSceneNode(areaName, RouteStartNode);
                 if (node) {
-                    node.setVisible(1);
+                    node.setVisible(0);
                 } else {
                     var poiOptions = {
                         Position: Q3D.vector3(RouteStartPOIPosition),
@@ -129,15 +135,24 @@
                             IconLabelMargin: null,
                             SpecialTransparent: true,
                             AlwaysOnScreen: true,
-                        }
+                        },
+                        OnLoaded: function () {
+                            //默认隐藏漫游起始点
+                            var Node = map.getSceneNode(areaName, RouteStartNode);
+                            if (Node) {
+                                Node.setVisible(0);
+                            }
+                        },
                     };
                     map.createPOI(areaName + "/" + RouteStartNode, poiOptions);
-                    require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + RouteStartNode);
+                    //require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + RouteStartNode);
                     
                     
-                }                //终点                var nodeEnd = map.getSceneNode(areaName, RouteEndNode);
+                }
+                //终点
+                var nodeEnd = map.getSceneNode(areaName, RouteEndNode);
                 if (nodeEnd) {
-                    nodeEnd.setVisible(1);
+                    nodeEnd.setVisible(0);
                 } else {
                     var poiOptions = {
                         Position: Q3D.vector3(RouteEndPOIPosition),
@@ -167,18 +182,33 @@
                             IconLabelMargin: null,
                             SpecialTransparent: true,
                             AlwaysOnScreen: true,
-                        }
+                        },
+                        OnLoaded: function () {
+                            //默认隐藏漫游起始点
+                            var Node = map.getSceneNode(areaName, RouteEndNode);
+                            if (Node) {
+                                Node.setVisible(0);
+                            }
+                        },
                     };
                     map.createPOI(areaName + "/" + RouteEndNode, poiOptions);
-                    require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + RouteEndNode);
+                    //require("gl_UnmannedCar").UnmannedCarPOIs.push(areaName + "/" + RouteEndNode);
 
 
-                }                /************************END*******************************/                /**************************************END*******************************************/                /************************无人车漫游路线*******************************/                var pointsArray = [], offsetArray = [], LineName = "TrajectoryRoute_" + i;                for (var j = 0; j < data.length; j++) {
+                }
+                /************************END*******************************/
+                /**************************************END*******************************************/
+                /************************无人车漫游路线*******************************/
+                var pointsArray = [], offsetArray = [], LineName = "TrajectoryRoute_" + i;
+                for (var j = 0; j < data.length; j++) {
                     var pos = data[j].pos;
                     pointsArray.push(Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName)));
                     offsetArray.push(0);
-                }                var nodeLine = map.getSceneNode(areaName, LineName);
-                if (!nodeLine)                {                    //画路线
+                }
+                var nodeLine = map.getSceneNode(areaName, LineName);
+                if (!nodeLine)
+                {
+                    //画路线
                     var routeOptions = {
                         Material: null,
                         SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
@@ -194,13 +224,17 @@
                         },
                         OnLineCreated: function () {
                         //默认隐藏漫游路线
-                            var lineNode = map.getSceneNode(areaName + "/" + LineName);                            if (lineNode) {
+                            var lineNode = map.getSceneNode(areaName + "/" + LineName);
+                            if (lineNode) {
                                 lineNode.setVisible(0);
                             }
                         }
                     };
-                    map.createRoamRoute(areaName + "/" + LineName, routeOptions);                    require("gl_UnmannedCar").UnmannedCarTrajectors.push(areaName + "/" + LineName);
-                }                                 //动线漫游
+                    map.createRoamRoute(areaName + "/" + LineName, routeOptions);
+                    //require("gl_UnmannedCar").UnmannedCarTrajectors.push(areaName + "/" + LineName);
+                }
+               
+                  //动线漫游
                  var polylineOptions = {
                          CenterLine: pointsArray, //动线中心线，由 Vector3 坐标组成
                          OffsetDist: offsetArray, //偏移距离，单位米，用于贝塞尔曲线的控制点计算
@@ -210,24 +244,56 @@
                          IsAutoPlay: true, //是否自动播放， 默认为否
                          PitchAllowed: false, //是否允许俯仰
                          OnAnimationEndFn: function () {                     
-                            //map.thirdPersonView("xydy", "droneCamera");                   
-                            //map.destroySceneNode("xydy/drone");
-                            //map.destroySceneNode("xydy/droneRoute");
-                            //map.unloadLayout("personSwitchPanel");
                         }
                     };
-                 map.roamByPolyline(areaName + "/" + POINodeName, polylineOptions);                                /******************************END************************************/
+                 map.roamByPolyline(areaName + "/" + POINodeName, polylineOptions);
+                
+                /******************************END************************************/
+
             }
         },
-        showUnmannedCarTrajectors:function(nodeName) {
+        //清除上一个点击的无人车选中状态
+        clearLastUnmannedCar: function () {
+            if (this.StartAndEndPointPOIs_last.length > 0) {
+                for (var i = 0; i < this.StartAndEndPointPOIs_last.length; i++) {
+                    this.StartAndEndPointPOIs_last[i].setVisible(0);
+                }
+            }
+            if (this.UnmannedClk_Car) {
+                this.UnmannedClk_Car.asPOI().setIcon(this.UnmannedCarPOIIcon);
+            }
+            if (this.UnmannedCarTrajectors) {
+                this.UnmannedCarTrajectors.setVisible(0);
+            }
+        },
+        showUnmannedCarTrajectors: function (nodeName) {
             var id = nodeName.split("_")[1];
-            var nodeName = "TrajectoryRoute_" + id,
+            var nodeName_Trajectory = "TrajectoryRoute_" + id,
+                RouteStartNode = "RouteStartPOI_" + id, 
+                RouteEndNode="RouteEndPOI_"+id,
                 areaName = con.AreaName;
-            var node = map.getSceneNode(areaName, nodeName);
-            if (node) {
-                node.setVisible(1);  //显示漫游轨迹
+            this.clearLastUnmannedCar();
+            var node_car = map.getSceneNode(areaName, nodeName);
+            if (node_car) {
+                node_car.asPOI().setIcon(this.UnmannedCarPOIIcon_hover);
+                this.UnmannedClk_Car = node_car;
             }
 
+            var node = map.getSceneNode(areaName, nodeName_Trajectory),
+                node1 = map.getSceneNode(areaName, RouteStartNode),
+                node2 = map.getSceneNode(areaName, RouteEndNode);
+            if (node) {
+                node.setVisible(1);  //显示漫游轨迹
+                require("gl_UnmannedCar").UnmannedCarTrajectors = node;//.push(areaName + "/" + LineName);
+            }
+            if (node1) {
+                node1.setVisible(1);  //显示漫游起点
+                require("gl_UnmannedCar").StartAndEndPointPOIs_last.push(node1);
+            }
+            if (node2) {
+                node2.setVisible(1);  //显示漫游终点
+                require("gl_UnmannedCar").StartAndEndPointPOIs_last.push(node2);
+            }
             //显示无人车详情页面
             var option = {
                 aniDom: "#center01_01",
@@ -242,62 +308,22 @@
         DrawDrivingRoute: function () {
             var UmmannedCarDrivingRoute = g_UnmannedCarData.UmmannedCarDrivingRoute;
             var areaName = con.AreaName;
-            /************************无人车行驶路线*******************************/            //for (var i in UmmannedCarDrivingRoute) {
+            /************************无人车行驶路线*******************************/
+            //for (var i in UmmannedCarDrivingRoute) {
             for (var i = 0; i < UmmannedCarDrivingRoute.length; i++) {
                 var data = UmmannedCarDrivingRoute[i];
-                var pointsArray = [], offsetArray = [], LineName = "DrivingRoute"+i;                for (var j in data) {
+                var pointsArray = [], offsetArray = [], LineName = "DrivingRoute"+i;
+                for (var j in data) {
                     var pos = data[j].pos;
                     pointsArray.push(Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName)));
-                    offsetArray.push(0);
-                    /**************************路线标注POI****************************************/
-                    /* var POINodeName = "RoutePointPOI" + j;
-                     var POIPosition = pos.toGlobalVec3d().toLocalPos(areaName);
-                     var iconSize = Q3D.vector2(41, 45),
-                         FontColor = Q3D.colourValue("#000080", 1),
-                         icon = require("gl_UnmannedCar").RouterPointPOI;
-                     var node = map.getSceneNode(areaName, POINodeName);
-                     if (node) {
-                         node.setVisible(1);
-                     } else {
-                         var poiOptions = {
-                             Position: Q3D.vector3(POIPosition),
-                             Orientation: null,
-                             OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                             Scale: Q3D.vector3(1, 1, 1),
-                             POIOptions: {
-                                 FontSize: 15,
-                                 FontName: "微软雅黑",
-                                 FontColor: FontColor,
-                                 CharScale: 1,
-                                 Text: "点位" + j,
-                                 Icon: icon,
-                                 IconSize: iconSize,
-                                 POILayout: Q3D.Enums.poiLayOut.Bottom,
-                                 UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                                 IconAlphaEnabled: true,
-                                 FontOutLine: 2, //同描边有关
-                                 FontEdgeColor: Q3D.colourValue("#80ffff", 1),
-                                 AlphaTestRef: null,
-                                 Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                                 LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用
-                                 BackFrameBorderSize: null,//2, //同边框有关 背景边框大小
-                                 BackBorderColor: null,//Q3D.colourValue("#80ffff", 1),//背景边框颜色
-                                 BackFillColor: null,//Q3D.colourValue("#80ffff", 1),//背景填充色
-                                 LabelMargin: null,
-                                 IconLabelMargin: null,
-                                 SpecialTransparent: true,
-                                 AlwaysOnScreen: true,
-                             }
-                         };
-                         map.createPOI(areaName + "/" + POINodeName, poiOptions);
-                         require("gl_UnmannedCar").RoutePointPOIs.push(areaName + "/" + POINodeName);
-                         */
-                    /*************************************END***********************************************/
+                    offsetArray.push(0);                   
                 }
-                //}                var nodeLine = map.getSceneNode(areaName, LineName);
+                //}
+                var nodeLine = map.getSceneNode(areaName, LineName);
                 if (nodeLine) {
                     nodeLine.setVisible(1);
-                } else {                    //画路线
+                } else {
+                    //画路线
                     var routeOptions = {
                         Material: null,
                         SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
@@ -315,7 +341,8 @@
                             //alert("Line is created!");
                         }
                     };
-                    map.createRoamRoute(areaName + "/" + LineName, routeOptions);                    require("gl_UnmannedCar").DrivingRoutes.push(areaName + "/" + LineName);
+                    map.createRoamRoute(areaName + "/" + LineName, routeOptions);
+                    require("gl_UnmannedCar").DrivingRoutes.push(areaName + "/" + LineName);
                 }
             }
         },

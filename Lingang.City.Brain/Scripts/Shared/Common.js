@@ -2,7 +2,7 @@
     return {
 
         //画弧度发光东线 fromPos，toPos（经纬度坐标）radianHeight 弧度的高度
-        getRadianLine: function (fromPos, toPos,radianHeight, option) {
+        getRadianLine: function (fromPos, toPos, radianHeight, option) {
             var defaultOption = {
                 AreaName: '',
                 Name: '',//动线名称
@@ -464,6 +464,72 @@
 
             //map.setBatchPOIJump(nodeArr, 1, 2);
         },
+        /*
+        *@根据data批量初始化poi  --------------有跳动效果
+        *@method    InitPoi
+        *areaName           {string}                 场景名称
+        *data               {Object}                 场景名称
+          - POIName       POI名称
+          - Icon          图标
+          - AbsPos        位置坐标
+          - Text          文本
+        */
+        InitPoisN: function (areaName, data) {
+            if (arguments.length == 2 && typeof (arguments[0]) == "string" && $.isArray(data)) {
+                var nodeArr = [];
+
+                for (i = 0; i < data.length; i++) {
+                    var pName = data[i].POIName;
+                    var fullNodePath = areaName + "/" + pName;
+                    nodeArr.push(fullNodePath);
+                    var node = map.getSceneNode(areaName, pName);
+                    if (node) {
+                        node.setVisible(true);
+                    }
+                    else {
+                        //默认POI参数		
+                        var defaultOptions = {
+                            Position: null,
+                            Orientation: null,
+                            OrientationType: Q3D.Enums.nodeOrientationType.Self,
+                            Scale: Q3D.vector3(1, 1, 1),
+                            POIOptions: {
+                                FontSize: 14,
+                                FontName: "微软雅黑",
+                                FontColor: Q3D.colourValue("#000000", 1),
+                                CharScale: 1,
+                                Text: 'poi',
+                                Icon: null,
+                                IconSize: [50, 50],
+                                POILayout: Q3D.Enums.poiLayOut.Bottom,
+                                UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
+                                IconAlphaEnabled: true,
+                                FontOutLine: 0, //同描边有关
+                                FontEdgeColor: Q3D.colourValue("#000000", 1),
+                                AlphaTestRef: null,
+                                Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
+                                LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用
+                                BackFrameBorderSize: null,//2, //同边框有关 背景边框大小
+                                BackBorderColor: null,//Q3D.colourValue("#80ffff", 1),//背景边框颜色
+                                BackFillColor: null,//Q3D.colourValue("#80ffff", 1),//背景填充色
+                                LabelMargin: null,
+                                IconLabelMargin: null,
+                                SpecialTransparent: true,
+                                AlwaysOnScreen: true,
+                            }
+                        };
+
+                        $.extend(true, defaultOptions, data[i]);
+
+                        map.createPOI(fullNodePath, defaultOptions);
+                    }
+                }
+                //map.setBatchPOIJump(nodeArr, 1, 2);                
+            }
+            else {
+                return 'error parameter!';
+            }
+        },
         VideoDialog: function (videoDialogName, areaName, nodeName, option, type) {
             type = $.type(type) == "undefined" ? "TargetNode" : type;
             map.removeVideo(videoDialogName);
@@ -501,7 +567,7 @@
             map.videoDialog(videoDialogName, videoOptions);
             //放大缩小事件监听
             var uiSystem = map.getOcx().getUISystem(),
-            videoLayout = uiSystem.getLayout(videoDialogName);
+                videoLayout = uiSystem.getLayout(videoDialogName);
             zoomInBtnWidget = videoLayout.getWidget("Park_ZoomInBtn").asButton();
             zoomOutBtnWidget = videoLayout.getWidget("Park_ZoomOutBtn").asButton();
             //zoomVideoCloseWidget = videoLayout.getWidget("_buttonClose").asButton();
@@ -564,7 +630,7 @@
         },
         SetHashMapStyle: function (areaName, hashMap, option) {
             if (hashMap.size() > 0) {
-                for (var i = 0; i < hashMap.size() ; i++) {
+                for (var i = 0; i < hashMap.size(); i++) {
                     var key = hashMap.keys()[i];
                     //var value = hashMap.get(key);
                     var node = map.getSceneNode(areaName, key);
@@ -657,7 +723,7 @@
         //根据hashmap对象隐藏节点
         SetHashMapVisible: function (hashMap, isTrue, keyword) {
             if (hashMap.size() > 0) {
-                for (i = 0; i < hashMap.size() ; i++) {
+                for (i = 0; i < hashMap.size(); i++) {
                     var key = hashMap.keys()[i];
                     var value = hashMap.get(key);
                     if (value) {
@@ -958,7 +1024,7 @@
                                         var jsonFile = eval('[' + fileString + ']');
                                         points = jsonFile[0];
 
-                                        for (var i = 0; i < points.length ; i++) {
+                                        for (var i = 0; i < points.length; i++) {
                                             if (points[i]) {
                                                 var strPoint = points[i].xyz.split(',');
                                                 var p1 = Q3D.vector3((strPoint[0] + ',' + parseFloat(strPoint[1]).toString() + ',' + strPoint[2]).toVector3d().toLocalPos(areaName));
@@ -1331,8 +1397,7 @@
                 l.animate({
                     txt: val
                 }, time);
-            } catch (e)
-            { }
+            } catch (e) { }
         },
 
         // UI渐入渐出动画
@@ -1456,8 +1521,8 @@
                 strDate = "0" + strDate;
             }
             var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-                    + " " + date.getHours() + seperator2 + date.getMinutes()
-                    + seperator2 + date.getSeconds();
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
             return currentdate;
         },
         //获取N天前的时间 date:时间，daynum：daynum天前
@@ -1471,19 +1536,50 @@
             newDate = new Date(timestamp - daynum * 24 * 3600 * 1000);
             return [[newDate.getFullYear(), newDate.getMonth() + 1, newDate.getDate()].join('-'), [newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()].join(':')].join(' ');
         },
+        //时间格式化 new Date().getTime():1558515723754
+        formatDate:function (time) {
+            var date = new Date(time);
+
+            var year = date.getFullYear(),
+                month = date.getMonth() + 1,//月份是从0开始的
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds();
+            var newTime = year + '-' +
+                        month + '-' +
+                        day + ' ' +
+                        hour + ':' +
+                        min + ':' +
+                        sec;
+            return newTime;         
+        },
+        //时间格式化2019-05-20T08:35:55.000+0000
+        formatDate2: function(date) {
+             var arr=date.split("T");
+            var d=arr[0];
+            var darr = d.split('-');
+
+            var t=arr[1];
+            var tarr = t.split('.000');
+            var marr = tarr[0].split(':');
+
+            var dd = parseInt(darr[0])+"-"+parseInt(darr[1])+"-"+parseInt(darr[2])+" "+parseInt(marr[0])+":"+parseInt(marr[1])+":"+parseInt(marr[2]);
+            return dd;
+        },
         //数字动画
         numberAnimation: function (dom, startNumber, endNumber, second) {
             if (dom.length > 0) {
                 require(['animateNumber'], function () {
                     dom
-                       .prop('number', startNumber)
-                       .animateNumber(
-                       {
-                           number: endNumber,
-                           numberStep: $.animateNumber.numberStepFactories.separator(','), //千位分割符,
-                       },
-                       second
-                    );
+                        .prop('number', startNumber)
+                        .animateNumber(
+                            {
+                                number: endNumber,
+                                numberStep: $.animateNumber.numberStepFactories.separator(','), //千位分割符,
+                            },
+                            second
+                        );
                 });
             }
         },
@@ -1516,7 +1612,7 @@
         openCloseBigDigital: function (openOrClose) {
             if (openOrClose == 'close')
                 $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
-                //$('.statistic-slidebtn').click();
+            //$('.statistic-slidebtn').click();
             else
                 $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideDown();
         },

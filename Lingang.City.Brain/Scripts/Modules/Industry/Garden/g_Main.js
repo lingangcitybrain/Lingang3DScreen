@@ -1,4 +1,4 @@
-﻿define(["config", "common", "mainMenu", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "gl_TopCompany","b_BuildingFloor","e_LayerMenuData"], function (con, com, mainMenu, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event,gl_TopCompany,b_BuildingFloor,e_LayerMenuData) {
+﻿define(["config", "common", "mainMenu", "g_Echart", "gl_GardenBuilding", "gl_Stop", "gl_UnmannedCar", "gl_Event", "gl_TopCompany", "b_BuildingFloor", "e_LayerMenuData", "g_EchartAjax"], function (con, com, mainMenu, g_Echart, gl_GardenBuilding, gl_Stop, gl_UnmannedCar, gl_Event, gl_TopCompany, b_BuildingFloor, e_LayerMenuData, g_EchartAjax) {
     /****************************园区****************************/
     return {
         LayerCatalog: {
@@ -9,7 +9,7 @@
                 Id: 2, TextName: "龙头企业", Name: "TopCompany", Level: 1, ChooseIcon: "Texture/Common/topcompany_hover.png", UnChooseIcon: "Texture/Common/topcompany.png"
             },
             Building: {
-                Id: 3, TextName: "楼宇", Name: "Building", Level: 1, ChooseIcon: "Texture/Common/building_hover.png", UnChooseIcon: "Texture/Common/building.png"
+                Id: 3, TextName: "楼宇", Name: "Building", Level: 1, ChooseIcon: "Texture/Common/a4_hover.png", UnChooseIcon: "Texture/Common/a4.png"
             },
         },
         loadMain: function () {
@@ -98,7 +98,7 @@
             }
             com.UIControlAni(option, function () {
                 clearInterval(require("g_Echart").zsldInterval);//清空计时器
-                require("g_Echart").zsld(); //招商雷达 
+                require("g_Echart").zsld({ "offset": 0, "count": 10 }); //招商雷达 
             });
         },
         //加载第二个div
@@ -109,7 +109,7 @@
                 url: con.HtmlUrl + 'Industry/Garden/Left_First_02.html'
             }
             com.UIControlAni(option, function () {
-                return null;
+                require("g_Echart").topTen();
             });
 
         },
@@ -134,7 +134,7 @@
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_02.html'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").tcfw(); //停车服务图表
+                require("g_Echart").tcfw({ "datetime": "20190522110000" }); //停车服务图表
             });
         },
         //加载第三个div
@@ -155,7 +155,7 @@
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
 
-                require('g_Main').numberAni();
+                require('g_Main').bigNum();
             })
         },
         /*****************************右侧第一列*****************************/
@@ -181,7 +181,7 @@
             }
             com.UIControlAni(option, function () {
                 // yyyyMMddHHmmss   这里 20190501120000 表示时间 2019-05-01 12:00:00 
-                require("g_Echart").zhnh({ datetime: "20190501120000" })
+                require("g_Echart").zhnh({ "datetime": "20190520110000" })
             });
         },
 
@@ -196,6 +196,8 @@
             }
             com.UIControlAni(option, function () {
                 require("g_Echart").sjtj(0);
+                //require("gl_Event").loadEvnetList(0);
+                
             });
         },
         // 关闭其他的
@@ -266,13 +268,22 @@
             com.UIControlAni(optionR24, null);
 
         },
-        numberAni: function () {
-            com.numberAnimation($('#g_zcqys'), 2764 - 20, 2764, 2000);
-            com.numberAnimation($('#g_rzqys'), 61 - 20, 61, 2000);
-            com.numberAnimation($('#g_gdzctz'), 5702.93 - 200, 5702.93, 2000);
-            com.numberAnimation($('#g_cz'), 520687.98 - 200, 520687.98, 2000);
-            com.numberAnimation($('#g_ss'), 18554.5 - 100, 18554.5, 2000);
+
+        // 中间大数字
+        bigNum: function () {
+            g_EchartAjax.getBigNum(function (result) {
+                if (require("g_Echart").bigNumData == null) { return false; }
+                var data = require("g_Echart").bigNumData;
+                data = data[0];
+
+                com.numberAnimation($('#g_zcqys'), data.companyCount - 20, data.companyCount, 2000);
+                com.numberAnimation($('#g_gdzctz'), data.investmentValue - 200, data.investmentValue, 2000);
+                com.numberAnimation($('#g_cz'), data.outputValue - 200, data.outputValue, 2000);
+                com.numberAnimation($('#g_ss'), data.tax - 100, data.tax, 2000);
+
+            });
         },
+
         //清空图层
         Revert: function () {
             gl_TopCompany.Revert();

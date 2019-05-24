@@ -114,7 +114,9 @@
                 htmlDom: "#left_second_01",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard1.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_SeaboardLine").loadRecentFlight();
+            });
         },
         //加载第二列的div2
         loadLeftSecond2: function () {
@@ -123,7 +125,9 @@
                 htmlDom: "#left_second_02",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard2.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_SeaboardLine").loadMonthlyRecentFlight();
+            });
         },
         //加载第二列的div3
         loadLeftSecond3: function () {
@@ -133,13 +137,45 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventSeaBoard3.html'
             }
             com.UIControlAni(option, function () {
-                require("sl_SeaboardLine").loadCostlineTideData();
+                require("sl_SeaboardLine").loadCostlineTideData({ "page": 1, "rows": 10});
                 require("sl_IOT").Scrolldiv();
             });
         },
 
-        loadCostlineTideData: function () {
-            s_EchartAjax.getCostlineTideData(function (result) {
+        //海岸线无人机最近一次飞行统计
+        loadRecentFlight: function () {
+            s_EchartAjax.getRecentFlightData(function (result) {
+                if (require("s_Echart").recentFlightData == null) { return false; }
+                var data = require("s_Echart").recentFlightData;
+                $("#recent-flight").html(data.coastDistance);
+                $("#recent-flight-mess>li").eq(0).find("span").html(data.flightCount)
+                $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor + '%')
+                $("#recent-flight-mess>li").eq(2).find("span").html(data.garbage)
+                $("#recent-flight-mess>li").eq(3).find("span").html(data.stall)
+            });
+        },
+
+        //海岸线无人机最近一个月飞行统计
+        loadMonthlyRecentFlight: function () {
+            s_EchartAjax.getMonthlyRecentFlightData(function (result) {
+                if (require("s_Echart").monthlyRecentFlightData == null) { return false; }
+                var data = require("s_Echart").monthlyRecentFlightData;
+                $("#recent-monthflight>li").eq(0).find("em").html(data.totalDistance)
+                $("#recent-monthflight>li").eq(1).find("em").html(data.flightNumber)
+                $("#recent-monthflight>li").eq(2).find("em").html(data.coastDistance)
+
+                $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightCount)
+                $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor + '%')
+                $("#recent-monthflight-mess>li").eq(2).find("span").html(data.garbage)
+                $("#recent-monthflight-mess>li").eq(3).find("span").html(data.stall)
+
+            });
+        },
+
+
+        //潮汐时间表
+        loadCostlineTideData: function (post_data) {
+            s_EchartAjax.getCostlineTideData(post_data, function (result) {
                 if (require("s_Echart").costlineTideData == null) { return false; }
                 var data = require("s_Echart").costlineTideData;
                 data = data.data.list;

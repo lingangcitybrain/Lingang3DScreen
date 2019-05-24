@@ -60,7 +60,7 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
             require("s_Main").loadCenter1();
         },
         loadGrid:function(){
-            sl_Grid.loadGridPOI();
+            sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();
             require("s_Main").loadCenter1();
         },

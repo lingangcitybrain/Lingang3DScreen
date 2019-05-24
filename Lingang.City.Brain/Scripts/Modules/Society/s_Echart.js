@@ -3,7 +3,7 @@
     var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
     var oSjcgseriesData = []; //事件处理成功数据
     var oSjcgseriesRateDataMax = 100;
-    var oSjcgseriesRateData = [80, 85, 78, 83, 65, 56, 78, 93, 67, 87, 65, 43]; //事件处理成功率数据
+    var oSjcgseriesRateData = []; //事件处理成功率数据
     var sjcgChartClose = true;
 
     return {
@@ -59,7 +59,7 @@
                         require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
                         break;
                     case "Left_Second_EventGrid1"://处置案件数量
-                        require("sl_Grid").bigLoadGridCZAJSLchart();
+                        require("sl_Grid").bigLoadDealTaskNumData();
                         break;
                     case "Left_Second_EventGrid3"://处置主责部门
                         require("sl_Grid").bigLoadGridCZZZBMchart();
@@ -518,6 +518,9 @@
 
                for (var i = 0; i < data.length; i++) {
                    seriesData.push(Number(data[i].counts));
+                   //事件成功率 保留两位小数
+                   oSjcgseriesRateData.push((Number( data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(2) );
+
                }
                seriesDataMax = Math.max.apply(null, seriesData);
                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
@@ -650,6 +653,50 @@
            })
 
        },
+
+        // 事件处理成功状态
+       loadSocietySjcgStatusData: function () {
+           s_EchartAjax.getSocietySjcgStatusData(function (result) {
+               if (require("s_Echart").societySjcgStatusData == null) { return false; };
+               var data = require("s_Echart").societySjcgStatusData;
+               data = data.data.dealDeptList;
+
+               $("#sjcg-status>button").eq(0).find("span").html(data[0].counts);
+               $("#sjcg-status>button").eq(1).find("span").html(data[1].counts);
+               $("#sjcg-status>button").eq(2).find("span").html(data[2].counts);
+
+           })
+       },
+
+
+        // 事件处理成功数列表
+       loadSocietySjcgList: function (post_data) {
+           s_EchartAjax.getSocietySjcgList(post_data, function (result) {
+               if (require("s_Echart").societySjcgListData == null) { return false; };
+               var data = require("s_Echart").societySjcgListData;
+               data = data.data.list;
+               var html = '';
+               var num = 0;
+               for (var i = 0; i < data.length; i++) {
+                    num++;
+                    html +=
+                       '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
+                        '<div class="sjxx-li-line1">' +
+                            '<span class="sjxx-id counter">' + num + '</span>' +
+                            '<span class="sjxx-event">' + data[i].eventName + '</span>' +
+                            '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+                        '</div>' +
+                        '<div class="sjxx-address">' + data[i].address +
+                            '<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
+                        '</div>' +
+                    '</li>';
+                }
+               $("#ul_eventlist").html(html);
+
+            })
+        },
+
+
        bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
 
             if (sjcgChartClose) {
@@ -782,7 +829,7 @@
         DroneWeather: function () {
             if (WeatherSevenData != null) {
                 //console.log("天气数据不为空");
-                var data = WeatherSevenData
+                var data = WeatherSevenData;
                 var weaimg_0 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[0].wea_img + ".png"
                 var weaimg_1 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[1].wea_img + ".png"
                 var weaimg_2 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[2].wea_img + ".png"

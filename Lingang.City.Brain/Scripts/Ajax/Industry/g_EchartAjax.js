@@ -2,37 +2,37 @@
     return {
        
         //中间大数字
-        bigNum: function (callback) {
+        getBigNum: function (callback) {
             if (con.IsInterface)//执行接口
             {
-                //$.ajax({
-                //    type: "POST",      //data 传送数据类型。post 传递 
-                //    //url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
-                //    cache: false,
-                //    dataType: 'json',  // 返回数据的数据类型json
-                //    success: function (data) {
-                //        require("g_Echart").tcfwData = data.data;
-                //        callback(data);
-                //    },
-                //    error: function () {
-                //         require("g_Echart").tcfwData = g_EchartData.tcfwData.data;
-                //         callback();
-                //    }
-                //});
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_garden + 'ywtb/dsparkdata/DsparkDetial',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("g_Echart").bigNumData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
             }
             else {//执行本地
-                require("g_Echart").tcfwData = g_EchartData.tcfwData.data;
+                require("g_Echart").bigNumData = g_EchartData.bigNumData;
                 callback();
             }
         },
         //招商雷达
-        getzsldDataFun: function (callback) {
+        getzsldDataFun: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl + 'v1/BusinessRadar/getRadar',
                     cache: false,
+                    data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("g_Echart").zsldData = data;
@@ -49,6 +49,32 @@
                 callback();
             }
         },
+
+        //企业top10列表
+        getTopTenData: function (post_data, callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/industrial/topTen',
+                    cache: false,
+                    data: post_data,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("g_Echart").topTenData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                require("g_Echart").topTenData = g_EchartData.topTenData;
+                callback();
+            }
+        },
+
         //招商漏斗
         getZsFunnel: function (callback) {
             if (con.IsInterface)//执行接口
@@ -74,16 +100,17 @@
             }
         },
         //停车服务
-        tcfw: function (callback) {
+        getTcfw: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
+                    url: con.InterfaceUrl_parking + 'parklotInfo',
                     cache: false,
+                    data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("g_Echart").tcfwData = data.data;
+                        require("g_Echart").tcfwData = data;
                         callback(data);
                     },
                     error: function () {
@@ -93,33 +120,36 @@
                 });
             }
             else {//执行本地
-                require("g_Echart").tcfwData = g_EchartData.tcfwData.data;
+                require("g_Echart").tcfwData = g_EchartData.tcfwData;
                 callback();
             }
         },
+
         //无人驾驶接驳车
-        wrjs: function (callback) {
+        getWrjsjb: function (callback) {
             if (con.IsInterface)//执行接口
             {
-                //$.ajax({
-                //    type: "POST",      //data 传送数据类型。post 传递 
-                //    //url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
-                //    cache: false,
-                //    dataType: 'json',  // 返回数据的数据类型json
-                //    success: function (data) {
-                //        require("g_Echart").wrjsData = data.data;
-                //        callback(data);
-                //    },
-                //    error: function () {
-                //        //alert("数据传输错误");
-                //    }
-                //});
+                $.ajax({
+                    type: "GET",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_HeatMap + 'screen/uav/status',
+                   // url: con.InterfaceUrl_parking + 'parklotInfo',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("g_Echart").wrjsjbData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
             }
             else {//执行本地
-                require("g_Echart").wrjsData = g_EchartData.wrjsData.data;
+                require("g_Echart").wrjsjbData = g_EchartData.wrjsjbData;
                 callback();
             }
         },
+
         //智慧物业维修
         getZhwyRepair: function (callback) {
             if (con.IsInterface)//执行接口
