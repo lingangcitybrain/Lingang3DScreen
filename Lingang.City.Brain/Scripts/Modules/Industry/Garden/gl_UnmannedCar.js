@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_UnmannedCarData"], function (con, com, g_UnmannedCarData) {
+﻿define(["config", "common", "g_UnmannedCarData", "gl_GardenBuildingAjax", "util"], function (con, com, g_UnmannedCarData, gl_GardenBuildingAjax, util) {
     /****************************无人车图层****************************/
     return {
         UnmannedCarPOIIcon: "Texture/common/wurenche.png",
@@ -10,7 +10,8 @@
         StartAndEndPointPOIs_last:[],
         UnmannedCarTrajectors:null,//[],
         RoutePointPOIs:[],
-        DrivingRoutes:[],
+        DrivingRoutes: [],
+        UnmannedCarDetailInfo: new util.HashMap,
         //加载无人车图层
         loadUnmannedCar: function () {
                 require("gl_UnmannedCar").loadCarTrajectory();
@@ -46,14 +47,16 @@
 
         //加载无人车实时行驶轨迹，漫游
         loadCarTrajectory: function () {
-            var TrajectoryData = g_UnmannedCarData.UmmannedCarTrajectoryData;
+            //var TrajectoryData = g_UnmannedCarData.UmmannedCarTrajectoryData;
+            gl_GardenBuildingAjax.getUnmannedCarInfo(function (TrajectoryData) {
             var areaName = con.AreaName;
             for (var i in TrajectoryData) {
                 var data = TrajectoryData[i]; //无人车漫游轨迹
-
+                require("gl_UnmannedCar").UnmannedCarDetailInfo.put(data.id, data.passengers);  //无人车详情
                 /************************创建无人车POI*******************************/
-                var POINodeName = "UmmannedCarPOI_" + i;                
-                var POIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName);
+                var POINodeName = "UmmannedCarPOI_" + data.id;                
+                //var POIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName);
+                var POIPosition = (data.currentLon + "," + data.currentLat + ",0").toGlobalVec3d().toLocalPos(areaName);
                 var iconSize = Q3D.vector2(31, 35),
                     FontColor = Q3D.colourValue("#000080", 1),
                     icon = require("gl_UnmannedCar").UnmannedCarPOIIcon;
@@ -71,7 +74,7 @@
                             FontName: "微软雅黑",
                             FontColor: FontColor,
                             CharScale: 1,
-                            Text: "无人车" + i,
+                            Text: "无人车" + data.id,
                             Icon: icon,
                             IconSize: iconSize,
                             POILayout: Q3D.Enums.poiLayOut.Bottom,
@@ -97,9 +100,12 @@
                 }
 
                 /******************************漫游起点和终点POI***************************************/
-                var RouteStartNode = "RouteStartPOI_" + i, RouteEndNode="RouteEndPOI_"+i;
-                var RouteStartPOIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName),
-                    RouteEndPOIPosition = data[data.length-1].pos.toGlobalVec3d().toLocalPos(areaName);
+                var RouteStartNode = "RouteStartPOI_" + data.id, RouteEndNode = "RouteEndPOI_" + data.id;
+                //var RouteStartPOIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName),
+                //    RouteEndPOIPosition = data[data.length - 1].pos.toGlobalVec3d().toLocalPos(areaName);
+                var RouteStartPOIPosition = (data.startLon + "," + data.startLat + ",0").toGlobalVec3d().toLocalPos(areaName),
+                    realTimePosition = (data.currentLon + "," + data.currentLat + ",0").toGlobalVec3d().toLocalPos(areaName),
+                    RouteEndPOIPosition = (data.desLon + "," + data.desLat + ",0").toGlobalVec3d().toLocalPos(areaName);
                 var iconSize = Q3D.vector2(31, 35),
                     FontColor = Q3D.colourValue("#000080", 1);
                 //起点
@@ -199,12 +205,18 @@
                 /************************END*******************************/
                 /**************************************END*******************************************/
                 /************************无人车漫游路线*******************************/
-                var pointsArray = [], offsetArray = [], LineName = "TrajectoryRoute_" + i;
-                for (var j = 0; j < data.length; j++) {
-                    var pos = data[j].pos;
-                    pointsArray.push(Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName)));
-                    offsetArray.push(0);
-                }
+                var pointsArray = [], offsetArray = [], pointsArray_route = [], offsetArray_route = [], LineName = "TrajectoryRoute_" + data.id;
+
+                //for (var j = 0; j < data.length; j++) {
+                //    var pos = data[j].pos;
+                //    pointsArray.push(Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName)));
+                //    offsetArray.push(0);
+                //}
+                pointsArray = [Q3D.vector3(RouteStartPOIPosition), Q3D.vector3(realTimePosition), Q3D.vector3(RouteEndPOIPosition)],
+                offsetArray = [0, 0, 0],
+                pointsArray_route = [Q3D.vector3(realTimePosition), Q3D.vector3(RouteEndPOIPosition)],
+                offsetArray_route = [0, 0];
+
                 var nodeLine = map.getSceneNode(areaName, LineName);
                 if (!nodeLine)
                 {
@@ -236,8 +248,8 @@
                
                   //动线漫游
                  var polylineOptions = {
-                         CenterLine: pointsArray, //动线中心线，由 Vector3 坐标组成
-                         OffsetDist: offsetArray, //偏移距离，单位米，用于贝塞尔曲线的控制点计算
+                         CenterLine: pointsArray_route, //动线中心线，由 Vector3 坐标组成
+                         OffsetDist: offsetArray_route, //偏移距离，单位米，用于贝塞尔曲线的控制点计算
                          TotalTime: 60, //路上用时，单位秒
                          DelayTime: 2, //延迟出发，单位秒
                          IsLoop: true, //是否循环播放，默认为否
@@ -251,6 +263,12 @@
                 /******************************END************************************/
 
             }
+            })
+        },
+        //无人车轨迹实时追踪(等待实时数据推送验证)
+        appendRealTimeTrack: function (param) {
+            var option = { TimeDiff: 80, Location: "121.917290,30.896462,-0.034027".toGlobalVec3d(), Heading: 0, };  //121.917290,30.896462,-0.034027
+            map.startRealTimeTrack("gwh_xilou/UmmannedCarPOI_0", option);
         },
         //清除上一个点击的无人车选中状态
         clearLastUnmannedCar: function () {
@@ -302,6 +320,18 @@
             }
             com.UIControlAni(option, function () {
                 //require("gl_GardenBuilding").loadCompanyInfo();
+                var info = require("gl_UnmannedCar").UnmannedCarDetailInfo.get(id);
+                if (info) {
+                    var data = info[0];
+                    if (data.profileUrl!="") {
+                        $("#personIMG").attr("src",data.profileUrl);
+                    }
+                    $("#dest").html(data.dest);
+                    $("#estimatedArrivalTime").html(data.estimatedArrivalTime);
+                    $("#onboardTime").html(data.onboardTime);
+                    //$("#").html(data.);
+                    //$("#").html(data.);
+                }
             });
         },
         //画无人车行驶路线

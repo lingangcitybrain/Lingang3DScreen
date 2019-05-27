@@ -43,11 +43,23 @@ define(["config"], function (con) {
         //游客趋势分析（当前时间游客趋势分析）
         FutureVisitorTrafficData: {
             "auth": {},
-            "data": [
-                { "month": "2", "visnumber": 116427 },
-                { "month": "3", "visnumber": 153648 }
-
-            ],
+            "data": [{
+                "month": 2,
+                "visnumber": 116427,
+                "year": 2019
+            }, {
+                "month": 3,
+                "visnumber": 4003879,
+                "year": 2019
+            }, {
+                "month": 4,
+                "visnumber": 3294572,
+                "year": 2019
+            }, {
+                "month": 5,
+                "visnumber": 2827641,
+                "year": 2019
+            }],
             "errCode": 0,
             "errMsg": "SUCCESS"
         },

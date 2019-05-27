@@ -123,5 +123,22 @@
                 }
             });
         },
+        //获取无人驾驶接驳车数据
+        getUnmannedCarInfo: function (callback) {
+            $.ajax({
+                type: "get",      //data 传送数据类型。post 传递 
+                url: con.InterfaceUrl_HeatMap + 'screen/uav/uavLists',
+                cache: false,
+                dataType: 'json',  // 返回数据的数据类型json
+                success: function (data) {
+                    //require("g_Echart").tcfwData = data.data;
+                    callback(data);
+                },
+                error: function () {
+                    //alert("数据传输错误");
+                    //callback(require("e_LayerMenuData").TopCompany.Data);
+                }
+            });
+        },
     }
     })

@@ -7917,7 +7917,7 @@ Q3D.Map.include({
 		
         //确保节点（通常是模型节点）已创建
         var node = this.getSceneNode(nodePath);
-        if (node == null || node.getNodeType() != Q3D.Enums.sceneNodeType.SNODE_Model)
+        if (node == null )  //|| node.getNodeType() != Q3D.Enums.sceneNodeType.SNODE_Model   //20190527 LP  
             return null;
         
         var path = nodePath.split("/"),
