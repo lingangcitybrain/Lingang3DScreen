@@ -307,25 +307,26 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                         $(".prism-ErrorMessage").empty();
                     })
                 });
+
                 var post_data = { "sbbm": "31011900011328041001" }
                 require("s_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
                     var cameraurl = result.data;
-                require("s_Main").left01_02_video02 = new Aliplayer({
-                    "id": "Societyleft01_02_video02",
-                    "source": cameraurl,
-                    //"width": "20%",
-                    //"height": "20%",
-                    "autoplay": true,
-                    "isLive": true,
-                    "rePlay": false,
-                    "showBuffer": true,
-                    "snapshot": false,
-                    "showBarTime": 5000,
-                    "useFlashPrism": true,
+                    require("s_Main").left01_02_video02 = new Aliplayer({
+                        "id": "Societyleft01_02_video02",
+                        "source": cameraurl,
+                        //"width": "20%",
+                        //"height": "20%",
+                        "autoplay": true,
+                        "isLive": true,
+                        "rePlay": false,
+                        "showBuffer": true,
+                        "snapshot": false,
+                        "showBarTime": 5000,
+                        "useFlashPrism": true,
 
-                }, function (player) {
-                    $(".prism-ErrorMessage").empty();
-                })
+                    }, function (player) {
+                        $(".prism-ErrorMessage").empty();
+                    })
                  });
             });
         },

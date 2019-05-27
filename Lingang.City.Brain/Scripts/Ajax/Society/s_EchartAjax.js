@@ -105,7 +105,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/camera/comunity/camerasList',
+                    url: con.InterfaceUrl + 'v1/camera/comunity/cameraListByType',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
