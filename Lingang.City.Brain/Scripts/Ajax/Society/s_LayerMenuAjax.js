@@ -101,7 +101,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/buildingsites/inspectorInfo",  // yii 控制器/方法   
+                    //url: con.InterfaceUrl + "v1/buildingsites/inspectorInfo",  //数据多的无“康新” 
+                    url: con.InterfaceUrl + "v1/communities/communityInspectors",  // yii 控制器/方法   
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
