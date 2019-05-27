@@ -183,7 +183,8 @@
             }
             com.UIControlAni(option, function () {
                 require("sl_IOT").loadCirclediv();
-                require("s_Echart").sxtCamera("#iot-sxt1", { "communityId": "S012" });
+                require("s_Echart").sxtCamera();
+               // require("s_Echart").sxtCamera({ "communityId": "S012" });
                 require("s_Echart").sxtCar("#iot-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
                 require("s_Echart").sxtPerson("#iot-sxt3");
 

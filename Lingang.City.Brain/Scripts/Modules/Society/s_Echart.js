@@ -1,10 +1,11 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu","s_Main"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu,s_Main) {
 
     var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
+    var sjcgSeriesDataMin = 0; //事件处理成功数据最大值
     var oSjcgseriesData = []; //事件处理成功数据
-    var oSjcgseriesRateDataMax = 100;
     var oSjcgseriesRateData = []; //事件处理成功率数据
     var sjcgChartClose = true;
+    var strTitle = "事件成功数";
 
     return {
         sjcgTimer:null,
@@ -56,7 +57,7 @@
                         break;
                     case "Right_Second_02"://事件处理成功数
                         sjcgChartClose = false;
-                        require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
+                        require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
                         break;
                     case "Left_Second_EventGrid1"://处置案件数量
                         require("sl_Grid").bigLoadDealTaskNumData();
@@ -388,17 +389,40 @@
             }
         },
 
+        //景区--摄像头
+        jqCamera: function (post_data) {
+            s_EchartAjax.getJqCameraData(post_data, function (result) {
+                if (require("s_Echart").jqCameraData == null) { return false; }
+                var data = require("s_Echart").jqCameraData;
+                data = data.data;
+                var cameraOnNum = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].sbzt === "ON") {
+                        cameraOnNum++;
+                    }
+                }
+                $("#sqzz-sxt1").find(".sxt-circleinfo").children().eq(0).find("em").html(data.length);
+                $("#sqzz-sxt1").find(".sxt-circleinfo").children().eq(1).find("em").html(cameraOnNum);
+                $("#sqzz-sxt1").find(".sxt-circleinfo").children().eq(2).find("em").html(data.length - cameraOnNum);
+            });
+        },
         //摄像头--摄像头
-        sxtCamera: function (str, post_data) {
-            //var post_data = { "communityId": "S012"};
+        sxtCamera: function (post_data) {
             s_EchartAjax.getSxtCameraData(post_data, function (result) {
                 if (require("s_Echart").sxtCameraData == null) { return false; }
                 var data = require("s_Echart").sxtCameraData;
-                data = data.data;
+                data = data.data.list;
 
-                $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.length);
-                $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.length);
-                $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(0);
+                var cameraOnNum = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].sbzt === "ON") {
+                        cameraOnNum++;
+                    }
+                }
+
+                $("#iot-sxt1").find(".sxt-circleinfo").children().eq(0).find("em").html(data.length);
+                $("#iot-sxt1").find(".sxt-circleinfo").children().eq(1).find("em").html(cameraOnNum);
+                $("#iot-sxt1").find(".sxt-circleinfo").children().eq(2).find("em").html(data.length - cameraOnNum);
             });
         },
 
@@ -516,22 +540,29 @@
                 //X轴月份
                var xAxisMonth = [];
                var oToDay = new Date().getMonth() + 1;
-               for (var i = 0; i < 12; i++) {
-                   var j = (oToDay - i) <= 0 ? (12 + oToDay - i) : (oToDay - i);
-                   xAxisMonth.unshift(j)
+               for (var i = 0; i < data.length; i++) {
+                   if (i < oToDay) {
+                       data.push(data.shift())
+                   }
                }
 
-               var seriesData = []; //事件处理成功数
-               var seriesDataMax = 0; //事件处理成功数最大值
-
+               //事件处理成功数
+               var seriesData = []; 
                for (var i = 0; i < data.length; i++) {
                    seriesData.push(Number(data[i].counts));
+                   xAxisMonth.push(data[i].months + '月');
                    //事件成功率 保留两位小数
                    oSjcgseriesRateData.push((Number( data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(2) );
-
                }
-               seriesDataMax = Math.max.apply(null, seriesData);
+               var seriesDataMax = Math.max.apply(null, seriesData);
                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
+               var seriesDataMin = parseInt(Math.min.apply(null, seriesData));
+               seriesDataMin = seriesDataMin < 200 ? 0 : seriesDataMin;
+                //事件处理成功率最大最小数
+               var sjcgSeriesRateDataMax = Math.max.apply(null, oSjcgseriesRateData);
+               sjcgSeriesRateDataMax = (Math.ceil(sjcgSeriesRateDataMax / 100) * 100).toFixed(0);
+               var sjcgSeriesRateDataMin = parseInt(Math.min.apply(null, oSjcgseriesRateData));
+
 
                // 图表成功数成功率循环
                var sjcgTimerIndex = 0;
@@ -539,15 +570,19 @@
                    if (sjcgTimerIndex) {
                        oSjcgseriesData = seriesData;
                        sjcgSeriesDataMax = seriesDataMax;
+                       sjcgSeriesDataMin = seriesDataMin;
                        sjcgTimerIndex--;
+                       strTitle = "事件处理成功数";
                    } else {
                        oSjcgseriesData = oSjcgseriesRateData;
-                       sjcgSeriesDataMax = oSjcgseriesRateDataMax;
+                       sjcgSeriesDataMax = sjcgSeriesRateDataMax;
+                       sjcgSeriesDataMin = sjcgSeriesRateDataMin;
                        sjcgTimerIndex++;
+                       strTitle = "事件处理成功率（%）";
                    }
                    $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
 
-                   sjcgFun(sjcgSeriesDataMax, oSjcgseriesData);
+                   sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
                    if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
                        require("s_Echart").myChartsjcg.dispose();
@@ -555,9 +590,9 @@
                    require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
                    require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
-                   require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
+                   require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-               }, 60000);
+               }, 7000);
 
                 //事件处理成功图表加载
                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
@@ -570,9 +605,9 @@
                require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
                require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
-               require("s_Echart").bigSjcg(sjcgSeriesDataMax, oSjcgseriesData);
+               require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-               function sjcgFun(yAxisMax, seriesData) {
+               function sjcgFun(yAxisMax, yAxisMin, seriesData) {
                    sjcgOption = {
                        tooltip: {
                            trigger: 'axis',
@@ -610,7 +645,7 @@
                        }],
                        yAxis: [{
                            type: 'value',
-                           min: 0,
+                           min: yAxisMin,
                            max: yAxisMax,
                            splitNumber: 5,
                            splitLine: {
@@ -705,7 +740,7 @@
         },
 
 
-       bigSjcg: function (sjcgSeriesDataMax, oSjcgseriesData) {
+       bigSjcg: function (strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData) {
 
            //X轴月份
            var xAxisMonth = [];
@@ -718,7 +753,8 @@
             if (sjcgChartClose) {
                 return false;
             } else {
-                $("#bigechartHead").html("事件处理成功数/成功率（%）");
+                console.log(strTitle)
+                $("#bigechartHead").html(strTitle);
                 option = {
                     tooltip: {
                         trigger: 'axis',
@@ -766,7 +802,7 @@
                     }],
                     yAxis: [{
                         type: 'value',
-                        min: 0,
+                        min: sjcgSeriesDataMin,
                         max: sjcgSeriesDataMax,
                         splitNumber: 5,
                         splitLine: {
