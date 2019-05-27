@@ -71,7 +71,7 @@
             //关闭alert弹窗
             closeAlertWindow: function () {
                 $("#alert-dialog").hide();
-
+                require("tl_Camera").clearCameraPOI();
             }
             /**********************************END*********************************/
         }

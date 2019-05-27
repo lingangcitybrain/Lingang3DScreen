@@ -116,7 +116,7 @@
                     }
                     else {                        
                         //com.alert("视频地址为空");
-                        $("#alert-dialog p").html("视频地址为空");
+                        $("#alert-dialog .content").html("视频地址为空");
                         $("#alert-dialog").show();
                         return;
                     }
@@ -245,6 +245,7 @@
                 require("tl_Camera").cameradetail_player.dispose();
                 require("tl_Camera").cameradetail_player = null;
             }
+            $("#alert-dialog").hide();
         }
     }
 })
