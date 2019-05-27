@@ -81,6 +81,11 @@
 <!--大客流视频播放内容-->
 <div id="detail_tourplayer" style="display:none;"></div>
 
+@*弹出框，规避中js alert事件大屏捕捉不到*@
+<div id="alert-dialog">
+    <span style="height: 2rem; right: 0px; bottom: 0px; line-height: 2rem; font-size: 1rem; position: absolute;" onclick="require('t_Home').closeAlertWindow();">确定</span>
+    <p></p>
+</div>
 <!--------------------------------------------------------三维-------------------------------------------->
 <!--交通仿真-->
 <object id="DATACHANNEL" width=1 height=1 classid="CLSID:068FCD8B-5556-4d83-837F-CDCD9EBF4C00"></object>
