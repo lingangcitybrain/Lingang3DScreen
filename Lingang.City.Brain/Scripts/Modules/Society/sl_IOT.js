@@ -257,10 +257,21 @@
                         case "15":
                             require("sl_IOT").carInOutCount[7] = data.carInOutCount[i];
                             require("sl_IOT").personInOutCount[7] = data.personInOutCount[i];
-                            break;
                         case "16":
                             require("sl_IOT").carInOutCount[8] = data.carInOutCount[i];
                             require("sl_IOT").personInOutCount[8] = data.personInOutCount[i];
+                        case "17":
+                            require("sl_IOT").carInOutCount[9] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[9] = data.personInOutCount[i];
+                        case "18":
+                            require("sl_IOT").carInOutCount[10] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[10] = data.personInOutCount[i];
+                        case "19":
+                            require("sl_IOT").carInOutCount[11] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[11] = data.personInOutCount[i];
+                        case "20":
+                            require("sl_IOT").carInOutCount[12] = data.carInOutCount[i];
+                            require("sl_IOT").personInOutCount[12] = data.personInOutCount[i];
                             break;
                         default:
                     }
@@ -305,7 +316,7 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
+                        data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
                         boundaryGap: ['20%', '20%'],
                         axisTick: {
                             show: false,
@@ -411,7 +422,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
+                    data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
                     boundaryGap: ['20%', '20%'],
                     axisTick: {
                         show: false,

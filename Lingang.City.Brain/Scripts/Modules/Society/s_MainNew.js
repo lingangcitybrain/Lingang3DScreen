@@ -89,9 +89,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             com.UIControlAni(option, function () {
                 require("s_Echart").loadCirclediv();
                 require("s_Echart").jqCamera();
-                //require("s_Echart").sxtCamera("#sqzz-sxt1", { "communityId": "S012" });
-                require("s_Echart").sxtCar("#sqzz-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
-                require("s_Echart").sxtPerson("#sqzz-sxt3");
+                require("s_Echart").jqCar();
+                require("s_Echart").jqPerson();
 
             });
 

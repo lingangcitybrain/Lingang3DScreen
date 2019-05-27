@@ -392,6 +392,7 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventDrone1.html'
             }
             com.UIControlAni(option, function () {
+                require("sl_Drone").loadWrjDroneData();
                 setTimeout(function () { require("sl_Drone").loadLeft02_01_Video() }, 800);
 
             });
@@ -416,6 +417,17 @@
                 require("sl_Drone").loadWrjXcyData();
                 require("sl_IOT").Scrolldiv();
             });
+        },
+
+        //无人机
+        loadWrjDroneData:function(){
+            s_EchartAjax.getJmDroneData(function (result) {
+                if (require("s_Echart").jmDroneData == null) { return false; }
+                var data = require("s_Echart").jmDroneData;
+                $("#sqrk_drone1").html(data.flightNumber);
+                $("#sqrk_drone2").html(data.flightCount);
+                $("#sqrk_drone3").html(data.flightTime);
+            })
         },
 
         loadWrjXcyData:function(){

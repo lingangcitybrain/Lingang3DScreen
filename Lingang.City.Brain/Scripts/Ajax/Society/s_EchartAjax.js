@@ -89,13 +89,62 @@
                         callback(data)
                     },
                     error: function () {
-                        //alert("数据传输错误");
-                        //require("s_Echart").sxtCameraData = s_EchartData.sxtCameraData;
-                        //callback();
+                        alert("景区摄像头数据传输错误,加载本地数据");
+                        require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+                        callback();
                     }
                 });
             } else {//执行本地
                 require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+                callback();
+            }
+        },
+
+        //景区--车辆
+        getJqCarData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/park/vehicle/parkVehicleStatistic',
+                    cache: false,
+                    // data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").jqCarData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        alert("景区车辆数据传输错误,加载本地数据");
+                        require("s_Echart").jqCarData = s_EchartData.jqCarData;
+                        callback();
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").jqCarData = s_EchartData.jqCarData;
+                callback();
+            }
+        },
+        //景区--人员
+        getJqPersonData: function (post_data, callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/park/vehicle/metroStatistic',
+                    cache: false,
+                    data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").jqPersonData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        alert("景区人员数据传输错误,加载本地数据");
+                        require("s_Echart").jqPersonData = s_EchartData.jqPersonData;
+                        callback();
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").jqPersonData = s_EchartData.jqPersonData;
                 callback();
             }
         },
@@ -369,7 +418,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/drone/communityDroneOverviewo',
+                    url: con.InterfaceUrl + 'v1/drone/communityDroneOverview',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

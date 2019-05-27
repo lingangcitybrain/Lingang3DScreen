@@ -21,6 +21,15 @@
         sxtData: null,    //摄像头数据
         sjcgData: null,    //事件成功数据
         bigNumData: null,  //大数字数据
+        jqCameraData: null,
+        jqCarData: null,
+        jqPersonData: null,
+        sxtCameraData: null,
+        sxtCarData: null,
+        sxtPersonData: null,
+        zzbmData: null,
+        societyPersonData: null,
+
 
         //加载图表
         loadEcharts: function () {
@@ -391,21 +400,106 @@
 
         //景区--摄像头
         jqCamera: function (post_data) {
+            console.log("jqCamera")
             s_EchartAjax.getJqCameraData(post_data, function (result) {
+                console.log("s_EchartAjax.getJqCameraData(post_data")
                 if (require("s_Echart").jqCameraData == null) { return false; }
                 var data = require("s_Echart").jqCameraData;
-                data = data.data;
-                var cameraOnNum = 0;
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].sbzt === "ON") {
-                        cameraOnNum++;
-                    }
-                }
-                $("#sqzz-sxt1").find(".sxt-circleinfo").children().eq(0).find("em").html(data.length);
-                $("#sqzz-sxt1").find(".sxt-circleinfo").children().eq(1).find("em").html(cameraOnNum);
-                $("#sqzz-sxt1").find(".sxt-circleinfo").children().eq(2).find("em").html(data.length - cameraOnNum);
+                //data = data.data;
+                //var cameraOnNum = 0;
+                //for (var i = 0; i < data.length; i++) {
+                //    if (data[i].sbzt === "ON") {
+                //        cameraOnNum++;
+                //    }
+                //    console.log(i + '--' + cameraOnNum)
+                //};
+                $("#total_camera").html(data.total);
+                $("#online_camera").html(data.onTotal);
+                $("#outline_camera").html(data.offTotal);
             });
         },
+
+        //景区--车辆
+        jqCar: function () {
+            s_EchartAjax.getJqCarData(function (result) {
+                if (require("s_Echart").jqCarData == null) { return false; }
+                var data = require("s_Echart").jqCarData;
+                data = data[0];
+
+                function MyDate() {
+                    function addZero(n) {
+                        n = n < 10 ? '0' + n : n;
+                        return n;
+                    }
+
+                    var d = new Date();
+                    var year = d.getFullYear();
+                    var mon = d.getMonth() + 1;
+                    var day = d.getDate();
+
+                    var s = ''+year + addZero(mon) + addZero(day);
+                    return s;
+                }
+
+                var thisDayCarJson = null;
+                for (key in data) {
+                    if (key === MyDate()) {
+                        thisDayCarJson = data[key];
+                    }
+                }
+                //出临港 ,入临港相加
+                var outCarNum = 0, inCarNum = 0, outCarTotal = 0;
+                for (key1 in thisDayCarJson["出临港"]) {
+                    outCarNum += thisDayCarJson["出临港"][key1]
+                }
+                for (key2 in thisDayCarJson["入临港"]) {
+                    inCarNum += thisDayCarJson["入临港"][key2]
+                }
+                outCarNum = outCarNum + inCarNum;
+
+                $("#total_car").html(outCarNum);
+                $("#total_normalCar").html(outCarNum);
+                $("#total_illegalCar").html(0);
+            });
+        },
+
+        //景区--人员
+        jqPerson: function (post_data) {
+            s_EchartAjax.getJqPersonData(post_data, function (result) {
+                if (require("s_Echart").jqPersonData == null) { return false; }
+                var data = require("s_Echart").jqPersonData;
+                data = data[0];
+
+                function MyDate() {
+                    function addZero(n) {
+                        n = n < 10 ? '0' + n : n;
+                        return n;
+                    }
+                    var d = new Date();
+                    var year = d.getFullYear();
+                    var mon = d.getMonth() + 1;
+                    var day = d.getDate();
+
+                    var s = '' + year + addZero(mon) + addZero(day);
+                    return s;
+                }
+
+                var thisDayCarJson = null;
+                for (key in data) {
+                    if (key === MyDate()) {
+                        thisDayCarJson = data[key];
+                    }
+                }
+                var thisDayPersonTotal = 0;
+                for (key1 in thisDayCarJson) {
+                    thisDayPersonTotal += thisDayCarJson[key1]
+                }
+                $("#total_person").html(thisDayPersonTotal);
+                $("#normal_person").html(thisDayPersonTotal);
+                $("#doubtable_person").html(0);
+            });
+        },
+
         //摄像头--摄像头
         sxtCamera: function (post_data) {
             s_EchartAjax.getSxtCameraData(post_data, function (result) {
@@ -462,7 +556,7 @@
                 data = data.data.dealDeptList;
         
                 for (var i = 0; i < data.length; i++) {
-                    $("#zzbm-tbody").append("<tr><td>" + data[i].executeDeptname  + "</td><td>"+ 
+                    $("#zzbm-tbody").append("<tr><td>" + data[i].executeDeptname? data[i].executeDeptname : ' ' + "</td><td>"+ 
                     data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
                 }
             });
@@ -882,10 +976,10 @@
             if (WeatherSevenData != null) {
                 //console.log("天气数据不为空");
                 var data = WeatherSevenData;
-                var weaimg_0 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[0].wea_img + ".png"
-                var weaimg_1 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[1].wea_img + ".png"
-                var weaimg_2 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[2].wea_img + ".png"
-                var weaimg_3 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[3].wea_img + ".png"
+                //var weaimg_0 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[0].wea_img + ".png"
+                //var weaimg_1 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[1].wea_img + ".png"
+                //var weaimg_2 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[2].wea_img + ".png"
+                //var weaimg_3 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[3].wea_img + ".png"
                 //console.log(data);
                 var html = '';
                 
@@ -896,18 +990,22 @@
                 html += '<tbody>';
                 
                 html += '<tr>';
-                html += '<td rowspan="2">';
-                html += '<div class=""><img src=' + weaimg_0 + ' style="width: 1.1rem"></div>';
-                html += '</td>';
+                //html += '<td rowspan="2">';
+                //html += '<div class=""><img src=' + weaimg_0 + ' style="width: 1.1rem"></div>';
+                //html += '</td>';
+                html += '<td>' + data.data[0].week + '</td>';
                 html += '<td>' + data.data[1].week + '</td>';
                 html += '<td>' + data.data[2].week + '</td>';
                 html += '<td>' + data.data[3].week + '</td>';
                 html += '</tr>';
-                html += '<tr>';
-                html += '<td><div class=""><img src=' + weaimg_1 + ' style="width: .8rem"></div></td>';
-                html += '<td><div class=""><img src=' + weaimg_2 + ' style="width: .8rem"></div></td>';
-                html += '<td><div class=""><img src=' + weaimg_3 + ' style="width: .8rem"></div></td>';
-                
+                html += '<tr><td></td>';
+                //html += '<td><div class=""><img src=' + weaimg_1 + ' style="width: .8rem"></div></td>';
+                //html += '<td><div class=""><img src=' + weaimg_2 + ' style="width: .8rem"></div></td>';
+                //html += '<td><div class=""><img src=' + weaimg_3 + ' style="width: .8rem"></div></td>';
+                html += '<td><div class=""></div></td>';
+                html += '<td><div class=""></div></td>';
+                html += '<td><div class=""></div></td>';
+
                 html += '</tr>';
                 html += '<tr>';
                 html += '<td style="font-size: .4rem;">' + data.data[0].tem1 + '-' + data.data[0].tem2 + '</td>';
