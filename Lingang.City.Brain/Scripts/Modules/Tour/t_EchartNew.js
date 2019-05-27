@@ -563,7 +563,8 @@
 
                 var data = require("t_Echart").FutureVisitorTrafficData;
                 console.log(data)
-                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber], ykqsfxtime = [data[0].month, data[1].month, data[2].month, data[3].month];
+                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber],
+                    ykqsfxtime = [data[0].month + "月", data[1].month + "月", data[2].month + "月", data[3].month + "月"];
                option = {
                     legend: {
                         show: false
@@ -679,10 +680,9 @@
                 "Timenow": getNowFormatDate()
             }
             t_EchartAjax.getfutureVisitorTraffic(post_data, function (result) {
-               
                 var data = require("t_Echart").FutureVisitorTrafficData;
-
-                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber], ykqsfxtime = [data[0].month, data[1].month, data[2].month, data[3].month];
+                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber],
+                    ykqsfxtime = [data[0].month + "月", data[1].month + "月", data[2].month + "月", data[3].month + "月"];
 
                 option = {
                     legend: {
