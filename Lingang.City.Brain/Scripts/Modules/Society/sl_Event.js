@@ -249,7 +249,7 @@
                         '<li><span>事件地点：</span><em>' + data.address + '</em></li>' +
                         '<li><span>事件类型：</span><em' + data.eventTypeName + '</em></li>' +
                         '<li><span>事件描述：</span><em>' + data.eventDes + '</em></li>' +
-                        '<li><span>事件状态：</span><em>' + data.statusName + '</em></li>' +
+                        //'<li><span>事件状态：</span><em>' + data.statusName + '</em></li>' +
                         '<li><span>小区名称：</span><em>' + data.regionName + '</em></li>' +
                     '</ul>' +
                     '</dic></div>';

@@ -92,6 +92,10 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
         closeDetail: function () {
             require('sl_Event').closeDetail();          
         },
+        //关闭传感器详情
+        closeIOTDetail: function () {
+            require('sl_IOT').closeIOTDetail();
+        },
         /**********************END******************************/
     }
 });
