@@ -75,12 +75,37 @@
         },
 
 
+        //景区--摄像头
+        getJqCameraData: function (post_data, callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/park/camera/cameraInfo',
+                    cache: false,
+                    data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").jqCameraData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        //require("s_Echart").sxtCameraData = s_EchartData.sxtCameraData;
+                        //callback();
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+                callback();
+            }
+        },
+
         //摄像头--摄像头
         getSxtCameraData: function (post_data, callback) {
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/camera/comunity/camerasList',
+                    url: con.InterfaceUrl + 'v1/camera/comunity/cameraListByType',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

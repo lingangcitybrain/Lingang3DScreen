@@ -393,6 +393,7 @@
             }
             com.UIControlAni(option, function () {
                 setTimeout(function () { require("sl_Drone").loadLeft02_01_Video() }, 800);
+
             });
         },
         loadLeftSecond2: function () {
