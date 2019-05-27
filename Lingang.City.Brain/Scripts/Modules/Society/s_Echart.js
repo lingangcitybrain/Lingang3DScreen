@@ -556,7 +556,7 @@
                 data = data.data.dealDeptList;
         
                 for (var i = 0; i < data.length; i++) {
-                    $("#zzbm-tbody").append("<tr><td>" + data[i].executeDeptname? data[i].executeDeptname : ' ' + "</td><td>"+ 
+                    $("#zzbm-tbody").append("<tr><td>" + (data[i].executeDeptname? data[i].executeDeptname : i+1 ) + "</td><td>"+ 
                     data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
                 }
             });

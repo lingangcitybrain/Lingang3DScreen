@@ -234,7 +234,9 @@
                         callback(data)
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        alert("主责部门数据传输错误，调用本地数据");
+                        require("s_Echart").zzbmData = s_EchartData.zzbmData;
+                        callback();
                     }
                 });
             } else {//执行本地
