@@ -21,8 +21,12 @@
           
                  for (var i = 0; i < require("sl_WorkStation").POIData.length; i++) {
                      var row = require("sl_WorkStation").POIData[i];
-                     var pos = row.lat + "," + row.lng + ",0";
+                     var Coordinate = com.gcj02towgs84(parseFloat(row.lat), parseFloat(row.lng));//高德坐标转84坐标
+                     var pos = Coordinate + ",0";
                      var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+
+                     //var pos = row.lat + "," + row.lng + ",0";
+                     //var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
                      var poiName = "POISociety" + require("sl_WorkStation").LayerType.Name + "_" + row.siteName;//POIIOT_01
                      //创建POI
                      var options = {
