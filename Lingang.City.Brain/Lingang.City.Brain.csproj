@@ -823,9 +823,9 @@
     <Content Include="Content\video\CH1.flv" />
     <Content Include="Content\video\illegalPark.flv" />
     <Content Include="Content\video\CH2.flv" />
-    <Content Include="Content\video\交通示例模拟.flv" />
     <Content Include="Content\video\dakeliu.flv" />
     <Content Include="Content\video\drone_video_demo.flv" />
+    <Content Include="Content\video\交通示例模拟01.flv" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
