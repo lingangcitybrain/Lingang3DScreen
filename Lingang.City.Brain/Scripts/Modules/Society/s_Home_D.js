@@ -230,6 +230,19 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             };
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
         },
+        //关闭传感器详情
+        closeIOTDetail: function () {
+            require('sl_IOT').closeIOTDetail();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": this.POIName,
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
         /**********************END******************************/
     }
 });

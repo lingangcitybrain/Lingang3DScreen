@@ -77,7 +77,18 @@
 <div id="detail_societyplayer" style="display:none;"></div>
 <!--大客流视频播放内容-->
 <div id="detail_tourplayer" style="display:none;"></div>
+@*弹出框，规避中js alert事件大屏捕捉不到*@
+@*<div id="alert-dialog" style="display:none;border-radius: 4px;">
+    <p class="btns" style="margin-bottom:-15px;"><img style="width:70px;height:70px" src="images/alert_red.png"></p>
+    <span style="height: 2rem; right: 0px; bottom: 0px; line-height: 2rem; font-size: 1rem; position: absolute;"  onclick="require('t_Home').closeAlertWindow();">确定</span>
+    <p></p>
+</div>*@
 
+<div id="alert-dialog" class="body-panel" style="border-radius: 24px;display:none;">
+    <p class="btns" style="margin-bottom:-15px;line-height:4rem;"><img style="width:3rem;height:3rem" src="Content/images/alert_red.png"></p>
+    <p class="content" style="margin-bottom:-15px;line-height:1rem;">这是alert效果</p>
+    <p class="btns" style="line-height:2rem;"><button class="w-btn" tabindex="1" onclick="require('t_Home').closeAlertWindow();">确定</button></p>
+</div>
 <!--------------------------------------------------------三维-------------------------------------------->
 <!--交通仿真-->
 <object id="DATACHANNEL" width=1 height=1 classid="CLSID:068FCD8B-5556-4d83-837F-CDCD9EBF4C00"></object>

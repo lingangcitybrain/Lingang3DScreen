@@ -249,7 +249,7 @@
                         '<li><span>事件地点：</span><em>' + data.address + '</em></li>' +
                         '<li><span>事件类型：</span><em' + data.eventTypeName + '</em></li>' +
                         '<li><span>事件描述：</span><em>' + data.eventDes + '</em></li>' +
-                        '<li><span>事件状态：</span><em>' + data.statusName + '</em></li>' +
+                        //'<li><span>事件状态：</span><em>' + data.statusName + '</em></li>' +
                         '<li><span>小区名称：</span><em>' + data.regionName + '</em></li>' +
                     '</ul>' +
                     '</dic></div>';
@@ -287,7 +287,7 @@
 
                 if (data.dealPerson != null && data.dealPerson != "") {
                     setTimeout(function () {
-                        var inspectordetail = require("sl_Event").InspectorList.get("杨育峰");//静态测试
+                        var inspectordetail = require("sl_Event").InspectorList.get(data.dealPerson);//静态测试
                         if (inspectordetail!=null) {
                             //画大脑到派单员的连接
                             var option = {
@@ -398,19 +398,22 @@
                 }, 500);
 
                 var data = require("sl_Event").EventList.get(id);
-                var inspectordata = require("sl_Event").InspectorList.get("杨育峰");//静态测试
+                var inspectordata = require("sl_Event").InspectorList.get(data.dealPerson);//静态测试
                 var html = '<dic class="sqzz-sjjd-div flex">' +
                             '<img src="' + inspectordata.photoUrl + '" style="width: 112px; height: 150px;">' +
                             '<ul class="sqzz-sjjd-list1">' +
-                                '<li><span>接单员：</span><em>' + inspectordata.inspectorName + '</em></li>' +
-                                '<li><span>性别：</span><em>' + inspectordata.sex + '</em></li>' +
-                                '<li><span>职位：</span><em>' + inspectordata.position + '</em></li>' +
+                                '<li><span>接单员：</span><em>' + inspectordata.name + '</em></li>' +
+                                '<li><span>性别：</span><em>男</em></li>' +
+                                '<li><span>联系电话：</span><em>' + inspectordata.phone + '</em></li>' +
+                                //'<li><span>接单员：</span><em>' + inspectordata.inspectorName + '</em></li>' +
+                                //'<li><span>性别：</span><em>' + inspectordata.sex + '</em></li>' +
+                                //'<li><span>职位：</span><em>' + inspectordata.position + '</em></li>' +
                            ' </ul>' +
                         '</dic>' +
                         '<ul class="sqzz-sjjd-list2">' +
                             '<li><span>响应时间：</span><em>' + data.updateTime + '</em></li>' +
                            ' <li><span>状态：</span><em>' + data.statusName + '</em></li>' +
-                           ' <li><span>社区：</span><em>' + inspectordata.belongCommunities + '</em></li>' +
+                           //' <li><span>社区：</span><em>' + inspectordata.belongCommunities + '</em></li>' +
                             '</ul>';
                 $("#paidandetail").html(html);
                 $("#paidandetail").hide()

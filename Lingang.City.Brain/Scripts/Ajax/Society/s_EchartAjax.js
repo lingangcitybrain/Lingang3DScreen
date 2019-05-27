@@ -510,7 +510,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/costlines/tide',
+                    //url: con.InterfaceUrl + 'v1/costlines/tide',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -519,7 +519,8 @@
                         callback(data)
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        require("s_Echart").costlineTideData = s_EchartData.costlineTideData;
+                        callback();
                     }
                 });
             } else {//执行本地

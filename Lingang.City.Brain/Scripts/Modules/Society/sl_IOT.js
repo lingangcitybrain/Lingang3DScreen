@@ -98,7 +98,10 @@
 
                 $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
 
-                var installationTime=data.installationTime==null?"":data.installationTime;
+                var installationAddress = data.installationAddress == null ? "暂无数据" : data.installationAddress;
+                var belongRegion = data.belongRegion == null ? "暂无数据" : data.belongRegion;
+                var belongStreet = data.belongStreet == null ? "暂无数据" : data.belongStreet;
+                var installationTime=data.installationTime==null?"暂无数据":data.installationTime;
 
                 var html = '<div class="boxcont flex">'+
                 '<dic class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
@@ -106,11 +109,12 @@
                      '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
                      '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
                         '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
-                        '<li><span>所属区域：</span><em>' + data.belongRegion + '</em></li>' +
-                        '<li><span>所属街道：</span><em' + data.belongStreet + '</em></li>' +
+                        '<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
+                        '<li><span>所属街道：</span><em>' + belongStreet + '</em></li>' +
                         '<li><span>安装时间：</span><em>' + installationTime + '</em></li>' +
                     '</ul>' +
                 '</dic></div>';
+
                 $("#iotdetail").html(html);
             })
         },
@@ -134,7 +138,22 @@
                 this.POIData = null;
             }
         },
+        closeIOTDetail: function () {
+            var areaName = con.AreaName;
+            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+                var layername = this.LastPOI_Clk.split('_')[0].replace("POISociety", "");
+                var level = this.LayerType.Level;
+                var type = this.LastPOI_Clk.split('_')[1];
+                var icon = this.LayerType.List[type].UnChooseIcon;
 
+                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
+                if (lastNode) {
+                    lastNode.asPOI().setIcon(icon);
+                    //lastNode.setVisible(0);
+                }
+            }
+            $("#detail_02").empty();
+        },
         //加载第二列的div
         loadLeftSecond: function () {
             var url = con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT.html';

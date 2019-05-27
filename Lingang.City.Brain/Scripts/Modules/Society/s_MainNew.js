@@ -11,17 +11,17 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             IOT: {
                 Id: 1, TextName: "传感器", Name: "IOT", Level: 2,
                 List: {
-                    1: { Id: 1001, TextName: "无线烟感", Name: "IOT_1", Type: 1, ChooseIcon: "Texture/Common/IOT1_hover.png", UnChooseIcon: "Texture/Common/IOT1.png", },
-                    2: { Id: 1002, TextName: "电梯传感器", Name: "IOT_2", Type: 2, ChooseIcon: "Texture/Common/IOT2_hover.png", UnChooseIcon: "Texture/Common/IOT2.png" },
+                    1: { Id: 1001, TextName: "烟感感应", Name: "IOT_1", Type: 1, ChooseIcon: "Texture/Common/IOT1_hover.png", UnChooseIcon: "Texture/Common/IOT1.png", },
+                    2: { Id: 1002, TextName: "智能电梯", Name: "IOT_2", Type: 2, ChooseIcon: "Texture/Common/IOT2_hover.png", UnChooseIcon: "Texture/Common/IOT2.png" },
                     3: { Id: 1003, TextName: "无线门磁", Name: "IOT_3", Type: 3, ChooseIcon: "Texture/Common/IOT3_hover.png", UnChooseIcon: "Texture/Common/IOT3.png", },
                     4: { Id: 1004, TextName: "微信开门", Name: "IOT_4", Type: 4, ChooseIcon: "Texture/Common/IOT4_hover.png", UnChooseIcon: "Texture/Common/IOT4.png" },
                     5: { Id: 1005, TextName: "电子围栏", Name: "IOT_5", Type: 5, ChooseIcon: "Texture/Common/IOT5_hover.png", UnChooseIcon: "Texture/Common/IOT5.png", },
-                    6: { Id: 1006, TextName: "井盖传感器", Name: "IOT_6", Type: 6, ChooseIcon: "Texture/Common/IOT6_hover.png", UnChooseIcon: "Texture/Common/IOT6.png" },
-                    7: { Id: 1007, TextName: "地磁", Name: "IOT_7", Type: 7, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
-                    8: { Id: 1008, TextName: "智能车闸", Name: "IOT_8", Type: 8, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
-                    9: { Id: 1009, TextName: "睡眠看护仪", Name: "IOT_9", Type: 9, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
-                    10: { Id: 1010, TextName: "燃气报警", Name: "IOT_10", Type: 10, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
-                    11: { Id: 1011, TextName: "人体红外传感", Name: "IOT_11", Type: 11, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" }
+                    6: { Id: 1006, TextName: "智能井盖", Name: "IOT_6", Type: 6, ChooseIcon: "Texture/Common/IOT6_hover.png", UnChooseIcon: "Texture/Common/IOT6.png" },
+                    7: { Id: 1007, TextName: "停车地磁", Name: "IOT_7", Type: 7, ChooseIcon: "Texture/Common/IOT7_hover.png", UnChooseIcon: "Texture/Common/IOT7.png" },
+                    8: { Id: 1008, TextName: "电子巡更", Name: "IOT_8", Type: 8, ChooseIcon: "Texture/Common/IOT8_hover.png", UnChooseIcon: "Texture/Common/IOT8.png" },
+                    9: { Id: 1009, TextName: "睡眠看护仪", Name: "IOT_9", Type: 9, ChooseIcon: "Texture/Common/IOT9_hover.png", UnChooseIcon: "Texture/Common/IOT9.png" },
+                    10: { Id: 1010, TextName: "燃气报警", Name: "IOT_10", Type: 10, ChooseIcon: "Texture/Common/IOT10_hover.png", UnChooseIcon: "Texture/Common/IOT10.png" },
+                    11: { Id: 1011, TextName: "人体红外传感", Name: "IOT_11", Type: 11, ChooseIcon: "Texture/Common/IOT11_hover.png", UnChooseIcon: "Texture/Common/IOT11.png" }
                 }
             },
             Camera: { Id: 2, TextName: "摄像头", Name: "Camera", Level: 1, ChooseIcon: "Texture/Common/camera_hover.png", UnChooseIcon: "Texture/Common/camera.png" },
@@ -285,7 +285,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             require(['aliplayer'], function (data) {
                 //setTime
-                var post_data = { "sbbm": "31011900011328041002" }
+                var post_data = { "sbbm": "31011900011328032001" }
                 require("s_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
                     var cameraurl = result.data;
                     require("s_Main").left01_02_video01 = new Aliplayer({
@@ -306,26 +306,25 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                         $(".prism-ErrorMessage").empty();
                     })
                 });
-
-                var post_data = { "sbbm": "31011900011328041001" }
+                var post_data = { "sbbm": "31011900011328033016" }
                 require("s_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
                     var cameraurl = result.data;
-                    require("s_Main").left01_02_video02 = new Aliplayer({
-                        "id": "Societyleft01_02_video02",
-                        "source": cameraurl,
-                        //"width": "20%",
-                        //"height": "20%",
-                        "autoplay": true,
-                        "isLive": true,
-                        "rePlay": false,
-                        "showBuffer": true,
-                        "snapshot": false,
-                        "showBarTime": 5000,
-                        "useFlashPrism": true,
+                require("s_Main").left01_02_video02 = new Aliplayer({
+                    "id": "Societyleft01_02_video02",
+                    "source": cameraurl,
+                    //"width": "20%",
+                    //"height": "20%",
+                    "autoplay": true,
+                    "isLive": true,
+                    "rePlay": false,
+                    "showBuffer": true,
+                    "snapshot": false,
+                    "showBarTime": 5000,
+                    "useFlashPrism": true,
 
-                    }, function (player) {
-                        $(".prism-ErrorMessage").empty();
-                    })
+                }, function (player) {
+                    $(".prism-ErrorMessage").empty();
+                })
                  });
             });
         },
