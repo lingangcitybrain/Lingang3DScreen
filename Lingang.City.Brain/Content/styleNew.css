@@ -3528,6 +3528,20 @@ dd.pjc-statistic-star >form{
 	transform: translateX(100%) rotate(180deg);
 }
 
+#alert-dialog{
+    background: rgb(255, 255, 255); 
+    left: 50%; 
+    top: 50%; 
+    width: 12rem; 
+    height: 8rem; 
+    text-align: center; 
+    color: black; 
+    line-height: 8rem; 
+    position: absolute; 
+    z-index: 9999; 
+    transform: translate(-50%, -50%);
+}
+
 @media screen and (max-width: 11520px){
 
 	html{ font-size:130px;}
