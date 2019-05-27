@@ -28,7 +28,7 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
             require("s_Main").loadCenter1Info();
         },
         loadDrone: function () {
-            sl_Drone.loadDrone();
+            tl_Drone.loadDrone();
             sl_Drone.loadLeftSecond();
             require("s_Main").loadCenter1Info();
         },
@@ -60,7 +60,7 @@ function (con, com, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart
             require("s_Main").loadCenter1();
         },
         loadGrid:function(){
-            sl_Grid.loadGridPOI();
+            sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();
             require("s_Main").loadCenter1();
         },

@@ -1,4 +1,4 @@
-﻿define(["config", "common", "t_EchartAjax", "util"], function (con, com, t_EchartAjax, util) {
+﻿define(["config", "common", "t_EchartAjax", "util", "t_Main"], function (con, com, t_EchartAjax, util, t_Main) {
     //人员车辆统计图表数据
     var oRycltjChartRqaIndex = -1; 
     var oRycltjChartData1 = null;
@@ -166,6 +166,9 @@
                     case "Left_First_04"://舆情分析
                         require("t_Echart").bigYqfx();
                         break;
+                    case "Left_First_wrj"://无人机视频
+                        require("t_Echart").wrjsp();
+                        break;
                     case "Left_Second_01"://无人机
                         require("t_Echart").bigwrj();
                         break;
@@ -286,6 +289,10 @@
             html += '<a class="rycltj-datetab">' + MyDate(1) + '</a>';
             html += '<a class="rycltj-datetab">' + MyDate(0) + '</a>';
             $('#rq').html(html)
+        },
+        wrjsp:function(){
+            $("#bigechartHead").empty();
+            require("t_Main").loadCenter_Video();
         },
         //游客分析
         ykfx: function () {
@@ -553,16 +560,11 @@
                 "Timenow": getNowFormatDate()
             }
             t_EchartAjax.getfutureVisitorTraffic(post_data, function (result) {
-                var montharr = xData()
+
                 var data = require("t_Echart").FutureVisitorTrafficData;
-
-                var ykqsfxdata = [23125, 45613, 56465, 116427, 153648], ykqsfxtime = ["11月", "12月", "1月", "2月", "3月"];
-                //for (var i = 0; i < data.length; i++) {
-                //    ykqsfxtime.push(data[i].month + "月");
-                //    //ykqsfxdata.push(data[i].visnumber);
-
-                //}
-                option = {
+                console.log(data)
+                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber], ykqsfxtime = [data[0].month, data[1].month, data[2].month, data[3].month];
+               option = {
                     legend: {
                         show: false
                     },
@@ -570,15 +572,14 @@
                     grid: {
                         left: '5%',   // grid 组件离容器左侧的距离。
                         right: '5%',
-                        bottom: '2%',
-                        height: "90%",
+                        bottom: '5%',
+                        height: "86%",
                         containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
                     },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'cross',
-
                             label: {
                                 show: false,
                             }
@@ -602,6 +603,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
@@ -614,6 +616,7 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)"
                             }
                         }
@@ -629,7 +632,7 @@
                                 color: "rgba(80,172,254,0.5)"
                             }
                         },
-                        //interval: 20,
+                        //interval: 150,
                         axisLabel: {
                             formatter: function (value, index) {
                                 if (value >= 10000 && value < 10000000) {
@@ -644,6 +647,7 @@
                         },
                         splitLine: {
                             lineStyle: {
+                                width: 4,
                                 color: "rgba(80,172,254,0.5)",
                             }
                         }
@@ -664,22 +668,21 @@
 
                 require("t_Echart").myChartykqsfx = echarts.init(document.getElementById('ykqsfx-chart'));
                 //require("t_Echart").myChartykqsfx.clear();
-                require("t_Echart").myChartykqsfx.setOption(option, true);
+                require("t_Echart").myChartykqsfx.setOption(option);
 
             });
         },
-        ///游客趋势分析
+        //大游客趋势分析
         bigFutureVisitorTraffic: function () {
             $("#bigechartHead").html( "游客趋势分析");
             var post_data = {
                 "Timenow": getNowFormatDate()
             }
             t_EchartAjax.getfutureVisitorTraffic(post_data, function (result) {
-                var montharr = xData()
+               
                 var data = require("t_Echart").FutureVisitorTrafficData;
 
-                var ykqsfxdata = [23125, 45613, 56465, 116427, 153648], ykqsfxtime = ["11月", "12月", "1月", "2月", "3月"];
-
+                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber], ykqsfxtime = [data[0].month, data[1].month, data[2].month, data[3].month];
 
                 option = {
                     legend: {

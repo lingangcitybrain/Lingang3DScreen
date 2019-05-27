@@ -27,7 +27,8 @@
                     require("sl_Camera").CameraListData.put(row.id, row);
                     var poiName = "POISociety" + require("sl_Camera").LayerType.Name + "_" + row.id;//POIIOT_01
                     var iconSize = Q3D.vector2(41, 45);
-                    var pos = row.lng + "," + row.lat + ",0";
+                    var Coordinate = com.gcj02towgs84(parseFloat(row.lng), parseFloat(row.lat));//高德坐标转84坐标
+                    var pos = Coordinate + ",0";
                     var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                     var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };

@@ -156,7 +156,7 @@
             require(['text!' + url], function (template) {
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
-
+                require("e_Echart").centernumber()
                 require('e_Main').numberAni();
             })
         },
@@ -220,10 +220,10 @@
             });
         },
         numberAni: function () {
-            com.numberAnimation($('#e_qyzs'), 66159 - 200, 66159, 2000);
-            com.numberAnimation($('#e_zlxxqys'), 2309 - 200, 2309, 2000);
-            com.numberAnimation($('#e_ssgs'), 117 - 20, 117, 2000);
-            com.numberAnimation($('#e_ydqys'), 22678 - 200, 22678, 2000);
+            com.numberAnimation($('#e_qyzs'), 123452 - 200, 123452, 2000);
+            com.numberAnimation($('#e_zlxxqys'), 1221 - 200, 1221, 2000);
+            com.numberAnimation($('#e_ssgs'), 23232 - 20, 23232, 2000);
+            com.numberAnimation($('#e_ydqys'), 1 - 200, 1, 2000);
         },
         //清空图层
         Revert: function () {
