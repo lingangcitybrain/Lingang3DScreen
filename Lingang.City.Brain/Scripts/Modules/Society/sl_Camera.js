@@ -105,9 +105,9 @@
                     }
                 }
                 else {
-                    //alert("视频地址为空")
-                    $("#alert-dialog .content").html("视频地址为空");
-                    $("#alert-dialog").show();
+                    com.alert("视频地址为空");
+                    //$("#alert-dialog .content").html("视频地址为空");
+                    //$("#alert-dialog").show();
 
                 }
             });
