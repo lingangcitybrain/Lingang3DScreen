@@ -28,7 +28,7 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
             require("s_Main").loadCenter1Info();
         },
         loadDrone: function () {
-            tl_Drone.loadDrone();
+            sl_Drone.loadDrone();
             sl_Drone.loadLeftSecond();
             require("s_Main").loadCenter1Info();
         },

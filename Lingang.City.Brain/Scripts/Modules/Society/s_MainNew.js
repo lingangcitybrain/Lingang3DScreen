@@ -39,8 +39,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     C001: { Id: 1005, TextName: "工地", Name: "Event_C001", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
                 }
             },
-            Drone: {
-                Id: 6, TextName: "无人机", Name: "Drone", Level: 1, ChooseIcon: "Texture/Common/wurenjiku.png", UnChooseIcon: "Texture/Common/wurenjiku.png"
+            DroneHangar: {
+                Id: 6, TextName: "无人机库", Name: "DHangar", Level: 1, ChooseIcon: "Texture/Common/wurenjiku_hover.png", UnChooseIcon: "Texture/Common/wurenjiku.png"
             }
         },
         loadMain: function () {
@@ -446,7 +446,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     sl_Camera.loadCameraDetial(nodename)
                     break;
                 case "Drone": //无人机  
-                    sl_Drone.loadDroneDetail();
+                    sl_Drone.loadDroneCamera(nodename);
                     break;
                 case "WorkSite": //工地
 

@@ -63,7 +63,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
         },
         loadDrone: function () {
             this.layerNO = 12;
-            tl_Drone.loadDrone();
+            sl_Drone.loadDrone();
             sl_Drone.loadLeftSecond();
             require("s_Main").loadCenter1Info();
             var jsondata = {
