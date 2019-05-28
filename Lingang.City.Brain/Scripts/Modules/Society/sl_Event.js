@@ -55,7 +55,7 @@
                         //        break;
                         //    default:
                         //}
-                        var pos = parseFloat(row.lng).toFixed(6) + "," +  parseFloat(row.lat).toFixed(6) + ",0";
+                        var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                         var poi = {
@@ -288,7 +288,7 @@
                 if (data.dealPerson != null && data.dealPerson != "") {
                     setTimeout(function () {
                         var inspectordetail = require("sl_Event").InspectorList.get(data.dealPerson);//静态测试
-                        if (inspectordetail!=null) {
+                        if (inspectordetail != null) {
                             //画大脑到派单员的连接
                             var option = {
                                 AreaName: "gwh_xilou",
@@ -1023,6 +1023,16 @@
             //$("#left_02").html("");
             $("#detail_02").empty();
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+
+                var id = require("sl_Event").LastPOI_Clk.split('_')[2];
+                //清除发光动线连线
+                if (map.getSceneNode(con.AreaName, "shijian_" + id)) {
+                    map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
+                }
+                if (map.getSceneNode(con.AreaName, "paidan_" + id)) {
+                    map.getArea(con.AreaName).destroySceneNode("paidan_" + id);
+                }
+
                 this.LayerType = require("s_Main").LayerCatalog.Event;
                 var level = this.LayerType.Level;
                 var icon = this.LayerType.UnChooseIcon;
@@ -1036,6 +1046,7 @@
                 //com.delNodeLineToScreen("lineTooltip");
                 //Q3D.globalCamera().flyTo(("395683.8080060399,286.4911804199219,-3416926.616417045").toVector3d(), ("-42.453548431396484,-2.83009672164917,-2.5931613445281982").toVector3(), 1, null);
             }
+
         },
 
         //加载第二列的div
@@ -1118,7 +1129,7 @@
             }
             this.movieClear();
             map.unloadArea("danao");
-            
+
 
             //if (this.showTime != null) {
             //    window.clearInterval(this.showTime);
