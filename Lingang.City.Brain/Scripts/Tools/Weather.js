@@ -34,8 +34,8 @@ function AppendWeatherData(data) {
         var weaimg = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + wea_img + ".png" //GetWeatherImg(wea) //天气图标
         var imghtml = "<img src='" + weaimg + "'>";
 
-        $("#header_tempimg").html(imghtml);
-        $("#header_temp").html(tem);
+       // $("#header_tempimg").html(imghtml);
+       // $("#header_temp").html(tem);
     }
 };
 
