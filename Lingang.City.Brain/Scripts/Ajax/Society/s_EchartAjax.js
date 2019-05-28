@@ -89,7 +89,7 @@
                         callback(data)
                     },
                     error: function () {
-                        alert("景区摄像头数据传输错误,加载本地数据");
+                        console.log("景区摄像头数据传输错误,加载本地数据");
                         require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
                         callback();
                     }
@@ -114,7 +114,7 @@
                         callback(data)
                     },
                     error: function () {
-                        alert("景区车辆数据传输错误,加载本地数据");
+                        console.log("景区车辆数据传输错误,加载本地数据");
                         require("s_Echart").jqCarData = s_EchartData.jqCarData;
                         callback();
                     }
@@ -138,7 +138,7 @@
                         callback(data)
                     },
                     error: function () {
-                        alert("景区人员数据传输错误,加载本地数据");
+                        console.log("景区人员数据传输错误,加载本地数据");
                         require("s_Echart").jqPersonData = s_EchartData.jqPersonData;
                         callback();
                     }
@@ -234,7 +234,7 @@
                         callback(data)
                     },
                     error: function () {
-                        alert("主责部门数据传输错误，调用本地数据");
+                        console.log("主责部门数据传输错误，调用本地数据");
                         require("s_Echart").zzbmData = s_EchartData.zzbmData;
                         callback();
                     }
@@ -355,7 +355,7 @@
                         callback(data)
                     },
                     error: function () {
-                        alert("事件处理成功数列表数据传输错误, 加载本地数据");
+                        console.log("事件处理成功数列表数据传输错误, 加载本地数据");
                         require("s_Echart").societySjcgListData = s_EchartData.societySjcgListData;
                         callback()
                     }

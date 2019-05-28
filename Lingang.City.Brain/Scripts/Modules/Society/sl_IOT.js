@@ -243,57 +243,63 @@
                 require("sl_IOT").personInOutCount = [];//08:00--16:00点的进出人员数
 
                 for (var i = 0; i < data.dateLists.length; i++) {
-                    var dateTime = data.dateLists[i].split(" ")[1];
-                    switch (dateTime) {
-                        case "08":
-                            require("sl_IOT").carInOutCount[0] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[0] = data.personInOutCount[i];
-                            break;
-                        case "09":
-                            require("sl_IOT").carInOutCount[1] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[1] = data.personInOutCount[i];
-                            break;
-                        case "10":
-                            require("sl_IOT").carInOutCount[2] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[2] = data.personInOutCount[i];
-                            break;
-                        case "11":
-                            require("sl_IOT").carInOutCount[3] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[3] = data.personInOutCount[i];
-                            break;
-                        case "12":
-                            require("sl_IOT").carInOutCount[4] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[4] = data.personInOutCount[i];
-                            break;
-                        case "13":
-                            require("sl_IOT").carInOutCount[5] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[5] = data.personInOutCount[i];
-                            break;
-                        case "14":
-                            require("sl_IOT").carInOutCount[6] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[6] = data.personInOutCount[i];
-                            break;
-                        case "15":
-                            require("sl_IOT").carInOutCount[7] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[7] = data.personInOutCount[i];
-                        case "16":
-                            require("sl_IOT").carInOutCount[8] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[8] = data.personInOutCount[i];
-                        case "17":
-                            require("sl_IOT").carInOutCount[9] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[9] = data.personInOutCount[i];
-                        case "18":
-                            require("sl_IOT").carInOutCount[10] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[10] = data.personInOutCount[i];
-                        case "19":
-                            require("sl_IOT").carInOutCount[11] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[11] = data.personInOutCount[i];
-                        case "20":
-                            require("sl_IOT").carInOutCount[12] = data.carInOutCount[i];
-                            require("sl_IOT").personInOutCount[12] = data.personInOutCount[i];
-                            break;
-                        default:
+                    var timeDate = new Date().getDate();
+                    var thisDate = data.dateLists[i].split(" ")[0].split("-")[2];
+
+                    if (thisDate == timeDate) {
+                        var dateTime = data.dateLists[i].split(" ")[1];
+                        switch (dateTime) {
+                            case "08":
+                                require("sl_IOT").carInOutCount[0] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[0] = data.personInOutCount[i];
+                                break;
+                            case "09":
+                                require("sl_IOT").carInOutCount[1] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[1] = data.personInOutCount[i];
+                                break;
+                            case "10":
+                                require("sl_IOT").carInOutCount[2] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[2] = data.personInOutCount[i];
+                                break;
+                            case "11":
+                                require("sl_IOT").carInOutCount[3] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[3] = data.personInOutCount[i];
+                                break;
+                            case "12":
+                                require("sl_IOT").carInOutCount[4] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[4] = data.personInOutCount[i];
+                                break;
+                            case "13":
+                                require("sl_IOT").carInOutCount[5] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[5] = data.personInOutCount[i];
+                                break;
+                            case "14":
+                                require("sl_IOT").carInOutCount[6] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[6] = data.personInOutCount[i];
+                                break;
+                            case "15":
+                                require("sl_IOT").carInOutCount[7] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[7] = data.personInOutCount[i];
+                            case "16":
+                                require("sl_IOT").carInOutCount[8] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[8] = data.personInOutCount[i];
+                            case "17":
+                                require("sl_IOT").carInOutCount[9] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[9] = data.personInOutCount[i];
+                            case "18":
+                                require("sl_IOT").carInOutCount[10] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[10] = data.personInOutCount[i];
+                            case "19":
+                                require("sl_IOT").carInOutCount[11] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[11] = data.personInOutCount[i];
+                            case "20":
+                                require("sl_IOT").carInOutCount[12] = data.carInOutCount[i];
+                                require("sl_IOT").personInOutCount[12] = data.personInOutCount[i];
+                                break;
+                            default:
+                        }
                     }
+
                 }
 
                 var seriesDataMaxCar = Math.max.apply(null, require("sl_IOT").carInOutCount);

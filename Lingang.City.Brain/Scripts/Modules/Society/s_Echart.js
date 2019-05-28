@@ -816,6 +816,7 @@
                var html = '';
                var num = 0;
                for (var i = 0; i < data.length; i++) {
+                   var time = data[i].createTime.split(".")[0].split("T");
                     num++;
                     html +=
                        '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
@@ -825,7 +826,7 @@
                             '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
                         '</div>' +
                         '<div class="sjxx-address">' + data[i].address +
-                            '<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
+                            '<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
                         '</div>' +
                     '</li>';
                 }
