@@ -106,8 +106,6 @@
                 }
                 else {
                     com.alert("视频地址为空");
-                    //$("#alert-dialog .content").html("视频地址为空");
-                    //$("#alert-dialog").show();
 
                 }
             });
@@ -245,7 +243,7 @@
             })
         },
         Revert: function () {
-            $("#alert-dialog").hide();
+            
             if (require("sl_Camera").SocietyCamera_player) {
                 require("sl_Camera").SocietyCamera_player.dispose();
                 require("sl_Camera").SocietyCamera_player = null;
