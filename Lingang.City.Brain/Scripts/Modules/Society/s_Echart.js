@@ -687,7 +687,7 @@
 
                    require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-               }, 7000);
+               }, 15000);
 
                 //事件处理成功图表加载
                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
@@ -816,7 +816,7 @@
                var html = '';
                var num = 0;
                for (var i = 0; i < data.length; i++) {
-                   var time = data[i].createTime.split(".")[0].split("T");
+                   var time = data[i].updateTime.split(".")[0].split("T");
                     num++;
                     html +=
                        '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
