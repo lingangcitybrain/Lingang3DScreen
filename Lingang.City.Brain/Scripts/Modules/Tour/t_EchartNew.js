@@ -12,11 +12,11 @@
     var JtxxCharxAxisData = null;
 
     //停车场使用情况图表数据
-    var tccsyqkChartData1 = [];
-    var tccsyqkChartData2 = [];
-    var tccsyqkChartData3 = [];
-    var tccsyqkChartData4 = [];
-    var tccsyqkChartxAxisData = [];
+    var tccsyqkChartData1 = null;
+    var tccsyqkChartData2 = null;
+    var tccsyqkChartData3 = null;
+    var tccsyqkChartData4 = null;
+    var tccsyqkChartxAxisData = null;
 
     function xData() {//获取近6月日期
         var dataArr = [];
@@ -2159,43 +2159,55 @@
                 d.setDate(d.getDate() - n);
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
-                day = d.getDate(); 
-                function addZero(n){ 
-                    n = n<10? '0'+n : n;
-                    return n;
-                }
+                day = d.getDate(); s = mon + "月" + day + "日";
 
-                var mmdd = mon + "月" + day + "日";
-                var yymmdd = '' + year + addZero(mon) + addZero(day) ;
-                return [mmdd, yymmdd];
+                return s;
             }
             if ($("#wrj-chart").length <= 0) { return false; }
 
             var tccsyqkChart = document.getElementById('tccsyqk-chart');
+
             t_EchartAjax.bigtccsyqk(post_data, function (data) {
+                var tccsyqkdata1 = [], tccsyqkdata2 = [], tccsyqkdata3 = [], tccsyqkdata4 = [];
                 var data = require("t_Echart").tccsyqkData;
                 try {
                     var outer = {};
-                    outer["临港大道"] = [];
-                    outer["港城新天地"] = [];
-                    outer["海昌公园"] = [];
-                    outer["雪绒花"] = [];
-                    for (var i = 6; i >= 0; i--) {
-                        tccsyqkChartxAxisData.push(MyDate(i)[0])
-                        for (var key in data) {
-                            if (MyDate(i)[1] === key) {
-                                outer["临港大道"].push(data[key]["临港大道"])
-                                outer["港城新天地"].push(data[key]["港城新天地"])
-                                outer["海昌公园"].push(data[key]["海昌公园"])
-                                outer["雪绒花"].push(data[key]["雪绒花"])
+                    outer["临港大道"] = {};
+                    outer["港城新天地"] = {};
+                    outer["海昌公园"] = {};
+                    outer["雪绒花"] = {};
+                    for (var key in data) {
+                        var dateItem = data[key];
+                        for (var name in dateItem) {
+                            if (!outer[name][key]) {
+                                outer[name][key] = 0;
                             }
+                            outer[name][key] += dateItem[name]
                         }
                     }
+                    var hcgy = outer.海昌公园
+                    for (var i in hcgy) {
+                        tccsyqkdata1.push(hcgy[i])
+                    }
+                    var xrh = outer.雪绒花
+                    for (var i in xrh) {
+                        tccsyqkdata2.push(xrh[i])
+                    }
+                    var lgdd = outer.临港大道
+                    for (var i in lgdd) {
+                        tccsyqkdata3.push(lgdd[i])
+                    }
+                    var gcxtd = outer.港城新天地
+                    for (var i in gcxtd) {
+                        tccsyqkdata4.push(gcxtd[i])
+                    }
+
                     //缓存图表数据
-                    tccsyqkChartData1 = outer["临港大道"];
-                    tccsyqkChartData2 = outer["港城新天地"];
-                    tccsyqkChartData3 = outer["海昌公园"];
-                    tccsyqkChartData4 = outer["雪绒花"];
+                    tccsyqkChartData1 = tccsyqkdata1;
+                    tccsyqkChartData2 = tccsyqkdata2;
+                    tccsyqkChartData3 = tccsyqkdata3;
+                    tccsyqkChartData4 = tccsyqkdata4;
+                    tccsyqkChartxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
 
                     tccsyqkOption = {
                         tooltip: {
