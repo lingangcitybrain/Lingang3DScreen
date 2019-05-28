@@ -2158,9 +2158,7 @@
                 d.setDate(d.getDate() - n);
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
-                //day = d.getDate(); s = (mon < 10 ? ('0' + mon) : mon) + "月" + (day < 10 ? ('0' + day+'日') : day);//日期类型2019-03-07
                 day = d.getDate(); s = mon + "月" + day + "日";
-                //day=d.getDate();      s = year+(mon<10?('0'+mon):mon)+(day<10?('0'+day):day);//日期类型20190307(字符串)
 
                 return s;
             }
@@ -2427,6 +2425,314 @@
 
             })
         },
+        //tccsyqk: function (post_data) {
+        //    function MyDate(n) {
+        //        var n = n;
+        //        var d = new Date();
+        //        var year = d.getFullYear();
+        //        var mon = d.getMonth() + 1;
+        //        var day = d.getDate();
+        //        if (day <= n) {
+        //            if (mon > 1) {
+        //                mon = mon - 1;
+        //            }
+        //            else {
+        //                year = year - 1;
+        //                mon = 12;
+        //            }
+        //        }
+        //        d.setDate(d.getDate() - n);
+        //        year = d.getFullYear();
+        //        mon = d.getMonth() + 1;
+        //        day = d.getDate(); 
+        //        var mmdd = mon + "月" + day + "日";
+        //        var yymmdd = '' + year + mon + day ;
+        //        return [mmdd, yymmdd];
+        //    }
+        //    if ($("#wrj-chart").length <= 0) { return false; }
+
+        //    var tccsyqkChart = document.getElementById('tccsyqk-chart');
+        //    //var post_data = {
+        //    //    "count": "666"
+        //    //}
+        //    t_EchartAjax.bigtccsyqk(post_data, function (data) {
+        //       // var tccsyqkdata1 = [], tccsyqkdata2 = [], tccsyqkdata3 = [], tccsyqkdata4 = [];
+        //        var data = require("t_Echart").tccsyqkData;
+        //        try {
+
+        //            var outer = {};
+        //            outer["临港大道"] = {};
+        //            outer["港城新天地"] = {};
+        //            outer["海昌公园"] = {};
+        //            outer["雪绒花"] = {};
+        //            for (var i = 6; i >= 0; i--) {
+        //                for (var key in data) {
+        //                    if (MyDate(i)[1] === key) {
+        //                        outer["临港大道"].push(data[key]["临港大道"])
+        //                        outer["港城新天地"].push(data[key]["港城新天地"])
+        //                        outer["海昌公园"].push(data[key]["海昌公园"])
+        //                        outer["雪绒花"].push(data[key]["雪绒花"])
+        //                    }
+        //                }
+        //            }
+        //            //缓存图表数据
+        //            tccsyqkChartData1 = outer["临港大道"];
+        //            tccsyqkChartData2 = outer["港城新天地"];
+        //            tccsyqkChartData3 = outer["海昌公园"];
+        //            tccsyqkChartData4 = outer["雪绒花"];
+        //            tccsyqkChartxAxisData = [MyDate(6)[0], MyDate(5)[0], MyDate(4)[0], MyDate(3)[0], MyDate(2)[0], MyDate(1)[0], MyDate(0)][0];
+
+        //            //for (var key in data) {
+        //            //    if (MyDate(6) === key) {
+        //            //        outer["临港大道"]
+        //            //    }
+        //            //    var dateItem = data[key];
+        //            //    for (var name in dateItem) {
+        //            //        if (!outer[name][key]) {
+        //            //            outer[name][key] = 0;
+        //            //        }
+        //            //        outer[name][key] += dateItem[name]
+        //            //    }
+        //            //}
+        //            //var hcgy = outer.海昌公园
+        //            //for (var i in hcgy) {
+        //            //    tccsyqkdata1.push(hcgy[i])
+        //            //}
+        //            //var xrh = outer.雪绒花
+        //            //for (var i in xrh) {
+        //            //    tccsyqkdata2.push(xrh[i])
+        //            //}
+        //            //var lgdd = outer.临港大道
+        //            //for (var i in lgdd) {
+        //            //    tccsyqkdata3.push(lgdd[i])
+        //            //}
+        //            //var gcxtd = outer.港城新天地
+        //            //for (var i in gcxtd) {
+        //            //    tccsyqkdata4.push(gcxtd[i])
+        //            //}
+
+        //            //缓存图表数据
+        //            //tccsyqkChartData1 = tccsyqkdata1;
+        //            //tccsyqkChartData2 = tccsyqkdata2;
+        //            //tccsyqkChartData3 = tccsyqkdata3;
+        //            //tccsyqkChartData4 = tccsyqkdata4;
+        //            //tccsyqkChartxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
+
+        //            tccsyqkOption = {
+        //                tooltip: {
+        //                    trigger: 'axis',
+        //                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+        //                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        //                    }
+        //                },
+        //                legend: [
+        //                    {
+        //                        left: '4%',
+        //                        bottom: " 2%",
+        //                        icon: 'rect',
+        //                        itemWidth: 20,
+        //                        itemHeight: 20,
+        //                        textStyle: {
+        //                            fontSize: 22,
+        //                            color: "#0296d4"
+        //                        },
+        //                        data: ['海昌公园停车场']
+        //                    },
+        //                    {
+        //                        left: '27%',
+        //                        bottom: " 2%",
+        //                        icon: 'rect',
+        //                        itemWidth: 20,
+        //                        itemHeight: 20,
+        //                        textStyle: {
+        //                            fontSize: 22,
+        //                            color: "#0296d4"
+        //                        },
+        //                        data: ['雪绒花停车场']
+        //                    },
+        //                    {
+        //                        left: '50%',
+        //                        bottom: " 2%",
+        //                        icon: 'rect',
+        //                        itemWidth: 20,
+        //                        itemHeight: 20,
+        //                        textStyle: {
+        //                            fontSize: 22,
+        //                            color: "#0296d4"
+        //                        },
+        //                        data: ['临港大道停车场']
+        //                    },
+        //                    {
+        //                        left: '75%',
+        //                        bottom: " 2%",
+        //                        icon: 'rect',
+        //                        itemWidth: 20,
+        //                        itemHeight: 20,
+        //                        textStyle: {
+        //                            fontSize: 22,
+        //                            color: "#0296d4"
+        //                        },
+        //                        data: ['港城新天地停车场']
+        //                    }
+        //                ],
+        //                grid: {
+        //                    left: '1%',
+        //                    right: '1%',
+        //                    top: '6%',
+        //                    containLabel: true
+        //                },
+        //                xAxis: [
+        //                    {
+        //                        type: 'category',
+        //                        data: tccsyqkChartxAxisData,
+        //                        nameTextStyle: {
+        //                            color: "#00d7fe",
+        //                            fontSize: 16,
+        //                        },
+        //                        axisTick: {
+        //                            show: false,
+        //                        },
+        //                        axisLine: {
+        //                            show: true,
+        //                            lineStyle: {
+        //                                color: "rgba(80,172,254,0.5)"
+        //                            }
+        //                        },
+        //                        axisLabel: {
+        //                            textStyle: {
+        //                                fontSize: 22,
+        //                                color: "#00d7fe"
+        //                            }
+        //                        },
+        //                        splitLine: {
+        //                            show: false,
+        //                            lineStyle: {
+        //                                color: "rgba(80,172,254,0.5)"
+        //                            }
+        //                        }
+        //                    }
+        //                ],
+        //                yAxis: [
+        //                    {
+        //                        type: 'value',
+        //                        axisTick: {
+        //                            show: false,
+        //                        },
+        //                        axisLine: {
+        //                            show: true,
+        //                            lineStyle: {
+        //                                color: "rgba(80,172,254,0.5)"
+        //                            }
+        //                        },
+        //                        //interval: 1000,
+        //                        axisLabel: {
+        //                            textStyle: {
+        //                                fontSize: 22,
+        //                                color: "#00d7fe"
+        //                            }
+        //                        },
+        //                        splitLine: {
+        //                            lineStyle: {
+        //                                color: "rgba(80,172,254,0.5)",
+        //                            }
+        //                        }
+        //                    }
+        //                ],
+        //                series: [
+        //                    {
+        //                        name: '海昌公园停车场',
+        //                        type: 'bar',
+        //                        barWidth: 14,
+        //                        itemStyle: {
+        //                            normal: {
+        //                                barBorderRadius: 3,
+        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //                                    offset: 0,
+        //                                    color: '#fffd00'
+        //                                }, {
+        //                                    offset: 1,
+        //                                    color: '#ff6f02'
+        //                                }]),
+        //                            }
+        //                        },
+        //                        data: tccsyqkChartData1
+        //                    },
+        //                    {
+        //                        name: '雪绒花停车场',
+        //                        type: 'bar',
+        //                        barWidth: 14,
+        //                        itemStyle: {
+        //                            normal: {
+        //                                barBorderRadius: 3,
+        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //                                    offset: 0,
+        //                                    color: '#02fdf6'
+        //                                }, {
+        //                                    offset: 1,
+        //                                    color: '#00a3ff'
+        //                                }]),
+        //                            }
+        //                        },
+        //                        data: tccsyqkChartData2
+        //                    },
+        //                    {
+        //                        name: '临港大道停车场',
+        //                        type: 'bar',
+        //                        barWidth: 14,
+        //                        itemStyle: {
+        //                            normal: {
+        //                                barBorderRadius: 3,
+        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //                                    offset: 0,
+        //                                    color: '#ace419'
+        //                                }, {
+        //                                    offset: 1,
+        //                                    color: '#5aad0b'
+        //                                }]),
+        //                            }
+        //                        },
+        //                        data: tccsyqkChartData3
+        //                    },
+        //                    {
+        //                        name: '港城新天地停车场',
+        //                        type: 'bar',
+        //                        barWidth: 14,
+        //                        itemStyle: {
+        //                            normal: {
+        //                                barBorderRadius: 3,
+        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //                                    offset: 0,
+        //                                    color: '#d9d9d9'
+        //                                }, {
+        //                                    offset: 1,
+        //                                    color: '#808080'
+        //                                }]),
+        //                            }
+        //                        },
+        //                        data: tccsyqkChartData4
+        //                    }
+        //                ]
+        //            };
+
+        //            require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
+        //            require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
+
+        //            $("#tcc").click(function () {
+        //                require("t_Echart").myCharttccsyqk.clear()
+        //                require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
+        //                require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
+
+        //                require("t_Echart").mybigChart.clear()
+        //                require("t_Echart").bigTccsyqk();
+
+        //            });
+
+        //        } catch (error) {
+
+        //        }
+
+        //    })
+        //},
         /*大停车场使用情况*/
         bigTccsyqk: function () {
             $("#bigechartHead").html("停车场使用情况");
