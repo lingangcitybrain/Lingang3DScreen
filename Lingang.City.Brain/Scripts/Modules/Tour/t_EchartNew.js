@@ -1956,6 +1956,7 @@
                     },
                     series: [
                       {
+                          name:"出园",
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
@@ -1965,6 +1966,7 @@
                           data: rycltjdata1
                       },
                       {
+                          name:"入园",
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
@@ -2035,6 +2037,7 @@
                             containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
                         },
                         tooltip: {
+                            formatter:'{a}:{c}',
                             trigger: 'axis',
                             axisPointer: {
                                 type: 'cross',
@@ -2104,6 +2107,7 @@
                         },
                         series: [
                           {
+                              name:"出园",
                               type: 'line',
                               color: "#4085ed",
                               lineStyle: {
@@ -2113,6 +2117,7 @@
                               data: rycltjdata1
                           },
                           {
+                              name:"入园",
                               type: 'line',
                               color: "#46d1c2",
                               lineStyle: {
