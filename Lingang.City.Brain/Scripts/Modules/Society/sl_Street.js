@@ -119,9 +119,8 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet2.html'
             }
             com.UIControlAni(option, function () {
-
+                require("sl_Street").loadJmDroneData();
             });
-           // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
         },
         //加载第二列的div3
         loadLeftSecond3: function () {

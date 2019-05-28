@@ -39,6 +39,7 @@
                         callback(data);
                     },
                     error: function () {
+                        console.log("招商雷达接口数据传输错误，调用本地数据")
                         require("g_Echart").zsldData = g_EchartData.zsldData;
                         callback();
                     }
@@ -114,7 +115,7 @@
                         callback(data);
                     },
                     error: function () {
-                        require("g_Echart").tcfwData = g_EchartData.tcfwData.data;
+                        require("g_Echart").tcfwData = g_EchartData.tcfwData;
                         callback();
                     }
                 });
@@ -189,6 +190,7 @@
                         callback(data);
                     },
                     error: function () {
+                        console.log("智慧物业巡检数据传输错误，调用本地数据")
                         require("g_Echart").zhwyInspectData = g_EchartData.zhwyInspectData;
                         callback();
                     }

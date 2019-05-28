@@ -9,28 +9,42 @@
 
     return {
         sjcgTimer:null,
-        mybigChart: null, //大的图表显示  
-        myChartsxt1:null,   //摄像头
-        myChartsxt2: null,   //摄像头
-        myChartsxt3: null,   //摄像头
+        mybigChart: null,     //大的图表显示  
+        myChartsxt1:null,     //摄像头
+        myChartsxt2: null,    //摄像头
+        myChartsxt3: null,    //摄像头
         myChartwrj: null,     //无人机
-        myChartsj: null,     //事件
-        myChartsjcg: null,     //事件成功
-        wrjData: null,    //无人机数据
-        cgqData: null,    //传感器数据
-        sxtData: null,    //摄像头数据
-        sjcgData: null,    //事件成功数据
-        bigNumData: null,  //大数字数据
-        jqCameraData: null,
-        jqCarData: null,
-        jqPersonData: null,
-        sxtCameraData: null,
-        sxtCarData: null,
-        sxtPersonData: null,
-        zzbmData: null,
-        societyPersonData: null,
-        societySjcgListData: null, //事件成功列表数据
-
+        myChartsj: null,      //事件
+        myChartsjcg: null,    //事件成功
+        wrjData: null,        //无人机数据
+        cgqData: null,        //传感器数据
+        sxtData: null,        //摄像头数据
+        sjcgData: null,       //事件成功数据
+        bigNumData: null,     //大数字数据      
+        jqCameraData: null,   //景区--摄像头
+        jqCarData: null,      //景区--车辆
+        jqPersonData: null,   //景区--人员
+        sxtCameraData: null,  //摄像头--摄像头
+        sxtCarData: null,     //摄像头--车辆
+        sxtPersonData: null,  //摄像头--人员
+        zzbmData: null,       //主责部门
+        societyPersonData: null,    // 社区人口
+        societySjcgListData: null,  //事件成功列表数据
+        societySjData: null,        //事件信息
+        societySjcgData: null,      //事件处理成功
+        societySjcgStatusData: null,//事件处理成功事件状态
+        societySjcgListData: null,  //事件处理成功事件列表
+        societyBigNumData: null,    //事件（海岸线，工地，街面，网格）大数字
+        cgqBigNumData: null,        //传感器，无人机，摄像头，村居工作站大数字
+        jmDroneData: null,          //街面无人机 
+        jmXcyData: null,            //街面巡查员
+        recentFlightData: null,     //海岸线无人机最近一次飞行统计
+        monthlyRecentFlightData: null, //海岸线无人机最近一个月飞行统计
+        costlineTideData: null,     //海岸线潮汐时间表
+        workSiteBuilderData: null, //工地施工单位
+        workSiteWrjData: null,     //工地无人机
+        dealTaskNumData: null,     //网格处置案件数量
+        dealTaskTypeData: null,   //网格处置案件类别
 
         //加载图表
         loadEcharts: function () {
