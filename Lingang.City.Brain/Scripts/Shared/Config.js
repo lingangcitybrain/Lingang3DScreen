@@ -2,7 +2,7 @@
     //define( function () {
     return {
         WebServiceUrl: "http://" + location.host + "/LingangCityBrain/",
-        WebServiceUrlForControl: "http://192.168.3.101/LingangCityBrain/",
+        WebServiceUrlForControl: "http://192.168.3.199/LingangCityBrain/",
         HtmlUrl: "/LingangCityBrain/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
         InterfaceUrl_estate:"http://47.101.181.131:8081/",
@@ -46,21 +46,41 @@
         currStatus: 1, //0:白天 1 夜景
         /***************************常用方法***************************/
         //获取当前时间，格式YYYY-MM-DD 00:00:00
-        getNowFormatDate: function () {
-            var date = new Date();
-            var seperator1 = "-";
+        //getNowFormatDate: function () {
+        //    var date = new Date();
+        //    var seperator1 = "-";
+        //    var year = date.getFullYear();
+        //    var month = date.getMonth() + 1;
+        //    var strDate = date.getDate();
+        //    if (month >= 1 && month <= 9) {
+        //        month = "0" + month;
+        //    }
+        //    if (strDate >= 0 && strDate <= 9) {
+        //        strDate = "0" + strDate;
+        //    }
+        //    var currentdate = year + seperator1 + month + seperator1 + strDate + " 00:00:00";
+        //    return currentdate;
+        //},
+        //获取当前时间，格式YYYY-MM-DD hh:mm:ss  getNowFormatDate
+        getNowFormatDate:function (str) {
+            var date = new Date(str);
             var year = date.getFullYear();
             var month = date.getMonth() + 1;
             var strDate = date.getDate();
+            var hours = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+
             if (month >= 1 && month <= 9) {
                 month = "0" + month;
             }
             if (strDate >= 0 && strDate <= 9) {
                 strDate = "0" + strDate;
             }
-            var currentdate = year + seperator1 + month + seperator1 + strDate + " 00:00:00";
+            var currentdate = year + "-" + month + "-" + strDate + " "+ hours + ":" + minute + ":" + second;
             return currentdate;
         },
+
         //获取当前时间 格式YYYY-MM-DD HH:MM:SS
         CurentTime: function () {
             var now = new Date();
