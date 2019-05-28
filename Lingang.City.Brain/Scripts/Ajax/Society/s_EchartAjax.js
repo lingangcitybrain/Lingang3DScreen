@@ -89,7 +89,7 @@
                         callback(data)
                     },
                     error: function () {
-                        alert("景区摄像头数据传输错误,加载本地数据");
+                        
                         require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
                         callback();
                     }
