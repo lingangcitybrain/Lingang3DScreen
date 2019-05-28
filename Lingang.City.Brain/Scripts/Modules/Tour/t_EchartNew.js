@@ -15,6 +15,7 @@
     var tccsyqkChartData1 = null;
     var tccsyqkChartData2 = null;
     var tccsyqkChartData3 = null;
+    var tccsyqkChartData4 = null;
     var tccsyqkChartxAxisData = null;
 
     function xData() {//获取近6月日期
@@ -1892,9 +1893,7 @@
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter: function (params) {
-                            return '<div>params[0].seriesName<br>params[1].seriesName</div>';
-                        },
+                        formatter:'{a}:{c}',
                         axisPointer: {
                             type: 'cross',
                             label: {
@@ -1957,6 +1956,7 @@
                     },
                     series: [
                       {
+                          name:"出园",
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
@@ -1966,6 +1966,7 @@
                           data: rycltjdata1
                       },
                       {
+                          name:"入园",
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
@@ -2036,6 +2037,7 @@
                             containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
                         },
                         tooltip: {
+                            formatter:'{a}:{c}',
                             trigger: 'axis',
                             axisPointer: {
                                 type: 'cross',
@@ -2105,6 +2107,7 @@
                         },
                         series: [
                           {
+                              name:"出园",
                               type: 'line',
                               color: "#4085ed",
                               lineStyle: {
@@ -2114,6 +2117,7 @@
                               data: rycltjdata1
                           },
                           {
+                              name:"入园",
                               type: 'line',
                               color: "#46d1c2",
                               lineStyle: {
@@ -2136,7 +2140,7 @@
         },
 
         //停车场使用情况
-        tccsyqk: function () {
+        tccsyqk: function (post_data) {
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -2155,18 +2159,14 @@
                 d.setDate(d.getDate() - n);
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
-                //day = d.getDate(); s = (mon < 10 ? ('0' + mon) : mon) + "月" + (day < 10 ? ('0' + day+'日') : day);//日期类型2019-03-07
                 day = d.getDate(); s = mon + "月" + day + "日";
-                //day=d.getDate();      s = year+(mon<10?('0'+mon):mon)+(day<10?('0'+day):day);//日期类型20190307(字符串)
 
                 return s;
             }
             if ($("#wrj-chart").length <= 0) { return false; }
 
             var tccsyqkChart = document.getElementById('tccsyqk-chart');
-            var post_data = {
-                "count": "666"
-            }
+
             t_EchartAjax.bigtccsyqk(post_data, function (data) {
                 var tccsyqkdata1 = [], tccsyqkdata2 = [], tccsyqkdata3 = [], tccsyqkdata4 = [];
                 var data = require("t_Echart").tccsyqkData;
@@ -2424,6 +2424,7 @@
 
             })
         },
+
         /*大停车场使用情况*/
         bigTccsyqk: function () {
             $("#bigechartHead").html("停车场使用情况");
@@ -3194,9 +3195,6 @@
             t_EchartAjax.yqsjlblx(post_data, function (result) {
                 var data = require("t_Echart").yqsjlblxData;
 
-
-
-
                 var htmltotal = '';
                 htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
                 htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
@@ -3219,8 +3217,12 @@
                     html += '</li>';
                 }
                 $('#sj').html(html);
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
-            $("#jqsjtj").click(function () { require("t_Echart").yqsjlblx(); console.log(园区事件) })
+            $("#jqsjtj").click(function () {
+                require("t_Echart").yqsjlblx();
+            })
+            
         },
         yqsjlbqy: function () {
             function MyDate(n) {
@@ -3277,6 +3279,7 @@
                 }
 
                 $('#sj2').html(html);
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
         },
         //园区事件统计

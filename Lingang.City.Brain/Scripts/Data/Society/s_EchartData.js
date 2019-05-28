@@ -12423,9 +12423,6 @@
         }],
 
 
-
-
-
         //摄像头--摄像头
         sxtCameraData:{
 	        "errorCode": "0",
@@ -20676,11 +20673,11 @@
 
         //社区人口
         societyPersonData: {
-	"total": "2431",
-	"visitor": "173",
-	"permanent": "1988",
-	"peopleFlow": "2219"
-},
+	        "total": "2431",
+	        "visitor": "173",
+	        "permanent": "1988",
+	        "peopleFlow": "2219"
+        },
 
         //街面无人机
         jmDroneData:{
@@ -22885,15 +22882,6 @@
                     "monthCount": null
                 }]
             }
-        },
-
-        //社综--无人机视频 第二列第一个0201
-        sociWrj0201Data:{
-            "timestamp": "2019-05-24T06:49:41.383+0000",
-            "status": 400,
-            "error": "Bad Request",
-            "message": "Required String parameter 'sbbm' is not present",
-            "path": "/v1/videoPlay/playing"
         },
 
 
