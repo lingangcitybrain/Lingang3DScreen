@@ -204,16 +204,6 @@
                 };
                 control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
             },
-            //关闭alert弹窗
-            closeAlertWindow: function () {
-                $("#alert-dialog").hide();
-                var jsondata = {
-                    "menu": "101",
-                    "xyz": "",
-                    "angle": "",
-                };
-                control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
-            }
             /**********************************END*********************************/
         }
     });
