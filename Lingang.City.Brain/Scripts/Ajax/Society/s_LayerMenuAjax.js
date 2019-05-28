@@ -26,6 +26,31 @@
 
 
         },
+        //获取无人机列表
+        getDroneList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "/v1/drone/list",  // yii 控制器/方法   
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("sl_Drone").DroneData = data.data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        console.log('景区管理---获取无人机列表失败')
+                        require("sl_Drone").DroneData = s_LayerMenuData.DroneData.data;
+                    }
+                });
+            }
+            else {//执行本地
+                require("sl_Drone").DroneData = s_LayerMenuData.DroneData.data;
+                callback();
+            }
+        },
         //获取摄像头数据
         getCameraList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
@@ -106,7 +131,7 @@
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_Event").InspectorData = data.data.data;
+                        require("sl_Event").InspectorData = data;
                         if ($.isFunction(callback))
                             callback()
                     },
@@ -122,7 +147,7 @@
             }
         },
         //获取无人机库列表
-        getDroneList: function (post_data, callback) {
+        getDroneHangarList: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -142,9 +167,64 @@
                 });
             }
             else {//执行本地
-                require("sl_Drone").POIData = s_layerMenuData.DroneData.data;
+                require("sl_Drone").POIData = s_layerMenuData.DroneHangarData.data;
                  if ($.isFunction(callback))
                             callback()
+            }
+        },
+        //获取无人机点位数据
+        getDronePosList: function (post_data, callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "v1/drone/location/list",  //POST /v1/drone/virtualPath
+                    //url: con.InterfaceUrl + "v1/drone/virtualPath",
+                    cache: false,
+                    data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        callback(data.data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        console.log('景区管理---获取无人机坐标数据失败')
+                    }
+                });
+            }
+            else {//执行本地
+                var data = t_LayerMenuData.DronePosList.data;
+
+                callback(data);
+            }
+        },
+        //获取无人机视频
+        getDroneVideo: function (post_data, callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl + "v1/videoPlay/playing",  // yii 控制器/方法   
+                    //url: con.InterfaceUrl + "/v1/drone/list",
+
+                    cache: false,
+                    data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        callback(data.data)
+                        //var url = "http://rtmp-play.video.vldc.org.cn/citybrain/CH1.flv?auth_key=1553843201-ea7c473093a2407293f303920ee4adc2-0-12efb95aa0c9f22ff88a6bed38cd52d2&onlyvideo=true";
+                        //callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        console.log('景区管理---获取无人机视频数据失败')
+                    }
+                });
+            }
+            else {//执行本地
+                //require("tl_Drone").DroneVideoUrl = con.WebServiceUrl + "/Content/video/CH2.flv";
+                var url = con.WebServiceUrl + "/Content/video/CH2.flv"
+                callback(url);
             }
         },
         //获取社区工作站列表

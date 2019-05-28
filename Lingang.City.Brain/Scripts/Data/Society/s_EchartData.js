@@ -20676,11 +20676,11 @@
 
         //社区人口
         societyPersonData: {
-            "realTimeCount": "2348",
-            "visitor": "173",
-            "total": "6987",
-            "peopleFlow": 7794
-        },
+	"total": "2431",
+	"visitor": "173",
+	"permanent": "1988",
+	"peopleFlow": "2219"
+},
 
         //街面无人机
         jmDroneData:{

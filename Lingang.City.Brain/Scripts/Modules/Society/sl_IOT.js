@@ -224,9 +224,9 @@
                 if (require("s_Echart").societyPersonData == null) { return false; }
                 var data = require("s_Echart").societyPersonData;
 
-                $("#society-person>li").eq(0).find(".item-r-data").html(data.realTimeCount);
+                $("#society-person>li").eq(0).find(".item-r-data").html(data.total);
                 $("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
-                $("#society-person>li").eq(2).find(".item-r-data").html(data.total);
+                $("#society-person>li").eq(2).find(".item-r-data").html(data.permanent);
                 $("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
             });
 
