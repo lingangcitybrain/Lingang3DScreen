@@ -316,6 +316,7 @@
                 com.UIControlAni(option, function () {
                     require("t_Echart").yqsjlblx();//园区事件列表类型 
                     require("t_Echart").yqsjlbqy();//园区事件列表区域
+                    
                 });
             },
             //加载第三个div
@@ -329,7 +330,8 @@
                 com.UIControlAni(option, function () {
                     //return null;
                     require("t_Echart").yqsjlbtj();//园区事件统计
-                    setInterval(function () { require("t_Echart").yqsjlbtj() },60*1000*15)
+                    setInterval(function () { require("t_Echart").yqsjlbtj() }, 60 * 1000 * 15)
+
                 });
             },
             hideRight02Div: function () {

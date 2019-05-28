@@ -3195,9 +3195,6 @@
             t_EchartAjax.yqsjlblx(post_data, function (result) {
                 var data = require("t_Echart").yqsjlblxData;
 
-
-
-
                 var htmltotal = '';
                 htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
                 htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
@@ -3220,8 +3217,12 @@
                     html += '</li>';
                 }
                 $('#sj').html(html);
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
-            $("#jqsjtj").click(function () { require("t_Echart").yqsjlblx(); console.log(园区事件) })
+            $("#jqsjtj").click(function () {
+                require("t_Echart").yqsjlblx();
+            })
+            
         },
         yqsjlbqy: function () {
             function MyDate(n) {
@@ -3278,6 +3279,7 @@
                 }
 
                 $('#sj2').html(html);
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
         },
         //园区事件统计
