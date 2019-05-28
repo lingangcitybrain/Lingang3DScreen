@@ -18,5 +18,15 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
                     control_Ajax.sendMapControlInfo(jsondata); //发送控制命令           
             },100)
         },
+        //关闭common.alert弹窗
+        CommonAlertCloseWindow: function () {
+            //$('.vex-dialog-button-primary').click();
+            var jsondata = {
+                "menu": "101",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令    
+        },
     }
 })

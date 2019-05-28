@@ -1154,6 +1154,11 @@
                 message: message,
                 className: 'vex-theme-default'
             })
+            //$(".vex-dialog-buttons").each(function (index) {
+                $(".vex-dialog-buttons").click(function () {//点击触发事件
+                    require("mainJsLoad").CommonAlertCloseWindow();
+                });
+            //});
         },
 
         ajaxByLoading: function (options) {

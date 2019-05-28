@@ -4,5 +4,8 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
         loadJs: function () {
             return;
         },
+        CommonAlertCloseWindow: function () {
+            $('.vex-dialog-button-primary').click();   
+        },
     }
 })
