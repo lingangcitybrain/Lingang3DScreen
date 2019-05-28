@@ -355,7 +355,9 @@
                         callback(data)
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        alert("事件处理成功数列表数据传输错误, 加载本地数据");
+                        require("s_Echart").societySjcgListData = s_EchartData.societySjcgListData;
+                        callback()
                     }
                 });
             }

@@ -29,6 +29,7 @@
         sxtPersonData: null,
         zzbmData: null,
         societyPersonData: null,
+        societySjcgListData: null, //事件成功列表数据
 
 
         //加载图表
@@ -448,18 +449,18 @@
                     }
                 }
                 //出临港 ,入临港相加
-                var outCarNum = 0, inCarNum = 0, outCarTotal = 0;
+                var outCarNum = 0, inCarNum = 0, carTotal = 0;
                 for (key1 in thisDayCarJson["出临港"]) {
                     outCarNum += thisDayCarJson["出临港"][key1]
                 }
                 for (key2 in thisDayCarJson["入临港"]) {
                     inCarNum += thisDayCarJson["入临港"][key2]
                 }
-                outCarNum = outCarNum + inCarNum;
+                carTotal = outCarNum + inCarNum;
 
-                $("#total_car").html(outCarNum);
-                $("#total_normalCar").html(outCarNum);
-                $("#total_illegalCar").html(0);
+                $("#total_car").html(carTotal);
+                $("#total_normalCar").html(inCarNum);
+                $("#total_illegalCar").html(outCarNum);
             });
         },
 
@@ -556,7 +557,7 @@
                 data = data.data.dealDeptList;
         
                 for (var i = 0; i < data.length; i++) {
-                    $("#zzbm-tbody").append("<tr><td>" + (data[i].executeDeptname? data[i].executeDeptname : i+1 ) + "</td><td>"+ 
+                    $("#zzbm-tbody").append("<tr><td>" + (data[i].executeDeptname? data[i].executeDeptname : '') + "</td><td>" +
                     data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
                 }
             });
