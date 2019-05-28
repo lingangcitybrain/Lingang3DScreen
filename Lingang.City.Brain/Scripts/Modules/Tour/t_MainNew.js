@@ -262,7 +262,7 @@
                     leftOrRight: 'right'
                 }
                 com.UIControlAni(option, function () {
-                    require("t_Echart").tccsyqk();//停车场使用情况
+                    require("t_Echart").tccsyqk({"count": 666});//停车场使用情况
                     //require("t_Echart").Interval12 = setInterval(function () { require("t_Echart").tccsyqk() }, 5000)
                 });
             },
