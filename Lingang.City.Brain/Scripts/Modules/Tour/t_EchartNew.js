@@ -1671,40 +1671,7 @@
                 dataType: 'json',
                 success: function (data) {
 
-                    //data.onTotal              //在线摄像头总数
-                    var ball = Math.floor((data.onball / data.onTotal) * 100)              //在线球机摄像头
-                    var gun = Math.floor((data.ongun / data.onTotal) * 100)                //在线枪机摄像头
-                    var oneagle = Math.ceil((data.oneagle / data.onTotal) * 100)             //在线鹰眼摄像头
-                    var html = '';
-                    html += '<li class="wrj-l2-li wrj-l2-li1">';
-                    html += '<button class=""><div class="testAerial">' + data.onTotal + '</div><span>总数</span></button>';
-                    html += '</li>';
-                    html += '<li class="wrj-l2-li ">';
-                    html += '<div class="piebox"><div class="pie testAerial" style="animation-delay: -' + ball + 's" data-text="' + ball + '%"></div></div>';
-                    html += '<div class="piebox-right">';
-                    html += '<span> 球机</span>';
-                    html += '<div><span class="testAerial">' + data.onball + '</span>台</div>';
-                    html += '</div>';
-                    html += '</li>';
-                    html += '<li class="wrj-l2-li ">';
-                    html += '<div class="piebox"><div class="pie testAerial" style="animation-delay: -' + gun + 's" data-text="' + gun + '%"></div></div>';
-                    html += '<div class="piebox-right">';
-                    html += '<span> 枪机</span>';
-                    html += '<div><span class="testAerial">' + data.ongun + '</span>台</div>';
-                    html += '</div>';
-                    html += '</li>';
-                    html += '<li class="wrj-l2-li ">';
-                    html += '<div class="piebox"><div class="pie testAerial" style="animation-delay: -' + oneagle + 's" data-text="' + oneagle + '%"></div></div>';
-                    html += '<div class="piebox-right">';
-                    html += '<span> 鹰眼</span>';
-                    html += '<div><span class="testAerial">' + data.oneagle + '</span>台</div>';
-                    html += '</div>';
-                    html += '</li>';
-                    $('#zxsxt').html(html);
-                    $("#zxsxtsx").click(function () {
-                        require("t_Echart").zxsxt()
-
-                    });
+                   
                 },
                 error: function () {
 
