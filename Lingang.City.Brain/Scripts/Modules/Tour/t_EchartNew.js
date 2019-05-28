@@ -1892,9 +1892,7 @@
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter: function (params) {
-                            return '<div>params[0].seriesName<br>params[1].seriesName</div>';
-                        },
+                        formatter:'{a}:{c}',
                         axisPointer: {
                             type: 'cross',
                             label: {
