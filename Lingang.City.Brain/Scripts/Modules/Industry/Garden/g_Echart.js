@@ -8,16 +8,21 @@
     /****************************园区****************************/
     return {
         mybigChart: null,
-        myChartleida: null,//招商雷达
+        myChartleida: null,//招商雷达  
         zsldInterval: null,//雷达计时器
-        zsldData: null,     //招商雷达数据
-        zsFunnelData: null, //招商漏斗数据
+
+        bigNumData: null,   //中间大数字数据  
+        zsldData: null,     //招商雷达数据 
+        topTenData: null,   //top10
+        zsFunnelData: null, //招商漏斗数据   
         tcfwData: null,     //停车服务数据
-        wrjsData: null,     //无人驾驶接驳车数据
-        bigNumData: null,   //中间大数字数据
-        zhwyData: null,    //智慧物业数据
+        wrjsjbData: null,     //无人驾驶接驳车数据
+        zhwyRepairData: null,  //智慧物业维修
+        zhwyInspectData: null, //智慧物业巡检
         zhnhData: null,    //智慧能耗数据
         sjtjData: null,    //事件统计数据
+
+
         //加载图表
         loadEcharts:function()
         {
