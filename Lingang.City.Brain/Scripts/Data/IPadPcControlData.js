@@ -80,6 +80,11 @@
         UIButtonControlData: [
             { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", type: "flowerClk", "func": "$('.cy-qy-menu a')[*].click();" },  //花瓣显示隐藏
             { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", type: "buildingFloor", "func": "require('b_BuildingFloor').openFloor(*);" },//揭楼层
+
+            /*********************图表点击事件**************************/
+            { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计
+            //{ "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "change", "func": "require('t_Echart').ryClickEvent(*);" },//人员车辆统计 出入园统计
+            /***************************END***************************/
         ],
     }
 })
