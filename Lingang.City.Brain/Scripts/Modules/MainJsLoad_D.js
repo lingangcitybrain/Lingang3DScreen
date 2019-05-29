@@ -18,6 +18,12 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
                     control_Ajax.sendMapControlInfo(jsondata); //发送控制命令           
             },100)
         },
+        commonAlert: function (text) {
+            com.alert(text);
+            $(".vex-dialog-buttons").click(function () {//点击触发事件
+                require("mainJsLoad").CommonAlertCloseWindow();
+            });
+        },
         //关闭common.alert弹窗
         CommonAlertCloseWindow: function () {
             //$('.vex-dialog-button-primary').click();
@@ -27,6 +33,7 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
                 "angle": "",
             };
             control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令    
+            
         },
     }
 })

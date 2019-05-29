@@ -105,8 +105,8 @@
                     }
                 }
                 else {
-                    com.alert("视频地址为空");
-
+                    //com.alert("视频地址为空");
+                    require("mainJsLoad").commonAlert("视频地址为空");
                 }
             });
 
