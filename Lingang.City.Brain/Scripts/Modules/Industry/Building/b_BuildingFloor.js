@@ -415,9 +415,9 @@
         loadCompanyInfo: function () {
             gl_GardenBuildingAjax.getCompanyStatisticsData(function (result) {
                 var data = result[0];
-                $("#companyTotal").html(data.successedMerchantsProjects);
+                $("#companyTotal").html(data.companyCount);
                 $("#totalOutputValue").html(data.outputValue);
-                $("#totalPerson").html(data.servicesCount);
+                $("#totalPerson").html(data.servicesCount);  //不确定该字段
             })
             require("b_BuildingFloor").loadCompanyList(0);
         },
@@ -434,8 +434,12 @@
                     //'<div class="cy-ly-rr1-person">新材料产业</div>'+
                     //'<div class="cy-ly-rr1-state">5620人</div>' +
                 '</li>';
-                    $("#ul-companylist").html(html);
+                    
                 }
+                $("#ul-companylist").html(html);
+                $('.scrolldiv').perfectScrollbar({
+                    cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
+                });
             })
         },
         /*************楼宇-end*************/

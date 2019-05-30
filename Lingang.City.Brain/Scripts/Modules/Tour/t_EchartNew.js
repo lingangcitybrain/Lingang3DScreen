@@ -1700,179 +1700,12 @@
                     document.getElementById("clickMe").dispatchEvent(e);
                 }
             }, 10);
+            
+        },
+        /****************************************************/
+        rycltjClickEvent: function (domName) {
+            $("#" + domName).addClass("active").siblings().removeClass("active");
             var rqa = $("#rq a");
-
-            $("#ry").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-                window.personCarTimer2 = null;
-                window.personCarTimer3 = null;
-                window.personCarTimer4 = null;
-
-                $(this).addClass("active").siblings().removeClass("active");
-
-                t_EchartAjax.bigrycltj(function () {
-
-                    var datetemp = 6;
-                    var dataAll = require("t_Echart").rycltjData;
-
-                    if (!dataAll) { return false; }
-                    var sum = "";
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        sum = MyDate(i);
-                        require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
-                    }
-                    window.personCarTimer2 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun();
-                       
-                    }, 60000);
-                    cryFun()
-                    function cryFun() {
-                        var rysum = [];
-                        var cysum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
-                        if (data != null) {
-                            for (var item in data.入园) {
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    rysum[Number(item) - 9] = data.入园[item];
-                                }
-                            }
-                            for (var item in data.出园) {
-
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    cysum[Number(item) - 9] = data.出园[item];
-                                }
-                            }
-                            oRycltjChartData1 = rysum;
-                            oRycltjChartData2 = cysum;
-                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
-                        }
-                    }
-
-                })
-            })
-
-            $("#dt").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-                window.personCarTimer2 = null;
-                window.personCarTimer3 = null;
-                window.personCarTimer4 = null;
-
-                $(this).addClass("active").siblings().removeClass("active");
-
-                t_EchartAjax.bigrycltjdt(function () {
-                    var dataAll = require("t_Echart").rycltjdtData;
-                    if (!dataAll) { return false; }
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        var sumdt = MyDate(i);
-                        require("t_Echart").personcarData.put(sumdt, dataAll[i][sumdt]);
-                    }
-
-                    var datetemp = 6;
-                    window.personCarTimer3 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-                    cryFun()
-                    function cryFun() {
-                        var dtsum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
-                        if (data != null) {
-                            for (var item in data) {
-                                if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
-                                    dtsum[parseInt(item) - 9] = data[item]
-                                }
-                            }
-                            oRycltjChartData1 = dtsum;
-                            oRycltjChartData2 = null;
-                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
-                        }
-                    }
-                })
-            })
-
-            $("#jccl").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-                window.personCarTimer2 = null;
-                window.personCarTimer3 = null;
-                window.personCarTimer4 = null;
-
-                $(this).addClass("active").siblings().removeClass("active");
-                t_EchartAjax.bigrycltjjccl(function () {
-                    var dataAll = require("t_Echart").rycltjjcclData;
-                    if (!dataAll) { return false; }
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        var sum = MyDate(i);
-                        require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
-                    }
-
-                    var datetemp = 6;
-                    window.personCarTimer4 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-
-                    cryFun()
-                    function cryFun() {
-                        var rysum = [];
-                        var cysum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
-                        if (data != null) {
-                            for (var item in data.入临港) {
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    rysum[Number(item) - 9] = data.入临港[item];
-                                }
-                            }
-                            for (var item in data.出临港) {
-
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    cysum[Number(item) - 9] = data.出临港[item];
-                                }
-                            }
-                            oRycltjChartData1 = rysum;
-                            oRycltjChartData2 = cysum;
-                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
-                        }
-                    }
-                })
-            })
-
             function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
@@ -1893,7 +1726,7 @@
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter:'{a}:{c}',
+                        formatter: '{a}:{c}',
                         axisPointer: {
                             type: 'cross',
                             label: {
@@ -1956,7 +1789,7 @@
                     },
                     series: [
                       {
-                          name:"出园",
+                          name: "出园",
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
@@ -1966,7 +1799,7 @@
                           data: rycltjdata1
                       },
                       {
-                          name:"入园",
+                          name: "入园",
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
@@ -1992,7 +1825,172 @@
                     require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
                 });
             }
+            if (domName == "ry") {
+                    clearInterval(window.personCarTimer2)
+                    clearInterval(window.personCarTimer3);
+                    clearInterval(window.personCarTimer4);
+                    window.personCarTimer2 = null;
+                    window.personCarTimer3 = null;
+                    window.personCarTimer4 = null;
+
+                    t_EchartAjax.bigrycltj(function () {
+
+                        var datetemp = 6;
+                        var dataAll = require("t_Echart").rycltjData;
+
+                        if (!dataAll) { return false; }
+                        var sum = "";
+                        for (var i = dataAll.length - 1; i >= 0; i--) {
+                            sum = MyDate(i);
+                            require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
+                        }
+                        window.personCarTimer2 = setInterval(function () {
+                            if (datetemp == 0) {
+                                datetemp = 6;
+                            }
+                            else {
+                                datetemp--;
+                            }
+                            cryFun();
+
+                        }, 60000);
+                        cryFun()
+                        function cryFun() {
+                            var rysum = [];
+                            var cysum = [];
+                            var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                            var data = require("t_Echart").personcarData.get(key);
+
+                            rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                            oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
+
+                            if (data != null) {
+                                for (var item in data.入园) {
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        rysum[Number(item) - 9] = data.入园[item];
+                                    }
+                                }
+                                for (var item in data.出园) {
+
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        cysum[Number(item) - 9] = data.出园[item];
+                                    }
+                                }
+                                oRycltjChartData1 = rysum;
+                                oRycltjChartData2 = cysum;
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                            }
+                        }
+
+                    })
+            }
+            else if (domName == "dt") {
+
+                    clearInterval(window.personCarTimer2)
+                    clearInterval(window.personCarTimer3);
+                    clearInterval(window.personCarTimer4);
+                    window.personCarTimer2 = null;
+                    window.personCarTimer3 = null;
+                    window.personCarTimer4 = null;
+
+                    t_EchartAjax.bigrycltjdt(function () {
+                        var dataAll = require("t_Echart").rycltjdtData;
+                        if (!dataAll) { return false; }
+                        for (var i = dataAll.length - 1; i >= 0; i--) {
+                            var sumdt = MyDate(i);
+                            require("t_Echart").personcarData.put(sumdt, dataAll[i][sumdt]);
+                        }
+
+                        var datetemp = 6;
+                        window.personCarTimer3 = setInterval(function () {
+                            if (datetemp == 0) {
+                                datetemp = 6;
+                            }
+                            else {
+                                datetemp--;
+                            }
+                            cryFun()
+                        }, 60000);
+                        cryFun()
+                        function cryFun() {
+                            var dtsum = [];
+                            var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                            var data = require("t_Echart").personcarData.get(key);
+
+                            rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                            oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
+
+                            if (data != null) {
+                                for (var item in data) {
+                                    if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
+                                        dtsum[parseInt(item) - 9] = data[item]
+                                    }
+                                }
+                                oRycltjChartData1 = dtsum;
+                                oRycltjChartData2 = null;
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                            }
+                        }
+                    })
+            }
+            else if (domName == "jccl") {
+                    clearInterval(window.personCarTimer2)
+                    clearInterval(window.personCarTimer3);
+                    clearInterval(window.personCarTimer4);
+                    window.personCarTimer2 = null;
+                    window.personCarTimer3 = null;
+                    window.personCarTimer4 = null;
+
+                    t_EchartAjax.bigrycltjjccl(function () {
+                        var dataAll = require("t_Echart").rycltjjcclData;
+                        if (!dataAll) { return false; }
+                        for (var i = dataAll.length - 1; i >= 0; i--) {
+                            var sum = MyDate(i);
+                            require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
+                        }
+
+                        var datetemp = 6;
+                        window.personCarTimer4 = setInterval(function () {
+                            if (datetemp == 0) {
+                                datetemp = 6;
+                            }
+                            else {
+                                datetemp--;
+                            }
+                            cryFun()
+                        }, 60000);
+
+                        cryFun()
+                        function cryFun() {
+                            var rysum = [];
+                            var cysum = [];
+                            var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                            var data = require("t_Echart").personcarData.get(key);
+
+                            rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                            oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
+
+                            if (data != null) {
+                                for (var item in data.入临港) {
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        rysum[Number(item) - 9] = data.入临港[item];
+                                    }
+                                }
+                                for (var item in data.出临港) {
+
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        cysum[Number(item) - 9] = data.出临港[item];
+                                    }
+                                }
+                                oRycltjChartData1 = rysum;
+                                oRycltjChartData2 = cysum;
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                            }
+                        }
+                    })
+            }           
         },
+        /******************************END*******************/
         bigRycltj: function (oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
             if (rycltjChartClose) {
                 return false;
