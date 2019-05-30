@@ -83,7 +83,7 @@
 
             /*********************图表点击事件**************************/
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计
-            //{ "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "change", "func": "require('t_Echart').ryClickEvent(*);" },//人员车辆统计 出入园统计
+            { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "jqsjtj", "func": "require('t_Echart').jqsjtjClickEvent('*');" },//景区事件统计
             /***************************END***************************/
         ],
     }

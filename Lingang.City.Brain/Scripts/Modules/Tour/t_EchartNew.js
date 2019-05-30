@@ -3160,6 +3160,98 @@
             })
 
         },
+        jqsjtjClickEvent: function (domName) {
+            $("#jqsj_" + domName).addClass("active").siblings().removeClass("active");
+
+            var mathRandom = 0;
+            var yqyjLevelbgTimer = null;
+
+            var yqyjLevelLeftArr = [];
+            $(".yqyj-levelbox>.yqyj-level").each(function (index, element) {
+                yqyjLevelLeftArr[index] = parseInt($(this).css("left")) / $(this).parent().width() * 100;
+            })
+
+            function yqyjLevelbgFn(num) {
+                var numLittle = 0;
+                num = parseInt(Math.random() * 100);
+                yqyjLevelbgTimer = setTimeout(function () {
+                    clearTimeout(yqyjLevelbgTimer);
+
+                    num = num > 20 ? num < 35 ? num : 35 - parseInt(Math.random() * 5) : 20 + parseInt(Math.random() * 5);
+
+                    $(".yqyj-levelbg").width(num + "%");
+
+                    if (num > yqyjLevelLeftArr[0]) {
+                        do {
+                            numLittle++;
+                        } while (num > yqyjLevelLeftArr[numLittle])
+                        numLittle--;
+                        $(".yqyj-levelbox>.yqyj-level").eq(numLittle).addClass("active").siblings().removeClass("active");
+                    } else {
+                        $(".yqyj-levelbox>.yqyj-level").eq(0).removeClass("active").siblings().removeClass("active");
+                    }
+
+
+                    //yqyjLevelbgFn(mathRandom);
+                }, 1000)
+            }
+            yqyjLevelbgFn(mathRandom);
+
+
+            // 园区事件统计
+            var yqsjNum = 0;
+            var yqsjTimer = null;
+            var yqsjTranFnTimer = null;
+
+            yqsjFn();
+
+            // 园区事件统计 定时器
+            function yqsjFn() {
+                yqsjTimer = setTimeout(function () {
+                    clearTimeout(yqsjTimer);
+                    yqsjNum++;
+                    yqsjNum = yqsjNum > 1 ? 0 : yqsjNum;
+                    yqsjTranFn(yqsjNum);
+                }, 60000)
+            }
+
+            function yqsjTranFn(yqsjNum) {
+                if (yqsjNum == 0) {
+                    $(".yqsj-tabitemul").css({ transform: "translateX(0)" })
+                                        .children().eq(0).css({ opacity: 1 })
+                                        .siblings().css({ opacity: 0 });
+                } else {
+                    $(".yqsj-tabitemul").css({ transform: "translateX(-50%)" })
+                                        .children().eq(0).css({ opacity: 0 })
+                                        .siblings().css({ opacity: 1 });
+                }
+                $(".yqsj .jtxx-tabbox>.jtxx-tab").eq(yqsjNum).addClass("active").siblings().removeClass("active");
+
+                yqsjTranFnTimer = setTimeout(function () {
+                    clearTimeout(yqsjTranFnTimer);
+                    yqsjFn()
+                }, 500)
+            }
+
+            // 点击事件
+            //$(".yqsj .jtxx-tabbox>.jtxx-tab").each(function (index, element) {
+                //$(this).click(function () {
+                    clearTimeout(yqsjTimer);
+                    clearTimeout(yqsjTranFnTimer);
+                    //$(this).addClass("active").siblings().removeClass("active");
+                    if (domName == "category") {
+                        
+                    } else {
+                        yqsjNum = 1;
+                    }
+                    
+                    //console.log(yqsjNum, yqsjTranFn())
+                    yqsjTranFn(yqsjNum);
+                //})
+            //})
+
+
+        },
         //园区事件类型分布列表  
         yqsjlblx: function () {
             function MyDate(n) {

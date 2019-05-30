@@ -3,8 +3,8 @@
     <h3><div id="jqsjtj">景区事件统计</div></h3>
     <div class="divcont">
         <div class="jtxx-tabbox">
-            <a class="jtxx-tab active">类型</a>
-            <a class="jtxx-tab">区域</a>
+            <a class="jtxx-tab active" id="jqsj_category" onclick="require('t_Home').jqsjtjClickEvent('category');">类型</a>
+            <a class="jtxx-tab" id="jqsj_area" onclick="require('t_Home').jqsjtjClickEvent('area');">区域</a>
         </div>
         <div class="yqsj-tabitemdiv">
             <ul class="yqsj-tabitemul flex">
@@ -173,88 +173,88 @@
     </div>
 </div>
 <script>
-    var mathRandom = 0;
-    var yqyjLevelbgTimer = null;
+    //var mathRandom = 0;
+    //var yqyjLevelbgTimer = null;
 
-    var yqyjLevelLeftArr = [];
-    $(".yqyj-levelbox>.yqyj-level").each(function (index, element) {
-        yqyjLevelLeftArr[index] = parseInt($(this).css("left")) / $(this).parent().width() * 100;
-    })
+    //var yqyjLevelLeftArr = [];
+    //$(".yqyj-levelbox>.yqyj-level").each(function (index, element) {
+    //    yqyjLevelLeftArr[index] = parseInt($(this).css("left")) / $(this).parent().width() * 100;
+    //})
 
-    function yqyjLevelbgFn(num) {
-        var numLittle = 0;
-        num = parseInt(Math.random() * 100);
-        yqyjLevelbgTimer = setTimeout(function () {
-            clearTimeout(yqyjLevelbgTimer);
+    //function yqyjLevelbgFn(num) {
+    //    var numLittle = 0;
+    //    num = parseInt(Math.random() * 100);
+    //    yqyjLevelbgTimer = setTimeout(function () {
+    //        clearTimeout(yqyjLevelbgTimer);
 
-            num = num > 20 ? num < 35 ? num : 35 - parseInt(Math.random() * 5) : 20 + parseInt(Math.random() * 5);
+    //        num = num > 20 ? num < 35 ? num : 35 - parseInt(Math.random() * 5) : 20 + parseInt(Math.random() * 5);
 
-            $(".yqyj-levelbg").width(num + "%");
+    //        $(".yqyj-levelbg").width(num + "%");
 
-            if (num > yqyjLevelLeftArr[0]) {
-                do {
-                    numLittle++;
-                } while (num > yqyjLevelLeftArr[numLittle])
-                numLittle--;
-                $(".yqyj-levelbox>.yqyj-level").eq(numLittle).addClass("active").siblings().removeClass("active");
-            } else {
-                $(".yqyj-levelbox>.yqyj-level").eq(0).removeClass("active").siblings().removeClass("active");
-            }
-
-
-            //yqyjLevelbgFn(mathRandom);
-        }, 1000)
-    }
-    yqyjLevelbgFn(mathRandom);
+    //        if (num > yqyjLevelLeftArr[0]) {
+    //            do {
+    //                numLittle++;
+    //            } while (num > yqyjLevelLeftArr[numLittle])
+    //            numLittle--;
+    //            $(".yqyj-levelbox>.yqyj-level").eq(numLittle).addClass("active").siblings().removeClass("active");
+    //        } else {
+    //            $(".yqyj-levelbox>.yqyj-level").eq(0).removeClass("active").siblings().removeClass("active");
+    //        }
 
 
-    // 园区事件统计
-    var yqsjNum = 0;
-    var yqsjTimer = null;
-    var yqsjTranFnTimer = null;
+    //        //yqyjLevelbgFn(mathRandom);
+    //    }, 1000)
+    //}
+    //yqyjLevelbgFn(mathRandom);
 
-    yqsjFn();
 
-    // 园区事件统计 定时器
-    function yqsjFn() {
-        yqsjTimer = setTimeout(function () {
-            clearTimeout(yqsjTimer);
-            yqsjNum++;
-            yqsjNum = yqsjNum > 1 ? 0 : yqsjNum;
-            yqsjTranFn(yqsjNum);
-        }, 60000)
-    }
+    //// 园区事件统计
+    //var yqsjNum = 0;
+    //var yqsjTimer = null;
+    //var yqsjTranFnTimer = null;
 
-    function yqsjTranFn(yqsjNum) {
-        if (yqsjNum == 0) {
-            $(".yqsj-tabitemul").css({ transform: "translateX(0)" })
-                                .children().eq(0).css({ opacity: 1 })
-                                .siblings().css({ opacity: 0 });
-        } else {
-            $(".yqsj-tabitemul").css({ transform: "translateX(-50%)" })
-                                .children().eq(0).css({ opacity: 0 })
-                                .siblings().css({ opacity: 1 });
-        }
-        $(".yqsj .jtxx-tabbox>.jtxx-tab").eq(yqsjNum).addClass("active").siblings().removeClass("active");
+    //yqsjFn();
 
-        yqsjTranFnTimer = setTimeout(function () {
-            clearTimeout(yqsjTranFnTimer);
-            yqsjFn()
-        }, 500)
-    }
+    //// 园区事件统计 定时器
+    //function yqsjFn() {
+    //    yqsjTimer = setTimeout(function () {
+    //        clearTimeout(yqsjTimer);
+    //        yqsjNum++;
+    //        yqsjNum = yqsjNum > 1 ? 0 : yqsjNum;
+    //        yqsjTranFn(yqsjNum);
+    //    }, 60000)
+    //}
 
-    // 点击事件
-    $(".yqsj .jtxx-tabbox>.jtxx-tab").each(function (index, element) {
-        $(this).click(function () {
-            clearTimeout(yqsjTimer);
-            clearTimeout(yqsjTranFnTimer);
-            $(this).addClass("active").siblings().removeClass("active");
+    //function yqsjTranFn(yqsjNum) {
+    //    if (yqsjNum == 0) {
+    //        $(".yqsj-tabitemul").css({ transform: "translateX(0)" })
+    //                            .children().eq(0).css({ opacity: 1 })
+    //                            .siblings().css({ opacity: 0 });
+    //    } else {
+    //        $(".yqsj-tabitemul").css({ transform: "translateX(-50%)" })
+    //                            .children().eq(0).css({ opacity: 0 })
+    //                            .siblings().css({ opacity: 1 });
+    //    }
+    //    $(".yqsj .jtxx-tabbox>.jtxx-tab").eq(yqsjNum).addClass("active").siblings().removeClass("active");
 
-            yqsjNum = index;
-            //console.log(yqsjNum, yqsjTranFn())
-            yqsjTranFn(yqsjNum);
-        })
-    })
+    //    yqsjTranFnTimer = setTimeout(function () {
+    //        clearTimeout(yqsjTranFnTimer);
+    //        yqsjFn()
+    //    }, 500)
+    //}
+
+    //// 点击事件
+    //$(".yqsj .jtxx-tabbox>.jtxx-tab").each(function (index, element) {
+    //    $(this).click(function () {
+    //        clearTimeout(yqsjTimer);
+    //        clearTimeout(yqsjTranFnTimer);
+    //        $(this).addClass("active").siblings().removeClass("active");
+
+    //        yqsjNum = index;
+    //        //console.log(yqsjNum, yqsjTranFn())
+    //        yqsjTranFn(yqsjNum);
+    //    })
+    //})
 
 </script>
 
