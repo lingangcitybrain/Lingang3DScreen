@@ -1773,7 +1773,12 @@
             e_EchartAjax.getfkldData(function (result) {
                 var data = require("e_Echart").fkldData;
                 var dataArr = [0.004, 0.48, 0.11, 0.41];
-                var dataArr = [data["舆情风险"].business / data.totalBusiness, data["税收异常"].business / data.totalBusiness, data["司法监管"].business / data.totalBusiness, data["经营风险"].business / data.totalBusiness];
+                var dataArr = [
+                    data["舆情风险"].business / data.totalBusiness, 
+                    data["税收异常"].business / data.totalBusiness, 
+                    data["司法监管"].business / data.totalBusiness,
+                    data["经营风险"].business / data.totalBusiness
+                ];
 
 
             require("e_Echart").fkldInterval = setInterval(function () {
@@ -1875,7 +1880,7 @@
                             formatter: function (param) {
                                 var level = '';
                                 if (param <= dataArr[0] * 100) { //舆情风险
-                                    level = dataArr[0] * 100 + '%'
+                                    level = (dataArr[0] * 100).toFixed(2) + '%'
                                     var html = '';
                                     html+= '<div class="fkld-div">';
                                     html+= ' <div class="fkld-result">舆情风险</div>';
@@ -1895,7 +1900,7 @@
                                  $('#fkld').html(html);
                                 }
                                 else if (param <= (dataArr[0] + dataArr[1]) * 100) { //税收异常
-                                    level = dataArr[1] * 100 + '%'
+                                    level = (dataArr[1] * 100).toFixed(2) + '%'
                                     var html = '';
                                     html += '<div class="fkld-div">';
                                     html += ' <div class="fkld-result">税收异常</div>';
@@ -1915,7 +1920,7 @@
                                     $('#fkld').html(html);
                                 }
                                 else if (param <= (dataArr[0] + dataArr[1] + dataArr[2]) * 100) { //司法监管
-                                    level = dataArr[2] * 100 + '%'
+                                    level = (dataArr[2] * 100).toFixed(2) + '%'
                                     var html = '';
                                     html += '<div class="fkld-div">';
                                     html += ' <div class="fkld-result">司法监管</div>';
@@ -1935,8 +1940,8 @@
                                     $('#fkld').html(html);
                                 }
                                 else if (param <= (dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3]) * 100) { //经营风险
-                                    level = dataArr[3] * 100 + '%'
-                                      var html = '';
+                                    level = (dataArr[3] * 100).toFixed(2) + '%'
+                                    var html = '';
                                     html+= '<div class="fkld-div">';
                                     html+= ' <div class="fkld-result">经营风险</div>';
                                     html+= '<div class="fkld-button flex">';
