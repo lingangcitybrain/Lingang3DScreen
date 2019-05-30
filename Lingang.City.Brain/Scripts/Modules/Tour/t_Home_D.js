@@ -220,7 +220,19 @@
                 };
                 control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
             },
-
+            //景区事件统计
+            jqsjtjClickEvent: function (domName) {
+                require('t_Echart').jqsjtjClickEvent(domName);
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "jqsjtj",
+                    "id": domName,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
             /*********************END************************/
         }
     });
