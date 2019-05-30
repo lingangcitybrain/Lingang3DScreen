@@ -418,17 +418,8 @@
         jqCamera: function (post_data) {
             console.log("jqCamera")
             s_EchartAjax.getJqCameraData(post_data, function (result) {
-                console.log("s_EchartAjax.getJqCameraData(post_data")
                 if (require("s_Echart").jqCameraData == null) { return false; }
                 var data = require("s_Echart").jqCameraData;
-                //data = data.data;
-                //var cameraOnNum = 0;
-                //for (var i = 0; i < data.length; i++) {
-                //    if (data[i].sbzt === "ON") {
-                //        cameraOnNum++;
-                //    }
-                //    console.log(i + '--' + cameraOnNum)
-                //};
                 $("#total_camera").html(data.total);
                 $("#online_camera").html(data.onTotal);
                 $("#outline_camera").html(data.offTotal);
