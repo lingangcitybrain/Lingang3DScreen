@@ -1772,7 +1772,6 @@
             require("e_Echart").myChartleida = echarts.init(document.getElementById('fkld-chart'));
             e_EchartAjax.getfkldData(function (result) {
                 var data = require("e_Echart").fkldData;
-                var dataArr = [0.004, 0.48, 0.11, 0.41];
                 var dataArr = [
                     data["舆情风险"].business / data.totalBusiness, 
                     data["税收异常"].business / data.totalBusiness, 

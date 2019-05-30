@@ -223,13 +223,13 @@
                         callback(data);
                     },
                     error: function () {
-                        require("e_Echart").fkldData = e_EchartData.fkldData.data;
+                        require("e_Echart").fkldData = e_EchartData.fkldData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").fkldData = e_EchartData.fkldData.data;
+                require("e_Echart").fkldData = e_EchartData.fkldData;
                 callback();
             }
         },
