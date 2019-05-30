@@ -4,12 +4,13 @@
         //加载人员分布热力图
         loadHotMap:function()
         {
-            com.LayerFlyto(18)
+            require('tl_VisitorsMap').loadVisitorsMap();
+            com.LayerFlyto(18);
         
         },
         //清空
         Revert: function () {
-
+            require('tl_VisitorsMap').Revert();
         }
     }
 })
