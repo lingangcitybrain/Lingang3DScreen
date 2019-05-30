@@ -1353,8 +1353,14 @@
                 if (require("g_Echart").sjtjData == null) { return false; }
                 var data = require("g_Echart").sjtjData;
 
-                $('#ul-parkingEnvent').empty();
+                $("#parkingEnvent-total").html(data.total)
+                $("#parkingEnvent-accepted").html(data.accepted)
+                $("#parkingEnvent-processing").html(data.processing)
+                $("#parkingEnvent-finished").html(data.finished)
 
+                data = data.data;
+
+                $('#ul-parkingEnvent').empty();
                 var maxLength = pageindex * items_per_page + items_per_page;
                 var minLength = pageindex * items_per_page;
                 //var cnt_processed = 0, cnt_Untreated = 0,cnt_inprocess=0;
@@ -1367,10 +1373,10 @@
                                  '<li class="cy-ly-rr1-li">'
                                    + '<div class="cy-ly-rr1-lidiv clearfix active">'
                                        + '<span class="cy-ly-rr1-num">' + (i+1) + '</span>'
-                                       + '<span class="cy-ly-rr1-name">' + data[i].eventName + '</span>'
+                                       + '<span class="cy-ly-rr1-name">' + data[i].eventname + '</span>'
                                    + '</div>'
                                    + '<div class="cy-ly-rr1-state">' + data[i].status + '</div>'
-                                   + '<span class="cy-ly-rr1-date">' + myTime(data[i].eventTime) + '</span>'
+                                   + '<span class="cy-ly-rr1-date">' + data[i].timestamp + '</span>'
                                + '</li>'
                             );
                         }
