@@ -96,7 +96,7 @@
             var data = require("sl_Event").POIData;
             var areaName = con.AreaName;
             //设置POI隐藏
-            if (data != null) {
+            if (data != null && this.LayerType!=null) {
                 for (var i = 0; i < data.length; i++) {
                     var name = this.LayerType.List[data[i].communityId].Name;
 

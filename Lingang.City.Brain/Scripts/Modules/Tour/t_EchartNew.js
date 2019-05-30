@@ -1239,8 +1239,10 @@
             }, 1000 * 60 * 1); //每分钟刷新一次页面下边显示的数据
             if ($("#car").length > 0) {
                 this.Interval1 = setInterval(function () {
-                    var jcgNumber = $("#car").html()
-                    jcgNumber = jcgNumber.replace(/,/ig, '');
+                    var jcgNumber = $("#car").html();
+                    if (jcgNumber != "" && jcgNumber != null) {
+                        jcgNumber = jcgNumber.replace(/,/ig, '');
+                    }
                     var step_values = com.random(0, 10)
                     var current_values = parseInt(jcgNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
@@ -1250,8 +1252,10 @@
             }
             if ($("#park").length > 0) {
                 this.Interval2 = setInterval(function () {
-                    var tccNumber = $("#park").html()
-                    tccNumber = tccNumber.replace(/,/ig, '');
+                    var tccNumber = $("#park").html();
+                    if (tccNumber != "" && tccNumber != null) {
+                        tccNumber = tccNumber.replace(/,/ig, '');
+                    }
                     var step_values = com.random(0, 10)
                     var current_values = parseInt(tccNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
@@ -1261,8 +1265,10 @@
             }
             if ($("#subway").length > 0) {
                 this.Interval4 = setInterval(function () {
-                    var tccNumber = $("#subway").html()
-                    tccNumber = tccNumber.replace(/,/ig, '');
+                    var tccNumber = $("#subway").html();
+                    if (tccNumber != "" && tccNumber != null) {
+                        tccNumber = tccNumber.replace(/,/ig, '');
+                    }
                     var step_values = com.random(0, 10)
                     var current_values = parseInt(tccNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
