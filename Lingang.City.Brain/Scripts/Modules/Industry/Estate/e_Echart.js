@@ -84,7 +84,7 @@
                 require("e_Echart").myChartcyjzl = echarts.init(cyjzlChart);
                 cyjzlOption = {
                     tooltip: {
-                        trigger: 'axis'
+                        //trigger: 'axis'
                     },
                     legend: {
                         show: false
@@ -126,6 +126,7 @@
                     ],
                     series: [
                         {
+                            name:"产业竞争力",
                             type: 'radar',
                             data: [
                                 {
@@ -1771,7 +1772,9 @@
             require("e_Echart").myChartleida = echarts.init(document.getElementById('fkld-chart'));
             e_EchartAjax.getfkldData(function (result) {
                 var data = require("e_Echart").fkldData;
-                var dataArr = [0.004,0.48, 0.11, 0.41 ];
+                var dataArr = [0.004, 0.48, 0.11, 0.41];
+                var dataArr = [data["舆情风险"].business / data.totalBusiness, data["税收异常"].business / data.totalBusiness, data["司法监管"].business / data.totalBusiness, data["经营风险"].business / data.totalBusiness];
+
 
             require("e_Echart").fkldInterval = setInterval(function () {
                 gauge_value++;  //递增
@@ -1877,13 +1880,13 @@
                                     html+= '<div class="fkld-div">';
                                     html+= ' <div class="fkld-result">舆情风险</div>';
                                     html+= '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>'+ data.舆情风险.business +'</span></button>';
-                                    html += '<button class="">信息数<span>' + data.舆情风险.records + '</span></button>';
+                                    html += '<button class="">企业数<span>' + data["舆情风险"].business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data["舆情风险"].records + '</span></button>';
                                          html+= '</div>'
                                          html+= '<ul class="fkld-list">';
-                                         for (var i = 0; i < data.舆情风险.list.length;i++){
+                                         for (var i = 0; i < data["舆情风险"].list.length; i++) {
                                              html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data.舆情风险.list[i].name + '<span>' + data.舆情风险.list[i].business + '|' + data.舆情风险.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-title">' + data["舆情风险"].list[i].name + '<span>' + data["舆情风险"].list[i].business + '|' + data["舆情风险"].list[i].records + '</span></div>';
                                              html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
                                              html += '</li>';
                                          }
@@ -1897,13 +1900,13 @@
                                     html += '<div class="fkld-div">';
                                     html += ' <div class="fkld-result">税收异常</div>';
                                     html += '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data.税收异常.business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data.税收异常.records + '</span></button>';
+                                    html += '<button class="">企业数<span>' + data["税收异常"].business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data["税收异常"].records + '</span></button>';
                                     html += '</div>'
                                     html += '<ul class="fkld-list">';
-                                    for (var i = 0; i < data.税收异常.list.length; i++) {
+                                    for (var i = 0; i < data["税收异常"].list.length; i++) {
                                              html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data.税收异常.list[i].name + '<span>' + data.税收异常.list[i].business + '|' + data.税收异常.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-title">' + data["税收异常"].list[i].name + '<span>' + data["税收异常"].list[i].business + '|' + data["税收异常"].list[i].records + '</span></div>';
                                              html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
                                              html += '</li>';
                                     }
@@ -1917,13 +1920,13 @@
                                     html += '<div class="fkld-div">';
                                     html += ' <div class="fkld-result">司法监管</div>';
                                     html += '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data.司法监管.business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data.司法监管.records + '</span></button>';
+                                    html += '<button class="">企业数<span>' + data["司法监管"].business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data["司法监管"].records + '</span></button>';
                                     html += '</div>'
                                     html += '<ul class="fkld-list">';
-                                    for (var i = 0; i < data.司法监管.list.length; i++) {
+                                    for (var i = 0; i < data["司法监管"].list.length; i++) {
                                              html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data.司法监管.list[i].name + '<span>' + data.司法监管.list[i].business + '|' + data.司法监管.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-title">' + data["司法监管"].list[i].name + '<span>' + data["司法监管"].list[i].business + '|' + data["司法监管"].list[i].records + '</span></div>';
                                              html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
                                              html += '</li>';
                                     }
@@ -1937,13 +1940,13 @@
                                     html+= '<div class="fkld-div">';
                                     html+= ' <div class="fkld-result">经营风险</div>';
                                     html+= '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data.经营风险.business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data.经营风险.records + '</span></button>';
+                                    html += '<button class="">企业数<span>' + data["经营风险"].business + '</span></button>';
+                                    html += '<button class="">信息数<span>' + data["经营风险"].records + '</span></button>';
                                          html+= '</div>'
                                          html+= '<ul class="fkld-list">';
-                                         for (var i = 0; i < data.经营风险.list.length; i++) {
+                                         for (var i = 0; i < data["经营风险"].list.length; i++) {
                                              html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data.经营风险.list[i].name + '<span>' + data.经营风险.list[i].business + '|' + data.经营风险.list[i].records + '</span></div>';
+                                             html += '<div class="fkld-title">' + data["经营风险"].list[i].name + '<span>' + data["经营风险"].list[i].business + '|' + data["经营风险"].list[i].records + '</span></div>';
                                              html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
                                              html += '</li>';
                                          }

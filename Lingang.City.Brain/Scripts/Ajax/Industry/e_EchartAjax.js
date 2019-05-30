@@ -15,7 +15,7 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        console.log("产业竞争力数据传输错误,调用本地数据");
                         require("e_Echart").cyjzlData = e_EchartData.cyjzlData.data;
                         callback();
                     }
@@ -209,6 +209,7 @@
                 callback(e_LayerMenuData.AtlasPOI.Data);
             }
         },
+        //风控雷达
         getfkldData: function (callback) {
             if (con.IsInterface)//执行接口
             {
