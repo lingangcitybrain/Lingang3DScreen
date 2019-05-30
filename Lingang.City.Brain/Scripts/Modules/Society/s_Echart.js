@@ -36,6 +36,7 @@
         societySjcgListData: null,  //事件处理成功事件列表
         societyBigNumData: null,    //事件（海岸线，工地，街面，网格）大数字
         cgqBigNumData: null,        //传感器，无人机，摄像头，村居工作站大数字
+        jmBasicInfoData:null,       //街面基本信息
         jmDroneData: null,          //街面无人机 
         jmXcyData: null,            //街面巡查员
         recentFlightData: null,     //海岸线无人机最近一次飞行统计

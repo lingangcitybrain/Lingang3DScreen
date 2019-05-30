@@ -1345,26 +1345,6 @@
             require("g_Echart").mybigChart.setOption(zhnhOption);
         },
         //事件统计
-        sjtjStatisc: function () {
-            g_EchartAjax.getSjtj(function (data) {
-                var cnt_processed = 0, cnt_Untreated = 0,cnt_inprocess=0;
-                if (data.length > 0) {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].status.indexOf("已完成")>-1) {
-                            cnt_processed++;
-                        } else if (data[i].status.indexOf("处理中") > -1) {
-                            cnt_inprocess++;
-                        } else {
-                            cnt_Untreated++;
-                        }
-                    }
-                    $("#eventCount_rs").html(data.length);
-                    $("#processed_rs").html(cnt_processed);
-                    $("#Untreated_rs").html(cnt_Untreated);
-                    $("#in-process_rs").html(cnt_inprocess);
-                }
-            });
-        },
         sjtj: function (pageindex) {
             var items_per_page = 15;       //每页显示的条数
             var edge_entries = 2;          //后面显示的页码数
@@ -1373,10 +1353,17 @@
                 if (require("g_Echart").sjtjData == null) { return false; }
                 var data = require("g_Echart").sjtjData;
 
-                $('#ul-parkingEnvent').empty();
+                $("#parkingEnvent-total").html(data.total)
+                $("#parkingEnvent-accepted").html(data.accepted)
+                $("#parkingEnvent-processing").html(data.processing)
+                $("#parkingEnvent-finished").html(data.finished)
 
+                data = data.data;
+
+                $('#ul-parkingEnvent').empty();
                 var maxLength = pageindex * items_per_page + items_per_page;
-                var minLength = pageindex * items_per_page;                
+                var minLength = pageindex * items_per_page;
+                //var cnt_processed = 0, cnt_Untreated = 0,cnt_inprocess=0;
                 if (data.length > 0) {
                     for (var i = minLength; i < data.length; i++) {
                         if (maxLength < i + 1) {
@@ -1385,15 +1372,14 @@
                             $('#ul-parkingEnvent').append(
                                  '<li class="cy-ly-rr1-li">'
                                    + '<div class="cy-ly-rr1-lidiv clearfix active">'
-                                       + '<span class="cy-ly-rr1-num">' + (i + 1) + '</span>'
-                                       + '<span class="cy-ly-rr1-name">' + data[i].eventName + '</span>'
+                                       + '<span class="cy-ly-rr1-num">' + (i+1) + '</span>'
+                                       + '<span class="cy-ly-rr1-name">' + data[i].eventname + '</span>'
                                    + '</div>'
                                    + '<div class="cy-ly-rr1-state">' + data[i].status + '</div>'
-                                   + '<span class="cy-ly-rr1-date">' + myTime(data[i].eventTime) + '</span>'
+                                   + '<span class="cy-ly-rr1-date">' + data[i].timestamp + '</span>'
                                + '</li>'
                             );
                         }
-                        
                     }
 
                     //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
@@ -1403,8 +1389,7 @@
                         // Create pagination element with options from form
                         $("#pagination-parkingEnvent").pagination(data.length, optInit);
                     }
-                }
-               
+                }          
             })
 
 

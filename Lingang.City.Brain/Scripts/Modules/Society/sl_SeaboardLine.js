@@ -152,6 +152,8 @@
                 $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor + '%')
                 $("#recent-flight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-flight-mess>li").eq(3).find("span").html(data.stall)
+
+                require("s_Main").loadRecentFlyVideo(data.url[0])
             });
         },
 
@@ -168,6 +170,8 @@
                 $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor + '%')
                 $("#recent-monthflight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-monthflight-mess>li").eq(3).find("span").html(data.stall)
+
+                require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])
 
             });
         },

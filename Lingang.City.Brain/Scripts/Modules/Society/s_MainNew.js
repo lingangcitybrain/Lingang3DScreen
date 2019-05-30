@@ -6,6 +6,10 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         left01_02_video03: null,
         left01_03_video01: null,
         leftcenter_video: null,
+        WorkSiteWrjVideo: null,
+        StreetWrjVideo: null,
+        recentFlyVideo: null,
+        monthlyRecentFlyVideo:null,
 
         LayerCatalog: {
             IOT: {
@@ -360,6 +364,128 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 })
             });
         },
+
+
+        //加载工地无人机视频
+        loadWorkSiteWrjVideo: function (str) {
+            var videowidth = $("#WorkSiteWrjVideo").width();
+            var videoheight = $("#WorkSiteWrjVideo").height();
+            if (require("s_Main").WorkSiteWrjVideo) {
+                require("s_Main").WorkSiteWrjVideo.dispose();
+                require("s_Main").WorkSiteWrjVideo = null;
+            }
+            $("#WorkSiteWrjVideo").empty();
+            require(['aliplayer'], function (data) {
+                require("s_Main").WorkSiteWrjVideo = new Aliplayer({
+                    "id": "WorkSiteWrjVideo",
+                    // "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
+                    "source": str,
+                    "autoplay": true,
+                    "isLive": false,
+                    "rePlay": true,
+                    "showBuffer": true,
+                    "snapshot": false,
+                    "showBarTime": 5000,
+                    "useFlashPrism": true,
+                    "mediaType": "audio"
+
+                }, function (player) {
+                    //加载成功,清空错误提示
+                    $(".prism-ErrorMessage").empty();
+                })
+            });
+        },
+
+        //加载街面无人机视频
+        loadStreetWrjVideo: function (url) {
+            var videowidth = $("#StreetWrjVideo").width();
+            var videoheight = $("#StreetWrjVideo").height();
+            if (require("s_Main").StreetWrjVideo) {
+                require("s_Main").StreetWrjVideo.dispose();
+                require("s_Main").StreetWrjVideo = null;
+            }
+            $("#StreetWrjVideo").empty();
+            require(['aliplayer'], function (data) {
+                require("s_Main").StreetWrjVideo = new Aliplayer({
+                    "id": "StreetWrjVideo",
+                    // "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
+                    "source": url,
+                    "autoplay": true,
+                    "isLive": false,
+                    "rePlay": true,
+                    "showBuffer": true,
+                    "snapshot": false,
+                    "showBarTime": 5000,
+                    "useFlashPrism": true,
+                    "mediaType": "audio"
+
+                }, function (player) {
+                    //加载成功,清空错误提示
+                    $(".prism-ErrorMessage").empty();
+                })
+            });
+        },
+
+        //海岸线无人机最近一次飞行视频
+        loadRecentFlyVideo: function (url) {
+            var videowidth = $("#recentFlyVideo").width();
+            var videoheight = $("#recentFlyVideo").height();
+            if (require("s_Main").recentFlyVideo) {
+                require("s_Main").recentFlyVideo.dispose();
+                require("s_Main").recentFlyVideo = null;
+            }
+            $("#recentFlyVideo").empty();
+            require(['aliplayer'], function (data) {
+                require("s_Main").recentFlyVideo = new Aliplayer({
+                    "id": "recentFlyVideo",
+                    // "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
+                    "source": url,
+                    "autoplay": true,
+                    "isLive": false,
+                    "rePlay": true,
+                    "showBuffer": true,
+                    "snapshot": false,
+                    "showBarTime": 5000,
+                    "useFlashPrism": true,
+                    "mediaType": "audio"
+
+                }, function (player) {
+                    //加载成功,清空错误提示
+                    $(".prism-ErrorMessage").empty();
+                })
+            });
+        },
+
+        //海岸线无人机最近一月飞行视频
+        loadMonthlyRecentFlyVideo: function (url) {
+            var videowidth = $("#monthlyRecentFlyVideo").width();
+            var videoheight = $("#monthlyRecentFlyVideo").height();
+            if (require("s_Main").monthlyRecentFlyVideo) {
+                require("s_Main").monthlyRecentFlyVideo.dispose();
+                require("s_Main").monthlyRecentFlyVideo = null;
+            }
+            $("#monthlyRecentFlyVideo").empty();
+            require(['aliplayer'], function (data) {
+                require("s_Main").monthlyRecentFlyVideo = new Aliplayer({
+                    "id": "monthlyRecentFlyVideo",
+                    // "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
+                    "source": url,
+                    "autoplay": true,
+                    "isLive": false,
+                    "rePlay": true,
+                    "showBuffer": true,
+                    "snapshot": false,
+                    "showBarTime": 5000,
+                    "useFlashPrism": true,
+                    "mediaType": "audio"
+
+                }, function (player) {
+                    //加载成功,清空错误提示
+                    $(".prism-ErrorMessage").empty();
+                })
+            });
+        },
+
         //加载中间无人机视频
         loadCenter_Video: function () {
 
@@ -384,6 +510,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 })
             });
         },
+
+
         closevideo:function(){
              if (require("s_Main").leftcenter_video) {
                 require("s_Main").leftcenter_video.dispose();

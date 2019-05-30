@@ -233,7 +233,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_garden + 'ywtb/dsparkevent/eventList',
+                    url: 'http://47.101.181.131:8096/getParkEvents',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {

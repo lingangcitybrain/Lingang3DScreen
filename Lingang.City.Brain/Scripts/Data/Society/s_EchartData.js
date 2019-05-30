@@ -20679,6 +20679,14 @@
 	        "peopleFlow": "2219"
         },
 
+        //街面基本信息
+        jmBasicInfoData:{
+	        "streelength": "2",
+            "owner": "未知",
+            "eventsCount": "12",
+            "businessCount": "45"
+        },
+
         //街面无人机
         jmDroneData:{
             flightNumber: 1,
