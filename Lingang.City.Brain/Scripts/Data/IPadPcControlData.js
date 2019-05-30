@@ -58,7 +58,7 @@
         /************************UI事件************************/
         poiWinControlData: [
 
-        //{ "menu": "1", "layer": "10", "menuNM": "社区综合", "layerNM": "传感器", POISTR: "POISocietyIOT", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//传感器没有详情窗口
+        { "menu": "1", "layer": "10", "menuNM": "社区综合", "layerNM": "传感器", POISTR: "POISocietyIOT", "command": "close", "func": "require('sl_IOT').closeIOTDetail();" },//传感器没有详情窗口
         //{ "menu": "1", "layer": "13", "menuNM": "社区综合", "layerNM": "村居工作站", POISTR: "POISocietyWorkSite", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//
         //{ "menu": "1", "layer": "14", "menuNM": "社区综合", "layerNM": "海岸线", POISTR: "POISociety", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//
 
