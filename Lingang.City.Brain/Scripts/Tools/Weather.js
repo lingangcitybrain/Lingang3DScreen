@@ -32,7 +32,7 @@ function AppendWeatherData(data) {
         var wea = WeatherData.wea      //天气
         var wea_img = WeatherData.wea_img
        // var weaimg = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + wea_img + ".png" //GetWeatherImg(wea) //天气图标
-       // var weaimg = "Content/weather/" + GetWeatherImg("多云"); //GetWeatherImg(wea) //天气图标
+        var weaimg = "Content/weather/" + GetWeatherImg("多云"); //GetWeatherImg(wea) //天气图标
         var imghtml = "<img src='" + weaimg + "'>";
 
        //$("#header_tempimg").html(imghtml);

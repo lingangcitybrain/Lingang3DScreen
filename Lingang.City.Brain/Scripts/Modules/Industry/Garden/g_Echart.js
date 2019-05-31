@@ -2,6 +2,8 @@
     var gauge_value = 0;
     //var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
     var tcfwSeriesData = []; //停车服务数据 便于大图表引用
+    var tcfwSeriesDataMax = 0;
+    var tcfwSeriesDataMin = 0;
     var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
     var wrjsjbcSeriesDataMax = 0;
 
@@ -280,7 +282,6 @@
                     require("g_Echart").myChartleida.setOption(option);
                 }, 800);
             })
-        
         },
 
         //企业top10列表
@@ -318,6 +319,10 @@
                     $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar2").css({ width: aTopTenRecCapWidth[i] + '%' }).children().html(aTopTenRecCap[i])
                 }
             });
+            
+            $("#qytop10-title").click(function () {
+                require("g_Echart").topTen();
+            })
         },
 
         //招商漏斗
@@ -333,37 +338,36 @@
 
         //停车服务
         tcfw: function (post_data) {
+            var post_data = require("g_Echart").latestSevenDate(0)[2];
             g_EchartAjax.getTcfw(post_data, function (result) {
                 if (require("g_Echart").tcfwData == null) { return false; }
                 var data = require("g_Echart").tcfwData;
 
                 $("#cyyq-tcfw-total").html(data.total);
+                data.occupied ? data.occupied : 0;
                 $("#cyyq-tcfw-empty").html(data.total - data.occupied);
 
                 var xAxisData = []; //X轴数据
-                for (var i = 7; i > 0; i--) {
+                for (var i = 6; i >= 0; i--) {
                     xAxisData.push( require("g_Echart").latestSevenDate(i)[0] )
                 }
 
                 if ($("#tcfw-chart").length <= 0) { return false; }
                 var tcfwChart = document.getElementById('tcfw-chart');
 
+                data = JSON.parse(data.parkings);
                 var tcfwdata = [];
-                for (var i = 1; i < 100; i++) {
-                    tcfwdata.push(Math.round((Math.random() * 5000 +3000)));
+                for (var i = 0; i < xAxisData.length; i++) {
+                    for (var key in data[i + 1]) {
+                        tcfwdata.push(data[i + 1][key]);
+                    }
                 }
-                //var parkingsData = JSON.parse(data.parkings);
-                //var parkingsDataIndex = -1;
-                //var parkingsDateData = [];
 
-                //for (var i = 0; i < 7;) {
-                //    for (key in parkingsData[i]) {
-                //        if (require("g_Echart").latestSevenDate(i)[1] == key) {
-                //            parkingsDateData.push(parkingsData[i].key);
-                //        }
-                //    }
-                //}
+                tcfwSeriesDataMax = Math.max.apply(null, tcfwdata);
+                tcfwSeriesDataMin = Math.min.apply(null, tcfwdata);
 
+
+                tcfwSeriesData = tcfwdata;
                 var myCharttcfw = echarts.init(tcfwChart);
                 tcfwOption = {
                     title: {
@@ -434,9 +438,8 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        interval: 1000,
-                        max: 9000,
-                        min: 2000,
+                        max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
+                        min: parseInt( parseInt(tcfwSeriesDataMin / 10) * 10),
                         axisLabel: {
                             textStyle: {
                                 fontSize: 22,
@@ -468,24 +471,23 @@
                 };
                 myCharttcfw.setOption(tcfwOption);
 
+            });
+            $("#tcfw-title").click(function () {
+                require("g_Echart").tcfw();
+            })
 
-
-
-            });        
         },
         //大停车服务
         bigtcfw: function () {
             $("#GbigechartHead").html('进出车辆数');
             if ($("#tcfw-chart").length <= 0) { return false; }
+
             var xAxisData = []; //X轴数据
-            for (var i = 7; i > 0; i--) {
+            for (var i = 6; i >= 0; i--) {
                 xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
             }
+            var tcfwdata = tcfwSeriesData;
 
-            var tcfwdata = [];
-            for (var i = 1; i < 100; i++) {
-                tcfwdata.push(Math.round((Math.random() * 5000 + 3000)));
-            }
             tcfwOption = {
                 title: {
                     show:false,
@@ -553,9 +555,8 @@
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
-                    interval: 1000,
-                    max: 9000,
-                    min: 2000,
+                    max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
+                    min: parseInt(parseInt(tcfwSeriesDataMin / 10) * 10),
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -727,6 +728,9 @@
                 myChartwrjsjbc.setOption(wrjsjbcOption);
 
             });
+            $("#wrjsjbc-title").click(function () {
+                require("g_Echart").wrjsjbc();
+            })
         },
         //大无人驾驶接驳车
         bigwrjsjbc: function () {
@@ -847,6 +851,7 @@
             g_EchartAjax.getZhwyRepair(function (result) {
                 if (require("g_Echart").zhwyRepairData == null) { return false; }
                 var data = require("g_Echart").zhwyRepairData;
+                $("#zhwy-repair").html("");
                 $("#zhwy-repair").append(
                     '<li class=""><span>总数：</span><em class="testAerial">' + Number(data.todayrepaircount) + Number(data.todaywaitrepaircount) + '</em></li>'
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + data.todayrepaircount + '</em></li>'
@@ -857,6 +862,8 @@
             g_EchartAjax.getZhwInspect(function (result) {
                 if (require("g_Echart").zhwyInspectData == null) { return false; }
                 var data = require("g_Echart").zhwyInspectData;
+                $("#zhwy-inspect").html("");
+                $("#zhwy-weekaveragerate").html("");
                 $("#zhwy-inspect").append(
                     '<li class=""><span>总数：</span><em class="testAerial">' + Number(data.todaychecked) + Number(data.todayuncheck) + '</em></li>'
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + data.todaychecked + '</em></li>'
@@ -975,6 +982,11 @@
                 ]
             };
             myChartzhwy.setOption(zhwyOption);
+            $("#zhwyRepair-title").click(function () {
+                require("g_Echart").zhwyRepair();
+            })
+
+
         },
         //大智慧物业
         bigzhwy: function () {
@@ -1105,11 +1117,11 @@
 
                 //单位面积能耗排行
                 var unitEnergyRank = JSON.parse(data.unitenergyrank);
+                $("#zhnh-unit").html("");
                 for (var i = 0; i < unitEnergyRank.length; i++) {
                     $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy + '</span></li>');
                 }
                 // 同比和环比
-                // $("#zhnh-common").append('<span class="testAerial colorgreen">'+ +'<em></em></span>')
 
                 //zhnh-dailyenergy
                 $("#zhnh-dailyenergy>span").html(data.dailyenergy);
@@ -1225,6 +1237,10 @@
                 ]
             };
             myChartzhnh.setOption(zhnhOption);
+            $("#zhnh-title").click(function () {
+                require("g_Echart").zhnh();
+            })
+
         },
         //大智慧能耗
         bigzhnh: function () {

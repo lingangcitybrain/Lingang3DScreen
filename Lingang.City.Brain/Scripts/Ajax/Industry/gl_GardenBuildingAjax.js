@@ -39,6 +39,7 @@
                 }
             });
         },
+        //入驻企业统计
         getCompanyData: function (callback) {
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
