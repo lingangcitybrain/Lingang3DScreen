@@ -1,4 +1,4 @@
-﻿define(["config", "common", "e_LayerMenuData", "util", "gl_GardenBuildingAjax"], function (con, com, e_LayerMenuData, util, gl_GardenBuildingAjax) {
+﻿define(["config", "common", "e_LayerMenuData", "util", "gl_GardenBuildingAjax", "pagination"], function (con, com, e_LayerMenuData, util, gl_GardenBuildingAjax, pagination) {
     /****************************楼宇****************************/
     return {
         LayerType: null,//选择楼宇
@@ -421,6 +421,45 @@
             })
             require("b_BuildingFloor").loadCompanyList(0);
         },
+        //loadCompanyList: function (pageIndex) {
+        //    var items_per_page = 25;       //每页显示的条数
+        //    var edge_entries = 2;          //后面显示的页码数
+        //    var display_entries = 3;
+
+        //    $('#ul-companylist').empty();
+        //    var maxLength = pageindex * items_per_page + items_per_page;
+        //    var minLength = pageindex * items_per_page;
+
+        //    gl_GardenBuildingAjax.getCompanyData(function (result) {
+
+        //        if (result.length > 0) {
+        //            for (var i = minLength; i < result.length; i++) {
+        //                if (maxLength < i + 1) {
+        //                    break;
+        //                } else {
+        //                    $('#ul-companylist').append(
+        //                        '<li class="cy-ly-rr1-li ">' +
+        //                            '<div class="cy-ly-rr1-lidiv clearfix ">' +
+        //                                '<span class="cy-ly-rr1-num">00' + (i + 1) + '</span>' +
+        //                                '<span class="cy-ly-rr1-name">' + result[i].companyName + '</span>' +
+        //                                '<span class="cy-ly-rr1-date">' + result[i].preYearOutputValue + '万元</span>' +
+        //                            '</div>' +
+        //                        '</li>'
+        //                    );
+        //                }
+        //            }
+
+        //            //加载分页控件内容 
+        //            if (pageindex == 0) {
+        //                var optInit = com.GetOptionsFrom(require("b_BuildingFloor").loadCompanyList, items_per_page, items_per_page, display_entries, edge_entries);
+        //                // Create pagination element with options from form
+        //                $("#pagination-companylist").pagination(result.length, optInit);
+        //            }
+        //        }          
+
+        //    })
+
+        //},
         loadCompanyList: function (pageIndex) {
             gl_GardenBuildingAjax.getCompanyData(function (result) {
                 var html = "";
@@ -431,10 +470,7 @@
                         '<span class="cy-ly-rr1-name">' + result[i].companyName + '</span>' +
                         '<span class="cy-ly-rr1-date">' + result[i].preYearOutputValue + '万元</span>' +
                     '</div>' +
-                    //'<div class="cy-ly-rr1-person">新材料产业</div>'+
-                    //'<div class="cy-ly-rr1-state">5620人</div>' +
                 '</li>';
-                    
                 }
                 $("#ul-companylist").html(html);
                 $('.scrolldiv').perfectScrollbar({
