@@ -132,5 +132,21 @@ namespace Lingang.City.Brain.Web.Controllers
             return Json(new returnResultModel() { code = "1", message = "success" }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 分页按钮控制
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult pagebuttoncontrol(pagenationControlModel model)
+        {
+            string strModel = JsonConvert.SerializeObject(model);
+
+            ControlHub control = new ControlHub();
+            control.sendPageButtonInfoControl(strModel);
+
+            logger.Trace("分页按钮按钮操作控制：" + strModel);
+            return Json(new returnResultModel() { code = "1", message = "success" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

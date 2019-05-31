@@ -58,7 +58,10 @@ namespace Lingang.City.Brain.Web.rtHub
         {
             BroadcastButtonInfoControlInfo(msg);
         }
-
+        public void sendPageButtonInfoControlInfo(string key, string msg)
+        {
+            BroadcastPageButtonInfoControlInfo(msg);
+        }
         //广播
 
         private void BroadcastMapControlInfo(string message)
@@ -85,6 +88,10 @@ namespace Lingang.City.Brain.Web.rtHub
         public void BroadcastButtonInfoControlInfo(string message)
         {
             Clients.All.broadcastButtonInfoControlInfo(message);
+        }
+        public void BroadcastPageButtonInfoControlInfo(string message)
+        {
+            Clients.All.broadcastPageButtonInfoControlInfo(message);
         }
         private void BroadcastEchartControlInfo(string message)
         {

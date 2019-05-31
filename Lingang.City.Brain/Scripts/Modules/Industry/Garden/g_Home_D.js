@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop","g_Echart", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap","b_BuildingFloor"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop,g_Echart, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap,b_BuildingFloor) {
+﻿define(["config", "common", "g_Main", "e_Main", "control_Ajax", "gl_GardenBuilding", "gl_Stop", "g_Echart", "gl_UnmannedCar", "gl_Event", "el_EstateInfo", "el_AtlasChart", "el_HotMap", "b_BuildingFloor", "pagination"], function (con, com, g_Main, e_Main, control_Ajax, gl_GardenBuilding, gl_Stop, g_Echart, gl_UnmannedCar, gl_Event, el_EstateInfo, el_AtlasChart, el_HotMap, b_BuildingFloor, pagination) {
     /****************************园区****************************/
     return {
         layerNO: null,
@@ -226,8 +226,32 @@
                 "angle": "",
             };
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
-        }
+        },
         /*********************************END*********************************************/
+
+        /******************分页点击事件*****************/
+        pagination: function (domID, length, optInit) {
+            $("#" + domID).pagination(length, optInit);
+            $("#pagination-parkingEnvent a").each(function (index) {
+                $(this).click(function () {//点击触发事件  
+                    require("g_Home").EnventPagenationClckFunc(domID,index);
+                })
+            })
+        },
+
+        EnventPagenationClckFunc: function (domID,index) {
+            $("#pagination-parkingEnvent a")[index].click();
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "type": "buildingFloor",
+                "id": "pagination-parkingEnvent",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPageButtoncontrolInfo(jsondata); //发送控制命令
+        },
+        /*********************END*********************/
     }
 
 })

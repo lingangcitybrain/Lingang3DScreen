@@ -66,6 +66,16 @@ namespace Lingang.City.Brain.Web.Model
         public string angle { get; set; }
     }
 
+    public class pagenationControlModel
+    {
+        //public string menu { get; set; }
+        public int index { get; set; }
+        public string id { get; set; }
+        //public string type { get; set; }
+        public string xyz { get; set; }
+        public string angle { get; set; }
+    }
+
     public class returnResultModel
     {
         public string code { get; set; }

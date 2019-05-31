@@ -78,6 +78,8 @@
                         //var pos = (a.x + 2) + "," + (a.y + 20) + "," + (a.z + 10);
                         var pos = ((a.x + 60) + "," + (a.y + 25) + "," + (a.z + 15)).toVector3().toGlobalPos(areaName);
                         var viewPos = " -67.65904235839844,57.3547477722168,63.98405456542969".toVector3();
+                        //var pos = ((a.x + 0) + "," + (a.y + 25) + "," + (a.z + 70)).toVector3().toGlobalPos(areaName);
+                        //var viewPos = " -30.27808952331543,-8.276445388793945,-4.804504871368408".toVector3();
                         Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
                     }
 
