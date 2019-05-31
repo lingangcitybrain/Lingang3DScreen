@@ -23,7 +23,7 @@
         zhwyInspectData: null, //智慧物业巡检
         zhnhData: null,    //智慧能耗数据
         sjtjData: null,    //事件统计数据
-
+        //pageIndex_sjtj:0,  //事件统计列表当前页码
 
         //加载图表
         loadEcharts:function()
@@ -1362,6 +1362,7 @@
         },
         //事件统计
         sjtj: function (pageindex) {
+            
             var items_per_page = 15;       //每页显示的条数
             var edge_entries = 2;          //后面显示的页码数
             var display_entries = 3;
@@ -1397,13 +1398,16 @@
                             );
                         }
                     }
-
+                    //require("g_Echart").pageIndex_sjtj = pageindex;//全局变量，供远程控制使用
+                    //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                     //加载分页控件内容 
                     if (pageindex == 0) {
                         var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);
                         // Create pagination element with options from form
-                        $("#pagination-parkingEnvent").pagination(data.length, optInit);
+                        //$("#pagination-parkingEnvent").pagination(data.length, optInit);
+                        require("g_Home").pagination("pagination-parkingEnvent", data.length, optInit);
                     }
+                    
                 }          
             })
 

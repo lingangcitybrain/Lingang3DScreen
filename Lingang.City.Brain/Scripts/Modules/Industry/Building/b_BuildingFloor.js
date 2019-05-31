@@ -193,6 +193,16 @@
             var node = map.getSceneNode(areaName, nodename);
             if (node) {
                 node.asPOI().setIcon(require("b_BuildingFloor").buildingPOI_hover);
+
+                //围绕楼层转圈
+                //var eyePos = Q3D.vector3d(Q3D.globalCamera().getAbsPos()),
+                //targetPos = Q3D.vector3d(node.getAbsPos());
+                //Q3D.globalCamera().startCircleFly(eyePos, targetPos, 10, -1)
+
+                //setTimeout(function () {
+                //    Q3D.globalCamera().stopCircleFly();
+                //}, 3000)
+
             }
             require("b_BuildingFloor").POINodeClk = nodename;
             require("b_BuildingFloor").loadBuidingDetail(nodename);
@@ -203,7 +213,8 @@
             var lg = Q3D.layerGroup();
             var layerArr = require("e_LayerMenuData").FloorLayerData[id].layerName;
             //var layerArr=["14#1F","14#2F","14#3F","14#4F","14#5F","14#rooftop"];
-            for (var i = 0; i < layerArr.length; i++) {
+            for (var i = 0; i < layerArr.length; i++) 
+            {
                 var nodeArr = lg.getLayerAllNodeNames(layerArr[i]);
                 for (var j = 0; j < nodeArr.length; j++) {
                     var node = map.getSceneNode(nodeArr[j]);
@@ -233,7 +244,9 @@
                     }
                 }
             }
-            /****************************************************/
+
+           
+                        /****************************************************/
         },
         //隐藏楼栋
         hideBuilding: function (id) {

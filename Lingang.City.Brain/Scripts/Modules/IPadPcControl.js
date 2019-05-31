@@ -313,6 +313,45 @@
             return res
         },
 
+        UIPageButtonControl: function (str) {
+            var res = { " code ": "", " message ": "" }
+            var result = 1;
+            var message = "";
+            try {
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
+                var angle = json.angle
+                var index = json.index
+                //var layer = json.layer
+                var id = json.id
+                //var type = json.type
+
+                //var layerValue = $.grep(controlData.UIButtonControlData, function (n, i) {
+                //    if (n.type == type && n.layer == layer && n.menu == menu) {//ss
+                //        var funcStr = n.func.replace('*', id);
+                //        eval(funcStr);
+                //        //eval(n.func);
+                //        return n;
+                //    }
+                //});
+                $("#"+id+" a")[index].click();
+
+                result = 1;
+                message = "操作成功";
+
+            } catch (e) {
+                result = 0;
+                message = "操作失败";
+            }
+
+            var pos = this.getCameraPos();
+            re_xyz = pos.split(",")[0];
+            re_angle = pos.split(",")[1];
+
+            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+            return res
+        },
+
         //获取当前的坐标和视口位置
         getCameraPos: function ()
         {
