@@ -203,7 +203,8 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                return null
+                //return null;
+                require("e_Echart").zlxxcyjg()
             });
         },
         //加载第二个div

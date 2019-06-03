@@ -17,6 +17,7 @@
         xzspbhqsData: null,             //薪资水平数据
         myChartgccrc: null,             //高层次人才
         gccrcData: null,                //高层次人才数据
+        zlxxcyjgData:null,              //战略新兴产业结构数据 
         myChartleida: null,             //风控雷达
         fkldData:null,                  //风控雷达数据
         fkldInterval: null,             //雷达计时器
@@ -1765,6 +1766,36 @@
                 require("e_Echart").mybigChart.setOption(gccrcOption);
             })
         },
+        //战略新兴产业结构
+        zlxxcyjg: function () {
+            e_EchartAjax.getzlxxcyjgData(function (result) {
+                
+                var data = require("e_Echart").zlxxcyjgData;
+                console.log(data);
+                var arr = [];
+                for (var i = 0; i < data.length; i++) {
+                    arr.push((data[i].rate * 100).toFixed(2))
+                }
+                console.log(arr) 
+
+                $("#zlxxcyjg").empty();
+                var html = "";
+                html += '<ul class="zlxxcyjg-list zlxxcyjg-list-left">';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[0] + '%' + '">' + data[0].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[1] + '%' + '">' + data[1].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[2] + '%' + '">' + data[2].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[3] + '%' + '">' + data[3].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[4] + '%' + '">' + data[4].industry + '</li>';
+                html += '</ul>';
+                html += '<ul class="zlxxcyjg-list zlxxcyjg-list-right">';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[5] + '%' + '">' + data[5].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[6] + '%' + '">' + data[6].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[7] + '%' + '">' + data[7].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[8] + '%' + '">' + data[8].industry + '</li>';
+                html += '</ul>';
+                $("#zlxxcyjg").html(html);
+            })
+        },
         //风控雷达
         fkld: function () {
             if ($("#fkld-chart").length <= 0) { return false; }
@@ -2022,6 +2053,7 @@
                 require("e_Echart").myChartgccrc.dispose();
                 //require("e_Echart").myChartgccrc.restore();
             }
+            
             //风控雷达
             if (require("e_Echart").myChartleida != null && require("e_Echart").myChartleida != "" && require("e_Echart").myChartleida != undefined) {
                 clearInterval(require("e_Echart").fkldInterval);//清空计时器
@@ -2030,6 +2062,7 @@
 
                 //require("e_Echart").myChartleida.restore();
             }
+            
            
         },
        

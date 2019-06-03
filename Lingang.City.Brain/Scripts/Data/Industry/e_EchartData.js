@@ -173,6 +173,50 @@
             "errCode": 0,
             "errMsg": "SUCCESS"
         },
+        //战略新兴产业结构
+        zlxxcyjgData:{
+            "data": [{
+                "rate": 0.014976465554129225,
+                "industry": "数字创意产业",
+                "entConut": 35
+            }, {
+                "rate": 0.26486949080017114,
+                "industry": "新一代信息技术产业",
+                "entConut": 619
+            }, {
+                "rate": 0.07916131792896876,
+                "industry": "新材料产业",
+                "entConut": 185
+            }, {
+                "rate": 0.014120667522464698,
+                "industry": "新能源产业",
+                "entConut": 33
+            }, {
+                "rate": 0.05562687205819426,
+                "industry": "新能源汽车产业",
+                "entConut": 130
+            }, {
+                "rate": 0.35344458707744975,
+                "industry": "生物产业",
+                "entConut": 826
+            }, {
+                "rate": 0.00599058622165169,
+                "industry": "相关服务业",
+                "entConut": 14
+            }, {
+                "rate": 0.056910569105691054,
+                "industry": "节能环保产业",
+                "entConut": 133
+            }, {
+                "rate": 0.15489944373127942,
+                "industry": "高端装备制造产业",
+                "entConut": 362
+            }],
+            "auth": {},
+            "errCode": 0,
+            "errMsg": "SUCCESS"
+        },
+        //风控雷达
         fkldData:{
 	        "totalRecords": 231934,
 	        "舆情风险": {
