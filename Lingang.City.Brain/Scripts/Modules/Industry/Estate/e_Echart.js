@@ -1776,8 +1776,6 @@
                 for (var i = 0; i < data.length; i++) {
                     arr.push((data[i].rate * 100).toFixed(2))
                 }
-                console.log(arr) 
-
                 $("#zlxxcyjg").empty();
                 var html = "";
                 html += '<ul class="zlxxcyjg-list zlxxcyjg-list-left">';
