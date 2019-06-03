@@ -1,4 +1,4 @@
-﻿define(["config", "common", "e_LayerMenuData", "util", "gl_GardenBuildingAjax"], function (con, com, e_LayerMenuData, util, gl_GardenBuildingAjax) {
+﻿define(["config", "common", "e_LayerMenuData", "util", "gl_GardenBuildingAjax", "pagination"], function (con, com, e_LayerMenuData, util, gl_GardenBuildingAjax, pagination) {
     /****************************楼宇****************************/
     return {
         LayerType: null,//选择楼宇
@@ -193,6 +193,16 @@
             var node = map.getSceneNode(areaName, nodename);
             if (node) {
                 node.asPOI().setIcon(require("b_BuildingFloor").buildingPOI_hover);
+
+                //围绕楼层转圈
+                //var eyePos = Q3D.vector3d(Q3D.globalCamera().getAbsPos()),
+                //targetPos = Q3D.vector3d(node.getAbsPos());
+                //Q3D.globalCamera().startCircleFly(eyePos, targetPos, 10, -1)
+
+                //setTimeout(function () {
+                //    Q3D.globalCamera().stopCircleFly();
+                //}, 3000)
+
             }
             require("b_BuildingFloor").POINodeClk = nodename;
             require("b_BuildingFloor").loadBuidingDetail(nodename);
@@ -203,7 +213,8 @@
             var lg = Q3D.layerGroup();
             var layerArr = require("e_LayerMenuData").FloorLayerData[id].layerName;
             //var layerArr=["14#1F","14#2F","14#3F","14#4F","14#5F","14#rooftop"];
-            for (var i = 0; i < layerArr.length; i++) {
+            for (var i = 0; i < layerArr.length; i++) 
+            {
                 var nodeArr = lg.getLayerAllNodeNames(layerArr[i]);
                 for (var j = 0; j < nodeArr.length; j++) {
                     var node = map.getSceneNode(nodeArr[j]);
@@ -233,7 +244,9 @@
                     }
                 }
             }
-            /****************************************************/
+
+           
+                        /****************************************************/
         },
         //隐藏楼栋
         hideBuilding: function (id) {
@@ -415,12 +428,51 @@
         loadCompanyInfo: function () {
             gl_GardenBuildingAjax.getCompanyStatisticsData(function (result) {
                 var data = result[0];
-                $("#companyTotal").html(data.successedMerchantsProjects);
+                $("#companyTotal").html(data.companyCount);
                 $("#totalOutputValue").html(data.outputValue);
-                $("#totalPerson").html(data.servicesCount);
+                $("#totalPerson").html(data.servicesCount);  //不确定该字段
             })
             require("b_BuildingFloor").loadCompanyList(0);
         },
+        //loadCompanyList: function (pageIndex) {
+        //    var items_per_page = 25;       //每页显示的条数
+        //    var edge_entries = 2;          //后面显示的页码数
+        //    var display_entries = 3;
+
+        //    $('#ul-companylist').empty();
+        //    var maxLength = pageindex * items_per_page + items_per_page;
+        //    var minLength = pageindex * items_per_page;
+
+        //    gl_GardenBuildingAjax.getCompanyData(function (result) {
+
+        //        if (result.length > 0) {
+        //            for (var i = minLength; i < result.length; i++) {
+        //                if (maxLength < i + 1) {
+        //                    break;
+        //                } else {
+        //                    $('#ul-companylist').append(
+        //                        '<li class="cy-ly-rr1-li ">' +
+        //                            '<div class="cy-ly-rr1-lidiv clearfix ">' +
+        //                                '<span class="cy-ly-rr1-num">00' + (i + 1) + '</span>' +
+        //                                '<span class="cy-ly-rr1-name">' + result[i].companyName + '</span>' +
+        //                                '<span class="cy-ly-rr1-date">' + result[i].preYearOutputValue + '万元</span>' +
+        //                            '</div>' +
+        //                        '</li>'
+        //                    );
+        //                }
+        //            }
+
+        //            //加载分页控件内容 
+        //            if (pageindex == 0) {
+        //                var optInit = com.GetOptionsFrom(require("b_BuildingFloor").loadCompanyList, items_per_page, items_per_page, display_entries, edge_entries);
+        //                // Create pagination element with options from form
+        //                $("#pagination-companylist").pagination(result.length, optInit);
+        //            }
+        //        }          
+
+        //    })
+
+        //},
         loadCompanyList: function (pageIndex) {
             gl_GardenBuildingAjax.getCompanyData(function (result) {
                 var html = "";
@@ -431,11 +483,12 @@
                         '<span class="cy-ly-rr1-name">' + result[i].companyName + '</span>' +
                         '<span class="cy-ly-rr1-date">' + result[i].preYearOutputValue + '万元</span>' +
                     '</div>' +
-                    //'<div class="cy-ly-rr1-person">新材料产业</div>'+
-                    //'<div class="cy-ly-rr1-state">5620人</div>' +
                 '</li>';
-                    $("#ul-companylist").html(html);
                 }
+                $("#ul-companylist").html(html);
+                $('.scrolldiv').perfectScrollbar({
+                    cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
+                });
             })
         },
         /*************楼宇-end*************/

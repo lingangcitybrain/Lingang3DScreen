@@ -15,7 +15,7 @@
                         callback(data);
                     },
                     error: function () {
-                        //alert("数据传输错误");
+                        console.log("产业竞争力数据传输错误,调用本地数据");
                         require("e_Echart").cyjzlData = e_EchartData.cyjzlData.data;
                         callback();
                     }
@@ -248,13 +248,13 @@
                         callback(data);
                     },
                     error: function () {
-                        require("e_Echart").fkldData = e_EchartData.fkldData.data;
+                        require("e_Echart").fkldData = e_EchartData.fkldData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").fkldData = e_EchartData.fkldData.data;
+                require("e_Echart").fkldData = e_EchartData.fkldData;
                 callback();
             }
         },

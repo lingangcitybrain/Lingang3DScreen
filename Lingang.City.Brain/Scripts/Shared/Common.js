@@ -1154,6 +1154,7 @@
                 message: message,
                 className: 'vex-theme-default'
             })
+           
         },
 
         ajaxByLoading: function (options) {

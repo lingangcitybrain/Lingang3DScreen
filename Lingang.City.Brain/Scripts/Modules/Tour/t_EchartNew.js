@@ -15,6 +15,7 @@
     var tccsyqkChartData1 = null;
     var tccsyqkChartData2 = null;
     var tccsyqkChartData3 = null;
+    var tccsyqkChartData4 = null;
     var tccsyqkChartxAxisData = null;
 
     function xData() {//获取近6月日期
@@ -1238,8 +1239,10 @@
             }, 1000 * 60 * 1); //每分钟刷新一次页面下边显示的数据
             if ($("#car").length > 0) {
                 this.Interval1 = setInterval(function () {
-                    var jcgNumber = $("#car").html()
-                    jcgNumber = jcgNumber.replace(/,/ig, '');
+                    var jcgNumber = $("#car").html();
+                    if (jcgNumber != "" && jcgNumber != null) {
+                        jcgNumber = jcgNumber.replace(/,/ig, '');
+                    }
                     var step_values = com.random(0, 10)
                     var current_values = parseInt(jcgNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
@@ -1249,8 +1252,10 @@
             }
             if ($("#park").length > 0) {
                 this.Interval2 = setInterval(function () {
-                    var tccNumber = $("#park").html()
-                    tccNumber = tccNumber.replace(/,/ig, '');
+                    var tccNumber = $("#park").html();
+                    if (tccNumber != "" && tccNumber != null) {
+                        tccNumber = tccNumber.replace(/,/ig, '');
+                    }
                     var step_values = com.random(0, 10)
                     var current_values = parseInt(tccNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
@@ -1260,8 +1265,10 @@
             }
             if ($("#subway").length > 0) {
                 this.Interval4 = setInterval(function () {
-                    var tccNumber = $("#subway").html()
-                    tccNumber = tccNumber.replace(/,/ig, '');
+                    var tccNumber = $("#subway").html();
+                    if (tccNumber != "" && tccNumber != null) {
+                        tccNumber = tccNumber.replace(/,/ig, '');
+                    }
                     var step_values = com.random(0, 10)
                     var current_values = parseInt(tccNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
@@ -1699,179 +1706,12 @@
                     document.getElementById("clickMe").dispatchEvent(e);
                 }
             }, 10);
+            
+        },
+        /****************************************************/
+        rycltjClickEvent: function (domName) {
+            $("#" + domName).addClass("active").siblings().removeClass("active");
             var rqa = $("#rq a");
-
-            $("#ry").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-                window.personCarTimer2 = null;
-                window.personCarTimer3 = null;
-                window.personCarTimer4 = null;
-
-                $(this).addClass("active").siblings().removeClass("active");
-
-                t_EchartAjax.bigrycltj(function () {
-
-                    var datetemp = 6;
-                    var dataAll = require("t_Echart").rycltjData;
-
-                    if (!dataAll) { return false; }
-                    var sum = "";
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        sum = MyDate(i);
-                        require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
-                    }
-                    window.personCarTimer2 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun();
-                       
-                    }, 60000);
-                    cryFun()
-                    function cryFun() {
-                        var rysum = [];
-                        var cysum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
-                        if (data != null) {
-                            for (var item in data.入园) {
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    rysum[Number(item) - 9] = data.入园[item];
-                                }
-                            }
-                            for (var item in data.出园) {
-
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    cysum[Number(item) - 9] = data.出园[item];
-                                }
-                            }
-                            oRycltjChartData1 = rysum;
-                            oRycltjChartData2 = cysum;
-                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
-                        }
-                    }
-
-                })
-            })
-
-            $("#dt").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-                window.personCarTimer2 = null;
-                window.personCarTimer3 = null;
-                window.personCarTimer4 = null;
-
-                $(this).addClass("active").siblings().removeClass("active");
-
-                t_EchartAjax.bigrycltjdt(function () {
-                    var dataAll = require("t_Echart").rycltjdtData;
-                    if (!dataAll) { return false; }
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        var sumdt = MyDate(i);
-                        require("t_Echart").personcarData.put(sumdt, dataAll[i][sumdt]);
-                    }
-
-                    var datetemp = 6;
-                    window.personCarTimer3 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-                    cryFun()
-                    function cryFun() {
-                        var dtsum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
-                        if (data != null) {
-                            for (var item in data) {
-                                if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
-                                    dtsum[parseInt(item) - 9] = data[item]
-                                }
-                            }
-                            oRycltjChartData1 = dtsum;
-                            oRycltjChartData2 = null;
-                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
-                        }
-                    }
-                })
-            })
-
-            $("#jccl").click(function () {
-                clearInterval(window.personCarTimer2)
-                clearInterval(window.personCarTimer3);
-                clearInterval(window.personCarTimer4);
-                window.personCarTimer2 = null;
-                window.personCarTimer3 = null;
-                window.personCarTimer4 = null;
-
-                $(this).addClass("active").siblings().removeClass("active");
-                t_EchartAjax.bigrycltjjccl(function () {
-                    var dataAll = require("t_Echart").rycltjjcclData;
-                    if (!dataAll) { return false; }
-                    for (var i = dataAll.length - 1; i >= 0; i--) {
-                        var sum = MyDate(i);
-                        require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
-                    }
-
-                    var datetemp = 6;
-                    window.personCarTimer4 = setInterval(function () {
-                        if (datetemp == 0) {
-                            datetemp = 6;
-                        }
-                        else {
-                            datetemp--;
-                        }
-                        cryFun()
-                    }, 60000);
-
-                    cryFun()
-                    function cryFun() {
-                        var rysum = [];
-                        var cysum = [];
-                        var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
-                        var data = require("t_Echart").personcarData.get(key);
-
-                        rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
-                        oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
-                        if (data != null) {
-                            for (var item in data.入临港) {
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    rysum[Number(item) - 9] = data.入临港[item];
-                                }
-                            }
-                            for (var item in data.出临港) {
-
-                                if (Number(item) >= 9 && Number(item) <= 24) {
-                                    cysum[Number(item) - 9] = data.出临港[item];
-                                }
-                            }
-                            oRycltjChartData1 = rysum;
-                            oRycltjChartData2 = cysum;
-                            tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
-                        }
-                    }
-                })
-            })
-
             function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
@@ -1892,7 +1732,7 @@
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter:'{a}:{c}',
+                        formatter: '{a}:{c}',
                         axisPointer: {
                             type: 'cross',
                             label: {
@@ -1955,7 +1795,7 @@
                     },
                     series: [
                       {
-                          name:"出园",
+                          name: "出园",
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
@@ -1965,7 +1805,7 @@
                           data: rycltjdata1
                       },
                       {
-                          name:"入园",
+                          name: "入园",
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
@@ -1991,7 +1831,172 @@
                     require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
                 });
             }
+            if (domName == "ry") {
+                    clearInterval(window.personCarTimer2)
+                    clearInterval(window.personCarTimer3);
+                    clearInterval(window.personCarTimer4);
+                    window.personCarTimer2 = null;
+                    window.personCarTimer3 = null;
+                    window.personCarTimer4 = null;
+
+                    t_EchartAjax.bigrycltj(function () {
+
+                        var datetemp = 6;
+                        var dataAll = require("t_Echart").rycltjData;
+
+                        if (!dataAll) { return false; }
+                        var sum = "";
+                        for (var i = dataAll.length - 1; i >= 0; i--) {
+                            sum = MyDate(i);
+                            require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
+                        }
+                        window.personCarTimer2 = setInterval(function () {
+                            if (datetemp == 0) {
+                                datetemp = 6;
+                            }
+                            else {
+                                datetemp--;
+                            }
+                            cryFun();
+
+                        }, 60000);
+                        cryFun()
+                        function cryFun() {
+                            var rysum = [];
+                            var cysum = [];
+                            var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                            var data = require("t_Echart").personcarData.get(key);
+
+                            rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                            oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
+
+                            if (data != null) {
+                                for (var item in data.入园) {
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        rysum[Number(item) - 9] = data.入园[item];
+                                    }
+                                }
+                                for (var item in data.出园) {
+
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        cysum[Number(item) - 9] = data.出园[item];
+                                    }
+                                }
+                                oRycltjChartData1 = rysum;
+                                oRycltjChartData2 = cysum;
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                            }
+                        }
+
+                    })
+            }
+            else if (domName == "dt") {
+
+                    clearInterval(window.personCarTimer2)
+                    clearInterval(window.personCarTimer3);
+                    clearInterval(window.personCarTimer4);
+                    window.personCarTimer2 = null;
+                    window.personCarTimer3 = null;
+                    window.personCarTimer4 = null;
+
+                    t_EchartAjax.bigrycltjdt(function () {
+                        var dataAll = require("t_Echart").rycltjdtData;
+                        if (!dataAll) { return false; }
+                        for (var i = dataAll.length - 1; i >= 0; i--) {
+                            var sumdt = MyDate(i);
+                            require("t_Echart").personcarData.put(sumdt, dataAll[i][sumdt]);
+                        }
+
+                        var datetemp = 6;
+                        window.personCarTimer3 = setInterval(function () {
+                            if (datetemp == 0) {
+                                datetemp = 6;
+                            }
+                            else {
+                                datetemp--;
+                            }
+                            cryFun()
+                        }, 60000);
+                        cryFun()
+                        function cryFun() {
+                            var dtsum = [];
+                            var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                            var data = require("t_Echart").personcarData.get(key);
+
+                            rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                            oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
+
+                            if (data != null) {
+                                for (var item in data) {
+                                    if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
+                                        dtsum[parseInt(item) - 9] = data[item]
+                                    }
+                                }
+                                oRycltjChartData1 = dtsum;
+                                oRycltjChartData2 = null;
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                            }
+                        }
+                    })
+            }
+            else if (domName == "jccl") {
+                    clearInterval(window.personCarTimer2)
+                    clearInterval(window.personCarTimer3);
+                    clearInterval(window.personCarTimer4);
+                    window.personCarTimer2 = null;
+                    window.personCarTimer3 = null;
+                    window.personCarTimer4 = null;
+
+                    t_EchartAjax.bigrycltjjccl(function () {
+                        var dataAll = require("t_Echart").rycltjjcclData;
+                        if (!dataAll) { return false; }
+                        for (var i = dataAll.length - 1; i >= 0; i--) {
+                            var sum = MyDate(i);
+                            require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
+                        }
+
+                        var datetemp = 6;
+                        window.personCarTimer4 = setInterval(function () {
+                            if (datetemp == 0) {
+                                datetemp = 6;
+                            }
+                            else {
+                                datetemp--;
+                            }
+                            cryFun()
+                        }, 60000);
+
+                        cryFun()
+                        function cryFun() {
+                            var rysum = [];
+                            var cysum = [];
+                            var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                            var data = require("t_Echart").personcarData.get(key);
+
+                            rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
+                            oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
+
+                            if (data != null) {
+                                for (var item in data.入临港) {
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        rysum[Number(item) - 9] = data.入临港[item];
+                                    }
+                                }
+                                for (var item in data.出临港) {
+
+                                    if (Number(item) >= 9 && Number(item) <= 24) {
+                                        cysum[Number(item) - 9] = data.出临港[item];
+                                    }
+                                }
+                                oRycltjChartData1 = rysum;
+                                oRycltjChartData2 = cysum;
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                            }
+                        }
+                    })
+            }           
         },
+        /******************************END*******************/
         bigRycltj: function (oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
             if (rycltjChartClose) {
                 return false;
@@ -2139,7 +2144,7 @@
         },
 
         //停车场使用情况
-        tccsyqk: function () {
+        tccsyqk: function (post_data) {
             function MyDate(n) {
                 var n = n;
                 var d = new Date();
@@ -2165,9 +2170,7 @@
             if ($("#wrj-chart").length <= 0) { return false; }
 
             var tccsyqkChart = document.getElementById('tccsyqk-chart');
-            var post_data = {
-                "count": "666"
-            }
+
             t_EchartAjax.bigtccsyqk(post_data, function (data) {
                 var tccsyqkdata1 = [], tccsyqkdata2 = [], tccsyqkdata3 = [], tccsyqkdata4 = [];
                 var data = require("t_Echart").tccsyqkData;
@@ -2425,314 +2428,7 @@
 
             })
         },
-        //tccsyqk: function (post_data) {
-        //    function MyDate(n) {
-        //        var n = n;
-        //        var d = new Date();
-        //        var year = d.getFullYear();
-        //        var mon = d.getMonth() + 1;
-        //        var day = d.getDate();
-        //        if (day <= n) {
-        //            if (mon > 1) {
-        //                mon = mon - 1;
-        //            }
-        //            else {
-        //                year = year - 1;
-        //                mon = 12;
-        //            }
-        //        }
-        //        d.setDate(d.getDate() - n);
-        //        year = d.getFullYear();
-        //        mon = d.getMonth() + 1;
-        //        day = d.getDate(); 
-        //        var mmdd = mon + "月" + day + "日";
-        //        var yymmdd = '' + year + mon + day ;
-        //        return [mmdd, yymmdd];
-        //    }
-        //    if ($("#wrj-chart").length <= 0) { return false; }
 
-        //    var tccsyqkChart = document.getElementById('tccsyqk-chart');
-        //    //var post_data = {
-        //    //    "count": "666"
-        //    //}
-        //    t_EchartAjax.bigtccsyqk(post_data, function (data) {
-        //       // var tccsyqkdata1 = [], tccsyqkdata2 = [], tccsyqkdata3 = [], tccsyqkdata4 = [];
-        //        var data = require("t_Echart").tccsyqkData;
-        //        try {
-
-        //            var outer = {};
-        //            outer["临港大道"] = {};
-        //            outer["港城新天地"] = {};
-        //            outer["海昌公园"] = {};
-        //            outer["雪绒花"] = {};
-        //            for (var i = 6; i >= 0; i--) {
-        //                for (var key in data) {
-        //                    if (MyDate(i)[1] === key) {
-        //                        outer["临港大道"].push(data[key]["临港大道"])
-        //                        outer["港城新天地"].push(data[key]["港城新天地"])
-        //                        outer["海昌公园"].push(data[key]["海昌公园"])
-        //                        outer["雪绒花"].push(data[key]["雪绒花"])
-        //                    }
-        //                }
-        //            }
-        //            //缓存图表数据
-        //            tccsyqkChartData1 = outer["临港大道"];
-        //            tccsyqkChartData2 = outer["港城新天地"];
-        //            tccsyqkChartData3 = outer["海昌公园"];
-        //            tccsyqkChartData4 = outer["雪绒花"];
-        //            tccsyqkChartxAxisData = [MyDate(6)[0], MyDate(5)[0], MyDate(4)[0], MyDate(3)[0], MyDate(2)[0], MyDate(1)[0], MyDate(0)][0];
-
-        //            //for (var key in data) {
-        //            //    if (MyDate(6) === key) {
-        //            //        outer["临港大道"]
-        //            //    }
-        //            //    var dateItem = data[key];
-        //            //    for (var name in dateItem) {
-        //            //        if (!outer[name][key]) {
-        //            //            outer[name][key] = 0;
-        //            //        }
-        //            //        outer[name][key] += dateItem[name]
-        //            //    }
-        //            //}
-        //            //var hcgy = outer.海昌公园
-        //            //for (var i in hcgy) {
-        //            //    tccsyqkdata1.push(hcgy[i])
-        //            //}
-        //            //var xrh = outer.雪绒花
-        //            //for (var i in xrh) {
-        //            //    tccsyqkdata2.push(xrh[i])
-        //            //}
-        //            //var lgdd = outer.临港大道
-        //            //for (var i in lgdd) {
-        //            //    tccsyqkdata3.push(lgdd[i])
-        //            //}
-        //            //var gcxtd = outer.港城新天地
-        //            //for (var i in gcxtd) {
-        //            //    tccsyqkdata4.push(gcxtd[i])
-        //            //}
-
-        //            //缓存图表数据
-        //            //tccsyqkChartData1 = tccsyqkdata1;
-        //            //tccsyqkChartData2 = tccsyqkdata2;
-        //            //tccsyqkChartData3 = tccsyqkdata3;
-        //            //tccsyqkChartData4 = tccsyqkdata4;
-        //            //tccsyqkChartxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
-
-        //            tccsyqkOption = {
-        //                tooltip: {
-        //                    trigger: 'axis',
-        //                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-        //                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        //                    }
-        //                },
-        //                legend: [
-        //                    {
-        //                        left: '4%',
-        //                        bottom: " 2%",
-        //                        icon: 'rect',
-        //                        itemWidth: 20,
-        //                        itemHeight: 20,
-        //                        textStyle: {
-        //                            fontSize: 22,
-        //                            color: "#0296d4"
-        //                        },
-        //                        data: ['海昌公园停车场']
-        //                    },
-        //                    {
-        //                        left: '27%',
-        //                        bottom: " 2%",
-        //                        icon: 'rect',
-        //                        itemWidth: 20,
-        //                        itemHeight: 20,
-        //                        textStyle: {
-        //                            fontSize: 22,
-        //                            color: "#0296d4"
-        //                        },
-        //                        data: ['雪绒花停车场']
-        //                    },
-        //                    {
-        //                        left: '50%',
-        //                        bottom: " 2%",
-        //                        icon: 'rect',
-        //                        itemWidth: 20,
-        //                        itemHeight: 20,
-        //                        textStyle: {
-        //                            fontSize: 22,
-        //                            color: "#0296d4"
-        //                        },
-        //                        data: ['临港大道停车场']
-        //                    },
-        //                    {
-        //                        left: '75%',
-        //                        bottom: " 2%",
-        //                        icon: 'rect',
-        //                        itemWidth: 20,
-        //                        itemHeight: 20,
-        //                        textStyle: {
-        //                            fontSize: 22,
-        //                            color: "#0296d4"
-        //                        },
-        //                        data: ['港城新天地停车场']
-        //                    }
-        //                ],
-        //                grid: {
-        //                    left: '1%',
-        //                    right: '1%',
-        //                    top: '6%',
-        //                    containLabel: true
-        //                },
-        //                xAxis: [
-        //                    {
-        //                        type: 'category',
-        //                        data: tccsyqkChartxAxisData,
-        //                        nameTextStyle: {
-        //                            color: "#00d7fe",
-        //                            fontSize: 16,
-        //                        },
-        //                        axisTick: {
-        //                            show: false,
-        //                        },
-        //                        axisLine: {
-        //                            show: true,
-        //                            lineStyle: {
-        //                                color: "rgba(80,172,254,0.5)"
-        //                            }
-        //                        },
-        //                        axisLabel: {
-        //                            textStyle: {
-        //                                fontSize: 22,
-        //                                color: "#00d7fe"
-        //                            }
-        //                        },
-        //                        splitLine: {
-        //                            show: false,
-        //                            lineStyle: {
-        //                                color: "rgba(80,172,254,0.5)"
-        //                            }
-        //                        }
-        //                    }
-        //                ],
-        //                yAxis: [
-        //                    {
-        //                        type: 'value',
-        //                        axisTick: {
-        //                            show: false,
-        //                        },
-        //                        axisLine: {
-        //                            show: true,
-        //                            lineStyle: {
-        //                                color: "rgba(80,172,254,0.5)"
-        //                            }
-        //                        },
-        //                        //interval: 1000,
-        //                        axisLabel: {
-        //                            textStyle: {
-        //                                fontSize: 22,
-        //                                color: "#00d7fe"
-        //                            }
-        //                        },
-        //                        splitLine: {
-        //                            lineStyle: {
-        //                                color: "rgba(80,172,254,0.5)",
-        //                            }
-        //                        }
-        //                    }
-        //                ],
-        //                series: [
-        //                    {
-        //                        name: '海昌公园停车场',
-        //                        type: 'bar',
-        //                        barWidth: 14,
-        //                        itemStyle: {
-        //                            normal: {
-        //                                barBorderRadius: 3,
-        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-        //                                    offset: 0,
-        //                                    color: '#fffd00'
-        //                                }, {
-        //                                    offset: 1,
-        //                                    color: '#ff6f02'
-        //                                }]),
-        //                            }
-        //                        },
-        //                        data: tccsyqkChartData1
-        //                    },
-        //                    {
-        //                        name: '雪绒花停车场',
-        //                        type: 'bar',
-        //                        barWidth: 14,
-        //                        itemStyle: {
-        //                            normal: {
-        //                                barBorderRadius: 3,
-        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-        //                                    offset: 0,
-        //                                    color: '#02fdf6'
-        //                                }, {
-        //                                    offset: 1,
-        //                                    color: '#00a3ff'
-        //                                }]),
-        //                            }
-        //                        },
-        //                        data: tccsyqkChartData2
-        //                    },
-        //                    {
-        //                        name: '临港大道停车场',
-        //                        type: 'bar',
-        //                        barWidth: 14,
-        //                        itemStyle: {
-        //                            normal: {
-        //                                barBorderRadius: 3,
-        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-        //                                    offset: 0,
-        //                                    color: '#ace419'
-        //                                }, {
-        //                                    offset: 1,
-        //                                    color: '#5aad0b'
-        //                                }]),
-        //                            }
-        //                        },
-        //                        data: tccsyqkChartData3
-        //                    },
-        //                    {
-        //                        name: '港城新天地停车场',
-        //                        type: 'bar',
-        //                        barWidth: 14,
-        //                        itemStyle: {
-        //                            normal: {
-        //                                barBorderRadius: 3,
-        //                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-        //                                    offset: 0,
-        //                                    color: '#d9d9d9'
-        //                                }, {
-        //                                    offset: 1,
-        //                                    color: '#808080'
-        //                                }]),
-        //                            }
-        //                        },
-        //                        data: tccsyqkChartData4
-        //                    }
-        //                ]
-        //            };
-
-        //            require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
-        //            require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
-
-        //            $("#tcc").click(function () {
-        //                require("t_Echart").myCharttccsyqk.clear()
-        //                require("t_Echart").myCharttccsyqk = echarts.init(tccsyqkChart);
-        //                require("t_Echart").myCharttccsyqk.setOption(tccsyqkOption, true);
-
-        //                require("t_Echart").mybigChart.clear()
-        //                require("t_Echart").bigTccsyqk();
-
-        //            });
-
-        //        } catch (error) {
-
-        //        }
-
-        //    })
-        //},
         /*大停车场使用情况*/
         bigTccsyqk: function () {
             $("#bigechartHead").html("停车场使用情况");
@@ -3470,6 +3166,98 @@
             })
 
         },
+        jqsjtjClickEvent: function (domName) {
+            $("#jqsj_" + domName).addClass("active").siblings().removeClass("active");
+
+            var mathRandom = 0;
+            var yqyjLevelbgTimer = null;
+
+            var yqyjLevelLeftArr = [];
+            $(".yqyj-levelbox>.yqyj-level").each(function (index, element) {
+                yqyjLevelLeftArr[index] = parseInt($(this).css("left")) / $(this).parent().width() * 100;
+            })
+
+            function yqyjLevelbgFn(num) {
+                var numLittle = 0;
+                num = parseInt(Math.random() * 100);
+                yqyjLevelbgTimer = setTimeout(function () {
+                    clearTimeout(yqyjLevelbgTimer);
+
+                    num = num > 20 ? num < 35 ? num : 35 - parseInt(Math.random() * 5) : 20 + parseInt(Math.random() * 5);
+
+                    $(".yqyj-levelbg").width(num + "%");
+
+                    if (num > yqyjLevelLeftArr[0]) {
+                        do {
+                            numLittle++;
+                        } while (num > yqyjLevelLeftArr[numLittle])
+                        numLittle--;
+                        $(".yqyj-levelbox>.yqyj-level").eq(numLittle).addClass("active").siblings().removeClass("active");
+                    } else {
+                        $(".yqyj-levelbox>.yqyj-level").eq(0).removeClass("active").siblings().removeClass("active");
+                    }
+
+
+                    //yqyjLevelbgFn(mathRandom);
+                }, 1000)
+            }
+            yqyjLevelbgFn(mathRandom);
+
+
+            // 园区事件统计
+            var yqsjNum = 0;
+            var yqsjTimer = null;
+            var yqsjTranFnTimer = null;
+
+            yqsjFn();
+
+            // 园区事件统计 定时器
+            function yqsjFn() {
+                yqsjTimer = setTimeout(function () {
+                    clearTimeout(yqsjTimer);
+                    yqsjNum++;
+                    yqsjNum = yqsjNum > 1 ? 0 : yqsjNum;
+                    yqsjTranFn(yqsjNum);
+                }, 60000)
+            }
+
+            function yqsjTranFn(yqsjNum) {
+                if (yqsjNum == 0) {
+                    $(".yqsj-tabitemul").css({ transform: "translateX(0)" })
+                                        .children().eq(0).css({ opacity: 1 })
+                                        .siblings().css({ opacity: 0 });
+                } else {
+                    $(".yqsj-tabitemul").css({ transform: "translateX(-50%)" })
+                                        .children().eq(0).css({ opacity: 0 })
+                                        .siblings().css({ opacity: 1 });
+                }
+                $(".yqsj .jtxx-tabbox>.jtxx-tab").eq(yqsjNum).addClass("active").siblings().removeClass("active");
+
+                yqsjTranFnTimer = setTimeout(function () {
+                    clearTimeout(yqsjTranFnTimer);
+                    yqsjFn()
+                }, 500)
+            }
+
+            // 点击事件
+            //$(".yqsj .jtxx-tabbox>.jtxx-tab").each(function (index, element) {
+                //$(this).click(function () {
+                    clearTimeout(yqsjTimer);
+                    clearTimeout(yqsjTranFnTimer);
+                    //$(this).addClass("active").siblings().removeClass("active");
+                    if (domName == "category") {
+                        
+                    } else {
+                        yqsjNum = 1;
+                    }
+                    
+                    //console.log(yqsjNum, yqsjTranFn())
+                    yqsjTranFn(yqsjNum);
+                //})
+            //})
+
+
+        },
         //园区事件类型分布列表  
         yqsjlblx: function () {
             function MyDate(n) {
@@ -3503,9 +3291,6 @@
             t_EchartAjax.yqsjlblx(post_data, function (result) {
                 var data = require("t_Echart").yqsjlblxData;
 
-
-
-
                 var htmltotal = '';
                 htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
                 htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
@@ -3528,8 +3313,12 @@
                     html += '</li>';
                 }
                 $('#sj').html(html);
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
-            $("#jqsjtj").click(function () { require("t_Echart").yqsjlblx(); console.log(园区事件) })
+            $("#jqsjtj").click(function () {
+                require("t_Echart").yqsjlblx();
+            })
+            
         },
         yqsjlbqy: function () {
             function MyDate(n) {
@@ -3586,6 +3375,7 @@
                 }
 
                 $('#sj2').html(html);
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
         },
         //园区事件统计

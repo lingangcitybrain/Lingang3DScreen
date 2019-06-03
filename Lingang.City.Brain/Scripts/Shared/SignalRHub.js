@@ -75,6 +75,12 @@
                     iPad.UIButtonControl(message)
                 })
             };
+            //窗口按钮控制信息
+            control.client.broadcastPageButtonInfoControlInfo = function (message) {
+                require(["iPad"], function (iPad) {
+                    iPad.UIPageButtonControl(message)
+                })
+            };
         }
         if ($.connection != "undefined" && $.connection != undefined) {
             $.connection.hub.logging = true;

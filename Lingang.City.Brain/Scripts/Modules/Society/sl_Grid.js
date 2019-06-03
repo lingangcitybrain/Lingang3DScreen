@@ -573,7 +573,8 @@
                 for (var i = 0; i < TaskTypeDataType.length; i++) {
                     $("#dealtasktype>li").eq(i).find(".czajlb-circlediv").attr("data-text", TaskTypeDataPercent[i] + '%')
                     $("#dealtasktype>li").eq(i).find(".item-r-data").html(TaskTypeData[i])
-
+                    $("#dealtasktype>li").eq(i).find(".item-r-name").html(TaskTypeDataType[i])
+                    
                 }
 
                 require("sl_Grid").loadCirclediv(TaskTypeDataPercent);

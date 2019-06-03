@@ -205,5 +205,34 @@
                 control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
             },
             /**********************************END*********************************/
+
+            /****************图表点击事件*********************/
+            //人员车辆统计
+            ryClickEvent: function (domName) {
+                require('t_Echart').rycltjClickEvent(domName);
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "rycltj",
+                    "id": domName,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+            //景区事件统计
+            jqsjtjClickEvent: function (domName) {
+                require('t_Echart').jqsjtjClickEvent(domName);
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "jqsjtj",
+                    "id": domName,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+            /*********************END************************/
         }
     });

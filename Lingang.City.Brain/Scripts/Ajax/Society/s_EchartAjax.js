@@ -51,6 +51,30 @@
         },
 
 
+        //社区人口
+        getSocietyPersonData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/camera/comunity/peopleStatistic',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").societyPersonData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").societyPersonData = s_EchartData.societyPersonData;
+                callback();
+            }
+        },
+
+
         //进出车辆人员数据
         getCarPersonInOutData: function (callback) {
             if (con.IsInterface) {
@@ -245,29 +269,6 @@
             }
         },
 
-        //社区人口
-        getSocietyPersonData: function (callback) {
-            if (con.IsInterface) {
-                $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/camera/comunity/peopleStatistic',
-                    cache: false,
-                    //data: post_data,  //传送的数据
-                    dataType: 'json',  // 返回数据的数据类型json
-                    success: function (data) {
-                        require("s_Echart").societyPersonData = data;
-                        callback(data)
-                    },
-                    error: function () {
-                        //alert("数据传输错误");
-                    }
-                });
-            } else {//执行本地
-                require("s_Echart").societyPersonData = s_EchartData.societyPersonData;
-                callback();
-            }
-        },
-
 
         //事件信息
         getSocietySj: function (callback) {
@@ -417,6 +418,29 @@
         },
 
         //******************************************************************************************/
+        //街面基本信息
+        getJmBasicInfoData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl + 'v1/drone/streetInfo',
+                    cache: false,
+                    //data: post_data,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("s_Echart").jmBasicInfoData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            } else {//执行本地
+                require("s_Echart").jmBasicInfoData = s_EchartData.jmBasicInfoData;
+                callback();
+            }
+        },
+
         //街面无人机数据
         getJmDroneData: function (callback) {
             if (con.IsInterface) {
@@ -514,7 +538,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/costlines/tide',
+                    url: con.InterfaceUrl + 'v1/costlines/tide',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

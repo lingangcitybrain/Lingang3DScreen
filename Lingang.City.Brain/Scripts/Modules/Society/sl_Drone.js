@@ -650,7 +650,7 @@
                            + '<div class=\"item-l\"><img src=\"' + data[i].photoUrl + '\" style=\"width:1.4rem !important; height:1.7rem !important;\"></div>'
                            + '<div class=\"item-r\">'
                                + '<ul class=\"sqzz-xcyxx-liul\">'
-                                   + '<li><div>接单员：</div><span>' + data[i].inspectorName + '</span></li>'
+                                   + '<li><div>姓&nbsp;名：</div><span>' + data[i].inspectorName + '</span></li>'
                                    + '<li><div>性&nbsp;别：</div><span>' + data[i].sex + '</span></li>'
                                    + '<li><div>职&nbsp;位：</div><span>' + data[i].position + '</span></li>'
                                + '</ul>'

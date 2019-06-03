@@ -109,7 +109,9 @@
                 htmlDom: "#left_second_01",
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet1.html'
             }
-            com.UIControlAni(option, function () { return null });
+            com.UIControlAni(option, function () {
+                require("sl_Street").loadJmBasicInfo();
+            });
         },
         //加载第二列的div2
         loadLeftSecond2: function () {
@@ -119,9 +121,8 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet2.html'
             }
             com.UIControlAni(option, function () {
-
+                require("sl_Street").loadJmDroneData();
             });
-           // com.UIControlAni(option, function () { require("sl_IOT").loadSocietyCarchart(); });
         },
         //加载第二列的div3
         loadLeftSecond3: function () {
@@ -135,14 +136,28 @@
                 require("sl_IOT").Scrolldiv();
             });
         },
+        //街面基本信息
+        loadJmBasicInfo: function () {
+            s_EchartAjax.getJmBasicInfoData(function (result) {
+                if (require("s_Echart").jmBasicInfoData == null) { return false; }
+                var data = require("s_Echart").jmBasicInfoData;
+
+                $("#jm_basicinfo_1").html(data.businessCount);
+                $("#jm_basicinfo_2").html(data.eventsCount);
+                $("#jm_basicinfo_3").html(data.streelength+'公里');
+                $("#jm_basicinfo_4").html(data.owner);
+            })
+        },
         //街面无人机
-        loadJmDroneData:function(){
+        loadJmDroneData: function () {
             s_EchartAjax.getJmDroneData(function (result) {
                 if (require("s_Echart").jmDroneData == null) { return false; }
                 var data = require("s_Echart").jmDroneData;
                 $("#jm_drone1").html(data.flightNumber);
                 $("#jm_drone2").html(data.flightCount);
                 $("#jm_drone3").html(data.flightTime);
+                //加载视频
+                require("s_Main").loadStreetWrjVideo(data.url)
             })
         },
 

@@ -58,7 +58,7 @@
         /************************UI事件************************/
         poiWinControlData: [
 
-        //{ "menu": "1", "layer": "10", "menuNM": "社区综合", "layerNM": "传感器", POISTR: "POISocietyIOT", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//传感器没有详情窗口
+        { "menu": "1", "layer": "10", "menuNM": "社区综合", "layerNM": "传感器", POISTR: "POISocietyIOT", "command": "close", "func": "require('sl_IOT').closeIOTDetail();" },//传感器没有详情窗口
         //{ "menu": "1", "layer": "13", "menuNM": "社区综合", "layerNM": "村居工作站", POISTR: "POISocietyWorkSite", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//
         //{ "menu": "1", "layer": "14", "menuNM": "社区综合", "layerNM": "海岸线", POISTR: "POISociety", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//
 
@@ -80,6 +80,11 @@
         UIButtonControlData: [
             { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", type: "flowerClk", "func": "$('.cy-qy-menu a')[*].click();" },  //花瓣显示隐藏
             { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", type: "buildingFloor", "func": "require('b_BuildingFloor').openFloor(*);" },//揭楼层
+
+            /*********************图表点击事件**************************/
+            { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计
+            { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "jqsjtj", "func": "require('t_Echart').jqsjtjClickEvent('*');" },//景区事件统计
+            /***************************END***************************/
         ],
     }
 })

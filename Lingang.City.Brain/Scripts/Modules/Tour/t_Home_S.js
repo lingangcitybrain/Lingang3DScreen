@@ -69,5 +69,16 @@
                 require('tl_TrafficSimulation').closeCameraDetial();
             },
             /**********************************END*********************************/
+
+            /****************图表点击事件*********************/
+            //人员车辆统计
+            ryClickEvent: function (domName) {
+                require('t_Echart').rycltjClickEvent(domName);
+            },
+            //景区事件统计
+            jqsjtjClickEvent: function (domName) {
+                require('t_Echart').jqsjtjClickEvent(domName);                
+            },
+            /*********************END************************/
         }
     });

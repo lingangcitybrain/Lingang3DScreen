@@ -38,7 +38,7 @@
         },
 
         ///////////////////////////////////////////////////菜单控制//////////////////////////////////////////////////////////////////
-        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；
+        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；
         menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
@@ -75,6 +75,9 @@
                         break;
                     case "100"://还原
                         require("reset").Revert();
+                        break;
+                    case "101"://关闭alert窗口
+                        $('.vex-dialog-button-primary').click();
                         break;
                     default:
                 }
@@ -293,6 +296,45 @@
                     }
                 });
 
+
+                result = 1;
+                message = "操作成功";
+
+            } catch (e) {
+                result = 0;
+                message = "操作失败";
+            }
+
+            var pos = this.getCameraPos();
+            re_xyz = pos.split(",")[0];
+            re_angle = pos.split(",")[1];
+
+            res = { "code ": result, " message ": message, "xyz": re_xyz, "angle": re_angle }
+            return res
+        },
+
+        UIPageButtonControl: function (str) {
+            var res = { " code ": "", " message ": "" }
+            var result = 1;
+            var message = "";
+            try {
+                var json = $.parseJSON(str);
+                var xyz = json.xyz
+                var angle = json.angle
+                var index = json.index
+                //var layer = json.layer
+                var id = json.id
+                //var type = json.type
+
+                //var layerValue = $.grep(controlData.UIButtonControlData, function (n, i) {
+                //    if (n.type == type && n.layer == layer && n.menu == menu) {//ss
+                //        var funcStr = n.func.replace('*', id);
+                //        eval(funcStr);
+                //        //eval(n.func);
+                //        return n;
+                //    }
+                //});
+                $("#"+id+" a")[index].click();
 
                 result = 1;
                 message = "操作成功";

@@ -20679,6 +20679,14 @@
 	        "peopleFlow": "2219"
         },
 
+        //街面基本信息
+        jmBasicInfoData:{
+	        "streelength": "2",
+            "owner": "未知",
+            "eventsCount": "12",
+            "businessCount": "45"
+        },
+
         //街面无人机
         jmDroneData:{
             flightNumber: 1,
@@ -20917,44 +20925,77 @@
 
         //海岸线涨潮
         costlineTideData:{
-            "errorCode": "0",
-            "errorMessage": "成功",
-            "resultType": "0",
-            "data": {
-                "pagination": {
-                    "pageSize": 5,
-                    "current": 0,
-                    "total": 193
-                },
-                "total": 193,
-                "list": [{
-                    "id": 1,
-                    "hrs": "2019-05-28T16:00:00.000+0000",
-                    "tideheight": 144.0,
-                    "flag": 0
-                }, {
-                    "id": 2,
-                    "hrs": "2019-05-29T17:00:00.000+0000",
-                    "tideheight": 219.0,
-                    "flag": 0
-                }, {
-                    "id": 3,
-                    "hrs": "2019-05-30T18:00:00.000+0000",
-                    "tideheight": 298.0,
-                    "flag": 0
-                }, {
-                    "id": 4,
-                    "hrs": "2019-05-31T19:00:13.000+0000",
-                    "tideheight": 357.0,
-                    "flag": 0
-                }, {
-                    "id": 5,
-                    "hrs": "2019-06-01T20:00:00.000+0000",
-                    "tideheight": 382.0,
-                    "flag": 0
-                }]
-            }
+	        "errorCode": "0",
+	        "errorMessage": "成功",
+	        "resultType": "0",
+	        "data": {
+		        "data": [{
+			        "highOneDate": "2019-05-24T18:20:00.000+0000",
+			        "highOne": 477,
+			        "highTwoDate": "2019-05-25T06:25:00.000+0000",
+			        "highTwo": 383,
+			        "lowOneDate": "2019-05-25T01:00:00.000+0000",
+			        "lowOne": 104,
+			        "lowTwoDate": "2019-05-25T12:41:00.000+0000",
+			        "lowTwo": 96
+		        }, {
+			        "highOneDate": "2019-05-23T19:00:00.000+0000",
+			        "highOne": 459,
+			        "highTwoDate": "2019-05-24T07:14:00.000+0000",
+			        "highTwo": 119,
+			        "lowOneDate": "2019-05-24T01:46:00.000+0000",
+			        "lowOne": 364,
+			        "lowTwoDate": "2019-05-24T13:21:00.000+0000",
+			        "lowTwo": 124
+		        }, {
+			        "highOneDate": "2019-05-25T19:44:00.000+0000",
+			        "highOne": 437,
+			        "highTwoDate": "2019-05-26T08:15:00.000+0000",
+			        "highTwo": 347,
+			        "lowOneDate": "2019-05-26T02:35:00.000+0000",
+			        "lowOne": 134,
+			        "lowTwoDate": "2019-05-26T14:00:00.000+0000",
+			        "lowTwo": 155
+		        }, {
+			        "highOneDate": "2019-05-26T20:42:00.000+0000",
+			        "highOne": 413,
+			        "highTwoDate": "2019-05-27T09:30:00.000+0000",
+			        "highTwo": 341,
+			        "lowOneDate": "2019-05-27T03:39:00.000+0000",
+			        "lowOne": 144,
+			        "lowTwoDate": "2019-05-27T15:21:00.000+0000",
+			        "lowTwo": 179
+		        }, {
+			        "highOneDate": "2019-05-27T21:55:00.000+0000",
+			        "highOne": 396,
+			        "highTwoDate": "2019-05-28T11:00:00.000+0000",
+			        "highTwo": 355,
+			        "lowOneDate": "2019-05-28T04:53:00.000+0000",
+			        "lowOne": 140,
+			        "lowTwoDate": "2019-05-28T15:00:00.000+0000",
+			        "lowTwo": 220
+		        }, {
+			        "highOneDate": "2019-05-28T23:08:00.000+0000",
+			        "highOne": 395,
+			        "highTwoDate": "2019-05-29T11:58:00.000+0000",
+			        "highTwo": 386,
+			        "lowOneDate": "2019-05-29T06:00:00.000+0000",
+			        "lowOne": 125,
+			        "lowTwoDate": "2019-05-29T15:00:00.000+0000",
+			        "lowTwo": 278
+		        }, {
+			        "highOneDate": "2019-05-30T00:11:00.000+0000",
+			        "highOne": 403,
+			        "highTwoDate": "2019-05-30T12:51:00.000+0000",
+			        "highTwo": 421,
+			        "lowOneDate": "2019-05-29T18:22:00.000+0000",
+			        "lowOne": 156,
+			        "lowTwoDate": "2019-05-30T06:53:00.000+0000",
+			        "lowTwo": 105
+		        }]
+	        }
         },
+
 
         //工地施工单位
         workSiteBuilderData:[{

@@ -113,6 +113,7 @@
             }
             com.UIControlAni(option, function () {
                 require("sl_WorkSite").loadWorkSiteWrjData();
+
             });
         },
         //加载第二列的div3
@@ -163,10 +164,13 @@
                 $("#worksite_wrj_eventCounts").html(data.eventCounts);
                 $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
                 $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
-                //$("#worksite_wrj_communityCarNums").html(parseFloat(data.communityCarNums))
-                //$("#worksite_wrj_communityGrade").html(parseFloat(data.communityGrade))
+
+                require("s_Main").loadWorkSiteWrjVideo("https://vku.youku.com/live/ilpshare?id=8018484")
+
             });
         },
+
+
 
         //工地天气预报
         loadWorkSiteWeatherData: function () {
@@ -176,11 +180,6 @@
                 data = data.list;
 
                 $("#worksite-weather")
-                
-
-
-
-
 
             });
         },
