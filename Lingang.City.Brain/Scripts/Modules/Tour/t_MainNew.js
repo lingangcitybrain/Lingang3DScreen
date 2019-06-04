@@ -596,46 +596,55 @@
                 }
             },
             clearVideo: function () {
-                if (require("t_Main").left02_video01) {
-                    require("t_Main").left02_video01.loadByUrl("");
-                    require("t_Main").left02_video01.dispose();
-                    require("t_Main").left02_video01 = null;
+                try {
+                    if (require("t_Main").left02_video01) {
+                        require("t_Main").left02_video01.loadByUrl("");
+                        require("t_Main").left02_video01.dispose();
+                        require("t_Main").left02_video01 = null;
+                    }
+                    if (require("t_Main").left02_video02) {
+                        require("t_Main").left02_video02.loadByUrl("");
+                        require("t_Main").left02_video02.dispose();
+                        require("t_Main").left02_video02 = null;
+                    }
+                    if (require("t_Main").left02_video03) {
+                        require("t_Main").left02_video03.loadByUrl("");
+                        require("t_Main").left02_video03.dispose();
+                        require("t_Main").left02_video03 = null;
+                    }
+                    if (require("t_Main").tourhtml_wurenji01) {
+                        require("t_Main").tourhtml_wurenji01.loadByUrl("");
+                        require("t_Main").tourhtml_wurenji01.dispose();
+                        require("t_Main").tourhtml_wurenji01 = null;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
                 }
-                if (require("t_Main").left02_video02) {
-                    require("t_Main").left02_video02.loadByUrl("");
-                    require("t_Main").left02_video02.dispose();
-                    require("t_Main").left02_video02 = null;
-                }
-                if (require("t_Main").left02_video03) {
-                    require("t_Main").left02_video03.loadByUrl("");
-                    require("t_Main").left02_video03.dispose();
-                    require("t_Main").left02_video03 = null;
-                }
-                if (require("t_Main").tourhtml_wurenji01) {
-                    require("t_Main").tourhtml_wurenji01.loadByUrl("");
-                    require("t_Main").tourhtml_wurenji01.dispose();
-                    require("t_Main").tourhtml_wurenji01 = null;
-                }
-
             },
             closeBottomVideo: function () {
-                //大客流-摄像头视频清空
-                if (require("tl_Camera").cameradetail_player) {
-                    require("tl_Camera").cameradetail_player.loadByUrl("");
-                    require("tl_Camera").cameradetail_player.dispose();
-                    require("tl_Camera").cameradetail_player = null;
-                }
-                //大客流-无人机视频清空
-                if (require("tl_Drone").SocietyDrone_player) {
-                    require("tl_Drone").SocietyDrone_player.loadByUrl("");
-                    require("tl_Drone").SocietyDrone_player.dispose();
-                    require("tl_Drone").SocietyDrone_player = null;
-                }
-                //大客流-交通仿真
-                if (require("tl_TrafficSimulation").Trafficdetail_player) {
-                    require("tl_TrafficSimulation").Trafficdetail_player.loadByUrl("");
-                    require("tl_TrafficSimulation").Trafficdetail_player.dispose();
-                    require("tl_TrafficSimulation").Trafficdetail_player = null;
+                try {
+                    //大客流-摄像头视频清空
+                    if (require("tl_Camera").cameradetail_player) {
+                        require("tl_Camera").cameradetail_player.loadByUrl("");
+                        require("tl_Camera").cameradetail_player.dispose();
+                        require("tl_Camera").cameradetail_player = null;
+                    }
+                    //大客流-无人机视频清空
+                    if (require("tl_Drone").SocietyDrone_player) {
+                        require("tl_Drone").SocietyDrone_player.loadByUrl("");
+                        require("tl_Drone").SocietyDrone_player.dispose();
+                        require("tl_Drone").SocietyDrone_player = null;
+                    }
+                    //大客流-交通仿真
+                    if (require("tl_TrafficSimulation").Trafficdetail_player) {
+                        require("tl_TrafficSimulation").Trafficdetail_player.loadByUrl("");
+                        require("tl_TrafficSimulation").Trafficdetail_player.dispose();
+                        require("tl_TrafficSimulation").Trafficdetail_player = null;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
                 }
             },
             numberAni: function () {

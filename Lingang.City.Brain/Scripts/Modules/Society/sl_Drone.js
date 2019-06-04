@@ -754,17 +754,20 @@
             }
         },
         closeCameraDetial: function () {
+            try {
+                if (require("sl_Drone").SocietyDrone_player) {
+                    require("sl_Drone").SocietyDrone_player.loadByUrl("");
+                    require("sl_Drone").SocietyDrone_player.dispose();
+                    require("sl_Drone").SocietyDrone_player = null;
+                }
 
-            if (require("sl_Drone").SocietyDrone_player) {
-                require("sl_Drone").SocietyDrone_player.loadByUrl("");
-                require("sl_Drone").SocietyDrone_player.dispose();
-                require("sl_Drone").SocietyDrone_player = null;
+                $("#detail_tourplayer").html("");
+
+                this.clearAllChoosePoi();
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-
-
-            $("#detail_tourplayer").html("");
-
-            this.clearAllChoosePoi();
         },
         //清除所有选中的POI
         clearAllChoosePoi: function () {
