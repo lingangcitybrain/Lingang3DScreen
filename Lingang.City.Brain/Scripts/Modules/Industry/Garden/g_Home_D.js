@@ -229,29 +229,7 @@
         },
         /*********************************END*********************************************/
 
-        /******************分页点击事件*****************/
-        pagination: function (domID, length, optInit) {
-            $("#" + domID).pagination(length, optInit);
-            $("#pagination-parkingEnvent a").each(function (index) {
-                $(this).click(function () {//点击触发事件  
-                    require("g_Home").EnventPagenationClckFunc(domID,index);
-                })
-            })
-        },
 
-        EnventPagenationClckFunc: function (domID,index) {
-            $("#pagination-parkingEnvent a")[index].click();
-            var jsondata = {
-                "menu": "3",
-                "layer": this.layerNO,
-                "type": "buildingFloor",
-                "id": "pagination-parkingEnvent",
-                "xyz": "",
-                "angle": "",
-            };
-            control_Ajax.sendPageButtoncontrolInfo(jsondata); //发送控制命令
-        },
-        /*********************END*********************/
     }
 
 })

@@ -334,8 +334,8 @@
                 //        return n;
                 //    }
                 //});
-                $("#"+id+" a")[index].click();
-
+                //$("#"+id+" a")[index].click();
+                $("#" + id + " a")[index].click();
                 result = 1;
                 message = "操作成功";
 

@@ -1401,12 +1401,12 @@
                     //require("g_Echart").pageIndex_sjtj = pageindex;//全局变量，供远程控制使用
                     //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                     //加载分页控件内容 
-                    if (pageindex == 0) {
-                        var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries);
+                    //if (pageindex == 0) {
+                    var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries, pageindex);
                         // Create pagination element with options from form
                         //$("#pagination-parkingEnvent").pagination(data.length, optInit);
-                        require("g_Home").pagination("pagination-parkingEnvent", data.length, optInit);
-                    }
+                    require("mainJsLoad").pagination("pagination-parkingEnvent", data.length, optInit);
+                    ///}
                     
                 }          
             })

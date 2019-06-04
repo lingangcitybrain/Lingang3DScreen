@@ -1,5 +1,5 @@
-﻿define(['config', 'common', "control_Ajax", 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main", "t_Home", "s_Home", "e_Home"],
-function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_Home, e_Home) {
+﻿define(['config', 'common', "control_Ajax", 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main", "t_Home", "s_Home", "e_Home", "pagination"],
+function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_Home, e_Home, pagination) {
     return {
         loadJs: function () {
             require('mainJsLoad').mainCameraUpdate();
@@ -35,5 +35,31 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
             control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令    
             
         },
+
+        /******************分页点击事件*****************/
+        pageIndex: 0,
+        pagination: function (domID, length, optInit) {
+            $("#" + domID).pagination(length, optInit);
+            //顶部菜单
+            $("#" + domID + " a").each(function (index) {
+                $(this).click(function () {//点击触发事件
+                    //require('mainMenu').mainMenuSelect(index);
+                    console.info($(this).index());
+                    require("g_Home").EnventPagenationClckFunc(domID, index);
+                    $(this).addClass();
+                });
+            });
+        },
+
+        EnventPagenationClckFunc: function (domID, index) {
+            var jsondata = {
+                "id": domID,
+                "index": index,
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPageButtoncontrolInfo(jsondata); //发送控制命令
+        },
+        /*********************END*********************/
     }
 })

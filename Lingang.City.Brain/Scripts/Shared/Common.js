@@ -806,13 +806,14 @@
             }
         },
         //翻页
-        GetOptionsFrom: function (callback, items_per_page, items_per_page, display_entries, edge_entries) {
+        GetOptionsFrom: function (callback, items_per_page, items_per_page, display_entries, edge_entries,current_page) {
             var opt = { callback: callback }; //数据加载方法
             opt["items_per_page"] = items_per_page;
             opt["num_display_entries"] = display_entries;
             opt["num_edge_entries"] = edge_entries;
             opt["prev_text"] = "上一页";
             opt["next_text"] = "下一页";
+            opt["current_page"] = current_page==null?0:current_page;
 
             var htmlspecialchars = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }
             $.each(htmlspecialchars, function (k, v) {
