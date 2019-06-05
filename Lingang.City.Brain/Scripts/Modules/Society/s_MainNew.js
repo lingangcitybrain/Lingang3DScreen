@@ -512,47 +512,61 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
 
 
-        closevideo:function(){
-             if (require("s_Main").leftcenter_video) {
-                require("s_Main").leftcenter_video.dispose();
-                require("s_Main").leftcenter_video = null;
+        closevideo: function () {
+            try {
+                if (require("s_Main").leftcenter_video) {
+                    require("s_Main").leftcenter_video.dispose();
+                    require("s_Main").leftcenter_video = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
         },
         clearVideo: function () {
+            try {
+                if (require("s_Main").left01_02_video01) {
+                    require("s_Main").left01_02_video01.dispose();
+                    require("s_Main").left01_02_video01 = null;
+                    //require("s_Main").CameraState01 = 0;
+                }
 
-            if (require("s_Main").left01_02_video01) {
-                require("s_Main").left01_02_video01.dispose();
-                require("s_Main").left01_02_video01 = null;
-                //require("s_Main").CameraState01 = 0;
-            }
+                if (require("s_Main").left01_02_video02) {
+                    require("s_Main").left01_02_video02.dispose();
+                    require("s_Main").left01_02_video02 = null;
+                }
 
-            if (require("s_Main").left01_02_video02) {
-                require("s_Main").left01_02_video02.dispose();
-                require("s_Main").left01_02_video02 = null;
-            }
+                if (require("s_Main").left01_02_video03) {
+                    require("s_Main").left01_02_video03.dispose();
+                    require("s_Main").left01_02_video03 = null;
+                }
 
-            if (require("s_Main").left01_02_video03) {
-                require("s_Main").left01_02_video03.dispose();
-                require("s_Main").left01_02_video03 = null;
+                if (require("s_Main").left01_03_video01) {
+                    require("s_Main").left01_03_video01.dispose();
+                    require("s_Main").left01_03_video01 = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-
-            if (require("s_Main").left01_03_video01) {
-                require("s_Main").left01_03_video01.dispose();
-                require("s_Main").left01_03_video01 = null;
-            }
-            
         },
-        closeBottomVideo:function(){
-            //社会综治-事件视频清空
-            if (require("sl_Event").SocietyEvent_player) {
-                require("sl_Event").SocietyEvent_player.dispose();
-                require("sl_Event").SocietyEvent_player = null;
+        closeBottomVideo: function () {
+            try {
+                //社会综治-事件视频清空
+                if (require("sl_Event").SocietyEvent_player) {
+                    require("sl_Event").SocietyEvent_player.dispose();
+                    require("sl_Event").SocietyEvent_player = null;
+                }
+                //社会综治-无人机视频清空
+                if (require("sl_Drone").SocietyDrone_player) {
+                    require("sl_Drone").SocietyDrone_player.dispose();
+                    require("sl_Drone").SocietyDrone_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-            //社会综治-无人机视频清空
-            if (require("sl_Drone").SocietyDrone_player) {
-                require("sl_Drone").SocietyDrone_player.dispose();
-                require("sl_Drone").SocietyDrone_player = null;
-            }
+
         },
         //POI事件响应
         PoiEvent: function (nodename) {
