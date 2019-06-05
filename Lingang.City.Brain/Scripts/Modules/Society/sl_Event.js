@@ -428,9 +428,14 @@
 
         },
         loadVedio: function (id) {
-            if (require("sl_Event").SocietyEvent_player) {
-                require("sl_Event").SocietyEvent_player.dispose();
-                require("sl_Event").SocietyEvent_player = null;
+            try {
+                if (require("sl_Event").SocietyEvent_player) {
+                    require("sl_Event").SocietyEvent_player.dispose();
+                    require("sl_Event").SocietyEvent_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
             var url = "";
             switch (id) {
@@ -514,9 +519,14 @@
                 map.getArea(areaName).destroySceneNode("shijian_" + id);
                 map.getArea(areaName).destroySceneNode("paidan_" + id);
             }
-            if (require("sl_Event").SocietyEvent_player) {
-                require("sl_Event").SocietyEvent_player.dispose();
-                require("sl_Event").SocietyEvent_player = null;
+            try {
+                if (require("sl_Event").SocietyEvent_player) {
+                    require("sl_Event").SocietyEvent_player.dispose();
+                    require("sl_Event").SocietyEvent_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
 
 

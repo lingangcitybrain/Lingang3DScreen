@@ -239,12 +239,16 @@
         Revert: function () {
             this.clearCameraPOI();
             this.closeCameraDetial();
-            if (require("tl_Camera").cameradetail_player) {
-                require("tl_Camera").cameradetail_player.loadByUrl("");
-                require("tl_Camera").cameradetail_player.dispose();
-                require("tl_Camera").cameradetail_player = null;
+            try {
+                if (require("tl_Camera").cameradetail_player) {
+                    require("tl_Camera").cameradetail_player.loadByUrl("");
+                    require("tl_Camera").cameradetail_player.dispose();
+                    require("tl_Camera").cameradetail_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-            
         }
     }
 })

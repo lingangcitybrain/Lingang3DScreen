@@ -589,13 +589,16 @@
 
         },
         closeCameraDetial: function () {
-
-            if (require("tl_Drone").TourDrone_player) {
-                require("tl_Drone").TourDrone_player.loadByUrl("");
-                require("tl_Drone").TourDrone_player.dispose();
-                require("tl_Drone").TourDrone_player = null;
+            try {
+                if (require("tl_Drone").TourDrone_player) {
+                    require("tl_Drone").TourDrone_player.loadByUrl("");
+                    require("tl_Drone").TourDrone_player.dispose();
+                    require("tl_Drone").TourDrone_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-
 
             $("#detail_tourplayer").html("");
 
