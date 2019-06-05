@@ -328,5 +328,25 @@
                 callback();
             }
         },
+        //获取人流预测数据
+        getFlowRatePredictionData: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: "POST",
+                    url: con.InterfaceUrl + "v1/park/person/estimatedPeopleInPark",
+                    cache: false,
+                    data: null,
+                    dataType: 'json',
+                    success: function (data) {
+                        callback(data.data);
+                    },
+                    error: function (error) {
+                        console.log('景区管理---获取人流预测数据失败' + error);
+                    }
+                });
+            } else {
+                callback();
+            }
+        },
     }
 });

@@ -899,6 +899,7 @@
     <Content Include="Scripts\Modules\Tour\tl_Metro.js" />
     <Content Include="Scripts\Modules\Tour\tl_ParkingLot.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
+    <Content Include="Scripts\Modules\Tour\tl_StreamCalculateNew.js" />
     <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
     <Content Include="Scripts\Modules\Tour\t_Home_S.js" />
     <Content Include="Scripts\Modules\Tour\t_Home_D.js" />

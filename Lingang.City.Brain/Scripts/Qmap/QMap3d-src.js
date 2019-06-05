@@ -12311,5 +12311,28 @@ Q3D.Map.include({
     },
 });
 
+Q3D.Map.include({
+    // @method enableNodeFollowing(nodePath: String, fn: Function): this
+    //  打开节点跟随。fn为回调函数，第一个参数为QSceneNode对象，第二个参数为节点当前QVector2I屏幕坐标
+    enableNodeFollowing: function (nodePath, fn) {
+        var _node = this.getSceneNode(nodePath);
+        if (_node && fn) {
+            mapObj._map3d.setNodeTransformListener(_node);
+            mapObj.on('onNodeTransform', fn);
+        }
+        return this;
+    },
+    // @method disableNodeFollowing(nodePath: String, delFlag: Boolean): this
+    // 关闭节点跟随
+    disableNodeFollowing: function (nodePath, delFlag) {
+        var delFlag = delFlag || false;
+        var _node = this.getSceneNode(nodePath);
+        if (_node) {
+            mapObj._map3d.removeNodeTransformListener(_node);
+            if (delFlag) mapObj.off('onNodeTransform');
+        }
+        return this;
+    },
+});
 
 }(window, document));

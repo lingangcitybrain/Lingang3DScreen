@@ -243,16 +243,22 @@
             })
         },
         Revert: function () {
-            
-            if (require("sl_Camera").SocietyCamera_player) {
-                require("sl_Camera").SocietyCamera_player.dispose();
-                require("sl_Camera").SocietyCamera_player = null;
+            try {
+                if (require("sl_Camera").SocietyCamera_player) {
+                    require("sl_Camera").SocietyCamera_player.dispose();
+                    require("sl_Camera").SocietyCamera_player = null;
+                }
+
+            } catch (error) {
+                console.log(error.message);
+                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
+
             require("sl_Camera").clearCameraPOI();
             this.closeCameraDetial();
             //if (require("sl_Camera").CameraState == 1) {
             //    //加载视频后dispose只能一次，重复dispose会报错
-                
+
             //}
         }
     }
