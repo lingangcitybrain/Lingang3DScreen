@@ -598,6 +598,9 @@
     <Content Include="Content\images\nav-leftbgicon.png" />
     <Content Include="Content\images\nav-rightbgicon.png" />
     <Content Include="Content\images\night-scene.png" />
+    <Content Include="Content\images\parking-bottom.png" />
+    <Content Include="Content\images\parking-middle.png" />
+    <Content Include="Content\images\parking-top.png" />
     <Content Include="Content\images\personCardIMG.jpg" />
     <Content Include="Content\images\personCardIMG.png" />
     <Content Include="Content\images\pj-3d.png" />
@@ -1059,6 +1062,7 @@
     <Content Include="View\Industry\Estate\Right_Second_02.html" />
     <Content Include="View\Industry\Garden\Center_02.html" />
     <Content Include="View\Industry\Garden\CompanyStatistic.html" />
+    <Content Include="View\Industry\Garden\ParkingLotDetail.html" />
     <Content Include="View\Industry\Garden\UnmannedCarDetail.html" />
     <Content Include="View\Industry\Garden\TopCompanyInfo.html" />
     <Content Include="View\Industry\Garden\Bottom_Menu.html" />

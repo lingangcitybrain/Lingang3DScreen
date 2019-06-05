@@ -46,7 +46,11 @@
         //无人车poi点击
         showUnmannedCarTrajectors: function (nodename) {
         require("gl_UnmannedCar").showUnmannedCarTrajectors(nodename);        
-    },
+        },
+        showParkingLotDetail: function (nodename) {
+            require("gl_Stop").showParkingLotDetail(nodename);
+            
+        },
         /*************************************END******************************************/
         /*****************************UI窗口交互******************************************/
         //关闭代表企业花瓣窗口

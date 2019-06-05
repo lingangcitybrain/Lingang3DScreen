@@ -3527,6 +3527,40 @@ dd.pjc-statistic-star >form{
 	right: 0;
 	transform: translateX(100%) rotate(180deg);
 }
+
+/*停车场弹出信息*/
+.parking-box{
+	z-index: 9999;
+	position: absolute;
+	width: 3.6rem;
+	padding: .33rem 0 .18rem;
+	background: 
+		url(../Content/images/parking-top.png) no-repeat,
+		url(../Content/images/parking-bottom.png) 0 100% no-repeat;
+	background-size: 100% .33rem, 100% .18rem;
+	box-sizing: border-box;
+}
+.parking-title{
+	position: absolute;
+	top: -.25rem;
+	left: 0;
+	width: 100%;
+	font-size: .32rem;
+	text-align: center;
+}
+.parking-cont{
+	position: relative;
+	padding:.1rem .3rem;
+	font-size: .28rem;
+	line-height: .45rem;
+	background: url(../Content/images/parking-middle.png) no-repeat;
+	background-size:100% 100%;
+}
+.parking-li>em>i{
+	font-size: .38rem;
+	color: #f8d906;
+}
+
 @media screen and (max-width: 11520px){
 
 	html{ font-size:130px;}

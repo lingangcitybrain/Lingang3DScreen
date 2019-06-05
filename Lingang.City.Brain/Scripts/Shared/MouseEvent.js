@@ -27,6 +27,9 @@
                         }else if(nodename.indexOf("UmmannedCarPOI")>-1){//无人车POI
                             require("g_Home").showUnmannedCarTrajectors(nodename);
                         }
+                        else if (nodename.indexOf("parkinglotPOI") > -1) {
+                            require("g_Home").showParkingLotDetail(nodename);
+                        }
                     }
                 }
             });

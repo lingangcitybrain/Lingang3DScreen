@@ -152,6 +152,17 @@
             };
             control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
         },
+        showParkingLotDetail: function (nodename) {
+            require("gl_Stop").showParkingLotDetail(nodename);
+            var jsondata = {
+                "menu": "3",
+                "layer": this.layerNO,
+                "id": nodename,
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
+        },
         /*************************************END******************************************/
 
         /*****************************UI窗口交互******************************************/
