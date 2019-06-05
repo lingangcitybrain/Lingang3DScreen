@@ -5,6 +5,7 @@
         LastPOI_Clk: null,//鼠标选中POI
         cameradetail_player: null,
         CameraListData: new util.HashMap,
+        nodeFollowingPath: null,//窗口跟随缓存
         //加载摄像头
         loadCamera: function () {
             this.Revert();
@@ -113,6 +114,22 @@
                             } catch (e) {
                             }
                         }
+                        
+                        //  节点信息窗跟随测试
+                        var nodePath = areaName + '/' + nodeName;                       
+
+                        if(require("tl_Camera").nodeFollowingPath != null){
+                            map.disableNodeFollowing(require("tl_Camera").nodeFollowingPath, true);
+                        }
+                        
+                        require("tl_Camera").nodeFollowingPath = nodePath;
+                        map.enableNodeFollowing(nodePath, function(node, v2i){                            
+                            if (node.getFullName() == nodePath){
+                                document.getElementById("cameradetail").style.left = v2i.x + "px";
+                                document.getElementById("cameradetail").style.top = v2i.y + "px"; 
+                            } 
+                        });
+
                     }
                     else {                        
                         //com.alert("视频地址为空");   
@@ -124,7 +141,7 @@
             /*******************选中POI-end*******************/
 
 
-        },
+        },        
         changealiplayer: function (url) {
             require("tl_Camera").cameradetail_player.loadByUrl(url);
         },
