@@ -8,7 +8,7 @@
         InterfaceUrl_estate:"http://47.101.181.131:8081/",
         InterfaceUrl_test: "http://47.101.181.131:8080/",  //接口地址
         InterfaceUrl_garden: "http://47.101.181.131:8095/",  //接口地址
-        InterfaceUrl_parking: "http://47.101.181.131:8093/",
+        InterfaceUrl_parking: "http://47.101.181.131:8093/", 
         InterfaceUrl_HeatMap: "http://47.101.181.131:8094/",  //接口地址
         InterfaceUrl_Event: "http://47.101.181.131:8096/",//园区事件获取接口
         TyHref_S: 'ME-SRE://1920,1080,0,0#{I/DPZJ2nKwh4LSzuco/cQkvXVlgp+TDvjq/cNLLkrjreGqbjCMrRauMS6zwQ327fX5A/CScvo4CnCmUWy4Qb5KX+tkPCMvUiD2TztEDdNx8rd1zLpkN8aDtEk23jcGaL}', //产业推演地址定向（大屏）
@@ -45,22 +45,34 @@
         //当前场景状态 实景 或夜景
         currStatus: 1, //0:白天 1 夜景
         /***************************常用方法***************************/
-        //获取当前时间，格式YYYY-MM-DD 00:00:00
-        //getNowFormatDate: function () {
-        //    var date = new Date();
-        //    var seperator1 = "-";
-        //    var year = date.getFullYear();
-        //    var month = date.getMonth() + 1;
-        //    var strDate = date.getDate();
-        //    if (month >= 1 && month <= 9) {
-        //        month = "0" + month;
-        //    }
-        //    if (strDate >= 0 && strDate <= 9) {
-        //        strDate = "0" + strDate;
-        //    }
-        //    var currentdate = year + seperator1 + month + seperator1 + strDate + " 00:00:00";
-        //    return currentdate;
-        //},
+        //获取当前时间，格式YYMMDDHHMMSS
+        getNowFormatDateYYMMDDHHMMSS: function () {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            var hours = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+
+            if (hours >= 1 && hours <= 9) {
+                hours = "0" + hours;
+            }
+            if (minute >= 1 && minute <= 9) {
+                minute = "0" + minute;
+            }
+            if (second >= 1 && second <= 9) {
+                second = "0" + second;
+            }
+            var currentdate = year + "" + month + "" + strDate + "" + hours + "" + minute + "" + second;
+            return currentdate;
+        },
         //获取当前时间，格式YYYY-MM-DD hh:mm:ss  getNowFormatDate
         getNowFormatDate:function (str) {
             var date = new Date(str);

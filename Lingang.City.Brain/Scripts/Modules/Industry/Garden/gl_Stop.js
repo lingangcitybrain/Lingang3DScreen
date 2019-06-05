@@ -23,12 +23,12 @@
             require("g_Main").loadLeftSecond1();//加载左侧第二列第一个div
             require("g_Main").loadLeftSecond2();//
             require("g_Main").loadLeftSecond3();//
-            com.LayerFlyto(21);
+            //com.LayerFlyto(21);
             require("reset").ClearDivHtmlOnCenter();
             require("gl_Stop").loadParkingInfo();
         },
         loadParkingInfo: function () {
-            var time = null;//不传，查历史记录可传
+            var time = con.getNowFormatDateYYMMDDHHMMSS();
             require("gl_GardenBuildingAjax").getParkingInfo(time, function (data) {
                 var areaName = con.AreaName,
                     poiName = "parkinglotPOI";
@@ -46,7 +46,7 @@
                         CharScale: 1,
                         Text: "",//data.name,
                         Icon: require("gl_Stop").stopPOI,
-                        IconSize: Q3D.vector2(38, 50),
+                        IconSize: Q3D.vector2(40, 32),
                         POILayout: Q3D.Enums.poiLayOut.Bottom,
                         UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
                         IconAlphaEnabled: true,
@@ -62,7 +62,15 @@
                         IconLabelMargin: null,
                         SpecialTransparent: true,
                         AlwaysOnScreen: true,
-                    }
+                        
+                    },
+                    OnLoaded: function () {
+                        var node = map.getSceneNode(areaName + "/" + poiName);
+                        if (node) {
+                            Q3D.globalCamera().flyToNode(node);
+                        }
+                        
+                    },
                 };
                 
                 map.createPOI(areaName + "/" + poiName, createOptions);
