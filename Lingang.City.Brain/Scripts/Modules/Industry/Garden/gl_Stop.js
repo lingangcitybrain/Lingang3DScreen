@@ -34,6 +34,10 @@
                 require("gl_Stop").parkingLotInfo.put(data.appid,data);
                 var areaName = con.AreaName,
                     poiName = "parkinglotPOI_" + data.appid;//+data.
+                var node = map.getSceneNode(areaName, poiName);
+                if (node) {
+                    node.setVisible(1);
+                }
                 var parkingLotPOS = Q3D.vector3((data.longitude + "," + data.altitude + ",0").toGlobalVec3d().toLocalPos(areaName));
                 require("gl_Stop").stopPOIs.push(poiName);
                 var createOptions = {

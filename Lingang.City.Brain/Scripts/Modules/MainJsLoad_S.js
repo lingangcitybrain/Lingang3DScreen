@@ -8,7 +8,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             require("common").alert(text);
         },
         /******************分页点击事件*****************/
-        pagination: function (domID, length, optInit) {
+        pagination: function (domID, length, optInit,pageindex) {
         $("#" + domID).pagination(length, optInit);
     },
 

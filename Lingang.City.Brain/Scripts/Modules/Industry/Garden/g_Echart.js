@@ -1405,7 +1405,7 @@
                     var optInit = com.GetOptionsFrom(require("g_Echart").sjtj, items_per_page, items_per_page, display_entries, edge_entries, pageindex);
                         // Create pagination element with options from form
                         //$("#pagination-parkingEnvent").pagination(data.length, optInit);
-                    require("mainJsLoad").pagination("pagination-parkingEnvent", data.length, optInit);
+                    require("mainJsLoad").pagination("pagination-parkingEnvent", data.length, optInit,pageindex);
                     ///}
                     
                 }          

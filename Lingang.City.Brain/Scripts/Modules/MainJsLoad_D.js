@@ -38,14 +38,14 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
 
         /******************分页点击事件*****************/
         pageIndex: 0,
-        pagination: function (domID, length, optInit) {
+        pagination: function (domID, length, optInit,pageindex) {
             $("#" + domID).pagination(length, optInit);
             //顶部菜单
             $("#" + domID + " a").each(function (index) {
                 $(this).click(function () {//点击触发事件
                     //require('mainMenu').mainMenuSelect(index);
                     console.info($(this).index());
-                    require("g_Home").EnventPagenationClckFunc(domID, index);
+                    require("mainJsLoad").EnventPagenationClckFunc(domID, index);
                     $(this).addClass();
                 });
             });
