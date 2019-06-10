@@ -51,7 +51,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             sl_Event.loadEvent();  
 
             //this.loadBottomMenu();//加载底部图层
-
+  
             this.loadLeftFirst1();//加载左侧第一列第一个div
             this.loadLeftFirst2();//
             this.loadLeftFirst3();//
