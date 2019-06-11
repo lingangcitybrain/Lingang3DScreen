@@ -582,7 +582,11 @@
 
                 switch (poitype) {
                     case "Camera": //摄像头
-                        tl_Camera.loadCameraDetial(nodename)
+                        setTimeout(function(){
+                            tl_Camera.loadCameraDetial(nodename);
+                        }, 300);  //加timeout目的：因控件针对鼠标点击处理的反应速度要低于div弹出速度，
+                                  //所以点击POI时鼠标的mouseup释放处理被优先弹出的全屏div遮挡，导致控件认为是拖动事件。
+                                  //加timeout，延迟div弹出时间，mouseup优先处理完成。
                         break;
                     case "Drone": //无人机  
                         //tl_Drone.loadDroneDetail(nodename);
