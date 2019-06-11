@@ -182,36 +182,16 @@
             s_EchartAjax.getCostlineTideData(post_data, function (result) {
                 if (require("s_Echart").costlineTideData == null) { return false; }
                 var data = require("s_Echart").costlineTideData;
-                data = data.data.data;
+                data = data.data;
 
-                function dealStr(str) {
-                    var arr = str.split(".")[0].split("T");
-                    var arrDate = arr[0].split("-")[2];
-                    var arrTime = arr[1].slice(0, 5);
-                    return [arrDate, arrTime]
-                }
-
-                $("#costline-tide").append(
-                    '<li class=\"sqzz-hax-lr3-li\">'
-                      + '<table cellpadding=\"0\" cellspacing=\"0\" class=\"table\">'
-                           + '<thead><tr><td>日期</td><td>涨潮</td><td>退潮</td></tr></thead>'
-                           + '<tbody>'
-                               + '<tr><td rowspan=\"2\"><div class=\"sqzz-hax-lr3-date\">' + dealStr(data[0].highOneDate)[0] + '</div></td><td>' + dealStr(data[0].highOneDate)[1] + '</td><td>' + dealStr(data[0].lowOneDate)[1] + '</td></tr>'
-                               + '<tr><td>' + dealStr(data[0].highTwoDate)[1] + '</td><td>' + dealStr(data[0].lowTwoDate)[1] + '</td></tr>'
-                           + '</tbody>'
-                       + '</table>'
-                    + '</li>'
-                )
-
-                for (var i = 2; i < data.length; i++) {
-
+                for (var i = 0; i < data.length; i++) {
                     $("#costline-tide").append(
                         '<li class=\"sqzz-hax-lr3-li\">'
                           + '<table cellpadding=\"0\" cellspacing=\"0\" class=\"table\">'
-                               + '<thead><tr><td>日期</td><td>涨潮</td><td>退潮</td></tr></thead>'
+                               + '<thead><tr><td>日期</td><td>退潮</td><td>涨潮</td></tr></thead>'
                                + '<tbody>'
-                                   + '<tr><td rowspan=\"2\"><div class=\"sqzz-hax-lr3-date\">' + dealStr(data[i].highOneDate)[0] + '</div></td><td>' + dealStr(data[i].highOneDate)[1] + '</td><td>' + dealStr(data[i].lowOneDate)[1] + '</td></tr>'
-                                   + '<tr><td>' + dealStr(data[i].highTwoDate)[1] + '</td><td>' + dealStr(data[i].lowTwoDate)[1] + '</td></tr>'
+                                   + '<tr><td rowspan=\"2\"><div class=\"sqzz-hax-lr3-date\">' + data[0].data.split("-")[2] + '</div></td><td>' + data[i].lower[0] + '</td><td>' + data[i].high[0] + '</td></tr>'
+                                   + '<tr><td>' + data[i].lower[1]?data[i].lower[1]:"" + '</td><td>' +  data[i].high[1]?data[i].high[1]:""  + '</td></tr>'
                                + '</tbody>'
                            + '</table>'
                         + '</li>'
