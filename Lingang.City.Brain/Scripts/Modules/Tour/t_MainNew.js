@@ -387,15 +387,20 @@
             loadLeft2_Video: function () {
                 var videowidth = $(".sxt-videoli").width();
                 var videoheight = $(".sxt-videoli").height();
-                if (require("t_Main").left02_video01) {
-                    require("t_Main").left02_video01.loadByUrl("");
-                    require("t_Main").left02_video01.dispose();
-                    require("t_Main").left02_video01 = null;
-                }
-                if (require("t_Main").left02_video02) {
-                    require("t_Main").left02_video02.loadByUrl("");
-                    require("t_Main").left02_video02.dispose();
-                    require("t_Main").left02_video02 = null; 
+                try {
+                    if (require("t_Main").left02_video01) {
+                        require("t_Main").left02_video01.loadByUrl("");
+                        require("t_Main").left02_video01.dispose();
+                        require("t_Main").left02_video01 = null;
+                    }
+                    if (require("t_Main").left02_video02) {
+                        require("t_Main").left02_video02.loadByUrl("");
+                        require("t_Main").left02_video02.dispose();
+                        require("t_Main").left02_video02 = null;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
                 }
                 $("#left02_video01").empty();
                 $("#left02_video02").empty();

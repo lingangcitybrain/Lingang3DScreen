@@ -523,12 +523,16 @@
         //清除无人机
         clearPlane: function () {
             //社会综治-无人机视频清空
-            if (require("tl_Drone").SocietyDrone_player) {
-                require("tl_Drone").SocietyDrone_player.loadByUrl("");
-                require("tl_Drone").SocietyDrone_player.dispose();
-                require("tl_Drone").SocietyDrone_player = null;
+            try {
+                if (require("tl_Drone").SocietyDrone_player) {
+                    require("tl_Drone").SocietyDrone_player.loadByUrl("");
+                    require("tl_Drone").SocietyDrone_player.dispose();
+                    require("tl_Drone").SocietyDrone_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-
             var modelName = "wrj";
             var AreaName = con.AreaName;
             var quanpath = AreaName + "/" + modelName;
