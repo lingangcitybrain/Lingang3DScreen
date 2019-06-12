@@ -28,10 +28,10 @@
         },
 
         cgqBigNumData:{
-            "peopleCount": "2348",
-            "carCounts": "231",
-            "occupy": "0.8",
-            "grade": "0.7"
+            "occupy":"82%",
+            "peopleCount":"1988",
+            "grade":"90%",
+            "carCounts":"317",
         },
 
         //主责部门
