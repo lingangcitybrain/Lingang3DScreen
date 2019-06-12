@@ -623,7 +623,7 @@
                     }
                 } catch (error) {
                     console.log(error.message);
-                    $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                    //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
                 }
             },
             closeBottomVideo: function () {
@@ -648,7 +648,7 @@
                     }
                 } catch (error) {
                     console.log(error.message);
-                    $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                    //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
                 }
             },
             numberAni: function () {

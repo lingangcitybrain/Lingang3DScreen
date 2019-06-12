@@ -766,7 +766,7 @@
                 this.clearAllChoosePoi();
             } catch (error) {
                 console.log(error.message);
-                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
         },
         //清除所有选中的POI
