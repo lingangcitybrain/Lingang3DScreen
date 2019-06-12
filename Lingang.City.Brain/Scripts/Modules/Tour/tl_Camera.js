@@ -127,6 +127,11 @@
                             if (node.getFullName() == nodePath){
                                 document.getElementById("cameradetail").style.left = v2i.x + "px";
                                 document.getElementById("cameradetail").style.top = v2i.y + "px"; 
+                                
+                                // 获取指定节点的屏幕坐标
+                                //var v2iNode = mapObj._map3d.getWorldManager().getMainCamera(0).absPosToViewport(node.getAbsPos());
+                               
+                                //console.log('窗口：'+v2i.x + ',' + v2i.y + ';' + '节点：'+v2iNode.x + ',' + v2iNode.y);
                             } 
                         });
 
