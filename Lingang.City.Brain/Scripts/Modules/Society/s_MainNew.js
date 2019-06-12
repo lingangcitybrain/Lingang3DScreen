@@ -628,8 +628,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         numberAni2: function (data) {
             com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
             com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
-            com.numberAnimation($('#s_bignum3'), Number(data.occupy) * 100 - 20, Number(data.occupy) * 100, 2000);
-            com.numberAnimation($('#s_bignum4'), Number(data.grade) * 100 - 20, Number(data.grade) * 100, 2000);            
+            com.numberAnimation($('#s_bignum3'), parseInt(data.occupy) - 20, parseInt(data.occupy), 2000);
+            com.numberAnimation($('#s_bignum4'), parseInt(data.grade) - 20, parseInt(data.grade), 2000);
         },
 
         htmlRevert: function () {
