@@ -338,7 +338,7 @@
                     data: null,
                     dataType: 'json',
                     success: function (data) {
-                        callback(data.data);
+                        callback(data);
                     },
                     error: function (error) {
                         console.log('景区管理---获取人流预测数据失败' + error);

@@ -88,7 +88,7 @@
         tl_Event: "Modules/Tour/tl_Event",
         tl_ParkingLot: "Modules/Tour/tl_ParkingLot",
         tl_RoadCondition: "Modules/Tour/tl_RoadCondition",
-        tl_StreamCalculate: "Modules/Tour/tl_StreamCalculate",
+        tl_StreamCalculate: "Modules/Tour/tl_StreamCalculateNew",
         tl_TrafficSimulation: "Modules/Tour/tl_TrafficSimulation",
         tl_VisitorsMap: "Modules/Tour/tl_VisitorsMap",
 
