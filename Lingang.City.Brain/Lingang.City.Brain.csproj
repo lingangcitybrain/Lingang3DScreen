@@ -609,7 +609,10 @@
     <Content Include="Content\images\pj-tempicon.png" />
     <Content Include="Content\images\pj-tshadow.png" />
     <Content Include="Content\images\pjl-topicon.png" />
+    <Content Include="Content\images\poi-bottom.png" />
     <Content Include="Content\images\poi-leftpic.png" />
+    <Content Include="Content\images\poi-middle.png" />
+    <Content Include="Content\images\poi-top.png" />
     <Content Include="Content\images\POI1.gif" />
     <Content Include="Content\images\poi_guiji_leftshadow.png" />
     <Content Include="Content\images\real-scene.png" />
@@ -627,9 +630,11 @@
     <Content Include="Content\images\sqzz-lr-11.png" />
     <Content Include="Content\images\sqzz-lr-12.png" />
     <Content Include="Content\images\sqzz-lr-13.png" />
+    <Content Include="Content\images\sqzz-lr-14.png" />
     <Content Include="Content\images\sqzz-lr-21.png" />
     <Content Include="Content\images\sqzz-lr-22.png" />
     <Content Include="Content\images\sqzz-lr-31.png" />
+    <Content Include="Content\images\sqzz-lr-32.png" />
     <Content Include="Content\images\sqzz-poi-icon1.png" />
     <Content Include="Content\images\sqzz-poi-icon2.png" />
     <Content Include="Content\images\star-icon%40x2.png" />
@@ -657,6 +662,7 @@
     <Content Include="Content\images\ykhx-3.png" />
     <Content Include="Content\images\ykhx-4.png" />
     <Content Include="Content\images\yqsjlb-1.png" />
+    <Content Include="Content\images\yqsjlb-default.png" />
     <Content Include="Content\images\yqsjlb.png" />
     <Content Include="Content\images\yqyj-hart-warn-icon1.png" />
     <Content Include="Content\images\yqyj-hart-warn-icon2.png" />
@@ -898,6 +904,7 @@
     <Content Include="Scripts\Modules\Tour\tl_Event.js" />
     <Content Include="Scripts\Modules\Tour\tl_Metro.js" />
     <Content Include="Scripts\Modules\Tour\tl_ParkingLot.js" />
+    <Content Include="Scripts\Modules\Tour\tl_ParkingLotNew.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculateNew.js" />
     <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
@@ -1136,6 +1143,7 @@
     <Content Include="View\TourNew\Left_Second_01.html" />
     <Content Include="View\TourNew\Left_Second_02.html" />
     <Content Include="View\TourNew\Left_Second_03.html" />
+    <Content Include="View\TourNew\ParkingLotDetail.html" />
     <Content Include="View\TourNew\Right_First_01.html" />
     <Content Include="View\TourNew\Right_First_02.html" />
     <Content Include="View\TourNew\Right_First_03.html" />
