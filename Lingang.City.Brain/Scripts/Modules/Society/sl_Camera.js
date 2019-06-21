@@ -6,6 +6,7 @@
         LastPOI_Clk: null,//鼠标选中POI
         SocietyCamera_player: null,
         CameraListData: new util.HashMap,
+        nodeFollowingPath: null,//窗口跟随缓存
         CameraState: 0,//0：未打开过视频,1打开视频
 
         //加载摄像头POI
@@ -103,14 +104,32 @@
                         } catch (e) {
                         }
                     }
+
+                    //  节点信息窗跟随测试
+                    var nodePath = areaName + '/' + nodeName;
+
+                    if (require("sl_Camera").nodeFollowingPath != null) {
+                        map.disableNodeFollowing(require("sl_Camera").nodeFollowingPath, true);
+                    }
+
+                    require("sl_Camera").nodeFollowingPath = nodePath;
+                    map.enableNodeFollowing(nodePath, function (node, v2i) {
+                        if (node.getFullName() == nodePath) {
+                            document.getElementById("s_cameradetail").style.left = v2i.x + "px";
+                            document.getElementById("s_cameradetail").style.top = v2i.y + "px";
+
+                            // 获取指定节点的屏幕坐标
+                            //var v2iNode = mapObj._map3d.getWorldManager().getMainCamera(0).absPosToViewport(node.getAbsPos());
+
+                            //console.log('窗口：'+v2i.x + ',' + v2i.y + ';' + '节点：'+v2iNode.x + ',' + v2iNode.y);
+                        }
+                    });
                 }
                 else {
                     //com.alert("视频地址为空");
                     require("mainJsLoad").commonAlert("视频地址为空");
                 }
             });
-
-
         },
         //切换视频
         changealiplayer: function (url) {

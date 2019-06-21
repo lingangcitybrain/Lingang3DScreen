@@ -601,6 +601,7 @@
     <Content Include="Content\images\parking-bottom.png" />
     <Content Include="Content\images\parking-middle.png" />
     <Content Include="Content\images\parking-top.png" />
+    <Content Include="Content\images\person-pic.png" />
     <Content Include="Content\images\personCardIMG.jpg" />
     <Content Include="Content\images\personCardIMG.png" />
     <Content Include="Content\images\pj-3d.png" />
@@ -1079,8 +1080,11 @@
     <Content Include="View\Industry\Garden\Right_Second_01.html" />
     <Content Include="View\SocietyNew\Bottom_CameraDetail.html" />
     <Content Include="View\SocietyNew\Bottom_DroneCamera.html" />
+    <Content Include="View\SocietyNew\Bottom_EventBuildList.html" />
+    <Content Include="View\SocietyNew\Bottom_EventBuildVideo.html" />
     <Content Include="View\SocietyNew\Bottom_EventDetail.html" />
     <Content Include="View\SocietyNew\Bottom_EventDetailPic.html" />
+    <Content Include="View\SocietyNew\Bottom_EventDrone.html" />
     <Content Include="View\SocietyNew\Bottom_EventPaidan.html" />
     <Content Include="View\SocietyNew\Bottom_IOTDetail.html" />
     <Content Include="View\SocietyNew\Bottom_Menu.html" />

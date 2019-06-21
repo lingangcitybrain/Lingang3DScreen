@@ -2945,7 +2945,7 @@ dd.pjc-statistic-star >form{
 	margin-right: .1rem;
 }
 
-.sqzz-sjjd-poi{ width: 5rem; }
+.sqzz-sjjd-poi{ width: 7rem; }
 .sqzz-sjjd-div>img{
 	width: 1.7rem;
 	margin-right: .3rem;
@@ -3560,6 +3560,35 @@ dd.pjc-statistic-star >form{
 	font-size: .38rem;
 	color: #f8d906;
 }
+.poibox3{ width: 9rem;}
+.poibox4{ width: 8.5rem;}
+.poibox4-list{
+	height: auto;
+	max-height: 12.2rem;
+}
+.poibox4-li{
+	padding: .16rem .3rem;
+	padding-right: 0;
+	box-sizing: border-box;
+	display: flex;
+}
+.poibox4-left{
+	width: 1.6rem;
+	margin-right: .15rem;
+}
+.poibox4-left>img{ width: 100%; height: 100%; }
+.poibox4-right{
+	width: calc(100% - 1.76rem);
+	font-size: .36rem;
+	line-height: .56rem;
+	word-break: keep-all;
+}
+.poibox4-right>div:first-child{ color: #04e6df; }
+.poibox4-right>div{ word-break: keep-all; }
+
+
+
+
 
 @media screen and (max-width: 11520px){
 

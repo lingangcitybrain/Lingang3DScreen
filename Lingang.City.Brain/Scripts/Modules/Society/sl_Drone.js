@@ -347,7 +347,6 @@
                 var data = require("sl_Drone").DroneList.get(id);
                 var post_data = { "sbbm": data.sbbm };
                 if (data.sbbm != "ceshi_001" && data.sbbm != "SkySys_0004" && data.sbbm != "SkySys_0005") {
-                    console.log(data.sbbm);
                     require("s_LayerMenuAjax").getDroneVideo(post_data, function (result) {
                         console.log(result);
                         require("sl_Drone").openDroneVideo(result);
