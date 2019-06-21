@@ -1150,6 +1150,7 @@
     <Content Include="View\TourNew\Right_Second_01.html" />
     <Content Include="View\TourNew\Right_Second_02.html" />
     <Content Include="View\TourNew\Right_Second_03.html" />
+    <Content Include="View\TourNew\StreamCalculateDetail.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
