@@ -4,10 +4,10 @@
 html{ font-size: 90px; }
 body{
 	position: relative;
-	width: 11520px;
-	height: 3240px;
-    /*width: 7680px;
-	height: 2160px;*/
+	/*width: 11520px;
+	height: 3240px;*/
+    width: 7680px;
+	height: 2160px;
 	color:#fff;
 	font-family:"微软雅黑";
 	/*overflow: hidden;*/
@@ -3665,6 +3665,17 @@ dd.pjc-statistic-star >form{
 	line-height: 1em;
 }
 
+.poparrow:after{
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	width: .46rem;
+	height: .68rem;
+	background: url(../Content/images/cy-qy-zc-icon.png) center center no-repeat;
+	background-size: 100% 100%;
+	transform: translate(-50%, -.2rem) rotate(90deg);
+}
 @media screen and (max-width: 11520px){
 
 	html{ font-size:130px;}

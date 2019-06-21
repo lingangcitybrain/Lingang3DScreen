@@ -18,9 +18,6 @@
         InspectorList: new util.HashMap,
 
         danao_coordinatestr: null,//城市大脑的坐标
-        nodeFollowingPath: null,//窗口跟随事件节点
-        paidannodeFollowingPath: null,//窗口跟随派单节点
-
         /*********************加载事件POI-start*********************/
         loadEvent: function () {
             //this.Revert();
@@ -108,8 +105,6 @@
                         var sec = timeText.split(':')[2];
 
                         s = Number(hour * 3600) + Number(min * 60) + Number(sec);
-
-                        console.log(timeText, s,poiName);
                         require("sl_Event").setTimeCountDown(poiName, s);
                     //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
                     
@@ -200,9 +195,11 @@
 
 
         /*********************加载大脑转动特效-start*********************/
+        nodeFollowingPath: [],//窗口跟随事件节点
         //事件处理特效
         loadEventProcessing: function (nodeName) {
-            require("sl_Event").closeEventPaidan();
+            require("sl_Event").clearWindowFolowing();//关闭窗口跟随
+            require("sl_Event").closeDetail();//关闭事件详情
             require("sl_Event").jumppoilist = [];
             var areaName = con.AreaName;
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
@@ -234,18 +231,15 @@
             var data = require("sl_Event").EventList.get(id);
             data.videoUrl = "http://47.101.181.131:8092/videoGetStream/103.214.87.67:11937/citybrain/20010000001680000001.flv?vhost=cb.alivecdn.com&deviceType=0&deviceId=20010000001680000001&profile=HD&vendor=test&algo=md5&expires=1561013305&txid=20010000001680000001-1561009705-ax99b9cw2g&sign=ef8dce80f1c9bef37cc4d5de9dd0dde6";
             //data.imageUrl = "http://101.132.114.31/vcs/picsearch/pictureProxy/zhlingang-stsf-truck/video_automobile_panoramic/068/20190618/20190618-8947af93-0a580a000ac8-00000068-0003ed9f.jpg";
+
             //视角定位到坐标,默认显示图片
-            //gwh_xilou/POISocietyEvent_U003_13525
             var pos = Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos());
             var postr = pos.x + "," + pos.y + "," + pos.z;
-            var height = parseFloat(postr.split(',')[2])+420,
-                x = parseFloat(postr.split(',')[0]),
-                z = parseFloat(postr.split(',')[1]) + 487;
+            var height = parseFloat(postr.split(',')[2]) + 852,
+                x = parseFloat(postr.split(',')[0]) + 52,
+                z = parseFloat(postr.split(',')[1]) + 828;
             var pointlast = x + "," + z + "," + height;
-
-            var orientation = Q3D.globalCamera().getOrientation().x + "," + Q3D.globalCamera().getOrientation().y + "," + Q3D.globalCamera().getOrientation().z;
-
-            Q3D.globalCamera().flyTo((pointlast).toVector3d(), ("-42.812068939208984,1.9336525201797485,1.7832629680633545").toVector3(), 2, function () {
+            Q3D.globalCamera().flyTo((pointlast).toVector3d(), ("-42.812068939208984,1.9336525201797485,1.7832627296447754").toVector3(), 2, function () {
                
             });
 
@@ -299,7 +293,6 @@
                 }
                 html += '</dic></div>';
                 $("#eventdetail").html(html);
-
                 require("sl_Event").loadPaidan(id);//加载派单页面
             })
         },
@@ -332,6 +325,17 @@
                 }
                 $("#ul_eventdetail").html(html);
 
+                var nodeName = "POISociety" + require("sl_Event").LayerType.List[data.communityId].Name + "_" + data.id;//POIIOT_01
+                //事件详情窗口跟随
+                var nodePath = con.AreaName + '/' + nodeName;
+                //var nodeObject = { "nodeName": nodeName, "nodeDom": "div_eventdetail" };
+                var nodeObject = { "nodePath": nodePath, "nodeDom": "div_eventdetail" };
+
+                require("sl_Event").nodeFollowingPath.push(nodeObject);
+
+                map.enableNodeFollowing(nodePath, function (node, v2i) {
+                    require("sl_Event").nodeFolowing(node, v2i);
+                });
 
                 require("sl_Event").loadVedio(id);//加载视频
 
@@ -443,20 +447,7 @@
         loadPaidan: function (id) {
             var areaName = con.AreaName;
             var data = require("sl_Event").EventList.get(id);
-            var nodeName = "POISociety" + require("sl_Event").LayerType.List[data.communityId].Name + "_" + data.id;//POIIOT_01
-            //  节点信息窗跟随测试
-            var nodePath = areaName + '/' + nodeName;
-            if (require("sl_Event").nodeFollowingPath != null) {
-                map.disableNodeFollowing(require("sl_Event").nodeFollowingPath, true);
-            }
-
-            require("sl_Event").nodeFollowingPath = nodePath;
-            map.enableNodeFollowing(nodePath, function (node, v2i) {
-                if (node.getFullName() == nodePath) {
-                    document.getElementById("div_eventdetail").style.left = v2i.x + "px";
-                    document.getElementById("div_eventdetail").style.top = v2i.y + "px";
-                }
-            });
+            
 
             //画事件到大脑的连接
             var option = {
@@ -538,25 +529,39 @@
                             $("#paidandetail").hide()
                             $("#paidandetail").show('drop', 1000);
 
-                            //  派单节点信息窗跟随测试
-                            if (require("sl_Event").paidannodeFollowingPath != null) {
-                                map.disableNodeFollowing(require("sl_Event").paidannodeFollowingPath, true);
-                            }
 
-                            require("sl_Event").paidannodeFollowingPath = fullNodePath2;
-                            map.enableNodeFollowing(fullNodePath2, function (node, v2i) {
-                                if (node.getFullName() == fullNodePath2) {
-                                    if (document.getElementById("paidandetail") != null) {
-                                        document.getElementById("paidandetail").style.left = v2i.x + "px";
-                                        document.getElementById("paidandetail").style.top = v2i.y + "px";
-                                    }
-                                }
-                            });
+                            //派单POI跟随
+                            var nodeObject = { "nodePath": fullNodePath2, "nodeDom": "paidandetail" };
+                            require("sl_Event").nodeFollowingPath.push(nodeObject);
                         })
                     }
                 }, 1000);
             }
             
+        },
+        nodeFolowing: function (node, v2i) {
+            require("sl_Event").nodeFollowingPath.forEach(function (e) {
+                if (node.getFullName() == e.nodePath) {
+                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                    document.getElementById(e.nodeDom).style.top = v2i.y - 560 + "px";
+                }
+                //if (node.getFullName().indexOf("paidan01") > -1) {//派单
+                //    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                //    document.getElementById(e.nodeDom).style.top = v2i.y - 360 + "px";
+                //}
+                //else if (node.getFullName().indexOf("POISocietyEvent") > -1) {//事件POI
+                //    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                //    document.getElementById(e.nodeDom).style.top = v2i.y -560+ "px";
+                //}
+            });
+        },
+        //关闭跟随
+        clearWindowFolowing: function () {
+            require("sl_Event").nodeFollowingPath.forEach(function (e) {
+                console.log(e.nodeName)
+                map.disableNodeFollowing(e.nodeName, true);
+            });
+            require("sl_Event").nodeFollowingPath = [];
         },
         //关闭派单页面
         closeEventPaidan: function () {
@@ -572,19 +577,19 @@
                     //map.clearPOIJump();
                     map.getArea(areaName).destroySceneNode("paidan01");
                 }
-
-                //  派单节点信息窗跟随测试
-                if (require("sl_Event").paidannodeFollowingPath != null) {
-                    map.disableNodeFollowing(require("sl_Event").paidannodeFollowingPath, true);
+                if (require("sl_Event").nodeFollowingPath.length == 2)
+                {
+                    require("sl_Event").nodeFollowingPath.pop();//删除派单窗口跟随
                 }
                 $("#detail_03").html("");//页面清空
             }
         },
         //关闭事件详情
         closeDetail: function () {
+            require("sl_Event").clearWindowFolowing();
             //清空派单
             require("sl_Event").closeEventPaidan();
-
+            
             //$("#left_02").html("");
             $("#detail_02").empty();
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
@@ -597,7 +602,7 @@
                 if (map.getSceneNode(con.AreaName, "paidan_" + id)) {
                     map.getArea(con.AreaName).destroySceneNode("paidan_" + id);
                 }
-
+                this.LayerType = require("s_Main").LayerCatalog.Event;
                 var type = this.LastPOI_Clk.split('_')[1];
                 var icon = this.LayerType.List[type].UnChooseIcon;
                 var lastNode = map.getSceneNode(con.AreaName, this.LastPOI_Clk);
@@ -605,10 +610,6 @@
                     lastNode.asPOI().setIcon(icon);
                     this.LastPOI_Clk = null;
                     //map.clearPOIJump();
-                }
-                //取消窗口联动
-                if (require("sl_Event").paidannodeFollowingPath != null) {
-                    map.disableNodeFollowing(require("sl_Event").paidannodeFollowingPath, true);
                 }
             }
 
@@ -648,7 +649,7 @@
 
             map.createPOI(fullNodePath, createOptions);
         },
-
+       
         //大脑自传动画
         loadDanaoAnimation: function () {
 
@@ -1292,7 +1293,7 @@
         /*********************加载大脑转动特效-end*********************/
         Revert: function () {
             this.clearEventPOI();
-            this.closeDetail();
+            this.closeDetail();//关闭详情窗口
             this.closeEventPaidan();
 
             if (this.DanaoAnimation) {
