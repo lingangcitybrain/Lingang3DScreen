@@ -4,10 +4,11 @@
 html{ font-size: 90px; }
 body{
 	position: relative;
-	width: 7680px;
-	height: 2160px;
+	width: 11520px;
+	height: 3240px;
+    /*width: 7680px;
+	height: 2160px;*/
 	color:#fff;
-
 	font-family:"微软雅黑";
 	/*overflow: hidden;*/
 }
@@ -3589,6 +3590,80 @@ dd.pjc-statistic-star >form{
 
 
 
+
+/*停车场弹出信息*/
+.poi-box{
+	z-index: 9999;
+	position: absolute;
+	top:1rem;
+	left: 0;
+	min-width: 3em;
+	padding: .33em 0 .18em;
+	font-size: 170px;
+	background: 
+		url(../Content/images/poi-top.png) no-repeat,
+		url(../Content/images/poi-bottom.png) 0 100% no-repeat;
+	background-size: 100% .33em, 100% .18em;
+	box-sizing: border-box;
+}
+.poi-title{
+	position: absolute;
+	top: -.6em;
+	left: 0;
+	width: 100%;
+	font-size: .26em;
+	text-align: center;
+}
+.poi-cont{
+	position: relative;
+	padding:.4em 1.5em;
+	font-size: .22em;
+	background: url(../Content/images/poi-middle.png) repeat-y;
+	background-size:100% 100%;
+}
+.poi-li{
+	line-height: 1em;
+	margin-bottom: .6em;
+}
+.poi-li:last-child{ margin-bottom: 0; }
+
+.poi-li>em>i{
+	font-size: 1.2em;
+	color: #f8d906;
+}
+
+.poi-box2{ color: #40dfdd; }
+.poi-box3{ color: #8acae1; }
+
+.poi-box2 .poi-li>span,
+.poi-box3 .poi-li>span{ 
+	color: #fff; 
+}
+.poi-box2 .poi-li>em>i,
+.poi-box3 .poi-li>em>i{ 
+	color: inherit; 
+}
+
+.poi-box-num{
+	z-index: 999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 0.7rem;
+	color: #effcfc;
+	line-height: 1em;
+}
+.poi-box-num>button{
+	font-size: inherit;
+	color: inherit;
+}
+.poi-box-num>button.poi-box-num-text{
+	width: 4em;
+	font-size: .35em;
+	color: #ba5afe;
+	text-align:left;
+	line-height: 1em;
+}
 
 @media screen and (max-width: 11520px){
 

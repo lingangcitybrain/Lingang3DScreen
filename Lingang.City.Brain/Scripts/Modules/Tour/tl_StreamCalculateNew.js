@@ -11,6 +11,8 @@ define(["config", "common", "util"], function (con, com, util) {
         flowRateData: null,
         HcPosition: '121.901825,30.915066,3',
         radianLines: null,
+        detailWindowId: 0,//当前窗口id
+        nodeFollowingPath:[],//节点跟随路径
         loadStream: function () {
             com.LayerFlyto(8); //飞到默认时口
 
@@ -523,6 +525,8 @@ define(["config", "common", "util"], function (con, com, util) {
             var poidata = inFlowRate;            
             var areaName = con.AreaName;
 
+            require("tl_StreamCalculate").closeDetailWindow();
+
             for (var i = 0; i < poidata.length; i++) {
                 var row = poidata[i];
                 var poiName = "POIStreamCalculate_" + timetype + "-" + row.id;
@@ -540,6 +544,7 @@ define(["config", "common", "util"], function (con, com, util) {
                 var node = map.getSceneNode(areaName + "/" + poiName);
                 if (node) {
                     node.setVisible(1);
+                    require("tl_StreamCalculate").loadDetailWindow(poiName, num, address);
                 } else {
                     //创建POI
                     var options = {
@@ -552,7 +557,7 @@ define(["config", "common", "util"], function (con, com, util) {
                             FontName: "微软雅黑",
                             FontColor: Q3D.colourValue("#efcfff", 1), //封装ColourValue对象
                             CharScale: 1.0,
-                            Text: num + '\n' + address,
+                            Text: '', //num + '\n' + address,
                             Icon: icon,
                             IconSize: iconSize, //封装Vector2对象
                             POILayout: Q3D.Enums.poiLayOut.Bottom,
@@ -566,6 +571,7 @@ define(["config", "common", "util"], function (con, com, util) {
                             AlwaysOnScreen: true,
                         },
                         OnLoaded: function () { //加载结束回调
+                            require("tl_StreamCalculate").loadDetailWindow(poiName, num, address);
                         },
                     };
                     map.createPOI(areaName + "/" + poiName, options);
@@ -573,12 +579,69 @@ define(["config", "common", "util"], function (con, com, util) {
                 require("tl_StreamCalculate").ListData.put(timetype + "-" + row.id, row);
             }      
         },
- 
+        loadDetailWindow:function(nodeName, num, address){
+            var url = con.HtmlUrl + 'TourNew/StreamCalculateDetail.html';
+            require(['text!' + url], function (template) {
+
+                require("tl_StreamCalculate").detailWindowId = require("tl_StreamCalculate").detailWindowId + 1;
+                var domWinName = 'detail_' + require("tl_StreamCalculate").detailWindowId;
+
+                $("#"+domWinName).show();
+                $("#"+domWinName).html(template);   
+                
+                var html = '<div class="poi-box-num flex"  style="pointer-events: none;">' +
+                                '<button>' + num + '&nbsp;</button>' +
+                                '<button class="poi-box-num-text">' + address + '</button>' +
+                            '</div>';
+                $("#" + domWinName).html(html);
+
+                //节点跟随
+                var nodePath = con.AreaName + '/' + nodeName;    
+                var nodeObject = {"nodePath": nodePath, "nodeDom": domWinName};
+    
+                require("tl_StreamCalculate").nodeFollowingPath.push(nodeObject);
+                
+                map.enableNodeFollowing(nodePath, function(node, v2i){      
+                    require("tl_StreamCalculate").nodeFolowing(node, v2i);
+                });
+
+            });   
+        }, 
+        nodeFolowing: function(node, v2i){
+            require("tl_StreamCalculate").nodeFollowingPath.forEach(function(e){
+                if (node.getFullName() == e.nodePath){
+                    document.getElementById(e.nodeDom).style.left = v2i.x - 180 + "px";
+                    document.getElementById(e.nodeDom).style.top = v2i.y - 220 + "px"; 
+                } 
+            });
+        },
+        closeDetailWindow: function () {
+            var currentWinId = require("tl_StreamCalculate").detailWindowId;
+            
+            while (currentWinId > 0) {
+                var domDetail = $("#detail_" + currentWinId);
+                domDetail.empty();
+                domDetail.hide();
+                currentWinId = currentWinId - 1;
+            }
+
+            require("tl_StreamCalculate").detailWindowId = 0;
+
+            require("tl_StreamCalculate").nodeFollowingPath.forEach(function(e) {
+                map.disableNodeFollowing(e.nodePath, true);
+            }); 
+
+            require("tl_StreamCalculate").nodeFollowingPath = [];
+        },
         //人流动线控制
         lineControl: function (inFlowRate) {                 
             inFlowRate.forEach(function(e){
-                var roadpos = e.lon + "," + e.lat + ",0";
-                require("tl_StreamCalculate").createRadianLine(roadpos, e.id);
+                var lng = parseFloat(e.lon);
+                var lat = parseFloat(e.lat);
+                var Coordinate = com.gcj02towgs84(lng, lat); //高德坐标转wg84坐标
+                var tmppos = Coordinate + ",0";
+                //var roadpos = Q3D.vector3(tmppos.toGlobalVec3d().toLocalPos(con.AreaName));
+                require("tl_StreamCalculate").createRadianLine(tmppos, e.id);
             });
         },
 
@@ -653,6 +716,7 @@ define(["config", "common", "util"], function (con, com, util) {
             require("tl_StreamCalculate").clearWarmPoi(); //
             require("tl_StreamCalculate").k = 0;
             require("common").openCloseBigDigital('open');
+            require("tl_StreamCalculate").closeDetailWindow();
         }
     };
 });
