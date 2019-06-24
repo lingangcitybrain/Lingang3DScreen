@@ -4,6 +4,7 @@
         LayerType: null,//选择摄像头
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
+
         freeParkingLotData:[],//停车场数据
         nodeFollowingPath:[],//节点跟随路径
         detailWindowId:0,//当前窗口id
@@ -100,7 +101,6 @@
             var domWinName = 'detail_' + require("tl_ParkingLot").detailWindowId;            
 
             require(['text!' + url], function (template) {
-             console.log(domWinName);
                 $("#"+domWinName).show();
                 $("#"+domWinName).html(template);
 

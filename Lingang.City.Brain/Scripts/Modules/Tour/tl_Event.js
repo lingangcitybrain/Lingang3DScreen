@@ -6,6 +6,8 @@
         POITruckTraceData: null, //POI车辆轨迹数据
         LastPOI_Clk: null,//鼠标选中POI
         tl_EventData: new util.HashMap,
+
+        nodeFollowingPath:null,
         /************************事件POI-start************************/
         //加载事件
         loadEvent: function () {
@@ -128,6 +130,9 @@
                 this.POIData = null;
             }
 
+            if (require("tl_Event").nodeFollowingPath != null) {
+                map.disableNodeFollowing(require("tl_Event").nodeFollowingPath, true);
+            }
         },
         /************************事件POI-end************************/
 
@@ -207,6 +212,24 @@
 
                 $("#ul_eventdetail").hide()
                 $("#ul_eventdetail").show('drop', 1000);
+
+
+                //  节点信息窗跟随测试
+                var areaName = con.AreaName;
+                var nodeName = "POITour" + require("tl_Event").LayerType.Name + "_" + data.id;//POIIOT_01
+                var nodePath = areaName + '/' + nodeName;
+
+                if (require("tl_Event").nodeFollowingPath != null) {
+                    map.disableNodeFollowing(require("tl_Event").nodeFollowingPath, true);
+                }
+
+                require("tl_Event").nodeFollowingPath = nodePath;
+                map.enableNodeFollowing(nodePath, function (node, v2i) {
+                    if (node.getFullName() == nodePath) {
+                        document.getElementById("ul_eventdetail").style.left = v2i.x + "px";
+                        document.getElementById("ul_eventdetail").style.top = v2i.y + "px";
+                    }
+                });
             })
         },
         addTruckRouteLine: function (carNo) {

@@ -164,7 +164,7 @@
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("tl_Drone").POIData = data.data;
-                        callback(data)
+                        callback(data.data)
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -175,7 +175,7 @@
             }
             else {//执行本地
                 require("tl_Drone").POIData = t_LayerMenuData.DroneHangarData.data;
-                callback();
+                callback(t_LayerMenuData.DroneHangarData.data);
             }
         },
         //获取无人机列表

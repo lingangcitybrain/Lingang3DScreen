@@ -1087,6 +1087,7 @@
     <Content Include="View\Industry\Garden\Right_Second_01.html" />
     <Content Include="View\SocietyNew\Bottom_CameraDetail.html" />
     <Content Include="View\SocietyNew\Bottom_DroneCamera.html" />
+    <Content Include="View\SocietyNew\Bottom_DroneKuDetail.html" />
     <Content Include="View\SocietyNew\Bottom_EventBuildList.html" />
     <Content Include="View\SocietyNew\Bottom_EventBuildVideo.html" />
     <Content Include="View\SocietyNew\Bottom_EventDetail.html" />

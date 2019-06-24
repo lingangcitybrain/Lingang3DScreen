@@ -70,11 +70,8 @@
                         RelPriority: null,
                     },
                     OnLoaded: function () {//加载结束回调
-                        
                         //创建窗口信息显示
                         require("sl_WorkStation").loadWorkStationDetailWindow(poiName, row.siteName);
-                        ////创建子POI显示
-                        //require("sl_WorkStation").loadWorkStationPOIDetial(areaName, poiName, "Texture/Common/cunju_" + temp + ".png", temp);
                     },
                 }
                 map.createPOI(areaName + "/" + poiName, options)
@@ -162,53 +159,6 @@
             require("sl_WorkStation").nodeFollowingPath = [];
         },
 
-        loadWorkStationPOIDetial: function (AreaName, parentName, icon, id) {
-            var pos = Q3D.vector3(400, 120, 0);
-            switch (id) {
-                case 1://临港家园社区居委会
-                    pos = Q3D.vector3(0, -20, 130);
-                    break;
-                case 2://东岸涟城居委会
-                    pos = Q3D.vector3(0, -20, 175);
-                    break;
-                case 3://滴水湖馨苑居委会
-                    pos = Q3D.vector3(0, 0, 275);
-                    break;
-                case 4://宜浩佳园第一居委会
-                    pos = Q3D.vector3(0, 0, 350);
-                    break;
-                case 5://宜浩佳园第二居委会
-                    pos = Q3D.vector3(0, 100, 0);
-                    break;
-                default:
-            }
-
-            var iconSize = Q3D.vector2(388, 217);
-            var createOptions = {
-                Position: pos,
-                Orientation: null,
-                OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                Scale: Q3D.vector3(0.5, 0.5, 0.5),
-                POIOptions: {
-                    CharScale: 1,
-                    Text: "",
-                    Icon: icon,
-                    IconSize: iconSize,
-                    POILayout: Q3D.Enums.poiLayOut.Bottom,
-                    UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                    IconAlphaEnabled: true,
-                    Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                    SpecialTransparent: true,
-                    AlwaysOnScreen: true,
-                    OnLoaded: function () {
-                    },
-                }
-            };
-            var poiName = "PoiWorkStationInfo" + id;
-            var node = map.getSceneNode(AreaName, poiName)
-            if (node) { map.destroySceneNode(AreaName, poiName) }
-            map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);
-        },
         //村居工作站点击事件
         loadWorkStationDetial: function (nodeName) {
             var areaName = con.AreaName;
