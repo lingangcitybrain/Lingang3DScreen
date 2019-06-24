@@ -100,6 +100,7 @@
             var domWinName = 'detail_' + require("tl_ParkingLot").detailWindowId;            
 
             require(['text!' + url], function (template) {
+             console.log(domWinName);
                 $("#"+domWinName).show();
                 $("#"+domWinName).html(template);
 

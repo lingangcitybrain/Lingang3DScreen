@@ -533,6 +533,10 @@
                             //派单POI跟随
                             var nodeObject = { "nodePath": fullNodePath2, "nodeDom": "paidandetail" };
                             require("sl_Event").nodeFollowingPath.push(nodeObject);
+
+                            map.enableNodeFollowing(fullNodePath2, function (node, v2i) {
+                                require("sl_Event").nodeFolowing(node, v2i);
+                            });
                         })
                     }
                 }, 1000);
