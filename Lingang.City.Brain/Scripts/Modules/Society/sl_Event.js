@@ -18,8 +18,9 @@
         InspectorList: new util.HashMap,
 
         danao_coordinatestr: null,//城市大脑的坐标
+        timeCountList:[],//POI计时器集合
         /*********************加载事件POI-start*********************/
-        loadEvent: function () {
+        loadEvent: function (callback) {
             //this.Revert();
             this.LayerType = require("s_Main").LayerCatalog.Event;
 
@@ -27,7 +28,7 @@
 
             //获取巡查员数据
             require("sl_Event").loadInspectorList();
-
+            require("sl_Event").clearTimeCount();//计时器清空
             com.LayerFlyto(15, function () {
                 //大脑转动
                 require("s_Main").DanaoAnimation = setTimeout(function () {
@@ -109,8 +110,13 @@
                     //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
                     
                     }
+
+                    if ($.isFunction(callback))
+                        callback()
                 });
             })
+
+           
         },
         //设置时间倒计时
         setTimeCountDown: function (poiname, times) {
@@ -140,6 +146,7 @@
                 }
                 times--;
             }, 1000);
+            require("sl_Event").timeCountList.push(timer);
             if (times <= 0) {
                 clearInterval(timer);
                 var node = map.getSceneNode(areaName, poiname);
@@ -191,6 +198,15 @@
             //map.getArea(areaName).destroySceneNode(poiname);
 
         },
+        clearTimeCount:function(){
+            if (require("sl_Event").timeCountList.length > 0) {
+                for (var i = 0; i < require("sl_Event").timeCountList.length; i++) {
+                    clearInterval(require("sl_Event").timeCountList[i]);
+                }
+                require("sl_Event").timeCountList=[];
+            }
+
+        },
         /*********************加载事件POI-end*********************/
 
 
@@ -229,26 +245,28 @@
 
             var id = nodeName.split('_')[2];
             var data = require("sl_Event").EventList.get(id);
-            data.videoUrl = "http://47.101.181.131:8092/videoGetStream/103.214.87.67:11937/citybrain/20010000001680000001.flv?vhost=cb.alivecdn.com&deviceType=0&deviceId=20010000001680000001&profile=HD&vendor=test&algo=md5&expires=1561013305&txid=20010000001680000001-1561009705-ax99b9cw2g&sign=ef8dce80f1c9bef37cc4d5de9dd0dde6";
-            //data.imageUrl = "http://101.132.114.31/vcs/picsearch/pictureProxy/zhlingang-stsf-truck/video_automobile_panoramic/068/20190618/20190618-8947af93-0a580a000ac8-00000068-0003ed9f.jpg";
+            if (data != null) {
+                data.videoUrl = "http://47.101.181.131:8092/videoGetStream/103.214.87.67:11937/citybrain/20010000001680000001.flv?vhost=cb.alivecdn.com&deviceType=0&deviceId=20010000001680000001&profile=HD&vendor=test&algo=md5&expires=1561013305&txid=20010000001680000001-1561009705-ax99b9cw2g&sign=ef8dce80f1c9bef37cc4d5de9dd0dde6";
+                //data.imageUrl = "http://101.132.114.31/vcs/picsearch/pictureProxy/zhlingang-stsf-truck/video_automobile_panoramic/068/20190618/20190618-8947af93-0a580a000ac8-00000068-0003ed9f.jpg";
 
-            //视角定位到坐标,默认显示图片
-            var pos = Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos());
-            var postr = pos.x + "," + pos.y + "," + pos.z;
-            var height = parseFloat(postr.split(',')[2]) + 852,
-                x = parseFloat(postr.split(',')[0]) + 52,
-                z = parseFloat(postr.split(',')[1]) + 828;
-            var pointlast = x + "," + z + "," + height;
-            Q3D.globalCamera().flyTo((pointlast).toVector3d(), ("-42.812068939208984,1.9336525201797485,1.7832627296447754").toVector3(), 2, function () {
-               
-            });
+                //视角定位到坐标,默认显示图片
+                var pos = Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos());
+                var postr = pos.x + "," + pos.y + "," + pos.z;
+                var height = parseFloat(postr.split(',')[2]) + 852,
+                    x = parseFloat(postr.split(',')[0]) + 52,
+                    z = parseFloat(postr.split(',')[1]) + 828;
+                var pointlast = x + "," + z + "," + height;
+                Q3D.globalCamera().flyTo((pointlast).toVector3d(), ("-42.812068939208984,1.9336525201797485,1.7832627296447754").toVector3(), 2, function () {
 
-            if (data.videoUrl != null && data.videoUrl != "")//视频不为空 优先显示视频格式
-            {
-                require("sl_Event").loadEventVedioDetail(id);
-            }
-            else {//显示图片格式
-                require("sl_Event").loadEventPicDetail(id);
+                });
+
+                if (data.videoUrl != null && data.videoUrl != "")//视频不为空 优先显示视频格式
+                {
+                    require("sl_Event").loadEventVedioDetail(id);
+                }
+                else {//显示图片格式
+                    require("sl_Event").loadEventPicDetail(id);
+                }
             }
         },
         //显示事件图片详情
@@ -562,7 +580,6 @@
         //关闭跟随
         clearWindowFolowing: function () {
             require("sl_Event").nodeFollowingPath.forEach(function (e) {
-                console.log(e.nodeName)
                 map.disableNodeFollowing(e.nodeName, true);
             });
             require("sl_Event").nodeFollowingPath = [];
@@ -1029,205 +1046,6 @@
 
 
         /*********************社区楼栋事件-end*********************/
-
-        //事件点击事件
-        loadEventDetial: function (id) {
-
-            var option = {
-                AreaName: "gwh_xilou",
-                //AreaName: "Shanghai",
-                Name: "11112",
-                LineAlias: "mark",
-                LineWidth: 50,
-                showAuxIcon: false,
-                MaterialName: "Material/aaaa.mtr",
-            }
-
-            var fromPos = "121.901576,30.895399,3.999176";
-            var toPos = "121.912923,30.896909,3.999176";
-            require('common').getRadianLine(fromPos, toPos, 500, option);
-
-
-            s_LeftLayer.loadLeft2Html();
-            com.delNodeLineToScreen("lineTooltip");
-
-
-            var nodeName = "POISocietyEvent_" + id
-
-            //加载页面内容
-            var url = con.HtmlUrl + 'Society/R_EventDetail.html';
-            require(['text!' + url], function (template) {
-                $("#detail_02").html(template);
-                $("#detail_02").show('slide', {
-                    direction: 'left'
-                }, 500);
-
-
-                var data = require("s_RightLayer").EventData.get(id);
-                if (data) {
-
-
-
-                    var html = "";
-
-
-                    html += "<div class=\"box-top\">"
-                    html += "    事件" + id
-                    html += "    <button type=\"button\" class=\"box-close\"  onclick=\"require('s_Home').closeDetail()\"></button>"
-                    html += "</div>"
-                    html += "<div class=\"boxcont\">"
-                    html += "<div class=\"box-leftpic\"><img src=\"Content/images/poi-leftpic.png\"></div>"
-                    html += "<dic class=\"box-rightinfo\">"
-                    html += "    <ul>"
-                    html += "    <li><span>事件时间：</span><em>" + con.getNowFormatDate(data.createTime) + "</em></li>"
-                    html += "     <li><span>事件地点：</span><em>" + data.address + "</em></li>"
-                    html += "    <li><span>事件类型：</span><em>" + data.eventTypeName + "</em></li>"
-                    html += "   <li><span>风险等级：</span><em>一级</em></li>"
-                    html += "   <li><span>事件状态：</span><em>" + data.statusName + "</em></li>"
-                    html += "    </ul>"
-                    html += "    <button type=\"button\" class=\"btn\">事件处置</button>"
-                    html += "</dic>"
-                    html += "</div>"
-
-
-
-
-                    $("#ul_eventdetail").empty();
-                    $("#ul_eventdetail").html(html);
-                }
-
-
-                $("#ul_eventdetail").hide()
-                $("#ul_eventdetail").show('drop', 1000);
-            })
-
-
-
-            //POI样式调整
-            var areaName = con.AreaName;
-            this.LayerType = require("s_Main").LayerCatalog.Event;
-            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
-                var layername = id; //this.LastPOI_Clk.split('_')[0].replace("POISociety", "");
-                var level = this.LayerType.Level;
-                var icon = this.LayerType.UnChooseIcon;
-                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
-                if (lastNode) {
-                    lastNode.asPOI().setIcon(icon);
-                    //lastNode.setVisible(0);
-                }
-            }
-            this.LastPOI_Clk = nodeName;
-            var node = map.getSceneNode(areaName, nodeName);
-            if (node != null) {
-
-                var poi = node.asPOI();
-
-                var layername = id;// nodeName.split('_')[0].replace("POISociety", "");
-                var level = this.LayerType.Level;
-                var icon = this.LayerType.ChooseIcon;
-                poi.setIcon(icon);
-
-                //飞到POI对应的位置
-                Q3D.globalCamera().flyToByDistance(node.getAbsPos(), 100, Q3D.vector3(-78.01741027832031, 4.639147758483887, 20.8710994720459), 2, null);
-
-                //创建连接线
-                //页面位置调整
-                var scrpos = require('sl_Event').getScrPosition(node)
-                var top = scrpos.top + "px";
-                var right = scrpos.right + "px";
-
-                var width = 2130;
-                var height = 100;
-
-                var srcwidth = $(window).width()
-                screen = window.screen,
-                ratio = screen.deviceXDPI / screen.logicalXDPI;
-
-                if (srcwidth > 1920 && ratio >= 1) {
-                    width = 2130;
-                    height = 100;
-                } else {
-                    width = 900;
-                    height = 30;
-                }
-
-
-                require('sl_Event').createNodeLine(node, width, height);
-            }
-        },
-        //创建连接线
-        CreateTooltip: function (areaName, nodeName, right, top) {
-            var tooltipName = "lineTooltipCase";
-
-            var sNode = map.getSceneNode(areaName, nodeName);
-            if (sNode == null) return;
-            var uiSys = map.getOcx().getWorldManager().getUIWindowSys(0);
-            var widget = uiSys.getTooltipWidget(tooltipName);
-            if (widget == null) {
-                widget = uiSys.createTooltipWidget(tooltipName);
-            }
-            widget.setMarginRight(right);
-            widget.setMarginTop(top);
-            widget.setLayoutWidth(1);
-            widget.setLayoutHeight(1);
-            widget.setAlpha(1);
-            widget.setVisible(1);
-            var color = Q3D.colourValue("#142E47", 1).get();
-            widget.setTriFillColor(color);
-            widget.setTriAlpha(0.8);
-            widget.setEdgeColor(color);
-            widget.setEdgeWidth(1);
-            widget.setAutoObserveObj(sNode);
-            widget.createRectLinks(0, 0, 1, 1);
-        },
-        //创建连接线
-        createNodeLine: function (node, left, top) {
-            var options = {
-                Name: 'lineTooltip',
-                Margin: {
-                    left: left, //窗口坐标x
-                    top: top, //窗口坐标y
-                    bottom: null,
-                    right: null
-                },
-                Layout: {
-                    width: 547,//窗口宽
-                    height: 290//窗口高
-                },
-                TooltipOptions: {
-                    TriFillColor: Q3D.colourValue("#142E47", 1).get(),//连接线边框填充色
-                    TriAlpha: 0.8,
-                    EdgeColor: Q3D.colourValue("#00FFFF", 1).get(),//连接线边框颜色
-                    EdgeWidth: 0,
-                },
-                OnUserNotify: null
-            }
-
-            com.nodeLineToScreen(node, options);
-        },
-        //获取页面的位置，后续需要完善
-        getScrPosition: function (node) {
-            var option = {
-                top: 50, right: 450
-            };
-            var n_top, n_right;
-
-            //根据POI在屏幕中位置以及告警页面的宽高计算告警页面的实际位置
-            if (node) {
-                var poinode = node.asPOI();
-                var ScreenX = poinode.getScreenRectMin(); //获取当前POI相对于左上角的距离 
-                var Fullwidth = $(window).width();          //获取整个屏幕的框度
-
-                n_top = ScreenX.y + 4;                    //
-                n_right = Fullwidth - ScreenX.x - 350
-
-                option = {
-                    top: n_top, right: n_right
-                }  //获取告警页面的在屏幕的位置
-            }
-
-            return option;
-        },
         //加载第二列的div
         loadLeftSecond: function () {
             var url = con.HtmlUrl + 'SocietyNew/Left_Second_EventAll.html';
@@ -1236,6 +1054,7 @@
                 require("sl_IOT").loadSocietyCarchart();
             })
         },
+
         /*********************加载右侧事件列表-start*********************/
         //生成事件列表
         generateEventList: function () {
@@ -1244,17 +1063,14 @@
                 var html = '';
                 var num = 0;
                 for (var i = 0; i < data.length; i++) {
-
-
                     num++;
-
                     var style = "sjxx-li"
                     if (i <= 1) {
                         style = "sjxx-li active"
                     }
-
+                    var poiName = "POISociety" + require("sl_Event").LayerType.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                     html +=
-                       '<li class="' + style + '" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
+                       '<li class="' + style + '" onclick="require(&apos;sl_Event&apos;).loadEventDetail(' + poiName + ')">' +
                         '<div class="sjxx-li-line1">' +
                             '<span class="sjxx-id counter">' + num + '</span>' +
                             '<span class="sjxx-event">' + data[i].eventName + '</span>' +
@@ -1277,7 +1093,88 @@
                 });
             });
         },
-        loadEventDetail: function (id) {
+        loadEventDetail: function (poiName) {
+            var layeractive = $("#bottom_menu ul li.active").text();
+            switch (layeractive) {
+                case "传感器":
+                    require("sl_IOT").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "摄像头":
+                    require("sl_Camera").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "无人机":
+                    require("sl_Drone").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "村居工作站":
+                    require("sl_WorkStation").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "海岸线":
+                    require("sl_SeaboardLine").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "工地":
+                    require("sl_WorkSite").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "街面":
+                    require("sl_Street").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                case "网格":
+                    require("sl_Grid").Revert();
+                    //加载事件POI和事件详情
+                    require("sl_Event").loadEvent(function () {
+                        setTimeout(function () {
+                            require("sl_Event").loadEventProcessing(poiName)
+                        }, 1500);
+                    });
+                    break;
+                default://事件
+                    setTimeout(function () {
+                        require("sl_Event").loadEventProcessing(poiName)
+                    }, 1500);
+                    break;
+
+            }
             //显示左侧社区页面
             $("#society_twocolright").hide()
             $("#society_twocolright").show('drop', 1000);
@@ -1285,14 +1182,8 @@
 
 
             //图层选中事件
-            $("#full_container #bottom_menu ul li").removeClass("active");
-            $("#full_container #bottom_menu ul li").eq(6).addClass("active");
-
-            //加载事件POI和事件详情
-            require("sl_Event").loadEvent();
-            setTimeout(function () {
-                require("sl_Event").loadEventDetial(id)
-            }, 1500);
+            $("#bottom_menu ul li").removeClass("active");
+            $("#bottom_menu ul li").eq(8).addClass("active");
         },
         /*********************加载大脑转动特效-end*********************/
         Revert: function () {
