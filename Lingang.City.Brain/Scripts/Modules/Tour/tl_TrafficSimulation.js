@@ -73,10 +73,15 @@
             });
         },
         closeCameraDetial: function () {
-            if (require("tl_TrafficSimulation").Trafficdetail_player) {
-            require("tl_TrafficSimulation").Trafficdetail_player.loadByUrl("");
-                require("tl_TrafficSimulation").Trafficdetail_player.dispose();
-                require("tl_TrafficSimulation").Trafficdetail_player = null;
+            try {
+                if (require("tl_TrafficSimulation").Trafficdetail_player) {
+                    require("tl_TrafficSimulation").Trafficdetail_player.loadByUrl("");
+                    require("tl_TrafficSimulation").Trafficdetail_player.dispose();
+                    require("tl_TrafficSimulation").Trafficdetail_player = null;
+                }                
+            } catch (error) {
+                console.log(error.message);
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
             $("#detail_tourplayer").html("");
         },

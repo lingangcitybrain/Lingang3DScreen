@@ -38,7 +38,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                         Id: 1001, TextName: "社区", Name: "Event_S012", Type: 1, ChooseIcon: "Texture/Common/event1_hover.png", UnChooseIcon: "Texture/Common/event1.png",
                     },
                     U001: { Id: 1002, TextName: "市政道路", Name: "Event_U001", Type: 2, ChooseIcon: "Texture/Common/event2_hover.png", UnChooseIcon: "Texture/Common/event2.png" },
-                    U002: { Id: 1003, TextName: "共享区", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
+                    U002: { Id: 1003, TextName: "街面", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
                     U003: { Id: 1004, TextName: "海岸线", Name: "Event_U003", Type: 4, ChooseIcon: "Texture/Common/event4_hover.png", UnChooseIcon: "Texture/Common/event4.png", },
                     C001: { Id: 1005, TextName: "工地", Name: "Event_C001", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
                 }
@@ -200,6 +200,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             com.UIControlAni(option, function () {
                 require("s_Echart").sjcg();//事件处理成功数
                 require("s_Echart").loadSocietySjcgStatusData();
+
                 require("s_Echart").loadSocietySjcgList();
                 require("sl_IOT").Scrolldiv();
             });
@@ -520,7 +521,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 }
             } catch (error) {
                 console.log(error.message);
-                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
         },
         clearVideo: function () {
@@ -547,7 +548,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 }
             } catch (error) {
                 console.log(error.message);
-                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
         },
         closeBottomVideo: function () {
@@ -564,7 +565,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 }
             } catch (error) {
                 console.log(error.message);
-                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
 
         },
@@ -628,8 +629,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         numberAni2: function (data) {
             com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
             com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
-            com.numberAnimation($('#s_bignum3'), Number(data.occupy) * 100 - 20, Number(data.occupy) * 100, 2000);
-            com.numberAnimation($('#s_bignum4'), Number(data.grade) * 100 - 20, Number(data.grade) * 100, 2000);            
+            com.numberAnimation($('#s_bignum3'), parseInt(data.occupy) - 20, parseInt(data.occupy), 2000);
+            com.numberAnimation($('#s_bignum4'), parseInt(data.grade) - 20, parseInt(data.grade), 2000);
         },
 
         htmlRevert: function () {

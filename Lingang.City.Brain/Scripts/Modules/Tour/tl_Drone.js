@@ -12,6 +12,11 @@
 
         DroneData: null,//无人机数据
         DroneList: new util.HashMap,
+
+        freeDroneKuData: [],//无人机数据
+        nodeFollowingPath: [],//节点跟随路径
+        detailWindowId: 0,//当前窗口id
+
         loadDrone: function () {
             this.Revert();
             com.LayerFlyto(12, function () { })
@@ -38,12 +43,15 @@
                 })
             }
         },
+
+        /*******************无人机库定位POI-并显示详情-start*******************/
         //加载无人机库
         loadDroneHangarPOI: function () {
             this.LayerType = require("t_Main").LayerCatalog.DroneHangar;
             var post_data = { "offset": "0", "count": "1000" }
 
             require("t_LayerMenuAjax").getDroneHangarList(post_data, function (result) {
+                require("tl_Drone").freeDroneKuData = result;
                 var areaName = con.AreaName;
                 var icon = require("tl_Drone").LayerType.UnChooseIcon;
                 var pois = [];
@@ -94,14 +102,87 @@
                             RelPriority: null,
                         },
                         OnLoaded: function () {//加载结束回调
-                            //创建子POI显示
-                            require("tl_Drone").loadDroneHangarDetail(areaName, poiName, "Texture/Common/wurenji_detail" + row.id + ".png", row.id);
+                            require("tl_Drone").loadDroneKuDetailWindow(poiName, row.id);
+                            ////创建子POI显示
+                            //require("tl_Drone").loadDroneHangarDetail(areaName, poiName, "Texture/Common/wurenji_detail" + row.id + ".png", row.id);
                         },
                     }
                     map.createPOI(areaName + "/" + poiName, options)
                 }
             });
         },
+        loadDroneKuDetailWindow: function (nodeName, pid) {
+            var data = null;
+            require("tl_Drone").freeDroneKuData.forEach(function (e) {
+                if (e.id == pid) {
+                    data = e;
+                }
+            });
+
+            var url = con.HtmlUrl + 'SocietyNew/Bottom_DroneKuDetail.html';
+
+            require("tl_Drone").detailWindowId = require("tl_Drone").detailWindowId + 1;
+            var domWinName = 'detail_' + require("tl_Drone").detailWindowId;
+
+            require(['text!' + url], function (template) {
+                $("#" + domWinName).show();
+                $("#" + domWinName).html(template);
+
+                require("tl_Drone").openWinDetail(domWinName, data);
+
+            });
+
+            var nodePath = con.AreaName + '/' + nodeName;
+            var nodeObject = { "nodePath": nodePath, "nodeDom": domWinName };
+
+            require("tl_Drone").nodeFollowingPath.push(nodeObject);
+
+            map.enableNodeFollowing(nodePath, function (node, v2i) {
+                require("tl_Drone").nodeFolowing(node, v2i);
+            });
+        },
+        nodeFolowing: function (node, v2i) {
+            require("tl_Drone").nodeFollowingPath.forEach(function (e) {
+                if (node.getFullName() == e.nodePath) {
+                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                    document.getElementById(e.nodeDom).style.top = v2i.y - 100 + "px";
+                }
+            });
+        },
+        openWinDetail: function (domWinName, data) {
+            var html = '<div class=\"poi-box poi-box1\" style=\"z-index:980\">'
+                     + '<div class=\"poi-title\">' + data.jkmc + '</div>'
+                     + '<div class=\"poi-cont\">'
+                     + '<ul class=\"poi-ul\">'
+                     + '<li class=\"poi-li\"><em><i>' + data.jkdz + '</i></em></li>'
+                     + '<li class=\"poi-li\"><span>状态：</span><em><i>' + data.jkzt + '</i></em></li>'
+                     + '<li class=\"poi-li\"><span>供电：</span><em><i>' + data.gdms + '</i></em></li>'
+                     + '</ul>'
+                     + '</div>'
+                     + '</div>';
+
+            $("#" + domWinName).html(html);
+        },
+        closeDroneKuDetailWindow: function () {
+            var currentWinId = require("tl_Drone").detailWindowId;
+
+            while (currentWinId > 0) {
+                var domDetail = $("#detail_" + currentWinId);
+                domDetail.empty();
+                domDetail.hide();
+                currentWinId = currentWinId - 1;
+            }
+
+            require("tl_Drone").detailWindowId = 0;
+
+            require("tl_Drone").nodeFollowingPath.forEach(function (e) {
+                map.disableNodeFollowing(e.nodePath, true);
+            });
+
+            require("tl_Drone").nodeFollowingPath = [];
+        },
+        /*******************无人机库定位POI-并显示详情-end*******************/
+
         //加载无人机库详情
         loadDroneHangarDetail: function (AreaName, parentName, icon, id) {
             var pos = Q3D.vector3(1000, -100, 0);
@@ -163,9 +244,8 @@
             //console.log("loadDroneModelForList");
             var post_data = { "offset": "", "count": "" }
             require("t_LayerMenuAjax").getDronePosList(post_data, function (result) {
-                //if (require('tl_Drone').DroneInter) {
+                require("tl_Drone").freeDroneKuData = result;
 
-                //}
                 if (result != null) {
                     for (var i = 0; i < result.length; i++) {
 
@@ -314,7 +394,7 @@
             //
             this.choosePOI(nodename)
 
-            //require("sl_Drone").loadDroneCamera();
+            //require("tl_Drone").loadDroneCamera();
             if (require("tl_Drone").TourDrone_player) {
                 require("tl_Drone").TourDrone_player.dispose();
                 require("tl_Drone").TourDrone_player = null;
@@ -523,12 +603,16 @@
         //清除无人机
         clearPlane: function () {
             //社会综治-无人机视频清空
-            if (require("tl_Drone").SocietyDrone_player) {
-                require("tl_Drone").SocietyDrone_player.loadByUrl("");
-                require("tl_Drone").SocietyDrone_player.dispose();
-                require("tl_Drone").SocietyDrone_player = null;
+            try {
+                if (require("tl_Drone").SocietyDrone_player) {
+                    require("tl_Drone").SocietyDrone_player.loadByUrl("");
+                    require("tl_Drone").SocietyDrone_player.dispose();
+                    require("tl_Drone").SocietyDrone_player = null;
+                }
+            } catch (error) {
+                console.log(error.message);
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
-
             var modelName = "wrj";
             var AreaName = con.AreaName;
             var quanpath = AreaName + "/" + modelName;
@@ -597,7 +681,7 @@
                 }
             } catch (error) {
                 console.log(error.message);
-                $.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
+                //$.getScript(con.WebServiceUrl + "Scripts/Tools/aliplayer/aliplayer-min.js", function (script, textStatus, jqXHR) {});
             }
 
             $("#detail_tourplayer").html("");
@@ -656,6 +740,7 @@
         },
 
         Revert: function () {
+            require('tl_Drone').closeDroneKuDetailWindow()
             require('tl_Drone').closeCameraDetial();
             require('tl_Drone').clearDronePOI();
             require('tl_Drone').clearDrone();

@@ -814,7 +814,12 @@
 
 
         // 事件处理成功数列表
-       loadSocietySjcgList: function (post_data) {
+       loadSocietySjcgList: function () {
+
+           var nowdata = require("common").getNowFormatDate();//当前时间
+           var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+           var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+
            s_EchartAjax.getSocietySjcgList(post_data, function (result) {
                if (require("s_Echart").societySjcgListData == null) { return false; };
                var data = require("s_Echart").societySjcgListData;
@@ -823,9 +828,10 @@
                var num = 0;
                for (var i = 0; i < data.length; i++) {
                    var time = data[i].updateTime.split(".")[0].split("T");
-                    num++;
+                   num++;
+                   var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                     html +=
-                       '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
+                       '<li class="sjxx-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
                         '<div class="sjxx-li-line1">' +
                             '<span class="sjxx-id counter">' + num + '</span>' +
                             '<span class="sjxx-event">' + data[i].eventName + '</span>' +

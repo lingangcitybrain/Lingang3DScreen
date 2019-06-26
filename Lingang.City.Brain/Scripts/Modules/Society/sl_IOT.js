@@ -117,6 +117,26 @@
 
                 $("#iotdetail").html(html);
             })
+
+            //  节点信息窗跟随测试
+            var nodePath = areaName + '/' + nodeName;                       
+
+            if (require("sl_IOT").nodeFollowingPath != null) {
+                map.disableNodeFollowing(require("sl_IOT").nodeFollowingPath, true);
+            }
+                        
+            require("sl_IOT").nodeFollowingPath = nodePath;
+            map.enableNodeFollowing(nodePath, function(node, v2i){                            
+                if (node.getFullName() == nodePath){
+                    document.getElementById("div_iotdetail").style.left = v2i.x + "px";
+                    document.getElementById("div_iotdetail").style.top = v2i.y + "px";
+                                
+                    // 获取指定节点的屏幕坐标
+                    //var v2iNode = mapObj._map3d.getWorldManager().getMainCamera(0).absPosToViewport(node.getAbsPos());
+                               
+                    //console.log('窗口：'+v2i.x + ',' + v2i.y + ';' + '节点：'+v2iNode.x + ',' + v2iNode.y);
+                } 
+            });
         },
         //清空传感器POI
         clearIOTPOI: function () {
