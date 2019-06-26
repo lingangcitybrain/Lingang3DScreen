@@ -37,9 +37,9 @@
 
             this.loadCenter1();//加载中间列
 
-            this.loadRightFirst1();//加载右侧第一列第一个div
-            this.loadRightFirst2();//
-            this.loadRightFirst3();//
+            // this.loadRightFirst1();//加载右侧第一列第一个div
+            // this.loadRightFirst2();//
+            // this.loadRightFirst3();//
 
             this.loadRightSecond1();//加载右侧第二列第一个div
             this.loadRightSecond2();//
@@ -149,6 +149,29 @@
             }
             com.UIControlAni(optionR24, null);
 
+            var optionR11 = {
+                aniDom: "#right01_01",
+                htmlDom: "#right_first_01",
+                url: '',
+                leftOrRight: 'right'
+            }
+            com.UIControlAni(optionR11, null);
+
+            var optionR12 = {
+                aniDom: "#right01_02",
+                htmlDom: "#right_first_02",
+                url: '',
+                leftOrRight: 'right'
+            }
+            com.UIControlAni(optionR12, null);
+
+            var optionR13 = {
+                aniDom: "#right01_03",
+                htmlDom: "#right_first_03",
+                url: '',
+                leftOrRight: 'right'
+            }
+            com.UIControlAni(optionR13, null);
         },
         /*****************************中间*****************************/
         loadCenter1: function () {
