@@ -13,10 +13,13 @@
             <div class="sjcg-chart" id="sjcg-chart"></div>
             <button class="chartzoomin" onclick="require('s_Home').loadBigChart('Right_Second_02')"></button>
         </div>
-        <div class="flex sjxx-tab"  id="sjcg-status">
+        <div class="sjcg-status-box">
+          <div class="flex sjxx-tab"  id="sjcg-status">
             <button type="button" class="active">已结案: <span class="testAerial">21</span></button>
             <button type="button">待受理: <span class="testAerial">5</span></button>
-            <button type="button">待督查: <span class="testAerial">5</span></button>
+            <button type="button"> 待督查: <span class="testAerial">5</span></button>
+          </div>
+          <button type="button" id="center-eventlist-btn" onclick="require('s_Echart').loadCenterEventList(); require('s_Echart').closeBigChart();">放大</button>
         </div>
         <div class="scrolldiv" id="right_EventList">
             <ul class="scrollitem" id="ul_eventlist">
