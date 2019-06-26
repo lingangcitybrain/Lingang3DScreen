@@ -3744,7 +3744,7 @@ dd.pjc-statistic-star >form{
 }
 .center-event-itembox{
 	padding:.3rem;
-	height: calc(100% - 2.5rem);
+	height: calc(100% - 2.7rem);
 	box-sizing: border-box;
 }
 .center-event-sociul {
@@ -3752,7 +3752,7 @@ dd.pjc-statistic-star >form{
 	max-height: 100%; 
 }
 .center-event-li{
-	font-size: .4rem;
+	font-size: .5rem;
 	color: #ccd4e9;
 	padding: .2em;
 	margin-top: .5em;
