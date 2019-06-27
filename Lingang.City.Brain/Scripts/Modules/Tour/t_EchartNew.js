@@ -124,6 +124,7 @@
         rycltjjcclData: null,              //人员车辆统计进出车辆
         yqsjlbData: null,
         yqsjlbtjData: null,
+        yqsjlbCenterEventData: null,
         myChartyqfx: null,                 //舆情分析
         myChartwrj: null,                  //无人机
         myChartjtxx: null,                 //交通信息 
@@ -3513,10 +3514,10 @@
         			$('#center-event-tourul').html(html);
         			for (var i = 0; i < data.length; i++) {
         				if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
-        					$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
-        					$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
+        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
+        					$('#center-event-tourul .item-l').eq(i).css("background-size", "cover")
         				} else if (data[i].snapshoturiwithrect != undefined) {
-        					$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
+        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
         				}
         			}
         		})
