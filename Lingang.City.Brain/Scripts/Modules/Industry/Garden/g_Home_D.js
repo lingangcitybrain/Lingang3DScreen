@@ -155,6 +155,7 @@
             control_Ajax.sendPOIControlInfo(jsondata); //发送控制命令
         },
         showParkingLotDetail: function (nodename) {
+            this.POIName_Clk = nodename;
             require("gl_Stop").showParkingLotDetail(nodename);
             var jsondata = {
                 "menu": "3",
@@ -243,6 +244,18 @@
         //关闭事件窗口
             closeEventDetail: function () {
                 require('gl_Event').closeEventDetail();
+                var jsondata = {
+                    "menu": "3",
+                    "layer": this.layerNO,
+                    "id": this.POIName_Clk,
+                    "command": "close",
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            },
+            closeParkingDetail: function () {
+                require('gl_Stop').closeEventDetail();
                 var jsondata = {
                     "menu": "3",
                     "layer": this.layerNO,
