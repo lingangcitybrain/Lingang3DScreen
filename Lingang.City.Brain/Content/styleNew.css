@@ -971,7 +971,7 @@ button.arrowbtn.btnright{
 	background: rgba(249,107,2,.6);
 	box-shadow: 0 0 .1rem rgba(249,107,2,.75);
 }
-#center-eventlist-btn{
+.center-eventlist-btn{
 	width:.9rem;
 	height:100%;
 	float:right;
@@ -3769,6 +3769,41 @@ dd.pjc-statistic-star >form{
 	margin-left: 0; 
 }
 
+/*.center-event-ul .yqsjlb-item*/
+.center-eventlist-btntour{
+	position:absolute;
+	top:0;
+	right:.5rem;
+	width:.8rem;
+	height:.8rem;
+}
+.center-event-ul .yqsjlb-item{
+	margin-top: .14rem;
+	font-size: .4rem;
+}
+.center-event-ul .yqsjlb-item:first-child{ margin-top: 0; }
+.center-event-ul .yqsjlb-item>.item-l{
+    width: 1.48rem;
+    height: 1.48rem;
+    background-size: 1.3rem 1.3rem;
+}
+.center-event-ul .yqsjlb-item>.item-r {
+    width: calc(100% - 1.7rem);
+    font-size: .4rem;
+	line-height: 1.8em;
+	margin-top: -.04rem;
+}
+.center-event-ul .yqsjlb-item>.item-r>div:nth-child(2){ 
+	float: right; 
+	padding-right: 1em;
+	transform:translateY(-100%);
+}
+.center-event-ul .yqsjlb-item>.item-r>div:nth-child(2)>span{ 
+	float: right;
+	width: 5em;
+	text-align: right;
+	margin-left: 0;
+}
 
 
 

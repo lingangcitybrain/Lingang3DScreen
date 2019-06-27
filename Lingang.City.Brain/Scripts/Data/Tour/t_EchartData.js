@@ -8184,6 +8184,36 @@ define(["config"], function (con) {
             "errCode": 0,
             "errMsg": "SUCCESS"
         },
+		
+    	//景区事件列表统计
+        yqsjlbCenterEventData: [{
+			"sjfl_id": 829,
+			"sbsj": "2019-06-27 15:20:21",
+			"lng": "121.905117",
+			"snapshoturiwithrect": "",
+			"sj": "停车场爆满预警HC",
+			"sjms": "海昌公园停车场停车场爆满预警HC,停车比例-海昌公园内部:89.92",
+			"id": 773010,
+			"state": "100",
+			"snapshoturi": "",
+			"flmc": "停车场爆满预警HC",
+			"DICTNAME": "待处置",
+			"lat": "30.915474"
+		}, {
+			"sjfl_id": 829,
+			"sbsj": "2019-06-27 14:46:27",
+			"lng": "121.905117",
+			"snapshoturiwithrect": "",
+			"sj": "停车场爆满预警HC",
+			"sjms": "海昌公园停车场停车场爆满预警HC,停车比例-海昌公园内部:93.60",
+			"id": 773009,
+			"state": "100",
+			"snapshoturi": "",
+			"flmc": "停车场爆满预警HC",
+			"DICTNAME": "待处置",
+			"lat": "30.915474"
+		}],
+
         //近五日事件统计
         jwrsjtjData: {
             "非法停车": {
