@@ -11,6 +11,9 @@
             Building: {
                 Id: 3, TextName: "楼宇", Name: "Building", Level: 1, ChooseIcon: "Texture/Common/a4_hover.png", UnChooseIcon: "Texture/Common/a4.png"
             },
+            Event: {
+                Id: 4, TextName: "事件", Name: "Event", Level: 1, ChooseIcon: "Texture/Common/event_hover.png", UnChooseIcon: "Texture/Common/event.png"
+            },
         },
         loadMain: function () {
             //this.loadBottomMenu();//加载底部图层
@@ -83,6 +86,13 @@
                         Q3D.globalCamera().flyTo((pos.x + "," + pos.y + "," + pos.z).toVector3d(), viewPos, 1, function () { })
                     }
 
+                    break;
+                case "Event": //园区
+                    //if (nodes) {
+                        //Q3D.globalCamera().flyToAxisView(nodes, 200, 1, function () {
+                        gl_Event.showEventDetail(nodename);
+                        //})
+                    //}
                     break;
                 default:
             }
