@@ -1386,8 +1386,10 @@
                         if (maxLength < i + 1) {
                             break;
                         } else {
+                        //事件列表都是一个接口，在这里把数据追加进来
+                            require("gl_Event").EventData.put(data[i].eventid, data[i]);
                             $('#ul-parkingEnvent').append(
-                                 '<li class="cy-ly-rr1-li">'
+                                 '<li class="cy-ly-rr1-li" style="cursor:pointer;" onclick="require(\'g_Home\').PoiEvent(\'POIIndustryGEvent_' + data[i].eventid + '\')">'
                                    + '<div class="cy-ly-rr1-lidiv clearfix active">'
                                        + '<span class="cy-ly-rr1-num">' + (i+1) + '</span>'
                                        + '<span class="cy-ly-rr1-name">' + data[i].eventname + '</span>'

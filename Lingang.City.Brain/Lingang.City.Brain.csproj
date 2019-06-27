@@ -1070,6 +1070,7 @@
     <Content Include="View\Industry\Estate\Right_Second_01.html" />
     <Content Include="View\Industry\Estate\Right_Second_02.html" />
     <Content Include="View\Industry\Garden\Center_02.html" />
+    <Content Include="View\Industry\Garden\Center_EventDetail.html" />
     <Content Include="View\Industry\Garden\CompanyStatistic.html" />
     <Content Include="View\Industry\Garden\ParkingLotDetail.html" />
     <Content Include="View\Industry\Garden\UnmannedCarDetail.html" />

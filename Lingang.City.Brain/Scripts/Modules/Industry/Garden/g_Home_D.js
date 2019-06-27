@@ -2,6 +2,7 @@
     /****************************园区****************************/
     return {
         layerNO: null,
+        POIName_Clk:null,
         //FlowerClickIndex: 0,
         //floor:1,
         /**********************************底部菜单操作********************************************/
@@ -131,6 +132,7 @@
 
         PoiEvent: function (nodename) {
             g_Main.PoiEvent(nodename);
+            this.POIName_Clk=nodename;
             var jsondata = {
                 "menu": "3",
                 "layer": this.layerNO,
@@ -238,6 +240,19 @@
             };
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
         },
+        //关闭事件窗口
+            closeEventDetail: function () {
+                require('gl_Event').closeEventDetail();
+                var jsondata = {
+                    "menu": "3",
+                    "layer": this.layerNO,
+                    "id": this.POIName_Clk,
+                    "command": "close",
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            },
         /*********************************END*********************************************/
 
 

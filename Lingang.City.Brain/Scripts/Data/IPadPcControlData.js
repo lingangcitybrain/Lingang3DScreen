@@ -74,7 +74,10 @@
 
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "open", "func": "$('.cy-qy-navbar').removeClass('active');require('gl_TopCompany').flyToBuilding();" },//花展开
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//花隐藏
-        { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", POISTR: "POIIndustryGBuilding", "command": "close", "func": "require('b_BuildingFloor').closeBuidingDetail();" },//      
+        { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", POISTR: "POIIndustryGBuilding", "command": "close", "func": "require('b_BuildingFloor').closeBuidingDetail();" },//  
+
+        { "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "事件", POISTR: "POIIndustryGEvent", "command": "close", "func": "require('gl_Event').closeEventDetail();" },//
+        //{ "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "事件", POISTR: "POIIndustryGEvent", "command": "close", "func": "require('gl_Event').closeEventDetail();" },//
         ],
 
         /************************UI Button事件*******************************/
@@ -82,6 +85,7 @@
             { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", type: "flowerClk", "func": "$('.cy-qy-menu a')[*].click();" },  //花瓣显示隐藏
             { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", type: "buildingFloor", "func": "require('b_BuildingFloor').openFloor(*);" },//揭楼层
 
+           // { "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "事件", type: "POIIndustryGEvent", "func": "require('gl_Event').showEventDetail(*);" },//
             /*********************图表点击事件**************************/
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "jqsjtj", "func": "require('t_Echart').jqsjtjClickEvent('*');" },//景区事件统计
