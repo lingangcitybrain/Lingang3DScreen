@@ -48,7 +48,8 @@
         year = d.getFullYear();
         mon = d.getMonth() + 1;
         //   day=d.getDate();      s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);//日期类型2019-03-07
-        day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
+        day = d.getDate();
+        s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
 
         return s;
 
@@ -123,6 +124,7 @@
         rycltjjcclData: null,              //人员车辆统计进出车辆
         yqsjlbData: null,
         yqsjlbtjData: null,
+        yqsjlbCenterEventData: null,
         myChartyqfx: null,                 //舆情分析
         myChartwrj: null,                  //无人机
         myChartjtxx: null,                 //交通信息 
@@ -199,6 +201,22 @@
             rycltjChartClose = true;
             $("#center_03").html("");           
         },
+		
+		// 景区居中放大 事件列表
+        loadCenterEventList: function () {
+        	var url = con.HtmlUrl + 'TourNew/Center_04.html';
+        	require(['text!' + url], function (template) {
+        		$("#center_04").html(template);
+        		$("#center_04").show('drop', 1000);//左侧
+        		require("t_Echart").yqsjCenterEventList();
+        	})
+        },
+    	// 景区居中放大 事件列表关闭
+        closeCenterEventList: function () {
+        	$("#center_04").html("");
+        },
+
+
         //园区预警指标动画
         dh: function () {
             var mathRandom = 0;
@@ -3339,7 +3357,8 @@
                 d.setDate(d.getDate() - n);
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
-                day = d.getDate(); s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
+                day = d.getDate();
+                s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
                 //day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
 
                 return s;
@@ -3378,41 +3397,133 @@
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
         },
-        //园区事件统计
+    	//园区事件列表----原来的
+        //yqsjlbtj: function () {
+        //	var post_data = {
+        //		"startTime": MyDate(1),
+        //		"endTime": MyDate(0)
+        //	}
+        //	t_EchartAjax.yqsjlbtj(post_data, function (result) {
+        //		var data = require("t_Echart").yqsjlbtjData;
+        //		$('.yqsjlb-list').empty();
+        //		var html = '';
+
+        //		for (var i = 0; i < data.outputData.length; i++) {
+        //			html += '<li class="yqsjlb-item clearfix">';
+        //			html += '<div class="item-l"></div>';
+        //			html += '<div class="item-r">';
+        //			html += '<div>拍照时间：' + data.outputData[i].sbsj + '</div>';
+        //			html += '<div>事件类型：' + data.outputData[i].sj + '<span>处置状态：' + data.outputData[i].DICTNAME + '</span></div>';
+        //			html += '<div>事件详情：' + data.outputData[i].sjms + '。</div>';
+        //			html += '</div>';
+        //			html += '</li>';
+        //		}
+
+        //		$('.yqsjlb-list').html(html);
+        //		for (var i = 0; i < data.outputData.length; i++) {
+        //			if (data.outputData[i].snapshoturiwithrect == undefined || data.outputData[i].snapshoturiwithrect == "") {
+        //				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(../Content/images/yqsjlb-default.png)")
+        //				$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
+        //			} else if (data.outputData[i].snapshoturiwithrect != undefined) {
+        //				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
+        //			}
+
+        //		}
+
+        //	})
+        //},
+    	//园区事件列表
         yqsjlbtj: function () {
-            var post_data = {
-                "startTime": MyDate(1),
-                "endTime": MyDate(0)
-            }
-            t_EchartAjax.yqsjlbtj(post_data, function (result) {
-                var data = require("t_Echart").yqsjlbtjData;
-                $('.yqsjlb-list').empty();
-                var html = '';
+        	var nowdata = require("common").getNowFormatDate();//当前时间
+        	var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+        	var post_data = { "startTime": before7, "endTime": nowdata }
 
-                for (var i = 0; i < data.outputData.length; i++) {
-                    html += '<li class="yqsjlb-item clearfix">';
-                    html += '<div class="item-l"></div>';
-                    html += '<div class="item-r">';
-                    html += '<div>拍照时间：' + data.outputData[i].sbsj + '</div>';
-                    html += '<div>事件类型：' + data.outputData[i].sj + '<span>处置状态：' + data.outputData[i].DICTNAME + '</span></div>';
-                    html += '<div>事件详情：' + data.outputData[i].sjms + '。</div>';
-                    html += '</div>';
-                    html += '</li>';
-                }
+        	t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
+        		var data = require("t_Echart").yqsjlbCenterEventData;
+        		$('.yqsjlb-list').empty();
+        		var html = '';
 
-                $('.yqsjlb-list').html(html);
-                for (var i = 0; i < data.outputData.length; i++) {
-                    if (data.outputData[i].snapshoturiwithrect == undefined || data.outputData[i].snapshoturiwithrect == "") {
-                        $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(../Content/images/yqsjlb-default.png)")
-                        $('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
-                    } else if (data.outputData[i].snapshoturiwithrect != undefined) {
-                        $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
-                    }
+        		for (var i = 0; i < data.length; i++) {
+        			html += '<li class="yqsjlb-item clearfix">';
+        			html += '<div class="item-l"></div>';
+        			html += '<div class="item-r">';
+        			html += '<div>拍照时间：' + data[i].sbsj + '</div>';
+        			html += '<div>事件类型：' + data[i].sj + '<span>处置状态：' + data[i].DICTNAME + '</span></div>';
+        			html += '<div>事件详情：' + data[i].sjms + '。</div>';
+        			html += '</div>';
+        			html += '</li>';
+        		}
 
-                }
+        		$('.yqsjlb-list').html(html);
+        		for (var i = 0; i < data.length; i++) {
+        			if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
+        				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
+        				$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
+        			} else if (data[i].snapshoturiwithrect != undefined) {
+        				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
+        			}
 
-            })
+        		}
+
+        	})
         },
+    	//中间放大 园区事件列表
+        yqsjCenterEventList: function () {
+
+        	$("#center-event-tabtour .center-event-tab").each(function (index, element) {
+				$(this).click(function () {
+					$(this).addClass("active").siblings().removeClass("active");
+					var thisHtml = $(this).html();
+					switch (thisHtml) {
+						case "近三天":// 近三天
+							setPostData(3);
+							break;
+						case "近一周"://近一周
+							setPostData(7);
+							break;
+						case "近一月"://近一月
+							setPostData(30);
+							break;
+						default:
+					}
+				})
+				$("#center-event-tabtour .center-event-tab").eq(0).click();
+       		})
+
+        	function setPostData(n) {
+        		var nowdata = require("common").getNowFormatDate();//当前时间
+        		var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
+        		var post_data = { "startTime": before7, "endTime": nowdata }
+
+        		t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
+        			var data = require("t_Echart").yqsjlbCenterEventData;
+        			$('#center-event-tourul').empty();
+        			var html = '';
+
+        			for (var i = 0; i < data.length; i++) {
+        				html += '<li class="yqsjlb-item clearfix">';
+        				html += '<div class="item-l"></div>';
+        				html += '<div class="item-r">';
+        				html += '<div>拍照时间：' + data[i].sbsj + '</div>';
+        				html += '<div>' + data[i].sj + '<span>' + data[i].DICTNAME + '</span></div>';
+        				html += '<div>事件详情：' + data[i].sjms + '。</div>';
+        				html += '</div>';
+        				html += '</li>';
+        			}
+
+        			$('#center-event-tourul').html(html);
+        			for (var i = 0; i < data.length; i++) {
+        				if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
+        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
+        					$('#center-event-tourul .item-l').eq(i).css("background-size", "cover")
+        				} else if (data[i].snapshoturiwithrect != undefined) {
+        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
+        				}
+        			}
+        		})
+        	}
+        },
+
         //园区总统计数（中间列）
         parkCount: function () {
             //    var CarTemp = 0;//园区内车辆数

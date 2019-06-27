@@ -1143,6 +1143,7 @@
     <Content Include="View\TourNew\Center_01.html" />
     <Content Include="View\TourNew\Center_02.html" />
     <Content Include="View\TourNew\Center_03.html" />
+    <Content Include="View\TourNew\Center_04.html" />
     <Content Include="View\TourNew\Center_EventDetail.html" />
     <Content Include="View\TourNew\Left_First_01.html" />
     <Content Include="View\TourNew\Left_First_02.html" />

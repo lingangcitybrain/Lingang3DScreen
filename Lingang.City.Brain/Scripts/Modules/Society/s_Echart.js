@@ -860,7 +860,7 @@
 
     	// 中间放大事件列表
        loadSocietyEventList: function () {
-       		$(".center-event-tab").each(function (index, element) {
+			$("#center-event-tabsoci .center-event-tab").each(function (index, element) {
 				$(this).click(function () {
 					$(this).addClass("active").siblings().removeClass("active");
 					var thisHtml = $(this).html();
@@ -877,10 +877,9 @@
 						default:
 					}
 				})
-				$(".center-event-tab").eq(0).click();
+				$("#center-event-tabsoci .center-event-tab").eq(0).click();
        		})
 
-		
        		function setPostData(n) {
        			var nowdata = require("common").getNowFormatDate();//当前时间
        			var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
@@ -911,13 +910,11 @@
 						'</li>';
        				}
        				$("#center-event-sociul").html(html);
-       				require("sl_IOT").Scrolldiv();
+       				$('.scrolldiv').perfectScrollbar({ cursorwidth: 20, cursorcolor: "rgba(0, 126, 179, .6)", });
        			})
        		};
 
        	},
-
-
 
 
        bigSjcg: function (strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData) {
