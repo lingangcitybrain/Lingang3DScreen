@@ -171,15 +171,18 @@
             var data = require("sl_Event").POIData;
             var areaName = con.AreaName;
             //设置POI隐藏
-            if (data != null && this.LayerType!=null) {
+            if (data != null && this.LayerType != null) {
                 for (var i = 0; i < data.length; i++) {
-                    var name = this.LayerType.List[data[i].communityId].Name;
+                    if (this.LayerType.List[data[i].communityId]) {
+                        var name = this.LayerType.List[data[i].communityId].Name;
 
-                    var poiname = "POISociety" + name + "_" + data[i].id;
-                    var node = map.getSceneNode(areaName + "/" + poiname);
-                    if (node) {
-                        map.getArea(areaName).destroySceneNode(poiname);
-                        //node.setVisible(0);
+                        var poiname = "POISociety" + name + "_" + data[i].id;
+                        var node = map.getSceneNode(areaName + "/" + poiname);
+                        if (node) {
+                            map.getArea(areaName).destroySceneNode(poiname);
+                            //node.setVisible(0);
+
+                        }
                     }
                 }
                 this.LayerType = null;
