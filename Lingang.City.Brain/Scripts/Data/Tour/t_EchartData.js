@@ -2,7 +2,7 @@
 define(["config"], function (con) {
     return {
         /***************************大客流Echart数据*****************************/
-        //游客画像
+        //游客画像----旧的
         ykhxData: {
             "auth": {},
             "data": [
@@ -25,7 +25,28 @@ define(["config"], function (con) {
             ],
             "errCode": 0,
             "errMsg": "SUCCESS"
-        },
+    	},
+
+    	//游客画像---新
+    	//ykhxData:{
+		//	"auth": {},
+		//	"data": [{
+        //		"Value": 19981,
+        //		"Name": "女"
+		//	}, {
+        //		"Value": 52266,
+        //		"Name": "男"
+		//	}, {
+        //		"Value": 5097425,
+        //		"Name": "外省"
+		//	}, {
+        //		"Value": 7032332,
+        //		"Name": "本省"
+		//	}],
+		//	"errCode": 0,
+		//	"errMsg": "SUCCESS"
+		//},
+
         //游客分析（用户年龄分布）
         TouristAnalysisData: {
             "auth": {},
@@ -42,28 +63,37 @@ define(["config"], function (con) {
         },
         //游客趋势分析（当前时间游客趋势分析）
         FutureVisitorTrafficData: {
-            "auth": {},
-            "data": [{
-                "month": 2,
-                "visnumber": 116427,
-                "year": 2019
-            }, {
-                "month": 3,
-                "visnumber": 4003879,
-                "year": 2019
-            }, {
-                "month": 4,
-                "visnumber": 3294572,
-                "year": 2019
-            }, {
-                "month": 5,
-                "visnumber": 2827641,
-                "year": 2019
-            }],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
+        	"auth": {},
+        	"data": [{
+        		"month": 1,
+        		"visnumber": 1999923,
+        		"year": 2019
+        	}, {
+        		"month": 2,
+        		"visnumber": 116427,
+        		"year": 2019
+        	}, {
+        		"month": 3,
+        		"visnumber": 4003879,
+        		"year": 2019
+        	}, {
+        		"month": 4,
+        		"visnumber": 3294572,
+        		"year": 2019
+        	}, {
+        		"month": 5,
+        		"visnumber": 3470435,
+        		"year": 2019
+        	}, {
+        		"month": 6,
+        		"visnumber": 3201723,
+        		"year": 2019
+        	}],
+        	"errCode": 0,
+        	"errMsg": "SUCCESS"
         },
-        //获取舆情类型统计数
+
+    	//获取舆情类型统计数
         yqlxtjsData: {
             "Result": 3,
             "data": [
