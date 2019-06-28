@@ -1197,6 +1197,8 @@ dd.pjc-statistic-star >form{
 	margin-left: .5rem;
 	font-size: .3rem;
 	line-height: .56rem;
+    max-width:10rem;
+    
 }
 .poiinfo .btn{
 	width: 4rem;

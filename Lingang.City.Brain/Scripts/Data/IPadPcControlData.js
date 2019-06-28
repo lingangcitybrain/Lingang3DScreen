@@ -84,6 +84,10 @@
 
         /************************UI Button事件*******************************/
         UIButtonControlData: [
+            { "menu": "3", "layer": "7", "menuNM": "社区综合", "layerNM": "事件", type: "buildingFloor", "func": "require('sl_Event').closeEventPaidan();" },//事件派单详情
+            { "menu": "3", "layer": "7", "menuNM": "社区综合", "layerNM": "事件", type: "buildingFloor", "func": "require('sl_Event').closeBuildVideo();" },//关闭楼栋视频
+            { "menu": "3", "layer": "7", "menuNM": "社区综合", "layerNM": "事件", type: "buildingFloor", "func": "require('sl_Event').closeEventDrone();" },//关闭事件无人机视频
+
             { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", type: "flowerClk", "func": "$('.cy-qy-menu a')[*].click();" },  //花瓣显示隐藏
             { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", type: "buildingFloor", "func": "require('b_BuildingFloor').openFloor(*);" },//揭楼层
 

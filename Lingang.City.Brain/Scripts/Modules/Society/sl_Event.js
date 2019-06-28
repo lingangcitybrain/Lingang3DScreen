@@ -46,69 +46,70 @@
                     for (var i = 0; i < require("sl_Event").POIData.length; i++) {
                         var row = require("sl_Event").POIData[i];
                         require("sl_Event").EventList.put(row.id, row);
-                        var icon = require("sl_Event").LayerType.List[row.communityId].UnChooseIcon;
-                        var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
-                        var iconSize = Q3D.vector2(53, 43);
-                        //switch (row.communityId) {
-                        //    case "U003"://海岸线
-                        //        iconSize = Q3D.vector2(41, 45);
-                        //        break;
-                        //    case "C001"://工地
-                        //        iconSize = Q3D.vector2(41, 45);
-                        //        break;
-                        //    default:
-                        //}
-                        var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
-                        var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                        if (require("sl_Event").LayerType.List[row.communityId] != null) {
+                            var icon = require("sl_Event").LayerType.List[row.communityId].UnChooseIcon;
+                            var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
+                            var iconSize = Q3D.vector2(53, 43);
+                            //switch (row.communityId) {
+                            //    case "U003"://海岸线
+                            //        iconSize = Q3D.vector2(41, 45);
+                            //        break;
+                            //    case "C001"://工地
+                            //        iconSize = Q3D.vector2(41, 45);
+                            //        break;
+                            //    default:
+                            //}
+                            var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
+                            var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                        var textname = "";
-                        if (i == 0)
-                        {
-                            textname = "00:15:15";
-                        } else if (i == 1)
-                        {
-                            textname = "00:05:18";
-                        } else if (i == 2) {
-                            textname = "00:10:16";
-                        }
+                            var textname = "";
+                            if (i == 0) {
+                                textname = "00:15:15";
+                            } else if (i == 1) {
+                                textname = "00:05:18";
+                            } else if (i == 2) {
+                                textname = "00:10:16";
+                            }
 
-                        var poi = {
-                            POIName: poiName, Position: position, Text: textname, Icon: icon, IconSize: iconSize, FontColor: "#00caca"
-                        };
+                            var poi = {
+                                POIName: poiName, Position: position, Text: textname, Icon: icon, IconSize: iconSize, FontColor: "#00caca"
+                            };
 
-                        var node = map.getSceneNode(areaName + "/" + poiName);
+                            var node = map.getSceneNode(areaName + "/" + poiName);
 
-                        if (node) {
-                            node.setVisible(1);
-                        } else {
-                            pois.push(poi);
-                        }
-
+                            if (node) {
+                                node.setVisible(1);
+                            } else {
+                                pois.push(poi);
+                            }
+                    }
                     }
                     com.InitPois(areaName, pois);
 
-                    //数据暂未提供，默认前5个 开始POI倒计时
-                    for (var i = 0; i < 3; i++) {
-                        var row = require("sl_Event").POIData[i];
-                        var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
-                        var timeText = "00:10:16";
-                        if (i == 0) {
-                            timeText = "00:15:15";
-                        } else if (i == 1) {
-                            timeText = "00:07:18";
-                        } else if (i == 2) {
-                            timeText = "00:10:16";
-                        }
-                       
-                        var s = '';
-                        var hour = timeText.split(':')[0];
-                        var min = timeText.split(':')[1];
-                        var sec = timeText.split(':')[2];
+                        //数据暂未提供，默认前5个 开始POI倒计时
+                        for (var i = 0; i < 3; i++) {
+                            var row = require("sl_Event").POIData[i];
+                            if (require("sl_Event").LayerType.List[row.communityId] != null) {
+                                var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
+                                var timeText = "00:10:16";
+                                if (i == 0) {
+                                    timeText = "00:15:15";
+                                } else if (i == 1) {
+                                    timeText = "00:07:18";
+                                } else if (i == 2) {
+                                    timeText = "00:10:16";
+                                }
 
-                        s = Number(hour * 3600) + Number(min * 60) + Number(sec);
-                        require("sl_Event").setTimeCountDown(poiName, s);
-                    //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
-                    
+                                var s = '';
+                                var hour = timeText.split(':')[0];
+                                var min = timeText.split(':')[1];
+                                var sec = timeText.split(':')[2];
+
+                                s = Number(hour * 3600) + Number(min * 60) + Number(sec);
+                                require("sl_Event").setTimeCountDown(poiName, s);
+                            }
+                                //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
+
                     }
 
                     if ($.isFunction(callback))
@@ -249,7 +250,7 @@
             var id = nodeName.split('_')[2];
             var data = require("sl_Event").EventList.get(id);
             if (data != null) {
-                data.videoUrl = "http://47.101.181.131:8092/videoGetStream/103.214.87.67:11937/citybrain/20010000001680000001.flv?vhost=cb.alivecdn.com&deviceType=0&deviceId=20010000001680000001&profile=HD&vendor=test&algo=md5&expires=1561013305&txid=20010000001680000001-1561009705-ax99b9cw2g&sign=ef8dce80f1c9bef37cc4d5de9dd0dde6";
+                //data.videoUrl = "http://47.101.181.131:8092/videoGetStream/103.214.87.67:11937/citybrain/20010000001680000001.flv?vhost=cb.alivecdn.com&deviceType=0&deviceId=20010000001680000001&profile=HD&vendor=test&algo=md5&expires=1561013305&txid=20010000001680000001-1561009705-ax99b9cw2g&sign=ef8dce80f1c9bef37cc4d5de9dd0dde6";
                 //data.imageUrl = "http://101.132.114.31/vcs/picsearch/pictureProxy/zhlingang-stsf-truck/video_automobile_panoramic/068/20190618/20190618-8947af93-0a580a000ac8-00000068-0003ed9f.jpg";
 
                 //视角定位到坐标,默认显示图片
@@ -290,30 +291,39 @@
                 $("#div_eventdetail").show('drop', 1000);
 
                 $("#eventhead").html(data.eventName);
-                var html = '<div class="boxcont flex">';
+                var html = '';
                 //图片不为空 显示图片
                 if (data.imageUrl || data.imageUrl != "") {
+                    $("#div_eventdetail").css({ width : '16rem' });
                     html += '<div class="box-leftpic fl" style="width: 6rem; text-align: center;">' +
-                                    '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
-                                    '</div>';
-                }
-                html += '<dic class="box-rightinfo fl" style="width: calc(100% - 6.5rem); line-height: 0.7rem; font-size: 0.35rem; margin-top: 0.2rem;">' +
-                    '<ul>' +
-                     '<li><div>事件属性：</div><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-                        '<li><div>事件时间：</div><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-                        '<li><div>事件地点：</div><span>' + data.address + '</span></li>' +
-                        '<li><div>事件类型：</div><span' + data.eventTypeName + '</span></li>' +
-                        '<li><div>事件描述：</div><span>' + data.eventDes + '</span></li>' +
-                        '<li><div>小区名称：</div><span>' + data.regionName + '</span></li>' +
+                                '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
+                            '</div><dic class="box-rightinfo fl scrolldiv" style="width: calc(100% - 6.5rem); line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden;">';
+                } else {
+                    $("#div_eventdetail").css({ width: 'auto !important' }); 
+                    //$("#eventdetail").css({ padding: '.3rem .8rem' });
+                    html += '<dic class="box-rightinfo fl scrolldiv" style="width: calc(100%); margin-left:0; line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden; ">'
+               }
+
+                //console.log(data.communityId);
+                html += '<ul>' +
+                     '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+                        '<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+                        '<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+                        '<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+                         '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+                        '<li><em>小区名称：</em><span>' +data.regionName + '</span></li>' +
+                        '<li><em>事件描述：</em><span>' +data.eventDes + '</span></li>' +
                     '</ul>';
 
                 //海岸线，街面，工地 显示历史无人机
                 if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001")
                 {
-                    html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></dic></div>';
+                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></dic></div>';
                 }
-                html += '</dic></div>';
+                html += '</dic>';
                 $("#eventdetail").html(html);
+                $('.box-rightinfo.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
+            });
                 require("sl_Event").loadPaidan(id);//加载派单页面
             })
         },
@@ -337,12 +347,15 @@
                 html += ' <li><div>事件属性：</div><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                 '<li><div>接警时间：</div><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">地址：</div><span>' + data.address + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">事件类型：</div><span>' + data.eventTypeName + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">事件状态：</div><span>' + data.statusName + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">小区名称：</div><span>' + data.regionName + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon2.png">事件描述：</div><span>' + data.eventDes + '</span></li>';
                 html += '</ul>';
                 //海岸线，街面，工地 显示历史无人机
                 if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001")
                 {
-                    html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></dic></div>';
+                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></dic></div>';
                 }
                 $("#ul_eventdetail").html(html);
 
