@@ -1154,7 +1154,7 @@ dd.pjc-statistic-star >form{
     top:0;
     left:0;
 	padding: .08rem .12rem .14rem .04rem;
-	width: 12rem;
+	/*width: 12rem;*/
 	background: 
 	   linear-gradient(to right, transparent 50%, rgba(13,196,223,.8) 50%, rgba(13,196,223,.8) 55%, transparent 55% ),
 	   linear-gradient(to right, rgba(13,118,223,.5) 43%, transparent 43%, transparent 46%, rgba(13,196,223,.8) 46%) 0 .04rem,
