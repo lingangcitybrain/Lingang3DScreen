@@ -840,9 +840,10 @@
        		for (var i = 0; i < data.length; i++) {
        			var time = data[i].createTime.split(".")[0].split("T");
        			num++;
-       			var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+       			//var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
        			html +=
-				   '<li class="sjxx-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+				  // '<li class="sjxx-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+				   '<li class="sjxx-li" >' +
 					'<div class="sjxx-li-line1">' +
 						'<span class="sjxx-id counter">' + num + '</span>' +
 						'<span class="sjxx-event">' + data[i].eventName + '</span>' +
@@ -896,9 +897,12 @@
        				for (var i = 0; i < data.length; i++) {
        					var time = data[i].createTime.split(".")[0].split("T");
        					num++;
-       					var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+
+       					//var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+
        					html +=
-						   '<li class="center-event-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+						   //'<li class="center-event-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+						   '<li class="center-event-li" >' +
 							'<div class="center-event-li-line1">' +
 								'<span class="sjxx-id counter">' + num + '</span>' +
 								'<span class="sjxx-event">' + data[i].eventName + '</span>' +

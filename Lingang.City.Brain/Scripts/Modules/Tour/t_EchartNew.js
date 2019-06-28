@@ -3435,7 +3435,7 @@
     	//园区事件列表
         yqsjlbtj: function () {
         	var nowdata = require("common").getNowFormatDate();//当前时间
-        	var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+        	var before7 = require("common").getDaysBefore(nowdata, 30);//30天前的时间
         	var post_data = { "startTime": before7, "endTime": nowdata }
 
         	t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
