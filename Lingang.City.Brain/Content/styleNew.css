@@ -6,8 +6,10 @@ body{
 	position: relative;
 	/*width: 11520px;
 	height: 3240px;*/
-    width: 7680px;
-	height: 2160px;
+    /*width: 7680px;
+	height: 2160px;*/
+    width: 4500px;
+	height: 3000px;
 	color:#fff;
 	font-family:"微软雅黑";
 	/*overflow: hidden;*/
@@ -3815,7 +3817,89 @@ dd.pjc-statistic-star >form{
 @media screen and (max-width: 7680px) {
     html { font-size: 90px; }
 }
+@media screen and (max-height: 3000px) {
+    html { font-size: 70px; }
+    /*社区综合*/
+    .society-lf1 { top:13rem !important;}
+    .society-lf2 { top:16.8rem !important;}
+    .society-lf3 { top:22rem !important;}
+    .society-lf4 { top:26.5rem !important;}
 
+    .society-ls-iot1 { top:13rem !important; }
+    .society-ls-iot2 { top:15.5rem !important; }
+    .society-ls-iot3 { top:21.5rem !important; }
+    .society-ls-iot4 { top:25rem !important; }
+
+    .society-rs1 { top:13rem !important;}
+    .society-rs2 { top:17.5rem !important;}
+
+    .society-ls-drone1 { top:13rem !important;}
+    .society-ls-drone2 { top:17.5rem !important;}
+    .society-ls-drone3 { top:23.5rem !important;}
+
+    .society-ls-seaboard1 { top:13rem !important;}
+    .society-ls-seaboard2 { top:20rem !important;}
+    .society-ls-seaboard3 { top:25.8rem !important;}
+
+    .society-ls-worksite1 { top:13rem !important; }
+    .society-ls-worksite2 { top:16.2rem !important; }
+    .society-ls-worksite3 { top:20.8rem !important; }
+    .society-ls-worksite4 { top:26.5rem !important; }
+
+    .society-ls-street1 { top:13rem !important;}
+    .society-ls-street2 { top:16.2rem !important;}
+    .society-ls-street3 { top:20.5rem !important;}
+
+    .society-ls-grid1 { top:13rem !important;}
+    .society-ls-grid2 { top:18.8rem !important;}
+    .society-ls-grid3 { top:21.6rem !important;}
+
+    .society-center1 { top:12.5rem !important;}
+
+    /*景区管理*/
+    .tour-lf1 { top:13rem !important;}
+    .tour-lf2 { top:15.5rem !important;}
+    .tour-lf3 { top:21.5rem !important;}
+    .tour-lf4 { top:27.5rem !important;}
+
+    .tour-ls1 { top:13rem !important; }
+    .tour-ls2 { top:17.5rem !important; }
+    .tour-ls3 { top:23.5rem !important; }
+    .tour-ls4 { top:25rem !important; }
+
+    .tour-rf1 { top:13rem !important; }
+    .tour-rf2 { top:20.8rem !important; }
+    .tour-rf3 { top:27.2rem !important; }
+
+    .tour-rs1 { top:13rem !important; }
+    .tour-rs2 { top:20.5rem !important; }
+
+    /*景区管理*/
+    
+    .industry-estate-lf1 { top:13rem !important; }
+    .industry-estate-lf2 { top:20rem !important; }
+
+    .industry-estate-ls1 { top:13rem !important; }
+    .industry-estate-ls2 { top:19rem !important; }
+    .industry-estate-ls3 { top:25rem !important; }
+
+    .industry-estate-rs1 { top:13rem !important; }
+    .industry-estate-rs2 { top:19rem !important; }
+
+    .industry-garden-lf1 { top:13rem !important; }
+    .industry-garden-lf2 { top:22.5rem !important; }
+
+    .industry-garden-ls1 { top:13rem !important; }
+    .industry-garden-ls2 { top:18rem !important; }
+    .industry-garden-ls3 { top:24.5rem !important; }
+
+    .industry-garden-rf1 { top:13rem !important; }
+    .industry-garden-rf2 { top:20rem !important; }
+
+    .industry-garden-rs1 { top:13rem !important; }
+
+
+}
 
 
 
