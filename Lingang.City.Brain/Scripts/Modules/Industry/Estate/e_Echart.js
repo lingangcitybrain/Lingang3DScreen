@@ -103,10 +103,10 @@
                                 formatter: '【{value}】',
                                 textStyle: {
                                     color: '#0ff',
-                                    fontSize: 30
+                                    fontSize: 25
                                 }
                             },
-                            radius: 180,
+                            radius: 150,
                             center: ['50%', '55%'],
                             axisLine: {
                                 lineStyle: {
@@ -182,10 +182,10 @@
                                     formatter: '【{value}】',
                                     textStyle: {
                                         color: '#0ff',
-                                        fontSize: 70
+                                        fontSize: 50
                                     }
                                 },
-                                radius: 420,
+                                radius: 380,
                                 center: ['50%', '54%'],
                                 axisLine: {
                                     lineStyle: {
