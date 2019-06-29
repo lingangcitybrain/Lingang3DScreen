@@ -29,7 +29,7 @@
             //获取巡查员数据
             require("sl_Event").loadInspectorList();
             require("sl_Event").clearTimeCount();//计时器清空
-            com.LayerFlyto(15, function () {
+            com.LayerFlyto(15, function () { });
                 //大脑转动
                 require("s_Main").DanaoAnimation = setTimeout(function () {
                     require("sl_Event").loadDanaoAnimation();
@@ -115,7 +115,7 @@
                     if ($.isFunction(callback))
                         callback()
                 });
-            })
+
 
            
         },
