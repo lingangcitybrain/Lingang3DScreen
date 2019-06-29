@@ -6,10 +6,10 @@ body{
 	position: relative;
 	/*width: 11520px;
 	height: 3240px;*/
-    width: 7680px;
-	height: 2160px;
-    /*width: 4500px;
-	height: 3000px;*/
+    /*width: 7680px;
+	height: 2160px;*/
+    width: 4500px;
+	height: 3000px;
 	color:#fff;
 	font-family:"微软雅黑";
 	/*overflow: hidden;*/
@@ -3623,9 +3623,10 @@ dd.pjc-statistic-star >form{
 	position: absolute;
 	top:1rem;
 	left: 0;
-	min-width: 4.3em;
+	/*min-width: 4.3em;*/
 	padding: .33em 0 .18em;
-	font-size: 170px;
+	/*font-size: 170px;*/
+	font-size: 2em;
 	background: 
 		url(../Content/images/poi-top.png) no-repeat,
 		url(../Content/images/poi-bottom.png) 0 100% no-repeat;
@@ -3650,6 +3651,7 @@ dd.pjc-statistic-star >form{
 .poi-li{
 	line-height: 1em;
 	margin-bottom: .6em;
+    word-break:keep-all;
 }
 .poi-li:last-child{ margin-bottom: 0; }
 
