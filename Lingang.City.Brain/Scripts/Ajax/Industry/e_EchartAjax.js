@@ -219,18 +219,18 @@
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").zlxxcyjgData = data.data;
+                        require("e_Echart").zlxxcyjgData = data;
                         callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        require("e_Echart").zlxxcyjgData = e_EchartData.zlxxcyjgData.data;
+                        require("e_Echart").zlxxcyjgData = e_EchartData.zlxxcyjgData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").zlxxcyjgData = e_EchartData.zlxxcyjgData.data;
+                require("e_Echart").zlxxcyjgData = e_EchartData.zlxxcyjgData;
                 callback();
             }
          },

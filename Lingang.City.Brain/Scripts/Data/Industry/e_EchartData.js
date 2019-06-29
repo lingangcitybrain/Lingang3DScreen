@@ -174,48 +174,45 @@
             "errMsg": "SUCCESS"
         },
         //战略新兴产业结构
-        zlxxcyjgData:{
-            "data": [{
-                "rate": 0.014976465554129225,
+        zlxxcyjgData: [{
+            "2019": [{
+                "rate": 0.014766201804757998,
                 "industry": "数字创意产业",
-                "entConut": 35
+                "entConut": 36
             }, {
-                "rate": 0.26486949080017114,
+                "rate": 0.26538146021328957,
                 "industry": "新一代信息技术产业",
-                "entConut": 619
+                "entConut": 647
             }, {
-                "rate": 0.07916131792896876,
+                "rate": 0.07957342083675144,
                 "industry": "新材料产业",
-                "entConut": 185
+                "entConut": 194
             }, {
-                "rate": 0.014120667522464698,
+                "rate": 0.013535684987694831,
                 "industry": "新能源产业",
                 "entConut": 33
             }, {
-                "rate": 0.05562687205819426,
+                "rate": 0.05701394585726005,
                 "industry": "新能源汽车产业",
-                "entConut": 130
+                "entConut": 139
             }, {
-                "rate": 0.35344458707744975,
+                "rate": 0.3490566037735849,
                 "industry": "生物产业",
-                "entConut": 826
+                "entConut": 851
             }, {
-                "rate": 0.00599058622165169,
+                "rate": 0.006562756357670222,
                 "industry": "相关服务业",
-                "entConut": 14
+                "entConut": 16
             }, {
-                "rate": 0.056910569105691054,
+                "rate": 0.05701394585726005,
                 "industry": "节能环保产业",
-                "entConut": 133
+                "entConut": 139
             }, {
-                "rate": 0.15489944373127942,
+                "rate": 0.15709598031173092,
                 "industry": "高端装备制造产业",
-                "entConut": 362
-            }],
-            "auth": {},
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-        },
+                "entConut": 383
+            }]
+        }],
         //风控雷达
         fkldData:{
 	        "totalRecords": 231934,
