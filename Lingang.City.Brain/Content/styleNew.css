@@ -3711,7 +3711,7 @@ dd.pjc-statistic-star >form{
 	width: 25rem;
 	height: 16rem;
 	transform: translate(-50%,-50%);
-	background: rgba(2,16,38,.7);
+	background: rgba(2,16,38,1);
 	border-radius: .2rem;
     box-shadow:0px 0px 0.5rem rgba(255,255,255,0.3);
 }
@@ -3899,6 +3899,7 @@ dd.pjc-statistic-star >form{
 
     .industry-garden-rs1 { top:13rem !important; }
 
+    .wlrlyc-box { left:29rem; top:13rem;}
 
 }
 
