@@ -125,7 +125,7 @@
                 var row = require("sl_WorkStation").WorkStationDetailData[i];
                 if (data.siteName == row.name)
                 {
-                    html += '<div class=\"poi-box poi-box1\" style=\"z-index:980\">'
+                    html += '<div class=\"poi-box poi-box1\" style=\"z-index:980; width: 8rem;\">'
                      + '<div class=\"poi-title\">' + row.name + '</div>'
                      + '<div class=\"poi-cont\">'
                      + '<ul class=\"poi-ul\">'

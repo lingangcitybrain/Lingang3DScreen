@@ -2780,7 +2780,7 @@
                              data: [keyTemp[0]]
                          },
                          {
-                             left: '20%',
+                             left: '16%',
                              bottom: " 2%",
                              icon: 'circle',
                              itemWidth: 20,
@@ -3043,7 +3043,7 @@
                              data: [keyTemp[0]]
                          },
                          {
-                             left: '25%',
+                             left: '20%',
                              bottom: "5%",
                              icon: 'circle',
                              itemWidth: 50,
