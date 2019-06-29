@@ -67,6 +67,7 @@
         { "menu": "1", "layer": "11", "menuNM": "社区综合", "layerNM": "摄像头", POISTR: "POISocietyCamera", "command": "close", "func": "require('sl_Camera').closeCameraDetial();" },//摄像头视频窗口关闭
         { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", POISTR: "POISocietyDrone", "command": "close", "func": "require('sl_Drone').closeCameraDetial();" },//无人机视频窗口关闭
         { "menu": "1", "layer": "15", "menuNM": "社区综合", "layerNM": "事件", POISTR: "POISocietyEvent", "command": "close", "func": "require('sl_Event').closeDetail();" },//事件窗口关闭
+        { "menu": "1", "layer": "15", "menuNM": "社区综合", "layerNM": "事件", POISTR: "paidan01", "command": "close", "func": "require('sl_Event').closeEventPaidan();" },//事件窗口关闭
 
         { "menu": "2", "layer": "4", "menuNM": "景区管理", "layerNM": "无人机", POISTR: "POITourDrone", "command": "close", "func": "require('tl_Drone').closeCameraDetial();" },//无人机窗口关闭
         { "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头", POISTR: "POITourCamera", "command": "close", "func": "require('tl_Camera').closeCameraDetial();" },//摄像头窗口关闭
