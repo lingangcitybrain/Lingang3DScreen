@@ -6,10 +6,10 @@ body{
 	position: relative;
 	/*width: 11520px;
 	height: 3240px;*/
-    /*width: 7680px;
-	height: 2160px;*/
-    width: 4500px;
-	height: 3000px;
+    width: 7680px;
+	height: 2160px;
+    /*width: 4500px;
+	height: 3000px;*/
 	color:#fff;
 	font-family:"微软雅黑";
 	/*overflow: hidden;*/
@@ -874,7 +874,8 @@ button.arrowbtn.btnright{
 	width: 25rem;
 	height: 15rem;
 	transform: translate(-50%,-50%);
-	background: rgba(2,16,38,.7);
+	/*background: rgba(2,16,38,.7);*/
+	background: rgba(2,16,38,1);
 	border-radius: .2rem;
     box-shadow:0px 0px 0.5rem rgba(255,255,255,0.3);
 }
@@ -3817,7 +3818,7 @@ dd.pjc-statistic-star >form{
 @media screen and (max-width: 7680px) {
     html { font-size: 90px; }
 }
-@media screen and (max-height: 3000px) {
+@media screen and (max-height: 3010px) {
     html { font-size: 70px; }
     /*社区综合*/
     .society-lf1 { top:13rem !important;}
@@ -3871,8 +3872,8 @@ dd.pjc-statistic-star >form{
     .tour-rf2 { top:20.8rem !important; }
     .tour-rf3 { top:27.2rem !important; }
 
-    .tour-rs1 { top:13rem !important; }
-    .tour-rs2 { top:20.5rem !important; }
+    .tour-rs2 { top:13rem !important; }
+    .tour-rs3 { top:20.5rem !important; }
 
     /*景区管理*/
     

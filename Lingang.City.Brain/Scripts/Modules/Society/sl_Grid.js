@@ -627,7 +627,7 @@
                 series: [
 	                {
 	                    type: 'pie',
-	                    radius: '65%',
+	                    radius: '58%',
 	                    center: ['50%', '50%'],
 	                    data: [
 	            	        { value: gridTotalNum - gridTop15Num, name: "其它", selected: true },

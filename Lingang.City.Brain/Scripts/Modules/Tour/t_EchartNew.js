@@ -842,7 +842,6 @@
                     tooltip: {
                         show: false,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
                     legend: {
                         show: false,
@@ -883,18 +882,18 @@
                             },
                             label: {
                                 normal: {
-                                    fontSize: 20,
-                                    formatter: '{b|{b}}{per|{d}}%\n\n',
+                                    fontSize: 18,
+                                    formatter: '{b|{b}}{per|{d}}%\n',
                                     padding: [0, -90],
                                     //color:"#0996d1",
                                     rich: {
                                         b: {
-                                            fontSize: 20,
+                                            fontSize: 18,
                                             lineHeight: 36,
                                             //color:"#fff",
                                         },
                                         per: {
-                                            fontSize: 20,
+                                            fontSize: 18,
                                             // color:"#0996d1",
                                             fontFamily: "Aerial",
                                         },
@@ -908,6 +907,7 @@
                     ]
                 };
                 //require("t_Echart").myChartyqfx.clear();
+
                 require("t_Echart").myChartyqfx.setOption(option, true)
             })
 
