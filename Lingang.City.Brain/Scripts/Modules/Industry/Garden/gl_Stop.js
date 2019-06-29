@@ -14,6 +14,7 @@
                     node.setVisible(0);
                 }
             }
+            this.closeEventDetail();
         },
         //停车位图层
         loadStop: function () {
@@ -99,6 +100,9 @@
                     $("#EmptyParkingLot").html(parseInt(data.total) - parseInt(data.occupied));
                 }
             });
+        },
+        closeEventDetail: function () {
+            $("#center_01").html("");
         },
     }
 })

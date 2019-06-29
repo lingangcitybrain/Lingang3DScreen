@@ -303,6 +303,7 @@
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl + 'v1/park/affair/jrsjqy',
                     cache: false,
+                    data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("t_Echart").yqsjlbqyData = data;
@@ -319,31 +320,57 @@
                 callback();
             }
         },
-        //景区事件列表统计
-        yqsjlbtj: function (post_data, callback) {
-            if (con.IsInterface)//执行接口
-            {
-                $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/park/affair/getEventList',
-                    cache: false,
-                    dataType: 'json',  // 返回数据的数据类型json
-                    success: function (data) {
-                        require("t_Echart").yqsjlbtjData = data;
-                        callback(data);
-                    },
-                    error: function () {
-                        require("t_Echart").yqsjlbtjData = t_EchartData.yqsjlbtjData;
-                        callback();
-                    }
-                });
-            }
-            else {//执行本地
-                require("t_Echart").yqsjlbtjData = t_EchartData.yqsjlbtjData;
-                callback();
-            }
+    	//景区事件列表统计----原来的
+        //yqsjlbtj: function (post_data, callback) {
+        //	if (con.IsInterface)//执行接口
+        //	{
+        //		$.ajax({
+        //			type: "POST",      //data 传送数据类型。post 传递 
+        //			url: con.InterfaceUrl + 'v1/park/affair/getEventList',
+        //			cache: false,
+        //			data: post_data,
+        //			dataType: 'json',  // 返回数据的数据类型json
+        //			success: function (data) {
+        //				require("t_Echart").yqsjlbtjData = data;
+        //				callback(data);
+        //			},
+        //			error: function () {
+        //				require("t_Echart").yqsjlbtjData = t_EchartData.yqsjlbtjData;
+        //				callback();
+        //			}
+        //		});
+        //	}
+        //	else {//执行本地
+        //		require("t_Echart").yqsjlbtjData = t_EchartData.yqsjlbtjData;
+        //		callback();
+        //	}
+        //},
+    	//景区事件列表统计
+        yqsjlbCenterEvent: function (post_data, callback) {
+        	if (con.IsInterface)//执行接口
+        	{
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_TourEvent + 'v1/park/affair',
+        			cache: false,
+        			data: post_data,
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("t_Echart").yqsjlbCenterEventData = data;
+        				callback(data);
+        			},
+        			error: function () {
+        				require("t_Echart").yqsjlbCenterEventData = t_EchartData.yqsjlbCenterEventData;
+        				callback();
+        			}
+        		});
+        	}
+        	else {//执行本地
+        		require("t_Echart").yqsjlbCenterEventData = t_EchartData.yqsjlbCenterEventData;
+        		callback();
+        	}
         },
-        //num: function (post_data,callback) {
+    	//num: function (post_data,callback) {
         //    if (con.IsInterface)//执行接口
         //    {
         //        $.ajax({

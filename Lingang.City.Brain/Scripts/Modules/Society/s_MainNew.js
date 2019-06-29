@@ -38,7 +38,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                         Id: 1001, TextName: "社区", Name: "Event_S012", Type: 1, ChooseIcon: "Texture/Common/event1_hover.png", UnChooseIcon: "Texture/Common/event1.png",
                     },
                     U001: { Id: 1002, TextName: "市政道路", Name: "Event_U001", Type: 2, ChooseIcon: "Texture/Common/event2_hover.png", UnChooseIcon: "Texture/Common/event2.png" },
-                    U002: { Id: 1003, TextName: "共享区", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
+                    U002: { Id: 1003, TextName: "街面", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
                     U003: { Id: 1004, TextName: "海岸线", Name: "Event_U003", Type: 4, ChooseIcon: "Texture/Common/event4_hover.png", UnChooseIcon: "Texture/Common/event4.png", },
                     C001: { Id: 1005, TextName: "工地", Name: "Event_C001", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
                 }
@@ -51,7 +51,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             sl_Event.loadEvent();  
 
             //this.loadBottomMenu();//加载底部图层
-
+  
             this.loadLeftFirst1();//加载左侧第一列第一个div
             this.loadLeftFirst2();//
             this.loadLeftFirst3();//
@@ -153,6 +153,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             })
         },
+
         ////////////////////////////////////////////////右侧页面//////////////////////////////////////////////////////
         /*****************************右侧第二列*****************************/
         //加载第一个div1
@@ -200,6 +201,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             com.UIControlAni(option, function () {
                 require("s_Echart").sjcg();//事件处理成功数
                 require("s_Echart").loadSocietySjcgStatusData();
+
                 require("s_Echart").loadSocietySjcgList();
                 require("sl_IOT").Scrolldiv();
             });

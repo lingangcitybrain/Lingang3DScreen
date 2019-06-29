@@ -78,6 +78,10 @@
         closeBuildingDetail: function () {
             require('b_BuildingFloor').closeBuidingDetail();            
         },
+        closeParkingDetail: function () {
+                require('gl_Stop').closeEventDetail();
+               
+            },
         /*********************************END*********************************************/
         
     }

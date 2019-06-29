@@ -117,6 +117,26 @@
 
                 $("#iotdetail").html(html);
             })
+
+            //  节点信息窗跟随测试
+            var nodePath = areaName + '/' + nodeName;                       
+
+            if (require("sl_IOT").nodeFollowingPath != null) {
+                map.disableNodeFollowing(require("sl_IOT").nodeFollowingPath, true);
+            }
+                        
+            require("sl_IOT").nodeFollowingPath = nodePath;
+            map.enableNodeFollowing(nodePath, function(node, v2i){                            
+                if (node.getFullName() == nodePath){
+                    document.getElementById("div_iotdetail").style.left = v2i.x + "px";
+                    document.getElementById("div_iotdetail").style.top = v2i.y + "px";
+                                
+                    // 获取指定节点的屏幕坐标
+                    //var v2iNode = mapObj._map3d.getWorldManager().getMainCamera(0).absPosToViewport(node.getAbsPos());
+                               
+                    //console.log('窗口：'+v2i.x + ',' + v2i.y + ';' + '节点：'+v2iNode.x + ',' + v2iNode.y);
+                } 
+            });
         },
         //清空传感器POI
         clearIOTPOI: function () {
@@ -333,11 +353,14 @@
                         }
                     },
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
+                        left: '2%',   // grid 组件离容器左侧的距离。
                         right: '2%',
                         bottom: '2%',
                         height: "86%",
-                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                        containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+                        borderColor: "transparent",
                     },
                     xAxis: {
                         type: 'category',
@@ -390,12 +413,18 @@
                         {
                             name: '进出人员',
                             type: 'line',
+                            lineStyle: {
+                            	width: 4,
+                            },
                             smooth: true,
                             data: require("sl_IOT").personInOutCount
                         },
                         {
                             name: '进出车辆',
                             type: 'line',
+                            lineStyle: {
+                            	width: 4,
+                            },
                             smooth: true,
                             data: require("sl_IOT").carInOutCount
                         },
@@ -443,7 +472,11 @@
                     right: '5%',
                     bottom: '5%',
                     height: "82%",
-                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                	show: true,
+        			backgroundColor: "rgba(74,128,244,.1)",
+        			borderColor: "transparent",
+
                 },
                 xAxis: {
                     type: 'category',
@@ -502,10 +535,10 @@
                         type: 'line',
                         smooth: true,
                         lineStyle: {
-                            width: 6,
+                            width: 8,
                         },
                         symbol: 'circle',
-                        symbolSize: 22,
+                        symbolSize: 16,
                         data: personInOutCount
                     },
                     {
@@ -513,10 +546,10 @@
                         type: 'line',
                         smooth: true,
                         lineStyle: {
-                            width: 6,
+                            width: 8,
                         },
                         symbol: 'circle',
-                        symbolSize: 22,
+                        symbolSize: 16,
                         data: carInOutCount
                     }
                 ]

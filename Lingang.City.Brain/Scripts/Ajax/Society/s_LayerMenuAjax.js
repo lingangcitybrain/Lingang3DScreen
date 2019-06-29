@@ -159,7 +159,7 @@
                     success: function (data) {
                         require("sl_Drone").POIData = data.data;
                         if ($.isFunction(callback))
-                            callback()
+                            callback(data.data)
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -169,7 +169,7 @@
             else {//执行本地
                 require("sl_Drone").POIData = s_layerMenuData.DroneHangarData.data;
                  if ($.isFunction(callback))
-                            callback()
+                     callback(s_layerMenuData.DroneHangarData.data)
             }
         },
         //获取无人机点位数据
@@ -239,7 +239,7 @@
                     success: function (data) {
                         require("sl_WorkStation").POIData = data.data;
                          if ($.isFunction(callback))
-                            callback()
+                             callback(data.data)
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -249,7 +249,7 @@
             else {//执行本地
                 require("sl_WorkStation").POIData = s_layerMenuData.WorkStationData;
                 if ($.isFunction(callback))
-                    callback()
+                    callback(s_layerMenuData.WorkStationData)
             }
         },
     }

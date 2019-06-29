@@ -218,6 +218,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             };
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
         },
+        //关闭事件详情
         closeDetail: function () {
             require('sl_Event').closeDetail();
             var jsondata = {
@@ -230,6 +231,46 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             };
             control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
         },
+        //关闭事件派单详情
+        closeEventPaidan: function () {
+            require('sl_Event').closeEventPaidan();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": "paidan01",
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        //关闭楼栋视频
+        closeBuildVideo: function () {
+            require('sl_Event').closeBuildVideo();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": "paidan01",
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+        //关闭事件无人机视频
+        closeEventDrone: function () {
+            require('sl_Event').closeEventDrone();
+            var jsondata = {
+                "menu": "1",
+                "layer": this.layerNO,
+                "id": "paidan01",
+                "command": "close",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+        },
+
         //关闭传感器详情
         closeIOTDetail: function () {
             require('sl_IOT').closeIOTDetail();

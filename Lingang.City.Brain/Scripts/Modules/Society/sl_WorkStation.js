@@ -4,7 +4,10 @@
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
-
+        WorkStationDetailData:null,
+        freeWorkStationData: [],//停车场数据
+        nodeFollowingPath: [],//节点跟随路径
+        detailWindowId: 0,//当前窗口id
         //加载村居工作站POI
         loadWorkStation: function () {
             this.Revert();
@@ -15,141 +18,146 @@
              com.LayerFlyto(13)
             //村居工作站数据
              require("s_LayerMenuAjax").getWorkStationList(function (result) {
-                 var areaName = con.AreaName;
-                 var icon = require("sl_WorkStation").LayerType.UnChooseIcon;
-                 var iconSize = Q3D.vector2(41, 45);
-          
-                 for (var i = 0; i < require("sl_WorkStation").POIData.length; i++) {
-                     var row = require("sl_WorkStation").POIData[i];
-                     var Coordinate = com.gcj02towgs84(parseFloat(row.lat), parseFloat(row.lng));//高德坐标转84坐标
-                     var pos = Coordinate + ",0";
-                     var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                 require("sl_WorkStation").freeWorkStationData = result;
 
-                     //var pos = row.lat + "," + row.lng + ",0";
-                     //var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-                     var poiName = "POISociety" + require("sl_WorkStation").LayerType.Name + "_" + row.siteName;//POIIOT_01
-                     //创建POI
-                     var options = {
-                         Position: position,//封装Vector3对象
-                         Orientation: null,//封装Vector3对象
-                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                         Scale: Q3D.vector3(1, 1, 1),//封装Vector3对象
-                         POIOptions: {
-                             FontSize: 14,
-                             FontName: "微软雅黑",
-                             FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
-                             CharScale: 1.0,
-                             Text: "",
-                             Icon: icon,
-                             IconSize: iconSize,//封装Vector2对象
-                             POILayout: Q3D.Enums.poiLayOut.Bottom,
-                             POILayoutCustom: null,	//支持负数，取值0相当于LeftTop，1.0相当于LeftBottom，0.5相当于Left；只对POILayout为LeftCustom、TopCustom、RightCustom、BottomCustom时有效
-                             UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                             IconAlphaEnabled: true,
-                             FontOutLine: 0, //同描边有关
-                             FontEdgeColor: Q3D.colourValue("#000000", 1),//封装ColourValue对象
-                             AlphaTestRef: null,
-                             Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                             LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用，封装Vector2对象
-                             BackFrameBorderSize: null, //同边框有关
-                             BackBorderColor: null,//封装ColourValue对象
-                             BackFillColor: null,//封装ColourValue对象
-                             LabelMargin: null,//封装Vector2对象
-                             IconLabelMargin: null,//封装Vector2对象，左右布局X分量有效，上下布局的Y分量有效
-                             SpecialTransparent: true,
-                             AlwaysOnScreen: true,
-                             AbsPriority: null,
-                             RelPriority: null,
-                         },
-                         OnLoaded: function () {//加载结束回调
-                             var temp = 1;
-                             switch (row.siteName) {
-                                 case "临港家园社区居委会":
-                                     temp = 1;
-                                     break;
-                                 case "东岸涟城居委会":
-                                     temp = 2;
-                                     break;
-                                 case "滴水湖馨苑居委会":
-                                     temp = 3;
-                                     break;
-                                 case "宜浩佳园第一居委会":
-                                     temp = 4;
-                                     break;
-                                 case "宜浩佳园第二居委会":
-                                     temp = 5;
-                                     break;
-                                 default:
-
-                             }
-                             //创建子POI显示
-                             require("sl_WorkStation").loadWorkStationPOIDetial(areaName, poiName, "Texture/Common/cunju_" + temp + ".png", temp);
-                         },
-                     }
-                     map.createPOI(areaName + "/" + poiName, options)
-                 }
-                 //var pois = [];
-                 //for (var i = 0; i < this.POIData.length; i++) {
-                 //    var row = this.POIData[i];
-                 //    var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
-                 //    var iconSize = Q3D.vector2(41, 45);
-                 //    var pos = row.lat + "," + row.lng + ",0";
-                 //    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-
-                 //    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
-                 //    pois.push(poi);
-                 //}
-                 //com.InitPois(areaName, pois);
+                 require("sl_WorkStation").loadParkingLotPOI();
              })
 
         },
-        loadWorkStationPOIDetial: function (AreaName, parentName, icon, id) {
-            var pos = Q3D.vector3(400, 120, 0);
-            switch (id) {
-                case 1://临港家园社区居委会
-                    pos = Q3D.vector3(0, -20, 130);
-                    break;
-                case 2://东岸涟城居委会
-                    pos = Q3D.vector3(0, -20, 175);
-                    break;
-                case 3://滴水湖馨苑居委会
-                    pos = Q3D.vector3(0, 0, 275);
-                    break;
-                case 4://宜浩佳园第一居委会
-                    pos = Q3D.vector3(0, 0, 350);
-                    break;
-                case 5://宜浩佳园第二居委会
-                    pos = Q3D.vector3(0, 100, 0);
-                    break;
-                default:
-            }
+        loadParkingLotPOI:function(){
+            var areaName = con.AreaName;
+            var icon = require("sl_WorkStation").LayerType.UnChooseIcon;
+            var iconSize = Q3D.vector2(41, 45);
 
-            var iconSize = Q3D.vector2(388, 217);
-            var createOptions = {
-                Position: pos,
-                Orientation: null,
-                OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                Scale: Q3D.vector3(0.5, 0.5, 0.5),
-                POIOptions: {
-                    CharScale: 1,
-                    Text: "",
-                    Icon: icon,
-                    IconSize: iconSize,
-                    POILayout: Q3D.Enums.poiLayOut.Bottom,
-                    UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                    IconAlphaEnabled: true,
-                    Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                    SpecialTransparent: true,
-                    AlwaysOnScreen: true,
-                    OnLoaded: function () {
+            for (var i = 0; i < require("sl_WorkStation").POIData.length; i++) {
+                var row = require("sl_WorkStation").POIData[i];
+                var Coordinate = com.gcj02towgs84(parseFloat(row.lat), parseFloat(row.lng));//高德坐标转84坐标
+                var pos = Coordinate + ",0";
+                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+
+                var poiName = "POISociety" + require("sl_WorkStation").LayerType.Name + "_" + row.siteName;//POIIOT_01
+                //创建POI
+                var options = {
+                    Position: position,//封装Vector3对象
+                    Orientation: null,//封装Vector3对象
+                    OrientationType: Q3D.Enums.nodeOrientationType.Self,
+                    Scale: Q3D.vector3(1, 1, 1),//封装Vector3对象
+                    POIOptions: {
+                        FontSize: 14,
+                        FontName: "微软雅黑",
+                        FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
+                        CharScale: 1.0,
+                        Text: "",
+                        Icon: icon,
+                        IconSize: iconSize,//封装Vector2对象
+                        POILayout: Q3D.Enums.poiLayOut.Bottom,
+                        POILayoutCustom: null,	//支持负数，取值0相当于LeftTop，1.0相当于LeftBottom，0.5相当于Left；只对POILayout为LeftCustom、TopCustom、RightCustom、BottomCustom时有效
+                        UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
+                        IconAlphaEnabled: true,
+                        FontOutLine: 0, //同描边有关
+                        FontEdgeColor: Q3D.colourValue("#000000", 1),//封装ColourValue对象
+                        AlphaTestRef: null,
+                        Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
+                        LocationOffset: null, //当Location为POI_LOCATE_CUSTOM起作用，封装Vector2对象
+                        BackFrameBorderSize: null, //同边框有关
+                        BackBorderColor: null,//封装ColourValue对象
+                        BackFillColor: null,//封装ColourValue对象
+                        LabelMargin: null,//封装Vector2对象
+                        IconLabelMargin: null,//封装Vector2对象，左右布局X分量有效，上下布局的Y分量有效
+                        SpecialTransparent: true,
+                        AlwaysOnScreen: true,
+                        AbsPriority: null,
+                        RelPriority: null,
+                    },
+                    OnLoaded: function () {//加载结束回调
+                        //创建窗口信息显示
+                        require("sl_WorkStation").loadWorkStationDetailWindow(poiName, row.siteName);
                     },
                 }
-            };
-            var poiName = "PoiWorkStationInfo" + id;
-            var node = map.getSceneNode(AreaName, poiName)
-            if (node) { map.destroySceneNode(AreaName, poiName) }
-            map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);
+                map.createPOI(areaName + "/" + poiName, options)
+            }
         },
+
+        loadWorkStationDetailWindow: function (nodeName, siteName) {
+            var data = null;
+            require("sl_WorkStation").freeWorkStationData.forEach(function (e) {
+                if (e.siteName == siteName) {
+                    data = e;
+                }
+            });
+
+            var url = con.HtmlUrl + 'SocietyNew/Bottom_WorkStationDetail.html';
+
+            require("sl_WorkStation").detailWindowId = require("sl_WorkStation").detailWindowId + 1;
+            var domWinName = 'detail_' + require("sl_WorkStation").detailWindowId;
+
+            require(['text!' + url], function (template) {
+                $("#" + domWinName).show();
+                $("#" + domWinName).html(template);
+
+                require("sl_WorkStation").openWinDetail(domWinName, data);
+
+            });
+
+            var nodePath = con.AreaName + '/' + nodeName;
+            var nodeObject = { "nodePath": nodePath, "nodeDom": domWinName };
+
+            require("sl_WorkStation").nodeFollowingPath.push(nodeObject);
+
+            map.enableNodeFollowing(nodePath, function (node, v2i) {
+                require("sl_WorkStation").nodeFolowing(node, v2i);
+            });
+        },
+        nodeFolowing: function (node, v2i) {
+            require("sl_WorkStation").nodeFollowingPath.forEach(function (e) {
+                if (node.getFullName() == e.nodePath) {
+                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                    document.getElementById(e.nodeDom).style.top = v2i.y - 100 + "px";
+                }
+            });
+        },
+        openWinDetail: function (domWinName, data) {
+            var workName = '';
+            this.WorkStationDetailData = require("s_layerMenuData").WorkStationDetailData.list;
+
+            var html = "";
+            for (var i = 0; i < require("sl_WorkStation").WorkStationDetailData.length; i++) {
+                var row = require("sl_WorkStation").WorkStationDetailData[i];
+                if (data.siteName == row.name)
+                {
+                    html += '<div class=\"poi-box poi-box1\" style=\"z-index:980\">'
+                     + '<div class=\"poi-title\">' + row.name + '</div>'
+                     + '<div class=\"poi-cont\">'
+                     + '<ul class=\"poi-ul\">'
+                     + '<li class=\"poi-li\"><i>' + row.address + '</i></li>'
+                     + '<li class=\"poi-li\"><span>联系电话：</span><em><i>' + row.tel + '</i></em></li>'
+                     + '<li class=\"poi-li\"><span>服务时间：</span><em><i>' + row.servicetime + '</i></em></li>'
+                     + '</ul>'
+                     + '</div>'
+                     + '</div>';
+                }
+            }
+            $("#" + domWinName).html(html);
+        },
+        closeWorkStationDetailWindow: function () {
+            var currentWinId = require("sl_WorkStation").detailWindowId;
+
+            while (currentWinId > 0) {
+                var domDetail = $("#detail_" + currentWinId);
+                domDetail.empty();
+                domDetail.hide();
+                currentWinId = currentWinId - 1;
+            }
+
+            require("sl_WorkStation").detailWindowId = 0;
+
+            require("sl_WorkStation").nodeFollowingPath.forEach(function (e) {
+                map.disableNodeFollowing(e.nodePath, true);
+            });
+
+            require("sl_WorkStation").nodeFollowingPath = [];
+        },
+
         //村居工作站点击事件
         loadWorkStationDetial: function (nodeName) {
             var areaName = con.AreaName;
@@ -215,6 +223,7 @@
 
         Revert: function () {
             this.clearWorkStationPOI();
+            this.closeWorkStationDetailWindow();
         }
     }
 })

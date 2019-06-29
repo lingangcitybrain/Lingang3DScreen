@@ -46,7 +46,11 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             require("specialEff").nighttime();
             //关闭放大图表
             require('mainMenu').closeBigChartHtml();
-            //加载div数据
+			//关闭社综居中放大的事件列表
+            require('s_Echart').closeCenterEventList();
+            require('t_Echart').closeCenterEventList();
+
+        	//加载div数据
             switch (menuname) {
                 case "社区综合":// 社区综合
                     s_Home.loadMain();
@@ -212,6 +216,9 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
         showLayer_smain: function (index) {
             s_Main.Revert();
             require('mainMenu').closeBigChartHtml();
+        	//关闭社综居中放大的事件列表
+            require('s_Echart').closeCenterEventList();
+
             var menuname = $("li").eq(index).text();
             $("li").removeClass("active");//删除当前元素的样式
             $("li").eq(index).addClass("active");//添加当前元素的样式
@@ -277,8 +284,9 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
 
         //切换显示图层
         showLayer_tmain: function (index) {
-            t_Main.Revert();
-            $("li").removeClass("active");//删除当前元素的样式
+        	t_Main.Revert();
+        	require('t_Echart').closeCenterEventList(); //关闭景区居中放大事件列表
+        	$("li").removeClass("active");//删除当前元素的样式
             $("li").eq(index).addClass("active");//添加当前元素的样式
             var menuname = $("li").eq(index).text();
             switch (menuname) {

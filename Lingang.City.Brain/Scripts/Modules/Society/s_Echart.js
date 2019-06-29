@@ -103,6 +103,18 @@
             $("#center_03").html("");           
         },
 
+        loadCenterEventList: function () {
+        	var url = con.HtmlUrl + 'SocietyNew/Center_04.html';
+        	require(['text!' + url], function (template) {
+        		$("#center_04").html(template);
+        		$("#center_04").show('drop', 1000);//左侧
+        		require("s_Echart").loadSocietyEventList();
+        	})
+        },
+
+        closeCenterEventList:function(){
+        	$("#center_04").html("");
+        },
 
         //加载头部日期时间  
 
@@ -808,38 +820,107 @@
                $("#sjcg-status>button").eq(0).find("span").html(data[0].counts);
                $("#sjcg-status>button").eq(1).find("span").html(data[1].counts);
                $("#sjcg-status>button").eq(2).find("span").html(data[2].counts);
-
            })
        },
 
 
-        // 事件处理成功数列表
-       loadSocietySjcgList: function (post_data) {
-           s_EchartAjax.getSocietySjcgList(post_data, function (result) {
-               if (require("s_Echart").societySjcgListData == null) { return false; };
-               var data = require("s_Echart").societySjcgListData;
-               data = data.data.list;
-               var html = '';
-               var num = 0;
-               for (var i = 0; i < data.length; i++) {
-                   var time = data[i].updateTime.split(".")[0].split("T");
-                    num++;
-                    html +=
-                       '<li class="sjxx-li" onclick="require(&apos;s_RightLayer&apos;).loadEventDetail(' + data[i].id + ')">' +
-                        '<div class="sjxx-li-line1">' +
-                            '<span class="sjxx-id counter">' + num + '</span>' +
-                            '<span class="sjxx-event">' + data[i].eventName + '</span>' +
-                            '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-                        '</div>' +
-                        '<div class="sjxx-address">' + data[i].address +
-                            '<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
-                        '</div>' +
-                    '</li>';
-                }
-               $("#ul_eventlist").html(html);
+    	// 事件处理成功数列表
+       loadSocietySjcgList: function () {
 
-            })
-        },
+       	var nowdata = require("common").getNowFormatDate();//当前时间
+       	var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+       	var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+
+       	s_EchartAjax.getSocietySjcgList(post_data, function (result) {
+       		if (require("s_Echart").societySjcgListData == null) { return false; };
+       		var data = require("s_Echart").societySjcgListData;
+       		data = data.data.list;
+       		var html = '';
+       		var num = 0;
+       		for (var i = 0; i < data.length; i++) {
+       			var time = data[i].createTime.split(".")[0].split("T");
+       			num++;
+       			if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
+       				var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+       				html +=
+					   '<li class="sjxx-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+						'<div class="sjxx-li-line1">' +
+							'<span class="sjxx-id counter">' + num + '</span>' +
+							'<span class="sjxx-event">' + data[i].eventName + '</span>' +
+							'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+						'</div>' +
+						'<div class="sjxx-address">' + data[i].address +
+							'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+						'</div>' +
+					'</li>';
+       			}
+       		}
+       		$("#ul_eventlist").html(html);
+
+       	})
+       },
+
+    	// 中间放大事件列表
+       loadSocietyEventList: function () {
+			$("#center-event-tabsoci .center-event-tab").each(function (index, element) {
+				$(this).click(function () {
+					$(this).addClass("active").siblings().removeClass("active");
+					var thisHtml = $(this).html();
+					switch (thisHtml) {
+						case "近三天":// 近三天
+							setPostData(3);
+							break;
+						case "近一周"://近一周
+							setPostData(7);
+							break;
+						case "近一月"://近一月
+							setPostData(30);
+							break;
+						default:
+					}
+				})
+				$("#center-event-tabsoci .center-event-tab").eq(0).click();
+       		})
+
+       		function setPostData(n) {
+       			var nowdata = require("common").getNowFormatDate();//当前时间
+       			var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
+       			var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+
+       			s_EchartAjax.getSocietySjcgList(post_data, function (result) {
+       				if (require("s_Echart").societySjcgListData == null) { return false; };
+       				var data = require("s_Echart").societySjcgListData;
+       				data = data.data.list;
+					
+       				$("#center-event-sociul").html('');
+       				var html = '';
+       				var num = 0;
+       				for (var i = 0; i < data.length; i++) {
+       					var time = data[i].createTime.split(".")[0].split("T");
+       					num++;
+       					if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
+       						var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+
+       						html +=
+							   '<li class="center-event-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+								'<div class="center-event-li-line1">' +
+									'<span class="sjxx-id counter">' + num + '</span>' +
+									'<span class="sjxx-event">' + data[i].eventName + '</span>' +
+									'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+								'</div>' +
+								'<div class="sjxx-address">' + data[i].address +
+									'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+								'</div>' +
+							'</li>';
+       					}
+       				}
+
+       				$("#center-event-sociul").html(html);
+       				$('.scrolldiv').perfectScrollbar({ cursorwidth: 20, cursorcolor: "rgba(0, 126, 179, .6)", });
+       			})
+       		};
+
+       	},
 
 
        bigSjcg: function (strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData) {

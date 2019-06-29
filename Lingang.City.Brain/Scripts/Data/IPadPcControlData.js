@@ -8,11 +8,12 @@
             { "menu": "1", "layer": "12", "menuNM": "社区综合", "layerNM": "无人机", "func": "require('mainMenu').showLayer_smain(2);" },
             { "menu": "1", "layer": "13", "menuNM": "社区综合", "layerNM": "村居工作站", "func": "require('mainMenu').showLayer_smain(3);" },
             { "menu": "1", "layer": "14", "menuNM": "社区综合", "layerNM": "海岸线", "func": "require('mainMenu').showLayer_smain(4);" },
-            { "menu": "1", "layer": "15", "menuNM": "社区综合", "layerNM": "事件", "func": "require('mainMenu').showLayer_smain(8);" },
+
             { "menu": "1", "layer": "26", "menuNM": "社区综合", "layerNM": "工地", "func": "require('mainMenu').showLayer_smain(5);" },
 
             { "menu": "1", "layer": "27", "menuNM": "社区综合", "layerNM": "街面", "func": "require('mainMenu').showLayer_smain(6);" },
             { "menu": "1", "layer": "28", "menuNM": "社区综合", "layerNM": "网格", "func": "require('mainMenu').showLayer_smain(7);" },
+            { "menu": "1", "layer": "15", "menuNM": "社区综合", "layerNM": "事件", "func": "require('mainMenu').showLayer_smain(8);" },
             //{ "menu": "1", "layer": "29", "menuNM": "社区综合", "layerNM": "地下管网", "func": "require('mainMenu').showLayer_smain(9);" },
 
             { "menu": "2", "layer": "1", "menuNM": "景区管理", "layerNM": "人流热力图", "func": "require('mainMenu').showLayer_tmain(0);" },
@@ -27,9 +28,9 @@
 
 
             { "menu": "3", "layer": "16", "menuNM": "产业发展", "layerNM": "产业信息", "func": " require('mainMenu').showLayer_e_Main(0);" },
-            { "menu": "3", "layer": "17", "menuNM": "产业发展", "layerNM": "象限图谱", "func": " require('mainMenu').showLayer_e_Main(1);" },
-            { "menu": "3", "layer": "18", "menuNM": "产业发展", "layerNM": "人员分布", "func": " require('mainMenu').showLayer_e_Main(2);" },
-            { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "园区信息", "func": " require('mainMenu').showLayer_e_Main(3);" },
+            //{ "menu": "3", "layer": "17", "menuNM": "产业发展", "layerNM": "象限图谱", "func": " require('mainMenu').showLayer_e_Main(1);" },
+            { "menu": "3", "layer": "18", "menuNM": "产业发展", "layerNM": "人员分布", "func": " require('mainMenu').showLayer_e_Main(1);" },//2
+            { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "园区信息", "func": " require('mainMenu').showLayer_e_Main(2);" },//3+
 
             { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", "func": "require('mainMenu').showLayer_gMain(0);" },
             { "menu": "3", "layer": "21", "menuNM": "产业发展", "layerNM": "停车", "func": "require('mainMenu').showLayer_gMain(1);" },
@@ -74,14 +75,23 @@
 
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "open", "func": "$('.cy-qy-navbar').removeClass('active');require('gl_TopCompany').flyToBuilding();" },//花展开
         { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//花隐藏
-        { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", POISTR: "POIIndustryGBuilding", "command": "close", "func": "require('b_BuildingFloor').closeBuidingDetail();" },//      
+        { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", POISTR: "POIIndustryGBuilding", "command": "close", "func": "require('b_BuildingFloor').closeBuidingDetail();" },//  
+
+        { "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "事件", POISTR: "POIIndustryGEvent", "command": "close", "func": "require('gl_Event').closeEventDetail();" },//
+         { "menu": "3", "layer": "21", "menuNM": "产业发展", "layerNM": "停车场", POISTR: "parkinglotPOI", "command": "close", "func": "require('gl_Stop').closeEventDetail();;" },//
+        //{ "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "事件", POISTR: "POIIndustryGEvent", "command": "close", "func": "require('gl_Event').closeEvetDetail();" },//
         ],
 
         /************************UI Button事件*******************************/
         UIButtonControlData: [
+            { "menu": "3", "layer": "7", "menuNM": "社区综合", "layerNM": "事件", type: "buildingFloor", "func": "require('sl_Event').closeEventPaidan();" },//事件派单详情
+            { "menu": "3", "layer": "7", "menuNM": "社区综合", "layerNM": "事件", type: "buildingFloor", "func": "require('sl_Event').closeBuildVideo();" },//关闭楼栋视频
+            { "menu": "3", "layer": "7", "menuNM": "社区综合", "layerNM": "事件", type: "buildingFloor", "func": "require('sl_Event').closeEventDrone();" },//关闭事件无人机视频
+
             { "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "代表企业", type: "flowerClk", "func": "$('.cy-qy-menu a')[*].click();" },  //花瓣显示隐藏
             { "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "楼宇", type: "buildingFloor", "func": "require('b_BuildingFloor').openFloor(*);" },//揭楼层
 
+           // { "menu": "3", "layer": "23", "menuNM": "产业发展", "layerNM": "事件", type: "POIIndustryGEvent", "func": "require('gl_Event').showEventDetail(*);" },//
             /*********************图表点击事件**************************/
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "jqsjtj", "func": "require('t_Echart').jqsjtjClickEvent('*');" },//景区事件统计
