@@ -561,12 +561,23 @@
         ykhx: function () {
             t_EchartAjax.ykhx(function (result) {
 
-                var data = require("t_Echart").ykhxData;
+                var data = require("t_Echart").ykhxData.data;
+
+                var nvPer = (data[0].Value / (data[0].Value + data[1].Value) * 100).toFixed(1)
+                var nanPer = 100 - nvPer;
+
+                var waiPer = (data[2].Value / (data[2].Value + data[3].Value) * 100).toFixed(1)
+                var benPer = 100 - waiPer;
+
+                var numPer = [nvPer, nanPer, waiPer, benPer]
+
+
+
                 var html = '';
-                for (var i = 0; i < data.data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
                     html += '<li class="cgq-li">';
                     html += '<div class="item-l" data-text="3"></div>';
-                    html += '<div class="item-r"><div class="item-r-name">' + data.data[i].Name + '</div><div class="item-r-data"><span class="testAerial">' + data.data[i].Value + '</span>%</div></div>';
+                    html += '<div class="item-r"><div class="item-r-name">' + data[i].Name + '</div><div class="item-r-data"><span class="testAerial">' + numPer[i] + '</span>%</div></div>';
                     html += '</li>';
                 }
                 $('.ykhx-ul').html(html)

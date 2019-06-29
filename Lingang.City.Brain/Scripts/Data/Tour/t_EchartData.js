@@ -3,49 +3,49 @@ define(["config"], function (con) {
     return {
         /***************************大客流Echart数据*****************************/
         //游客画像----旧的
-        ykhxData: {
-            "auth": {},
-            "data": [
-                {
-                    "Value": 30,
-                    "Name": "女"
-                },
-                {
-                    "Value": 70,
-                    "Name": "男"
-                },
-                {
-                    "Value": 39,
-                    "Name": "外省"
-                },
-                {
-                    "Value": 61,
-                    "Name": "本省"
-                }
-            ],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-    	},
+        //ykhxData: {
+        //    "auth": {},
+        //    "data": [
+        //        {
+        //            "Value": 30,
+        //            "Name": "女"
+        //        },
+        //        {
+        //            "Value": 70,
+        //            "Name": "男"
+        //        },
+        //        {
+        //            "Value": 39,
+        //            "Name": "外省"
+        //        },
+        //        {
+        //            "Value": 61,
+        //            "Name": "本省"
+        //        }
+        //    ],
+        //    "errCode": 0,
+        //    "errMsg": "SUCCESS"
+    	//},
 
     	//游客画像---新
-    	//ykhxData:{
-		//	"auth": {},
-		//	"data": [{
-        //		"Value": 19981,
-        //		"Name": "女"
-		//	}, {
-        //		"Value": 52266,
-        //		"Name": "男"
-		//	}, {
-        //		"Value": 5097425,
-        //		"Name": "外省"
-		//	}, {
-        //		"Value": 7032332,
-        //		"Name": "本省"
-		//	}],
-		//	"errCode": 0,
-		//	"errMsg": "SUCCESS"
-		//},
+    	ykhxData:{
+			"auth": {},
+			"data": [{
+        		"Value": 19981,
+        		"Name": "女"
+			}, {
+        		"Value": 52266,
+        		"Name": "男"
+			}, {
+        		"Value": 5097425,
+        		"Name": "外省"
+			}, {
+        		"Value": 7032332,
+        		"Name": "本省"
+			}],
+			"errCode": 0,
+			"errMsg": "SUCCESS"
+		},
 
         //游客分析（用户年龄分布）
         TouristAnalysisData: {
