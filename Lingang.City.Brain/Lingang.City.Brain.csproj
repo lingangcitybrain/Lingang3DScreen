@@ -915,8 +915,10 @@
     <Content Include="Scripts\Modules\Tour\tl_VisitorsMap.js" />
     <Content Include="Scripts\Modules\Tour\t_EchartNew.js" />
     <Content Include="Scripts\Modules\Tour\t_MainNew.js" />
+    <Content Include="Scripts\Qmap\pep.min.js" />
     <Content Include="Scripts\Qmap\QMap3d-2.0.min.js" />
     <Content Include="Scripts\Qmap\QMap3d-src.js" />
+    <Content Include="Scripts\Qmap\QMap3d-src备份.js" />
     <Content Include="Scripts\Qmap\QMap3dV2.3-custom.js" />
     <Content Include="Scripts\Qmap\QMapV2.Business.V2026.js" />
     <Content Include="Scripts\r.js" />

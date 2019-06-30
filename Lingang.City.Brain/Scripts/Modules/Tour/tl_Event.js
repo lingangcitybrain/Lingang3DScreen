@@ -194,7 +194,7 @@
                             '</div>' +
                             '<div class=\"boxcont\">' +
                             '<div class=\"box-leftpic\" style = \"text-align:center\"><img src=\"' + data.snapshoturiwithrect + '\"></div>' +
-                            '<dic class=\"box-rightinfo\">' +
+                            '<div class=\"box-rightinfo\">' +
                             '    <ul>' +
                             '    <li><span>事件时间：</span><em>' + data.sbsj + '</em></li>' +
                             '    <li><span>事件描述：</span><em>' + data.sjms + '</em></li>' +
@@ -202,10 +202,13 @@
                             '   <li><span>事件状态：</span><em>' + data.DICTNAME + '</em></li>' +
                             '    </ul>' +
                             //'    <button type=\"button\" class=\"btn\">事件处置</button>' +
-                            '</dic>' +
+                            '</div>' +
                             '</div>';
-                    $("#ul_eventdetail").empty();
+                    $("#ul_eventdetail").css({maxWidth:"10rem"}).empty();
                     $("#ul_eventdetail").html(html);
+                    if(data.snapshoturiwithrect == ""){
+                        $("#ul_eventdetail").find(".box-leftpic").remove();
+                    }
                 }
 
 

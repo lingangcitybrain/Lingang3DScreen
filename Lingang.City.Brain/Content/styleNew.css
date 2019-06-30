@@ -3621,8 +3621,8 @@ dd.pjc-statistic-star >form{
 .poi-box{
 	z-index: 9999;
 	position: absolute;
-	top:1rem;
-	left: 0;
+	top:-1rem;
+	left: 1rem;
 	/*min-width: 4.3em;*/
 	padding: .33em 0 .18em;
 	/*font-size: 170px;*/
@@ -3777,6 +3777,10 @@ dd.pjc-statistic-star >form{
 }
 
 /*.center-event-ul .yqsjlb-item*/
+.center-event-ul {
+    height:100%;
+    overflow:hidden;
+}
 .center-eventlist-btntour{
 	position:absolute;
 	top:0;

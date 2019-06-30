@@ -71,7 +71,7 @@
                             '</div>' +
                             '<div class=\"boxcont\">' +
                            // '<div class=\"box-leftpic\" style = \"text-align:center\"><img src=\"' + data.snapshoturiwithrect + '\"></div>' +
-                            '<dic class=\"box-rightinfo\">' +
+                            '<div class=\"box-rightinfo\">' +
                             '    <ul>' +
                             '    <li><span>事件时间：</span><em>' + data.timestamp + '</em></li>' +
                             '    <li><span>事件描述：</span><em>' + data.eventname + '</em></li>' +
@@ -79,7 +79,7 @@
                             '   <li><span>事件状态：</span><em>' + data.status + '</em></li>' +
                             '    </ul>' +
                             //'    <button type=\"button\" class=\"btn\">事件处置</button>' +
-                            '</dic>' +
+                            '</div>' +
                             '</div>';
                     $("#ul_eventdetail").empty();
                     $("#ul_eventdetail").html(html);

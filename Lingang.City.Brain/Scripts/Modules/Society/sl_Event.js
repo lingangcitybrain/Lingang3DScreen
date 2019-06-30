@@ -284,8 +284,10 @@
                 $("#detail_02").show('slide', {
                     direction: 'left'
                 }, 500);
-                $(".poiinfo").css("left", "32%");
-                $(".poiinfo").css("top", "19%");
+                //$(".poiinfo").css("left", "32%");
+                //$(".poiinfo").css("top", "19%");
+                $(".poiinfo").css("left", "50%");
+                $(".poiinfo").css("top", "50%");
 
                 $("#div_eventdetail").hide()
                 $("#div_eventdetail").show('drop', 1000);
@@ -297,11 +299,11 @@
                     $("#div_eventdetail").css({ width : '16rem' });
                     html += '<div class="box-leftpic fl" style="width: 6rem; text-align: center;">' +
                                 '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
-                            '</div><dic class="box-rightinfo fl scrolldiv" style="width: calc(100% - 6.5rem); line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden;">';
+                            '</div><div class="box-rightinfo fl scrolldiv" style="width: calc(100% - 6.5rem); line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden;">';
                 } else {
                     $("#div_eventdetail").css({ width: 'auto !important' }); 
                     //$("#eventdetail").css({ padding: '.3rem .8rem' });
-                    html += '<dic class="box-rightinfo fl scrolldiv" style="width: calc(100%); margin-left:0; line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden; ">'
+                    html += '<div class="box-rightinfo fl scrolldiv" style="width: calc(100%); margin-left:0; line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden; ">'
                }
 
                 //console.log(data.communityId);
@@ -318,9 +320,9 @@
                 //海岸线，街面，工地 显示历史无人机
                 if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001")
                 {
-                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></dic></div>';
+                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
                 }
-                html += '</dic>';
+                html += '</div>';
                 $("#eventdetail").html(html);
                 $('.box-rightinfo.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
             });
@@ -355,7 +357,7 @@
                 //海岸线，街面，工地 显示历史无人机
                 if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001")
                 {
-                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></dic></div>';
+                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
                 }
                 $("#ul_eventdetail").html(html);
 
@@ -546,14 +548,14 @@
                             }, 500);
 
                             var inspectordata = require("sl_Event").InspectorList.get(data.dealPerson);//静态测试
-                            var html = '<dic class="sqzz-sjjd-div flex">' +
+                            var html = '<div class="sqzz-sjjd-div flex">' +
                                         '<img src="' + inspectordata.photoUrl + '" style="width: 112px; height: 150px;">' +
                                         '<ul class="sqzz-sjjd-list1">' +
                                             '<li><span>接单员：</span><em>' + inspectordata.name + '</em></li>' +
                                             '<li><span>性别：</span><em>男</em></li>' +
                                             '<li><span>联系电话：</span><em>' + inspectordata.phone + '</em></li>' +
                                        ' </ul>' +
-                                    '</dic>' +
+                                    '</div>' +
                                     '<ul class="sqzz-sjjd-list2">' +
                                         '<li><span>响应时间：</span><em>' + require("common").formatDate2(data.updateTime) + '</em></li>' +
                                        ' <li><span>状态：</span><em>' + data.statusName + '</em></li>' +

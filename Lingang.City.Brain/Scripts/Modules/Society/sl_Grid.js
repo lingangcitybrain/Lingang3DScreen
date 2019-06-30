@@ -49,7 +49,7 @@
                                 FontName: "微软雅黑",
                                 FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
                                 CharScale: 1.0,
-                                Text: data.textname,
+                                Text: "",//data.textname,
                                 Icon: "",
                                 IconSize: iconSize,//封装Vector2对象
                                 POILayout: Q3D.Enums.poiLayOut.Bottom,
