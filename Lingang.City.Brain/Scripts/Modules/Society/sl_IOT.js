@@ -604,7 +604,8 @@
             s_EchartAjax.getSocietyCgq(function (result) {
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data = require("s_Echart").cgqData;
-                data = data.data.sensorNumList;
+                //data = data.data.sensorNumList;  //20190630改
+                data = data;
 
                 $("#society-iot-li01").find(".item-l-data").html(data[6].sensorCount);
                 $("#society-iot-li01").find("span").eq(0).html(data[6].OnlineSensorCount);
