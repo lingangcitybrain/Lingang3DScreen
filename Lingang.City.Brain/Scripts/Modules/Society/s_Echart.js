@@ -406,7 +406,16 @@
         },
 
         loadCirclediv: function () {
-            if ($("body").width() == 7680) {
+            //if ($("body").width() <= 4500) {
+            //    $("html").css({ fontSize: "70px" });
+            //    $('#sqzz-sxt1>.sxt-circlediv').empty();
+            //    $('#sqzz-sxt2>.sxt-circlediv').empty();
+            //    $('#sqzz-sxt3>.sxt-circlediv').empty();
+            //    com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+            //    com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
+            //    com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+            //} else
+                if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
@@ -416,7 +425,7 @@
                 com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "130px" });
+                $("html").css({ fontSize: "160px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
                 $('#sqzz-sxt3>.sxt-circlediv').empty();
@@ -846,7 +855,7 @@
        			if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
        				var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
        				html +=
-					   '<li class="sjxx-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+					   '<li class="sjxx-li" onclick="javascript:$(this).addClass(\'active\');require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
 						'<div class="sjxx-li-line1">' +
 							'<span class="sjxx-id counter">' + num + '</span>' +
 							'<span class="sjxx-event">' + data[i].eventName + '</span>' +

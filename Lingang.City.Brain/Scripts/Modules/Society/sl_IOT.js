@@ -264,10 +264,12 @@
 
                 for (var i = 0; i < data.dateLists.length; i++) {
                     var timeDate = new Date().getDate();
+                    
                     var thisDate = data.dateLists[i].split(" ")[0].split("-")[2];
-
+                   // console.log(timeDate, thisDate)
                     if (thisDate == timeDate) {
                         var dateTime = data.dateLists[i].split(" ")[1];
+                     //   console.log(dateTime)
                         switch (dateTime) {
                             case "08":
                                 require("sl_IOT").carInOutCount[0] = data.carInOutCount[i];
@@ -300,27 +302,37 @@
                             case "15":
                                 require("sl_IOT").carInOutCount[7] = data.carInOutCount[i];
                                 require("sl_IOT").personInOutCount[7] = data.personInOutCount[i];
+                                break;
                             case "16":
                                 require("sl_IOT").carInOutCount[8] = data.carInOutCount[i];
                                 require("sl_IOT").personInOutCount[8] = data.personInOutCount[i];
+                                break;
                             case "17":
                                 require("sl_IOT").carInOutCount[9] = data.carInOutCount[i];
                                 require("sl_IOT").personInOutCount[9] = data.personInOutCount[i];
+                                 break;
                             case "18":
                                 require("sl_IOT").carInOutCount[10] = data.carInOutCount[i];
                                 require("sl_IOT").personInOutCount[10] = data.personInOutCount[i];
+                                 break;
                             case "19":
                                 require("sl_IOT").carInOutCount[11] = data.carInOutCount[i];
                                 require("sl_IOT").personInOutCount[11] = data.personInOutCount[i];
+                                break;
                             case "20":
                                 require("sl_IOT").carInOutCount[12] = data.carInOutCount[i];
                                 require("sl_IOT").personInOutCount[12] = data.personInOutCount[i];
                                 break;
                             default:
                         }
+                    }else {
+                        require("sl_IOT").carInOutCount.push(0)
+                        require("sl_IOT").personInOutCount.push(0)
                     }
 
                 }
+              // console.log(require("sl_IOT").carInOutCount)
+              // console.log(require("sl_IOT").personInOutCount)
 
                 var seriesDataMaxCar = Math.max.apply(null, require("sl_IOT").carInOutCount);
                 var seriesDataMaxperson = Math.max.apply(null, require("sl_IOT").personInOutCount);
@@ -365,6 +377,7 @@
                     xAxis: {
                         type: 'category',
                         data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
+                       // data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
                         boundaryGap: ['20%', '20%'],
                         axisTick: {
                             show: false,
@@ -481,6 +494,7 @@
                 xAxis: {
                     type: 'category',
                     data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
+                   // data: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
                     boundaryGap: ['20%', '20%'],
                     axisTick: {
                         show: false,
@@ -575,7 +589,7 @@
                 com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "130px" });
+                $("html").css({ fontSize: "160px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
                 $('#iot-sxt2>.sxt-circlediv').empty();
                 $('#iot-sxt3>.sxt-circlediv').empty();
