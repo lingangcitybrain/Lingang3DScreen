@@ -720,9 +720,6 @@
 
                require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-
-
-
                function sjcgFun(yAxisMax, yAxisMin, seriesData) {
                    sjcgOption = {
                        tooltip: {
@@ -810,9 +807,9 @@
                }
 
             })
-            $("#sjcg-title").click(function () { 
-                require("s_Echart").sjcg();
-            })
+            //$("#sjcg-title").click(function () { 
+            //    require("s_Echart").sjcg();
+            //})
 
        },
 
