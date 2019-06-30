@@ -592,17 +592,31 @@
                 var data = require("s_Echart").cgqData;
                 data = data.data.sensorNumList;
 
+                //$("#society-iot>.iot-li").eq(0).find(".item-l-data").html(data[6].sensorCount);
+                //$("#society-iot>.iot-li").eq(0).find("span").eq(0).html(data[6].OnlineSensorCount);
+                //$("#society-iot>.iot-li").eq(0).find("span").eq(1).html(data[6].alarmSensorCount + data[6].LossSensorCount);
+
+                //$("#society-iot>.iot-li").eq(1).find(".item-l-data").html(data[4].sensorCount);
+                //$("#society-iot>.iot-li").eq(1).find("span").eq(0).html(data[4].OnlineSensorCount);
+                //$("#society-iot>.iot-li").eq(1).find("span").eq(1).html(data[4].alarmSensorCount + data[4].LossSensorCount);
+
+                //$("#society-iot>.iot-li").eq(2).find(".item-l-data").html(data[3].sensorCount);
+                //$("#society-iot>.iot-li").eq(2).find("span").eq(0).html(data[3].OnlineSensorCount);
+                //$("#society-iot>.iot-li").eq(2).find("span").eq(1).html(data[3].alarmSensorCount + data[3].LossSensorCount);
+
                 $("#society-iot>.iot-li").eq(0).find(".item-l-data").html(data[6].sensorCount);
                 $("#society-iot>.iot-li").eq(0).find("span").eq(0).html(data[6].OnlineSensorCount);
-                $("#society-iot>.iot-li").eq(0).find("span").eq(1).html(data[6].alarmSensorCount + data[6].LossSensorCount);
+                $("#society-iot>.iot-li").eq(0).find("span").eq(1).html(data[6].sensorCount - data[6].OnlineSensorCount);
 
                 $("#society-iot>.iot-li").eq(1).find(".item-l-data").html(data[4].sensorCount);
                 $("#society-iot>.iot-li").eq(1).find("span").eq(0).html(data[4].OnlineSensorCount);
-                $("#society-iot>.iot-li").eq(1).find("span").eq(1).html(data[4].alarmSensorCount + data[4].LossSensorCount);
+                $("#society-iot>.iot-li").eq(1).find("span").eq(1).html(data[4].sensorCount + data[4].OnlineSensorCount);
 
                 $("#society-iot>.iot-li").eq(2).find(".item-l-data").html(data[3].sensorCount);
                 $("#society-iot>.iot-li").eq(2).find("span").eq(0).html(data[3].OnlineSensorCount);
-                $("#society-iot>.iot-li").eq(2).find("span").eq(1).html(data[3].alarmSensorCount + data[3].LossSensorCount);
+                $("#society-iot>.iot-li").eq(2).find("span").eq(1).html(data[3].sensorCount + data[3].OnlineSensorCount);
+
+
             });
         },
 
