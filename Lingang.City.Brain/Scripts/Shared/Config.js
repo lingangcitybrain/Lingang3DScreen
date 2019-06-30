@@ -5,6 +5,7 @@
         WebServiceUrlForControl: "http://192.168.3.166/LingangCityBrain/",
         HtmlUrl: "/LingangCityBrain/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //接口地址
+        InterfaceUrl_SQJQ:"http://47.102.116.141:8082/",   //社区景区接口地址
         InterfaceUrl_estate:"http://47.101.181.131:8081/",
         InterfaceUrl_test: "http://47.101.181.131:8080/",  //接口地址
         InterfaceUrl_garden: "http://47.101.181.131:8095/",  //接口地址
