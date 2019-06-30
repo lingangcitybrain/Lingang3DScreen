@@ -610,11 +610,11 @@
 
                 $("#society-iot>.iot-li").eq(1).find(".item-l-data").html(data[4].sensorCount);
                 $("#society-iot>.iot-li").eq(1).find("span").eq(0).html(data[4].OnlineSensorCount);
-                $("#society-iot>.iot-li").eq(1).find("span").eq(1).html(data[4].sensorCount + data[4].OnlineSensorCount);
+                $("#society-iot>.iot-li").eq(1).find("span").eq(1).html(data[4].sensorCount - data[4].OnlineSensorCount);
 
                 $("#society-iot>.iot-li").eq(2).find(".item-l-data").html(data[3].sensorCount);
                 $("#society-iot>.iot-li").eq(2).find("span").eq(0).html(data[3].OnlineSensorCount);
-                $("#society-iot>.iot-li").eq(2).find("span").eq(1).html(data[3].sensorCount + data[3].OnlineSensorCount);
+                $("#society-iot>.iot-li").eq(2).find("span").eq(1).html(data[3].sensorCount - data[3].OnlineSensorCount);
 
 
             });
