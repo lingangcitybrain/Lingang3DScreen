@@ -2510,7 +2510,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['海昌公园停车场']
@@ -2522,7 +2522,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['雪绒花停车场']
@@ -2534,7 +2534,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['临港大道停车场']
@@ -2546,7 +2546,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['港城新天地停车场']
@@ -3037,7 +3037,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[0]]
@@ -3049,7 +3049,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[1]]
@@ -3061,7 +3061,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[2]]
@@ -3073,7 +3073,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[3]]
@@ -3085,7 +3085,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[4]]
