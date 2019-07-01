@@ -104,7 +104,7 @@
                 var installationTime=data.installationTime==null?"暂无数据":data.installationTime;
 
                 var html = '<div class="boxcont flex">'+
-                '<div class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem;">' +
+                '<div class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem; margin-left:0;">' +
                     '<ul>' +
                      '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
                      '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
