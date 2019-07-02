@@ -371,7 +371,7 @@ define(["config", "common", "util"], function (con, com, util) {
                        // min: 0,
                         //max: 100000,
                         // max: 10000,
-                        max: Math.max.apply(null, require("tl_StreamCalculate").peopleCountTotal)+10000,
+                        max: Math.max.apply(null, require("tl_StreamCalculate").peopleCountTotal)+1000,
                         axisLabel: {
                             show: false,
                             textStyle: {
