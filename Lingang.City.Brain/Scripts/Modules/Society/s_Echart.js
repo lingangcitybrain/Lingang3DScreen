@@ -39,6 +39,7 @@
         jmBasicInfoData:null,       //街面基本信息
         jmDroneData: null,          //街面无人机 
         jmXcyData: null,            //街面巡查员
+    	workSiteInspectorData:null, //工地巡查员
         recentFlightData: null,     //海岸线无人机最近一次飞行统计
         monthlyRecentFlightData: null, //海岸线无人机最近一个月飞行统计
         costlineTideData: null,     //海岸线潮汐时间表

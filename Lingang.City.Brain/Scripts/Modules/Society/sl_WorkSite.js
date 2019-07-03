@@ -134,7 +134,7 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventWorkSite4.html'
             }
             com.UIControlAni(option, function () {
-                require("sl_WorkSite").loadGdXcyData();
+            	require("sl_WorkSite").loadGdXcyData({id:1});
                 require("sl_IOT").Scrolldiv();
             });
         },
@@ -185,11 +185,10 @@
         },
 
         //工地巡查员
-        loadGdXcyData:function(){
-            s_EchartAjax.getJmXcyData(function (result) {
-                if (require("s_Echart").jmXcyData == null) { return false; }
-                var data = require("s_Echart").jmXcyData;
-                data = data.data.data;
+        loadGdXcyData: function (post_data) {
+        	s_EchartAjax.getWorkSiteInspectorData(post_data, function (result) {
+        		if (require("s_Echart").workSiteInspectorData == null) { return false; }
+                var data = require("s_Echart").workSiteInspectorData;
                 for(var i=0; i<data.length; i++){
                     $("#worksite-xcy").append(
                         '<li class=\"sqzz-xcyxx-li\">'
