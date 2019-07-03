@@ -1,7 +1,10 @@
 ﻿<!-- 景区事件列表 -->
-<div id="right02_03" class="divbox  divbox-rr clearfix yqsjlb" style="top:10.5rem; margin-bottom:0;z-index:999;display:block;">
+<div id="right02_03" class="divbox  divbox-rr clearfix yqsjlb tour-rs3" style="top:10.5rem; margin-bottom:0;z-index:999;display:block;">
     <h3><div>景区事件列表</div></h3>
-    <div class="divcont scrolldiv" style="padding-top: .2rem; height:11rem;">
+    <div class="divcont scrolldiv" style="padding-top: .2rem; height:11rem;" >
+          <button type="button" class="center-eventlist-btntour" onclick="require('t_Echart').loadCenterEventList(); require('t_Echart').closeBigChart();">
+            <img src="Content/images/zoomin.png" style="width:.6rem;" />
+          </button>        
         <ul class="yqsjlb-list">
             <li class="yqsjlb-item clearfix">
                 <div class="item-l"></div>
@@ -20,7 +23,7 @@
                 </div>
             </li>
             <li class="yqsjlb-item clearfix">
-                <div class="item-l"id="tq3"></div>
+                <div class="item-l" id="tq3"></div>
                 <div class="item-r">
                     <div>拍照时间：2019-03-20 10:47:30</div>
                     <div>处理状态：待处置<span>处置人：李立群</span></div>

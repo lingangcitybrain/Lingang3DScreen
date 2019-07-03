@@ -2914,36 +2914,49 @@ Q3D.Map = Q3D.Evented.extend({
                     im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.LEFT.ctrlId, Q3D.Enums.actionType.TRANS_LEFTX);
                     im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.RIGHT.ctrlId, Q3D.Enums.actionType.TRANS_RIGHT);
                     im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.UP.ctrlId, Q3D.Enums.actionType.TRANS_FORTH);
-                    im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.DOWN.ctrlId, Q3D.Enums.actionType.TRANS_BACKX);                    
+                    im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.DOWN.ctrlId, Q3D.Enums.actionType.TRANS_BACKX);
+                    
 
-                    if (this.options.TOUCH) {
-                        //平板绑定
-                        //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
-                        ////im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.CAMERA_CLOSETO);
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_CENTER);
+                    if (this.options.TOUCH)
+						{
+							//平板绑定
+							im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);  //平移
+							//im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.CAMERA_CLOSETO);//贴近
+							im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);//漫游
+							im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_SCREEN);//导航俯仰缩放
 
                         //鼠标绑定
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
-                        //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_CENTER);
-                    } else {
-                        //鼠标绑定
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_CENTER);
-                    }
-				    //鼠标绑定
+							//im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
+							//im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+							//im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
+							//im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_SCREEN);
+						}else{
+							//鼠标绑定
+							im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
+							im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+							im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
+							im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_SCREEN);
+						}	
+
+                    ////鼠标绑定20190630注释
+                    
                     //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
-
+                    //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+                    //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
+                    //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_SCREEN);
+                   
                    /* 用于场景比较复杂的情况
                     im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_UDLRX);
                     im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
                     im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_CENTER);
                     im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALES_CENTER);
                     */
+
+                    ////平板绑定20190630注释
+                    //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
+                    ////im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.CAMERA_CLOSETO);
+                    //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+                    //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_SCREEN);
 
                     /*采用新的监听策略*/
                     if (this.options.LOADING) {
@@ -3164,8 +3177,7 @@ Q3D.Map = Q3D.Evented.extend({
                         "classid", "CLSID:DB7C6663-F12F-4BEC-960D-194E6EB3BDAA",
                         "width", "100%", //container.clientWidth.toString(),
                         "height", "100%",
-                        "ZOOM", "1",
-
+                        "ZOOM", "2",
                         "WindowLess", this.options.WINDOWLESS ? "1" : "0" );
             } else {
                 axhtmlstr = this.AC_AX_RunContent("id", mapDomId,
@@ -3173,7 +3185,7 @@ Q3D.Map = Q3D.Evented.extend({
                         "type", "application/QMap-activex",
                         "width", "100%", //container.clientWidth.toString(),
                         "height", "100%", //container.clientHeight.toString(),
-                        "ZOOM", "1",
+                        "ZOOM", "2",
                         "WindowLess", this.options.WINDOWLESS ? "1" : "0" ,
                         'event_OnLButtonDown', 'OnLButtonDown',
                         'event_OnLButtonUp', 'OnLButtonUp',

@@ -59,7 +59,7 @@ define(["config", 'common', "util", "reset", 'mevent', "specialEff", "mainMenu",
             pageStyle:function()
             {
                 if ($(".wrapperbox").width() == 11520) {
-                    $("html").css({ fontSize: "130px" });
+                    $("html").css({ fontSize: "160px" });
                 }
             }
         };
