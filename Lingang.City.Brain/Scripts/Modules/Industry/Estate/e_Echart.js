@@ -103,10 +103,10 @@
                                 formatter: '【{value}】',
                                 textStyle: {
                                     color: '#0ff',
-                                    fontSize: 30
+                                    fontSize: 25
                                 }
                             },
-                            radius: 180,
+                            radius: 150,
                             center: ['50%', '55%'],
                             axisLine: {
                                 lineStyle: {
@@ -182,10 +182,10 @@
                                     formatter: '【{value}】',
                                     textStyle: {
                                         color: '#0ff',
-                                        fontSize: 70
+                                        fontSize: 50
                                     }
                                 },
-                                radius: 420,
+                                radius: 380,
                                 center: ['50%', '54%'],
                                 axisLine: {
                                     lineStyle: {
@@ -1772,25 +1772,24 @@
             e_EchartAjax.getzlxxcyjgData(function (result) {
                 
                 var data = require("e_Echart").zlxxcyjgData;
-                console.log(data);
                 var arr = [];
-                for (var i = 0; i < data.length; i++) {
-                    arr.push((data[i].rate * 100).toFixed(2))
+                for (var i = 0; i < data[0][2019].length; i++) {
+                    arr.push((data[0][2019][i].rate * 100).toFixed(2))
                 }
                 $("#zlxxcyjg").empty();
                 var html = "";
                 html += '<ul class="zlxxcyjg-list zlxxcyjg-list-left">';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[0] + '%' + '">' + data[0].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[1] + '%' + '">' + data[1].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[2] + '%' + '">' + data[2].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[3] + '%' + '">' + data[3].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[4] + '%' + '">' + data[4].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[0] + '%' + '">' + data[0][2019][0].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[1] + '%' + '">' + data[0][2019][1].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[2] + '%' + '">' + data[0][2019][2].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[3] + '%' + '">' + data[0][2019][3].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[4] + '%' + '">' + data[0][2019][4].industry + '</li>';
                 html += '</ul>';
                 html += '<ul class="zlxxcyjg-list zlxxcyjg-list-right">';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[5] + '%' + '">' + data[5].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[6] + '%' + '">' + data[6].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[7] + '%' + '">' + data[7].industry + '</li>';
-                html += '<li class="zlxxcyjg-li" data-text="' + arr[8] + '%' + '">' + data[8].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[5] + '%' + '">' + data[0][2019][5].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[6] + '%' + '">' + data[0][2019][6].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[7] + '%' + '">' + data[0][2019][7].industry + '</li>';
+                html += '<li class="zlxxcyjg-li" data-text="' + arr[8] + '%' + '">' + data[0][2019][8].industry + '</li>';
                 html += '</ul>';
                 $("#zlxxcyjg").html(html);
             })

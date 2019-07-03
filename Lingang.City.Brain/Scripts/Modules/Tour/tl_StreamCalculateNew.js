@@ -367,10 +367,8 @@ define(["config", "common", "util"], function (con, com, util) {
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        interval: 10000,
-                        min: 0,
-                        //max: 100000,
-                        max: 10000,
+                        //interval: 10000,
+                        max: Math.max.apply(null, require("tl_StreamCalculate").peopleCountTotal) * 1.5,
                         axisLabel: {
                             show: false,
                             textStyle: {

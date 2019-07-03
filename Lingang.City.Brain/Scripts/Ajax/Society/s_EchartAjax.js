@@ -32,7 +32,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/iot/comunity/sensorNum',
+                    url: con.InterfaceUrl_SQJQ + 'v2/sensor/statistic',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -486,6 +486,30 @@
                 callback();
             }
         },
+
+    	//街面巡查员信息
+        getWorkSiteInspectorData: function (post_data, callback) {
+        	if (con.IsInterface) {
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_TourEvent + 'v1/haiyang/getConstructionSiteInspectors',
+        			cache: false,
+        			data: post_data,  //传送的数据
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("s_Echart").workSiteInspectorData = data;
+        				callback(data)
+        			},
+        			error: function () {
+        				//alert("数据传输错误");
+        			}
+        		});
+        	} else {//执行本地
+        		require("s_Echart").workSiteInspectorData = s_EchartData.workSiteInspectorData;
+        		callback();
+        	}
+        },
+
 
         //海岸线无人机最近一次飞行统计
         getRecentFlightData: function (callback) {

@@ -13,11 +13,12 @@
         POIData:null,
         loadGridInfo: function () {
             com.LayerFlyto(281, function () {
-                require("sl_Grid").loadGridPOI();
+                
+            });
+            require("sl_Grid").loadGridPOI();
                 require("sl_Grid").loadGridOneLevelLine();
                 require("sl_Grid").loadGridArea();
                 require("sl_Grid").loadGridLine();
-            });
         },
         //加载POI
         loadGridPOI: function (){
@@ -48,7 +49,7 @@
                                 FontName: "微软雅黑",
                                 FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
                                 CharScale: 1.0,
-                                Text: data.textname,
+                                Text: "",//data.textname,
                                 Icon: "",
                                 IconSize: iconSize,//封装Vector2对象
                                 POILayout: Q3D.Enums.poiLayOut.Bottom,
@@ -573,7 +574,7 @@
                 for (var i = 0; i < TaskTypeDataType.length; i++) {
                     $("#dealtasktype>li").eq(i).find(".czajlb-circlediv").attr("data-text", TaskTypeDataPercent[i] + '%')
                     $("#dealtasktype>li").eq(i).find(".item-r-data").html(TaskTypeData[i])
-                    $("#dealtasktype>li").eq(i).find(".item-r-name").html(TaskTypeDataType[i])
+                    
                     
                 }
 
@@ -592,7 +593,7 @@
                 com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 18, 36, 1000);
                 com.loopFun($('.czajlb-circlediv')[2], TaskTypeDataPercent[2], '#1f2533', '#55b400', 'transparent', '20px', 18, 36, 1000);
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "130px" });
+                $("html").css({ fontSize: "160px" });
                 $(".czajlb-circlediv").each(function () { $(this).empty(); })
                 com.loopFun($('.czajlb-circlediv')[0], TaskTypeDataPercent[0], '#1f2533', '#eda637', 'transparent', '20px', 25, 54, 1000);
                 com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 25, 54, 1000);
@@ -626,7 +627,7 @@
                 series: [
 	                {
 	                    type: 'pie',
-	                    radius: '65%',
+	                    radius: '58%',
 	                    center: ['50%', '50%'],
 	                    data: [
 	            	        { value: gridTotalNum - gridTop15Num, name: "其它", selected: true },

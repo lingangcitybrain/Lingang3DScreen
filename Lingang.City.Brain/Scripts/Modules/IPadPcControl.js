@@ -52,17 +52,20 @@
                 var angle = json.angle
                 var menu = json.menu
 
-                switch (menu) {
+                switch (menu) {   //数字星空,产业推演都隐藏了，故索引缩进
                     case "0"://数字星空
                         break;
                     case "1"://社区综治
-                        require('mainMenu').mainMenuSelect(1);
+                        //require('mainMenu').mainMenuSelect(1);
+                        require('mainMenu').mainMenuSelect(0);
                         break;
                     case "2"://大客流
-                        require('mainMenu').mainMenuSelect(2);
+                        //require('mainMenu').mainMenuSelect(2);
+                        require('mainMenu').mainMenuSelect(1);
                         break;
                     case "3"://产业发展
-                        require('mainMenu').mainMenuSelect(3);
+                        //require('mainMenu').mainMenuSelect(3);
+                        require('mainMenu').mainMenuSelect(2);
                         break;
                     case "4"://产业推演
                         require('mainMenu').mainMenuSelect(4);

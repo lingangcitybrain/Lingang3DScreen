@@ -39,6 +39,7 @@
         jmBasicInfoData:null,       //街面基本信息
         jmDroneData: null,          //街面无人机 
         jmXcyData: null,            //街面巡查员
+    	workSiteInspectorData:null, //工地巡查员
         recentFlightData: null,     //海岸线无人机最近一次飞行统计
         monthlyRecentFlightData: null, //海岸线无人机最近一个月飞行统计
         costlineTideData: null,     //海岸线潮汐时间表
@@ -371,7 +372,8 @@
                 var data = require("s_Echart").cgqData;
                 //console.info(data);
                 //console.info(data.data.sensorNumList);
-                data = data.data.sensorNumList;
+                //data = data.data.sensorNumList;  //20190630改
+                data = data;
                 
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
@@ -406,7 +408,16 @@
         },
 
         loadCirclediv: function () {
-            if ($("body").width() == 7680) {
+            //if ($("body").width() <= 4500) {
+            //    $("html").css({ fontSize: "70px" });
+            //    $('#sqzz-sxt1>.sxt-circlediv').empty();
+            //    $('#sqzz-sxt2>.sxt-circlediv').empty();
+            //    $('#sqzz-sxt3>.sxt-circlediv').empty();
+            //    com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+            //    com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
+            //    com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+            //} else
+                if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
@@ -416,7 +427,7 @@
                 com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "130px" });
+                $("html").css({ fontSize: "160px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
                 $('#sqzz-sxt3>.sxt-circlediv').empty();
@@ -468,12 +479,15 @@
                 }
                 //出临港 ,入临港相加
                 var outCarNum = 0, inCarNum = 0, carTotal = 0;
-                for (key1 in thisDayCarJson["出临港"]) {
-                    outCarNum += thisDayCarJson["出临港"][key1]
+                if (thisDayCarJson) {
+                    for (key1 in thisDayCarJson["出临港"]) {
+                        outCarNum += thisDayCarJson["出临港"][key1]
+                    }
+                    for (key2 in thisDayCarJson["入临港"]) {
+                        inCarNum += thisDayCarJson["入临港"][key2]
+                    }
                 }
-                for (key2 in thisDayCarJson["入临港"]) {
-                    inCarNum += thisDayCarJson["入临港"][key2]
-                }
+
                 carTotal = outCarNum + inCarNum;
 
                 $("#total_car").html(carTotal);
@@ -806,7 +820,10 @@
 
                }
 
-           })
+            })
+            //$("#sjcg-title").click(function () { 
+            //    require("s_Echart").sjcg();
+            //})
 
        },
 
@@ -840,18 +857,20 @@
        		for (var i = 0; i < data.length; i++) {
        			var time = data[i].createTime.split(".")[0].split("T");
        			num++;
-       			var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
-       			html +=
-				   '<li class="sjxx-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
-					'<div class="sjxx-li-line1">' +
-						'<span class="sjxx-id counter">' + num + '</span>' +
-						'<span class="sjxx-event">' + data[i].eventName + '</span>' +
-						'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-					'</div>' +
-					'<div class="sjxx-address">' + data[i].address +
-						'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
-					'</div>' +
-				'</li>';
+       			if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
+       				var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+       				html +=
+					   '<li class="sjxx-li" onclick="javascript:$(this).addClass(\'active\');require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+						'<div class="sjxx-li-line1">' +
+							'<span class="sjxx-id counter">' + num + '</span>' +
+							'<span class="sjxx-event">' + data[i].eventName + '</span>' +
+							'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+						'</div>' +
+						'<div class="sjxx-address">' + data[i].address +
+							'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+						'</div>' +
+					'</li>';
+       			}
        		}
        		$("#ul_eventlist").html(html);
 
@@ -860,7 +879,7 @@
 
     	// 中间放大事件列表
        loadSocietyEventList: function () {
-       		$(".center-event-tab").each(function (index, element) {
+			$("#center-event-tabsoci .center-event-tab").each(function (index, element) {
 				$(this).click(function () {
 					$(this).addClass("active").siblings().removeClass("active");
 					var thisHtml = $(this).html();
@@ -877,10 +896,9 @@
 						default:
 					}
 				})
-				$(".center-event-tab").eq(0).click();
+				$("#center-event-tabsoci .center-event-tab").eq(0).click();
        		})
 
-		
        		function setPostData(n) {
        			var nowdata = require("common").getNowFormatDate();//当前时间
        			var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
@@ -897,27 +915,29 @@
        				for (var i = 0; i < data.length; i++) {
        					var time = data[i].createTime.split(".")[0].split("T");
        					num++;
-       					var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
-       					html +=
-						   '<li class="center-event-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
-							'<div class="center-event-li-line1">' +
-								'<span class="sjxx-id counter">' + num + '</span>' +
-								'<span class="sjxx-event">' + data[i].eventName + '</span>' +
-								'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-							'</div>' +
-							'<div class="sjxx-address">' + data[i].address +
-								'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
-							'</div>' +
-						'</li>';
+       					if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
+       						var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+
+       						html +=
+							   '<li class="center-event-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+								'<div class="center-event-li-line1">' +
+									'<span class="sjxx-id counter">' + num + '</span>' +
+									'<span class="sjxx-event">' + data[i].eventName + '</span>' +
+									'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+								'</div>' +
+								'<div class="sjxx-address">' + data[i].address +
+									'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+								'</div>' +
+							'</li>';
+       					}
        				}
+
        				$("#center-event-sociul").html(html);
-       				require("sl_IOT").Scrolldiv();
+       				$('.scrolldiv').perfectScrollbar({ cursorwidth: 20, cursorcolor: "rgba(0, 126, 179, .6)", });
        			})
        		};
 
        	},
-
-
 
 
        bigSjcg: function (strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData) {

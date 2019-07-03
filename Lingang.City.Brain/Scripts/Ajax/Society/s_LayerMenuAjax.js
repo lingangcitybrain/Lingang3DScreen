@@ -5,13 +5,17 @@
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + "v1/iot/comunity/sensorListByType",
+                    //type: "POST",      //data 传送数据类型。post 传递 
+                    //url: con.InterfaceUrl + "v1/iot/comunity/sensorListByType",
+                    //20190630更改
+                    type: "get",
+                    url: con.InterfaceUrl_SQJQ + "v2/sensor",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_IOT").POIData = data.data.list;
+                        //require("sl_IOT").POIData = data.data.list;
+                        require("sl_IOT").POIData = data;
                         callback(data)
                     },
                     error: function () {

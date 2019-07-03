@@ -147,8 +147,8 @@
                      +'<div class=\"poi-title\">'+ parkingName + '</div>'
                      + '<div class=\"poi-cont\">'
                      +    '<ul class=\"poi-ul\">'
-                     +        '<li class=\"poi-li\"><span>总车位数：</span><em><i>'+data.total+'</i>  位</em></li>'
-                     +        '<li class=\"poi-li\"><span>空余车位：</span><em><i>'+data.freeNum+'</i>  位</em></li>'
+                     +        '<li class=\"poi-li\"><span>总车位数：</span><em><i>'+data.total+'</i></em>位</li>'
+                     +        '<li class=\"poi-li\"><span>空余车位：</span><em><i>'+data.freeNum+'</i></em>位</li>'
                      +    '</ul>'
                      + '</div>'
                      + '</div>';

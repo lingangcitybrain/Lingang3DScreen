@@ -2,30 +2,51 @@
 define(["config"], function (con) {
     return {
         /***************************大客流Echart数据*****************************/
-        //游客画像
-        ykhxData: {
-            "auth": {},
-            "data": [
-                {
-                    "Value": 30,
-                    "Name": "女"
-                },
-                {
-                    "Value": 70,
-                    "Name": "男"
-                },
-                {
-                    "Value": 39,
-                    "Name": "外省"
-                },
-                {
-                    "Value": 61,
-                    "Name": "本省"
-                }
-            ],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-        },
+        //游客画像----旧的
+        //ykhxData: {
+        //    "auth": {},
+        //    "data": [
+        //        {
+        //            "Value": 30,
+        //            "Name": "女"
+        //        },
+        //        {
+        //            "Value": 70,
+        //            "Name": "男"
+        //        },
+        //        {
+        //            "Value": 39,
+        //            "Name": "外省"
+        //        },
+        //        {
+        //            "Value": 61,
+        //            "Name": "本省"
+        //        }
+        //    ],
+        //    "errCode": 0,
+        //    "errMsg": "SUCCESS"
+    	//},
+
+    	//游客画像---新
+    	ykhxData:{
+			"auth": {},
+			"data": [{
+        		"Value": 19981,
+        		"Name": "女"
+			}, {
+        		"Value": 52266,
+        		"Name": "男"
+			}, {
+        		"Value": 5097425,
+        		"Name": "外省"
+			}, {
+        		"Value": 7032332,
+        		"Name": "本省"
+			}],
+			"errCode": 0,
+			"errMsg": "SUCCESS"
+		},
+
         //游客分析（用户年龄分布）
         TouristAnalysisData: {
             "auth": {},
@@ -42,28 +63,37 @@ define(["config"], function (con) {
         },
         //游客趋势分析（当前时间游客趋势分析）
         FutureVisitorTrafficData: {
-            "auth": {},
-            "data": [{
-                "month": 2,
-                "visnumber": 116427,
-                "year": 2019
-            }, {
-                "month": 3,
-                "visnumber": 4003879,
-                "year": 2019
-            }, {
-                "month": 4,
-                "visnumber": 3294572,
-                "year": 2019
-            }, {
-                "month": 5,
-                "visnumber": 2827641,
-                "year": 2019
-            }],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
+        	"auth": {},
+        	"data": [{
+        		"month": 1,
+        		"visnumber": 1999923,
+        		"year": 2019
+        	}, {
+        		"month": 2,
+        		"visnumber": 116427,
+        		"year": 2019
+        	}, {
+        		"month": 3,
+        		"visnumber": 4003879,
+        		"year": 2019
+        	}, {
+        		"month": 4,
+        		"visnumber": 3294572,
+        		"year": 2019
+        	}, {
+        		"month": 5,
+        		"visnumber": 3470435,
+        		"year": 2019
+        	}, {
+        		"month": 6,
+        		"visnumber": 3201723,
+        		"year": 2019
+        	}],
+        	"errCode": 0,
+        	"errMsg": "SUCCESS"
         },
-        //获取舆情类型统计数
+
+    	//获取舆情类型统计数
         yqlxtjsData: {
             "Result": 3,
             "data": [
@@ -8184,6 +8214,36 @@ define(["config"], function (con) {
             "errCode": 0,
             "errMsg": "SUCCESS"
         },
+		
+    	//景区事件列表统计
+        yqsjlbCenterEventData: [{
+			"sjfl_id": 829,
+			"sbsj": "2019-06-27 15:20:21",
+			"lng": "121.905117",
+			"snapshoturiwithrect": "",
+			"sj": "停车场爆满预警HC",
+			"sjms": "海昌公园停车场停车场爆满预警HC,停车比例-海昌公园内部:89.92",
+			"id": 773010,
+			"state": "100",
+			"snapshoturi": "",
+			"flmc": "停车场爆满预警HC",
+			"DICTNAME": "待处置",
+			"lat": "30.915474"
+		}, {
+			"sjfl_id": 829,
+			"sbsj": "2019-06-27 14:46:27",
+			"lng": "121.905117",
+			"snapshoturiwithrect": "",
+			"sj": "停车场爆满预警HC",
+			"sjms": "海昌公园停车场停车场爆满预警HC,停车比例-海昌公园内部:93.60",
+			"id": 773009,
+			"state": "100",
+			"snapshoturi": "",
+			"flmc": "停车场爆满预警HC",
+			"DICTNAME": "待处置",
+			"lat": "30.915474"
+		}],
+
         //近五日事件统计
         jwrsjtjData: {
             "非法停车": {

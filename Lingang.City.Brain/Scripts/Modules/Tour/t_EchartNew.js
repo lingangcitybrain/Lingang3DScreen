@@ -48,7 +48,8 @@
         year = d.getFullYear();
         mon = d.getMonth() + 1;
         //   day=d.getDate();      s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);//日期类型2019-03-07
-        day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
+        day = d.getDate();
+        s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
 
         return s;
 
@@ -123,6 +124,7 @@
         rycltjjcclData: null,              //人员车辆统计进出车辆
         yqsjlbData: null,
         yqsjlbtjData: null,
+        yqsjlbCenterEventData: null,
         myChartyqfx: null,                 //舆情分析
         myChartwrj: null,                  //无人机
         myChartjtxx: null,                 //交通信息 
@@ -199,6 +201,22 @@
             rycltjChartClose = true;
             $("#center_03").html("");           
         },
+		
+		// 景区居中放大 事件列表
+        loadCenterEventList: function () {
+        	var url = con.HtmlUrl + 'TourNew/Center_04.html';
+        	require(['text!' + url], function (template) {
+        		$("#center_04").html(template);
+        		$("#center_04").show('drop', 1000);//左侧
+        		require("t_Echart").yqsjCenterEventList();
+        	})
+        },
+    	// 景区居中放大 事件列表关闭
+        closeCenterEventList: function () {
+        	$("#center_04").html("");
+        },
+
+
         //园区预警指标动画
         dh: function () {
             var mathRandom = 0;
@@ -543,12 +561,23 @@
         ykhx: function () {
             t_EchartAjax.ykhx(function (result) {
 
-                var data = require("t_Echart").ykhxData;
+                var data = require("t_Echart").ykhxData.data;
+
+                var nvPer = (data[0].Value / (data[0].Value + data[1].Value) * 100).toFixed(1)
+                var nanPer = 100 - nvPer;
+
+                var waiPer = (data[2].Value / (data[2].Value + data[3].Value) * 100).toFixed(1)
+                var benPer = 100 - waiPer;
+
+                var numPer = [nvPer, nanPer, waiPer, benPer]
+
+
+
                 var html = '';
-                for (var i = 0; i < data.data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
                     html += '<li class="cgq-li">';
                     html += '<div class="item-l" data-text="3"></div>';
-                    html += '<div class="item-r"><div class="item-r-name">' + data.data[i].Name + '</div><div class="item-r-data"><span class="testAerial">' + data.data[i].Value + '</span>%</div></div>';
+                    html += '<div class="item-r"><div class="item-r-name">' + data[i].Name + '</div><div class="item-r-data"><span class="testAerial">' + numPer[i] + '</span>%</div></div>';
                     html += '</li>';
                 }
                 $('.ykhx-ul').html(html)
@@ -558,26 +587,34 @@
         //游客趋势分析
         ykqsfx: function () {
             var post_data = {
-                "Timenow": getNowFormatDate()
+            	"Timenow": require("common").getNowFormatDate()
             }
             t_EchartAjax.getfutureVisitorTraffic(post_data, function (result) {
 
-                var data = require("t_Echart").FutureVisitorTrafficData;
-                console.log(data)
-                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber],
-                    ykqsfxtime = [data[0].month + "月", data[1].month + "月", data[2].month + "月", data[3].month + "月"];
+            	var data = require("t_Echart").FutureVisitorTrafficData;
+
+            	var ykqsfxdata=[], ykqsfxtime=[];
+
+            	for (var i = 0; i < data.length; i++) {
+            		ykqsfxdata.push(data[i].visnumber);
+            		ykqsfxtime.push(data[i].month + "月");
+				}
+
                option = {
                     legend: {
                         show: false
                     },
                     color: ['#3398DB'],
                     grid: {
-                        left: '5%',   // grid 组件离容器左侧的距离。
-                        right: '5%',
-                        bottom: '5%',
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '2%',
+                        bottom: '3%',
                         height: "86%",
-                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-                    },
+                        containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+            			borderColor:"transparent",
+					},
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
@@ -605,8 +642,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 1,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         axisLabel: {
@@ -618,8 +655,8 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 1,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         }
 
@@ -631,7 +668,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         //interval: 150,
@@ -649,8 +686,8 @@
                         },
                         splitLine: {
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)",
+                                width: 1,
+                                color: "rgba(80,172,254,0.3)",
                             }
                         }
                     },
@@ -660,7 +697,7 @@
                           //smooth:true,
                           color: "rgba(7,196,230,1)",
                           lineStyle: {
-                              width: 2,
+                              width: 4,
                           },
                           symbolSize: 10,
                           data: ykqsfxdata
@@ -678,12 +715,17 @@
         bigFutureVisitorTraffic: function () {
             $("#bigechartHead").html( "游客趋势分析");
             var post_data = {
-                "Timenow": getNowFormatDate()
+            	"Timenow": require("common").getNowFormatDate()
             }
             t_EchartAjax.getfutureVisitorTraffic(post_data, function (result) {
-                var data = require("t_Echart").FutureVisitorTrafficData;
-                var ykqsfxdata = [data[0].visnumber, data[1].visnumber, data[2].visnumber, data[3].visnumber],
-                    ykqsfxtime = [data[0].month + "月", data[1].month + "月", data[2].month + "月", data[3].month + "月"];
+            	var data = require("t_Echart").FutureVisitorTrafficData;
+
+            	var ykqsfxdata = [], ykqsfxtime = [];
+
+            	for (var i = 0; i < data.length; i++) {
+            		ykqsfxdata.push(data[i].visnumber);
+            		ykqsfxtime.push(data[i].month + "月");
+            	}
 
                 option = {
                     legend: {
@@ -695,7 +737,10 @@
                         right: '5%',
                         bottom: '5%',
                         height: "86%",
-                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                        containLabel: true,  //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+                        borderColor: "transparent",
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -724,8 +769,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         axisLabel: {
@@ -737,8 +782,8 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                width:4,
-                                color: "rgba(80,172,254,0.5)"
+                                width:3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         }
 
@@ -750,8 +795,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         //interval: 150,
@@ -769,8 +814,8 @@
                         },
                         splitLine: {
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)",
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)",
                             }
                         }
                     },
@@ -808,7 +853,6 @@
                     tooltip: {
                         show: false,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
                     legend: {
                         show: false,
@@ -849,18 +893,18 @@
                             },
                             label: {
                                 normal: {
-                                    fontSize: 20,
-                                    formatter: '{b|{b}}{per|{d}}%\n\n',
+                                    fontSize: 18,
+                                    formatter: '{b|{b}}{per|{d}}%\n',
                                     padding: [0, -90],
                                     //color:"#0996d1",
                                     rich: {
                                         b: {
-                                            fontSize: 20,
+                                            fontSize: 18,
                                             lineHeight: 36,
                                             //color:"#fff",
                                         },
                                         per: {
-                                            fontSize: 20,
+                                            fontSize: 18,
                                             // color:"#0996d1",
                                             fontFamily: "Aerial",
                                         },
@@ -874,6 +918,7 @@
                     ]
                 };
                 //require("t_Echart").myChartyqfx.clear();
+
                 require("t_Echart").myChartyqfx.setOption(option, true)
             })
 
@@ -1351,11 +1396,14 @@
                             },
                             color: ['#3398DB'],
                             grid: {
-                                left: '5%',   // grid 组件离容器左侧的距离。
-                                right: '5%',
+                                left: '2%',   // grid 组件离容器左侧的距离。
+                                right: '2%',
                                 bottom: '2%',
                                 height: "76%",
-                                containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                                containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                                show: true,
+                                backgroundColor: "rgba(74,128,244,.1)",
+                                borderColor: "transparent",
                             },
                             tooltip: {
                                 trigger: 'axis',
@@ -1382,7 +1430,7 @@
                                 axisLine: {
                                     show: true,
                                     lineStyle: {
-                                        color: "rgba(80,172,254,0.5)"
+                                        color: "rgba(80,172,254,0.3)"
                                     }
                                 },
                                 axisLabel: {
@@ -1394,7 +1442,7 @@
                                 splitLine: {
                                     show: false,
                                     lineStyle: {
-                                        color: "rgba(80,172,254,0.5)"
+                                        color: "rgba(80,172,254,0.3)"
                                     }
                                 }
 
@@ -1406,7 +1454,7 @@
                                 axisLine: {
                                     show: true,
                                     lineStyle: {
-                                        color: "rgba(80,172,254,0.5)"
+                                        color: "rgba(80,172,254,0.3)"
                                     }
                                 },
                                 //interval: 1000,
@@ -1424,7 +1472,7 @@
                                 },
                                 splitLine: {
                                     lineStyle: {
-                                        color: "rgba(80,172,254,0.5)",
+                                        color: "rgba(80,172,254,0.3)",
                                     }
                                 }
                             },
@@ -1433,9 +1481,9 @@
                                   type: 'line',
                                   color: "rgba(253,238,0,.5)",
                                   lineStyle: {
-                                      width: 3,
+                                      width: 4,
                                   },
-                                  symbolSize: 0,
+                                  symbolSize: 8,
                                   name: "进港车辆",
                                   data: JtxxCharData1
                               },
@@ -1443,9 +1491,9 @@
                                   type: 'line',
                                   color: "rgba(11,239,215,.5)",
                                   lineStyle: {
-                                      width: 3,
+                                      width: 4,
                                   },
-                                  symbolSize: 0,
+                                  symbolSize: 8,
                                   name: "出港车辆",
                                   data: JtxxCharData2
                               },
@@ -1453,9 +1501,9 @@
                                   type: 'line',
                                   color: "rgba(195,70,2,.8)",
                                   lineStyle: {
-                                      width: 3,
+                                      width: 4,
                                   },
-                                  symbolSize: 0,
+                                  symbolSize: 8,
                                   name: "停车场",
                                   data: JtxxCharData3
                               }
@@ -1545,7 +1593,10 @@
                         right: '5%',
                         bottom: '5%',
                         height: "86%",
-                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                        containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+                        borderColor: "transparent",
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -1574,8 +1625,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         axisLabel: {
@@ -1587,7 +1638,7 @@
                         splitLine: {
                             show: false,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         }
 
@@ -1599,8 +1650,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         //interval: 1000,
@@ -1618,8 +1669,8 @@
                         },
                         splitLine: {
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)",
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)",
                             }
                         }
                     },
@@ -1630,7 +1681,7 @@
                             lineStyle: {
                                 width: 8,
                             },
-                            symbolSize: 10,
+                            symbolSize: 16,
                             name: "进港车辆",
                             data: JtxxCharData1
                         },
@@ -1640,7 +1691,7 @@
                             lineStyle: {
                                 width: 8,
                             },
-                            symbolSize: 10,
+                            symbolSize: 16,
                             name: "出港车辆",
                             data: JtxxCharData2
                         },
@@ -1650,7 +1701,7 @@
                             lineStyle: {
                                 width: 8,
                             },
-                            symbolSize: 10,
+                            symbolSize: 16,
                             name: "停车场",
                             data: JtxxCharData3
                         }
@@ -1729,6 +1780,10 @@
                         bottom: '2%',
                         height: "90%",
                         containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+                        borderColor: "transparent",
+
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -1754,7 +1809,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         axisLabel: {
@@ -1766,7 +1821,7 @@
                         splitLine: {
                             show: false,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         }
                     },
@@ -1777,7 +1832,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         //interval: 1500,
@@ -1789,7 +1844,7 @@
                         },
                         splitLine: {
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)",
+                                color: "rgba(80,172,254,0.3)",
                             }
                         }
                     },
@@ -1799,7 +1854,7 @@
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
-                              width: 2,
+                              width: 4,
                           },
                           symbolSize: 10,
                           data: rycltjdata1
@@ -1809,7 +1864,7 @@
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
-                              width: 2,
+                              width: 4,
                           },
                           symbolSize: 10,
                           data: rycltjdata2
@@ -2039,6 +2094,10 @@
                             bottom: '5%',
                             height: "86%",
                             containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                            show: true,
+                            backgroundColor: "rgba(74,128,244,.1)",
+                            borderColor: "transparent",
+
                         },
                         tooltip: {
                             formatter:'{a}:{c}',
@@ -2067,8 +2126,8 @@
                             axisLine: {
                                 show: true,
                                 lineStyle: {
-                                    width: 4,
-                                    color: "rgba(80,172,254,0.5)"
+                                    width: 3,
+                                    color: "rgba(80,172,254,0.3)"
                                 }
                             },
                             axisLabel: {
@@ -2080,7 +2139,7 @@
                             splitLine: {
                                 show: false,
                                 lineStyle: {
-                                    color: "rgba(80,172,254,0.5)"
+                                    color: "rgba(80,172,254,0.3)"
                                 }
                             }
                         },
@@ -2091,8 +2150,8 @@
                             axisLine: {
                                 show: true,
                                 lineStyle: {
-                                    width: 4,
-                                    color: "rgba(80,172,254,0.5)"
+                                    width: 3,
+                                    color: "rgba(80,172,254,0.3)"
                                 }
                             },
                             //interval: 1500,
@@ -2104,8 +2163,8 @@
                             },
                             splitLine: {
                                 lineStyle: {
-                                    width: 4,
-                                    color: "rgba(80,172,254,0.5)",
+                                    width: 3,
+                                    color: "rgba(80,172,254,0.3)",
                                 }
                             }
                         },
@@ -2117,7 +2176,7 @@
                               lineStyle: {
                                   width: 8,
                               },
-                              symbolSize: 20,
+                              symbolSize: 16,
                               data: rycltjdata1
                           },
                           {
@@ -2127,7 +2186,7 @@
                               lineStyle: {
                                   width: 8,
                               },
-                              symbolSize: 20,
+                              symbolSize: 16,
                               data: rycltjdata2
                           },
                         ]
@@ -2451,7 +2510,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['海昌公园停车场']
@@ -2463,7 +2522,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['雪绒花停车场']
@@ -2475,7 +2534,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['临港大道停车场']
@@ -2487,7 +2546,7 @@
                             itemWidth: 50,
                             itemHeight: 50,
                             textStyle: {
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: "#0296d4"
                             },
                             data: ['港城新天地停车场']
@@ -2721,7 +2780,7 @@
                              data: [keyTemp[0]]
                          },
                          {
-                             left: '20%',
+                             left: '16%',
                              bottom: " 2%",
                              icon: 'circle',
                              itemWidth: 20,
@@ -2771,10 +2830,14 @@
                     ],
                     color: ['#3398DB'],
                     grid: {
-                        left: '5%',
-                        right: '5%',
-                        top: '6%',
+                        left: '2%',
+                        right: '2%',
+                        top: '2%',
                         containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+                        borderColor: "transparent",
+
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -2799,7 +2862,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         axisLabel: {
@@ -2811,7 +2874,7 @@
                         splitLine: {
                             show: false,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         }
                     },
@@ -2822,7 +2885,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         // interval :5,
@@ -2834,7 +2897,7 @@
                         },
                         splitLine: {
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)",
+                                color: "rgba(80,172,254,0.3)",
                             }
                         }
                     },
@@ -2844,9 +2907,9 @@
                           name: keyTemp[0],
                           color: "#02e32c",
                           lineStyle: {
-                              width: 2,
+                              width: 4,
                           },
-                          symbolSize: 10,
+                          symbolSize: 8,
                           data: jwrsjtjdata1
                       },
                       {
@@ -2854,9 +2917,9 @@
                           name: keyTemp[1],
                           color: "#02d8e3",
                           lineStyle: {
-                              width: 2,
+                          	width: 4,
                           },
-                          symbolSize: 10,
+                          symbolSize: 8,
                           data: jwrsjtjdata2
                       },
                       {
@@ -2864,9 +2927,9 @@
                           name: keyTemp[2],
                           color: "#e3a102",
                           lineStyle: {
-                              width: 2,
+                          	width: 4,
                           },
-                          symbolSize: 10,
+                          symbolSize: 8,
                           data: jwrsjtjdata3
                       },
                       {
@@ -2874,9 +2937,9 @@
                           name: keyTemp[3],
                           color: "#025ce3",
                           lineStyle: {
-                              width: 2,
+                          	width: 4,
                           },
-                          symbolSize: 10,
+                          symbolSize: 8,
                           data: jwrsjtjdata4
                       },
                       {
@@ -2884,9 +2947,9 @@
                           name: keyTemp[4],
                           color: "#5702e3",
                           lineStyle: {
-                              width: 2,
+                          	width: 4,
                           },
-                          symbolSize: 10,
+                          symbolSize: 8,
                           data: jwrsjtjdata5
                       }
                     ]
@@ -2974,19 +3037,19 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[0]]
                          },
                          {
-                             left: '25%',
+                             left: '20%',
                              bottom: "5%",
                              icon: 'circle',
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[1]]
@@ -2998,7 +3061,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[2]]
@@ -3010,7 +3073,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[3]]
@@ -3022,7 +3085,7 @@
                              itemWidth: 50,
                              itemHeight: 50,
                              textStyle: {
-                                 fontSize: 50,
+                                 fontSize: 40,
                                  color: "#0296d4"
                              },
                              data: [keyTemp[4]]
@@ -3035,6 +3098,10 @@
                         bottom: '14%',
                         height:"82%",
                         containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
+                        show: true,
+                        backgroundColor: "rgba(74,128,244,.1)",
+                        borderColor: "transparent",
+
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -3062,8 +3129,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         axisLabel: {
@@ -3075,7 +3142,7 @@
                         splitLine: {
                             show: false,
                             lineStyle: {
-                                color: "rgba(80,172,254,0.5)"
+                                color: "rgba(80,172,254,0.3)"
                             }
                         }
                     },
@@ -3086,8 +3153,8 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                width: 4,
-                                color: "rgba(80,172,254,0.5)"
+                                width: 3,
+                                color: "rgba(80,172,254,0.3)"
                             }
                         },
                         // interval :5,
@@ -3099,8 +3166,8 @@
                         },
                         splitLine: {
                             lineStyle: {
-                            width: 4,
-                                color: "rgba(80,172,254,0.5)",
+								width: 3,
+                                color: "rgba(80,172,254,0.3)",
                             }
                         }
                     },
@@ -3112,7 +3179,7 @@
                           lineStyle: {
                               width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 16,
                           data: jwrsjtjdata1
                       },
                       {
@@ -3122,7 +3189,7 @@
                           lineStyle: {
                               width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 16,
                           data: jwrsjtjdata2
                       },
                       {
@@ -3132,7 +3199,7 @@
                           lineStyle: {
                               width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 16,
                           data: jwrsjtjdata3
                       },
                       {
@@ -3142,7 +3209,7 @@
                           lineStyle: {
                               width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 16,
                           data: jwrsjtjdata4
                       },
                       {
@@ -3152,7 +3219,7 @@
                           lineStyle: {
                               width: 8,
                           },
-                          symbolSize: 10,
+                          symbolSize: 16,
                           data: jwrsjtjdata5
                       }
                     ]
@@ -3339,7 +3406,8 @@
                 d.setDate(d.getDate() - n);
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
-                day = d.getDate(); s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
+                day = d.getDate();
+                s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
                 //day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
 
                 return s;
@@ -3378,41 +3446,133 @@
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
         },
-        //园区事件统计
+    	//园区事件列表----原来的
+        //yqsjlbtj: function () {
+        //	var post_data = {
+        //		"startTime": MyDate(1),
+        //		"endTime": MyDate(0)
+        //	}
+        //	t_EchartAjax.yqsjlbtj(post_data, function (result) {
+        //		var data = require("t_Echart").yqsjlbtjData;
+        //		$('.yqsjlb-list').empty();
+        //		var html = '';
+
+        //		for (var i = 0; i < data.outputData.length; i++) {
+        //			html += '<li class="yqsjlb-item clearfix">';
+        //			html += '<div class="item-l"></div>';
+        //			html += '<div class="item-r">';
+        //			html += '<div>拍照时间：' + data.outputData[i].sbsj + '</div>';
+        //			html += '<div>事件类型：' + data.outputData[i].sj + '<span>处置状态：' + data.outputData[i].DICTNAME + '</span></div>';
+        //			html += '<div>事件详情：' + data.outputData[i].sjms + '。</div>';
+        //			html += '</div>';
+        //			html += '</li>';
+        //		}
+
+        //		$('.yqsjlb-list').html(html);
+        //		for (var i = 0; i < data.outputData.length; i++) {
+        //			if (data.outputData[i].snapshoturiwithrect == undefined || data.outputData[i].snapshoturiwithrect == "") {
+        //				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(../Content/images/yqsjlb-default.png)")
+        //				$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
+        //			} else if (data.outputData[i].snapshoturiwithrect != undefined) {
+        //				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
+        //			}
+
+        //		}
+
+        //	})
+        //},
+    	//园区事件列表
         yqsjlbtj: function () {
-            var post_data = {
-                "startTime": MyDate(1),
-                "endTime": MyDate(0)
-            }
-            t_EchartAjax.yqsjlbtj(post_data, function (result) {
-                var data = require("t_Echart").yqsjlbtjData;
-                $('.yqsjlb-list').empty();
-                var html = '';
+        	var nowdata = require("common").getNowFormatDate();//当前时间
+        	var before7 = require("common").getDaysBefore(nowdata, 30);//30天前的时间
+        	var post_data = { "startTime": before7, "endTime": nowdata }
 
-                for (var i = 0; i < data.outputData.length; i++) {
-                    html += '<li class="yqsjlb-item clearfix">';
-                    html += '<div class="item-l"></div>';
-                    html += '<div class="item-r">';
-                    html += '<div>拍照时间：' + data.outputData[i].sbsj + '</div>';
-                    html += '<div>事件类型：' + data.outputData[i].sj + '<span>处置状态：' + data.outputData[i].DICTNAME + '</span></div>';
-                    html += '<div>事件详情：' + data.outputData[i].sjms + '。</div>';
-                    html += '</div>';
-                    html += '</li>';
-                }
+        	t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
+        		var data = require("t_Echart").yqsjlbCenterEventData;
+        		$('.yqsjlb-list').empty();
+        		var html = '';
 
-                $('.yqsjlb-list').html(html);
-                for (var i = 0; i < data.outputData.length; i++) {
-                    if (data.outputData[i].snapshoturiwithrect == undefined || data.outputData[i].snapshoturiwithrect == "") {
-                        $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(../Content/images/yqsjlb-default.png)")
-                        $('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
-                    } else if (data.outputData[i].snapshoturiwithrect != undefined) {
-                        $('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
-                    }
+        		for (var i = 0; i < data.length; i++) {
+        			html += '<li class="yqsjlb-item clearfix">';
+        			html += '<div class="item-l"></div>';
+        			html += '<div class="item-r">';
+        			html += '<div>拍照时间：' + data[i].sbsj + '</div>';
+        			html += '<div>事件类型：' + data[i].sj + '<span>处置状态：' + data[i].DICTNAME + '</span></div>';
+        			html += '<div>事件详情：' + data[i].sjms + '。</div>';
+        			html += '</div>';
+        			html += '</li>';
+        		}
 
-                }
+        		$('.yqsjlb-list').html(html);
+        		for (var i = 0; i < data.length; i++) {
+        			if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
+        				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
+        				$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
+        			} else if (data[i].snapshoturiwithrect != undefined) {
+        				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
+        			}
 
-            })
+        		}
+
+        	})
         },
+    	//中间放大 园区事件列表
+        yqsjCenterEventList: function () {
+
+        	$("#center-event-tabtour .center-event-tab").each(function (index, element) {
+				$(this).click(function () {
+					$(this).addClass("active").siblings().removeClass("active");
+					var thisHtml = $(this).html();
+					switch (thisHtml) {
+						case "近三天":// 近三天
+							setPostData(3);
+							break;
+						case "近一周"://近一周
+							setPostData(7);
+							break;
+						case "近一月"://近一月
+							setPostData(30);
+							break;
+						default:
+					}
+				})
+				$("#center-event-tabtour .center-event-tab").eq(0).click();
+       		})
+
+        	function setPostData(n) {
+        		var nowdata = require("common").getNowFormatDate();//当前时间
+        		var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
+        		var post_data = { "startTime": before7, "endTime": nowdata }
+
+        		t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
+        			var data = require("t_Echart").yqsjlbCenterEventData;
+        			$('#center-event-tourul').empty();
+        			var html = '';
+
+        			for (var i = 0; i < data.length; i++) {
+        				html += '<li class="yqsjlb-item clearfix">';
+        				html += '<div class="item-l"></div>';
+        				html += '<div class="item-r">';
+        				html += '<div>拍照时间：' + data[i].sbsj + '</div>';
+        				html += '<div>' + data[i].sj + '<span>' + data[i].DICTNAME + '</span></div>';
+        				html += '<div>事件详情：' + data[i].sjms + '。</div>';
+        				html += '</div>';
+        				html += '</li>';
+        			}
+
+        			$('#center-event-tourul').html(html);
+        			for (var i = 0; i < data.length; i++) {
+        				if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
+        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
+        					$('#center-event-tourul .item-l').eq(i).css("background-size", "cover")
+        				} else if (data[i].snapshoturiwithrect != undefined) {
+        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
+        				}
+        			}
+        		})
+        	}
+        },
+
         //园区总统计数（中间列）
         parkCount: function () {
             //    var CarTemp = 0;//园区内车辆数

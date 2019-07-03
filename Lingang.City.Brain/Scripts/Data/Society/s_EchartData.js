@@ -20695,7 +20695,7 @@
             url: "https://vku.youku.com/live/ilpshare?id=8018484"
         },
 
-        //街面巡查员信息
+        //街面巡查员信息---原
         jmXcyData:{
             "errorCode": "0",
             "errorMessage": "成功",
@@ -20715,191 +20715,30 @@
                     "belongCommunities": "综合社区",
                     "position": "组员",
                     "photoUrl": "http://106.14.149.153/bigScreen/image/zhouyong.jpg"
-                }, {
-                    "id": 3,
-                    "inspectorName": "范欢欢",
-                    "sex": "女",
-                    "belongCommunities": "申港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/fanhuanhuan.jpg"
-                }, {
-                    "id": 4,
-                    "inspectorName": "吴春丽",
-                    "sex": "女",
-                    "belongCommunities": "申港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/wuchunli.jpg"
-                }, {
-                    "id": 5,
-                    "inspectorName": "孙小红",
-                    "sex": "女",
-                    "belongCommunities": "申港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/sunxiaohong.jpg"
-                }, {
-                    "id": 6,
-                    "inspectorName": "康红霞",
-                    "sex": "女",
-                    "belongCommunities": "申港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/kanghongxia.jpg"
-                }, {
-                    "id": 7,
-                    "inspectorName": "黄海玉",
-                    "sex": "女",
-                    "belongCommunities": "申港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/huanghaiyu.jpg"
-                }, {
-                    "id": 8,
-                    "inspectorName": "袁承相",
-                    "sex": "男",
-                    "belongCommunities": "申港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/yuanchengxiang.jpg"
-                }, {
-                    "id": 9,
-                    "inspectorName": "朱红",
-                    "sex": "女",
-                    "belongCommunities": "申港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhuhong.jpg"
-                }, {
-                    "id": 10,
-                    "inspectorName": "李波",
-                    "sex": "男",
-                    "belongCommunities": "申港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/libo.jpg"
-                }, {
-                    "id": 11,
-                    "inspectorName": "孙琴芳",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/sunqinfang.jpg"
-                }, {
-                    "id": 12,
-                    "inspectorName": "康叶红",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/kangyehong.jpg"
-                }, {
-                    "id": 13,
-                    "inspectorName": "陆新苗",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/luxinmiao.jpg"
-                }, {
-                    "id": 14,
-                    "inspectorName": "潘虹",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/panhong.jpg"
-                }, {
-                    "id": 15,
-                    "inspectorName": "苏小平",
-                    "sex": "男",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/suxiaoping.jpg"
-                }, {
-                    "id": 16,
-                    "inspectorName": "姚中华",
-                    "sex": "男",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/yaozhonghua.jpg"
-                }, {
-                    "id": 17,
-                    "inspectorName": "袁中华",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/yuanzhonghua.jpg"
-                }, {
-                    "id": 18,
-                    "inspectorName": "姚伟",
-                    "sex": "男",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/yaowei.jpg"
-                }, {
-                    "id": 19,
-                    "inspectorName": "樊玲芳",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/fanlingfang.jpg"
-                }, {
-                    "id": 20,
-                    "inspectorName": "施文彬",
-                    "sex": "男",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/shiwenbing.jpg"
-                }, {
-                    "id": 21,
-                    "inspectorName": "张燕",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhangyan.jpg"
-                }, {
-                    "id": 22,
-                    "inspectorName": "季天恩",
-                    "sex": "男",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/jitianen.jpg"
-                }, {
-                    "id": 23,
-                    "inspectorName": "董萍萍",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/dongpingping.jpg"
-                }, {
-                    "id": 24,
-                    "inspectorName": "陈萍",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/chenping.jpg"
-                }, {
-                    "id": 25,
-                    "inspectorName": "张亚萍",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/zhangyaping.jpg"
-                }, {
-                    "id": 26,
-                    "inspectorName": "袁莉",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/yuanli.jpg"
-                }, {
-                    "id": 27,
-                    "inspectorName": "茅鲜敏",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组长",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/maoxianmin.jpg"
-                }, {
-                    "id": 28,
-                    "inspectorName": "施君玲",
-                    "sex": "女",
-                    "belongCommunities": "芦潮港社区",
-                    "position": "组员",
-                    "photoUrl": "http://106.14.149.153/bigScreen/image/shijunling.jpg"
                 }]
             }
         },
+    	//工地巡查员信息
+        workSiteInspectorData:[{
+			"photoUrl": "http://106.14.149.153/bigScreen/image/fanhuanhuan.jpg",
+			"sex": "女",
+			"latitude": "30.9436118378",
+			"id": 3,
+			"position": "组长",
+			"inspectorName": "范欢欢",
+			"belongCommunities": "碧桂园",
+			"longitude": "121.8954342145"
+		}, {
+			"photoUrl": "http://106.14.149.153/bigScreen/image/wuchunli.jpg",
+			"sex": "女",
+			"latitude": "30.9186576554",
+			"id": 4,
+			"position": "组员",
+			"inspectorName": "吴春丽",
+			"belongCommunities": "碧桂园",
+			"longitude": "121.9163233024"
+		}],
+
 
         //海岸线无人机最近一次飞行统计
         recentFlightData: {
