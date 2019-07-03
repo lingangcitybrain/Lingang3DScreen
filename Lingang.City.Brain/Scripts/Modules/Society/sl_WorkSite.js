@@ -170,8 +170,6 @@
             });
         },
 
-
-
         //工地天气预报
         loadWorkSiteWeatherData: function () {
             s_EchartAjax.getWorkSiteWeatherData(function (result) {
