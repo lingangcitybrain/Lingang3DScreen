@@ -1066,6 +1066,7 @@
     <Content Include="View\Industry\Estate\Left_Second_01.html" />
     <Content Include="View\Industry\Estate\Left_Second_02.html" />
     <Content Include="View\Industry\Estate\Left_Second_03.html" />
+    <Content Include="View\Industry\Estate\ParkDetail.html" />
     <Content Include="View\Industry\Estate\Right_First_01.html" />
     <Content Include="View\Industry\Estate\Right_First_02.html" />
     <Content Include="View\Industry\Estate\Right_First_03.html" />
