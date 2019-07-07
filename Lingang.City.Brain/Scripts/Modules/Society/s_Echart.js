@@ -372,8 +372,8 @@
                 var data = require("s_Echart").cgqData;
                 //console.info(data);
                 //console.info(data.data.sensorNumList);
-                //data = data.data.sensorNumList;  //20190630改
-                data = data;
+                data = data.data.sensorNumList;  //20190630改
+                //data = data;
                 
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
