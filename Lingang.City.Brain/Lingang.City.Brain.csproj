@@ -909,6 +909,7 @@
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculateNew.js" />
     <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
+    <Content Include="Scripts\Modules\Tour\tl_VisitorsMapNew.js" />
     <Content Include="Scripts\Modules\Tour\t_Home_S.js" />
     <Content Include="Scripts\Modules\Tour\t_Home_D.js" />
     <Content Include="Scripts\Modules\Tour\tl_RoadCondition.js" />
@@ -1066,6 +1067,7 @@
     <Content Include="View\Industry\Estate\Left_Second_01.html" />
     <Content Include="View\Industry\Estate\Left_Second_02.html" />
     <Content Include="View\Industry\Estate\Left_Second_03.html" />
+    <Content Include="View\Industry\Estate\ParkDetail.html" />
     <Content Include="View\Industry\Estate\Right_First_01.html" />
     <Content Include="View\Industry\Estate\Right_First_02.html" />
     <Content Include="View\Industry\Estate\Right_First_03.html" />

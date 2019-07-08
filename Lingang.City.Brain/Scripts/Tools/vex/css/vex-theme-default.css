@@ -177,8 +177,17 @@
     margin-top:.3rem;
       color: #fff; }
     .vex.vex-theme-default .vex-dialog-button.vex-dialog-button-secondary {
-      background: #e0e0e0;
-      color: #777; }
+      float:none;
+      padding:0;
+margin:0 auto;
+display: block;
+width: 2rem;
+height: .8rem;
+border-radius: .1rem;
+font-size: 0.45rem;
+background: #d35c04;
+  margin-top:.3rem;
+    color: #fff;  }
 
 .vex-loading-spinner.vex-theme-default {
   box-shadow: 0 0 0 0.5em #f0f0f0, 0 0 1px 0.5em rgba(0, 0, 0, 0.3);

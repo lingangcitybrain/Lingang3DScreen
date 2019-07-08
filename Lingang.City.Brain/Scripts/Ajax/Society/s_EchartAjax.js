@@ -32,7 +32,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_SQJQ + 'v2/sensor/statistic',
+                    url: con.InterfaceUrl + 'v1/iot/comunity/sensorNum',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
