@@ -38,7 +38,7 @@
         },
 
         ///////////////////////////////////////////////////菜单控制//////////////////////////////////////////////////////////////////
-        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；
+        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；102:确认框
         menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
@@ -81,6 +81,28 @@
                         break;
                     case "101"://关闭alert窗口
                         $('.vex-dialog-button-primary').click();
+                        break;
+                    case "102":
+                        vex.dialog.confirm({
+                            message: '是否关闭系统！',
+                            callback: function (value) {
+                                if (value) {
+                                    window.open('', '_self', ''); window.close();
+                                }
+                                else {
+                                    return null;
+                                }
+                            },
+                            className: 'vex-theme-default'
+                        });
+                        break;
+                    case "103"://关闭系统
+                        //window.open('', '_self', ''); window.close();
+                        $(".vex-dialog-button-primary").click();
+                        break;
+                    case "104":  //关闭确认框
+                       // window.open('', '_self', ''); window.close();
+                        $(".vex-dialog-button-secondary").click();
                         break;
                     default:
                 }

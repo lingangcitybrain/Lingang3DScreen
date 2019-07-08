@@ -35,58 +35,35 @@
             var nodePath = con.AreaName + '/' + data.nm;
             var poiName = con.AreaName + '/poi_' + data.nm;
             var pos = data.lng + "," + data.lat + ",0";
-            var pos =  Q3D.vector3(pos.toGlobalVec3d().toLocalPos(con.AreaName));
-            var option = {
-                Material: ["Material/earth.mtr", "Material/Default.mtr", "Material/moon.mtr"],//null, //设置圆柱底面、立面、顶面三个材质，如果只有一个设置成相同的数值
-                SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
-                Color: Q3D.colourValue("#0000FF", 1), //颜色材质使用的颜色
-                Alpha: 1, //颜色材质使用的透明度
-                Center: pos, //底面中心坐标 Vector3        
-                Anchor: null,//顶面中心坐标 Vector3，非垂直情况下可设置
-                Radius: 80, //半径
-                Height: parseInt(data.height*20),//1000,//高度
-                Pieces: 360, //设置生成圆面的面个数    
-                OnCylinderCreated: function () {//加载结束回调
-                    //创建窗口信息显示
-                    require("el_HotMap").loadParkDetailWindow(nodePath, data.id);
-                },
-                
+            var pos = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(con.AreaName));
+            var node = map.getSceneNode(nodePath);
+            if (node) {
+                node.setVisible(1);
+            } else {
+
+
+                var option = {
+                    Material: ["Material/earth.mtr", "Material/Default.mtr", "Material/moon.mtr"],//null, //设置圆柱底面、立面、顶面三个材质，如果只有一个设置成相同的数值
+                    SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                    Color: Q3D.colourValue("#0000FF", 1), //颜色材质使用的颜色
+                    Alpha: 1, //颜色材质使用的透明度
+                    Center: pos, //底面中心坐标 Vector3        
+                    Anchor: null,//顶面中心坐标 Vector3，非垂直情况下可设置
+                    Radius: 80, //半径
+                    Height: parseInt(data.height * 20),//1000,//高度
+                    Pieces: 360, //设置生成圆面的面个数    
+                    OnCylinderCreated: function () {//加载结束回调
+                       
+                    },
+
+                }
+
+                map.createCylinder(nodePath, option);
+
             }
 
-            map.createCylinder(nodePath, option);
-            
-            //var poiOption = {
-            //    Position: pos,
-            //    Orientation: null,
-            //    OrientationType: Q3D.Enums.nodeOrientationType.Self,
-            //    Scale: null,
-            //    OnLoaded: function () { },
-            //    POIOptions: {
-            //        FontSize: 16,
-            //        FontName: "微软雅黑",
-            //        FontColor: Q3D.colourValue("#ffffff", 1),
-            //        CharScale: 1.5,
-            //        Text: 0 + '',
-            //        Icon: null,
-            //        IconSize: Q3D.vector2(81, 58),
-            //        POILayout: Q3D.Enums.poiLayOut.Bottom,
-            //        BackFrameBorderSize: 6,  //同边框有关 背景边框大小 POI不显示文字时需设为null否则出现点
-            //        BackBorderColor: Q3D.colourValue("#ffd800", 1), //背景边框颜色
-            //        BackFillColor: Q3D.colourValue("#ffd800", 1),//背景填充色
-            //        SpecialTransparent: true,
-            //        AlwaysOnScreen: true,
-            //        OnLoaded: function () {//加载结束回调
-            //            //创建窗口信息显示
-            //            require("el_HotMap").loadParkDetailWindow(nodePath, data.id);
-            //        },
-            //    },
-            //}
-            //var node = map.getSceneNode(poiName);
-            //if (!node) {
-            //    map.createPOI(poiName, poiOption) //POI不存在则创建
-            //} else {
-            //}
-            
+            //创建窗口信息显示
+            require("el_HotMap").loadParkDetailWindow(nodePath, data.id);
             for (var i = 1; i <= data.height; i++) {
                 require("el_HotMap").setHeightAni({ 'node': nodePath, 'poi': poiName, 'pos': data.lng + "," + data.lat + ",0" }, i);
             }
@@ -118,7 +95,7 @@
                 }
             });
 
-            var url = con.HtmlUrl + 'Estate/ParkDetail.html';
+            var url = con.HtmlUrl + 'Industry/Estate/ParkDetail.html';
 
             require("el_HotMap").detailWindowId = require("el_HotMap").detailWindowId + 1;
             var domWinName = 'detail_' + require("el_HotMap").detailWindowId;
