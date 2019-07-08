@@ -18,7 +18,8 @@
         InspectorList: new util.HashMap,
 
         danao_coordinatestr: null,//城市大脑的坐标
-        timeCountList:[],//POI计时器集合
+        timeCountList: [],//POI计时器集合
+        eventTimer:null,
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -150,6 +151,7 @@
             require("sl_Event").timeCountList.push(timer);
             if (times <= 0) {
                 clearInterval(timer);
+                var areaName = con.AreaName;
                 var node = map.getSceneNode(areaName, poiname);
                 if (node) {
                     node.asPOI().setText("");
@@ -236,7 +238,6 @@
             this.LastPOI_Clk = nodeName;
             var node = map.getSceneNode(areaName, nodeName);
             if (node != null) {
-
                 var poi = node.asPOI();
                 var type = nodeName.split('_')[1];
                 var icon = this.LayerType.List[type].ChooseIcon;
@@ -245,8 +246,6 @@
             //require("sl_Event").jumppoilist = [];
             //require("sl_Event").jumppoilist.push(areaName + "/" + nodeName);
             //map.setBatchPOIJump(require("sl_Event").jumppoilist, 50);
-
-
             var id = nodeName.split('_')[2];
             var data = require("sl_Event").EventList.get(id);
             if (data != null) {
@@ -254,24 +253,47 @@
                 //data.imageUrl = "http://101.132.114.31/vcs/picsearch/pictureProxy/zhlingang-stsf-truck/video_automobile_panoramic/068/20190618/20190618-8947af93-0a580a000ac8-00000068-0003ed9f.jpg";
 
                 //视角定位到坐标,默认显示图片
-                var pos = Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos());
-                var postr = pos.x + "," + pos.y + "," + pos.z;
-                var height = parseFloat(postr.split(',')[2]) + 852,
-                    x = parseFloat(postr.split(',')[0]) + 52,
-                    z = parseFloat(postr.split(',')[1]) + 828;
-                var pointlast = x + "," + z + "," + height;
-                Q3D.globalCamera().flyTo((pointlast).toVector3d(), ("-42.812068939208984,1.9336525201797485,1.7832627296447754").toVector3(), 2, function () {
+                //var pos = Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos());
+                //var postr = pos.x + "," + pos.y + "," + pos.z;
+                //var height = parseFloat(postr.split(',')[2]) + 852,
+                //    x = parseFloat(postr.split(',')[0]) + 52,
+                //    z = parseFloat(postr.split(',')[1]) + 828;
+                //var pointlast = x + "," + z + "," + height;
+                //Q3D.globalCamera().flyTo((pointlast).toVector3d(), ("-42.812068939208984,1.9336525201797485,1.7832627296447754").toVector3(), 2, function () {
 
-                });
-
+                //});
+                //将POI定位到屏幕中间
+                Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
                 if (data.videoUrl != null && data.videoUrl != "")//视频不为空 优先显示视频格式
                 {
                     require("sl_Event").loadEventVedioDetail(id);
                 }
                 else {//显示图片格式
                     require("sl_Event").loadEventPicDetail(id);
+                    require("sl_Event").LoopPlayback(id);
                 }
             }
+        },
+        //循环播放事件-派单
+        LoopPlayback:function(id){
+            require("sl_Event").eventTimer = setInterval(function () {
+                require("sl_Event").clearWindowFolowing();//关闭窗口跟随
+                console.log(id);
+                //清除发光动线连线
+                if (map.getSceneNode(con.AreaName, "shijian_" + id)) {
+                    console.log(con.AreaName+"/shijian_" + id);
+                    map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
+                }
+                if (map.getSceneNode(con.AreaName, "paidan_" + id)) {
+                    console.log(con.AreaName + "/paidan_" + id);
+                    map.getArea(con.AreaName).destroySceneNode("paidan_" + id);
+
+                }
+                $("#detail_02").html("");
+                $("#detail_03").html("");//页面清空
+                setTimeout(require("sl_Event").loadEventPicDetail(id), 5 * 1000);//延迟5000毫米
+               
+            }, 10000);
         },
         //显示事件图片详情
         loadEventPicDetail: function (id) {
@@ -625,6 +647,9 @@
         },
         //关闭事件详情
         closeDetail: function () {
+            if (require("sl_Event").eventTimer != null) {
+                clearInterval(require("sl_Event").eventTimer);
+            }
             require("sl_Event").clearWindowFolowing();
             //清空派单
             require("sl_Event").closeEventPaidan();
