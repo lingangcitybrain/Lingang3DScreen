@@ -1137,6 +1137,11 @@
             });
         },
         loadEventDetail: function (poiName) {
+        $(".sjxx-li").each(function (index, element) {
+                    $(this).click(function () {
+                        $(this).addClass("active").siblings(".sjxx-li").removeClass("active");
+                        })
+                    })
             var layeractive = $("#bottom_menu ul li.active").text();
             switch (layeractive) {
                 case "传感器":
