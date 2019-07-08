@@ -6,15 +6,16 @@
                 window.map = Q3D.map('MapWrapper', {
                     SERVER_PATH: config.SERVER_PATH,
                     CONFIG_NAME: config.CONFIG_NAME,
-                    LICENSE_SVR: config.LICENSE_SVR,
+                    //LICENSE_SVR: config.LICENSE_SVR,
                     WINDOWLESS: true,
-                    //TOUCH: true,
+                    TOUCH: true,
                     OnLoadEnd: function () {
                         load.Onload();
-                        //$('#MapWrapper')[0].addEventListener("pointerdown", onPointerDown);
-                        //$('#MapWrapper')[0].addEventListener("pointerup", onPointerUp);
-                        //$('#MapWrapper')[0].addEventListener("pointermove", onPointerMove);
-                        //$('#MapWrapper')[0].addEventListener("pointercancel", onPointerUp);
+                        $('#MapWrapper')[0].addEventListener("pointerdown", onPointerDown);
+                        $('#MapWrapper')[0].addEventListener("pointerup", onPointerUp);
+                        $('#MapWrapper')[0].addEventListener("pointermove", onPointerMove);
+                        $('#MapWrapper')[0].addEventListener("pointercancel", onPointerUp);
+                    
                     }
                 });
             }
@@ -24,17 +25,22 @@
             }
         }
     }
+
+
 })
+
 //只支持两点触摸
 pointers = {};
 ptcnt = 0;
 function onPointerDown(e) {
 
     //如果已有手指信息，要判断时间间隔超过1s，需要删除
-    if (ptcnt > 0) {
+    if (ptcnt > 0) 
+    {
         var currtt = (new Date()).getTime();
         for (var val in pointers) {
-            if (currtt - pointers[val].timestamp > 1000) {
+            if (currtt - pointers[val].timestamp > 1000) 
+            {
                 delete pointers[val];
                 ptcnt--;
                 console.log("delete  pointerId : " + val);
@@ -114,3 +120,4 @@ function onPointerUp(e) {
         console.log("up: " + e.pointerId + ', current: ' + count + ',' + x1 + ',' + y1 + ',' + x2 + ',' + y2);
     }
 }
+
