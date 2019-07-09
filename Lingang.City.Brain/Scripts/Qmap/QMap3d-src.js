@@ -2726,7 +2726,7 @@ Q3D.Map = Q3D.Evented.extend({
             // @option WINDOWLESS: Boolen = false
             // 是否无窗口控件类型
             WINDOWLESS: false,
-            ZOOM:1,
+            ZOOM:2,
             // 是否触摸屏
             TOUCH: false,
             // @option LOADING: Boolen = true
@@ -3164,7 +3164,7 @@ Q3D.Map = Q3D.Evented.extend({
                         "classid", "CLSID:DB7C6663-F12F-4BEC-960D-194E6EB3BDAA",
                         "width", "100%", //container.clientWidth.toString(),
                         "height", "100%",
-                        "ZOOM", "1",
+                        "ZOOM", "2",
 
                         "WindowLess", this.options.WINDOWLESS ? "1" : "0" );
             } else {
@@ -3173,7 +3173,7 @@ Q3D.Map = Q3D.Evented.extend({
                         "type", "application/QMap-activex",
                         "width", "100%", //container.clientWidth.toString(),
                         "height", "100%", //container.clientHeight.toString(),
-                        "ZOOM", "1",
+                        "ZOOM", "2",
                         "WindowLess", this.options.WINDOWLESS ? "1" : "0" ,
                         'event_OnLButtonDown', 'OnLButtonDown',
                         'event_OnLButtonUp', 'OnLButtonUp',
