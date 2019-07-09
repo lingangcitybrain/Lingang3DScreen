@@ -65,6 +65,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
 			//关闭社综居中放大的事件列表
             require('s_Echart').closeCenterEventList();
             require('t_Echart').closeCenterEventList();
+            require('t_Echart').closeCenterCarIdentify();
 
         	//加载div数据
             switch (menuname) {
@@ -234,6 +235,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             require('mainMenu').closeBigChartHtml();
         	//关闭社综居中放大的事件列表
             require('s_Echart').closeCenterEventList();
+            require('t_Echart').closeCenterCarIdentify();
 
             var menuname = $("li").eq(index).text();
             $("li").removeClass("active");//删除当前元素的样式
