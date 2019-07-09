@@ -101,6 +101,7 @@
 
                 $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
 
+                var sensorBrand = data.sensorBrand == null ? "暂无数据" : data.sensorBrand;
                 var installationAddress = data.installationAddress == null ? "暂无数据" : data.installationAddress;
                 var belongRegion = data.belongRegion == null ? "暂无数据" : data.belongRegion;
                 var belongStreet = data.belongStreet == null ? "暂无数据" : data.belongStreet;
@@ -110,7 +111,8 @@
                 '<div class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem; margin-left:0;">' +
                     '<ul>' +
                      '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
-                     '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
+                      '<li><span>当前状态：</span><em>暂无数据</em></li>' +
+                     '<li><span>所属品牌：</span><em>' + sensorBrand + '</em></li>' +
                         '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
                         '<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
                         '<li><span>所属街道：</span><em>' + belongStreet + '</em></li>' +
