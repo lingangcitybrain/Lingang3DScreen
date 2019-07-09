@@ -19,7 +19,7 @@
 
         danao_coordinatestr: null,//城市大脑的坐标
         timeCountList: [],//POI计时器集合
-        eventTimer:null,
+        eventTimer: null,
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -194,9 +194,9 @@
             //if (map.getSceneNode(areaName + "/eventDetail1")) {
             //    map.getArea(areaName).destroySceneNode("eventDetail1");
             //}
-            if (map.getSceneNode(areaName + "/paidan01")) {
+            if (map.getSceneNode(areaName + "/paidan_poi")) {
                 map.clearPOIJump();
-                map.getArea(areaName).destroySceneNode("paidan01");
+                map.getArea(areaName).destroySceneNode("paidan_poi");
             }
             if (map.getSceneNode(areaName + "/paidanDetail")) {
                 map.getArea(areaName).destroySceneNode("paidanDetail");
@@ -220,7 +220,6 @@
         nodeFollowingPath: [],//窗口跟随事件节点
         //事件处理特效
         loadEventProcessing: function (nodeName) {
-            require("sl_Event").clearWindowFolowing();//关闭窗口跟随
             require("sl_Event").closeDetail();//关闭事件详情
             require("sl_Event").jumppoilist = [];
             var areaName = con.AreaName;
@@ -284,10 +283,8 @@
                     console.log(con.AreaName+"/shijian_" + id);
                     map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
                 }
-                if (map.getSceneNode(con.AreaName, "paidan_" + id)) {
-                    console.log(con.AreaName + "/paidan_" + id);
-                    map.getArea(con.AreaName).destroySceneNode("paidan_" + id);
-
+                if (map.getSceneNode(con.AreaName, "paidan_line")) {
+                    map.getArea(con.AreaName).destroySceneNode("paidan_line");
                 }
                 $("#detail_02").html("");
                 $("#detail_03").html("");//页面清空
@@ -537,7 +534,7 @@
                         var option = {
                             AreaName: "gwh_xilou",
                             //AreaName: "Shanghai",
-                            Name: "paidan_" + id,
+                            Name: "paidan_line",
                             LineAlias: "mark",
                             LineWidth: 50,
                             showAuxIcon: false,
@@ -547,14 +544,14 @@
                         require("common").getRadianLine(require("sl_Event").danao_coordinatestr, pos2, 500, option);//显示事件到大脑的连线
 
                         //创建派单POI
-                        var fullNodePath2 = areaName + "/paidan01";
+                        var fullNodePath2 = areaName + "/paidan_poi";
                         var position2 = Q3D.vector3(pos2.toGlobalVec3d().toLocalPos(areaName));
                         var data2 = {
                             Position: position2, Text: "", Icon: "Texture/Common/paidan.png", IconSize: Q3D.vector2(100, 97)
                         }
                         if (map.getSceneNode(fullNodePath2)) {
                             //map.clearPOIJump();
-                            map.getArea(areaName).destroySceneNode("paidan01");
+                            map.getArea(areaName).destroySceneNode("paidan_poi");
                         }
                         require("sl_Event").createPOI(fullNodePath2, data2);
 
@@ -607,7 +604,7 @@
                     document.getElementById(e.nodeDom).style.left = v2i.x + "px";
                     document.getElementById(e.nodeDom).style.top = v2i.y - 560 + "px";
                 }
-                //if (node.getFullName().indexOf("paidan01") > -1) {//派单
+                //if (node.getFullName().indexOf("paidan_poi") > -1) {//派单
                 //    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
                 //    document.getElementById(e.nodeDom).style.top = v2i.y - 360 + "px";
                 //}
@@ -629,14 +626,14 @@
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
                 var id = require("sl_Event").LastPOI_Clk.split('_')[2];
                 //删除拍单连线
-                if (map.getSceneNode(con.AreaName, "paidan_" + id)) {
-                    map.getArea(con.AreaName).destroySceneNode("paidan_" + id);
+                if (map.getSceneNode(con.AreaName, "paidan_line")) {
+                    map.getArea(con.AreaName).destroySceneNode("paidan_line");
                 }
                 //删除POI
                 var areaName = con.AreaName;
-                if (map.getSceneNode(areaName + "/paidan01")) {
+                if (map.getSceneNode(areaName + "/paidan_poi")) {
                     //map.clearPOIJump();
-                    map.getArea(areaName).destroySceneNode("paidan01");
+                    map.getArea(areaName).destroySceneNode("paidan_poi");
                 }
                 if (require("sl_Event").nodeFollowingPath.length == 2)
                 {
@@ -663,8 +660,9 @@
                 if (map.getSceneNode(con.AreaName, "shijian_" + id)) {
                     map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
                 }
-                if (map.getSceneNode(con.AreaName, "paidan_" + id)) {
-                    map.getArea(con.AreaName).destroySceneNode("paidan_" + id);
+               
+                if (map.getSceneNode(con.AreaName, "paidan_line")) {
+                    map.getArea(con.AreaName).destroySceneNode("paidan_line");
                 }
                 this.LayerType = require("s_Main").LayerCatalog.Event;
                 var type = this.LastPOI_Clk.split('_')[1];
