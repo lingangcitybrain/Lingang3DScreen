@@ -604,6 +604,7 @@
     <Content Include="Content\images\person-pic.png" />
     <Content Include="Content\images\personCardIMG.jpg" />
     <Content Include="Content\images\personCardIMG.png" />
+    <Content Include="Content\images\pic-car.png" />
     <Content Include="Content\images\pj-3d.png" />
     <Content Include="Content\images\pj-3d2.png" />
     <Content Include="Content\images\pj-bshadow.png" />

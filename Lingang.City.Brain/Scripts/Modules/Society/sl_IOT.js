@@ -331,8 +331,8 @@
                             default:
                         }
                     }else {
-                        require("sl_IOT").carInOutCount.push(0)
-                        require("sl_IOT").personInOutCount.push(0)
+                        require("sl_IOT").carInOutCount.push('')
+                        require("sl_IOT").personInOutCount.push('')
                     }
 
                 }
