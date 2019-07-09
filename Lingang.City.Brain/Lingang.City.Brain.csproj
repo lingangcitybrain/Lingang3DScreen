@@ -1108,6 +1108,7 @@
     <Content Include="View\Industry\Estate\Center_03.html" />
     <Content Include="View\SocietyNew\Center_03.html" />
     <Content Include="View\SocietyNew\Center_04.html" />
+    <Content Include="View\SocietyNew\Center_05.html" />
     <Content Include="View\SocietyNew\Left_First_01.html" />
     <Content Include="View\SocietyNew\Left_First_02.html" />
     <Content Include="View\SocietyNew\Left_First_03.html" />

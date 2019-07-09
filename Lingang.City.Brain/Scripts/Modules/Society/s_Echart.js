@@ -103,7 +103,7 @@
             sjcgChartClose = true;
             $("#center_03").html("");           
         },
-
+		//社综事件列表 ---放大
         loadCenterEventList: function () {
         	var url = con.HtmlUrl + 'SocietyNew/Center_04.html';
         	require(['text!' + url], function (template) {
@@ -113,11 +113,24 @@
         	})
         },
 
-        closeCenterEventList:function(){
+        closeCenterEventList: function () {
         	$("#center_04").html("");
         },
+		//社综---车辆识别 放大
+        loadCenterCarIdentify: function () {
+        	var url = con.HtmlUrl + 'SocietyNew/Center_05.html';
+        	require(['text!' + url], function (template) {
+        		$("#center_05").html(template);
+        		$("#center_05").show('drop', 1000);//左侧
+        		//require("s_Echart").loadSocietyEventList();
+        	})
+        },
 
-        //加载头部日期时间  
+        closeCenterCarIdentify: function () {
+        	$("#center_05").html("");
+        },
+
+    	//加载头部日期时间  
 
         tick: function () {
             var years, months, days, hours, week, minutes, seconds;
@@ -408,7 +421,7 @@
         },
 
         loadCirclediv: function () {
-            //if ($("body").width() <= 4500) {
+            //if ($("body").width() == 4500) {
             //    $("html").css({ fontSize: "70px" });
             //    $('#sqzz-sxt1>.sxt-circlediv').empty();
             //    $('#sqzz-sxt2>.sxt-circlediv').empty();

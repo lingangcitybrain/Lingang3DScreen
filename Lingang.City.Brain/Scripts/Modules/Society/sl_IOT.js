@@ -229,9 +229,6 @@
                 require("sl_IOT").loadCirclediv();
                 require("s_Echart").sxtCamera();
                // require("s_Echart").sxtCamera({ "communityId": "S012" });
-                require("s_Echart").sxtCar("#iot-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
-                require("s_Echart").sxtPerson("#iot-sxt3");
-
             });
         },
         //加载第二列的div4
@@ -587,20 +584,12 @@
             if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
-                $('#iot-sxt2>.sxt-circlediv').empty();
-                $('#iot-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('#iot-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
                 $("html").css({ fontSize: "160px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
-                $('#iot-sxt2>.sxt-circlediv').empty();
-                $('#iot-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('#iot-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
             }      
         },
 

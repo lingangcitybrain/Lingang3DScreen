@@ -3710,6 +3710,7 @@ dd.pjc-statistic-star >form{
 
 /*.center-eventlist*/
 .center-eventlist{
+	z-index:999;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -3821,19 +3822,20 @@ dd.pjc-statistic-star >form{
 }
 
 .sxtcar-identify{
+	position: relative;
 	flex-grow: 2;
-	font-size: .25rem;
-	padding-top: .2rem;
-	margin-left: .2rem;
+	font-size: 1em;
+	padding-top: .2em;
+	margin-left: .2em;
 }
 .sxtcar-identify-pic{
 	float: left;
-	width: 2.2rem;
-	height: 1.3rem;
-	padding:.05rem;
-	margin-right: .1rem;
+	width: 2.2em;
+	height: 1.3em;
+	padding:.05em;
+	margin-right: .1em;
 	background: rgba(0,117,248,.3);
-	border-radius: .05rem;
+	border-radius: .05em;
 	box-sizing: border-box;
 }
 .sxtcar-identify-pic>img{
@@ -3843,15 +3845,56 @@ dd.pjc-statistic-star >form{
 }
 .sxtcar-identify-text{
 	float: left;
-	width: calc(100% - 2.3rem);
-	padding-top: .18rem;
+	width: calc(100% - 2.3em);
+}
+.sxtcar-identify-text>div{ 
+    line-height: .26em;
+    height: .5em;
+}
+.sxtcar-identify-text>div>em{
+	font-size: .25em;
 }
 .sxtcar-identify-text>div>span{
-	font-size: .34rem;
+	font-size: .34em;
 	color: #37a1f7;
 }
+.sxtcar-identify-zoomin{
+	position: absolute;
+	top:0;
+	right: 0;
+	font-size: inherit;
+	width: .6em;
+	height: .6em;
+	background: url(../Content/images/zoomin.png) no-repeat;
+	background-size:.6em;
+	cursor: pointer;
+}
 
-
+.sxtcar-identify-largebox{ 
+	font-size: 3em;
+	padding: .5rem;
+	margin: 0;
+}
+.sxtcar-identify-largebox .sxtcar-identify-pic{
+	float: none;
+	width: 100%;
+	height: 3em; 
+	padding: 0;
+	background: none; 
+}
+.sxtcar-identify-largebox .sxtcar-identify-pic>img{
+	float: none;
+	width: auto; 
+	height: 100%; 
+	display: block;
+	margin: 0 auto;
+}
+.sxtcar-identify-largebox .sxtcar-identify-text{
+	float: none;
+	width: 100%;
+	padding-top: .1em;
+	padding-left:.3em;
+}
 
 
 
