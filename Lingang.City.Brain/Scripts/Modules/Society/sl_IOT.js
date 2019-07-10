@@ -598,20 +598,20 @@
             s_EchartAjax.getSocietyCgq(function (result) {
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data = require("s_Echart").cgqData;
-                data = data.data.sensorNumList;  //20190630改
+                data = data.data.sensorNumList; 
                 //data = data;
 
                 $("#society-iot-li01").find(".item-l-data").html(data[6].sensorCount);
                 $("#society-iot-li01").find("span").eq(0).html(data[6].onlineSensorCount);
-                $("#society-iot-li01").find("span").eq(1).html(data[6].lossSensorCount);
+                $("#society-iot-li01").find("span").eq(1).html(data[6].sensorCount - data[6].onlineSensorCount);
 
                 $("#society-iot-li02").find(".item-l-data").html(data[4].sensorCount);
                 $("#society-iot-li02").find("span").eq(0).html(data[4].onlineSensorCount);
-                $("#society-iot-li02").find("span").eq(1).html(data[4].lossSensorCount);
+                $("#society-iot-li02").find("span").eq(1).html(data[4].sensorCount - data[4].onlineSensorCount);
 
                 $("#society-iot-li03").find(".item-l-data").html(data[3].sensorCount);
                 $("#society-iot-li03").find("span").eq(0).html(data[3].onlineSensorCount);
-                $("#society-iot-li03").find("span").eq(1).html(data[3].lossSensorCount);
+                $("#society-iot-li03").find("span").eq(1).html(data[3].sensorCount - data[3].onlineSensorCount);
 
 
             });
