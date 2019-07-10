@@ -8,13 +8,13 @@
                     CONFIG_NAME: config.CONFIG_NAME,
                     LICENSE_SVR: config.LICENSE_SVR,
                     WINDOWLESS: true,
-                    //TOUCH: true,
+                    TOUCH: true,
                     OnLoadEnd: function () {
                         load.Onload();
-                        //$('#MapWrapper')[0].addEventListener("pointerdown", onPointerDown);
-                        //$('#MapWrapper')[0].addEventListener("pointerup", onPointerUp);
-                        //$('#MapWrapper')[0].addEventListener("pointermove", onPointerMove);
-                        //$('#MapWrapper')[0].addEventListener("pointercancel", onPointerUp);
+                        $('#MapWrapper')[0].addEventListener("pointerdown", onPointerDown);
+                        $('#MapWrapper')[0].addEventListener("pointerup", onPointerUp);
+                        $('#MapWrapper')[0].addEventListener("pointermove", onPointerMove);
+                        $('#MapWrapper')[0].addEventListener("pointercancel", onPointerUp);
                     }
                 });
             }

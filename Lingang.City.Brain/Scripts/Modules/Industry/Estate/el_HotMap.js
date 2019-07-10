@@ -118,7 +118,7 @@
                 }
             });
 
-            var url = con.HtmlUrl + 'Estate/ParkDetail.html';
+            var url = con.HtmlUrl + 'Industry/Estate/ParkDetail.html';
 
             require("el_HotMap").detailWindowId = require("el_HotMap").detailWindowId + 1;
             var domWinName = 'detail_' + require("el_HotMap").detailWindowId;
@@ -131,7 +131,7 @@
 
             });
 
-            var nodePath = con.AreaName + '/' + nodeName;
+            var nodePath = nodeName;
             var nodeObject = { "nodePath": nodePath, "nodeDom": domWinName };
 
             require("el_HotMap").nodeFollowingPath.push(nodeObject);
