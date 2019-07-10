@@ -604,6 +604,7 @@
     <Content Include="Content\images\person-pic.png" />
     <Content Include="Content\images\personCardIMG.jpg" />
     <Content Include="Content\images\personCardIMG.png" />
+    <Content Include="Content\images\pic-car.png" />
     <Content Include="Content\images\pj-3d.png" />
     <Content Include="Content\images\pj-3d2.png" />
     <Content Include="Content\images\pj-bshadow.png" />
@@ -909,6 +910,7 @@
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculate.js" />
     <Content Include="Scripts\Modules\Tour\tl_StreamCalculateNew.js" />
     <Content Include="Scripts\Modules\Tour\tl_TrafficSimulation.js" />
+    <Content Include="Scripts\Modules\Tour\tl_VisitorsMapNew.js" />
     <Content Include="Scripts\Modules\Tour\t_Home_S.js" />
     <Content Include="Scripts\Modules\Tour\t_Home_D.js" />
     <Content Include="Scripts\Modules\Tour\tl_RoadCondition.js" />
@@ -1106,6 +1108,7 @@
     <Content Include="View\Industry\Estate\Center_03.html" />
     <Content Include="View\SocietyNew\Center_03.html" />
     <Content Include="View\SocietyNew\Center_04.html" />
+    <Content Include="View\SocietyNew\Center_05.html" />
     <Content Include="View\SocietyNew\Left_First_01.html" />
     <Content Include="View\SocietyNew\Left_First_02.html" />
     <Content Include="View\SocietyNew\Left_First_03.html" />

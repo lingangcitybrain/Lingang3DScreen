@@ -2728,8 +2728,8 @@ Q3D.Map = Q3D.Evented.extend({
             PRELOAD_GRP: null,
             // @option WINDOWLESS: Boolen = true
             // 是否无窗口控件类型
-            WINDOWLESS: true,
-            ZOOM:1,
+            WINDOWLESS: false,
+            ZOOM:2,
             // 是否触摸屏
             TOUCH: false,
             // @option LOADING: Boolen = true
@@ -2920,13 +2920,10 @@ Q3D.Map = Q3D.Evented.extend({
                     im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.DOWN.ctrlId, Q3D.Enums.actionType.TRANS_BACKX);                    
 
                     if (this.options.TOUCH) {
+
                         //平板绑定
-                        //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
-                        ////im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.CAMERA_CLOSETO);
-                        //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_CENTER);
                         im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.CAMERA_CLOSETO);
+                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.RAMBLE_KEEPORI);
                         im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
                         im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_SCREEN);
 
@@ -3171,7 +3168,7 @@ Q3D.Map = Q3D.Evented.extend({
                         "classid", "CLSID:DB7C6663-F12F-4BEC-960D-194E6EB3BDAA",
                         "width", "100%", //container.clientWidth.toString(),
                         "height", "100%",
-                        "ZOOM", "1",
+                        "ZOOM", "2",
 
                         "WindowLess", this.options.WINDOWLESS ? "1" : "0" );
             } else {
@@ -3180,7 +3177,7 @@ Q3D.Map = Q3D.Evented.extend({
                         "type", "application/QMap-activex",
                         "width", "100%", //container.clientWidth.toString(),
                         "height", "100%", //container.clientHeight.toString(),
-                        "ZOOM", "1",
+                        "ZOOM", "2",
                         "WindowLess", this.options.WINDOWLESS ? "1" : "0" ,
                         'event_OnLButtonDown', 'OnLButtonDown',
                         'event_OnLButtonUp', 'OnLButtonUp',

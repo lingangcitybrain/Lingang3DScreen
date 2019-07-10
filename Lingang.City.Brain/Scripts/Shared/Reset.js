@@ -37,6 +37,7 @@
             $("#center_02").html("");
             $("#center_03").html("");
             $("#center_04").html("");
+            $("#center_05").html("");
         },
         //清除右边div的html内容
         ClearDivHtmlOnRight: function () {

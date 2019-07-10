@@ -56,6 +56,9 @@
         //传感器点击事件
         loadIOTDetial: function (nodeName) {
             var areaName = con.AreaName;
+            //POI放在中间
+            Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
+           
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
                 var layername = this.LastPOI_Clk.split('_')[0].replace("POISociety", "");
                 var level = this.LayerType.Level;
@@ -98,6 +101,7 @@
 
                 $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
 
+                var sensorBrand = data.sensorBrand == null ? "暂无数据" : data.sensorBrand;
                 var installationAddress = data.installationAddress == null ? "暂无数据" : data.installationAddress;
                 var belongRegion = data.belongRegion == null ? "暂无数据" : data.belongRegion;
                 var belongStreet = data.belongStreet == null ? "暂无数据" : data.belongStreet;
@@ -107,7 +111,8 @@
                 '<div class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem; margin-left:0;">' +
                     '<ul>' +
                      '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
-                     '<li><span>所属品牌：</span><em>' + data.sensorBrand + '</em></li>' +
+                      '<li><span>当前状态：</span><em>暂无数据</em></li>' +
+                     '<li><span>所属品牌：</span><em>' + sensorBrand + '</em></li>' +
                         '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
                         '<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
                         '<li><span>所属街道：</span><em>' + belongStreet + '</em></li>' +
@@ -224,9 +229,6 @@
                 require("sl_IOT").loadCirclediv();
                 require("s_Echart").sxtCamera();
                // require("s_Echart").sxtCamera({ "communityId": "S012" });
-                require("s_Echart").sxtCar("#iot-sxt2", { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" });
-                require("s_Echart").sxtPerson("#iot-sxt3");
-
             });
         },
         //加载第二列的div4
@@ -326,8 +328,8 @@
                             default:
                         }
                     }else {
-                        require("sl_IOT").carInOutCount.push(0)
-                        require("sl_IOT").personInOutCount.push(0)
+                        require("sl_IOT").carInOutCount.push('')
+                        require("sl_IOT").personInOutCount.push('')
                     }
 
                 }
@@ -582,20 +584,12 @@
             if ($("body").width() == 7680) {
                 $("html").css({ fontSize: "90px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
-                $('#iot-sxt2>.sxt-circlediv').empty();
-                $('#iot-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('#iot-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
                 $("html").css({ fontSize: "160px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
-                $('#iot-sxt2>.sxt-circlediv').empty();
-                $('#iot-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('#iot-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('#iot-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
             }      
         },
 
@@ -606,7 +600,7 @@
                 var data = require("s_Echart").cgqData;
                 data = data.data.sensorNumList; 
                 //data = data;
-                                                                        //OnlineSensorCount
+
                 $("#society-iot-li01").find(".item-l-data").html(data[6].sensorCount);
                 $("#society-iot-li01").find("span").eq(0).html(data[6].onlineSensorCount);
                 $("#society-iot-li01").find("span").eq(1).html(data[6].sensorCount - data[6].onlineSensorCount);
@@ -617,7 +611,7 @@
 
                 $("#society-iot-li03").find(".item-l-data").html(data[3].sensorCount);
                 $("#society-iot-li03").find("span").eq(0).html(data[3].onlineSensorCount);
-                $("#society-iot-li03").find("span").eq(1).html(data[3].sensorCount - data[3].onlineSensorCount);  
+                $("#society-iot-li03").find("span").eq(1).html(data[3].sensorCount - data[3].onlineSensorCount);
 
 
             });

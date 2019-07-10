@@ -26,14 +26,14 @@
 
             //加载无人机库
             require("sl_Drone").loadDroneHangarPOI();
-            //无人机采用实际的数据
+            ////无人机采用实际的数据
             require("sl_Drone").loadDroneModelForList();
             //缓存无人机数据（取视频SBBM用）
             require("sl_Drone").loadDroneList();
-            ////不断刷新获取新的无人机坐标
-            //require("sl_Drone").DroneInter = setInterval(function () {
-            //    require("sl_Drone").loadDroneModelForList();
-            //}, 2000);
+            //不断刷新获取新的无人机坐标
+            require("sl_Drone").DroneInter = setInterval(function () {
+                require("sl_Drone").loadDroneModelForList();
+            }, 2000);
         },
         //缓存无人机数据
         loadDroneList: function () {
@@ -258,7 +258,7 @@
                 //}
                 if (result != null) {
                     for (var i = 0; i < result.length; i++) {
-
+                       
                         //创建无人机模型
                         var id = result[i].wrj_id.toString();
                         var lng = result[i].lng.toString();
@@ -266,9 +266,10 @@
                         var height = result[i].height.toString();
                         var modify_time = result[i].modify_time.toString();
 
-
+                        
                         //if (height != "" && height != 0) {
                         if (height != "" && lng != "" && lat != "") {
+                            //console.log(i,lng, lat, height, modify_time)
                             var Coordinate = com.gcj02towgs84(parseFloat(lng), parseFloat(lat));
 
                             var modelName = "wrj" + id;
@@ -409,6 +410,9 @@
                 require("sl_Drone").SocietyDrone_player.dispose();
                 require("sl_Drone").SocietyDrone_player = null;
             }
+            var areaName = con.AreaName;
+            //POI放在中间
+            Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodename).getAbsPos()), 0.5);
 
             var url = con.HtmlUrl + 'SocietyNew/Bottom_DroneCamera.html';
             require(['text!' + url], function (template) {
@@ -427,7 +431,7 @@
                 var post_data = { "sbbm": data.sbbm };
                 if (data.sbbm != "ceshi_001" && data.sbbm != "SkySys_0004" && data.sbbm != "SkySys_0005") {
                     require("s_LayerMenuAjax").getDroneVideo(post_data, function (result) {
-                        console.log(result);
+                        //console.log(result);
                         require("sl_Drone").openDroneVideo(result);
                     })
                 }

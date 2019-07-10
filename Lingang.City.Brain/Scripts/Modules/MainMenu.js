@@ -23,8 +23,24 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
                 });
             });
 
-            
-
+            //关闭系统按钮
+            $("#header_timetemp button").each(function (index) {
+                $(this).click(function () {//点击触发事件
+                    require("mainJsLoad").commonConfirm();
+                    //vex.dialog.confirm({
+                    //    message: '是否关闭系统！',
+                    //    callback: function(value){
+                    //        if(value){
+                    //            window.open('', '_self', ''); window.close();
+                    //        }
+                    //        else{
+                    //            return null;
+                    //        }
+                    //    },
+                    //    className: 'vex-theme-default'
+                    //});
+                });
+            });
 
             //默认加载社区综治底部菜单
             s_Home.loadMain();
@@ -49,6 +65,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
 			//关闭社综居中放大的事件列表
             require('s_Echart').closeCenterEventList();
             require('t_Echart').closeCenterEventList();
+            require('s_Echart').closeCenterCarIdentify();
 
         	//加载div数据
             switch (menuname) {
@@ -218,6 +235,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             require('mainMenu').closeBigChartHtml();
         	//关闭社综居中放大的事件列表
             require('s_Echart').closeCenterEventList();
+            require('s_Echart').closeCenterCarIdentify();
 
             var menuname = $("li").eq(index).text();
             $("li").removeClass("active");//删除当前元素的样式

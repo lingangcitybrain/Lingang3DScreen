@@ -53,6 +53,8 @@
         loadEventDetial: function (nodeName) {
             /*******************选中POI-start*******************/
             var areaName = con.AreaName;
+            //POI放在中间
+            Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
                 var layername = this.LastPOI_Clk.split('_')[0].replace("POITour", "");
                 var level = require("tl_Event").LayerType.Level;
