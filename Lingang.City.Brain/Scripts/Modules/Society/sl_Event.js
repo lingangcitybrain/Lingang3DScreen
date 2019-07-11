@@ -294,61 +294,163 @@
         },
         //显示事件图片详情
         loadEventPicDetail: function (id) {
-            var areaName = con.AreaName;
-            var data = require("sl_Event").EventList.get(id);
-            //加载页面内容
-            var url = con.HtmlUrl + 'SocietyNew/Bottom_EventDetailPic.html';
-            require(['text!' + url], function (template) {
-                $("#detail_02").html(template);
-                $("#detail_02").show('slide', {
-                    direction: 'left'
-                }, 500);
-                //$(".poiinfo").css("left", "32%");
-                //$(".poiinfo").css("top", "19%");
-                $(".poiinfo").css("left", "50%");
-                $(".poiinfo").css("top", "50%");
+        	var areaName = con.AreaName;
+        	var data = require("sl_Event").EventList.get(id);
+        	//加载页面内容
+        	var url = con.HtmlUrl + 'SocietyNew/Bottom_EventDetailPic.html';
+        	require(['text!' + url], function (template) {
+        		$("#detail_02").html(template);
+        		$("#detail_02").show('slide', {
+        			direction: 'left'
+        		}, 500);
+        		$(".poiinfo").css("left", "50%");
+        		$(".poiinfo").css("top", "50%");
 
-                $("#div_eventdetail").hide()
-                $("#div_eventdetail").show('drop', 1000);
+        		$("#div_eventdetail").hide()
+        		$("#div_eventdetail").show('drop', 1000);
 
-                $("#eventhead").html(data.eventName);
-                var html = '';
-                //图片不为空 显示图片
-                if (data.imageUrl || data.imageUrl != "") {
-                    $("#div_eventdetail").css({ width : '16rem' });
-                    html += '<div class="box-leftpic fl" style="width: 6rem; text-align: center;">' +
-                                '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
-                            '</div><div class="box-rightinfo fl scrolldiv" style="width: calc(100% - 6.5rem); line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden;">';
-                } else {
-                    $("#div_eventdetail").css({ width: 'auto !important' }); 
-                    //$("#eventdetail").css({ padding: '.3rem .8rem' });
-                    html += '<div class="box-rightinfo fl scrolldiv" style="width: calc(100%); margin-left:0; line-height: 0.7rem; height:auto; max-height:6rem; font-size: 0.35rem; margin-top: 0.2rem; overflow:hidden; ">'
-               }
+        		$("#eventhead").html(data.eventName);
+        		var html = '';
 
-                //console.log(data.communityId);
-                html += '<ul>' +
-                     '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-                        '<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-                        '<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-                        '<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-                         '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-                        '<li><em>小区名称：</em><span>' +data.regionName + '</span></li>' +
-                        '<li><em>事件描述：</em><span>' +data.eventDes + '</span></li>' +
-                    '</ul>';
 
-                //海岸线，街面，工地 显示历史无人机
-                if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001")
-                {
-                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
-                }
-                html += '</div>';
-                $("#eventdetail").html(html);
-                $('.box-rightinfo.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
-            });
-                require("sl_Event").loadPaidan(id);//加载派单页面
-            })
+        		//图片不为空 显示图片
+        		if (data.imageUrl || data.imageUrl != "") {
+        			$("#div_eventdetail").addClass("poiinfo poiinfo1");
+        			html += '<div class="box-top">' +
+								'<span id="eventhead">事件005</span>' +
+								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
+							'</div>'+
+        					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
+								'<div class="box-leftpic">' +
+									'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
+								'</div>' +
+								'<div class="box-rightinfo scrolldiv flex">' +
+									'<ul style="flex-grow:1;">' +
+										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+									'</ul>' +
+									'<ul style="margin-left:.5rem; flex-grow:1;">' +
+										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+									'</ul>' +
+								'</div>' +
+        					'</div>';
+
+        		} else {
+        			$("#div_eventdetail").addClass("poiinfo poiinfo3");
+        			html += '<div class="box-top">' +
+								'<span id="eventhead">事件005</span>' +
+								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
+							'</div>' +
+        					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
+								'<div class="box-rightinfo scrolldiv flex" style="width:100%;">' +
+									'<ul style="flex-grow:1;">' +
+										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+									'</ul>' +
+									'<ul style="margin-left:.5rem; flex-grow:1;">' +
+										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+									'</ul>' +
+								'</div>' +
+        					'</div>';
+        		}
+
+        		//海岸线，街面，工地 显示历史无人机
+        		if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
+        			//html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
+        		}
+        		$("#div_eventdetail").html(html);
+
+        		$('.box-rightinfo.scrolldiv').perfectScrollbar({
+        			cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
+        		});
+        		require("sl_Event").loadPaidan(id);//加载派单页面
+        	})
         },
-        //显示事件视频详情
+
+        //loadEventPicDetail: function (id) {
+        //	var areaName = con.AreaName;
+        //	var data = require("sl_Event").EventList.get(id);
+        //	//加载页面内容
+        //	var url = con.HtmlUrl + 'SocietyNew/Bottom_EventDetailPic.html';
+        //	require(['text!' + url], function (template) {
+        //		$("#detail_02").html(template);
+        //		$("#detail_02").show('slide', {
+        //			direction: 'left'
+        //		}, 500);
+        //		$(".poiinfo").css("left", "50%");
+        //		$(".poiinfo").css("top", "50%");
+
+        //		$("#div_eventdetail").hide()
+        //		$("#div_eventdetail").show('drop', 1000);
+
+        //		$("#eventhead").html(data.eventName);
+        //		var html = '';
+
+
+        //		//图片不为空 显示图片
+        //		if (data.imageUrl || data.imageUrl != "") {
+        //			//$("#div_eventdetail").css({ width : '16rem' });
+        //			html += '<div class="box-leftpic" style="width: 6rem; height:100%; text-align: center;">' +
+        //                        '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
+        //                    '</div>' +
+		//					'<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden;">' +
+		//						'<ul>' +
+		//							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+		//							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+		//							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+		//							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+		//							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+		//							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+		//							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+		//						'</ul>';
+        //		} else {
+        //			html += '<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden; ">' +
+		//						'<ul>' +
+		//							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+		//							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+		//							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+		//							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+		//							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+		//							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+		//							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+		//						'</ul>';
+        //		}
+
+        //		//海岸线，街面，工地 显示历史无人机
+        //		if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
+        //		}
+        //		html += '</div>';
+        //		$("#eventdetail").html(html);
+        //		$('.box-rightinfo.scrolldiv').perfectScrollbar({
+        //			cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
+        //		});
+        //		require("sl_Event").loadPaidan(id);//加载派单页面
+        //	})
+        //},
+
+
+
+    	//显示事件视频详情
         loadEventVedioDetail: function (id) {
             var areaName = con.AreaName;
             var data = require("sl_Event").EventList.get(id);
