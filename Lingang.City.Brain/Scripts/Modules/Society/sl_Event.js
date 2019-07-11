@@ -20,6 +20,10 @@
         danao_coordinatestr: null,//城市大脑的坐标
         timeCountList: [],//POI计时器集合
         eventTimer: null,
+        paidanTimerout: null,
+        paidan2Timerout: null,
+        eventProcessTimerout: null,//事件处置流程
+
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -268,12 +272,13 @@
 
                 //});
                 //将POI定位到屏幕中间
-                Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
+                //Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
                 if (data.videoUrl != null && data.videoUrl != "")//视频不为空 优先显示视频格式
                 {
                     require("sl_Event").loadEventVedioDetail(id);
                 }
                 else {//显示图片格式
+                    //console.log(id);
                     require("sl_Event").loadEventPicDetail(id);
                     require("sl_Event").LoopPlayback(id);
                 }
@@ -282,21 +287,51 @@
         //循环播放事件-派单
         LoopPlayback: function (id) {
             require("sl_Event").eventTimer = setInterval(function () {
-                require("sl_Event").clearWindowFolowing();//关闭窗口跟随
-                console.log(id);
-                //清除发光动线连线
-                if (map.getSceneNode(con.AreaName, "shijian_" + id)) {
-                    console.log(con.AreaName + "/shijian_" + id);
-                    map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
-                }
-                if (map.getSceneNode(con.AreaName, "paidan_line")) {
-                    map.getArea(con.AreaName).destroySceneNode("paidan_line");
-                }
-                $("#detail_02").html("");
-                $("#detail_03").html("");//页面清空
-                setTimeout(require("sl_Event").loadEventPicDetail(id), 5 * 1000);//延迟5000毫米
-
+                require("sl_Event").closeLoopPlay(id);
+                require("sl_Event").eventProcessTimerout = setTimeout(
+                    require("sl_Event").loadEventPicDetail(id)
+                    , 5000);//延迟5000毫米
             }, 10000);
+        },
+        closeLoopPlay: function (id) {
+            //var id = 14204;
+            //var areaname="gwh_xilou";
+            var areaname = con.AreaName;
+            require("sl_Event").clearWindowFolowing();//关闭窗口跟随
+            //延后执行事件连线
+            if (require("sl_Event").eventProcessTimerout != null) {
+                clearTimeout(require("sl_Event").eventProcessTimerout);
+                require("sl_Event").eventProcessTimerout = null;
+            }
+            //延后执行事件连线
+            if (require("sl_Event").paidanTimerout != null) {
+                clearTimeout(require("sl_Event").paidanTimerout);
+                require("sl_Event").paidanTimerout = null;
+            }
+            //延后执行派单连线
+            if (require("sl_Event").paidan2Timerout != null) {
+                clearTimeout(require("sl_Event").paidan2Timerout);
+                require("sl_Event").paidan2Timerout = null;
+            }
+            var carlinname = "lineEventPartCar";
+            var carLineNode = map.getSceneNode(areaname, carlinname);
+            if (carLineNode) {
+                map.destroySceneNode(areaname, carlinname);
+            }
+
+            //清除发光动线连线
+            if (map.getSceneNode(areaname, "shijian_" + id)) {
+                map.getArea(areaname).destroySceneNode("shijian_" + id);
+            }
+            if (map.getSceneNode(areaname, "paidan_line")) {
+                map.getArea(areaname).destroySceneNode("paidan_line");
+            }
+            //派单POI
+            if (map.getSceneNode(areaname, "paidan_poi")) {
+                map.getArea(areaname).destroySceneNode("paidan_poi");
+            }
+            $("#detail_02").html("");
+            $("#detail_03").html("");//页面清空
         },
         //显示事件图片详情
         loadEventPicDetail: function (id) {
@@ -428,7 +463,7 @@
                     html += '</div>' +
         					'</div>';
                 }
-
+                
                 //海岸线，街面，工地 显示历史无人机
                 if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
                     //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
@@ -438,73 +473,15 @@
                 $('.box-rightinfo.scrolldiv').perfectScrollbar({
                     cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
                 });
-                require("sl_Event").loadPaidan(id);//加载派单页面
+                require("sl_Event").paidanTimerout = setTimeout(function () {
+
+                    if (data.eventDes.indexOf("渣土车") > -1 || data.eventDes.indexOf("黑车") > -1) {
+                        require("sl_Event").loadPartCarTravel();//加载轨迹线
+                    }
+                    require("sl_Event").loadPaidan(id);//加载派单页面
+                }, 1000);
             })
         },
-
-        //loadEventPicDetail: function (id) {
-        //	var areaName = con.AreaName;
-        //	var data = require("sl_Event").EventList.get(id);
-        //	//加载页面内容
-        //	var url = con.HtmlUrl + 'SocietyNew/Bottom_EventDetailPic.html';
-        //	require(['text!' + url], function (template) {
-        //		$("#detail_02").html(template);
-        //		$("#detail_02").show('slide', {
-        //			direction: 'left'
-        //		}, 500);
-        //		$(".poiinfo").css("left", "50%");
-        //		$(".poiinfo").css("top", "50%");
-
-        //		$("#div_eventdetail").hide()
-        //		$("#div_eventdetail").show('drop', 1000);
-
-        //		$("#eventhead").html(data.eventName);
-        //		var html = '';
-
-
-        //		//图片不为空 显示图片
-        //		if (data.imageUrl || data.imageUrl != "") {
-        //			//$("#div_eventdetail").css({ width : '16rem' });
-        //			html += '<div class="box-leftpic" style="width: 6rem; height:100%; text-align: center;">' +
-        //                        '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
-        //                    '</div>' +
-        //					'<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden;">' +
-        //						'<ul>' +
-        //							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-        //							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-        //							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-        //							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-        //							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-        //							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
-        //							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-        //						'</ul>';
-        //		} else {
-        //			html += '<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden; ">' +
-        //						'<ul>' +
-        //							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-        //							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-        //							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-        //							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-        //							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-        //							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
-        //							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-        //						'</ul>';
-        //		}
-
-        //		//海岸线，街面，工地 显示历史无人机
-        //		if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
-        //		}
-        //		html += '</div>';
-        //		$("#eventdetail").html(html);
-        //		$('.box-rightinfo.scrolldiv').perfectScrollbar({
-        //			cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
-        //		});
-        //		require("sl_Event").loadPaidan(id);//加载派单页面
-        //	})
-        //},
-
-
-
         //显示事件视频详情
         loadEventVedioDetail: function (id) {
             var areaName = con.AreaName;
@@ -549,8 +526,9 @@
                 });
 
                 require("sl_Event").loadVedio(id);//加载视频
-
-                require("sl_Event").loadPaidan(id);//加载派单页面
+                require("sl_Event").paidanTimerout = setTimeout(function () {
+                    require("sl_Event").loadPaidan(id);//加载派单页面
+                }, 500);
             })
         },
         //显示视频
@@ -682,7 +660,7 @@
 
             //派单员是否有值
             if (data.dealPerson != null && data.dealPerson != "") {
-                setTimeout(function () {
+                require("sl_Event").paidan2Timerout=setTimeout(function () {
                     var inspectordetail = require("sl_Event").InspectorList.get(data.dealPerson);//通过巡查员查找巡查员坐标
                     if (inspectordetail != null) {
 
@@ -729,12 +707,12 @@
                                             '<li><span>接单员：</span><em>' + inspectordata.name + '</em></li>' +
                                             '<li><span>性别：</span><em>男</em></li>' +
                                             '<li><span>联系电话：</span><em>' + inspectordata.phone + '</em></li>' +
-                                       ' </ul>' +
+                                        ' </ul>' +
                                     '</div>' +
                                     '<ul class="sqzz-sjjd-list2">' +
                                         '<li><span>响应时间：</span><em>' + require("common").formatDate2(data.updateTime) + '</em></li>' +
-                                       ' <li><span>状态：</span><em>' + data.statusName + '</em></li>' +
-                                       //' <li><span>社区：</span><em>' + inspectordata.belongCommunities + '</em></li>' +
+                                        ' <li><span>状态：</span><em>' + data.statusName + '</em></li>' +
+                                        //' <li><span>社区：</span><em>' + inspectordata.belongCommunities + '</em></li>' +
                                         '</ul>';
                             $("#ul_paidan").html(html);
                             $("#paidandetail").hide()
@@ -750,9 +728,53 @@
                             });
                         })
                     }
-                }, 1000);
+                }, 500);
             }
 
+        },
+        //加载渣土车/黑车轨迹
+        loadPartCarTravel: function () {
+            var points = s_layerMenuData.eventbuildlinePoints;
+            var linePoints = new Array()
+            var AreaName = con.AreaName;
+
+            //画连接线
+            for (var i = 0; i < points.length; i++) {
+                var coordinate = points[i]
+                var lng = parseFloat(coordinate.split(",")[0])
+                var lat = parseFloat(coordinate.split(",")[1])
+                var hgt = 0
+                var position = Q3D.globalVec3d(lng, lat, hgt).toGlobalPos();
+
+                var point = Q3D.vector3(Q3D.globalVec3d(lng, lat, hgt).toLocalPos(AreaName))
+                linePoints.push(point)
+            }
+
+            var linname = "lineEventPartCar"
+            var nodePath = AreaName + "/" + linname;
+
+            var createOptions = {
+                Material: "Material/linered.mtr",
+                SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                LinePoints: [linePoints], //一维数组,由Vector3坐标组成
+                OffsetDist: [],//偏移距离，单位米，用于贝塞尔曲线的控制点计算
+                LineOptions: {
+                    Subdivision: 20, //设置生成曲线细分程度
+                    LineWidth: 2,
+                    WrapLen: 2,
+                    //以下用于动态创建的材质
+                    Color: Q3D.colourValue("#FF8C00", 1), //线的颜色
+                    Alpha: 1, //线的透明度
+                },
+                OnLineCreated: null
+            }
+
+            var linenode = map.getSceneNode(AreaName, linname)
+            if (linenode) {
+                map.destroySceneNode(AreaName, linname);
+            } else {
+                map.createPolyLine(nodePath, createOptions);
+            }
         },
         nodeFolowing: function (node, v2i) {
             require("sl_Event").nodeFollowingPath.forEach(function (e) {
@@ -801,8 +823,25 @@
         },
         //关闭事件详情
         closeDetail: function () {
+            //循环播放处置流程
             if (require("sl_Event").eventTimer != null) {
                 clearInterval(require("sl_Event").eventTimer);
+                require("sl_Event").eventTimer = null;
+            }
+            //延后执行事件连线
+            if (require("sl_Event").eventProcessTimerout != null) {
+                clearTimeout(require("sl_Event").eventProcessTimerout);
+                require("sl_Event").eventProcessTimerout = null;
+            }
+            //延后执行事件连线
+            if (require("sl_Event").paidanTimerout != null) {
+                clearTimeout(require("sl_Event").paidanTimerout);
+                require("sl_Event").paidanTimerout = null;
+            }
+            //延后执行派单连线
+            if (require("sl_Event").paidan2Timerout != null) {
+                clearTimeout(require("sl_Event").paidan2Timerout);
+                require("sl_Event").paidan2Timerout = null;
             }
             require("sl_Event").clearWindowFolowing();
             //清空派单
@@ -830,6 +869,13 @@
                     this.LastPOI_Clk = null;
                     //map.clearPOIJump();
                 }
+            }
+
+            var carlinname = "lineEventPartCar";
+            var AreaName = con.AreaName;
+            var carLineNode = map.getSceneNode(con.AreaName, carlinname);
+            if (carLineNode) {
+                map.destroySceneNode(AreaName, carlinname);
             }
 
         },
