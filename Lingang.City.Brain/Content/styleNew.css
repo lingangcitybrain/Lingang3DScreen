@@ -1159,7 +1159,6 @@ dd.pjc-statistic-star >form{
 	position: absolute;
     top:0;
     left:0;
-	height:6.7rem;
 	padding: .08rem .12rem .14rem .04rem;
 	background: 
 	   linear-gradient(to right, transparent 50%, rgba(13,196,223,.8) 50%, rgba(13,196,223,.8) 55%, transparent 55% ),
@@ -1175,9 +1174,9 @@ dd.pjc-statistic-star >form{
 	box-sizing: border-box;
 	transition:.5s all ease;
 }
-.poiinfo1{ width: 26rem;}
-.poiinfo2{ width: 17rem;}
-.poiinfo3{ min-width: 15rem;}
+.poiinfo1{ width: 26rem; height:6.7rem;}
+.poiinfo2{ width: 17rem; height:6.7rem;}
+.poiinfo3{ min-width: 15rem; height:6.7rem;}
 
 .box-top{
 	position: relative;
@@ -1209,7 +1208,6 @@ dd.pjc-statistic-star >form{
 	height:100%;
 }
 .box-rightinfo{
-	width:calc(100% - 6.5rem);
 	height:100%;
 	margin-left: .5rem;
 	font-size: .35rem;

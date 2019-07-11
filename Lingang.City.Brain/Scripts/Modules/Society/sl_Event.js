@@ -324,7 +324,7 @@
 								'<div class="box-leftpic">' +
 									'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
 								'</div>' +
-								'<div class="box-rightinfo scrolldiv flex">' +
+								'<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
 									'<ul style="flex-grow:1;">' +
 										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +

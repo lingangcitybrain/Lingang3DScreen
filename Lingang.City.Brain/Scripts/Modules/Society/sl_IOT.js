@@ -107,19 +107,17 @@
                 var belongStreet = data.belongStreet == null ? "暂无数据" : data.belongStreet;
                 var installationTime=data.installationTime==null?"暂无数据":data.installationTime;
 
-                var html = '<div class="boxcont flex">'+
-                '<div class="box-rightinfo fl" style="margin-top:.2rem; font-size:.35rem; line-height:.7rem; margin-left:0;">' +
-                    '<ul>' +
-                     '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
-                      '<li><span>当前状态：</span><em>暂无数据</em></li>' +
-                     '<li><span>所属品牌：</span><em>' + sensorBrand + '</em></li>' +
-                        '<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
-                        '<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
-                        '<li><span>所属街道：</span><em>' + belongStreet + '</em></li>' +
-                        '<li><span>安装时间：</span><em>' + installationTime + '</em></li>' +
-                    '</ul>' +
-                '</div></div>';
-
+                var html = '<div class="box-rightinfo fl" style="font-size:.35rem; line-height:.7rem; margin-left:0;">' +
+								'<ul>' +
+								 '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
+								  '<li><span>当前状态：</span><em>暂无数据</em></li>' +
+								 '<li><span>所属品牌：</span><em>' + sensorBrand + '</em></li>' +
+									'<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
+									'<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
+									'<li><span>所属街道：</span><em>' + belongStreet + '</em></li>' +
+									'<li><span>安装时间：</span><em>' + installationTime + '</em></li>' +
+								'</ul>' +
+							'</div>';
                 $("#iotdetail").html(html);
             })
 
