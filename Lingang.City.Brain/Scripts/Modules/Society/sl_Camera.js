@@ -1,4 +1,4 @@
-﻿define(["config", "common", "util", "s_layerMenuData", "s_LayerMenuAjax", "video"], function (con, com, util,s_layerMenuData, s_LayerMenuAjax, video) {
+﻿define(["config", "common", "util", "s_layerMenuData", "s_LayerMenuAjax", "video"], function (con, com, util, s_layerMenuData, s_LayerMenuAjax, video) {
     /**************************************摄像头**************************************/
     return {
         LayerType: null,//选择摄像头
@@ -14,9 +14,9 @@
 
             this.Revert();
             this.LayerType = require("s_Main").LayerCatalog.Camera;
-             com.LayerFlyto(11)
+            com.LayerFlyto(11)
 
-            var post_data = {"communityId": "s012"}
+            var post_data = { "communityId": "s012" }
 
             require("s_LayerMenuAjax").getCameraList(post_data, function (result) {
 
@@ -38,7 +38,7 @@
                         node.setVisible(1);//显示当前父节点
                     } else {
                         pois.push(poi);
-                    }     
+                    }
                 }
                 com.InitPois(areaName, pois);
             })
@@ -118,9 +118,10 @@
                     require("sl_Camera").nodeFollowingPath = nodePath;
                     map.enableNodeFollowing(nodePath, function (node, v2i) {
                         if (node.getFullName() == nodePath) {
-                            document.getElementById("s_cameradetail").style.left = v2i.x + "px";
-                            document.getElementById("s_cameradetail").style.top = v2i.y + "px";
-
+                            if (document.getElementById("s_cameradetail") != null) {
+                                document.getElementById("s_cameradetail").style.left = v2i.x + "px";
+                                document.getElementById("s_cameradetail").style.top = v2i.y + "px";
+                            }
                             // 获取指定节点的屏幕坐标
                             //var v2iNode = mapObj._map3d.getWorldManager().getMainCamera(0).absPosToViewport(node.getAbsPos());
 

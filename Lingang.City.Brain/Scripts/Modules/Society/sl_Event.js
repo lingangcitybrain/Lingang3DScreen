@@ -30,95 +30,101 @@
             //获取巡查员数据
             require("sl_Event").loadInspectorList();
             require("sl_Event").clearTimeCount();//计时器清空
+
+            require("sl_Event").loadIOTData();//加载传感器详情数据
             com.LayerFlyto(15, function () { });
-                //大脑转动
-                require("s_Main").DanaoAnimation = setTimeout(function () {
-                    require("sl_Event").loadDanaoAnimation();
-                }, 10000);
+            //大脑转动
+            require("s_Main").DanaoAnimation = setTimeout(function () {
+                require("sl_Event").loadDanaoAnimation();
+            }, 10000);
 
-                var nowdata = require("common").getNowFormatDate();//当前时间
-                var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
-                var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
-                //获取最近7天事件
-                require("s_LayerMenuAjax").getEventList(post_data, function (result) {
+            var nowdata = require("common").getNowFormatDate();//当前时间
+            var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+            var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+            //获取最近7天事件
+            require("s_LayerMenuAjax").getEventList(post_data, function (result) {
 
-                    var areaName = con.AreaName;
-                    var pois = [];
-                    for (var i = 0; i < require("sl_Event").POIData.length; i++) {
-                        var row = require("sl_Event").POIData[i];
-                        require("sl_Event").EventList.put(row.id, row);
-                        if (require("sl_Event").LayerType.List[row.communityId] != null) {
-                            var icon = require("sl_Event").LayerType.List[row.communityId].UnChooseIcon;
-                            var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
-                            var iconSize = Q3D.vector2(53, 43);
-                            //switch (row.communityId) {
-                            //    case "U003"://海岸线
-                            //        iconSize = Q3D.vector2(41, 45);
-                            //        break;
-                            //    case "C001"://工地
-                            //        iconSize = Q3D.vector2(41, 45);
-                            //        break;
-                            //    default:
-                            //}
-                            var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
-                            var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                var areaName = con.AreaName;
+                var pois = [];
+                for (var i = 0; i < require("sl_Event").POIData.length; i++) {
+                    var row = require("sl_Event").POIData[i];
+                    require("sl_Event").EventList.put(row.id, row);
+                    if (require("sl_Event").LayerType.List[row.communityId] != null) {
+                        var icon = require("sl_Event").LayerType.List[row.communityId].UnChooseIcon;
+                        var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
+                        var iconSize = Q3D.vector2(53, 43);
+                        //switch (row.communityId) {
+                        //    case "U003"://海岸线
+                        //        iconSize = Q3D.vector2(41, 45);
+                        //        break;
+                        //    case "C001"://工地
+                        //        iconSize = Q3D.vector2(41, 45);
+                        //        break;
+                        //    default:
+                        //}
+                        var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
+                        var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                            var textname = "";
-                            if (i == 0) {
-                                textname = "00:15:15";
-                            } else if (i == 1) {
-                                textname = "00:05:18";
-                            } else if (i == 2) {
-                                textname = "00:10:16";
-                            }
+                        var textname = "";
+                        if (i == 0) {
+                            textname = "00:15:15";
+                        } else if (i == 1) {
+                            textname = "00:05:18";
+                        } else if (i == 2) {
+                            textname = "00:10:16";
+                        }
 
-                            var poi = {
-                                POIName: poiName, Position: position, Text: textname, Icon: icon, IconSize: iconSize, FontColor: "#00caca"
-                            };
+                        var poi = {
+                            POIName: poiName, Position: position, Text: textname, Icon: icon, IconSize: iconSize, FontColor: "#00caca"
+                        };
 
-                            var node = map.getSceneNode(areaName + "/" + poiName);
+                        var node = map.getSceneNode(areaName + "/" + poiName);
 
-                            if (node) {
-                                node.setVisible(1);
-                            } else {
-                                pois.push(poi);
-                            }
+                        if (node) {
+                            node.setVisible(1);
+                        } else {
+                            pois.push(poi);
+                        }
                     }
+                }
+                com.InitPois(areaName, pois);
+
+                //数据暂未提供，默认前5个 开始POI倒计时
+                for (var i = 0; i < 3; i++) {
+                    var row = require("sl_Event").POIData[i];
+                    if (require("sl_Event").LayerType.List[row.communityId] != null) {
+                        var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
+                        var timeText = "00:10:16";
+                        if (i == 0) {
+                            timeText = "00:15:15";
+                        } else if (i == 1) {
+                            timeText = "00:07:18";
+                        } else if (i == 2) {
+                            timeText = "00:10:16";
+                        }
+
+                        var s = '';
+                        var hour = timeText.split(':')[0];
+                        var min = timeText.split(':')[1];
+                        var sec = timeText.split(':')[2];
+
+                        s = Number(hour * 3600) + Number(min * 60) + Number(sec);
+                        require("sl_Event").setTimeCountDown(poiName, s);
                     }
-                    com.InitPois(areaName, pois);
+                    //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
 
-                        //数据暂未提供，默认前5个 开始POI倒计时
-                        for (var i = 0; i < 3; i++) {
-                            var row = require("sl_Event").POIData[i];
-                            if (require("sl_Event").LayerType.List[row.communityId] != null) {
-                                var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
-                                var timeText = "00:10:16";
-                                if (i == 0) {
-                                    timeText = "00:15:15";
-                                } else if (i == 1) {
-                                    timeText = "00:07:18";
-                                } else if (i == 2) {
-                                    timeText = "00:10:16";
-                                }
+                }
 
-                                var s = '';
-                                var hour = timeText.split(':')[0];
-                                var min = timeText.split(':')[1];
-                                var sec = timeText.split(':')[2];
+                if ($.isFunction(callback))
+                    callback()
+            });
 
-                                s = Number(hour * 3600) + Number(min * 60) + Number(sec);
-                                require("sl_Event").setTimeCountDown(poiName, s);
-                            }
-                                //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
-
-                    }
-
-                    if ($.isFunction(callback))
-                        callback()
-                });
-
-
-           
+        },
+        //事件传感器详情需要的数据
+        loadIOTData: function () {
+            if (require("sl_IOT").IOTList.size() == 0) {
+                require("sl_IOT").getSensorListAjax();//缓存好数据
+            }
         },
         //设置时间倒计时
         setTimeCountDown: function (poiname, times) {
@@ -204,12 +210,12 @@
             //map.getArea(areaName).destroySceneNode(poiname);
 
         },
-        clearTimeCount:function(){
+        clearTimeCount: function () {
             if (require("sl_Event").timeCountList.length > 0) {
                 for (var i = 0; i < require("sl_Event").timeCountList.length; i++) {
                     clearInterval(require("sl_Event").timeCountList[i]);
                 }
-                require("sl_Event").timeCountList=[];
+                require("sl_Event").timeCountList = [];
             }
 
         },
@@ -274,13 +280,13 @@
             }
         },
         //循环播放事件-派单
-        LoopPlayback:function(id){
+        LoopPlayback: function (id) {
             require("sl_Event").eventTimer = setInterval(function () {
                 require("sl_Event").clearWindowFolowing();//关闭窗口跟随
                 console.log(id);
                 //清除发光动线连线
                 if (map.getSceneNode(con.AreaName, "shijian_" + id)) {
-                    console.log(con.AreaName+"/shijian_" + id);
+                    console.log(con.AreaName + "/shijian_" + id);
                     map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
                 }
                 if (map.getSceneNode(con.AreaName, "paidan_line")) {
@@ -289,37 +295,39 @@
                 $("#detail_02").html("");
                 $("#detail_03").html("");//页面清空
                 setTimeout(require("sl_Event").loadEventPicDetail(id), 5 * 1000);//延迟5000毫米
-               
+
             }, 10000);
         },
         //显示事件图片详情
         loadEventPicDetail: function (id) {
-        	var areaName = con.AreaName;
-        	var data = require("sl_Event").EventList.get(id);
-        	//加载页面内容
-        	var url = con.HtmlUrl + 'SocietyNew/Bottom_EventDetailPic.html';
-        	require(['text!' + url], function (template) {
-        		$("#detail_02").html(template);
-        		$("#detail_02").show('slide', {
-        			direction: 'left'
-        		}, 500);
-        		$(".poiinfo").css("left", "50%");
-        		$(".poiinfo").css("top", "50%");
+            var areaName = con.AreaName;
+            var data = require("sl_Event").EventList.get(id);
+            //加载页面内容
+            var url = con.HtmlUrl + 'SocietyNew/Bottom_EventDetailPic.html';
+            require(['text!' + url], function (template) {
+                $("#detail_02").html(template);
+                $("#detail_02").show('slide', {
+                    direction: 'left'
+                }, 500);
+                $(".poiinfo").css("left", "50%");
+                $(".poiinfo").css("top", "50%");
 
-        		$("#div_eventdetail").hide()
-        		$("#div_eventdetail").show('drop', 1000);
+                $("#div_eventdetail").hide()
+                $("#div_eventdetail").show('drop', 1000);
 
-        		$("#eventhead").html(data.eventName);
-        		var html = '';
+                $("#eventhead").html(data.eventName);
+                var html = '';
 
 
-        		//图片不为空 显示图片
-        		if (data.imageUrl || data.imageUrl != "") {
-        			$("#div_eventdetail").addClass("poiinfo poiinfo1");
-        			html += '<div class="box-top">' +
+                //图片不为空 显示图片
+                if (data.imageUrl || data.imageUrl != "") {
+                    $("#div_eventdetail").addClass("poiinfo poiinfo1");
+
+
+                    html += '<div class="box-top">' +
 								'<span id="eventhead">事件005</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
-							'</div>'+
+							'</div>' +
         					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
 								'<div class="box-leftpic">' +
 									'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
@@ -333,21 +341,45 @@
 										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
 										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-									'</ul>' +
-									'<ul style="margin-left:.5rem; flex-grow:1;">' +
-										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
-									'</ul>' +
-								'</div>' +
+									'</ul>';
+                    //社区事件的话，有传感器ID显示传感器详情
+                    if (data.communityId = "S012") {
+                        var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
+                        if (iotdata != null) {
+                            var status = "暂无数据";
+                            if (iotdata.status == 0) {
+                                status = "正常";
+                            }
+                            else if (iotdata.status == 0) {
+                                status = "失联";
+                            }
+                            else {
+                                status = "告警";
+                            }
+                            var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
+                            var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
+                            var belongRegion = iotdata.belongRegion == null ? "暂无数据" : iotdata.belongRegion;
+                            var belongStreet = iotdata.belongStreet == null ? "暂无数据" : iotdata.belongStreet;
+                            var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
+
+                            html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
+                                            '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
+                                            '<li><em>当前状态：</em><span>' + status + '</span></li>' +
+                                            '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
+                                            '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+                                             '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
+                                            '<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
+                                             '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
+                                        '</ul>';
+                        }
+                    }
+
+                    html += '</div>' +
         					'</div>';
 
-        		} else {
-        			$("#div_eventdetail").addClass("poiinfo poiinfo3");
-        			html += '<div class="box-top">' +
+                } else {
+                    $("#div_eventdetail").addClass("poiinfo poiinfo3");
+                    html += '<div class="box-top">' +
 								'<span id="eventhead">事件005</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
@@ -361,30 +393,53 @@
 										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
 										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-									'</ul>' +
-									'<ul style="margin-left:.5rem; flex-grow:1;">' +
-										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
-									'</ul>' +
-								'</div>' +
+									'</ul>';
+                    //社区事件的话，有传感器ID显示传感器详情
+                    if (data.communityId = "S012") {
+                        var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
+                        if (iotdata != null) {
+                            var status = "暂无数据";
+                            if (iotdata.status == 0) {
+                                status = "正常";
+                            }
+                            else if (iotdata.status == 0) {
+                                status = "失联";
+                            }
+                            else {
+                                status = "告警";
+                            }
+                            var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
+                            var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
+                            var belongRegion = iotdata.belongRegion == null ? "暂无数据" : iotdata.belongRegion;
+                            var belongStreet = iotdata.belongStreet == null ? "暂无数据" : iotdata.belongStreet;
+                            var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
+
+                            html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
+                                            '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
+                                            '<li><em>当前状态：</em><span>' + status + '</span></li>' +
+                                            '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
+                                            '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+                                             '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
+                                            '<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
+                                             '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
+                                        '</ul>';
+                        }
+                    }
+                    html += '</div>' +
         					'</div>';
-        		}
+                }
 
-        		//海岸线，街面，工地 显示历史无人机
-        		if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
-        			//html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
-        		}
-        		$("#div_eventdetail").html(html);
+                //海岸线，街面，工地 显示历史无人机
+                if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
+                    //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
+                }
+                $("#div_eventdetail").html(html);
 
-        		$('.box-rightinfo.scrolldiv').perfectScrollbar({
-        			cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
-        		});
-        		require("sl_Event").loadPaidan(id);//加载派单页面
-        	})
+                $('.box-rightinfo.scrolldiv').perfectScrollbar({
+                    cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)",
+                });
+                require("sl_Event").loadPaidan(id);//加载派单页面
+            })
         },
 
         //loadEventPicDetail: function (id) {
@@ -413,27 +468,27 @@
         //			html += '<div class="box-leftpic" style="width: 6rem; height:100%; text-align: center;">' +
         //                        '<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
         //                    '</div>' +
-		//					'<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden;">' +
-		//						'<ul>' +
-		//							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-		//							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-		//							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-		//							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-		//							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-		//							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
-		//							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-		//						'</ul>';
+        //					'<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden;">' +
+        //						'<ul>' +
+        //							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+        //							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+        //							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+        //							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+        //							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+        //							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+        //							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+        //						'</ul>';
         //		} else {
         //			html += '<div class="box-rightinfo scrolldiv" style="width: 9.5rem; line-height: 0.7rem; height:100%; max-height:6rem; font-size: 0.35rem; overflow:hidden; ">' +
-		//						'<ul>' +
-		//							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-		//							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-		//							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-		//							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-		//							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-		//							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
-		//							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-		//						'</ul>';
+        //						'<ul>' +
+        //							'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+        //							'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+        //							'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+        //							'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+        //							 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+        //							'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+        //							'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+        //						'</ul>';
         //		}
 
         //		//海岸线，街面，工地 显示历史无人机
@@ -450,7 +505,7 @@
 
 
 
-    	//显示事件视频详情
+        //显示事件视频详情
         loadEventVedioDetail: function (id) {
             var areaName = con.AreaName;
             var data = require("sl_Event").EventList.get(id);
@@ -476,8 +531,7 @@
                     '<li><div><img src="Content/images/sqzz-poi-icon2.png">事件描述：</div><span>' + data.eventDes + '</span></li>';
                 html += '</ul>';
                 //海岸线，街面，工地 显示历史无人机
-                if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001")
-                {
+                if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
                     //html += '<button type="button"onclick="require(&#39;sl_Event&#39;).loadDrone()" style="width:100%; height:.5rem; border-radius:.05rem; background: #1a8fef; font-size:.4rem; color:#eee;">查看无人机</button></div></div>';
                 }
                 $("#ul_eventdetail").html(html);
@@ -604,7 +658,7 @@
         loadPaidan: function (id) {
             var areaName = con.AreaName;
             var data = require("sl_Event").EventList.get(id);
-            
+
 
             //画事件到大脑的连接
             var option = {
@@ -617,7 +671,7 @@
                 MaterialName: "Material/aaaa.mtr",
             }
             //城市大脑坐标
-            if (require("sl_Event").danao_coordinatestr==null) {
+            if (require("sl_Event").danao_coordinatestr == null) {
                 var danao_absPos = Q3D.vector3d(map.getSceneNode("danao/danao_zhdn").getAbsPos());
                 var danao_coordinate = require("common").planeToCoordinate(danao_absPos.x + "," + danao_absPos.y + "," + danao_absPos.z);//获取大脑经纬度坐标
                 require("sl_Event").danao_coordinatestr = danao_coordinate.longitude + "," + danao_coordinate.latitude + "," + danao_coordinate.height;
@@ -631,7 +685,7 @@
                 setTimeout(function () {
                     var inspectordetail = require("sl_Event").InspectorList.get(data.dealPerson);//通过巡查员查找巡查员坐标
                     if (inspectordetail != null) {
-                        
+
                         //画大脑到派单员的连接
                         var option = {
                             AreaName: "gwh_xilou",
@@ -698,13 +752,15 @@
                     }
                 }, 1000);
             }
-            
+
         },
         nodeFolowing: function (node, v2i) {
             require("sl_Event").nodeFollowingPath.forEach(function (e) {
                 if (node.getFullName() == e.nodePath) {
-                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
-                    document.getElementById(e.nodeDom).style.top = v2i.y - 560 + "px";
+                    if (document.getElementById(e.nodeDom) != null) {
+                        document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                        document.getElementById(e.nodeDom).style.top = v2i.y - 560 + "px";
+                    }
                 }
                 //if (node.getFullName().indexOf("paidan_poi") > -1) {//派单
                 //    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
@@ -737,8 +793,7 @@
                     //map.clearPOIJump();
                     map.getArea(areaName).destroySceneNode("paidan_poi");
                 }
-                if (require("sl_Event").nodeFollowingPath.length == 2)
-                {
+                if (require("sl_Event").nodeFollowingPath.length == 2) {
                     require("sl_Event").nodeFollowingPath.pop();//删除派单窗口跟随
                 }
                 $("#detail_03").html("");//页面清空
@@ -752,7 +807,7 @@
             require("sl_Event").clearWindowFolowing();
             //清空派单
             require("sl_Event").closeEventPaidan();
-            
+
             //$("#left_02").html("");
             $("#detail_02").empty();
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
@@ -762,7 +817,7 @@
                 if (map.getSceneNode(con.AreaName, "shijian_" + id)) {
                     map.getArea(con.AreaName).destroySceneNode("shijian_" + id);
                 }
-               
+
                 if (map.getSceneNode(con.AreaName, "paidan_line")) {
                     map.getArea(con.AreaName).destroySceneNode("paidan_line");
                 }
@@ -813,7 +868,7 @@
 
             map.createPOI(fullNodePath, createOptions);
         },
-       
+
         //大脑自传动画
         loadDanaoAnimation: function () {
 
@@ -887,8 +942,7 @@
         EventDrone_player: null,//无人机视频
         DroneMovieClip: null,
         //点击查看无人机
-        loadDrone:function()
-        {
+        loadDrone: function () {
             require("sl_Event").loadDroneVideo();//加载视频
             require("sl_Event").loadDroneTrack();//加载轨迹
         },
@@ -1054,7 +1108,7 @@
             }
         },
         //清楚无人机视频
-        clearDroneVideo:function(){
+        clearDroneVideo: function () {
             if (require("sl_Event").EventDrone_player) {
                 require("sl_Event").EventDrone_player.dispose();
                 require("sl_Event").EventDrone_player = null;
@@ -1062,7 +1116,7 @@
             $("#detail_04").html("");
         },
         //关闭无人机视频
-        closeEventDrone:function(){
+        closeEventDrone: function () {
             require("sl_Event").clearDroneVideo();
             require("sl_Event").clearPlane();
         },
@@ -1144,7 +1198,7 @@
             Q3D.globalCamera().flyTo(("396912.5554196743,1369.9429016113281,-3416923.858696332").toVector3d(), ("-50.00032424926758,19.80562400817871,21.98160171508789").toVector3(), 2, null);
             var points = s_layerMenuData.eventbuildlinePoints;
             var linePoints = new Array()
-            var AreaName = con.AreaName; 
+            var AreaName = con.AreaName;
 
             //画连接线
             for (var i = 0; i < points.length; i++) {
@@ -1237,11 +1291,11 @@
             });
         },
         loadEventDetail: function (poiName) {
-        $(".sjxx-li").each(function (index, element) {
-                    $(this).click(function () {
-                        $(this).addClass("active").siblings(".sjxx-li").removeClass("active");
-                        })
-                    })
+            $(".sjxx-li").each(function (index, element) {
+                $(this).click(function () {
+                    $(this).addClass("active").siblings(".sjxx-li").removeClass("active");
+                })
+            })
             var layeractive = $("#bottom_menu ul li.active").text();
             switch (layeractive) {
                 case "传感器":
