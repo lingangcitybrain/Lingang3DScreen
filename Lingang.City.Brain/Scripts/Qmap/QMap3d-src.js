@@ -3163,7 +3163,7 @@
                             "classid", "CLSID:DB7C6663-F12F-4BEC-960D-194E6EB3BDAA",
                             "width", "100%", //container.clientWidth.toString(),
                             "height", "100%",
-                            "ZOOM", "1",
+                            "ZOOM", "2",
     
                             "WindowLess", this.options.WINDOWLESS ? "1" : "0" );
                 } else {
@@ -3172,7 +3172,7 @@
                             "type", "application/QMap-activex",
                             "width", "100%", //container.clientWidth.toString(),
                             "height", "100%", //container.clientHeight.toString(),
-                            "ZOOM", "1",
+                            "ZOOM", "2",
                             "WindowLess", this.options.WINDOWLESS ? "1" : "0" ,
                             'event_OnLButtonDown', 'OnLButtonDown',
                             'event_OnLButtonUp', 'OnLButtonUp',
@@ -5550,7 +5550,7 @@
         flyToByClick: function(domName, clickPosV3d, flyTime, fn) {
             var w = document.getElementById(domName).clientWidth;
             var h = document.getElementById(domName).clientHeight;
-            var v2_enter = Q3D.vector2I(w / 2, h / 2);//容器中心的屏幕坐标
+            var v2_enter = Q3D.vector2I(w / 2 /2, h / 2 /2);//容器中心的屏幕坐标
             var v3d_oc = Q3D.vector3d(this._gc.getCrossCoord(v2_enter.get(),-1));//页面中心的交点坐标
             var v3 = Q3D.vector3(this.getOrientation()); //相机角度
             var v3d_cam = Q3D.vector3d(this.getAbsPos());//相机位置
