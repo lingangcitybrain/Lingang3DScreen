@@ -4272,7 +4272,7 @@
         if (!mapObj) {
             throw new Error('无效的引擎对象，引擎对象未初始化！');
         }
-        if (!Q3D.Util.isInteger(x) || !Q3D.Util.isInteger(y)) {
+        if (!Q3D.Util.isNumber(x) || !Q3D.Util.isNumber(y)) {
             throw new Error('无效的QVector2I对象: (' + x + ', ' + y + ')');
         }    
         // @property x: Number
