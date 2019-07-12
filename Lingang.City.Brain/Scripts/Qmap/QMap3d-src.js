@@ -541,7 +541,6 @@
         exitType: {
             SaveAndExit: 1,
             DeleteAndExit: 2,
-            ResetAndExit: 3,
         },
         
         //热力图算法类型枚举
@@ -565,13 +564,6 @@
             OpBlendColor: 1, //源与目标颜色混合
             OpAdd: 3, //源与目标加法合成
             OpModulate: 4, //源与目标乘法合成
-        },
-        
-        //量测拾取模式枚举
-        PickUpType: {
-            Plane: 1, //水平面上拾取
-            Spatial: 2, //空间拾取
-            Surface: 3, //贴地拾取
         },
        
     };
@@ -1841,14 +1833,14 @@
             var typeListeners = mapObj._mouseEvents["OnLButtonUp"];
             if (!typeListeners) return;
             
-            var options = mapObj._processInputParam(wparam, logx, logy, grdx, grdy, grdz);
-            for (var i = 0, len = typeListeners.length; i < len; i++) {
-                if (typeListeners[i].name == mapObj._mouseEventNames["OnLButtonUp"]) {
-                    if (typeListeners[i].enabled)
-                        typeListeners[i].fn(options);
-                    return;
-                }
-            }                
+            //var options = mapObj._processInputParam(wparam, logx, logy, grdx, grdy, grdz);
+            //for (var i = 0, len = typeListeners.length; i < len; i++) {
+            //    if (typeListeners[i].name == mapObj._mouseEventNames["OnLButtonUp"]) {
+            //        if (typeListeners[i].enabled)
+            //            typeListeners[i].fn(options);
+            //        return;
+            //    }
+            //}                
         },
         
         _OnRButtonUpFn:function (wparam, logx, logy, grdx, grdy, grdz) {
@@ -2734,9 +2726,12 @@
                 // @option PRELOAD_GRP: String = null
                 // 预加载资源组文件, 如 ResGroup/holder.rgp
                 PRELOAD_GRP: null,
-                // @option WINDOWLESS: Boolen = false
+                // @option WINDOWLESS: Boolen = true
                 // 是否无窗口控件类型
-                WINDOWLESS: false,            
+                WINDOWLESS: false,
+                ZOOM:2,
+                // 是否触摸屏
+                TOUCH: false,
                 // @option LOADING: Boolen = true
                 // 是否显示加载进度条
                 LOADING: true,
@@ -2815,10 +2810,6 @@
                             //开启资源加载侦听
                             this._map3d.setEngineListener();
                         }
-                        
-                        this.on("onCreateArea", function (area) {
-                            area.loadAllNodes();
-                        });
     
                         //引擎初始化
                         var initStatus = this._map3d.init();                 
@@ -2928,25 +2919,35 @@
                         im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.UP.ctrlId, Q3D.Enums.actionType.TRANS_FORTH);
                         im.bindControlAction(Q3D.Enums.device.KEYBOARD, Q3D.Enums.keyboard.DOWN.ctrlId, Q3D.Enums.actionType.TRANS_BACKX);                    
     
+                        if (this.options.TOUCH) {
+    
+                            //平板绑定
+                            im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
+                            im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+                            im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+                            im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_SCREEN);
+    
+                            //鼠标绑定
+                            //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
+                            //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+                            //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
+                            //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_CENTER);
+                        } else {
+                            //鼠标绑定
+                            im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
+                            im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
+                            im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
+                            im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_SCREEN);
+                        }
                         //鼠标绑定
-                        
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_SCREEN);
-                       
+                        //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
+    
                        /* 用于场景比较复杂的情况
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_UDLRX);
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_CENTER);
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALES_CENTER);
                         */
-    
-                        //平板绑定
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
-                        //im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.CAMERA_CLOSETO);
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_SCREEN);
     
                         /*采用新的监听策略*/
                         if (this.options.LOADING) {
@@ -2980,15 +2981,8 @@
                                 mapObj.off("onAreasFirstLoadProcess");
                                 mapObj.off("onAllAreasFirstLoadCompleted");
                                 mapObj.off("onPreGroupPrepare");
-                                
                                 //开启休眠
                                 mapObj._map3d.setHibernateTime(300);
-                                //开启资源组预加载
-                                if(mapObj.options.PRELOAD_GRP) {
-                                    var _repGroup = mapObj._map3d.getResourceManager().registerGroup(mapObj.options.PRELOAD_GRP);
-                                    _repGroup.load(0);
-                                    _repGroup.loadGroup();
-                                }
                                 
                                 if (Q3D.Util.isFunction(mapObj.options.OnLoadEnd)) {
                                     mapObj.options.OnLoadEnd();
@@ -3174,6 +3168,8 @@
                             "classid", "CLSID:DB7C6663-F12F-4BEC-960D-194E6EB3BDAA",
                             "width", "100%", //container.clientWidth.toString(),
                             "height", "100%",
+                            "ZOOM", "1",
+    
                             "WindowLess", this.options.WINDOWLESS ? "1" : "0" );
                 } else {
                     axhtmlstr = this.AC_AX_RunContent("id", mapDomId,
@@ -3181,6 +3177,7 @@
                             "type", "application/QMap-activex",
                             "width", "100%", //container.clientWidth.toString(),
                             "height", "100%", //container.clientHeight.toString(),
+                            "ZOOM", "1",
                             "WindowLess", this.options.WINDOWLESS ? "1" : "0" ,
                             'event_OnLButtonDown', 'OnLButtonDown',
                             'event_OnLButtonUp', 'OnLButtonUp',
@@ -3790,9 +3787,9 @@
                 return this;
             },
     
-            // @method exitEditMode(exitType: Q3D.Enums.sceneNodeType.exitType, oldSts?: Object): this
-            // 退出节点编辑模式。提供三种退出方式：SaveAndExit - 保存并退出； DeleteAndExit - 删除并退出；ResetAndExit - 复位并退出
-            exitEditMode: function (exitType, oldSts) {
+            // @method exitEditMode(exitType: Q3D.Enums.sceneNodeType.exitType): this
+            // 退出节点编辑模式。提供两种退出方式：SaveAndExit - 保存并退出； DeleteAndExit - 删除并退出
+            exitEditMode: function (exitType) {
                 var editedNodePath = this._editedNodePath;
                 if (!editedNodePath)
                     return null;
@@ -3807,12 +3804,6 @@
                     } else if (exitType == Q3D.Enums.exitType.DeleteAndExit) {
                         var path = editedNodePath.split("/");
                         this.destroySceneNode(path[0], path[1]);
-                    } else if(exitType == Q3D.Enums.exitType.ResetAndExit) {
-                        node.showAux(Q3D.Enums.auxOperateType.Hide, 1);
-                        //还原位置					 
-                        node.setPosition(oldSts.Translate);
-                        node.setOrientation(oldSts.Rotate, 0);
-                        node.setScale(oldSts.Scale);
                     }
                     
                     this._map3d.getInputManager().bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
@@ -7943,7 +7934,7 @@
             
             //确保节点（通常是模型节点）已创建
             var node = this.getSceneNode(nodePath);
-            if (node == null || node.getNodeType() != Q3D.Enums.sceneNodeType.SNODE_Model)
+            if (node == null )  //|| node.getNodeType() != Q3D.Enums.sceneNodeType.SNODE_Model   //20190527 LP  
                 return null;
             
             var path = nodePath.split("/"),
@@ -9337,7 +9328,6 @@
                 IndicatrixWidth: 2,					  							//设置指向线的线宽
                 IndicatrixMatrial: "",			  							    //设置指向线的材质名
                 IndicatrixLocation: 1,			  							    //设置指示线连接位置：0 - center; 1 - nearest corner
-                Draggable: true,												//是否允许拖动
                 OnVideoCtrlClose: null,     									//视频窗口关闭回调事件
             };		
             Q3D.Util.jQueryExtend(true, defaultOptions, options);
@@ -9362,8 +9352,6 @@
                 videoCtrl.attachNode(defaultOptions.AttachNode);
                 hasSpecifiedNodeOrPos = true;
             }
-            if(!defaultOptions.Draggable)
-                videoCtrl.disableDrag();
             
             if(defaultOptions.IsIndicatrixVisible && hasSpecifiedNodeOrPos) {	//当已经指定了连接的节点或位置，并且指示线设为可见
                 videoCtrl.setIndicatrixVisible(1);
@@ -9947,14 +9935,18 @@
             }
             Q3D.extend(DefaultCreateOption, options);
             try {           
-                //创建模型节点
+                
                 var ModelNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_Model); 
-                if (ModelNodeCreated != null) { //节点创建成功                
-                       
+                if (ModelNodeCreated != null) {
+                    
+                    if (DefaultCreateOption.OnLoaded) {
+                        mapObj._map3d.setSceneNodeListener(ModelNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(ModelNodeCreated), DefaultCreateOption.OnLoaded);
+                    }                
+                    ModelNodeCreated.trackAllResource();     
     
                     var ModelAppend = ModelNodeCreated.asModel();
     
-                    //以下设置参数
                     ModelAppend.setMesh(meshName);
                     if (DefaultCreateOption.Position != null) {
                         ModelAppend.setPosition(DefaultCreateOption.Position.get());
@@ -9969,14 +9961,8 @@
                     if (DefaultCreateOption.SkeletonAnimation != null)
                         ModelAppend.setSkeletonAnimation(DefaultCreateOption.SkeletonAnimation);
     
-                    //如果有回调事件
-                    if (DefaultCreateOption.OnLoaded) {
-                        mapObj._map3d.setSceneNodeListener(ModelNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(ModelNodeCreated), DefaultCreateOption.OnLoaded);
-                    }                
-                    ModelNodeCreated.trackAllResource();  
                     
-                    //返回对象
+    
                     return ModelAppend;
                 } 
             } catch (e) {
@@ -10450,8 +10436,14 @@
             try {
                 
                 var ModelNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_POI);              
-                if (ModelNodeCreated != null) {              
-                      
+                if (ModelNodeCreated != null) {
+                    
+                     if (DefaultCreateOption.OnLoaded) {
+                        mapObj._map3d.setSceneNodeListener(ModelNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(ModelNodeCreated), DefaultCreateOption.OnLoaded);
+                    }                
+                    ModelNodeCreated.trackAllResource();     
+    
                     var ModelAppend = ModelNodeCreated.asPOI();
     
                     if (DefaultCreateOption.Position != null) {
@@ -10537,13 +10529,7 @@
                     }
                     if (Q3D.Util.isInteger(DefaultCreateOption.POIOptions.RelPriority)) {
                         ModelAppend.setRelPriority(DefaultCreateOption.POIOptions.RelPriority);
-                    }    
-                    
-                    if (DefaultCreateOption.OnLoaded) {
-                        mapObj._map3d.setSceneNodeListener(ModelNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(ModelNodeCreated), DefaultCreateOption.OnLoaded);
-                    }                
-                    ModelNodeCreated.trackAllResource();   
+                    }               
                     
                     return ModelAppend;
                 } 
@@ -10772,7 +10758,6 @@
                 
                 this._map3d.createCullPlanes(areaName, defaultEditModeOption.VMin.get(), defaultEditModeOption.VMax.get(), 
                     defaultEditModeOption.MeshHeight, defaultEditModeOption.HandlerMesh, defaultEditModeOption.MeshScale.get());
-                this.getSceneNode(areaName, "cullBox").enableQuery(0); //禁止查询
                     
                             
                 this._cullMode = false;
@@ -11381,8 +11366,14 @@
                 }            
                 
                 var nodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_Line);
-                if (nodeCreated != null) {               
-          
+                if (nodeCreated != null) {
+                    
+                    if (defaultCreateOption.OnLineCreated) {
+                        mapObj._map3d.setSceneNodeListener(nodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(nodeCreated), defaultCreateOption.OnLineCreated);
+                    }                
+                    nodeCreated.trackAllResource();    
+                    
                     var polylineAppend = nodeCreated.asLine();
                     polylineAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
                     
@@ -11440,11 +11431,12 @@
                         polylineAppend.centralize();
                     }
                     
-                    if (defaultCreateOption.OnLineCreated) {
-                        mapObj._map3d.setSceneNodeListener(nodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(nodeCreated), defaultCreateOption.OnLineCreated);
-                    }                
-                    nodeCreated.trackAllResource(); 
+                    /*
+                    if (Q3D.Util.isFunction(defaultCreateOption.OnLineCreated)) {
+                        setTimeout(function () {
+                            defaultCreateOption.OnLineCreated(polylineAppend);
+                        }, 100)
+                    }*/
                     
                     return polylineAppend;
                 } else {
@@ -11478,7 +11470,13 @@
                 
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);  
                 if (vecNodeCreated != null) {
-                                    
+                    
+                     if (defaultCreateOption.OnPolygonCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnPolygonCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();    
+                    
                     var vecNodeAppend = vecNodeCreated.asVecModel();               
                     var vecPolygon = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QPolygon).asPolygon();
                     vecNodeAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
@@ -11530,11 +11528,13 @@
                         vecNodeAppend.setMaterial(0,tempMatName);
                     }
                     
-                     if (defaultCreateOption.OnPolygonCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnPolygonCreated);
-                    }                
-                    vecNodeCreated.trackAllResource();  
+                    /*
+                    setTimeout(function () {
+                        if (Q3D.Util.isFunction(defaultCreateOption.OnPolygonCreated)) {
+                            defaultCreateOption.OnPolygonCreated(vecNodeAppend);
+                        }
+                    }, 100)
+                    */
     
                     return vecNodeAppend;
                 }
@@ -11568,7 +11568,13 @@
     
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);
                 if (vecNodeCreated != null) {
-       
+                    
+                    if (defaultCreateOption.OnPrismCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnPrismCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();    
+                    
                     var vecNodeAppend = vecNodeCreated.asVecModel();               
                     var vecPrism = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QPrism).asPrism();
                     vecNodeAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
@@ -11631,12 +11637,13 @@
                         vecNodeAppend.setMaterial(2, tempMatName);
                     }
                     
-                                    
-                    if (defaultCreateOption.OnPrismCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnPrismCreated);
-                    }                
-                    vecNodeCreated.trackAllResource();
+                    /*
+                    setTimeout(function () {
+                        if (Q3D.Util.isFunction(defaultCreateOption.OnPrismCreated)) {
+                            defaultCreateOption.OnPrismCreated(vecNodeAppend);
+                        }
+                    }, 100)
+                    */
     
                     return vecNodeAppend;
                 }
@@ -11669,7 +11676,13 @@
     
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);           
                 if (vecNodeCreated != null) {
-    
+                    
+                    if (defaultCreateOption.OnPipeCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnPipeCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();   
+                    
                     var vecNodeAppend = vecNodeCreated.asVecModel();               
                     var vecPipe = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QPipe).asPipe();     
                     vecNodeAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
@@ -11734,11 +11747,13 @@
                         vecNodeAppend.setMaterial(3, tempMatName);
                     }
                     
-                    if (defaultCreateOption.OnPipeCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnPipeCreated);
-                    }                
-                    vecNodeCreated.trackAllResource();   
+                    /*
+                    setTimeout(function () {
+                        if (Q3D.Util.isFunction(defaultCreateOption.OnPipeCreated)) {
+                            defaultCreateOption.OnPipeCreated(vecNodeAppend);
+                        }
+                    }, 100)
+                    */
     
                     return vecNodeAppend;
                 }
@@ -11776,7 +11791,13 @@
     
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);           
                 if (vecNodeCreated != null) {
-    
+                    
+                    if (defaultCreateOption.OnWallsCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnWallsCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();   
+                    
                     var vecNodeAppend = vecNodeCreated.asVecModel();
                     var vecWalls = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QWalls).asWalls();
                     vecNodeAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
@@ -11870,11 +11891,14 @@
                         }
                     }                
                     
-                     if (defaultCreateOption.OnWallsCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnWallsCreated);
-                    }                
-                    vecNodeCreated.trackAllResource(); 
+                    /*
+                    setTimeout(function () {
+    
+                        if ($.isFunction(defaultCreateOption.OnWallsCreated)) {
+                            defaultCreateOption.OnWallsCreated(vecNodeAppend);
+                        }
+                    }, 100)
+                    */
     
                     return vecNodeAppend;
                 }
@@ -11905,8 +11929,14 @@
             try {
                 
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);               
-                if (vecNodeCreated != null) {              
-    
+                if (vecNodeCreated != null) {
+                    
+                    if (defaultCreateOption.OnCylinderCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnCylinderCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();   
+                    
                     var vecNodeAppend = vecNodeCreated.asVecModel();               
                     var vecCylinder = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QCylinder).asCylinder();    
                     vecNodeAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
@@ -11957,11 +11987,13 @@
                         vecNodeAppend.setMaterial(2, tempMatName);
                     }
                     
-                    if (defaultCreateOption.OnCylinderCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnCylinderCreated);
-                    }                
-                    vecNodeCreated.trackAllResource(); 
+                    /*
+                    setTimeout(function () {
+                        if (Q3D.Util.isFunction(defaultCreateOption.OnCylinderCreated)) {
+                            defaultCreateOption.OnCylinderCreated(vecNodeAppend);
+                        }
+                    }, 100)
+                    */
     
                     return vecNodeAppend;
                 }
@@ -11988,8 +12020,14 @@
             Q3D.Util.jQueryExtend(true, defaultCreateOption, options);
             try {       
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);               
-                if (vecNodeCreated != null) {               
-    
+                if (vecNodeCreated != null) {
+                    
+                    if (defaultCreateOption.OnSphereCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnSphereCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();
+                    
                     var vecNodeAppend = vecNodeCreated.asVecModel();               
                     var vecSphere = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QSphere).asSphere();  
                     vecNodeAppend.setSpecialTransparent(defaultCreateOption.SpecialTransparent ? 1 : 0);
@@ -12018,11 +12056,13 @@
                         vecNodeAppend.setMaterial(0, tempMatName);
                     }
                     
-                    if (defaultCreateOption.OnSphereCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnSphereCreated);
-                    }                
-                    vecNodeCreated.trackAllResource();
+                    /*
+                    setTimeout(function () {
+                        if (Q3D.Util.isFunction(defaultCreateOption.OnSphereCreated)) {
+                            defaultCreateOption.OnSphereCreated(vecNodeAppend);
+                        }
+                    }, 100)
+                    */
     
                     return vecNodeAppend;
                 }
@@ -12054,6 +12094,12 @@
                 
                 var vecNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_VecModel);               
                 if (vecNodeCreated != null) {
+                    
+                    if (defaultCreateOption.OnConeCreated) {
+                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnCylinderCreated);
+                    }                
+                    vecNodeCreated.trackAllResource();   
                     
                     var vecNodeAppend = vecNodeCreated.asVecModel();               
                     var vecCone = vecNodeAppend.createVecModel(Q3D.Enums.vecModelType.QCone).asCone();    
@@ -12101,13 +12147,7 @@
                         }                 
                         vecNodeAppend.setMaterial(0, tempMatName);
                         vecNodeAppend.setMaterial(1, tempMatName);
-                    }   
-                    
-                    if (defaultCreateOption.OnConeCreated) {
-                        mapObj._map3d.setSceneNodeListener(vecNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(vecNodeCreated), defaultCreateOption.OnCylinderCreated);
                     }                
-                    vecNodeCreated.trackAllResource();   
                     
                     return vecNodeAppend;
                 }
@@ -12136,6 +12176,12 @@
                 var ParticleNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_ParticleSystem);              
                 if (ParticleNodeCreated != null) {
                     
+                    if (defaultCreateOption.OnParticleCreated) {
+                        mapObj._map3d.setSceneNodeListener(ParticleNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(ParticleNodeCreated), defaultCreateOption.OnParticleCreated);
+                    }                
+                    ParticleNodeCreated.trackAllResource();
+                    
                     var ParticleAppend = ParticleNodeCreated.asParticle();
                     ParticleAppend.loadParticleSystem(defaultCreateOption.ParticleFile);
     
@@ -12147,11 +12193,14 @@
                         ParticleAppend.setOrientation(defaultCreateOption.Orientation, defaultCreateOption.OrientationType);
                     }                
                     
-                    if (defaultCreateOption.OnParticleCreated) {
-                        mapObj._map3d.setSceneNodeListener(ParticleNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(ParticleNodeCreated), defaultCreateOption.OnParticleCreated);
-                    }                
-                    ParticleNodeCreated.trackAllResource();
+                    /*
+                    if ($.isFunction(defaultCreateOption.OnParticleCreated)) {
+                        setTimeout(function () {
+                            defaultCreateOption.OnParticleCreated(ParticleAppend);
+                        }, 100)
+                    }        
+                    ParticleAppend.loadAllResource();
+                    */
                     
                     return ParticleAppend;
                 } 
@@ -12253,7 +12302,13 @@
                 
                 var decalNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_Decal);  
                 if (decalNodeCreated != null) {
-    
+                    
+                    if (defaultCreateOption.OnDecalCreated) {
+                        mapObj._map3d.setSceneNodeListener(decalNodeCreated);
+                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(decalNodeCreated), defaultCreateOption.OnDecalCreated);
+                    }             
+                    decalNodeCreated.trackAllResource(); 
+                    
                     var decalNodeAppend = decalNodeCreated.asDecal();            
                     decalNodeAppend.setPosition(_pos.get());
                     decalNodeAppend.pitch(-90,0);
@@ -12261,13 +12316,8 @@
                     decalNodeAppend.setHeight(_sizeY);
                     decalNodeAppend.setLength(defaultCreateOption.MaxHeight+10);
                     decalNodeAppend.setMode(Q3D.Enums.DecalMode.OpBlendAlpha);
-                    decalNodeAppend.setMainTexture(_resourceName);
-                    if (defaultCreateOption.OnDecalCreated) {
-                        mapObj._map3d.setSceneNodeListener(decalNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(decalNodeCreated), defaultCreateOption.OnDecalCreated);
-                    }             
-                    decalNodeCreated.trackAllResource(); 				
-                    decalNodeAppend.loadAllResource();
+                    decalNodeAppend.setMainTexture(_resourceName);     			          
+    
                     return decalNodeAppend;
                 }
             } catch (e) {
@@ -12276,66 +12326,31 @@
             }
             return null;
         },
-        // @method createCircleDecal(nodePath: String, options: CircleDecal options): QDecalNode
-        // 在场景根节点下动态创建圆形贴花节点，Node路径"区域/[父节点]/要创建的贴花名称"，返回原生 QDecalNode 对象
-        createCircleDecal: function (nodePath, options) {
-            var defaultCreateOption = {
-                Center: Q3D.vector2(0,0),//Vector2中心坐标
-                Radius: 10, //半径
-                Resolution: 1.0, //像素分辨率，单位米/像素
-                MaxHeight: 100, //多边形区域内最大高度值
-                BackColor: null, //背景填充色，默认为null
-                FillColor: Q3D.colourValue("#0000FF", 0.6), //多边形填充颜色和透明值
-                LineColor: Q3D.colourValue("#0000FF", 1.0), //多边形边框颜色和透明值
-                LineWidth: 1, //多边形轮廓线宽
-                FillMode: Q3D.Enums.DecalTexFillMode.FillAndFrame, //填充方式
-                OnDecalCreated: null
+    });
+    
+    Q3D.Map.include({
+        // @method enableNodeFollowing(nodePath: String, fn: Function): this
+        //  打开节点跟随。fn为回调函数，第一个参数为QSceneNode对象，第二个参数为节点当前QVector2I屏幕坐标
+        enableNodeFollowing: function (nodePath, fn) {
+            var _node = this.getSceneNode(nodePath);
+            if (_node && fn) {
+                mapObj._map3d.setNodeTransformListener(_node);
+                mapObj.on('onNodeTransform', fn);
             }
-            Q3D.Util.jQueryExtend(true, defaultCreateOption, options);
-            try {
-                            
-                var _sizeX = defaultCreateOption.Radius * 2, _sizeY = _sizeX;            
-                //创建纹理
-                var _imageX = _sizeX / defaultCreateOption.Resolution, _imageY = _sizeY / defaultCreateOption.Resolution;
-                var _rm = this._map3d.getResourceManager();
-                var _resourceName = "DecalTexture-" + this.guid();
-                var _tex = _rm.registerResource(Q3D.Enums.resourceType.TEXTURE, _resourceName).asTexture();
-                var _canvas = _tex.createEmpty2DWithCanvas(_imageX, _imageY);
-                if(defaultCreateOption.BackColor != null)
-                    _canvas.clear(defaultCreateOption.BackColor.get());
-                _canvas.setFillColor(defaultCreateOption.FillColor.get());
-                _canvas.setLineColor(defaultCreateOption.LineColor.get());
-                _canvas.setFillMode(defaultCreateOption.FillMode);
-                _canvas.setLineWidth(defaultCreateOption.LineWidth);
-                _canvas.drawCircle(Q3D.vector2(_imageX / 2,_imageX / 2).get(), _imageX / 2);
-                _tex.flushCanvas();
-                //_canvas.save("d:/test.png");
-                
-                var decalNodeCreated = this.createCommonNode(nodePath, Q3D.Enums.sceneNodeType.SNODE_Decal);  
-                if (decalNodeCreated != null) {               
-                    var decalNodeAppend = decalNodeCreated.asDecal();            
-                    decalNodeAppend.setPosition(Q3D.vector3(defaultCreateOption.Center.x, defaultCreateOption.MaxHeight, defaultCreateOption.Center.y).get());
-                    decalNodeAppend.pitch(-90,0);
-                    decalNodeAppend.setWidth(_sizeX);
-                    decalNodeAppend.setHeight(_sizeY);
-                    decalNodeAppend.setLength(defaultCreateOption.MaxHeight+10);
-                    decalNodeAppend.setMode(Q3D.Enums.DecalMode.OpBlendAlpha);
-                    decalNodeAppend.setMainTexture(_resourceName);
-                    if (defaultCreateOption.OnDecalCreated) {
-                        mapObj._map3d.setSceneNodeListener(decalNodeCreated);
-                        mapObj.attachUIEvent("onSceneNodeAllResourceCompleted", mapObj.getSceneNodeFullName(decalNodeCreated), defaultCreateOption.OnDecalCreated);
-                    }             
-                    decalNodeCreated.trackAllResource(); 
-                    decalNodeAppend.loadAllResource();
-                    return decalNodeAppend;
-                }
-            } catch (e) {
-                this.showNotice("错误", "createCircleDecal: " + e.message);
-                return null;
+            return this;
+        },
+        // @method disableNodeFollowing(nodePath: String, delFlag: Boolean): this
+        // 关闭节点跟随
+        disableNodeFollowing: function (nodePath, delFlag) {
+            var delFlag = delFlag || false;
+            var _node = this.getSceneNode(nodePath);
+            if (_node) {
+                mapObj._map3d.removeNodeTransformListener(_node);
+                if (delFlag) mapObj.off('onNodeTransform');
             }
-            return null;
+            return this;
         },
     });
     
-    
     }(window, document));
+    
