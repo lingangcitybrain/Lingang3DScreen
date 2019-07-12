@@ -2723,7 +2723,10 @@ Q3D.Map = Q3D.Evented.extend({
             // @option LICENSE_SVR: String = null
             // 共享授权服务器 url 地址
             LICENSE_SVR: null,
-            // @option WINDOWLESS: Boolen = false
+            // @option PRELOAD_GRP: String = null
+            // 预加载资源组文件, 如 ResGroup/holder.rgp
+            PRELOAD_GRP: null,
+            // @option WINDOWLESS: Boolen = true
             // 是否无窗口控件类型
             WINDOWLESS: false,
             ZOOM:2,
@@ -2922,7 +2925,7 @@ Q3D.Map = Q3D.Evented.extend({
                         im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.TRANS, Q3D.Enums.actionType.TRANS_SCENE);
                         im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.CLOSETO, Q3D.Enums.actionType.RAMBLE_KEEPORI);
                         im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.RAMBLE, Q3D.Enums.actionType.RAMBLE_KEEPORI);
-                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_CENTER);
+                        im.bindControlAction(Q3D.Enums.device.MULTITOUCH, Q3D.Enums.multiTouch.YPS, Q3D.Enums.actionType.YPSS_SCREEN);
 
                         //鼠标绑定
                         //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
@@ -2934,7 +2937,7 @@ Q3D.Map = Q3D.Evented.extend({
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.MBUTTON, Q3D.Enums.actionType.RAMBLE_KEEPORI);
                         im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.RBUTTON, Q3D.Enums.actionType.ROTATES_SCREEN);
-                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_CENTER);
+                        im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.WHEEL, Q3D.Enums.actionType.SCALED_SCREEN);
                     }
 				    //鼠标绑定
                     //im.bindControlAction(Q3D.Enums.device.MOUSE, Q3D.Enums.mouse.LBUTTON, Q3D.Enums.actionType.TRANS_SCENE);
@@ -4260,7 +4263,7 @@ Q3D.Vector2I = function (x, y) {
     if (!mapObj) {
         throw new Error('无效的引擎对象，引擎对象未初始化！');
     }
-	if (!Q3D.Util.isInteger(x) || !Q3D.Util.isInteger(y)) {
+	if (!Q3D.Util.isNumber(x) || !Q3D.Util.isNumber(y)) {
 		throw new Error('无效的QVector2I对象: (' + x + ', ' + y + ')');
 	}    
     // @property x: Number

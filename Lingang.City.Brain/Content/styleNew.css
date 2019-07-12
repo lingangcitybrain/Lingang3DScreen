@@ -1160,7 +1160,6 @@ dd.pjc-statistic-star >form{
     top:0;
     left:0;
 	padding: .08rem .12rem .14rem .04rem;
-	/*width: 12rem;*/
 	background: 
 	   linear-gradient(to right, transparent 50%, rgba(13,196,223,.8) 50%, rgba(13,196,223,.8) 55%, transparent 55% ),
 	   linear-gradient(to right, rgba(13,118,223,.5) 43%, transparent 43%, transparent 46%, rgba(13,196,223,.8) 46%) 0 .04rem,
@@ -1173,7 +1172,11 @@ dd.pjc-statistic-star >form{
 	background-size:100% .04rem, calc(100% - .1rem) .04rem, calc(100% - .1rem) .04rem, 100% .1rem, .04rem calc(100% - .22rem), .04rem calc(100% - .22rem), .08rem 100%;
 	background-repeat: no-repeat;
 	box-sizing: border-box;
+	transition:.5s all ease;
 }
+.poiinfo1{ width: 26rem; height:6.7rem;}
+.poiinfo2{ width: 17rem; height:6.7rem;}
+.poiinfo3{ min-width: 15rem; height:6.7rem;}
 
 .box-top{
 	position: relative;
@@ -1194,17 +1197,23 @@ dd.pjc-statistic-star >form{
 	background-size: .25rem;
 }
 .poiinfo .boxcont{
+	height:calc(100% - .7rem);
 	padding: .3rem;
 	background: rgba(1,6,28,.6);
 	box-sizing: border-box;
 }
-.poiinfo .box-leftpic>img{ width: 5.3rem; }
+/*.poiinfo .box-leftpic>img{ width: 5.3rem; }*/
+.box-leftpic{
+	width:6rem;
+	height:100%;
+}
 .box-rightinfo{
+	height:100%;
 	margin-left: .5rem;
-	font-size: .3rem;
-	line-height: .56rem;
-    max-width:10rem;
-    
+	font-size: .35rem;
+	line-height:.7rem;
+	/*line-height: .56rem;*/
+	overflow:hidden;
 }
 .poiinfo .btn{
 	width: 4rem;
@@ -3895,7 +3904,7 @@ dd.pjc-statistic-star >form{
 	padding-top: .1em;
 	padding-left:.3em;
 }
-
+/*#div_eventdetail{ width:16rem;}*/
 
 
 @media screen and (max-width: 11520px){

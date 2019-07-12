@@ -94,6 +94,8 @@
                     default:
                 }
             })
+            $("#center_04").html("");
+            $("#center_05").html("");
         },
         //关闭大的图表
         closeBigChart: function () {
@@ -101,7 +103,7 @@
                 require("s_Echart").mybigChart.dispose();
             }
             sjcgChartClose = true;
-            $("#center_03").html("");           
+            $("#center_03").html("");
         },
 		//社综事件列表 ---放大
         loadCenterEventList: function () {
@@ -111,6 +113,8 @@
         		$("#center_04").show('drop', 1000);//左侧
         		require("s_Echart").loadSocietyEventList();
         	})
+        	$("#center_03").html("");
+        	$("#center_05").html("");
         },
 
         closeCenterEventList: function () {
@@ -124,6 +128,8 @@
         		$("#center_05").show('drop', 1000);//左侧
         		//require("s_Echart").loadSocietyEventList();
         	})
+        	$("#center_03").html("");
+        	$("#center_04").html("");
         },
 
         closeCenterCarIdentify: function () {

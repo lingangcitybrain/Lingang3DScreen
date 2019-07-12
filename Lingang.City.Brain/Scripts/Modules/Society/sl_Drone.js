@@ -146,8 +146,10 @@
         nodeFolowing: function (node, v2i) {
             require("sl_Drone").nodeFollowingPath.forEach(function (e) {
                 if (node.getFullName() == e.nodePath) {
-                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
-                    document.getElementById(e.nodeDom).style.top = v2i.y - 100 + "px";
+                    if (document.getElementById(e.nodeDom) != null) {
+                        document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                        document.getElementById(e.nodeDom).style.top = v2i.y - 100 + "px";
+                    }
                 }
             });
         },

@@ -108,7 +108,7 @@
 
             });
 
-            var nodePath = con.AreaName + '/' + nodeName;
+            var nodePath = nodeName;
             var nodeObject = { "nodePath": nodePath, "nodeDom": domWinName };
 
             require("el_HotMap").nodeFollowingPath.push(nodeObject);

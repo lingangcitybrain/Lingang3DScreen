@@ -1799,214 +1799,217 @@
             if ($("#fkld-chart").length <= 0) { return false; }
             require("e_Echart").myChartleida = echarts.init(document.getElementById('fkld-chart'));
             e_EchartAjax.getfkldData(function (result) {
-                var data = require("e_Echart").fkldData;
-                var dataArr = [
-                    data["舆情风险"].business / data.totalBusiness, 
-                    data["税收异常"].business / data.totalBusiness, 
-                    data["司法监管"].business / data.totalBusiness,
-                    data["经营风险"].business / data.totalBusiness
-                ];
+            	var data = require("e_Echart").fkldData;
+            	if (data.totalBusiness != 0) {
+            		var dataArr = [
+						data["舆情风险"].business / data.totalBusiness,
+						data["税收异常"].business / data.totalBusiness,
+						data["司法监管"].business / data.totalBusiness,
+						data["经营风险"].business / data.totalBusiness
+            		];
+            	} else {
+            		var dataArr = [0,0,0,0]
+            	}
 
+				require("e_Echart").fkldInterval = setInterval(function () {
+					gauge_value++;  //递增
+					if (gauge_value >= 100) { //重置
+						gauge_value = 0;
+					}
 
-            require("e_Echart").fkldInterval = setInterval(function () {
-                gauge_value++;  //递增
-                if (gauge_value >= 100) { //重置
-                    gauge_value = 0;
-                }
+					option = {
+						//backgroundColor: 'black',
+						title: {
+							show: false, //关闭显示
+							x: "center",
+							bottom: 200,
+							//text:'AAA',
+							subtext: '信用等级'
+						},
+						tooltip: {
+							show: false,//关闭显示
+							//  formatter: "{a} <br/>{b} {c}",
+							backgroundColor: '#F7F9FB',
+							borderColor: '#92DAFF',
+							borderWidth: '1px',
+							textStyle: {
+								color: 'black'
+							},
+							formatter: function (param) {
+								return '<em style="color:' + param.color + ';">' + param.value + '</em> 分'
+							}
 
-                option = {
-                    //backgroundColor: 'black',
-                    title: {
-                        show: false, //关闭显示
-                        x: "center",
-                        bottom: 200,
-                        //text:'AAA',
-                        subtext: '信用等级'
-                    },
-                    tooltip: {
-                        show: false,//关闭显示
-                        //  formatter: "{a} <br/>{b} {c}",
-                        backgroundColor: '#F7F9FB',
-                        borderColor: '#92DAFF',
-                        borderWidth: '1px',
-                        textStyle: {
-                            color: 'black'
-                        },
-                        formatter: function (param) {
-                            return '<em style="color:' + param.color + ';">' + param.value + '</em> 分'
-                        }
+						},
+						series: [{
+							name: '信用分',
+							type: 'gauge',
+							startAngle: 90,       //开始角度
+							endAngle: -269.9999,  //结束角度
+							animation: 0,          //动画关闭防止从100到0时出现倒回来的动画
+							min: 0,               //图表最小值
+							max: 100,             //最大值
 
-                    },
-                    series: [{
-                        name: '信用分',
-                        type: 'gauge',
-                        startAngle: 90,       //开始角度
-                        endAngle: -269.9999,  //结束角度
-                        animation: 0,          //动画关闭防止从100到0时出现倒回来的动画
-                        min: 0,               //图表最小值
-                        max: 100,             //最大值
+							axisLine: {
+								show: true,
+								lineStyle: {
+									width: 15,
+									shadowBlur: 10,         //发光
+									shadowColor: "#8e26dc",
+									color: [
+										[dataArr[0], '#a6f08f'],
+										[dataArr[0] + dataArr[1], '#3dd4de'],
+										[dataArr[0] + dataArr[1] + dataArr[2], '#e4e100'],
+										[dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3], '#8e26dc'],
+									]
+								}
+							},
+							axisTick: {
+								show: false,
+								splitNumber: 1
+							},
+							splitLine: {
+								show: false,
+								length: 0,
+								lineStyle: {
+									//color:'black'
+								},
+							},
+							axisLabel: {
+								show: false,
+								textStyle: {
+									fontSize: 12,
+									fontWeight: ""
+								}
+							},
+							pointer: {       //指针
+								show: true,
+								length: '120%',//指针长度
+								width: 1,
+							},
+							itemStyle: { //仪表盘指针样式
 
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                width: 15,
-                                shadowBlur: 10,         //发光
-                                shadowColor: "#8e26dc",
-                                color: [
-                                    [dataArr[0], '#a6f08f'],
-                                    [dataArr[0] + dataArr[1], '#3dd4de'],
-                                    [dataArr[0] + dataArr[1] + dataArr[2], '#e4e100'],
-                                    [dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3], '#8e26dc'],
-                                ]
-                            }
-                        },
-                        axisTick: {
-                            show: false,
-                            splitNumber: 1
-                        },
-                        splitLine: {
-                            show: false,
-                            length: 0,
-                            lineStyle: {
-                                //color:'black'
-                            },
-                        },
-                        axisLabel: {
-                            show: false,
-                            textStyle: {
-                                fontSize: 12,
-                                fontWeight: ""
-                            }
-                        },
-                        pointer: {       //指针
-                            show: true,
-                            length: '120%',//指针长度
-                            width: 1,
-                        },
-                        itemStyle: { //仪表盘指针样式
+								normal: {
+									//   color: '#55e1eb',
+									// areaColor: '#006fff',
+									// shadowOffsetX: 2,
+									// shadowOffsetY: 2
+									shadowColor: '#55e1eb',
+									shadowBlur: 10,
+									borderWidth: 3,//设置外层边框
+									borderColor: '#55e1eb',
+								},
+								emphasis: {
+									areaColor: '#55e1eb'
+								}
+							},
+							detail: {
 
-                            normal: {
-                                //   color: '#55e1eb',
-                                // areaColor: '#006fff',
-                                // shadowOffsetX: 2,
-                                // shadowOffsetY: 2
-                                shadowColor: '#55e1eb',
-                                shadowBlur: 10,
-                                borderWidth: 3,//设置外层边框
-                                borderColor: '#55e1eb',
-                            },
-                            emphasis: {
-                                areaColor: '#55e1eb'
-                            }
-                        },
-                        detail: {
+								//  formatter: '{value}%', //显示的值
 
-                            //  formatter: '{value}%', //显示的值
-
-                            //show:true,
-                            formatter: function (param) {
-                                var level = '';
-                                if (param <= dataArr[0] * 100) { //舆情风险
-                                    level = (dataArr[0] * 100).toFixed(2) + '%'
-                                    var html = '';
-                                    html+= '<div class="fkld-div">';
-                                    html+= ' <div class="fkld-result">舆情风险</div>';
-                                    html+= '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data["舆情风险"].business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data["舆情风险"].records + '</span></button>';
-                                         html+= '</div>'
-                                         html+= '<ul class="fkld-list">';
-                                         for (var i = 0; i < data["舆情风险"].list.length; i++) {
-                                             html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data["舆情风险"].list[i].name + '<span>' + data["舆情风险"].list[i].business + '|' + data["舆情风险"].list[i].records + '</span></div>';
-                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html += '</li>';
-                                         }
-                                         html+= '</ul>';
-                                         html += '</div>';
-                                 $('#fkld').html(html);
-                                }
-                                else if (param <= (dataArr[0] + dataArr[1]) * 100) { //税收异常
-                                    level = (dataArr[1] * 100).toFixed(2) + '%'
-                                    var html = '';
-                                    html += '<div class="fkld-div">';
-                                    html += ' <div class="fkld-result">税收异常</div>';
-                                    html += '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data["税收异常"].business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data["税收异常"].records + '</span></button>';
-                                    html += '</div>'
-                                    html += '<ul class="fkld-list">';
-                                    for (var i = 0; i < data["税收异常"].list.length; i++) {
-                                             html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data["税收异常"].list[i].name + '<span>' + data["税收异常"].list[i].business + '|' + data["税收异常"].list[i].records + '</span></div>';
-                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html += '</li>';
-                                    }
-                                    html += '</ul>';
-                                    html += '</div>';
-                                    $('#fkld').html(html);
-                                }
-                                else if (param <= (dataArr[0] + dataArr[1] + dataArr[2]) * 100) { //司法监管
-                                    level = (dataArr[2] * 100).toFixed(2) + '%'
-                                    var html = '';
-                                    html += '<div class="fkld-div">';
-                                    html += ' <div class="fkld-result">司法监管</div>';
-                                    html += '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data["司法监管"].business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data["司法监管"].records + '</span></button>';
-                                    html += '</div>'
-                                    html += '<ul class="fkld-list">';
-                                    for (var i = 0; i < data["司法监管"].list.length; i++) {
-                                             html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data["司法监管"].list[i].name + '<span>' + data["司法监管"].list[i].business + '|' + data["司法监管"].list[i].records + '</span></div>';
-                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html += '</li>';
-                                    }
-                                    html += '</ul>';
-                                    html += '</div>';
-                                    $('#fkld').html(html);
-                                }
-                                else if (param <= (dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3]) * 100) { //经营风险
-                                    level = (dataArr[3] * 100).toFixed(2) + '%'
-                                    var html = '';
-                                    html+= '<div class="fkld-div">';
-                                    html+= ' <div class="fkld-result">经营风险</div>';
-                                    html+= '<div class="fkld-button flex">';
-                                    html += '<button class="">企业数<span>' + data["经营风险"].business + '</span></button>';
-                                    html += '<button class="">信息数<span>' + data["经营风险"].records + '</span></button>';
-                                         html+= '</div>'
-                                         html+= '<ul class="fkld-list">';
-                                         for (var i = 0; i < data["经营风险"].list.length; i++) {
-                                             html += '<li class="fkld-li">';
-                                             html += '<div class="fkld-title">' + data["经营风险"].list[i].name + '<span>' + data["经营风险"].list[i].business + '|' + data["经营风险"].list[i].records + '</span></div>';
-                                             html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
-                                             html += '</li>';
-                                         }
-                                             html+= '</ul>';
-                                             html += '</div>';
-                                 $('#fkld').html(html);
-                                } else {
-                                    level = '暂无';
-                                }
-                                return level;
-                            },
-                            offsetCenter: [0, 0],
-                            textStyle: {
-                                fontSize: 40,
-                                color:'#fff', 
+								//show:true,
+								formatter: function (param) {
+									var level = '';
+									if (param <= dataArr[0] * 100) { //舆情风险
+										level = (dataArr[0] * 100).toFixed(2) + '%'
+										var html = '';
+										html+= '<div class="fkld-div">';
+										html+= ' <div class="fkld-result">舆情风险</div>';
+										html+= '<div class="fkld-button flex">';
+										html += '<button class="">企业数<span>' + data["舆情风险"].business + '</span></button>';
+										html += '<button class="">信息数<span>' + data["舆情风险"].records + '</span></button>';
+											 html+= '</div>'
+											 html+= '<ul class="fkld-list">';
+											 for (var i = 0; i < data["舆情风险"].list.length; i++) {
+												 html += '<li class="fkld-li">';
+												 html += '<div class="fkld-title">' + data["舆情风险"].list[i].name + '<span>' + data["舆情风险"].list[i].business + '|' + data["舆情风险"].list[i].records + '</span></div>';
+												 html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+												 html += '</li>';
+											 }
+											 html+= '</ul>';
+											 html += '</div>';
+									 $('#fkld').html(html);
+									}
+									else if (param <= (dataArr[0] + dataArr[1]) * 100) { //税收异常
+										level = (dataArr[1] * 100).toFixed(2) + '%'
+										var html = '';
+										html += '<div class="fkld-div">';
+										html += ' <div class="fkld-result">税收异常</div>';
+										html += '<div class="fkld-button flex">';
+										html += '<button class="">企业数<span>' + data["税收异常"].business + '</span></button>';
+										html += '<button class="">信息数<span>' + data["税收异常"].records + '</span></button>';
+										html += '</div>'
+										html += '<ul class="fkld-list">';
+										for (var i = 0; i < data["税收异常"].list.length; i++) {
+												 html += '<li class="fkld-li">';
+												 html += '<div class="fkld-title">' + data["税收异常"].list[i].name + '<span>' + data["税收异常"].list[i].business + '|' + data["税收异常"].list[i].records + '</span></div>';
+												 html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+												 html += '</li>';
+										}
+										html += '</ul>';
+										html += '</div>';
+										$('#fkld').html(html);
+									}
+									else if (param <= (dataArr[0] + dataArr[1] + dataArr[2]) * 100) { //司法监管
+										level = (dataArr[2] * 100).toFixed(2) + '%'
+										var html = '';
+										html += '<div class="fkld-div">';
+										html += ' <div class="fkld-result">司法监管</div>';
+										html += '<div class="fkld-button flex">';
+										html += '<button class="">企业数<span>' + data["司法监管"].business + '</span></button>';
+										html += '<button class="">信息数<span>' + data["司法监管"].records + '</span></button>';
+										html += '</div>'
+										html += '<ul class="fkld-list">';
+										for (var i = 0; i < data["司法监管"].list.length; i++) {
+												 html += '<li class="fkld-li">';
+												 html += '<div class="fkld-title">' + data["司法监管"].list[i].name + '<span>' + data["司法监管"].list[i].business + '|' + data["司法监管"].list[i].records + '</span></div>';
+												 html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+												 html += '</li>';
+										}
+										html += '</ul>';
+										html += '</div>';
+										$('#fkld').html(html);
+									}
+									else if (param <= (dataArr[0] + dataArr[1] + dataArr[2] + dataArr[3]) * 100) { //经营风险
+										level = (dataArr[3] * 100).toFixed(2) + '%'
+										var html = '';
+										html+= '<div class="fkld-div">';
+										html+= ' <div class="fkld-result">经营风险</div>';
+										html+= '<div class="fkld-button flex">';
+										html += '<button class="">企业数<span>' + data["经营风险"].business + '</span></button>';
+										html += '<button class="">信息数<span>' + data["经营风险"].records + '</span></button>';
+											 html+= '</div>'
+											 html+= '<ul class="fkld-list">';
+											 for (var i = 0; i < data["经营风险"].list.length; i++) {
+												 html += '<li class="fkld-li">';
+												 html += '<div class="fkld-title">' + data["经营风险"].list[i].name + '<span>' + data["经营风险"].list[i].business + '|' + data["经营风险"].list[i].records + '</span></div>';
+												 html += '<div class="fkld-bardiv"><span class="fkld-bar"></span></div>';
+												 html += '</li>';
+											 }
+												 html+= '</ul>';
+												 html += '</div>';
+									 $('#fkld').html(html);
+									} else {
+										level = '暂无';
+									}
+									return level;
+								},
+								offsetCenter: [0, 0],
+								textStyle: {
+									fontSize: 40,
+									color:'#fff', 
                                 
-                            }
-                        },
-                        data: [{
-                            name: "",
-                            value: Math.floor(gauge_value)
-                        }]
-                    }]
-                };
+								}
+							},
+							data: [{
+								name: "",
+								value: Math.floor(gauge_value)
+							}]
+						}]
+					};
 
-                require("e_Echart").myChartleida.setOption(option, true);
+					require("e_Echart").myChartleida.setOption(option, true);
 
-            }, 300);
+				}, 300);
             })
         },
         //中间大数字
