@@ -61,7 +61,7 @@
             //var post_data = { "sbbm": "31011900081326012006" }
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
-                url: con.InterfaceUrl + "v1/videoPlay/playing",//"http://47.101.181.131:8091/videoPlay/playing",
+                url: con.InterfaceUrl + "v1/videoPlay/playing",//"v1/uav/list",//http://47.102.116.141:8082/ 上新地址  //"v1/videoPlay/playing",
                 cache: false,
                 data: post_data,  //传送的数据
                 dataType: 'json',  // 返回数据的数据类型json
@@ -210,7 +210,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/videoPlay/playing",  // yii 控制器/方法   
+                    url: con.InterfaceUrl + "v1/videoPlay/playing",//"v1/uav/list",//http://47.102.116.141:8082/ 上新地址  //"v1/videoPlay/playing",  // yii 控制器/方法   
                     //url: con.InterfaceUrl + "/v1/drone/list",
 
                     cache: false,
