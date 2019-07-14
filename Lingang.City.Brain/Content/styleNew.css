@@ -1,7 +1,7 @@
 ﻿@charset 'utf-8';
 /* CSS Document */
 
-html{ font-size: 90px; }
+html{ font-size: 90px; -ms-content-zooming: none; }
 body{
 	position: relative;
 	/*width: 11520px;
