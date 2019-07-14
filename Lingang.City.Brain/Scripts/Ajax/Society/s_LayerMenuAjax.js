@@ -237,13 +237,14 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl +"v1/station/list",  // yii 控制器/方法   
+                    //url: con.InterfaceUrl + "v1/station/list",  // yii 控制器/方法   
+                    url: con.InterfaceUrl_DataStation + "v1/station/list",  // yii 控制器/方法   
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_WorkStation").POIData = data.data;
-                         if ($.isFunction(callback))
-                             callback(data.data)
+                        require("sl_WorkStation").POIData = data;
+                        if ($.isFunction(callback))
+                            callback(data)
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -255,6 +256,7 @@
                 if ($.isFunction(callback))
                     callback(s_layerMenuData.WorkStationData)
             }
+        
         },
     }
 })

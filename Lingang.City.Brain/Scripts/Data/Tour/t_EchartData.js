@@ -1267,9 +1267,9 @@ define(["config"], function (con) {
             }
         },
         //景区事件列表类型
-        yqsjlblxData: {
-            "auth": {},
-            "data": [
+        yqsjlblxData: 
+           
+             [
                 {
                     "name": "车辆违章",
                     "VALUE": 164,
@@ -1331,9 +1331,7 @@ define(["config"], function (con) {
                     "content": "拉横幅(0)"
                 }
             ],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-        },
+           
         //景区事件列表区域
         yqsjlbqyData: 
              [{

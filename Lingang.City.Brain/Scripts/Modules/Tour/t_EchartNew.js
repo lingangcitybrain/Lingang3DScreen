@@ -3361,23 +3361,23 @@
                 var data = require("t_Echart").yqsjlblxData;
 
                 var htmltotal = '';
-                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.data.typeValue + '</span>类</div>';
-                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.data.total + '</span>个</div>';
+                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
                 $('#sjlxtotal').html(htmltotal);
                 var html = '';
                 html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data.data[0].label + '</div>';
+                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].label + '</div>';
                 html += '<ol class="yqsj-itemol">';
-                html += '<li class="">' + data.data[0].name + '</li>';
-                html += '<li class="">' + data.data[0].content + '</li>';
+                html += '<li class="">' + data[0].name + '</li>';
+                html += '<li class="">' + data[0].content + '</li>';
                 html += '</ol>';
                 html += '</li>';
-                for (var i = 2; i < data.data.length; i++) {
+                for (var i = 2; i < data.length; i++) {
                     html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data.data[i].label + '</div>';
+                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].label + '</div>';
                     html += '<ol class="yqsj-itemol">';
-                    html += '<li class="">' + data.data[i].name + '</li>';
-                    html += '<li class="">' + data.data[i].content + '</li>';
+                    html += '<li class="">' + data[i].name + '</li>';
+                    html += '<li class="">' + data[i].content + '</li>';
                     html += '</ol>';
                     html += '</li>';
                 }
