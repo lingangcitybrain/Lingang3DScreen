@@ -693,7 +693,7 @@
             s_EchartAjax.getSocietyZzbm(function (result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
-                data = data.data.dealDeptList;
+                //data = data.data.dealDeptList;   //中台地址接口直接返回数组  20190714
 
                 gridTotalNum = 0; //主责部门事件数量总数
                 gridTop15Num = 0; //主责部门Top15事件数量

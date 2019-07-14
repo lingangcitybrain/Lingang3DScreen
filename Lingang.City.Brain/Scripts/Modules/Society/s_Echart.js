@@ -389,10 +389,7 @@
             s_EchartAjax.getSocietyCgq(function (result) {
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data = require("s_Echart").cgqData;
-                //console.info(data);
-                //console.info(data.data.sensorNumList);
-                data = data.data.sensorNumList;  //20190630改
-                //data = data;
+                //data = data.data.sensorNumList;  //20190714改  中台接口直接返回数组
                 
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
@@ -605,7 +602,7 @@
             s_EchartAjax.getSocietyZzbm(function (result) {
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
-                data = data.data.dealDeptList;
+                //data = data.data.dealDeptList;    //201907014 中台接口直接返回数组
         
                 for (var i = 0; i < data.length; i++) {
                     $("#zzbm-tbody").append("<tr><td>" + (data[i].executeDeptname? data[i].executeDeptname : '') + "</td><td>" +
@@ -662,7 +659,7 @@
             s_EchartAjax.getSocietySj(function (result) {
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
-                data = data.data.dealDeptList[0];
+                data = data[0];//data.data.dealDeptList[0];  //20190714 中台接口直接返回数字
 
                 var saveTimeHtml = data.eventCounts + "*" + parseInt(parseFloat(data.saveTime) * 60 / data.eventCounts);
                 $('#sj-saveTime').html(saveTimeHtml);
@@ -681,7 +678,7 @@
                if (require("s_Echart").societySjcgData == null) { return false; }
                if ($("#sjcg-chart").length <= 0) { return false; }
                var data = require("s_Echart").societySjcgData;
-               data = data.data.taskInfo;
+               //data = data.data.taskInfo;  //中台直接返回数组  20190714
 
                 //X轴月份
                var xAxisMonth = [];
@@ -851,7 +848,7 @@
            s_EchartAjax.getSocietySjcgStatusData(function (result) {
                if (require("s_Echart").societySjcgStatusData == null) { return false; };
                var data = require("s_Echart").societySjcgStatusData;
-               data = data.data.dealDeptList;
+               //data = data.data.dealDeptList;   //中台接口直接返回数组
 
                $("#sjcg-status>button").eq(0).find("span").html(data[0].counts);
                $("#sjcg-status>button").eq(1).find("span").html(data[1].counts);
@@ -870,7 +867,7 @@
        	s_EchartAjax.getSocietySjcgList(post_data, function (result) {
        		if (require("s_Echart").societySjcgListData == null) { return false; };
        		var data = require("s_Echart").societySjcgListData;
-       		data = data.data.list;
+       		//data = data.data.list;   //中台新接口直接返回数组  20190714
        		var html = '';
        		var num = 0;
        		for (var i = 0; i < data.length; i++) {
@@ -926,7 +923,7 @@
        			s_EchartAjax.getSocietySjcgList(post_data, function (result) {
        				if (require("s_Echart").societySjcgListData == null) { return false; };
        				var data = require("s_Echart").societySjcgListData;
-       				data = data.data.list;
+       			    //data = data.data.list;  //中台新接口直接返回数组  20190714
 					
        				$("#center-event-sociul").html('');
        				var html = '';

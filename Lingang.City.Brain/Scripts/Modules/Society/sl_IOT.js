@@ -303,7 +303,7 @@
             s_EchartAjax.getCarPersonInOutData(function (result) {
                 if (require("s_Echart").carPersonInOutData == null) { return false; }
                 var data = require("s_Echart").carPersonInOutData;
-                data = data.data;
+                //data = data.data;    //20170714 中台新接口直接返回数组
 
                 require("sl_IOT").carInOutCount = []; //08:00--16:00点的进出车辆数
                 require("sl_IOT").personInOutCount = [];//08:00--16:00点的进出人员数
@@ -642,7 +642,7 @@
             s_EchartAjax.getSocietyCgq(function (result) {
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data = require("s_Echart").cgqData;
-                data = data.data.sensorNumList;
+                //data = data.data.sensorNumList;  20190714 中控台新接口直接返回数组
                 //data = data;
 
                 $("#society-iot-li01").find(".item-l-data").html(data[6].sensorCount);

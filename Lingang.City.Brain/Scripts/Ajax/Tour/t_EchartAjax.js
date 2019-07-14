@@ -142,19 +142,19 @@
             {
                 $.ajax({
                         type: 'POST',
-                        url: con.InterfaceUrl + 'v1/park/vehicle/allTrafficInfo',
+                        url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/allTrafficInfo',
                         cache: false,
                         // data:post_data,
                         dataType: 'json',
                         success: function (data) {
-                            if (data.errCode != 503) {
+                            //if (data.errCode != 503) {
                                 require("t_Echart").jtxxData = data;
                                 callback(data)
-                            } else {
-                                require("t_Echart").jtxxData = t_EchartData.jtxxData;
-                                callback();
+                            //} else {
+                            //    require("t_Echart").jtxxData = t_EchartData.jtxxData;
+                            //    callback();
 
-                            }
+                            //}
                         },
                         error: function () {
                                 require("t_Echart").jtxxData = t_EchartData.jtxxData;

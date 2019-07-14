@@ -5,11 +5,10 @@
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
-                    //type: "POST",      //data 传送数据类型。post 传递 
+                    type: "POST",      //data 传送数据类型。post 传递 
                     //url: con.InterfaceUrl + "v1/iot/comunity/sensorListByType",
                     //20190630更改
-                    type: "get",
-                    url: con.InterfaceUrl_SQJQ + "v2/sensor",
+                    url: con.InterfaceUrl_DataStation + "v1/iot/comunity/sensorListByType",//"v2/sensor",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -103,12 +102,12 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/affairs/list",  // yii 控制器/方法   
+                    url: con.InterfaceUrl_DataStation + "v1/affairs/list",  // yii 控制器/方法   
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_Event").POIData = data.data.list;
+                        require("sl_Event").POIData = data;//.data.list;
                         if ($.isFunction(callback))
                             callback()
 
