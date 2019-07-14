@@ -867,12 +867,12 @@
                             startAngle: 45, //起始角度
                             center: ["center", "center"],
                             data: [
-                                { value: data.data[0].value, name: data.data[0].name },
-                                { value: data.data[1].value, name: data.data[1].name },
-                                { value: data.data[2].value, name: data.data[2].name },
-                                { value: data.data[3].value, name: data.data[3].name },
-                                { value: data.data[4].value, name: data.data[4].name },
-                                { value: data.data[5].value, name: data.data[5].name }
+                                { value: data[0].value, name: data[0].name },
+                                { value: data[1].value, name: data[1].name },
+                                { value: data[2].value, name: data[2].name },
+                                { value: data[3].value, name: data[3].name },
+                                { value: data[4].value, name: data[4].name },
+                                { value: data[5].value, name: data[5].name }
                             ],
                             itemStyle: {
                                 emphasis: {
@@ -1014,7 +1014,8 @@
         yqxxs: function () {
             $.ajax({
                 type: 'POST',
-                url: con.InterfaceUrl + 'v1/park/publicSentimentByType',
+                //url: con.InterfaceUrl + 'v1/park/publicSentimentByType',
+                url: con.InterfaceUrl_DataStation + '/v1/publicSentimentStatistic',
                 cache: false,
 
                 // data:post_data,
@@ -1022,8 +1023,8 @@
                 success: function (data) {
                     ////console.log(data);
                     //if (data == null) { return false;}
-                    $('#yqxxs').html(data.data[0].fiCount)
-                    $('#rmhts').html(data.data[1].fiCount)
+                    $('#yqxxs').html(data[0].fiCount)
+                    $('#rmhts').html(data[1].fiCount)
                 },
                 error: function () {
 
@@ -1034,7 +1035,8 @@
         yqlxtj: function () {
             $.ajax({
                 type: 'POST',
-                url: con.InterfaceUrl + 'v1/park/publicSentiment',
+                //url: con.InterfaceUrl + 'v1/park/publicSentiment',
+                url: con.InterfaceUrl_DataStation + '/v1/publicSentimentInfo',
                 cache: false,
 
                 // data:post_data,
@@ -3364,18 +3366,18 @@
                 $('#sjlxtotal').html(htmltotal);
                 var html = '';
                 html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data.data[0].label + '</div>';
+                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].label + '</div>';
                 html += '<ol class="yqsj-itemol">';
-                html += '<li class="">' + data.data[0].name + '</li>';
-                html += '<li class="">' + data.data[0].content + '</li>';
+                html += '<li class="">' + data[0].name + '</li>';
+                html += '<li class="">' + data[0].content + '</li>';
                 html += '</ol>';
                 html += '</li>';
-                for (var i = 2; i < data.data.length; i++) {
+                for (var i = 2; i < data.length; i++) {
                     html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data.data[i].label + '</div>';
+                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].label + '</div>';
                     html += '<ol class="yqsj-itemol">';
-                    html += '<li class="">' + data.data[i].name + '</li>';
-                    html += '<li class="">' + data.data[i].content + '</li>';
+                    html += '<li class="">' + data[i].name + '</li>';
+                    html += '<li class="">' + data[i].content + '</li>';
                     html += '</ol>';
                     html += '</li>';
                 }
@@ -3426,18 +3428,18 @@
                 $('#sjqytotal').html(htmltotal2);
                 var html = '';
                 html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data.data[0].content + '</div>';
+                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].content + '</div>';
                 html += '<ol class="yqsj-itemol">';
                 //html += '<li class="">' + data.data[0].label + '</li>';
-                html += '<li class="">' + data.data[0].content + '</li>';
+                html += '<li class="">' + data[0].content + '</li>';
                 html += '</ol>';
                 html += '</li>';
-                for (var i = 2; i < data.data.length; i++) {
+                for (var i = 2; i < data.length; i++) {
                     html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data.data[i].content + '</div>';
+                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].content + '</div>';
                     html += '<ol class="yqsj-itemol">';
                     //html += '<li class="">' + data.data[i].label + '</li>';
-                    html += '<li class="">' + data.data[i].content + '</li>';
+                    html += '<li class="">' + data[i].content + '</li>';
                     html += '</ol>';
                     html += '</li>';
                 }

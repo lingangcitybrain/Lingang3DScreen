@@ -110,7 +110,7 @@
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("s_Echart").jqCameraData = data;
-                        callback(data)
+                        callback(data);
                     },
                     error: function () {
                         console.log("景区摄像头数据传输错误,加载本地数据");

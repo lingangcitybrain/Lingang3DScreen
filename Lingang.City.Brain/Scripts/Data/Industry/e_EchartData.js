@@ -2,9 +2,7 @@
     return {
         /***************************产业-Echart数据*****************************/
         //产业竞争力
-        cyjzlData: {
-            "auth": {},
-            "data": [{
+        cyjzlData: [{
                 "score": "67",
                 "model_item_code": "1",
                 "model_item_name": "产业聚集性",
@@ -40,35 +38,15 @@
                 "region_co": "1",
                 "id": 13
             }],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-        },
         //企业变化趋势
-        qybhqsData: {
-            "auth": {},
-            "data": [{
-                "year": 2014,
-                "COUNT": 19289
-            }, {
-                "year": 2015,
-                "COUNT": 29964
-            }, {
-                "year": 2016,
-                "COUNT": 43602
-            }, {
-                "year": 2017,
-                "COUNT": 58440
-            }, {
-                "year": 2018,
-                "COUNT": 67825
-            }],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-        },
+        qybhqsData: [{ "year": 2014, "COUNT(DISTINCT ent.ent_id)": 19289 },
+            { "year": 2015, "COUNT(DISTINCT ent.ent_id)": 29964 }, 
+            { "year": 2016, "COUNT(DISTINCT ent.ent_id)": 43602 },
+            { "year": 2017, "COUNT(DISTINCT ent.ent_id)": 58440 },
+            { "year": 2018, "COUNT(DISTINCT ent.ent_id)": 68357 },
+            { "year": 2019, "COUNT(DISTINCT ent.ent_id)": 70681 }],
         //税收变化趋势数据
-        ssbhqsData: {
-            "auth": {},
-            "data": [{
+        ssbhqsData: [{
                 "year": 2014,
                 "SUM(ent.total_tax)": 0
             }, {
@@ -84,9 +62,6 @@
                 "year": 2018,
                 "SUM(ent.total_tax)": 7.00211749584E9
             }],
-            "errCode": 0,
-            "errMsg": "SUCCESS"
-        },
         //固投变化趋势数据
         gtbhqsData: {
             "errorCode": "0",
@@ -347,15 +322,9 @@
 	        }
         },
         centernumberData: {
-	            total: 123452,
-	            potential: 1221,
-	            invested: 23232,
-	            abnormal: 1
-            }
+            "data": [{ "total": 70681, "abnormal": 2098, "potential": 2438, "invested": 122 }],
+            "auth": {}, "errCode": 0, "errMsg": "SUCCESS"
+        }
     }
 })
-
-
-
-
 
