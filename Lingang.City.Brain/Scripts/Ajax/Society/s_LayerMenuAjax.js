@@ -156,14 +156,14 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/drone/hangers/list",  // yii 控制器/方法   
+                    url: con.InterfaceUrl_DataStation + "v1/drone/hangers/list",  // yii 控制器/方法   
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("sl_Drone").POIData = data.data;
+                        require("sl_Drone").POIData = data;
                         if ($.isFunction(callback))
-                            callback(data.data)
+                            callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
