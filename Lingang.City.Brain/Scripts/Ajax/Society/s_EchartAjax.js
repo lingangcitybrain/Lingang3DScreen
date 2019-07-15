@@ -32,7 +32,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/iot/comunity/sensorNum',
+                    url: con.InterfaceUrl_DataStation + 'v1/iot/comunity/sensorNum',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -80,7 +80,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/comunity/people/personCarStatistics',
+                    url: con.InterfaceUrl_DataStation + 'v1/comunity/people/personCarStatistics',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -104,13 +104,13 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/park/camera/cameraInfo',
+                    url: con.InterfaceUrl_DataStation + 'v1/park/camera/cameraInfo',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("s_Echart").jqCameraData = data;
-                        callback(data)
+                        callback(data);
                     },
                     error: function () {
                         console.log("景区摄像头数据传输错误,加载本地数据");
@@ -148,12 +148,12 @@
                 callback();
             }
         },
-        //景区--人员
+        //景区--地铁出入人流
         getJqPersonData: function (post_data, callback) {
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/park/vehicle/metroStatistic',
+                    url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/metroStatistic',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -249,7 +249,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/affair/comunity/taskOverview',
+                    url: con.InterfaceUrl_DataStation + 'v1/affair/comunity/taskOverview',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -275,7 +275,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",    
-                    url: con.InterfaceUrl + 'v1/affair/comunity/dealOvertime',
+                    url: con.InterfaceUrl_DataStation + 'v1/affair/comunity/dealOvertime',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -298,7 +298,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",
-                    url: con.InterfaceUrl + 'v1/affair/comunity/taskSuccessInfo',
+                    url: con.InterfaceUrl_DataStation + 'v1/affair/comunity/taskSuccessInfo',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -322,7 +322,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/affair/comunity/taskNumByStatus", 
+                    url: con.InterfaceUrl_DataStation + "v1/affair/comunity/taskNumByStatus",
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -347,7 +347,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/affairs/list", 
+                    url: con.InterfaceUrl_DataStation + "v1/affairs/list",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -375,7 +375,7 @@
                     type: "POST",      //data 传送数据类型。post 传递 
                     // 同社区事件数据  
                     // url: con.InterfaceUrl + 'v1/comunity/people/communityPopulationData',
-                    url: con.InterfaceUrl + 'v1/communities/communitySummary',
+                    url: con.InterfaceUrl_DataStation + 'v1/communities/communityCounts',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -399,7 +399,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/communities/communityCounts',              
+                    url: con.InterfaceUrl_DataStation + 'v1/communities/communitySummary',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

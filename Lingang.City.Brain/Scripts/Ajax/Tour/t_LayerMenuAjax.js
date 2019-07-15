@@ -9,16 +9,16 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + "v1/park/vehicle/parkingLots",
+                    url: con.InterfaceUrl_DataStation + "v1/park/vehicle/parkingLots",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (res) {
-                        var data = res.data;
-                        callback(data)
+                        var data = res;
+                        callback(data);
                     },
                     error: function () {
-                        console.log('景区管理---停车场空余车辆数据获取失败')
+                        console.log('景区管理---停车场空余车辆数据获取失败');
                         //alert("数据传输错误");
                     }
                 });
@@ -35,14 +35,14 @@
 
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + "v1/park/camera/cameraInfo",
+                    url: con.InterfaceUrl_DataStation + "v1/park/camera",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("tl_Camera").POIData = data.data;
+                        require("tl_Camera").POIData = data;
                         if ($.isFunction(callback))
-                            callback(data)
+                            callback(data);
                     },
                     error: function () {
                         console.log('景区管理---获取摄像头点位数据失败')
@@ -61,7 +61,7 @@
             //var post_data = { "sbbm": "31011900081326012006" }
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
-                url: con.InterfaceUrl + "v1/videoPlay/playing",//"http://47.101.181.131:8091/videoPlay/playing",
+                url: con.InterfaceUrl + "v1/videoPlay/playing",//"v1/uav/list",//http://47.102.116.141:8082/ 上新地址  //"v1/videoPlay/playing",
                 cache: false,
                 data: post_data,  //传送的数据
                 dataType: 'json',  // 返回数据的数据类型json
@@ -82,13 +82,13 @@
             {
                 $.ajax({
                     type: "POST",
-                    url: con.InterfaceUrl + "v1/park/affair/getEventList",
+                    url: con.InterfaceUrl_DataStation + "v1/park/affair/list",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("tl_Event").POIData = data.outputData;
-                        callback(data.outputData)
+                        require("tl_Event").POIData = data;
+                        callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -132,14 +132,14 @@
                 //var post_data = { "offset": "0", "count": "1000"}
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + "v1/park/vehicle/busStopInfo",
+                    url: con.InterfaceUrl_DataStation + "v1/park/vehicle/busStopInfo",
                     //contentType: 'application/json;charset=UTF-8',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("tl_Bus").POIData = data.data;
-                        callback(data)
+                        require("tl_Bus").POIData = data;
+                        callback(data); 
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -158,17 +158,17 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "/v1/drone/hangers/list",  // yii 控制器/方法   
+                    url: con.InterfaceUrl_DataStation + "v1/drone/hangers/list",  // yii 控制器/方法   
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("tl_Drone").POIData = data.data;
-                        callback(data.data)
+                        require("tl_Drone").POIData = data;
+                        callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        console.log('景区管理---获取无人机库列表失败')
+                        console.log('景区管理---获取无人机库列表失败');
                         require("tl_Drone").POIData = t_LayerMenuData.DroneHangarData.data;
                     }
                 });
@@ -210,7 +210,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl + "v1/videoPlay/playing",  // yii 控制器/方法   
+                    url: con.InterfaceUrl + "v1/videoPlay/playing",//"v1/uav/list",//http://47.102.116.141:8082/ 上新地址  //"v1/videoPlay/playing",  // yii 控制器/方法   
                     //url: con.InterfaceUrl + "/v1/drone/list",
 
                     cache: false,
@@ -266,7 +266,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + "v1/park/getData",
+                    url: con.InterfaceUrl_DataStation + "v1/park/getData",
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -285,7 +285,7 @@
                                     }
                                 }                                             
                         */
-                        callback(data)
+                        callback(data);
                     },
                     error: function () {
                         console.log('景区管理---当中汇总数据获取失败')

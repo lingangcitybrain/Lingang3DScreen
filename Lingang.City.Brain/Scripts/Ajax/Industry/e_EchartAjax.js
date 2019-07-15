@@ -1,4 +1,5 @@
-﻿define(["config", "common", "e_EchartData","e_LayerMenuData"], function (con, common, e_EchartData,e_LayerMenuData) {
+﻿
+define(["config", "common", "e_EchartData", "e_LayerMenuData"], function (con, common, e_EchartData, e_LayerMenuData) {
     return {
         /*************************产业-园区Echart********************************/
         //产业竞争力
@@ -7,74 +8,74 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/industrial/matchIndex',
+                    url: con.InterfaceUrl_DataStation + 'v1/industrial/matchIndex',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").cyjzlData = data.data;
+                        require("e_Echart").cyjzlData = data;
                         callback(data);
                     },
                     error: function () {
                         console.log("产业竞争力数据传输错误,调用本地数据");
-                        require("e_Echart").cyjzlData = e_EchartData.cyjzlData.data;
+                        require("e_Echart").cyjzlData = e_EchartData.cyjzlData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").cyjzlData = e_EchartData.cyjzlData.data;
+                require("e_Echart").cyjzlData = e_EchartData.cyjzlData;
                 callback();
             }
         },
 
         //企业变化趋势
-        qybhqs:function(callback){
+        qybhqs: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/industrial/companyTrendByYear',
+                    url: con.InterfaceUrl_DataStation + 'v1/industrial/companyTrendByYear',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").qybhqsData = data.data;
+                        require("e_Echart").qybhqsData = data;
                         callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        require("e_Echart").qybhqsData = e_EchartData.qybhqsData.data;
+                        require("e_Echart").qybhqsData = e_EchartData.qybhqsData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").qybhqsData = e_EchartData.qybhqsData.data;
+                require("e_Echart").qybhqsData = e_EchartData.qybhqsData;
                 callback();
             }
         },
 
         //税收变化趋势
-        ssbhqs:function(callback){
+        ssbhqs: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/industrial/taxTrendByYear',
+                    url: con.InterfaceUrl_DataStation + 'v1/industrial/taxTrendByYear',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").ssbhqsData = data.data;
+                        require("e_Echart").ssbhqsData = data;
                         callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        require("e_Echart").ssbhqsData = e_EchartData.ssbhqsData.data;
+                        require("e_Echart").ssbhqsData = e_EchartData.ssbhqsData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").ssbhqsData = e_EchartData.ssbhqsData.data;
+                require("e_Echart").ssbhqsData = e_EchartData.ssbhqsData;
                 callback();
             }
         },
@@ -132,14 +133,14 @@
         },
 
         //薪资水平变化趋势
-        xzspbhqs: function (postdata,callback) {
+        xzspbhqs: function (postdata, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl_estate + 'v1/industrial/salaryChange',
                     cache: false,
-                    data:{type:postdata},
+                    data: { type: postdata },
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
                         require("e_Echart").xzspbhqsData = data.data;
@@ -164,7 +165,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_estate+'v1/industrial/eliteDistrbution',
+                    url: con.InterfaceUrl_estate + 'v1/industrial/eliteDistrbution',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -199,18 +200,18 @@
                     error: function () {
                         //alert("数据传输错误");
                         //require("e_Echart").gccrcbhqsData = e_EchartData.gccrcbhqsData.data;
-                        
+
                         callback(e_LayerMenuData.AtlasPOI.Data);
                     }
                 });
             }
             else {//执行本地
-                
+
                 callback(e_LayerMenuData.AtlasPOI.Data);
             }
         },
         //战略新兴产业结构
-         getzlxxcyjgData: function (callback) {
+        getzlxxcyjgData: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -233,14 +234,14 @@
                 require("e_Echart").zlxxcyjgData = e_EchartData.zlxxcyjgData;
                 callback();
             }
-         },
+        },
         //风控雷达
         getfkldData: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_estate + 'v1/risk/fkldjyfx',
+                    url: con.InterfaceUrl_DataStation + 'v1/risk/fkldjyfx',//原接口InterfaceUrl_estate
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -264,21 +265,22 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_estate + 'v1/industrial/companyStatistics',
+                    //url: con.InterfaceUrl_estate + 'v1/industrial/companyStatistics',
+                    url: con.InterfaceUrl_DataStation + '/v1/event/zhlgzqys',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").centernumberData = data;
+                        require("e_Echart").centernumberData = data.data;
                         callback(data);
                     },
                     error: function () {
-                        require("e_Echart").centernumberData = e_EchartData.centernumberData;
+                        require("e_Echart").centernumberData = e_EchartData.centernumberData.data;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").centernumberData = e_EchartData.centernumberData;
+                require("e_Echart").centernumberData = e_EchartData.centernumberData.data;
                 callback();
             }
         },

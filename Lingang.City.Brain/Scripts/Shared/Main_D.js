@@ -91,7 +91,7 @@ require.config({
         tl_RoadCondition: "Modules/Tour/tl_RoadCondition",
         tl_StreamCalculate: "Modules/Tour/tl_StreamCalculateNew",
         tl_TrafficSimulation: "Modules/Tour/tl_TrafficSimulation",
-        tl_VisitorsMap: "Modules/Tour/tl_VisitorsMapNew",
+        tl_VisitorsMap: "Modules/Tour/tl_VisitorsMap",
 
 
         //Industry

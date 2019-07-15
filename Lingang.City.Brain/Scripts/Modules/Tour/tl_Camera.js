@@ -23,7 +23,7 @@
             else {
                 var post_data = { "offset": "0", "count": "1000" };
                 require("t_LayerMenuAjax").getCameraList(post_data, function (result) {
-                    require("tl_Camera").createCameraPoi(result.data);
+                    require("tl_Camera").createCameraPoi(result);
                 });
             }
         },
