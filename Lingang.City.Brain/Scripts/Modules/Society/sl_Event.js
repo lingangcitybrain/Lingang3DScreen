@@ -369,6 +369,7 @@
 								'</div>' +
 								'<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
 									'<ul style="flex-grow:1;">' +
+                                      '<li style="color: #f90;">事件详情</li>' +
 										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
@@ -398,6 +399,7 @@
                             var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
 
                             html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
+                                 '<li style="color: #f90;">传感器详情</li>' +
                                             '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
                                             '<li><em>当前状态：</em><span>' + status + '</span></li>' +
                                             '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
@@ -421,6 +423,7 @@
         					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
 								'<div class="box-rightinfo scrolldiv flex" style="width:100%;">' +
 									'<ul style="flex-grow:1;">' +
+                                    '<li style="color: #f90;">事件详情</li>'+
 										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
@@ -450,6 +453,7 @@
                             var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
 
                             html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
+                                 '<li style="color: #f90;">传感器详情</li>' +
                                             '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
                                             '<li><em>当前状态：</em><span>' + status + '</span></li>' +
                                             '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
