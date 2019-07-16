@@ -203,8 +203,8 @@
             {
                 $.ajax({
                     type: 'POST',
-                    //url: con.InterfaceUrl + 'v1/park/vehicle/metroStatistic',
-                    url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/metroStatistic',
+                    url: con.InterfaceUrl + 'v1/park/vehicle/metroStatistic',
+                    //url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/metroStatistic',
                     cache: false,
                     dataType: 'json',
                     success: function (data) {
@@ -228,8 +228,8 @@
             {
                 $.ajax({
                     type: 'POST',
-                    //url: con.InterfaceUrl + 'v1/park/vehicle/parkVehicleStatistic',
-                    url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/parkVehicleStatistic',
+                    url: con.InterfaceUrl + 'v1/park/vehicle/parkVehicleStatistic',
+                    //url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/parkVehicleStatistic',
                     cache: false,
                     dataType: 'json',
                     success: function (data) {
