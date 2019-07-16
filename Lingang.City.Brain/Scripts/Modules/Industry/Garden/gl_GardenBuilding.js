@@ -5,7 +5,7 @@
         LastPOI_Clk: null,//鼠标选中POI
         GardenLayerType: null,//园区POI属性
         GardenPOIData: null,//园区POI详情数据
-
+        pieNode:[],
         
         //加载园区的建筑信息，在建筑上标注楼号POI
         loadGardenBuilding:function()
@@ -113,6 +113,7 @@
                             Direction: 1, //默认逆时针方向
                             OnPolygonCreated: null
                         });
+                        require("gl_GardenBuilding").pieNode.push(node);
                     }
                 }
                 })
@@ -177,6 +178,17 @@
                 }
                 this.GardenLayerType = null;
                 this.GardenPOIData = null;
+            }
+
+
+            //隐藏园区饼
+            if (require("gl_GardenBuilding").pieNode.length > 0) {
+                for (var i = 0; i < require("gl_GardenBuilding").pieNode.length; i++) {
+                    var node = require("gl_GardenBuilding").pieNode[i];
+                    if (node) {
+                        node.setVisible(0);
+                    }
+                }
             }
         },
         loadGardenDetial:function(nodename){
