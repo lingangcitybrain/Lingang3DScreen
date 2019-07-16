@@ -144,7 +144,7 @@
             {
                 $.ajax({
                         type: 'POST',
-                        url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/allTrafficInfo',
+                        url: con.InterfaceUrl + 'v1/park/vehicle/allTrafficInfo',
                         cache: false,
                         // data:post_data,
                         dataType: 'json',
