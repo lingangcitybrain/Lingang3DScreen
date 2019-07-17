@@ -121,16 +121,15 @@
 
                 $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
 
-                var status = "暂无数据";
+                var status = "<em>暂无数据</em>";
                 if (data.status == 0) {
-                    status = "正常";
+                    status = "<em>正常</em>";
                 }
                 else if (data.status == 0) {
-                    status = "失联";
+                    status = '<span style="color: #f90;">失联</span>';
                 }
-                else
-                {
-                    status = "告警";
+                else {
+                    status = '<span style="color: red;">告警</span>';
                 }
                 var sensorBrand = data.sensorBrand == null ? "暂无数据" : data.sensorBrand;
                 var installationAddress = data.installationAddress == null ? "暂无数据" : data.installationAddress;
@@ -141,7 +140,7 @@
                 var html = '<div class="box-rightinfo fl" style="font-size:.35rem; line-height:.7rem; margin-left:0;">' +
 								'<ul>' +
 								 '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
-								  '<li><span>当前状态：</span><em>' + status + '</em></li>' +
+								  '<li><span>当前状态：</span>' + status + '</li>' +
 								 '<li><span>所属品牌：</span><em>' + sensorBrand + '</em></li>' +
 									'<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
 									'<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
