@@ -293,35 +293,35 @@
                 if (require("s_Echart").societyPersonData == null) { return false; }
                 var data = require("s_Echart").societyPersonData;
 
-                $("#society-person>li").eq(0).find(".item-r-data").html(data.total);
-                $("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
-                $("#society-person>li").eq(2).find(".item-r-data").html(data.permanent);
-                $("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
+                //$("#society-person>li").eq(0).find(".item-r-data").html(data.total);
+                //$("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
+                //$("#society-person>li").eq(2).find(".item-r-data").html(data.permanent);
+                //$("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
                 this.currentPopulation = data.peopleFlow;
-                //com.numberAnimation($("#society-person>li").eq(0).find(".item-r-data"), Number(data.total) - 200, Number(data.total), 2000);
-                //com.numberAnimation($("#society-person>li").eq(1).find(".item-r-data"), Number(data.visitor) - 20, Number(data.visitor), 2000);
-                //com.numberAnimation($("#society-person>li").eq(2).find(".item-r-data"), Number(data.permanent) - 200, Number(data.permanent), 2000);
+                com.numberAnimation($("#society-person>li").eq(0).find(".item-r-data"), Number(data.total) - 200, Number(data.total), 2000);
+                com.numberAnimation($("#society-person>li").eq(1).find(".item-r-data"), Number(data.visitor) - 20, Number(data.visitor), 2000);
+                com.numberAnimation($("#society-person>li").eq(2).find(".item-r-data"), Number(data.permanent) - 200, Number(data.permanent), 2000);
 
 
-                // com.numberAnimation($("#society-person>li").eq(3).find(".item-r-data"), Number(data.peopleFlow) - 200, Number(data.peopleFlow), 2000);
+                 com.numberAnimation($("#society-person>li").eq(3).find(".item-r-data"), Number(data.peopleFlow) - 200, Number(data.peopleFlow), 2000);
 
                 this.Interval3 = setInterval(function () {
                     var lastvalue = $("#society-person>li").eq(3).find(".item-r-data").html();
-                    //lastvalue = lastvalue.replace(/,/ig, '');
+                    lastvalue = lastvalue.replace(/,/ig, '');
 
-                    var step_values = com.random(-2, 2)
-                        var current_values = parseInt(lastvalue) + step_values
+                    var step_values = com.random(-5, 10);
+                    var current_values = parseInt(lastvalue) + step_values;
 
-                        var minValues = parseInt(parseInt(this.currentPopulation) * 0.95)
-                        var maxValues = parseInt(parseInt(this.currentPopulation) * 1.05)
+                        //var minValues = parseInt(parseInt(this.currentPopulation) * 0.95)
+                        //var maxValues = parseInt(parseInt(this.currentPopulation) * 1.05)
 
-                        if (current_values < minValues) { current_values = minValues }
-                        if (current_values > maxValues) { current_values = maxValues }
-                        if (current_values <= 0) { current_values =0}
+                        //if (current_values < minValues) { current_values = minValues }
+                        //if (current_values > maxValues) { current_values = maxValues }
+                        //if (current_values <= 0) { current_values =0}
 
                     current_values = com.toThousands(current_values);
                     $("#society-person>li").eq(3).find(".item-r-data").html(current_values);
-                }, 7000);
+                }, 5000);
             });
 
         },
