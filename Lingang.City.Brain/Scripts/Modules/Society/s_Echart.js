@@ -711,7 +711,7 @@
                // 图表成功数成功率循环
                var sjcgTimerIndex = 0;
                if (require("s_Echart").intervalTime <=0) {
-                   changeTime = 3000;
+                   changeTime = 2000;
                }
                window.sjcgTimer = setInterval(function () {
                 
