@@ -508,11 +508,11 @@
                 var html = '<ul>';
                 html += ' <li><div>事件属性：</div><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                 '<li><div>接警时间：</div><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-                    '<li><div><img src="Content/images/sqzz-poi-icon1.png">地址：</div><span>' + data.address + '</span></li>' +
-                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">事件类型：</div><span>' + data.eventTypeName + '</span></li>' +
-                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">事件状态：</div><span>' + data.statusName + '</span></li>' +
-                     '<li><div><img src="Content/images/sqzz-poi-icon1.png">小区名称：</div><span>' + data.regionName + '</span></li>' +
-                    '<li><div><img src="Content/images/sqzz-poi-icon2.png">事件描述：</div><span>' + data.eventDes + '</span></li>';
+                    '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>地址：</div><span>' + data.address + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件类型：</div><span>' + data.eventTypeName + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件状态：</div><span>' + data.statusName + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>小区名称：</div><span>' + data.regionName + '</span></li>' +
+                    '<li><div><img src="Content/images/sqzz-poi-icon2.png"/>事件描述：</div><span>' + data.eventDes + '</span></li>';
                 html += '</ul>';
                 //海岸线，街面，工地 显示历史无人机
                 if (data.communityId == "U002" || data.communityId == "U003" || data.communityId == "C001") {
@@ -709,7 +709,7 @@
 
                             var inspectordata = require("sl_Event").InspectorList.get(data.dealPerson);//静态测试
                             var html = '<div class="sqzz-sjjd-div flex">' +
-                                        '<img src="' + inspectordata.photoUrl + '" style="width: 112px; height: 150px;">' +
+                                        '<img src="' + inspectordata.photoUrl + '" style="width: 112px; height: 150px;"/>' +
                                         '<ul class="sqzz-sjjd-list1">' +
                                             '<li><span>接单员：</span><em>' + inspectordata.name + '</em></li>' +
                                             '<li><span>性别：</span><em>男</em></li>' +

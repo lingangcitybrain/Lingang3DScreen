@@ -33,7 +33,7 @@
 
         createFlowRateBar: function (data) {
             var nodePath = con.AreaName + '/' + data.nm;
-            var poiName = con.AreaName + '/poi_' + data.nm;
+            //var poiName = con.AreaName + '/poi_' + data.nm;
             var pos = data.lng + "," + data.lat + ",0";
             var pos = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(con.AreaName));
             var node = map.getSceneNode(nodePath);
@@ -65,7 +65,7 @@
             //创建窗口信息显示
             require("el_HotMap").loadParkDetailWindow(nodePath, data.id);
             for (var i = 1; i <= data.height; i++) {
-                require("el_HotMap").setHeightAni({ 'node': nodePath, 'poi': poiName, 'pos': data.lng + "," + data.lat + ",0" }, i);
+                require("el_HotMap").setHeightAni({ 'node': nodePath,  'pos': data.lng + "," + data.lat + ",0" }, i);
             }
         },
 
@@ -147,6 +147,12 @@
 
             require("el_HotMap").nodeFollowingPath.forEach(function (e) {
                 map.disableNodeFollowing(e.nodePath, true);
+                //隐藏柱状模型
+                var node = map.getSceneNode(e.nodePath);
+                if (node) {
+                    node.setVisible(0);
+                }
+                //var nodeName
             });
 
             require("el_HotMap").nodeFollowingPath = [];

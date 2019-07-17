@@ -5,7 +5,7 @@
         LastPOI_Clk: null,//鼠标选中POI
         GardenLayerType: null,//园区POI属性
         GardenPOIData: null,//园区POI详情数据
-
+        pieNode:[],
         
         //加载园区的建筑信息，在建筑上标注楼号POI
         loadGardenBuilding:function()
@@ -24,14 +24,14 @@
         //加载园区POI
         loadGardenPOI:function(){
             this.GardenLayerType = require("g_Main").LayerCatalog.Garden;
-
+            this.drawPieArea();
             require("gl_GardenBuilding").GardenPOIData = e_LayerMenuData.GardenList.Data;
-
+            //gl_GardenBuildingAjax.getGardenInfo(function (result) { 
             var areaName = con.AreaName;
             var icon = require("gl_GardenBuilding").GardenLayerType.UnChooseIcon;
             var pois = [];
             for (var i = 0; i < require("gl_GardenBuilding").GardenPOIData.length; i++) {
-                var row = require("gl_GardenBuilding").GardenPOIData[i];
+                var row = require("gl_GardenBuilding").GardenPOIData[i];               
                 var poiName = "POIIndustryG" + require("gl_GardenBuilding").GardenLayerType.Name + "_" + row.id;//POIIOT_01
                 var iconSize = Q3D.vector2(72, 76);
                 var pos = row.lng + "," + row.lat + ",21";
@@ -82,6 +82,42 @@
                     }
                 map.createPOI(areaName + "/" + poiName, options)
             }
+            //})
+        },
+        drawPieArea: function () {
+            gl_GardenBuildingAjax.getGardenInfo(function (result) { 
+                var areaName = con.AreaName;
+                var icon = require("gl_GardenBuilding").GardenLayerType.UnChooseIcon;
+                var pois = [];
+                for (var i = 0; i < result.length; i++) {
+                    var row = result[i];
+                    var nodename = "girdarea" + i;
+                    var node = map.getSceneNode(con.AreaName + "/" + nodename);
+                    if (node) {
+                        node.setVisible(1);
+                    }
+                    else {
+                        var pointsArr = [], pointsData = row.points.split(",");
+                        for (var j = 0; j < pointsData.length; j++) {
+                            var point = pointsData[j].split(" ");
+                            var aa = point[0] + "," + point[1] + ",0";
+                            pointsArr.push(Q3D.vector3(aa.toGlobalVec3d().toLocalPos(areaName)));
+                        }
+                        //画多边形
+                        map.createPrism(areaName + "/" + nodename, {
+                            Material: null,
+                            SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                            Points: pointsArr,//注意要剔除收尾相等的点
+                            Color: Q3D.colourValue("#0b2d69", 1),
+                            Alpha: 0.1, //填充透明度
+                            //Direction: 1, //默认逆时针方向
+                            Height:5,
+                            OnPolygonCreated: null
+                        });
+                        require("gl_GardenBuilding").pieNode.push(node);
+                    }
+                }
+                })
         },
         //加载园区详情信息
         loadGardeninfo: function (AreaName, parentName, icon, id)
@@ -143,6 +179,17 @@
                 }
                 this.GardenLayerType = null;
                 this.GardenPOIData = null;
+            }
+
+
+            //隐藏园区饼
+            if (require("gl_GardenBuilding").pieNode.length > 0) {
+                for (var i = 0; i < require("gl_GardenBuilding").pieNode.length; i++) {
+                    var node = require("gl_GardenBuilding").pieNode[i];
+                    if (node) {
+                        node.setVisible(0);
+                    }
+                }
             }
         },
         loadGardenDetial:function(nodename){

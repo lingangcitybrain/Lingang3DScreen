@@ -85,7 +85,7 @@
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("s_Echart").carPersonInOutData = data;
+                    	require("s_Echart").carPersonInOutData = data;
                         callback(data)
                     },
                     error: function () {
