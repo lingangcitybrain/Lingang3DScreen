@@ -150,7 +150,7 @@
                 cache: false,
                 dataType: 'json',  // 返回数据的数据类型json
                 success: function (data) {
-                    require("gl_GardenBuilding").GardenPOIData = data;
+                    ///require("gl_GardenBuilding").GardenPOIData = data;
                     //require("g_Echart").tcfwData = data.data;
                     callback(data);
                 },
