@@ -311,12 +311,12 @@
                     var step_values = com.random(-5, 10);
                     var current_values = parseInt(lastvalue) + step_values;
 
-                        //var minValues = parseInt(parseInt(this.currentPopulation) * 0.95)
-                        //var maxValues = parseInt(parseInt(this.currentPopulation) * 1.05)
+                    var minValues = parseInt(parseInt(this.currentPopulation) * 0.8);
+                        var maxValues = parseInt(parseInt(this.currentPopulation) * 1.2);
 
-                        //if (current_values < minValues) { current_values = minValues }
-                        //if (current_values > maxValues) { current_values = maxValues }
-                        //if (current_values <= 0) { current_values =0}
+                        if (current_values < minValues) { current_values = minValues }
+                        if (current_values > maxValues) { current_values = maxValues }
+                        if (current_values <= 0) { current_values =0}
 
                     current_values = com.toThousands(current_values);
                     $("#society-person>li").eq(3).find(".item-r-data").html(current_values);
