@@ -23,7 +23,7 @@
         paidanTimerout: null,
         paidan2Timerout: null,
         eventProcessTimerout: null,//事件处置流程
-
+        timeCountDownData:[],
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -89,6 +89,8 @@
                         } else {
                             pois.push(poi);
                         }
+
+                        //timeCountDownData.push();
                     }
                 }
                 com.InitPois(areaName, pois);
@@ -119,6 +121,7 @@
 
                 }
 
+                
                 if ($.isFunction(callback))
                     callback()
             });
@@ -436,15 +439,15 @@
                     if (data.communityId = "S012") {
                         var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
                         if (iotdata != null) {
-                            var status = "暂无数据";
-                            if (iotdata.status == 0) {
-                                status = "正常";
+                            var status = "<span>暂无数据</span>";
+                            if (data.status == 0) {
+                                status = "<span>正常</span>";
                             }
-                            else if (iotdata.status == 0) {
-                                status = "失联";
+                            else if (data.status == 0) {
+                                status = '<span style="color: #f90;">失联</span>';
                             }
                             else {
-                                status = "告警";
+                                status = '<span style="color: red;"">告警</span>';
                             }
                             var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
                             var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
@@ -455,7 +458,7 @@
                             html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
                                  '<li style="color: #f90;">传感器详情</li>' +
                                             '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
-                                            '<li><em>当前状态：</em><span>' + status + '</span></li>' +
+                                            '<li><em>当前状态：</em>' + status + '</li>' +
                                             '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
                                             '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
                                              '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +

@@ -1,4 +1,4 @@
-﻿define(["config", "common", "util", "s_LayerMenuAjax", "s_layerMenuData", "s_EchartAjax"], function (con, com,util, s_LayerMenuAjax, s_layerMenuData, s_EchartAjax) {
+﻿define(["config", "common", "util", "s_LayerMenuAjax", "s_layerMenuData", "s_EchartAjax"], function (con, com, util, s_LayerMenuAjax, s_layerMenuData, s_EchartAjax) {
     /**************************************无人机**************************************/
     return {
         LayerType: null,//选择无人机
@@ -21,12 +21,12 @@
         detailWindowId: 0,//当前窗口id
         loadDrone: function () {
             this.Revert();
-            
-            com.LayerFlyto(12, function () {})
+
+            com.LayerFlyto(12, function () { })
 
             //加载无人机库
             require("sl_Drone").loadDroneHangarPOI();
-            ////无人机采用实际的数据
+            //无人机采用实际的数据
             require("sl_Drone").loadDroneModelForList();
             //缓存无人机数据（取视频SBBM用）
             require("sl_Drone").loadDroneList();
@@ -108,6 +108,27 @@
                         },
                     }
                     map.createPOI(areaName + "/" + poiName, options)
+
+
+                    //创建机库三公里半径效果
+                    var nodePath = areaName + "/" + poiName + "_quan";
+                    var node = map.getSceneNode(nodePath);
+                    if (node) {
+                        map.getArea(areaName).destroySceneNode(nodePath);
+                    }
+
+                    map.createCylinder(nodePath, {
+                        SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                        Color: Q3D.colourValue("#00ffff", 1), //颜色材质使用的颜色
+                        Alpha: 0.1, //颜色材质使用的透明度
+                        Center: position, //底面中心坐标 Vector3        
+                        Anchor: null,//顶面中心坐标 Vector3，非垂直情况下可设置
+                        Radius: 600, //半径
+                        Height: parseInt(1),//1000,//高度
+                        Pieces: 360, //设置生成圆面的面个数    
+                        OnCylinderCreated: function () {//加载结束回调
+                        }
+                    })
                 }
                 //com.InitPois(areaName, pois, function (areaName, poiName,wurenjikuimg,id) { });
             });
@@ -255,20 +276,17 @@
             //console.log("loadDroneModelForList");
             var post_data = { "offset": "", "count": "" }
             require("t_LayerMenuAjax").getDronePosList(post_data, function (result) {
-                //if (require('sl_Drone').DroneInter) {
-
-                //}
                 if (result != null) {
                     for (var i = 0; i < result.length; i++) {
-                       
+
                         //创建无人机模型
-                        var id = result[i].wrj_id.toString();
+                        var id = result[i].sbbm.toString();
                         var lng = result[i].lng.toString();
                         var lat = result[i].lat.toString();
                         var height = result[i].height.toString();
-                        var modify_time = result[i].modify_time.toString();
+                        var modify_time = result[i].flightTime.toString();
 
-                        
+
                         //if (height != "" && height != 0) {
                         if (height != "" && lng != "" && lat != "") {
                             //console.log(i,lng, lat, height, modify_time)
@@ -302,14 +320,21 @@
                                     //添加实时追踪数据
                                     require("sl_Drone").DroneTrack(nodePath, nextpos, seconds)
 
+                                    
 
                                     //创建圆锥投影
-                                    var conePath = dronepath + "/TextCone" + id;
+                                    var coneName = "TextCone" + id
+                                    var conePath = dronepath + "/" + coneName;
                                     var dronepos = Q3D.globalVec3d(Q3D.vector3d(map.getSceneNode(areaName, modelName).getAbsPos()).toGlobalVec3d());
                                     var conepos = dronepos.longitude + "," + dronepos.latitude + ",-70";
 
                                     var Pos = Q3D.vector3(conepos.toGlobalVec3d().toLocalPos(areaName));
-                                    map.createCone(conePath, {
+
+                                    var conenode = map.getSceneNode(areaName, coneName);
+                                    if (conenode) {
+                                        node.setVisible(1)
+                                    } else {
+                                         map.createCone(conePath, {
                                         //Material: ["Material/xihongqiao2_dz01.mtr", "Materialne_static.mtr"],
                                         Alpha: 0.1,
                                         Color: Q3D.colourValue("#0ad0ce", 1), //线的颜色 0000ff
@@ -318,6 +343,9 @@
                                         Height: 70,//高度
                                         //Anchor: Q3D.vector3(20,10,10),            
                                     });
+                                    }
+
+                                   
 
 
                                     //无人机上加POI
@@ -358,6 +386,12 @@
                                 modelnode.setVisible(1)
 
 
+                                var coneName = "TextCone" + id
+                                var conenode = map.getSceneNode(con.AreaName, coneName)
+                                if (conenode) {
+                                    conenode.setVisible(1)
+                                }
+
                                 var poiName = "POISocietyDrone_" + id
                                 var poinode = map.getSceneNode(con.AreaName, poiName)
                                 if (poinode) {
@@ -370,10 +404,10 @@
                                 //添加无人机追踪数据
                                 var lastdata = require("sl_Drone").DroneFirstTimeList.get(id)
                                 if (lastdata) {
-                                    var lasttime = lastdata.modify_time;
-                                    seconds = com.GetDateDiff(lasttime, modify_time, "second")
-                                    if (seconds > 0) {
-                                        require("sl_Drone").DroneTrack(nodePath, nextpos, seconds)
+                                    //var lasttime = lastdata.flightTime;
+                                    //seconds = com.GetDateDiff(lasttime, modify_time, "second")
+                                    if (modify_time > 0) {
+                                        require("sl_Drone").DroneTrack(nodePath, nextpos, modify_time)
                                     }
                                 }
                             } else {
@@ -429,7 +463,7 @@
                 var post_data = { "offset": "0", "count": "1000" }
 
                 var id = nodename.split('_')[1];
-                var data = require("sl_Drone").DroneList.get(id);
+                var data = require("sl_Drone").DroneHangarList.get(id);
                 var post_data = { "sbbm": data.sbbm };
                 if (data.sbbm != "ceshi_001" && data.sbbm != "SkySys_0004" && data.sbbm != "SkySys_0005") {
                     require("s_LayerMenuAjax").getDroneVideo(post_data, function (result) {
@@ -474,11 +508,11 @@
         },
 
         /********************************/
-        loadDroneDetail:function(){
-         require("sl_Drone").loadDroneModel();
-                require("sl_Drone").loadDroneCamera();
+        loadDroneDetail: function () {
+            require("sl_Drone").loadDroneModel();
+            require("sl_Drone").loadDroneCamera();
             com.LayerFlyto(121, function () {
-               
+
             })
         },
         //加载无人机视频
@@ -490,50 +524,50 @@
             }
 
             var url = con.HtmlUrl + 'SocietyNew/Bottom_DroneCamera.html';
-                require(['text!' + url], function (template) {
-                    $("#detail_societyplayer").html(template);
-                    $("#detail_societyplayer").show('slide', { direction: 'left' }, 500);
-                    
-                    var url = con.WebServiceUrl + "/Content/video/CH2.flv";
-                    setTimeout(function () {
-                        //加载视频
-                        require(['aliplayer'], function (data) {
-                            var videowidth = $(".video-js").width();
-                            var videoheight = $(".video-js").height();
+            require(['text!' + url], function (template) {
+                $("#detail_societyplayer").html(template);
+                $("#detail_societyplayer").show('slide', { direction: 'left' }, 500);
 
-                            require("sl_Drone").SocietyDrone_player = new Aliplayer({
-                                "id": "bottom_cameradetail",
-                                "source": url,
-                                //"width": videowidth + "px",
-                                //"height": videoheight + "px",
-                                "autoplay": true,
-                                "isLive": false,
-                                "rePlay": true,
-                                "showBuffer": true,
-                                "snapshot": false,
-                                "showBarTime": 5000,
-                                "useFlashPrism": true,
-                                "waitingTimeout": 60
+                var url = con.WebServiceUrl + "/Content/video/CH2.flv";
+                setTimeout(function () {
+                    //加载视频
+                    require(['aliplayer'], function (data) {
+                        var videowidth = $(".video-js").width();
+                        var videoheight = $(".video-js").height();
 
-                            }, function (player) {
-                                //加载成功,清空错误提示
-                                $(".prism-ErrorMessage").empty();
-                                $("#eventvideo").attr("poster", con.WebServiceUrl + "Content/images/sxt-videoli.png");
-                            })
+                        require("sl_Drone").SocietyDrone_player = new Aliplayer({
+                            "id": "bottom_cameradetail",
+                            "source": url,
+                            //"width": videowidth + "px",
+                            //"height": videoheight + "px",
+                            "autoplay": true,
+                            "isLive": false,
+                            "rePlay": true,
+                            "showBuffer": true,
+                            "snapshot": false,
+                            "showBarTime": 5000,
+                            "useFlashPrism": true,
+                            "waitingTimeout": 60
+
+                        }, function (player) {
+                            //加载成功,清空错误提示
+                            $(".prism-ErrorMessage").empty();
+                            $("#eventvideo").attr("poster", con.WebServiceUrl + "Content/images/sxt-videoli.png");
                         })
-                    }, 1000);
-                });
+                    })
+                }, 1000);
+            });
         },
-        
+
         //加载无人机模型
         loadDroneModel: function () {
             require("sl_Drone").clearPlane();
             //创建无人机模型
-            var modelName  = "wrj";
-            var areaName   = con.AreaName; ///"gwh_xilou";
-            var quanMesh   = "Mesh/dajiangm600.mesh"
-            var dronepath  = areaName + "/" + modelName;
-            var POS = "121.909119,30.883694,500.000053" 
+            var modelName = "wrj";
+            var areaName = con.AreaName; ///"gwh_xilou";
+            var quanMesh = "Mesh/dajiangm600.mesh"
+            var dronepath = areaName + "/" + modelName;
+            var POS = "121.909119,30.883694,500.000053"
             var position = (POS).toGlobalVec3d().toLocalPos(areaName)
 
 
@@ -713,7 +747,7 @@
         },
 
         //无人机
-        loadWrjDroneData:function(){
+        loadWrjDroneData: function () {
             s_EchartAjax.getJmDroneData(function (result) {
                 if (require("s_Echart").jmDroneData == null) { return false; }
                 var data = require("s_Echart").jmDroneData;
@@ -723,12 +757,12 @@
             })
         },
 
-        loadWrjXcyData:function(){
+        loadWrjXcyData: function () {
             s_EchartAjax.getJmXcyData(function (result) {
                 if (require("s_Echart").jmXcyData == null) { return false; }
                 var data = require("s_Echart").jmXcyData;
-                data = data.data.data;
-                for(var i=0; i<data.length; i++){
+                data = data.data;
+                for (var i = 0; i < data.length; i++) {
                     $("#drone-xcy").append(
                         '<li class=\"sqzz-xcyxx-li\">'
                            + '<div class=\"item-l\"><img src=\"' + data[i].photoUrl + '\" style=\"width:1.4rem !important; height:1.7rem !important;\"></div>'
@@ -826,7 +860,12 @@
                         map.destroySceneNode(areaName, poiname)
                     }
 
-
+                    var quanname = poiname + "_quan";
+                    var quannode = map.getSceneNode(areaName + "/" + quanname);
+                    if (quannode) {
+                        //map.getArea(areaName).destroySceneNode(poiname);
+                        map.destroySceneNode(areaName, quanname)
+                    }
                     /*详情*/
                     var fullNodePath = areaName + "/PoiDroneInfo" + data[i].id;
                     if (map.getSceneNode(fullNodePath)) {
@@ -838,10 +877,10 @@
             }
         },
         closeCameraDetial: function () {
-        
-                $("#detail_tourplayer").html("");
 
-                this.clearAllChoosePoi();
+            $("#detail_tourplayer").html("");
+
+            this.clearAllChoosePoi();
             try {
                 if (require("sl_Drone").SocietyDrone_player) {
                     require("sl_Drone").SocietyDrone_player.loadByUrl("");
@@ -871,32 +910,30 @@
             if (require('sl_Drone').DroneInter != null) {
                 window.clearInterval(require('sl_Drone').DroneInter)
                 require('sl_Drone').DroneInter = null;
-            }
 
+                ////清空
+                if (require('sl_Drone').DroneHangarList != null && require('sl_Drone').DroneHangarList != undefined) {
+                    var Data = require('sl_Drone').DroneHangarList
+                    if (Data.size() > 0) {
+                        for (i = 0; i < Data.size() ; i++) {
+                            var key = Data.keys()[i];
+                            var node1 = map.getSceneNode("gwh_xilou", "wrj" + key);
+                            var node2 = map.getSceneNode("gwh_xilou", "TextCone" + key);
+                            var node3 = map.getSceneNode("gwh_xilou", "POISocietyDrone_" + key);
 
-            ////清空
-            if (require('sl_Drone').DroneHangarList != null && require('sl_Drone').DroneHangarList != undefined) {
-                var Data = require('sl_Drone').DroneHangarList
-                if (Data.size() > 0) {
-                    for (i = 0; i < Data.size() ; i++) {
-                        var key = Data.keys()[i];
-                        var node1 = map.getSceneNode(con.AreaName, "wrj" + key);
-                        //var node2 = map.getSceneNode(con.AreaName, "TextCone" + key);
-                        var node3 = map.getSceneNode(con.AreaName, "POISocietyDrone_" + key);
+                            if (node1) {
+                                node1.setVisible(0)
+                                //map.destroySceneNode(con.AreaName, "POISocietyDrone_wurenji" + key);
+                            }
+                            if (node2) { node2.setVisible(0) }
+                            if (node3) { node3.setVisible(0) }
 
-                        if (node3) {
-                            node3.setVisible(0)
-                            //map.destroySceneNode(con.AreaName, "POISocietyDrone_wurenji" + key);
                         }
-                        //if (node2) { map.destroySceneNode(con.AreaName, "TextCone" + key); }
-                        //if (node1) { map.destroySceneNode(con.AreaName, "wrj" + key); }
 
+                        require('sl_Drone').DroneHangarList.clear();
                     }
-
-                    require('sl_Drone').DroneHangarList.clear();
                 }
             }
-
             //
             if (require('sl_Drone').DroneFirstTimeList != null && require('sl_Drone').DroneFirstTimeList != undefined) {
                 if (require('sl_Drone').DroneFirstTimeList.size() > 0) {

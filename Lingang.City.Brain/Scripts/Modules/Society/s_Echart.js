@@ -286,7 +286,7 @@
                             data: [
                                 { value: data.wrj_flying_cnt, name: '执飞中' },
                                 { value: data.wrj_charging_cnt, name: '充电中' },
-                                { value: data.wrj_idle_cnt + data.wrj_lost_cnt, name: '待命中' }
+                                { value: data.wrj_idle_cnt, name: '待命中' }
                             ]
                         }
                     ]
@@ -371,7 +371,7 @@
                             data: [
                                 { value: data.wrj_flying_cnt, name: '执飞中' },
                                 { value: data.wrj_charging_cnt, name: '充电中' },
-                                { value: data.wrj_idle_cnt + data.wrj_lost_cnt, name: '待命中' }
+                                { value: data.wrj_idle_cnt, name: '待命中' }
                             ]
                         }
                     ]
