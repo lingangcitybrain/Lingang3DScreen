@@ -378,7 +378,7 @@
 										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
 										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
 										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+										'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
 										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
 									'</ul>';
                     //社区事件的话，有传感器ID显示传感器详情
@@ -432,7 +432,7 @@
 										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
 										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
 										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-										'<li><em>小区名称：</em><span>' + data.regionName + '</span></li>' +
+										'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
 										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
 									'</ul>';
                     //社区事件的话，有传感器ID显示传感器详情
@@ -511,7 +511,7 @@
                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>地址：</div><span>' + data.address + '</span></li>' +
                      '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件类型：</div><span>' + data.eventTypeName + '</span></li>' +
                      '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件状态：</div><span>' + data.statusName + '</span></li>' +
-                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>小区名称：</div><span>' + data.regionName + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>发生区域：</div><span>' + data.regionName + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon2.png"/>事件描述：</div><span>' + data.eventDes + '</span></li>';
                 html += '</ul>';
                 //海岸线，街面，工地 显示历史无人机
