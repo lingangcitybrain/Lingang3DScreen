@@ -1765,6 +1765,8 @@
         rycltjClickEvent: function (domName) {
             $("#" + domName).addClass("active").siblings().removeClass("active");
             var rqa = $("#rq a");
+            var nowHour = new Date().getHours();
+
             function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
@@ -1789,13 +1791,13 @@
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter: '{a}:{c}',
-                        axisPointer: {
-                            type: 'cross',
-                            label: {
-                                show: false,
-                            }
-                        },
+                        //formatter: '{a}:{c}',
+                        //axisPointer: {
+                        //    type: 'cross',
+                        //    label: {
+                        //        //show: false,
+                        //    }
+                        //},
                     },
                     xAxis: {
                         type: 'category',
@@ -1926,17 +1928,24 @@
 
                             rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
                             oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
                             if (data != null) {
                                 for (var item in data.入园) {
-                                    if (Number(item) >= 9 && Number(item) <= 24) {
-                                        rysum[Number(item) - 9] = data.入园[item];
+                                	if (Number(item) >= 9 && Number(item) <= 24) {
+                                		if (Number(item) > nowHour) {
+                                			rysum[Number(item) - 9] = '';
+                                		} else {
+                                			rysum[Number(item) - 9] = data.入园[item];
+                                		}
                                     }
                                 }
-                                for (var item in data.出园) {
 
+                                for (var item in data.出园) {
                                     if (Number(item) >= 9 && Number(item) <= 24) {
-                                        cysum[Number(item) - 9] = data.出园[item];
+                                    	if (Number(item) > nowHour) {
+                                    		cysum[Number(item) - 9] = '';
+                                    	} else {
+                                    		cysum[Number(item) - 9] = data.出园[item];
+                                    	}
                                     }
                                 }
                                 oRycltjChartData1 = rysum;
@@ -1960,13 +1969,21 @@
                         		if (data != null) {
                         			for (var item in data.入园) {
                         				if (Number(item) >= 9 && Number(item) <= 24) {
-                        					rysum[Number(item) - 9] = data.入园[item];
+                        					if (Number(item) > nowHour) {
+                        						rysum[Number(item) - 9] = '';
+                        					} else {
+                        						rysum[Number(item) - 9] = data.入园[item];
+                        					}
                         				}
                         			}
-                        			for (var item in data.出园) {
 
+                        			for (var item in data.出园) {
                         				if (Number(item) >= 9 && Number(item) <= 24) {
-                        					cysum[Number(item) - 9] = data.出园[item];
+                        					if (Number(item) > nowHour) {
+                        						cysum[Number(item) - 9] = '';
+                        					} else {
+                        						cysum[Number(item) - 9] = data.出园[item];
+                        					}
                         				}
                         			}
                         			oRycltjChartData1 = rysum;
@@ -2033,8 +2050,12 @@
 
                             if (data != null) {
                                 for (var item in data) {
-                                    if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
-                                        dtsum[parseInt(item) - 9] = data[item]
+                                	if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
+                                		if (parseInt(item) > nowHour) {
+                                			dtsum[parseInt(item) - 9] = '';
+                                		} else {
+                                			dtsum[parseInt(item) - 9] = data[item]
+                                		}
                                     }
                                 }
                                 oRycltjChartData1 = dtsum;
@@ -2057,7 +2078,11 @@
                         		if (data != null) {
                         			for (var item in data) {
                         				if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
-                        					dtsum[parseInt(item) - 9] = data[item]
+                        					if (parseInt(item) > nowHour) {
+                        						dtsum[parseInt(item) - 9] = '';
+                        					} else {
+                        						dtsum[parseInt(item) - 9] = data[item]
+                        					}
                         				}
                         			}
                         			oRycltjChartData1 = dtsum;
@@ -2126,14 +2151,22 @@
 
                             if (data != null) {
                                 for (var item in data.入临港) {
-                                    if (Number(item) >= 9 && Number(item) <= 24) {
-                                        rysum[Number(item) - 9] = data.入临港[item];
+                                	if (Number(item) >= 9 && Number(item) <= 24) {
+                                		if (Number(item) > nowHour) {
+                                			rysum[Number(item) - 9] = '';
+                                		} else {
+                                			rysum[Number(item) - 9] = data.入临港[item];
+                                		}
                                     }
                                 }
                                 for (var item in data.出临港) {
 
-                                    if (Number(item) >= 9 && Number(item) <= 24) {
-                                        cysum[Number(item) - 9] = data.出临港[item];
+                                	if (Number(item) >= 9 && Number(item) <= 24) {
+                                		if (Number(item) > nowHour) {
+                                			cysum[Number(item) - 9] = '';
+                                		} else {
+                                			cysum[Number(item) - 9] = data.出临港[item];
+                                		}
                                     }
                                 }
                                 oRycltjChartData1 = rysum;
@@ -2158,13 +2191,21 @@
                         		if (data != null) {
                         			for (var item in data.入临港) {
                         				if (Number(item) >= 9 && Number(item) <= 24) {
-                        					rysum[Number(item) - 9] = data.入临港[item];
+                        					if (Number(item) > nowHour) {
+                        						rysum[Number(item) - 9] = '';
+                        					} else {
+                        						rysum[Number(item) - 9] = data.入临港[item];
+                        					}
                         				}
                         			}
                         			for (var item in data.出临港) {
 
                         				if (Number(item) >= 9 && Number(item) <= 24) {
-                        					cysum[Number(item) - 9] = data.出临港[item];
+                        					if (Number(item) > nowHour) {
+                        						cysum[Number(item) - 9] = '';
+                        					} else {
+                        						cysum[Number(item) - 9] = data.出临港[item];
+                        					}
                         				}
                         			}
                         			oRycltjChartData1 = rysum;
@@ -2242,14 +2283,14 @@
 
                         },
                         tooltip: {
-                            formatter:'{a}:{c}',
+                            //formatter:'{a}:{c}',
                             trigger: 'axis',
-                            axisPointer: {
-                                type: 'cross',
-                                label: {
-                                    show: false,
-                                }
-                            },
+                            //axisPointer: {
+                            //    type: 'cross',
+                            //    label: {
+                            //        //show: false,
+                            //    }
+                            //},
                             textStyle: {//默认值，
                                 fontSize: 50,//默认值，
                             },
