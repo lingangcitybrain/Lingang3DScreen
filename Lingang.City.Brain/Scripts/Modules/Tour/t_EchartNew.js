@@ -1945,6 +1945,54 @@
                             }
                         }
 
+
+                        rqa.each(function (index, element) {
+                        	$(this).click(function () {
+                        		$(this).addClass("active").siblings().removeClass("active");
+                        		datetemp = rqa.length - 1 - index;
+                        		oRycltjChartRqaIndex = index;
+
+                        		var rysum = [];
+                        		var cysum = [];
+                        		var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                        		var data = require("t_Echart").personcarData.get(key);
+
+                        		if (data != null) {
+                        			for (var item in data.入园) {
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					rysum[Number(item) - 9] = data.入园[item];
+                        				}
+                        			}
+                        			for (var item in data.出园) {
+
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					cysum[Number(item) - 9] = data.出园[item];
+                        				}
+                        			}
+                        			oRycltjChartData1 = rysum;
+                        			oRycltjChartData2 = cysum;
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        		}
+
+                        	})
+                        })
+
+                        $("#rycltj-datebtn-pre").click(function () {
+                        	datetemp++;
+                        	if (datetemp == 7) {
+                        		datetemp = 0;
+                        	}
+                        	cryFun();
+                        })
+                        $("#rycltj-datebtn-next").click(function () {
+                        	datetemp--;
+                        	if (datetemp == -1) {
+                        		datetemp = 6;
+                        	}
+                        	cryFun();
+                        })
+
+
                     })
             }
             else if (domName == "dt") {
@@ -1994,6 +2042,49 @@
                                 tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                             }
                         }
+
+
+                        rqa.each(function (index, element) {
+                        	$(this).click(function () {
+                        		$(this).addClass("active").siblings().removeClass("active");
+                        		datetemp = rqa.length - 1 - index;
+                        		oRycltjChartRqaIndex = index;
+
+                        		var dtsum = [];
+                        		var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                        		var data = require("t_Echart").personcarData.get(key);
+
+                        		if (data != null) {
+                        			for (var item in data) {
+                        				if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
+                        					dtsum[parseInt(item) - 9] = data[item]
+                        				}
+                        			}
+                        			oRycltjChartData1 = dtsum;
+                        			oRycltjChartData2 = null;
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        		}
+
+                        	})
+                        })
+
+                        $("#rycltj-datebtn-pre").click(function () {
+                        	datetemp++;
+                        	if (datetemp == 7) {
+                        		datetemp = 0;
+                        	}
+                        	cryFun();
+                        })
+                        $("#rycltj-datebtn-next").click(function () {
+                        	datetemp--;
+                        	if (datetemp == -1) {
+                        		datetemp = 6;
+                        	}
+                        	cryFun();
+                        })
+
+
+
                     })
             }
             else if (domName == "jccl") {
@@ -2050,6 +2141,55 @@
                                 tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                             }
                         }
+
+
+
+                        rqa.each(function (index, element) {
+                        	$(this).click(function () {
+                        		$(this).addClass("active").siblings().removeClass("active");
+                        		datetemp = rqa.length - 1 - index;
+                        		oRycltjChartRqaIndex = index;
+
+                        		var rysum = [];
+                        		var cysum = [];
+                        		var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                        		var data = require("t_Echart").personcarData.get(key);
+
+                        		if (data != null) {
+                        			for (var item in data.入临港) {
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					rysum[Number(item) - 9] = data.入临港[item];
+                        				}
+                        			}
+                        			for (var item in data.出临港) {
+
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					cysum[Number(item) - 9] = data.出临港[item];
+                        				}
+                        			}
+                        			oRycltjChartData1 = rysum;
+                        			oRycltjChartData2 = cysum;
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        		}
+
+                        	})
+                        })
+
+                        $("#rycltj-datebtn-pre").click(function () {
+                        	datetemp++;
+                        	if (datetemp == 7) {
+                        		datetemp = 0;
+                        	}
+                        	cryFun();
+                        })
+                        $("#rycltj-datebtn-next").click(function () {
+                        	datetemp--;
+                        	if (datetemp == -1) {
+                        		datetemp = 6;
+                        	}
+                        	cryFun();
+                        })
+
                     })
             }           
         },
