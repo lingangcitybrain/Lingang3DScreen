@@ -308,7 +308,7 @@
                     var lastvalue = $("#society-person>li").eq(3).find(".item-r-data").html();
                     lastvalue = lastvalue.replace(/,/ig, '');
 
-                    var step_values = com.random(-5, 10);
+                    var step_values = com.random(-5, 5);
                     var current_values = parseInt(lastvalue) + step_values;
 
                     var minValues = parseInt(parseInt(this.currentPopulation) * 0.8);
