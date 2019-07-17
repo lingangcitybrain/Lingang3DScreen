@@ -116,14 +116,15 @@
                     if (node) {
                         map.getArea(areaName).destroySceneNode(nodePath);
                     }
-
+                    var quanpos = Coordinate + ",20";
+                    var quanposition = Q3D.vector3(quanpos.toGlobalVec3d().toLocalPos(areaName));
                     map.createCylinder(nodePath, {
                         SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
                         Color: Q3D.colourValue("#00ffff", 1), //颜色材质使用的颜色
                         Alpha: 0.1, //颜色材质使用的透明度
-                        Center: position, //底面中心坐标 Vector3        
+                        Center: quanposition, //底面中心坐标 Vector3        
                         Anchor: null,//顶面中心坐标 Vector3，非垂直情况下可设置
-                        Radius: 600, //半径
+                        Radius: 1500, //半径
                         Height: parseInt(1),//1000,//高度
                         Pieces: 360, //设置生成圆面的面个数    
                         OnCylinderCreated: function () {//加载结束回调
