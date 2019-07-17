@@ -259,7 +259,9 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventIOT2.html'
             }
             com.UIControlAni(option, function () {
-                require("sl_IOT").loadCarPersonInOutData();
+            	require("sl_IOT").loadCarPersonInOutData();
+            	setInterval(function () { require("sl_IOT").loadCarPersonInOutData(); }, 5*60 * 1000)
+
             });
         },
         //加载第二列的div3
@@ -490,6 +492,7 @@
                     ]
                 };
                 myChartsqcl.setOption(sqclOption);
+                require("sl_IOT").bigLoadCarPersonInOutData(require("sl_IOT").carInOutCount, require("sl_IOT").personInOutCount, require("sl_IOT").seriesDataMax);
 
             });
 
