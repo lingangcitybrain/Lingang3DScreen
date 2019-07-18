@@ -320,7 +320,7 @@
 
                     current_values = com.toThousands(current_values);
                     $("#society-person>li").eq(3).find(".item-r-data").html(current_values);
-                }, 500000);
+                }, 5000);
             });
 
         },
