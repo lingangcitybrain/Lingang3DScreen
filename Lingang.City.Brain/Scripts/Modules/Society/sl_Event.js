@@ -23,7 +23,7 @@
         paidanTimerout: null,
         paidan2Timerout: null,
         eventProcessTimerout: null,//事件处置流程
-        timeCountDownData:[],
+        timeCountDownData: new util.HashMap,//倒计时数据
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -69,13 +69,17 @@
                         var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
+                        if (row.lastTime > 0) {
+                            console.log(row.lastTime);
+                        }
                         var textname = "";
                         if (i == 0) {
-                            textname = "00:15:15";
-                        } else if (i == 1) {
-                            textname = "00:05:18";
+                            textname = "00:08:30";
+                        }
+                        else if (i == 1) {
+                            textname = "00:13:14";
                         } else if (i == 2) {
-                            textname = "00:10:16";
+                            textname = "00:11:38";
                         }
 
                         var poi = {
@@ -90,38 +94,30 @@
                             pois.push(poi);
                         }
 
-                        //timeCountDownData.push();
+                        //数据暂未提供，默认前3个 开始POI倒计时
+                        if (i == 0) {
+                            require("sl_Event").timeCountDownData.put(poiName, "510");//标记
+                        }
+                        else if(i == 1) {
+                            require("sl_Event").timeCountDownData.put(poiName, "794");//标记
+                        }
+                        else if (i ==2) {
+                            require("sl_Event").timeCountDownData.put(poiName, "698");//标记
+                        }
                     }
                 }
                 com.InitPois(areaName, pois);
 
-                //数据暂未提供，默认前5个 开始POI倒计时
-                for (var i = 0; i < 3; i++) {
-                    var row = require("sl_Event").POIData[i];
-                    if (require("sl_Event").LayerType.List[row.communityId] != null) {
-                        var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
-                        var timeText = "00:10:16";
-                        if (i == 0) {
-                            timeText = "00:15:15";
-                        } else if (i == 1) {
-                            timeText = "00:07:18";
-                        } else if (i == 2) {
-                            timeText = "00:10:16";
-                        }
 
-                        var s = '';
-                        var hour = timeText.split(':')[0];
-                        var min = timeText.split(':')[1];
-                        var sec = timeText.split(':')[2];
-
-                        s = Number(hour * 3600) + Number(min * 60) + Number(sec);
-                        require("sl_Event").setTimeCountDown(poiName, s);
+                if (require("sl_Event").timeCountDownData.size() > 0)
+                {
+                    for (var i in require("sl_Event").timeCountDownData.keys()) {
+                        var datalist = require("sl_Event").timeCountDownData.get(require("sl_Event").timeCountDownData.keys()[i]);
+                        //开始倒计时
+                        require("sl_Event").setTimeCountDown(require("sl_Event").timeCountDownData.keys()[i], datalist);
                     }
-                    //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
 
                 }
-
-                
                 if ($.isFunction(callback))
                     callback()
             });
@@ -138,6 +134,10 @@
             //var times = 915;
             var timer = null;
             timer = setInterval(function () {
+                if (times <= 0) {
+                    times = require("sl_Event").timeCountDownData.get(poiname);
+                    //console.log("timeCountDownData:"+times);
+                }
                 var day = 0,
                 hour = 0,
                 minute = 0,
@@ -160,16 +160,9 @@
                     node.asPOI().setText(timedata);
                 }
                 times--;
+                //console.log(times);
             }, 1000);
             require("sl_Event").timeCountList.push(timer);
-            if (times <= 0) {
-                clearInterval(timer);
-                var areaName = con.AreaName;
-                var node = map.getSceneNode(areaName, poiname);
-                if (node) {
-                    node.asPOI().setText("");
-                }
-            }
         },
         //获取巡查员坐标
         loadInspectorList: function () {
@@ -283,7 +276,7 @@
                 else {//显示图片格式
                     //console.log(id);
                     require("sl_Event").loadEventPicDetail(id);
-                    //require("sl_Event").LoopPlayback(id);
+                    require("sl_Event").LoopPlayback(id);
                 }
             }
         },

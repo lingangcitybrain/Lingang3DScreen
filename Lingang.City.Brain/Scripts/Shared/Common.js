@@ -1560,7 +1560,6 @@
         formatDate2: function (date) {
             var arr = date.split("T");
             var dd = date;
-            console.log(arr.length )
             if (arr.length == 2) {
                 var d = arr[0];
                 var darr = d.split('-');
