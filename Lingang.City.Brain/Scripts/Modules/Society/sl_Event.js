@@ -283,7 +283,7 @@
                 else {//显示图片格式
                     //console.log(id);
                     require("sl_Event").loadEventPicDetail(id);
-                    require("sl_Event").LoopPlayback(id);
+                    //require("sl_Event").LoopPlayback(id);
                 }
             }
         },
@@ -415,46 +415,8 @@
 											'</ul>';
 							}
 						}
-
-						html += '</div>' +
-							'</div>' +
-
-							'<div class="eventProcess-div">' +
-								'<ul class="eventProcess-ul flex">' +
-								  '<li class="eventProcess-li active">' +
-									'<div data-text="1"></div>' +
-									'<span>新事件发现</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li active">' +
-									'<div data-text="2"></div>' +
-									'<span>巡查员取证</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li nowactive">' +
-									'<div data-text="3"></div>' +
-									'<span>处置流程</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li">' +
-									'<div data-text="4"></div>' +
-									'<span>处置单位处理</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li">' +
-									'<div data-text="5"></div>' +
-									'<span>巡查员审核</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li">' +
-									'<div data-text="6"></div>' +
-									'<span>确认是否结案</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								'</ul>' +
-							'</div>' +
-        					
-						'</div>';
+                        //加载事件流程图标
+						html += require("sl_Event").loadEventStatusHtml(data.createTime, data.statusName);
 
                 } else {
                     $("#div_eventdetail").addClass("poiinfo poiinfo3");
@@ -507,13 +469,11 @@
                         }
                     }
                     html += '</div>' +
-
-
-
-
-
-
         					'</div>';
+
+
+                    //加载事件流程图标
+                    html += require("sl_Event").loadEventStatusHtml(data.createTime, data.statusName);
                 }
                 
                 //海岸线，街面，工地 显示历史无人机
@@ -533,6 +493,39 @@
                     require("sl_Event").loadPaidan(id);//加载派单页面
                 }, 1000);
             })
+        },
+        loadEventStatusHtml: function (createtime, statusname) {
+            var statuslist = ["新事件发现", "巡查员取证", "选择处置流程", "处置单位处理","巡查员审核", "确认是否结案"];
+            var html = '<div class="eventProcess-div">' +
+								'<ul class="eventProcess-ul flex">';
+            var classname = "active";
+            var time = "";
+            for (var i = 0; i < statuslist.length; i++) {
+                if (statusname == statuslist[i])
+                {
+                    classname = "nowactive";
+                }
+                if (i == 0) {
+                    time = createtime;
+                }
+                else
+                {
+                    time = "";
+                }
+
+                html += '<li class="eventProcess-li ' + classname + '">' +
+                                   '<div data-text="' + (i + 1) + '"></div>' +
+                                   '<span>' + statuslist[i] + '</span>' +
+                                   '<em>' + time + '</em>' +
+                                 '</li>';
+                if (statusname == statuslist[i]) {
+                    classname = "";
+                }
+            }
+            html += '</ul>' +
+							'</div>' +
+						'</div>';
+            return html;
         },
         //显示事件视频详情
         loadEventVedioDetail: function (id) {
