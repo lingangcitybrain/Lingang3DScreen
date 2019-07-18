@@ -366,56 +366,95 @@
 								'<span id="eventhead">事件005</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
-        					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
-								'<div class="box-leftpic">' +
-									'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
-								'</div>' +
-								'<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
-									'<ul style="flex-grow:1;">' +
-                                      '<li style="color: #f90;">事件详情</li>' +
-										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-										'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
-										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-									'</ul>';
-                    //社区事件的话，有传感器ID显示传感器详情
-                    if (data.communityId = "S012") {
-                        var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
-                        if (iotdata != null) {
-                            var status = "暂无数据";
-                            if (iotdata.status == 0) {
-                                status = "正常";
-                            }
-                            else if (iotdata.status == 0) {
-                                status = "失联";
-                            }
-                            else {
-                                status = "告警";
-                            }
-                            var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
-                            var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
-                            var belongRegion = iotdata.belongRegion == null ? "暂无数据" : iotdata.belongRegion;
-                            var belongStreet = iotdata.belongStreet == null ? "暂无数据" : iotdata.belongStreet;
-                            var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
+        					'<div class="boxcont" id="eventdetail" >' +
+								
+								'<div class="flex" style="height:calc(100% - 1.2rem);">' +
+									'<div class="box-leftpic">' +
+										'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
+									'</div>' +
+									'<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
+										'<ul style="flex-grow:1;">' +
+										  '<li style="color: #f90;">事件详情</li>' +
+											'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+											 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
+											'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+										'</ul>';
+						//社区事件的话，有传感器ID显示传感器详情
+						if (data.communityId = "S012") {
+							var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
+							if (iotdata != null) {
+								var status = "暂无数据";
+								if (iotdata.status == 0) {
+									status = "正常";
+								}
+								else if (iotdata.status == 0) {
+									status = "失联";
+								}
+								else {
+									status = "告警";
+								}
+								var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
+								var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
+								var belongRegion = iotdata.belongRegion == null ? "暂无数据" : iotdata.belongRegion;
+								var belongStreet = iotdata.belongStreet == null ? "暂无数据" : iotdata.belongStreet;
+								var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
 
-                            html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
-                                 '<li style="color: #f90;">传感器详情</li>' +
-                                            '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
-                                            '<li><em>当前状态：</em><span>' + status + '</span></li>' +
-                                            '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
-                                            '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
-                                             '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
-                                            '<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
-                                             '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
-                                        '</ul>';
-                        }
-                    }
+								html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
+									 '<li style="color: #f90;">传感器详情</li>' +
+												'<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
+												'<li><em>当前状态：</em><span>' + status + '</span></li>' +
+												'<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
+												'<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+												 '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
+												'<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
+												 '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
+											'</ul>';
+							}
+						}
 
-                    html += '</div>' +
-        					'</div>';
+						html += '</div>' +
+							'</div>' +
+
+							'<div class="eventProcess-div">' +
+								'<ul class="eventProcess-ul flex">' +
+								  '<li class="eventProcess-li active">' +
+									'<div data-text="1"></div>' +
+									'<span>新事件发现</span>' +
+									'<em>2019-07-04 12:00:00</em>' +
+								  '</li>' +
+								  '<li class="eventProcess-li active">' +
+									'<div data-text="2"></div>' +
+									'<span>巡查员取证</span>' +
+									'<em>2019-07-04 12:00:00</em>' +
+								  '</li>' +
+								  '<li class="eventProcess-li nowactive">' +
+									'<div data-text="3"></div>' +
+									'<span>处置流程</span>' +
+									'<em>2019-07-04 12:00:00</em>' +
+								  '</li>' +
+								  '<li class="eventProcess-li">' +
+									'<div data-text="4"></div>' +
+									'<span>处置单位处理</span>' +
+									'<em>2019-07-04 12:00:00</em>' +
+								  '</li>' +
+								  '<li class="eventProcess-li">' +
+									'<div data-text="5"></div>' +
+									'<span>巡查员审核</span>' +
+									'<em>2019-07-04 12:00:00</em>' +
+								  '</li>' +
+								  '<li class="eventProcess-li">' +
+									'<div data-text="6"></div>' +
+									'<span>确认是否结案</span>' +
+									'<em>2019-07-04 12:00:00</em>' +
+								  '</li>' +
+								'</ul>' +
+							'</div>' +
+        					
+						'</div>';
 
                 } else {
                     $("#div_eventdetail").addClass("poiinfo poiinfo3");
@@ -426,7 +465,7 @@
         					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
 								'<div class="box-rightinfo scrolldiv flex" style="width:100%;">' +
 									'<ul style="flex-grow:1;">' +
-                                    '<li style="color: #f90;">事件详情</li>'+
+										'<li style="color: #f90;">事件详情</li>'+
 										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
@@ -456,18 +495,24 @@
                             var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
 
                             html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
-                                 '<li style="color: #f90;">传感器详情</li>' +
-                                            '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
-                                            '<li><em>当前状态：</em>' + status + '</li>' +
-                                            '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
-                                            '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
-                                             '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
-                                            '<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
-                                             '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
-                                        '</ul>';
+										'<li style="color: #f90;">传感器详情</li>' +
+                                        '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
+                                        '<li><em>当前状态：</em>' + status + '</li>' +
+                                        '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
+                                        '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+                                        '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
+                                        '<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
+                                        '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
+                                    '</ul>';
                         }
                     }
                     html += '</div>' +
+
+
+
+
+
+
         					'</div>';
                 }
                 
