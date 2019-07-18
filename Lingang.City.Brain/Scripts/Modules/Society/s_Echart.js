@@ -541,7 +541,7 @@
                 }
                 var thisDayPersonTotal = 0;
                 for (key1 in thisDayCarJson) {
-                    thisDayPersonTotal += thisDayCarJson[key1]
+                    thisDayPersonTotal += parseInt(thisDayCarJson[key1])
                 }
                 $("#total_person").html(thisDayPersonTotal);
                 $("#normal_person").html(thisDayPersonTotal);
