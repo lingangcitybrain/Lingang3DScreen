@@ -352,8 +352,6 @@
 
                 $("#div_eventdetail").hide()
                 $("#div_eventdetail").show('drop', 1000);
-
-                $("#eventhead").html(data.eventName);
                 var html = '';
 
 
@@ -362,7 +360,7 @@
                     $("#div_eventdetail").addClass("poiinfo poiinfo2");
 
                     html += '<div class="box-top">' +
-								'<span id="eventhead">事件005</span>' +
+								'<span id="eventhead">' + data.eventName + '</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
         					'<div class="boxcont" id="eventdetail" >' +
@@ -378,7 +376,7 @@
 											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
 											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-											 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
 											'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
 										'</ul>';
@@ -418,12 +416,12 @@
 							 '</div>';
 
                         //加载事件流程图标
-						html += require("sl_Event").loadEventStatusHtml(data.createTime, data.statusName);
+						html += require("sl_Event").loadEventStatusHtml(data.statusName);
 
                 } else {
                     $("#div_eventdetail").addClass("poiinfo poiinfo2");
                     html += '<div class="box-top">' +
-								'<span id="eventhead">事件005</span>' +
+								'<span id="eventhead">' + data.eventName + '</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
         					'<div class="boxcont" id="eventdetail" >' +
@@ -435,7 +433,7 @@
 											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
 											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-											 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
 											'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
 										'</ul>';
@@ -475,7 +473,7 @@
 
 
                     //加载事件流程图标
-					html += require("sl_Event").loadEventStatusHtml(data.createTime, data.statusName);
+					html += require("sl_Event").loadEventStatusHtml(data.statusName);
 
                 }
                 
@@ -497,24 +495,16 @@
                 }, 1000);
             })
         },
-        loadEventStatusHtml: function (createtime, statusname) {
+        loadEventStatusHtml: function (statusname) {
             var statuslist = ["新事件发现", "巡查员取证", "选择处置流程", "处置单位处理","巡查员审核", "确认是否结案"];
             var html = '<div class="eventProcess-div">' +
 							 '<div class="eventProcess-title">事件状态：</div>' +
 								'<ul class="eventProcess-ul flex">';
             var classname = "active";
-            var time = "";
             for (var i = 0; i < statuslist.length; i++) {
                 if (statusname == statuslist[i])
                 {
                     classname = "nowactive";
-                }
-                if (i == 0) {
-                    time = createtime;
-                }
-                else
-                {
-                    time = "";
                 }
 
                 html += '<li class="eventProcess-li ' + classname + '">' +
