@@ -1174,9 +1174,9 @@ dd.pjc-statistic-star >form{
 	box-sizing: border-box;
 	transition:.5s all ease;
 }
-.poiinfo1{ width: 26rem; height:8.1rem;}
-.poiinfo2{ width: 17rem; height:8.1rem;}
-.poiinfo3{ min-width: 15rem; height:8.1rem;}
+.poiinfo1{ width: 26rem; height:8.4rem;}
+.poiinfo2{ width: 17rem; height:8.4rem;}
+.poiinfo3{ min-width: 15rem; height:8.4rem;}
 
 .box-top{
 	position: relative;
