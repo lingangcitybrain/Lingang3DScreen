@@ -23,7 +23,7 @@
         paidanTimerout: null,
         paidan2Timerout: null,
         eventProcessTimerout: null,//事件处置流程
-        timeCountDownData:[],
+        timeCountDownData: new util.HashMap,//倒计时数据
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -69,13 +69,17 @@
                         var pos = parseFloat(row.lng).toFixed(6) + "," + parseFloat(row.lat).toFixed(6) + ",0";
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
+                        if (row.lastTime > 0) {
+                            console.log(row.lastTime);
+                        }
                         var textname = "";
                         if (i == 0) {
-                            textname = "00:15:15";
-                        } else if (i == 1) {
-                            textname = "00:05:18";
+                            textname = "00:08:30";
+                        }
+                        else if (i == 1) {
+                            textname = "00:13:14";
                         } else if (i == 2) {
-                            textname = "00:10:16";
+                            textname = "00:11:38";
                         }
 
                         var poi = {
@@ -90,38 +94,30 @@
                             pois.push(poi);
                         }
 
-                        //timeCountDownData.push();
+                        //数据暂未提供，默认前3个 开始POI倒计时
+                        if (i == 0) {
+                            require("sl_Event").timeCountDownData.put(poiName, "510");//标记
+                        }
+                        else if(i == 1) {
+                            require("sl_Event").timeCountDownData.put(poiName, "794");//标记
+                        }
+                        else if (i ==2) {
+                            require("sl_Event").timeCountDownData.put(poiName, "698");//标记
+                        }
                     }
                 }
                 com.InitPois(areaName, pois);
 
-                //数据暂未提供，默认前5个 开始POI倒计时
-                for (var i = 0; i < 3; i++) {
-                    var row = require("sl_Event").POIData[i];
-                    if (require("sl_Event").LayerType.List[row.communityId] != null) {
-                        var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
-                        var timeText = "00:10:16";
-                        if (i == 0) {
-                            timeText = "00:15:15";
-                        } else if (i == 1) {
-                            timeText = "00:07:18";
-                        } else if (i == 2) {
-                            timeText = "00:10:16";
-                        }
 
-                        var s = '';
-                        var hour = timeText.split(':')[0];
-                        var min = timeText.split(':')[1];
-                        var sec = timeText.split(':')[2];
-
-                        s = Number(hour * 3600) + Number(min * 60) + Number(sec);
-                        require("sl_Event").setTimeCountDown(poiName, s);
+                if (require("sl_Event").timeCountDownData.size() > 0)
+                {
+                    for (var i in require("sl_Event").timeCountDownData.keys()) {
+                        var datalist = require("sl_Event").timeCountDownData.get(require("sl_Event").timeCountDownData.keys()[i]);
+                        //开始倒计时
+                        require("sl_Event").setTimeCountDown(require("sl_Event").timeCountDownData.keys()[i], datalist);
                     }
-                    //require("sl_Event").setTimeCountDown("POISocietyEvent_C001_13482", 918);
 
                 }
-
-                
                 if ($.isFunction(callback))
                     callback()
             });
@@ -138,6 +134,10 @@
             //var times = 915;
             var timer = null;
             timer = setInterval(function () {
+                if (times <= 0) {
+                    times = require("sl_Event").timeCountDownData.get(poiname);
+                    //console.log("timeCountDownData:"+times);
+                }
                 var day = 0,
                 hour = 0,
                 minute = 0,
@@ -160,16 +160,9 @@
                     node.asPOI().setText(timedata);
                 }
                 times--;
+                //console.log(times);
             }, 1000);
             require("sl_Event").timeCountList.push(timer);
-            if (times <= 0) {
-                clearInterval(timer);
-                var areaName = con.AreaName;
-                var node = map.getSceneNode(areaName, poiname);
-                if (node) {
-                    node.asPOI().setText("");
-                }
-            }
         },
         //获取巡查员坐标
         loadInspectorList: function () {
@@ -352,18 +345,15 @@
 
                 $("#div_eventdetail").hide()
                 $("#div_eventdetail").show('drop', 1000);
-
-                $("#eventhead").html(data.eventName);
                 var html = '';
 
 
                 //图片不为空 显示图片
                 if (data.imageUrl || data.imageUrl != "") {
-                    $("#div_eventdetail").addClass("poiinfo poiinfo1");
-
+                    $("#div_eventdetail").addClass("poiinfo poiinfo2");
 
                     html += '<div class="box-top">' +
-								'<span id="eventhead">事件005</span>' +
+								'<span id="eventhead">' + data.eventName + '</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
         					'<div class="boxcont" id="eventdetail" >' +
@@ -373,15 +363,15 @@
 										'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
 									'</div>' +
 									'<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
-										'<ul style="flex-grow:1;">' +
+										'<ul style="flex-grow:1; width:100%;">' +
 										  '<li style="color: #f90;">事件详情</li>' +
 											'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
 											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-											 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
-											'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+											'<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
 										'</ul>';
 						//社区事件的话，有传感器ID显示传感器详情
 						if (data.communityId = "S012") {
@@ -415,105 +405,69 @@
 											'</ul>';
 							}
 						}
-
 						html += '</div>' +
-							'</div>' +
+							 '</div>';
 
-							'<div class="eventProcess-div">' +
-								'<ul class="eventProcess-ul flex">' +
-								  '<li class="eventProcess-li active">' +
-									'<div data-text="1"></div>' +
-									'<span>新事件发现</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li active">' +
-									'<div data-text="2"></div>' +
-									'<span>巡查员取证</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li nowactive">' +
-									'<div data-text="3"></div>' +
-									'<span>处置流程</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li">' +
-									'<div data-text="4"></div>' +
-									'<span>处置单位处理</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li">' +
-									'<div data-text="5"></div>' +
-									'<span>巡查员审核</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								  '<li class="eventProcess-li">' +
-									'<div data-text="6"></div>' +
-									'<span>确认是否结案</span>' +
-									'<em>2019-07-04 12:00:00</em>' +
-								  '</li>' +
-								'</ul>' +
-							'</div>' +
-        					
-						'</div>';
+                        //加载事件流程图标
+						html += require("sl_Event").loadEventStatusHtml(data.statusName);
 
                 } else {
-                    $("#div_eventdetail").addClass("poiinfo poiinfo3");
+                    $("#div_eventdetail").addClass("poiinfo poiinfo2");
                     html += '<div class="box-top">' +
-								'<span id="eventhead">事件005</span>' +
+								'<span id="eventhead">' + data.eventName + '</span>' +
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
-        					'<div class="boxcont flex" id="eventdetail" style="height:calc(100% - .7rem);" >' +
-								'<div class="box-rightinfo scrolldiv flex" style="width:100%;">' +
-									'<ul style="flex-grow:1;">' +
-										'<li style="color: #f90;">事件详情</li>'+
-										'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
-										'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
-										'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-										'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
-										 '<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-										'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
-										'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
-									'</ul>';
-                    //社区事件的话，有传感器ID显示传感器详情
-                    if (data.communityId = "S012") {
-                        var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
-                        if (iotdata != null) {
-                            var status = "<span>暂无数据</span>";
-                            if (data.status == 0) {
-                                status = "<span>正常</span>";
-                            }
-                            else if (data.status == 0) {
-                                status = '<span style="color: #f90;">失联</span>';
-                            }
-                            else {
-                                status = '<span style="color: red;"">告警</span>';
-                            }
-                            var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
-                            var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
-                            var belongRegion = iotdata.belongRegion == null ? "暂无数据" : iotdata.belongRegion;
-                            var belongStreet = iotdata.belongStreet == null ? "暂无数据" : iotdata.belongStreet;
-                            var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
+        					'<div class="boxcont" id="eventdetail" >' +
+								'<div class="flex" style="height:calc(100% - 1.2rem);">' +
+									'<div class="box-rightinfo scrolldiv flex" style="width:100%;">' +
+										'<ul style="flex-grow:1;">' +
+											'<li style="color: #f90;">事件详情</li>'+
+											'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
+											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
+											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
+											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
+											'<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
+										'</ul>';
+							//社区事件的话，有传感器ID显示传感器详情
+							if (data.communityId = "S012") {
+								var iotdata = require("sl_IOT").IOTList.get(data.deviceId);
+								if (iotdata != null) {
+									var status = "<span>暂无数据</span>";
+									if (data.status == 0) {
+										status = "<span>正常</span>";
+									}
+									else if (data.status == 0) {
+										status = '<span style="color: #f90;">失联</span>';
+									}
+									else {
+										status = '<span style="color: red;"">告警</span>';
+									}
+									var sensorBrand = iotdata.sensorBrand == null ? "暂无数据" : iotdata.sensorBrand;
+									var installationAddress = iotdata.installationAddress == null ? "暂无数据" : iotdata.installationAddress;
+									var belongRegion = iotdata.belongRegion == null ? "暂无数据" : iotdata.belongRegion;
+									var belongStreet = iotdata.belongStreet == null ? "暂无数据" : iotdata.belongStreet;
+									var installationTime = iotdata.installationTime == null ? "暂无数据" : iotdata.installationTime;
 
-                            html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
-										'<li style="color: #f90;">传感器详情</li>' +
-                                        '<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
-                                        '<li><em>当前状态：</em>' + status + '</li>' +
-                                        '<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
-                                        '<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
-                                        '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
-                                        '<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
-                                        '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
-                                    '</ul>';
-                        }
-                    }
-                    html += '</div>' +
-
-
-
+									html += '<ul style="margin-left:.5rem; flex-grow:1;">' +
+												'<li style="color: #f90;">传感器详情</li>' +
+												'<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
+												'<li><em>当前状态：</em>' + status + '</li>' +
+												'<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
+												'<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+												'<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
+												'<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
+												'<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
+											'</ul>';
+								}
+							}
+							html += '</div></div>';
 
 
+                    //加载事件流程图标
+					html += require("sl_Event").loadEventStatusHtml(data.statusName);
 
-        					'</div>';
                 }
                 
                 //海岸线，街面，工地 显示历史无人机
@@ -533,6 +487,32 @@
                     require("sl_Event").loadPaidan(id);//加载派单页面
                 }, 1000);
             })
+        },
+        loadEventStatusHtml: function (statusname) {
+            var statuslist = ["新事件发现", "巡查员取证", "选择处置流程", "处置单位处理","巡查员审核", "确认是否结案"];
+            var html = '<div class="eventProcess-div">' +
+							 '<div class="eventProcess-title">事件状态：</div>' +
+								'<ul class="eventProcess-ul flex">';
+            var classname = "active";
+            for (var i = 0; i < statuslist.length; i++) {
+                if (statusname == statuslist[i])
+                {
+                    classname = "nowactive";
+                }
+
+                html += '<li class="eventProcess-li ' + classname + '">' +
+                                   '<div data-text="' + (i + 1) + '"></div>' +
+                                   '<span>' + statuslist[i] + '</span>' +
+                                   //'<em>' + time + '</em>' +
+                                 '</li>';
+                if (statusname == statuslist[i]) {
+                    classname = "";
+                }
+            }
+            html += '</ul>' +
+							'</div>' +
+						'</div>';
+            return html;
         },
         //显示事件视频详情
         loadEventVedioDetail: function (id) {

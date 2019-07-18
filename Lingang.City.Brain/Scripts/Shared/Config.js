@@ -17,6 +17,7 @@
         CONFIG_NAME: "Example",
         SERVER_PATH: "http://" + location.host + "/mapdata3d/LingangCityBrain20190321",
     	//SERVER_PATH: "http://192.168.3.199/mapdata3d/LingangCityBrain20190321",
+        //SERVER_PATH: "http://192.168.1.195/mapdata3d/LingangCityBrain20190321",
         //LICENSE_SVR: "http://192.168.3.199/",
         VideoInitialSize: null,//视频初始大小
         VideoInitialPosition: null,//视频初始位置
