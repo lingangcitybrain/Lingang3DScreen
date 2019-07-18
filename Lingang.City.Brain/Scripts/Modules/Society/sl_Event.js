@@ -359,8 +359,7 @@
 
                 //图片不为空 显示图片
                 if (data.imageUrl || data.imageUrl != "") {
-                    $("#div_eventdetail").addClass("poiinfo poiinfo1");
-
+                    $("#div_eventdetail").addClass("poiinfo poiinfo2");
 
                     html += '<div class="box-top">' +
 								'<span id="eventhead">事件005</span>' +
@@ -501,6 +500,7 @@
         loadEventStatusHtml: function (createtime, statusname) {
             var statuslist = ["新事件发现", "巡查员取证", "选择处置流程", "处置单位处理","巡查员审核", "确认是否结案"];
             var html = '<div class="eventProcess-div">' +
+							 '<div class="eventProcess-title">事件状态：</div>' +
 								'<ul class="eventProcess-ul flex">';
             var classname = "active";
             var time = "";
@@ -520,7 +520,7 @@
                 html += '<li class="eventProcess-li ' + classname + '">' +
                                    '<div data-text="' + (i + 1) + '"></div>' +
                                    '<span>' + statuslist[i] + '</span>' +
-                                   '<em>' + time + '</em>' +
+                                   //'<em>' + time + '</em>' +
                                  '</li>';
                 if (statusname == statuslist[i]) {
                     classname = "";
