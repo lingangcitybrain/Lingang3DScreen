@@ -47,7 +47,7 @@
         workSiteWrjData: null,     //工地无人机
         dealTaskNumData: null,     //网格处置案件数量
         dealTaskTypeData: null,   //网格处置案件类别
-
+        intervalTime:0,
         //加载图表
         loadEcharts: function () {
            
@@ -286,7 +286,7 @@
                             data: [
                                 { value: data.wrj_flying_cnt, name: '执飞中' },
                                 { value: data.wrj_charging_cnt, name: '充电中' },
-                                { value: data.wrj_idle_cnt + data.wrj_lost_cnt, name: '待命中' }
+                                { value: data.wrj_idle_cnt, name: '待命中' }
                             ]
                         }
                     ]
@@ -371,7 +371,7 @@
                             data: [
                                 { value: data.wrj_flying_cnt, name: '执飞中' },
                                 { value: data.wrj_charging_cnt, name: '充电中' },
-                                { value: data.wrj_idle_cnt + data.wrj_lost_cnt, name: '待命中' }
+                                { value: data.wrj_idle_cnt, name: '待命中' }
                             ]
                         }
                     ]
@@ -671,6 +671,7 @@
 
         //事件处理成功
        sjcg: function () {
+           var changeTime = 15000;//图表切换频率
             s_EchartAjax.getSocietySjcg(function (result) {
                 clearInterval(window.sjcgTimer);
                 window.sjcgTimer = null;
@@ -709,7 +710,11 @@
 
                // 图表成功数成功率循环
                var sjcgTimerIndex = 0;
+               if (require("s_Echart").intervalTime <=0) {
+                   changeTime = 2000;
+               }
                window.sjcgTimer = setInterval(function () {
+                
                    if (sjcgTimerIndex) {
                        oSjcgseriesData = seriesData;
                        sjcgSeriesDataMax = seriesDataMax;
@@ -734,8 +739,40 @@
                    require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
                    require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                   require("s_Echart").intervalTime = 1;
+                   if (require("s_Echart").intervalTime == 1) {
+                       changeTime = 15000;
+                       clearInterval(window.sjcgTimer);
+                       window.sjcgTimer = setInterval(function () {
 
-               }, 15000);
+                           if (sjcgTimerIndex) {
+                               oSjcgseriesData = seriesData;
+                               sjcgSeriesDataMax = seriesDataMax;
+                               sjcgSeriesDataMin = seriesDataMin;
+                               sjcgTimerIndex--;
+                               strTitle = "事件处理成功数";
+                           } else {
+                               oSjcgseriesData = oSjcgseriesRateData;
+                               sjcgSeriesDataMax = sjcgSeriesRateDataMax;
+                               sjcgSeriesDataMin = sjcgSeriesRateDataMin;
+                               sjcgTimerIndex++;
+                               strTitle = "事件处理成功率（%）";
+                           }
+                           $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+
+                           sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+
+                           if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                               require("s_Echart").myChartsjcg.dispose();
+                           }
+                           require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+                           require("s_Echart").myChartsjcg.setOption(sjcgOption);
+
+                           require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                           require("s_Echart").intervalTime = 1;                           
+                       }, 15000);
+                   }
+               }, changeTime);
 
                 //事件处理成功图表加载
                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
@@ -1216,6 +1253,7 @@
         yq:function(){},
         /*********************左侧图表-end*********************/
         Revert: function () {
+            require("s_Echart").intervalTime=0;
             //事件成功
             if (window.sjcgTimer != null) {
                 clearInterval(window.sjcgTimer)

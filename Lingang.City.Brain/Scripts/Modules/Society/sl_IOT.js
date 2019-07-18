@@ -4,11 +4,12 @@
         carInOutCount: null, //08:00--16:00点的进出车辆数
         personInOutCount: null, //08:00--16:00点的进出人员数
         seriesDataMax: 2000, //进出人员车辆数图表Y轴最大值
-
+        Interval3: null,
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
         IOTList: new util.HashMap,
+        currentPopulation: 0,   //园区进出人数
         isShowPOI:false,//是否加载IOTPOI
         //加载传感器IOT
         loadIOT: function () {
@@ -120,16 +121,15 @@
 
                 $("#iothead").html(require("sl_IOT").LayerType.List[data.sensorType].TextName);
 
-                var status = "暂无数据";
+                var status = "<em>暂无数据</em>";
                 if (data.status == 0) {
-                    status = "正常";
+                    status = "<em>正常</em>";
                 }
                 else if (data.status == 0) {
-                    status = "失联";
+                    status = '<span style="color: #f90;">失联</span>';
                 }
-                else
-                {
-                    status = "告警";
+                else {
+                    status = '<span style="color: red;">告警</span>';
                 }
                 var sensorBrand = data.sensorBrand == null ? "暂无数据" : data.sensorBrand;
                 var installationAddress = data.installationAddress == null ? "暂无数据" : data.installationAddress;
@@ -140,7 +140,7 @@
                 var html = '<div class="box-rightinfo fl" style="font-size:.35rem; line-height:.7rem; margin-left:0;">' +
 								'<ul>' +
 								 '<li><span>编号：</span><em>' + data.sensorNum + '</em></li>' +
-								  '<li><span>当前状态：</span><em>' + status + '</em></li>' +
+								  '<li><span>当前状态：</span>' + status + '</li>' +
 								 '<li><span>所属品牌：</span><em>' + sensorBrand + '</em></li>' +
 									'<li><span>安装地址：</span><em>' + data.installationAddress + '</em></li>' +
 									'<li><span>所属区域：</span><em>' + belongRegion + '</em></li>' +
@@ -292,10 +292,35 @@
                 if (require("s_Echart").societyPersonData == null) { return false; }
                 var data = require("s_Echart").societyPersonData;
 
-                $("#society-person>li").eq(0).find(".item-r-data").html(data.total);
-                $("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
-                $("#society-person>li").eq(2).find(".item-r-data").html(data.permanent);
-                $("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
+                //$("#society-person>li").eq(0).find(".item-r-data").html(data.total);
+                //$("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
+                //$("#society-person>li").eq(2).find(".item-r-data").html(data.permanent);
+                //$("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
+                this.currentPopulation = data.peopleFlow;
+                com.numberAnimation($("#society-person>li").eq(0).find(".item-r-data"), Number(data.total) - 200, Number(data.total), 2000);
+                com.numberAnimation($("#society-person>li").eq(1).find(".item-r-data"), Number(data.visitor) - 20, Number(data.visitor), 2000);
+                com.numberAnimation($("#society-person>li").eq(2).find(".item-r-data"), Number(data.permanent) - 200, Number(data.permanent), 2000);
+
+
+                 com.numberAnimation($("#society-person>li").eq(3).find(".item-r-data"), Number(data.peopleFlow) - 200, Number(data.peopleFlow), 2000);
+
+                this.Interval3 = setInterval(function () {
+                    var lastvalue = $("#society-person>li").eq(3).find(".item-r-data").html();
+                    lastvalue = lastvalue.replace(/,/ig, '');
+
+                    var step_values = com.random(-5, 5);
+                    var current_values = parseInt(lastvalue) + step_values;
+
+                    var minValues = parseInt(parseInt(this.currentPopulation) * 0.8);
+                        var maxValues = parseInt(parseInt(this.currentPopulation) * 1.2);
+
+                        if (current_values < minValues) { current_values = minValues }
+                        if (current_values > maxValues) { current_values = maxValues }
+                        if (current_values <= 0) { current_values =0}
+
+                    current_values = com.toThousands(current_values);
+                    $("#society-person>li").eq(3).find(".item-r-data").html(current_values);
+                }, 5000);
             });
 
         },
@@ -671,6 +696,9 @@
         Revert: function () {
             require("sl_IOT").clearIOTPOI();
             require("sl_IOT").closeIOTDetail();
+            if (this.Interval3 != null) {
+                window.clearInterval(this.Interval3)
+            }
         }
     }
 })

@@ -191,7 +191,7 @@
                     if (data.cardNo != null )
                         carNumber = data.cardNo;
                     html += '<div class=\"box-top\">' +
-                            '    事件-' + data.sj + '-' + data.id +
+                            '    事件-' + data.sj +
                             '    <button type=\"button\" class=\"box-close\"  onclick=\"require(\'t_Home\').closeEventDetail()\"></button>' +
                             '</div>' +
                             '<div class=\"boxcont\">' +

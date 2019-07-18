@@ -104,13 +104,14 @@
                             pointsArr.push(Q3D.vector3(aa.toGlobalVec3d().toLocalPos(areaName)));
                         }
                         //画多边形
-                        map.createPolygon(areaName + "/" + nodename, {
+                        map.createPrism(areaName + "/" + nodename, {
                             Material: null,
                             SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
                             Points: pointsArr,//注意要剔除收尾相等的点
                             Color: Q3D.colourValue("#0b2d69", 1),
                             Alpha: 0.1, //填充透明度
-                            Direction: 1, //默认逆时针方向
+                            //Direction: 1, //默认逆时针方向
+                            Height:5,
                             OnPolygonCreated: null
                         });
                         require("gl_GardenBuilding").pieNode.push(node);
