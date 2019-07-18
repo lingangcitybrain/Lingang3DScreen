@@ -3913,13 +3913,15 @@ dd.pjc-statistic-star >form{
 	margin-top: 2em;
 	font-size: .2em;
 }
+.eventProcess-ul{ height:100%;}
 .eventProcess-li{
+	position:relative;
 	float: left;
 	flex-grow: 1;
 	margin-right: 2em;
 	line-height: 2.3em;
 	color: #9b9b9b;
-	background:linear-gradient(to left, currentcolor 4em, transparent 4em) 0 1em no-repeat;
+	background:linear-gradient(to left, currentcolor 3em, transparent 3em) 0 1em no-repeat;
 	background-size: 100% .1em;
 }
 .eventProcess-li:last-child{ 
@@ -3949,8 +3951,10 @@ dd.pjc-statistic-star >form{
 	float: left;
 }
 .eventProcess-li>em{
-	float: left;
-	width: 100%;
+	position:absolute;
+	left:0;
+	top:2.2em;
+	word-break:keep-all;
 }
 .eventProcess-li.active{ color: #18ccff;}
 .eventProcess-li.active>div{

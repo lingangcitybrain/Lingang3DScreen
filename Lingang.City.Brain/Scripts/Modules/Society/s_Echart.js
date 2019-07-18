@@ -517,35 +517,10 @@
             s_EchartAjax.getJqPersonData(post_data, function (result) {
                 if (require("s_Echart").jqPersonData == null) { return false; }
                 var data = require("s_Echart").jqPersonData;
-                data = data[0];
-
-                function MyDate() {
-                    function addZero(n) {
-                        n = n < 10 ? '0' + n : n;
-                        return n;
-                    }
-                    var d = new Date();
-                    var year = d.getFullYear();
-                    var mon = d.getMonth() + 1;
-                    var day = d.getDate();
-
-                    var s = '' + year + addZero(mon) + addZero(day);
-                    return s;
-                }
-
-                var thisDayCarJson = null;
-                for (key in data) {
-                    if (key === MyDate()) {
-                        thisDayCarJson = data[key];
-                    }
-                }
-                var thisDayPersonTotal = 0;
-                for (key1 in thisDayCarJson) {
-                    thisDayPersonTotal += parseInt(thisDayCarJson[key1])
-                }
-                $("#total_person").html(thisDayPersonTotal);
-                $("#normal_person").html(thisDayPersonTotal);
-                $("#doubtable_person").html(0);
+             
+                $("#total_person").html(data.total);
+                $("#normal_person").html(data.lingangdadao);
+                $("#doubtable_person").html(data.dishui);
             });
         },
 
