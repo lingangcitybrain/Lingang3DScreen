@@ -149,11 +149,11 @@
                 var data = require("s_Echart").recentFlightData;
                 $("#recent-flight").html(data.coastDistance);
                 $("#recent-flight-mess>li").eq(0).find("span").html(data.flightCount)
-                $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor + '%')
+                $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor)
                 $("#recent-flight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-flight-mess>li").eq(3).find("span").html(data.stall)
 
-                require("s_Main").loadRecentFlyVideo(data.url[0])
+                //require("s_Main").loadRecentFlyVideo(data.url[0])  //需要另外获取
             });
         },
 
@@ -167,11 +167,11 @@
                 $("#recent-monthflight>li").eq(2).find("em").html(data.coastDistance)
 
                 $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightCount)
-                $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor + '%')
+                $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor)
                 $("#recent-monthflight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-monthflight-mess>li").eq(3).find("span").html(data.stall)
 
-                require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])
+                //require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])   //需要另外获取
 
             });
         },
