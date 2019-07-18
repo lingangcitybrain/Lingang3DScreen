@@ -3916,6 +3916,7 @@ dd.pjc-statistic-star >form{
 }
 .eventProcess-title{
 	height:2em;
+	color:#f90;
 	line-height:2em;
 	background:linear-gradient(to left, currentcolor,currentcolor ) 100% center no-repeat;
 	background-size:calc(100% - 5em) .1em;

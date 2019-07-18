@@ -370,7 +370,7 @@
 										'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
 									'</div>' +
 									'<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
-										'<ul style="flex-grow:1;">' +
+										'<ul style="flex-grow:1; width:100%;">' +
 										  '<li style="color: #f90;">事件详情</li>' +
 											'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
@@ -378,7 +378,7 @@
 											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
 											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
-											'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+											'<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
 										'</ul>';
 						//社区事件的话，有传感器ID显示传感器详情
 						if (data.communityId = "S012") {
@@ -435,7 +435,7 @@
 											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
 											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
-											'<li><em>事件描述：</em><span>' + data.eventDes + '</span></li>' +
+											'<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
 										'</ul>';
 							//社区事件的话，有传感器ID显示传感器详情
 							if (data.communityId = "S012") {
