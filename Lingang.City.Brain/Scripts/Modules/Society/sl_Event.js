@@ -419,7 +419,7 @@
 							 '</div>';
 
                         //加载事件流程图标
-						html += require("sl_Event").loadEventStatusHtml(data.createTime, data.statusName);
+						html += require("sl_Event").loadEventStatusHtml(require("common").formatDate2(data.createTime), data.statusName);
 
                 } else {
                     $("#div_eventdetail").addClass("poiinfo poiinfo2");
@@ -476,7 +476,7 @@
 
 
                     //加载事件流程图标
-					html += require("sl_Event").loadEventStatusHtml(data.createTime, data.statusName);
+					html += require("sl_Event").loadEventStatusHtml( require("common").formatDate2(data.createTime), data.statusName);
 
                 }
                 
