@@ -602,7 +602,7 @@
         loadCirclediv: function (TaskTypeDataPercent) {
             // 摄像头圆圈
             if ($("body").width() == 7680) {
-                $("html").css({ fontSize: "90px" });
+               // $("html").css({ fontSize: "90px" });
                 $(".czajlb-circlediv").each(function () { $(this).empty();})
                 com.loopFun($('.czajlb-circlediv')[0], TaskTypeDataPercent[0], '#1f2533', '#eda637', 'transparent', '20px', 18, 36, 1000);
                 com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 18, 36, 1000);
