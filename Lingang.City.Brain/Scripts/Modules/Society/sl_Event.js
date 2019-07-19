@@ -357,7 +357,6 @@
 								'<button type="button" class="box-close" onclick="require(\'s_Home\').closeDetail();"></button>' +
 							'</div>' +
         					'<div class="boxcont" id="eventdetail" >' +
-								
 								'<div class="flex" style="height:calc(100% - 1.2rem);">' +
 									'<div class="box-leftpic">' +
 										'<img src="' + data.imageUrl + '" style="width: 100%; height: 100%;" />' +
