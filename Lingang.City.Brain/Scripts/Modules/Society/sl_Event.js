@@ -347,7 +347,7 @@
                 $("#div_eventdetail").show('drop', 1000);
                 var html = '';
 
-
+                console.log(data.eventTypeName);
                 //图片不为空 显示图片
                 if (data.imageUrl || data.imageUrl != "") {
                     $("#div_eventdetail").addClass("poiinfo poiinfo2");
@@ -368,7 +368,7 @@
 											'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+											'<li><em>事件类型：</em><span>' + data.eventTypeName + '</span></li>' +
 											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
 											'<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
@@ -398,7 +398,7 @@
 												'<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
 												'<li><em>当前状态：</em><span>' + status + '</span></li>' +
 												'<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
-												'<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+												'<li><em>安装地址：</em><span>' + iotdata.installationAddress + '</span></li>' +
 												 '<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
 												'<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
 												 '<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
@@ -425,7 +425,7 @@
 											'<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
 											'<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
 											'<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-											'<li><em>事件类型：</em><span' + data.eventTypeName + '</span></li>' +
+											'<li><em>事件类型：</em><span>' + data.eventTypeName + '</span></li>' +
 											 //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
 											'<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
 											'<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
@@ -455,7 +455,7 @@
 												'<li><em>编号：</em><span>' + iotdata.sensorNum + '</span></li>' +
 												'<li><em>当前状态：</em>' + status + '</li>' +
 												'<li><em>所属品牌：</em><span>' + sensorBrand + '</span></li>' +
-												'<li><em>安装地址：</em><span' + iotdata.installationAddress + '</span></li>' +
+												'<li><em>安装地址：</em><span>' + iotdata.installationAddress + '</span></li>' +
 												'<li><em>所属区域：</em><span>' + belongRegion + '</span></li>' +
 												'<li><em>所属街道：</em><span>' + belongStreet + '</span></li>' +
 												'<li><em>安装时间：</em><span>' + installationTime + '</span></li>' +
