@@ -306,8 +306,9 @@
 
                 this.Interval3 = setInterval(function () {
                     var lastvalue = $("#society-person>li").eq(3).find(".item-r-data").html();
-                    lastvalue = lastvalue.replace(/,/ig, '');
-
+                    if (lastvalue) {
+                        lastvalue = lastvalue.replace(/,/ig, '');
+                    }                    
                     var step_values = com.random(-5, 5);
                     var current_values = parseInt(lastvalue) + step_values;
 
