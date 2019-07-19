@@ -108,6 +108,27 @@
                         },
                     }
                     map.createPOI(areaName + "/" + poiName, options)
+
+                    //创建机库三公里半径效果
+                    var nodePath = areaName + "/" + poiName + "_quan";
+                    var node = map.getSceneNode(nodePath);
+                    if (node) {
+                        map.getArea(areaName).destroySceneNode(nodePath);
+                    }
+                    var quanpos = Coordinate + ",20";
+                    var quanposition = Q3D.vector3(quanpos.toGlobalVec3d().toLocalPos(areaName));
+                    map.createCylinder(nodePath, {
+                        SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                        Color: Q3D.colourValue("#00ffff", 1), //颜色材质使用的颜色
+                        Alpha: 0.1, //颜色材质使用的透明度
+                        Center: quanposition, //底面中心坐标 Vector3        
+                        Anchor: null,//顶面中心坐标 Vector3，非垂直情况下可设置
+                        Radius: 1500, //半径
+                        Height: parseInt(1),//1000,//高度
+                        Pieces: 360, //设置生成圆面的面个数    
+                        OnCylinderCreated: function () {//加载结束回调
+                        }
+                    })
                 }
             });
         },
@@ -250,11 +271,11 @@
                     for (var i = 0; i < result.length; i++) {
 
                         //创建无人机模型
-                        var id = result[i].wrj_id.toString();
+                        var id = result[i].sbbm.toString();
                         var lng = result[i].lng.toString();
                         var lat = result[i].lat.toString();
                         var height = result[i].height.toString();
-                        var modify_time = result[i].modify_time.toString();
+                        var modify_time = result[i].flightTime.toString();
 
 
                         //if (height != "" && height != 0) {
@@ -344,6 +365,11 @@
                             if (modelnode) {
                                 modelnode.setVisible(1)
 
+                                var coneName = "TextCone" + id
+                                var conenode = map.getSceneNode(con.AreaName, coneName)
+                                if (conenode) {
+                                    conenode.setVisible(1)
+                                }
 
                                 var poiName = "POITourDrone_" + id
                                 var poinode = map.getSceneNode(con.AreaName, poiName)
@@ -357,10 +383,10 @@
                                 //添加无人机追踪数据
                                 var lastdata = require("tl_Drone").DroneFirstTimeList.get(id)
                                 if (lastdata) {
-                                    var lasttime = lastdata.modify_time;
-                                    seconds = com.GetDateDiff(lasttime, modify_time, "second")
-                                    if (seconds > 0) {
-                                        require("tl_Drone").DroneTrack(nodePath, nextpos, seconds)
+                                    //var lasttime = lastdata.modify_time;
+                                    //seconds = com.GetDateDiff(lasttime, modify_time, "second")
+                                    if (modify_time > 0) {
+                                        require("tl_Drone").DroneTrack(nodePath, nextpos, modify_time)
                                     }
                                 }
                             } else {
@@ -413,7 +439,7 @@
                 var post_data = { "offset": "0", "count": "1000" }
 
                 var id = nodename.split('_')[1];
-                var data = require("tl_Drone").DroneList.get(id);
+                var data = require("tl_Drone").DroneHangarList.get(id);
                 var post_data = { "sbbm": data.sbbm };
                 if (data.sbbm != "ceshi_001" && data.sbbm != "SkySys_0004" && data.sbbm != "SkySys_0005") {
                     console.log(data.sbbm);
@@ -661,6 +687,13 @@
                         map.getArea(areaName).destroySceneNode(poiname);
                         //node.setVisible(0);
                     }
+                    var quanname = poiname + "_quan";
+                    var quannode = map.getSceneNode(areaName + "/" + quanname);
+                    if (quannode) {
+                        //map.getArea(areaName).destroySceneNode(poiname);
+                        map.destroySceneNode(areaName, quanname)
+                    }
+
                     /*详情*/
                     var fullNodePath = areaName + "/PoiDroneInfo" + data[i].id;
                     if (map.getSceneNode(fullNodePath)) {
@@ -714,17 +747,16 @@
                 if (Data.size() > 0) {
                     for (i = 0; i < Data.size() ; i++) {
                         var key = Data.keys()[i];
-                        var node1 = map.getSceneNode(con.AreaName, "wrj" + key);
-                        //var node2 = map.getSceneNode(con.AreaName, "TextCone" + key);
-                        var node3 = map.getSceneNode(con.AreaName, "POITourDrone_" + key);
+                        var node1 = map.getSceneNode("gwh_xilou", "wrj" + key);
+                        var node2 = map.getSceneNode("gwh_xilou", "TextCone" + key);
+                        var node3 = map.getSceneNode("gwh_xilou", "POITourDrone_" + key);
 
-                        if (node3) {
-                            node3.setVisible(0)
-                            //map.destroySceneNode(con.AreaName, "POITourDrone_wurenji" + key);
+                        if (node1) {
+                            node1.setVisible(0)
+                            //map.destroySceneNode(con.AreaName, "POISocietyDrone_wurenji" + key);
                         }
-                        //if (node2) { map.destroySceneNode(con.AreaName, "TextCone" + key); }
-                        //if (node1) { map.destroySceneNode(con.AreaName, "wrj" + key); }
-
+                        if (node2) { node2.setVisible(0) }
+                        if (node3) { node3.setVisible(0) }
                     }
 
                     require('tl_Drone').DroneHangarList.clear();

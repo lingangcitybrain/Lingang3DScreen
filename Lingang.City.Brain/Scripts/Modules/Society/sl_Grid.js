@@ -553,28 +553,43 @@
                 var TaskTypeData = []; //各类别数据
                 var TaskTypeDataSum = 0; //各类别数据总和
 
+				//获取名字后不带TOP3的数据
                 for (var i = 0; i < data.length; i++) {
-                    TaskTypeData.push(Number(data[i].counts));
-                    TaskTypeDataSum += Number(data[i].counts);
-                }
-                TaskTypeData.sort(function (a, b) { return b - a; }) //排序  从大到小
-                TaskTypeDataPercent = [];  //占百分比 全局变量，便于下面引用
-                for (var i = 0; i < data.length; i++) {
-                    TaskTypeDataPercent.push(parseInt(TaskTypeData[i] / TaskTypeDataSum * 100));
+                	switch (data[i].infotypename) {
+                		case "部件":
+                			TaskTypeData[0] = Number(data[i].counts);
+                			break;
+                		case "事件":
+                			TaskTypeData[1] = Number(data[i].counts);
+                			break;
+                		case "市民服务热线":
+                			TaskTypeData[2] = Number(data[i].counts);
+                			break;
+                		default:
+                			break;
+                	}
                 }
 
-                var TaskTypeDataType = [];  //前三的类别
-                for (var i = 0; i < data.length; i++) {
-                    for (var j = 0; j < TaskTypeData.length; j++) {
-                        if (TaskTypeData[j] === Number(data[i].counts)) { TaskTypeDataType.push(data[i].infotypename) }
-                    }
+                for (var i = 0; i < TaskTypeData.length; i++) {
+                	TaskTypeDataSum += TaskTypeData[i];
+            	}
+
+                TaskTypeDataPercent = [];  //占百分比 全局变量，便于下面引用
+                for (var i = 0; i < TaskTypeData.length; i++) {
+                    TaskTypeDataPercent.push( (TaskTypeData[i] / TaskTypeDataSum * 100).toFixed(1) );
                 }
+
+                //var TaskTypeDataType = [];  //前三的类别
+                //for (var i = 0; i < data.length; i++) {
+                //    for (var j = 0; j < TaskTypeData.length; j++) {
+                //        if (TaskTypeData[j] === Number(data[i].counts)) { TaskTypeDataType.push(data[i].infotypename) }
+                //    }
+                //}
 
                 // 加载数据
-                for (var i = 0; i < TaskTypeDataType.length; i++) {
+                for (var i = 0; i < TaskTypeDataPercent.length; i++) {
                     $("#dealtasktype>li").eq(i).find(".czajlb-circlediv").attr("data-text", TaskTypeDataPercent[i] + '%')
                     $("#dealtasktype>li").eq(i).find(".item-r-data").html(TaskTypeData[i])
-                    
                     
                 }
 

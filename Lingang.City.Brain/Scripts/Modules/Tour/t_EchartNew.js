@@ -1765,6 +1765,9 @@
         rycltjClickEvent: function (domName) {
             $("#" + domName).addClass("active").siblings().removeClass("active");
             var rqa = $("#rq a");
+            var nowHour = new Date().getHours();
+            var nowDate = new Date().getDate();
+
             function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
@@ -1788,14 +1791,7 @@
 
                     },
                     tooltip: {
-                        trigger: 'axis',
-                        formatter: '{a}:{c}',
-                        axisPointer: {
-                            type: 'cross',
-                            label: {
-                                show: false,
-                            }
-                        },
+                    	trigger: 'axis',
                     },
                     xAxis: {
                         type: 'category',
@@ -1852,23 +1848,30 @@
                     },
                     series: [
                       {
-                          name: "出园",
+                         // name: "出园",
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
                               width: 4,
                           },
                           symbolSize: 10,
+                          tooltip: {
+                          	formatter: '{a}:{c}',
+                          },
+
                           data: rycltjdata1
                       },
                       {
-                          name: "入园",
+                          //name: "入园",
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
                               width: 4,
                           },
                           symbolSize: 10,
+                          tooltip: {
+                          	formatter: '{a}:{c}',
+                          },
                           data: rycltjdata2
                       },
                     ]
@@ -1926,17 +1929,25 @@
 
                             rqa.eq(rqa.length - 1 - datetemp).addClass("active").siblings().removeClass("active");
                             oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
-
                             if (data != null) {
+                            	var keyDate = key.substring(key.length - 2, key.length);
                                 for (var item in data.入园) {
-                                    if (Number(item) >= 9 && Number(item) <= 24) {
-                                        rysum[Number(item) - 9] = data.入园[item];
+                                	if (Number(item) >= 9 && Number(item) <= 24) {
+                                		if (keyDate == nowDate && Number(item) > nowHour) {
+                                			rysum[Number(item) - 9] = '';
+                                		} else {
+                                			rysum[Number(item) - 9] = data.入园[item];
+                                		}
                                     }
                                 }
-                                for (var item in data.出园) {
 
+                                for (var item in data.出园) {
                                     if (Number(item) >= 9 && Number(item) <= 24) {
-                                        cysum[Number(item) - 9] = data.出园[item];
+                                    	if (keyDate == nowDate && Number(item) > nowHour) {
+                                    		cysum[Number(item) - 9] = '';
+                                    	} else {
+                                    		cysum[Number(item) - 9] = data.出园[item];
+                                    	}
                                     }
                                 }
                                 oRycltjChartData1 = rysum;
@@ -1944,6 +1955,63 @@
                                 tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                             }
                         }
+
+
+                        rqa.each(function (index, element) {
+                        	$(this).click(function () {
+                        		$(this).addClass("active").siblings().removeClass("active");
+                        		datetemp = rqa.length - 1 - index;
+                        		oRycltjChartRqaIndex = index;
+
+                        		var rysum = [];
+                        		var cysum = [];
+                        		var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                        		var data = require("t_Echart").personcarData.get(key);
+
+                        		if (data != null) {
+                        			var keyDate = key.substring(key.length - 2, key.length);
+                        			for (var item in data.入园) {
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					if (keyDate == nowDate && Number(item) > nowHour) {
+                        						rysum[Number(item) - 9] = '';
+                        					} else {
+                        						rysum[Number(item) - 9] = data.入园[item];
+                        					}
+                        				}
+                        			}
+
+                        			for (var item in data.出园) {
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					if (keyDate == nowDate && Number(item) > nowHour) {
+                        						cysum[Number(item) - 9] = '';
+                        					} else {
+                        						cysum[Number(item) - 9] = data.出园[item];
+                        					}
+                        				}
+                        			}
+                        			oRycltjChartData1 = rysum;
+                        			oRycltjChartData2 = cysum;
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        		}
+
+                        	})
+                        })
+
+                        $("#rycltj-datebtn-pre").click(function () {
+                        	datetemp++;
+                        	if (datetemp == 7) {
+                        		datetemp = 0;
+                        	}
+                        	cryFun();
+                        })
+                        $("#rycltj-datebtn-next").click(function () {
+                        	datetemp--;
+                        	if (datetemp == -1) {
+                        		datetemp = 6;
+                        	}
+                        	cryFun();
+                        })
+
 
                     })
             }
@@ -1984,9 +2052,14 @@
                             oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
 
                             if (data != null) {
+                            	var keyDate = key.substring(key.length - 2, key.length);
                                 for (var item in data) {
-                                    if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
-                                        dtsum[parseInt(item) - 9] = data[item]
+                                	if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
+                                		if (keyDate == nowDate && parseInt(item) > nowHour) {
+                                			dtsum[parseInt(item) - 9] = '';
+                                		} else {
+                                			dtsum[parseInt(item) - 9] = data[item]
+                                		}
                                     }
                                 }
                                 oRycltjChartData1 = dtsum;
@@ -1994,6 +2067,54 @@
                                 tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                             }
                         }
+
+
+                        rqa.each(function (index, element) {
+                        	$(this).click(function () {
+                        		$(this).addClass("active").siblings().removeClass("active");
+                        		datetemp = rqa.length - 1 - index;
+                        		oRycltjChartRqaIndex = index;
+
+                        		var dtsum = [];
+                        		var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                        		var data = require("t_Echart").personcarData.get(key);
+
+                        		if (data != null) {
+                        			var keyDate = key.substring(key.length - 2, key.length);
+                        			for (var item in data) {
+                        				if (/:00$/.test(item) && parseInt(item) >= 9 && parseInt(item) <= 24) {
+                        					if (keyDate == nowDate && parseInt(item) > nowHour) {
+                        						dtsum[parseInt(item) - 9] = '';
+                        					} else {
+                        						dtsum[parseInt(item) - 9] = data[item]
+                        					}
+                        				}
+                        			}
+                        			oRycltjChartData1 = dtsum;
+                        			oRycltjChartData2 = null;
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        		}
+
+                        	})
+                        })
+
+                        $("#rycltj-datebtn-pre").click(function () {
+                        	datetemp++;
+                        	if (datetemp == 7) {
+                        		datetemp = 0;
+                        	}
+                        	cryFun();
+                        })
+                        $("#rycltj-datebtn-next").click(function () {
+                        	datetemp--;
+                        	if (datetemp == -1) {
+                        		datetemp = 6;
+                        	}
+                        	cryFun();
+                        })
+
+
+
                     })
             }
             else if (domName == "jccl") {
@@ -2034,15 +2155,24 @@
                             oRycltjChartRqaIndex = rqa.eq(rqa.length - 1 - datetemp).addClass("active").index();
 
                             if (data != null) {
+                            	var keyDate = key.substring(key.length - 2, key.length);
                                 for (var item in data.入临港) {
-                                    if (Number(item) >= 9 && Number(item) <= 24) {
-                                        rysum[Number(item) - 9] = data.入临港[item];
+                                	if (Number(item) >= 9 && Number(item) <= 24) {
+                                		if (keyDate == nowDate && Number(item) > nowHour) {
+                                			rysum[Number(item) - 9] = '';
+                                		} else {
+                                			rysum[Number(item) - 9] = data.入临港[item];
+                                		}
                                     }
                                 }
                                 for (var item in data.出临港) {
 
-                                    if (Number(item) >= 9 && Number(item) <= 24) {
-                                        cysum[Number(item) - 9] = data.出临港[item];
+                                	if (Number(item) >= 9 && Number(item) <= 24) {
+                                		if (keyDate == nowDate && Number(item) > nowHour) {
+                                			cysum[Number(item) - 9] = '';
+                                		} else {
+                                			cysum[Number(item) - 9] = data.出临港[item];
+                                		}
                                     }
                                 }
                                 oRycltjChartData1 = rysum;
@@ -2050,6 +2180,64 @@
                                 tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
                             }
                         }
+
+
+
+                        rqa.each(function (index, element) {
+                        	$(this).click(function () {
+                        		$(this).addClass("active").siblings().removeClass("active");
+                        		datetemp = rqa.length - 1 - index;
+                        		oRycltjChartRqaIndex = index;
+
+                        		var rysum = [];
+                        		var cysum = [];
+                        		var key = require("t_Echart").personcarData.keys()[dataAll.length - 1 - datetemp];
+                        		var data = require("t_Echart").personcarData.get(key);
+
+                        		if (data != null) {
+                        			var keyDate = key.substring(key.length - 2, key.length);
+                        			for (var item in data.入临港) {
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					if (keyDate == nowDate && Number(item) > nowHour) {
+                        						rysum[Number(item) - 9] = '';
+                        					} else {
+                        						rysum[Number(item) - 9] = data.入临港[item];
+                        					}
+                        				}
+                        			}
+                        			for (var item in data.出临港) {
+
+                        				if (Number(item) >= 9 && Number(item) <= 24) {
+                        					if (keyDate == nowDate && Number(item) > nowHour) {
+                        						cysum[Number(item) - 9] = '';
+                        					} else {
+                        						cysum[Number(item) - 9] = data.出临港[item];
+                        					}
+                        				}
+                        			}
+                        			oRycltjChartData1 = rysum;
+                        			oRycltjChartData2 = cysum;
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        		}
+
+                        	})
+                        })
+
+                        $("#rycltj-datebtn-pre").click(function () {
+                        	datetemp++;
+                        	if (datetemp == 7) {
+                        		datetemp = 0;
+                        	}
+                        	cryFun();
+                        })
+                        $("#rycltj-datebtn-next").click(function () {
+                        	datetemp--;
+                        	if (datetemp == -1) {
+                        		datetemp = 6;
+                        	}
+                        	cryFun();
+                        })
+
                     })
             }           
         },
@@ -2102,17 +2290,10 @@
 
                         },
                         tooltip: {
-                            formatter:'{a}:{c}',
-                            trigger: 'axis',
-                            axisPointer: {
-                                type: 'cross',
-                                label: {
-                                    show: false,
-                                }
-                            },
-                            textStyle: {//默认值，
-                                fontSize: 50,//默认值，
-                            },
+                        	trigger: 'axis',
+                        	textStyle: {
+                        		fontSize: 50,
+                        	},
                         },
                         xAxis: {
                             type: 'category',
@@ -2172,23 +2353,30 @@
                         },
                         series: [
                           {
-                              name:"出园",
+                              //name:"出园",
                               type: 'line',
                               color: "#4085ed",
                               lineStyle: {
                                   width: 8,
                               },
                               symbolSize: 16,
+                              tooltip: {
+                              	formatter: '{a}:{c}',
+                              },
+
                               data: rycltjdata1
                           },
                           {
-                              name:"入园",
+                              //name:"入园",
                               type: 'line',
                               color: "#46d1c2",
                               lineStyle: {
                                   width: 8,
                               },
                               symbolSize: 16,
+                              tooltip: {
+                              	formatter: '{a}:{c}',
+                              },
                               data: rycltjdata2
                           },
                         ]

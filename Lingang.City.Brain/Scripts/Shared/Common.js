@@ -630,7 +630,7 @@
         },
         SetHashMapStyle: function (areaName, hashMap, option) {
             if (hashMap.size() > 0) {
-                for (var i = 0; i < hashMap.size(); i++) {
+                for (var i = 0; i < hashMap.size() ; i++) {
                     var key = hashMap.keys()[i];
                     //var value = hashMap.get(key);
                     var node = map.getSceneNode(areaName, key);
@@ -723,7 +723,7 @@
         //根据hashmap对象隐藏节点
         SetHashMapVisible: function (hashMap, isTrue, keyword) {
             if (hashMap.size() > 0) {
-                for (i = 0; i < hashMap.size(); i++) {
+                for (i = 0; i < hashMap.size() ; i++) {
                     var key = hashMap.keys()[i];
                     var value = hashMap.get(key);
                     if (value) {
@@ -806,14 +806,14 @@
             }
         },
         //翻页
-        GetOptionsFrom: function (callback, items_per_page, items_per_page, display_entries, edge_entries,current_page) {
+        GetOptionsFrom: function (callback, items_per_page, items_per_page, display_entries, edge_entries, current_page) {
             var opt = { callback: callback }; //数据加载方法
             opt["items_per_page"] = items_per_page;
             opt["num_display_entries"] = display_entries;
             opt["num_edge_entries"] = edge_entries;
             opt["prev_text"] = "上一页";
             opt["next_text"] = "下一页";
-            opt["current_page"] = current_page==null?0:current_page;
+            opt["current_page"] = current_page == null ? 0 : current_page;
 
             var htmlspecialchars = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }
             $.each(htmlspecialchars, function (k, v) {
@@ -1155,7 +1155,7 @@
                 message: message,
                 className: 'vex-theme-default'
             })
-           
+
         },
 
         ajaxByLoading: function (options) {
@@ -1539,7 +1539,7 @@
             return [[newDate.getFullYear(), newDate.getMonth() + 1, newDate.getDate()].join('-'), [newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()].join(':')].join(' ');
         },
         //时间格式化 new Date().getTime():1558515723754
-        formatDate:function (time) {
+        formatDate: function (time) {
             var date = new Date(time);
 
             var year = date.getFullYear(),
@@ -1554,19 +1554,22 @@
                         hour + ':' +
                         min + ':' +
                         sec;
-            return newTime;         
+            return newTime;
         },
         //时间格式化2019-05-20T08:35:55.000+0000
-        formatDate2: function(date) {
-             var arr=date.split("T");
-            var d=arr[0];
-            var darr = d.split('-');
+        formatDate2: function (date) {
+            var arr = date.split("T");
+            var dd = date;
+            if (arr.length == 2) {
+                var d = arr[0];
+                var darr = d.split('-');
 
-            var t=arr[1];
-            var tarr = t.split('.000');
-            var marr = tarr[0].split(':');
+                var t = arr[1];
+                var tarr = t.split('.000');
+                var marr = tarr[0].split(':');
 
-            var dd = parseInt(darr[0])+"-"+parseInt(darr[1])+"-"+parseInt(darr[2])+" "+parseInt(marr[0])+":"+parseInt(marr[1])+":"+parseInt(marr[2]);
+                dd=parseInt(darr[0]) + "-" + parseInt(darr[1]) + "-" + parseInt(darr[2]) + " " + parseInt(marr[0]) + ":" + parseInt(marr[1]) + ":" + parseInt(marr[2]);
+            }
             return dd;
         },
         //数字动画
@@ -1614,7 +1617,7 @@
         openCloseBigDigital: function (openOrClose) {
             if (openOrClose == 'close')
                 $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
-            //$('.statistic-slidebtn').click();
+                //$('.statistic-slidebtn').click();
             else
                 $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideDown();
         },

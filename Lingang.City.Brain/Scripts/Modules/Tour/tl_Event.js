@@ -189,30 +189,37 @@
                     var html = "";
                     var carNumber = '无';
                     if (data.cardNo != null )
-                        carNumber = data.cardNo;
+                    	carNumber = data.cardNo;
+
+                    $("#ul_eventdetail").addClass("poiinfo poiinfo3");
                     html += '<div class=\"box-top\">' +
-                            '    事件-' + data.sj + '-' + data.id +
+                            '    事件-' + data.sj +
                             '    <button type=\"button\" class=\"box-close\"  onclick=\"require(\'t_Home\').closeEventDetail()\"></button>' +
                             '</div>' +
                             '<div class=\"boxcont\">' +
-                            '<div class=\"box-leftpic\" style = \"text-align:center\"><img src=\"' + data.snapshoturiwithrect + '\"></div>' +
-                            '<div class=\"box-rightinfo\">' +
-                            '    <ul>' +
-                            '    <li><span>事件时间：</span><em>' + data.sbsj + '</em></li>' +
-                            '    <li><span>事件描述：</span><em>' + data.sjms + '</em></li>' +
-                            '   <li><span>车牌号：</span><em>' + carNumber + '</em></li>' +
-                            '   <li><span>事件状态：</span><em>' + data.DICTNAME + '</em></li>' +
-                            '    </ul>' +
-                            //'    <button type=\"button\" class=\"btn\">事件处置</button>' +
-                            '</div>' +
-                            '</div>';
-                    $("#ul_eventdetail").css({maxWidth:"10rem"}).empty();
+								'<div>' +
+									'<div class=\"box-leftpic\" style="width:100%;">' +
+                						'<img src=\"' + data.snapshoturiwithrect + '\" style=\"height:5rem; margin:0 auto; display:block;\">' +
+                					'</div>' +
+									'<div class=\"box-rightinfo flex\" style=\" margin-left:0; margin-top:.2rem; \">' +
+									'    <ul style="width:100%;">' +
+										'    <li><span>事件时间：</span><em>' + data.sbsj + '</em></li>' +
+										'   <li><span>车牌号码：</span><em>' + carNumber + '</em></li>' +
+										'   <li><span>事件状态：</span><em>' + data.dictname + '</em></li>' +
+										'    <li style="overflow:hidden;"><span style="float:left; width:5em;">事件描述：</span>' +
+                								'<em class="scrolldiv" style="float:left; width:calc(100% - 5em); height:auto;  max-height:1.5rem; ">' + data.sjms + '</em></li>' +
+									'    </ul>' +
+									'</div>' +
+								'</div>'+
+							'</div>';
+
+                    $("#ul_eventdetail").empty();
                     $("#ul_eventdetail").html(html);
+                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
                     if(data.snapshoturiwithrect == ""){
                         $("#ul_eventdetail").find(".box-leftpic").remove();
                     }
                 }
-
 
 
                 $("#ul_eventdetail").hide()

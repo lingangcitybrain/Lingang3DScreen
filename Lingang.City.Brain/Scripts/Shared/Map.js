@@ -13,8 +13,8 @@
                         load.Onload();
                         //$('#MapWrapper')[0].addEventListener("pointerdown", onPointerDown);
                         //$('#MapWrapper')[0].addEventListener("pointerup", onPointerUp);
-                       // $('#MapWrapper')[0].addEventListener("pointermove", onPointerMove);
-                      //  $('#MapWrapper')[0].addEventListener("pointercancel", onPointerUp);
+                        //$('#MapWrapper')[0].addEventListener("pointermove", onPointerMove);
+                        //$('#MapWrapper')[0].addEventListener("pointercancel", onPointerUp);
                     
                     }
                 });

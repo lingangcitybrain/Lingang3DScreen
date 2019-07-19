@@ -1174,9 +1174,12 @@ dd.pjc-statistic-star >form{
 	box-sizing: border-box;
 	transition:.5s all ease;
 }
-.poiinfo1{ width: 26rem; height:6.7rem;}
-.poiinfo2{ width: 17rem; height:6.7rem;}
-.poiinfo3{ min-width: 15rem; height:6.7rem;}
+/*三列*/
+.poiinfo1{ width: 26rem; height:8.4rem;} 
+/*两列*/
+.poiinfo2{ width: 17rem; height:8.4rem;}
+/*景区事件*/
+.poiinfo3{ max-width: 10rem; }
 
 .box-top{
 	position: relative;
@@ -3198,7 +3201,7 @@ dd.pjc-statistic-star >form{
 	top: 50%;
 	left: 50%;
 	color: #fff;
-	font-size: .2rem;
+	font-size: .3rem;
 	transform: translate(-50%, -50%);
 }
 .czajlb-li .item-r-name{ 
@@ -3906,6 +3909,70 @@ dd.pjc-statistic-star >form{
 }
 /*#div_eventdetail{ width:16rem;}*/
 
+/*.eventProcess-div*/
+.eventProcess-div{
+	width: 100%;
+	height:1.3rem;
+	margin-top: .5em;
+	font-size: .3em;
+}
+.eventProcess-title{
+	height:2em;
+	color:#f90;
+	line-height:2em;
+	background:linear-gradient(to left, currentcolor,currentcolor ) 100% center no-repeat;
+	background-size:calc(100% - 5em) .1em;
+}
+.eventProcess-ul{ height:calc(100% - 2em);}
+.eventProcess-li{
+	position:relative;
+	float: left;
+	flex-grow: 1;
+	line-height: 1.6em;
+	color: #9b9b9b;
+
+}
+.eventProcess-li:last-child{ 
+	width: 2rem; 
+	margin-right: 0;
+	background: none;
+}
+.eventProcess-li>div{
+	position: relative;
+	float: left;
+	margin-right: .2em;
+	width: 1.5em;
+	height: 1.5em;
+	text-align: center;
+	line-height: 1.5em;
+	border:.1em solid currentcolor;
+	border-radius: 50%;
+}
+.eventProcess-li>div:after{
+	content: attr(data-text);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.eventProcess-li>span{
+	float: left;
+}
+.eventProcess-li>em{
+	position:absolute;
+	left:0;
+	top:1.7em;
+	word-break:keep-all;
+	white-space:nowrap;
+}
+.eventProcess-li.active{ color: #18ccff;}
+.eventProcess-li.active>div{
+	background: url(../Content/images/eventProcess-icon.png) no-repeat;
+	background-size: 100% 100%;
+	border:none;
+}
+.eventProcess-li.active>div:after{ display: none; }
+.eventProcess-li.nowactive{ color:#f90; }
 
 @media screen and (max-width: 11520px){
 	html{ font-size:160px;}

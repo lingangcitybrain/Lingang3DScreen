@@ -583,6 +583,7 @@
     <Content Include="Content\images\divbox-titlebg.png" />
     <Content Include="Content\images\dtrk-pic.png" />
     <Content Include="Content\images\eventdetail_car.png" />
+    <Content Include="Content\images\eventProcess-icon.png" />
     <Content Include="Content\images\fanhuanhuan.jpg" />
     <Content Include="Content\images\forecast-pernum-title.png" />
     <Content Include="Content\images\header-bg.png" />
