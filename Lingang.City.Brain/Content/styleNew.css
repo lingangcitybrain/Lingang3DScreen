@@ -1178,6 +1178,8 @@ dd.pjc-statistic-star >form{
 .poiinfo1{ width: 26rem; height:8.4rem;} 
 /*两列*/
 .poiinfo2{ width: 17rem; height:8.4rem;}
+/*景区事件*/
+.poiinfo3{ max-width: 10rem; }
 
 .box-top{
 	position: relative;
