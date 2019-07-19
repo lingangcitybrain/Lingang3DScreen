@@ -654,12 +654,12 @@
         // 摄像头圆圈
         loadCirclediv: function (str) {
             if ($("body").width() == 7680) {
-                $("html").css({ fontSize: "90px" });
+               // $("html").css({ fontSize: "90px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "160px" });
+                //$("html").css({ fontSize: "160px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
             }
