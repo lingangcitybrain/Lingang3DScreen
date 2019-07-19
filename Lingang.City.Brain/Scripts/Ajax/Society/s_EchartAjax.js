@@ -557,6 +557,24 @@
             }
         },
 
+        getFlightVideo: function (callback) {
+            $.ajax({
+                type: "POST",      //data 传送数据类型。post 传递 
+                url: con.InterfaceUrl_DataStation + 'v1/drone/getCoastLineHistoryVideo',
+                async: false,
+                cache: false,
+                //data: post_data,  //传送的数据
+                dataType: 'json',  // 返回数据的数据类型json
+                success: function (data) {
+                    require("s_Echart").FlightVideoData = data;
+                    callback(data)
+                },
+                error: function () {
+                    //alert("数据传输错误");
+                }
+            });
+        },
+
         //海岸线潮汐时间表
         getCostlineTideData: function (post_data, callback) {
             if (con.IsInterface) {

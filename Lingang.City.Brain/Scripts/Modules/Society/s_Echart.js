@@ -434,7 +434,7 @@
             //    com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
             //} else
                 if ($("body").width() == 7680) {
-               // $("html").css({ fontSize: "90px" });
+              //  $("html").css({ fontSize: "90px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
                 $('#sqzz-sxt3>.sxt-circlediv').empty();
