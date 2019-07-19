@@ -158,7 +158,7 @@
             });
             s_EchartAjax.getFlightVideo(function (result) {
                 if (result.length > 0) {
-                    require("s_Main").loadRecentFlyVideo(result[0].url);
+                    require("s_Main").loadRecentFlyVideo(result[0].url[0]);
                 }
                 
             })
@@ -184,7 +184,7 @@
             });
             s_EchartAjax.getFlightVideo(function (result) {
                 if (result.length > 0) {
-                    require("s_Main").loadMonthlyRecentFlyVideo(result[1].url);
+                    require("s_Main").loadMonthlyRecentFlyVideo(result[1].url[0]);
                 }
 
             })
