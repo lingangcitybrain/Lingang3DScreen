@@ -1,4 +1,4 @@
-﻿define(["config", "common", "g_Main", "e_Echart", "el_EstateInfo", "el_AtlasChart", "el_HotMap"], function (con, com, g_Main, e_Echart, el_EstateInfo, el_AtlasChart, el_HotMap) {
+﻿define(["config", "common", "g_Main", "e_Echart", "el_EstateInfo", "el_AtlasChart", "el_HotMap","e_EchartAjax"], function (con, com, g_Main, e_Echart, el_EstateInfo, el_AtlasChart, el_HotMap,e_EchartAjax) {
     /****************************产业****************************/
     return {
         LayerCatalog: {
@@ -69,8 +69,106 @@
                 htmlDom: "#left_first_02",
                 url: con.HtmlUrl + 'Industry/Estate/Left_First_02.html'
             }
-            com.UIControlAni(option, function () { });
+            com.UIControlAni(option, function () {
+                require("e_Main").getzlxxcyData(2019)
+            });
             //require("e_Echart").zlxxcy()
+        },
+        getzlxxcyData: function (year) {
+            e_EchartAjax.getzlxxcyData(year,function(data){
+                    var arr = [];
+                    for (var i = 0; i < data[4][2015].length; i++) {
+                        arr.push(data[4][2015][i].entConut)
+                    }
+                    for (var i = 0; i < data[3][2016].length; i++) {
+                        arr.push(data[3][2016][i].entConut)
+                    }
+                    for (var i = 0; i < data[2][2017].length; i++) {
+                        arr.push(data[2][2017][i].entConut)
+                    }
+                    for (var i = 0; i < data[1][2018].length; i++) {
+                        arr.push(data[1][2018][i].entConut)
+                    }
+                    for (var i = 0; i < data[0][2019].length; i++) {
+                        arr.push(data[0][2019][i].entConut)
+                    }
+                    var Top10Data = [
+                        { year: 2015, value: arr.slice(0, 9), text: '临港地区限价商品住房供应管理工作实施方案' },
+                        { year: 2016, value: arr.slice(9, 18), text: '高新技术企业职工教育经费税前扣除政策' },
+                        { year: 2017, value: arr.slice(18, 27), text: '临港地区建立特别机制和实行特殊政策的三十条实施政策' },
+                        { year: 2018, value: arr.slice(27, 36), text: '图解：上海自贸区服务业扩大开发措施' },
+                        { year: 2019, value: arr.slice(36, 45), text: '金白银得实惠！本市迎来创业带动就业政策“升级版”！' },
+                    ]
+
+                    var Top10DataLargestNumArr = [];
+                    var Top10DataLargestNum = 0;
+                    var Top10DataTotalYearNum = [];
+                    var zlxxcyRightTimer = null;
+                    var zlxxcyRightTimer2 = null;
+                    var yearIndex = -1;
+
+                    for (var i = 0; i < Top10Data.length; i++) {
+                        Top10DataLargestNumArr.push(Math.max.apply(null, Top10Data[i].value))
+                        Top10DataTotalYearNum[i] = sum(Top10Data[i].value)
+                    }
+
+                    Top10DataLargestNum = Math.max.apply(null, Top10DataLargestNumArr)
+
+                    function zlxxcySetDataFun() {
+                        $(".zlxxcy-li").each(function (index, element) {
+                            $(this).find(".zlxxcy-bar").css({ transition: '1.5s width linear' }).width(Top10Data[yearIndex].value[index] * 100 / Top10DataLargestNum + '%');
+                            $(this).find(".zlxxcy-num").html(Top10Data[yearIndex].value[index]);
+                            $(this).find(".zlxxcy-per").html((Top10Data[yearIndex].value[index] / Top10DataTotalYearNum[yearIndex] * 100).toFixed(2) + '%');
+                        })
+                        $(".zlxxcy-year").html(Top10Data[yearIndex].year);
+                        $(".zlxxcy-mess").html(Top10Data[yearIndex].text);
+
+                        zlxxcyRightTimer = setTimeout(function () {
+                            clearTimeout(zlxxcyRightTimer)
+                            zlxxcyLoopFun();
+                        }, 2500)
+                    }
+
+                    function zlxxcyLoopFun() {
+                        yearIndex++;
+                        if (yearIndex < Top10Data.length) {
+                            zlxxcySetDataFun()
+                        } else {
+                            clearTimeout(zlxxcyRightTimer)
+                            yearIndex = -1;
+
+                            zlxxcyRightTimer2 = setTimeout(function () {
+                                clearInterval(zlxxcyRightTimer2)
+                                $(".zlxxcy-li").each(function (index, element) {
+                                    $(this).find(".zlxxcy-bar").css({ transition: '.3s width linear' }).width(0);
+                                    $(this).find(".zlxxcy-num").html('');
+                                    $(this).find(".zlxxcy-per").html('0%');
+                                })
+                                $(".zlxxcy-year").html('');
+                                $(".zlxxcy-mess").html('');
+
+                                zlxxcyRightTimer = setTimeout(function () {
+                                    clearTimeout(zlxxcyRightTimer)
+                                    zlxxcyLoopFun();
+                                }, 1500)
+
+                            }, 4000)
+
+                        }
+                    }
+
+                    zlxxcyRightTimer = setTimeout(function () {
+                        clearTimeout(zlxxcyRightTimer)
+                        zlxxcyLoopFun();
+                    }, 1500)
+
+
+                    function sum(arr) {
+                        return eval(arr.join("+"));
+                    };
+
+
+                })
         },
         /*****************************左侧第二列*****************************/
         //加载第一个div
