@@ -174,7 +174,7 @@
                 $("#recent-monthflight>li").eq(1).find("em").html(data.flightNumber)
                 $("#recent-monthflight>li").eq(2).find("em").html(data.coastDistance)
 
-                $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightCount)
+                $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightDuration)
                 $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor)
                 $("#recent-monthflight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-monthflight-mess>li").eq(3).find("span").html(data.stall)

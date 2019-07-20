@@ -895,7 +895,8 @@
 							'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
 						'</div>' +
 						'<div class="sjxx-address">' + data[i].address +
-							'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+							//'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +  //time[1]有undefined
+                            '<span class="fr sjxx-time">' + time[0] +  '<span>' + data[i].dealPerson + '</span></span>' +
 						'</div>' +
 					'</li>';
        			}
