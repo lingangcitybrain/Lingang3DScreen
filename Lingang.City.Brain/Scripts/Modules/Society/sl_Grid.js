@@ -1,7 +1,7 @@
 ﻿define(["config", "common", "util", "s_layerMenuData", "s_EchartAjax"], function (con, com, util, s_layerMenuData, s_EchartAjax) {
     /**************************************网格*************************************/
     var gridTotalNum = 0; //主责部门事件数量总数
-    var gridTop15Num = 0; //主责部门Top15事件数量
+    var gridTop5Num = 0; //主责部门Top5事件数量
 
     var TaskTypeDataPercent = []; //处置案件类别占百分比 
 
@@ -645,8 +645,8 @@
 	                    radius: '58%',
 	                    center: ['50%', '50%'],
 	                    data: [
-	            	        { value: gridTotalNum - gridTop15Num, name: "其它", selected: true },
-	            	        { value: gridTop15Num, name: "TOP15" }
+	            	        { value: gridTotalNum - gridTop5Num, name: "其它", selected: true },
+	            	        { value: gridTop5Num, name: "TOP15" }
 	                    ],
 	                    selectedOffset: 25,
 	                    label: {
@@ -664,13 +664,13 @@
                                     fontSize: 80,
                                     lineHeight: 80,
                                     color: "#f7b001",
-                                    fontFamily: "Aerial",
+                                    //fontFamily: "Aerial",
                                 },
                                 per: {
                                     fontSize: 80,
                                     lineHeight: 80,
                                     color: "#fff",
-                                    fontFamily: "Aerial",
+                                    //fontFamily: "Aerial",
                                 },
 
                             }
@@ -711,21 +711,21 @@
                 //data = data.data.dealDeptList;   //中台地址接口直接返回数组  20190714
 
                 gridTotalNum = 0; //主责部门事件数量总数
-                gridTop15Num = 0; //主责部门Top15事件数量
-                var top15NumRate = 0; 
+                gridTop5Num = 0; //主责部门Top5事件数量
+                var top5NumRate = 0; 
                 var elseNumRate = 0;
                 //主责部门右侧列表
                 for (var i = 0; i < data.length; i++) {
                     $("#grid-czzzbm").append("<li><span>" + data[i].executeDeptname + "</span><em>" + data[i].taskNums + "</em></li>");
 
                     gridTotalNum += Number(data[i].taskNums);
-                    if (i <= 15 && data[i]) {
-                        gridTop15Num += Number(data[i].taskNums);
+                    if (i < 5 && data[i]) {
+                        gridTop5Num += Number(data[i].taskNums);
                     }
                 }
 
-                top15NumRate = gridTop15Num / gridTotalNum * 100; //没有百分号
-                elseNumRate = parseInt(100 - top15NumRate);
+                top5NumRate = (gridTop5Num / gridTotalNum * 100).toFixed(2); //没有百分号
+                elseNumRate = (100 - top5NumRate).toFixed(2);
 
                 // 加载图表
                 if ($("#czajsl-chart").length <= 0) { return false; }
@@ -754,7 +754,7 @@
                             radius: '58%',
                             center: ['50%', '50%'],
                             data: [
-                                { value: gridTotalNum - gridTop15Num, selected: true },
+                                { value: gridTotalNum - gridTop5Num, selected: true },
                                 { value: gridTotalNum }
                             ],
                             selectedOffset: 25,
@@ -777,11 +777,11 @@
                 };
                 myChartczzzbm.setOption(czzzbmOption);
 
-                $("#zzbm-top15").append('<div class=\"czzzbm-legendtitle\"><span>TOP15</span><em>(' + top15NumRate
-                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop15Num + '</div>');
+                $("#zzbm-top5").append('<div class=\"czzzbm-legendtitle\"><span>TOP5</span><em>(' + top5NumRate
+                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop5Num + '</div>');
 
                 $("#zzbm-else").append('<div class=\"czzzbm-legendtitle\"><span>其他</span><em>(' + elseNumRate
-                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop15Num) + '</div>');
+                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop5Num) + '</div>');
 
             });
         },

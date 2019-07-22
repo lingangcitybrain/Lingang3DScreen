@@ -262,7 +262,7 @@
 
                 //function getDayFun(nowDaystr) {
                 //	var str = '';
-                //	switch (nowDaystr / 7) {
+                //	switch (nowDaystr % 7) {
                 //		case 0:
                 //			str = "周日";
                 //			break;
