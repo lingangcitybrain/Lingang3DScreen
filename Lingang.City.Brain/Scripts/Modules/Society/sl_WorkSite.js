@@ -289,7 +289,7 @@
                 //}
 				
 				
-                $("#" + domId + "_weather .sqzz-wrj-lr2-temp").html(data[0].zc + "（今天，实时：14℃）");
+                $("#" + domId + "_weather .sqzz-wrj-lr2-temp").html(data[0].zc + "（今天，实时：" + data[0].wd_min + "）");
                
                 var html = '<table cellspacing=\"0\" cellpadding=\"0\" class=\"table sqzz-wrj-lr2-table\">' +
 						'<tbody>' +
@@ -325,7 +325,7 @@
 						'		<td>' + data[3].tqms + '</td>' +
 						'	</tr>' +
 						'	<tr>' +
-						'		<td>空气质量：' + (data[0].kqzl === "" ? "空" : data[0].kqzl) + '<span class=\"sqzz-wrj-lr2-air\" style=\" background:' + require("sl_WorkSite").getAirText(data[0].kqzl)[1] + '\" >' + require("sl_WorkSite").getAirText(data[0].kqzl)[0] + '</span></td>' +
+						'		<td>空气质量：' + data[0].kqzl + '<span class=\"sqzz-wrj-lr2-air\" style=\" background:' + require("sl_WorkSite").getAirText(data[0].kqzl)[1] + '\" >' + require("sl_WorkSite").getAirText(data[0].kqzl)[0] + '</span></td>' +
 						'		<td>' + data[1].fxfs + '</td>' +
 						'		<td>' + data[2].fxfs + '</td>' +
 						'		<td>' + data[3].fxfs + '</td>' +
