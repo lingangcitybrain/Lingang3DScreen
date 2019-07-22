@@ -529,11 +529,10 @@
             s_EchartAjax.getSxtCameraData(post_data, function (result) {
                 if (require("s_Echart").sxtCameraData == null) { return false; }
                 var data = require("s_Echart").sxtCameraData;
-                data = data.data.list;
 
                 var cameraOnNum = 0;
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].sbzt === "ON") {
+                	if (data[i].sbzt === "ON") {
                         cameraOnNum++;
                     }
                 }
