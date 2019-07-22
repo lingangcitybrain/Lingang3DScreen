@@ -226,25 +226,27 @@
     	//添加空气质量指数
         getAirText: function (num) {
         	var str = "";
-        	if (num >= 0 && num <= 50) {
-        		str = ["优", "#0f0"]
+        	if (num === "" || num === null || num === undefined) {
+        		str = ["空", "#666"]//灰
+
+        	}else if (num >= 0 && num <= 50) {
+        		str = ["优", "#0f0"]//绿色
 
         	} else if (num >= 51 && num <= 100) {
-        		str = ["良", "#fee300"]
+        		str = ["良", "#fee300"]//黄色 
 
         	} else if (num >= 101 && num <= 150) {
-        		str = ["轻度污染", "#fe9100"]
+        		str = ["轻度污染", "#fe9100"]//橙色 
 
         	} else if (num >= 151 && num <= 200) {
-        		str = ["中度污染", "#f00"]
+        		str = ["中度污染", "#f00"]//红色 
 
         	} else if (num >= 201 && num <= 300) {
-        		str = ["重度污染", "#b0008f"]
+        		str = ["重度污染", "#b0008f"]//紫红色 
 
         	} else if (num > 300) {
-        		str = ["严重污染", "#8b0000"]
-        	} else {
-        		str = ["优", "#0f0"]
+        		str = ["严重污染", "#8b0000"]//暗红色 
+
         	}
         	return str;
 
@@ -293,16 +295,16 @@
 						'<tbody>' +
 						'	<tr>' +
 						'		<td rowspan=\"2\">' +
-						'			<div class=\"\"><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[0].tqms) + '.gif\" style=\"width: 1.1rem\"/></div>' +
+						'			<div><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[0].tqms) + '.gif\" style=\"width: 1.1rem\"/></div>' +
 						'		</td>' +
 						'		<td>' + data[1].zc + '</td>' +
 						'		<td>' + data[2].zc + '</td>' +
 						'		<td>' + data[3].zc + '</td>' +
 						'	</tr>' +
 						'	<tr>' +
-						'		<td><div class=\"\"><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[1].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
-						'		<td><div class=\"\"><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[2].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
-						'		<td><div class=\"\"><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[3].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
+						'		<td><div><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[1].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
+						'		<td><div><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[2].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
+						'		<td><div><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[3].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
 						'	</tr>' +
 						'	<tr>' +
 						'		<td style=\"font-size: .4rem;\">' + data[0].wd_min + '-' + data[0].wd_max + '</td>' +
@@ -323,7 +325,7 @@
 						'		<td>' + data[3].tqms + '</td>' +
 						'	</tr>' +
 						'	<tr>' +
-						'		<td>空气质量：' + data[3].kqzl + '<span class=\"sqzz-wrj-lr2-air\" style=\" background:#' + require("sl_WorkSite").getAirText(data[3].kqzl)[1] + '\">' + require("sl_WorkSite").getAirText(data[3].kqzl)[0] + '</span></td>' +
+						'		<td>空气质量：' + (data[0].kqzl === "" ? "空" : data[0].kqzl) + '<span class=\"sqzz-wrj-lr2-air\" style=\" background:' + require("sl_WorkSite").getAirText(data[0].kqzl)[1] + '\" >' + require("sl_WorkSite").getAirText(data[0].kqzl)[0] + '</span></td>' +
 						'		<td>' + data[1].fxfs + '</td>' +
 						'		<td>' + data[2].fxfs + '</td>' +
 						'		<td>' + data[3].fxfs + '</td>' +
