@@ -732,7 +732,8 @@
                 url: con.HtmlUrl + 'SocietyNew/Left_Second_EventDrone2.html'
             }
             com.UIControlAni(option, function () {
-                require("s_Echart").DroneWeather()
+            	//require("s_Echart").DroneWeather()
+            	require("sl_WorkSite").loadWorkSiteWeatherData("drone");
             });
         },
         loadLeftSecond3: function () {
