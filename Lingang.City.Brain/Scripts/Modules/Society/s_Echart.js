@@ -437,19 +437,19 @@
               //  $("html").css({ fontSize: "90px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
-                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                //$('#sqzz-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
                 com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+                //com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
                // $("html").css({ fontSize: "160px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
-                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                //$('#sqzz-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
                 com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
+                //com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
             }
         },
 
