@@ -258,36 +258,36 @@
                 var nowDate = new Date().getDate();
                 var nowDay = new Date().getDay();
 
-                function getDayFun(nowDay) {
-                	var str = '';
-                	switch (nowDay/7) {
-                		case 0:
-                			str = "周日";
-                			break;
-                		case 1:
-                			str = "周一";
-                			break;
-                		case 2:
-                			str = "周二";
-                			break;
-                		case 3:
-                			str = "周三";
-                			break;
-                		case 4:
-                			str = "周四";
-                			break;
-                		case 5:
-                			str = "周五";
-                			break;
-                		case 6:
-                			str = "周六";
-                			break;
-                	}
-                	return str;
-                }
+                //function getDayFun(nowDaystr) {
+                //	var str = '';
+                //	switch (nowDaystr / 7) {
+                //		case 0:
+                //			str = "周日";
+                //			break;
+                //		case 1:
+                //			str = "周一";
+                //			break;
+                //		case 2:
+                //			str = "周二";
+                //			break;
+                //		case 3:
+                //			str = "周三";
+                //			break;
+                //		case 4:
+                //			str = "周四";
+                //			break;
+                //		case 5:
+                //			str = "周五";
+                //			break;
+                //		case 6:
+                //			str = "周六";
+                //			break;
+                //	}
+                //	return str;
+                //}
 				
 				
-                $("#" + domId + "_weather .sqzz-wrj-lr2-temp").html(getDayFun(nowDay) + "（今天，实时：14℃）");
+                $("#" + domId + "_weather .sqzz-wrj-lr2-temp").html(data[0].zc + "（今天，实时：14℃）");
                
                 var html = '<table cellspacing=\"0\" cellpadding=\"0\" class=\"table sqzz-wrj-lr2-table\">' +
 						'<tbody>' +
@@ -295,9 +295,9 @@
 						'		<td rowspan=\"2\">' +
 						'			<div class=\"\"><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[0].tqms) + '.gif\" style=\"width: 1.1rem\"/></div>' +
 						'		</td>' +
-						'		<td>' + getDayFun(nowDay + 1) + '</td>' +
-						'		<td>' + getDayFun(nowDay + 2) + '</td>' +
-						'		<td>' + getDayFun(nowDay + 3) + '</td>' +
+						'		<td>' + data[1].zc + '</td>' +
+						'		<td>' + data[2].zc + '</td>' +
+						'		<td>' + data[3].zc + '</td>' +
 						'	</tr>' +
 						'	<tr>' +
 						'		<td><div class=\"\"><img src=\"Content/weather/' + require("sl_WorkSite").getWeatherIcon(data[1].tqms) + '.gif\" style=\"width: .8rem\"/></div></td>' +
