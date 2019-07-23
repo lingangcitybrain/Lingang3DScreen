@@ -47,7 +47,7 @@
         workSiteWrjData: null,     //工地无人机
         dealTaskNumData: null,     //网格处置案件数量
         dealTaskTypeData: null,   //网格处置案件类别
-
+        intervalTime:0,
         //加载图表
         loadEcharts: function () {
            
@@ -434,22 +434,22 @@
             //    com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
             //} else
                 if ($("body").width() == 7680) {
-                $("html").css({ fontSize: "90px" });
+              //  $("html").css({ fontSize: "90px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
-                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                //$('#sqzz-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
                 com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 6, 40, 1000);
-                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
+                //com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "160px" });
+               // $("html").css({ fontSize: "160px" });
                 $('#sqzz-sxt1>.sxt-circlediv').empty();
                 $('#sqzz-sxt2>.sxt-circlediv').empty();
-                $('#sqzz-sxt3>.sxt-circlediv').empty();
+                //$('#sqzz-sxt3>.sxt-circlediv').empty();
                 com.loopFun($('#sqzz-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
                 com.loopFun($('#sqzz-sxt2>.sxt-circlediv')[0], 60, '#075612', '#00f81f', 'transparent', '20px', 10, 65, 1000);
-                com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
+                //com.loopFun($('#sqzz-sxt3>.sxt-circlediv')[0], 90, '#564009', '#f7b001', 'transparent', '20px', 10, 65, 1000);
             }
         },
 
@@ -517,35 +517,10 @@
             s_EchartAjax.getJqPersonData(post_data, function (result) {
                 if (require("s_Echart").jqPersonData == null) { return false; }
                 var data = require("s_Echart").jqPersonData;
-                data = data[0];
-
-                function MyDate() {
-                    function addZero(n) {
-                        n = n < 10 ? '0' + n : n;
-                        return n;
-                    }
-                    var d = new Date();
-                    var year = d.getFullYear();
-                    var mon = d.getMonth() + 1;
-                    var day = d.getDate();
-
-                    var s = '' + year + addZero(mon) + addZero(day);
-                    return s;
-                }
-
-                var thisDayCarJson = null;
-                for (key in data) {
-                    if (key === MyDate()) {
-                        thisDayCarJson = data[key];
-                    }
-                }
-                var thisDayPersonTotal = 0;
-                for (key1 in thisDayCarJson) {
-                    thisDayPersonTotal += thisDayCarJson[key1]
-                }
-                $("#total_person").html(thisDayPersonTotal);
-                $("#normal_person").html(thisDayPersonTotal);
-                $("#doubtable_person").html(0);
+             
+                $("#total_person").html(data.total);
+                $("#normal_person").html(data.lingangdadao);
+                $("#doubtable_person").html(data.dishui);
             });
         },
 
@@ -554,11 +529,10 @@
             s_EchartAjax.getSxtCameraData(post_data, function (result) {
                 if (require("s_Echart").sxtCameraData == null) { return false; }
                 var data = require("s_Echart").sxtCameraData;
-                data = data.data.list;
 
                 var cameraOnNum = 0;
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].sbzt === "ON") {
+                	if (data[i].sbzt === "ON") {
                         cameraOnNum++;
                     }
                 }
@@ -671,6 +645,7 @@
 
         //事件处理成功
        sjcg: function () {
+           var changeTime = 15000;//图表切换频率
             s_EchartAjax.getSocietySjcg(function (result) {
                 clearInterval(window.sjcgTimer);
                 window.sjcgTimer = null;
@@ -709,7 +684,11 @@
 
                // 图表成功数成功率循环
                var sjcgTimerIndex = 0;
+               if (require("s_Echart").intervalTime <=0) {
+                   changeTime = 2000;
+               }
                window.sjcgTimer = setInterval(function () {
+                
                    if (sjcgTimerIndex) {
                        oSjcgseriesData = seriesData;
                        sjcgSeriesDataMax = seriesDataMax;
@@ -734,8 +713,40 @@
                    require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
                    require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                   require("s_Echart").intervalTime = 1;
+                   if (require("s_Echart").intervalTime == 1) {
+                       changeTime = 15000;
+                       clearInterval(window.sjcgTimer);
+                       window.sjcgTimer = setInterval(function () {
 
-               }, 15000);
+                           if (sjcgTimerIndex) {
+                               oSjcgseriesData = seriesData;
+                               sjcgSeriesDataMax = seriesDataMax;
+                               sjcgSeriesDataMin = seriesDataMin;
+                               sjcgTimerIndex--;
+                               strTitle = "事件处理成功数";
+                           } else {
+                               oSjcgseriesData = oSjcgseriesRateData;
+                               sjcgSeriesDataMax = sjcgSeriesRateDataMax;
+                               sjcgSeriesDataMin = sjcgSeriesRateDataMin;
+                               sjcgTimerIndex++;
+                               strTitle = "事件处理成功率（%）";
+                           }
+                           $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+
+                           sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+
+                           if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                               require("s_Echart").myChartsjcg.dispose();
+                           }
+                           require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+                           require("s_Echart").myChartsjcg.setOption(sjcgOption);
+
+                           require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                           require("s_Echart").intervalTime = 1;                           
+                       }, 15000);
+                   }
+               }, changeTime);
 
                 //事件处理成功图表加载
                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
@@ -883,7 +894,8 @@
 							'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
 						'</div>' +
 						'<div class="sjxx-address">' + data[i].address +
-							'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+							//'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +  //time[1]有undefined
+                            '<span class="fr sjxx-time">' + time[0] +  '<span>' + data[i].dealPerson + '</span></span>' +
 						'</div>' +
 					'</li>';
        			}
@@ -1216,6 +1228,7 @@
         yq:function(){},
         /*********************左侧图表-end*********************/
         Revert: function () {
+            require("s_Echart").intervalTime=0;
             //事件成功
             if (window.sjcgTimer != null) {
                 clearInterval(window.sjcgTimer)

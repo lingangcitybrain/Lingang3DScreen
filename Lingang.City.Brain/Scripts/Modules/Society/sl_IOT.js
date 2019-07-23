@@ -306,17 +306,18 @@
 
                 this.Interval3 = setInterval(function () {
                     var lastvalue = $("#society-person>li").eq(3).find(".item-r-data").html();
-                    lastvalue = lastvalue.replace(/,/ig, '');
-
-                    var step_values = com.random(-5, 10);
+                    if (lastvalue) {
+                        lastvalue = lastvalue.replace(/,/ig, '');
+                    }                    
+                    var step_values = com.random(-5, 5);
                     var current_values = parseInt(lastvalue) + step_values;
 
-                        //var minValues = parseInt(parseInt(this.currentPopulation) * 0.95)
-                        //var maxValues = parseInt(parseInt(this.currentPopulation) * 1.05)
+                    var minValues = parseInt(parseInt(this.currentPopulation) * 0.8);
+                        var maxValues = parseInt(parseInt(this.currentPopulation) * 1.2);
 
-                        //if (current_values < minValues) { current_values = minValues }
-                        //if (current_values > maxValues) { current_values = maxValues }
-                        //if (current_values <= 0) { current_values =0}
+                        if (current_values < minValues) { current_values = minValues }
+                        if (current_values > maxValues) { current_values = maxValues }
+                        if (current_values <= 0) { current_values =0}
 
                     current_values = com.toThousands(current_values);
                     $("#society-person>li").eq(3).find(".item-r-data").html(current_values);
@@ -654,12 +655,12 @@
         // 摄像头圆圈
         loadCirclediv: function (str) {
             if ($("body").width() == 7680) {
-                $("html").css({ fontSize: "90px" });
+               // $("html").css({ fontSize: "90px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "160px" });
+                //$("html").css({ fontSize: "160px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
             }

@@ -1,6 +1,7 @@
 ﻿define(["config", "common", "s_layerMenuData", "s_Main", "s_EchartAjax"], function (con, com, s_layerMenuData, s_Main, s_EchartAjax) {
     /**************************************海岸线**************************************/
     return {
+        FlightVideoData:null,
         //海岸线图层打开或关闭
         layerSeaboard: function () {
             this.Revert();
@@ -149,12 +150,19 @@
                 var data = require("s_Echart").recentFlightData;
                 $("#recent-flight").html(data.coastDistance);
                 $("#recent-flight-mess>li").eq(0).find("span").html(data.flightCount)
-                $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor + '%')
+                $("#recent-flight-mess>li").eq(1).find("span").html(data.visitor)
                 $("#recent-flight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-flight-mess>li").eq(3).find("span").html(data.stall)
-
-                require("s_Main").loadRecentFlyVideo(data.url[0])
+                //require("s_Main").loadRecentFlyVideo(data.url[0])  //需要另外获取
+               
             });
+            s_EchartAjax.getFlightVideo(function (result) {
+                if (result.length > 0) {
+                    require("s_Main").loadRecentFlyVideo(result[0].url[0]);
+                }
+                
+            })
+             
         },
 
         //海岸线无人机最近一个月飞行统计
@@ -166,14 +174,20 @@
                 $("#recent-monthflight>li").eq(1).find("em").html(data.flightNumber)
                 $("#recent-monthflight>li").eq(2).find("em").html(data.coastDistance)
 
-                $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightCount)
-                $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor + '%')
+                $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightDuration)
+                $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor)
                 $("#recent-monthflight-mess>li").eq(2).find("span").html(data.garbage)
                 $("#recent-monthflight-mess>li").eq(3).find("span").html(data.stall)
 
-                require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])
+                //require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])   //需要另外获取
 
             });
+            s_EchartAjax.getFlightVideo(function (result) {
+                if (result.length > 0) {
+                    require("s_Main").loadMonthlyRecentFlyVideo(result[1].url[0]);
+                }
+
+            })
         },
 
 

@@ -153,7 +153,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/metroStatistic',
+                    url: con.InterfaceUrl_DataStation + '/v1/park/vehicle/metroStatisticHourly',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -178,7 +178,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/camera/comunity/cameraListByType',
+                    url: con.InterfaceUrl_DataStation + 'v1/camera/comunity/cameraListByType',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -188,8 +188,6 @@
                     },
                     error: function () {
                         //alert("数据传输错误");
-                        //require("s_Echart").sxtCameraData = s_EchartData.sxtCameraData;
-                        //callback();
                     }
                 });
             } else {//执行本地
@@ -516,7 +514,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/drone/communityDroneRecentFlight',
+                    url: con.InterfaceUrl_DataStation + 'v1/drone/uavOcean',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -539,7 +537,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/drone/communityDroneRecentFlightMonthly',
+                    url: con.InterfaceUrl_DataStation + 'v1/drone/getUavOceanByMonth',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -555,6 +553,24 @@
                 require("s_Echart").monthlyRecentFlightData = s_EchartData.monthlyRecentFlightData;
                 callback();
             }
+        },
+
+        getFlightVideo: function (callback) {
+            $.ajax({
+                type: "POST",      //data 传送数据类型。post 传递 
+                url: con.InterfaceUrl_DataStation + 'v1/drone/getCoastLineHistoryVideo',
+                async: false,
+                cache: false,
+                //data: post_data,  //传送的数据
+                dataType: 'json',  // 返回数据的数据类型json
+                success: function (data) {
+                    require("s_Echart").FlightVideoData = data;
+                    callback(data)
+                },
+                error: function () {
+                    //alert("数据传输错误");
+                }
+            });
         },
 
         //海岸线潮汐时间表
@@ -632,7 +648,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/weather/city5d3h',
+                    url: con.InterfaceUrl_DataStation + 'v1/communities/tqpqsj',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

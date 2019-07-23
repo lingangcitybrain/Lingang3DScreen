@@ -1,7 +1,7 @@
 ﻿define(["config", "common", "util", "s_layerMenuData", "s_EchartAjax"], function (con, com, util, s_layerMenuData, s_EchartAjax) {
     /**************************************网格*************************************/
     var gridTotalNum = 0; //主责部门事件数量总数
-    var gridTop15Num = 0; //主责部门Top15事件数量
+    var gridTop5Num = 0; //主责部门Top5事件数量
 
     var TaskTypeDataPercent = []; //处置案件类别占百分比 
 
@@ -553,28 +553,43 @@
                 var TaskTypeData = []; //各类别数据
                 var TaskTypeDataSum = 0; //各类别数据总和
 
+				//获取名字后不带TOP3的数据
                 for (var i = 0; i < data.length; i++) {
-                    TaskTypeData.push(Number(data[i].counts));
-                    TaskTypeDataSum += Number(data[i].counts);
-                }
-                TaskTypeData.sort(function (a, b) { return b - a; }) //排序  从大到小
-                TaskTypeDataPercent = [];  //占百分比 全局变量，便于下面引用
-                for (var i = 0; i < data.length; i++) {
-                    TaskTypeDataPercent.push(parseInt(TaskTypeData[i] / TaskTypeDataSum * 100));
+                	switch (data[i].infotypename) {
+                		case "部件":
+                			TaskTypeData[0] = Number(data[i].counts);
+                			break;
+                		case "事件":
+                			TaskTypeData[1] = Number(data[i].counts);
+                			break;
+                		case "市民服务热线":
+                			TaskTypeData[2] = Number(data[i].counts);
+                			break;
+                		default:
+                			break;
+                	}
                 }
 
-                var TaskTypeDataType = [];  //前三的类别
-                for (var i = 0; i < data.length; i++) {
-                    for (var j = 0; j < TaskTypeData.length; j++) {
-                        if (TaskTypeData[j] === Number(data[i].counts)) { TaskTypeDataType.push(data[i].infotypename) }
-                    }
+                for (var i = 0; i < TaskTypeData.length; i++) {
+                	TaskTypeDataSum += TaskTypeData[i];
+            	}
+
+                TaskTypeDataPercent = [];  //占百分比 全局变量，便于下面引用
+                for (var i = 0; i < TaskTypeData.length; i++) {
+                    TaskTypeDataPercent.push( (TaskTypeData[i] / TaskTypeDataSum * 100).toFixed(1) );
                 }
+
+                //var TaskTypeDataType = [];  //前三的类别
+                //for (var i = 0; i < data.length; i++) {
+                //    for (var j = 0; j < TaskTypeData.length; j++) {
+                //        if (TaskTypeData[j] === Number(data[i].counts)) { TaskTypeDataType.push(data[i].infotypename) }
+                //    }
+                //}
 
                 // 加载数据
-                for (var i = 0; i < TaskTypeDataType.length; i++) {
+                for (var i = 0; i < TaskTypeDataPercent.length; i++) {
                     $("#dealtasktype>li").eq(i).find(".czajlb-circlediv").attr("data-text", TaskTypeDataPercent[i] + '%')
                     $("#dealtasktype>li").eq(i).find(".item-r-data").html(TaskTypeData[i])
-                    
                     
                 }
 
@@ -587,13 +602,13 @@
         loadCirclediv: function (TaskTypeDataPercent) {
             // 摄像头圆圈
             if ($("body").width() == 7680) {
-                $("html").css({ fontSize: "90px" });
+               // $("html").css({ fontSize: "90px" });
                 $(".czajlb-circlediv").each(function () { $(this).empty();})
                 com.loopFun($('.czajlb-circlediv')[0], TaskTypeDataPercent[0], '#1f2533', '#eda637', 'transparent', '20px', 18, 36, 1000);
                 com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 18, 36, 1000);
                 com.loopFun($('.czajlb-circlediv')[2], TaskTypeDataPercent[2], '#1f2533', '#55b400', 'transparent', '20px', 18, 36, 1000);
             } else if ($("body").width() == 11520) {
-                $("html").css({ fontSize: "160px" });
+               // $("html").css({ fontSize: "160px" });
                 $(".czajlb-circlediv").each(function () { $(this).empty(); })
                 com.loopFun($('.czajlb-circlediv')[0], TaskTypeDataPercent[0], '#1f2533', '#eda637', 'transparent', '20px', 25, 54, 1000);
                 com.loopFun($('.czajlb-circlediv')[1], TaskTypeDataPercent[1], '#1f2533', '#05c1f8', 'transparent', '20px', 25, 54, 1000);
@@ -630,8 +645,8 @@
 	                    radius: '58%',
 	                    center: ['50%', '50%'],
 	                    data: [
-	            	        { value: gridTotalNum - gridTop15Num, name: "其它", selected: true },
-	            	        { value: gridTop15Num, name: "TOP15" }
+	            	        { value: gridTotalNum - gridTop5Num, name: "其它", selected: true },
+	            	        { value: gridTop5Num, name: "TOP15" }
 	                    ],
 	                    selectedOffset: 25,
 	                    label: {
@@ -649,13 +664,13 @@
                                     fontSize: 80,
                                     lineHeight: 80,
                                     color: "#f7b001",
-                                    fontFamily: "Aerial",
+                                    //fontFamily: "Aerial",
                                 },
                                 per: {
                                     fontSize: 80,
                                     lineHeight: 80,
                                     color: "#fff",
-                                    fontFamily: "Aerial",
+                                    //fontFamily: "Aerial",
                                 },
 
                             }
@@ -696,21 +711,21 @@
                 //data = data.data.dealDeptList;   //中台地址接口直接返回数组  20190714
 
                 gridTotalNum = 0; //主责部门事件数量总数
-                gridTop15Num = 0; //主责部门Top15事件数量
-                var top15NumRate = 0; 
+                gridTop5Num = 0; //主责部门Top5事件数量
+                var top5NumRate = 0; 
                 var elseNumRate = 0;
                 //主责部门右侧列表
                 for (var i = 0; i < data.length; i++) {
                     $("#grid-czzzbm").append("<li><span>" + data[i].executeDeptname + "</span><em>" + data[i].taskNums + "</em></li>");
 
                     gridTotalNum += Number(data[i].taskNums);
-                    if (i <= 15 && data[i]) {
-                        gridTop15Num += Number(data[i].taskNums);
+                    if (i < 5 && data[i]) {
+                        gridTop5Num += Number(data[i].taskNums);
                     }
                 }
 
-                top15NumRate = gridTop15Num / gridTotalNum * 100; //没有百分号
-                elseNumRate = parseInt(100 - top15NumRate);
+                top5NumRate = (gridTop5Num / gridTotalNum * 100).toFixed(2); //没有百分号
+                elseNumRate = (100 - top5NumRate).toFixed(2);
 
                 // 加载图表
                 if ($("#czajsl-chart").length <= 0) { return false; }
@@ -739,7 +754,7 @@
                             radius: '58%',
                             center: ['50%', '50%'],
                             data: [
-                                { value: gridTotalNum - gridTop15Num, selected: true },
+                                { value: gridTotalNum - gridTop5Num, selected: true },
                                 { value: gridTotalNum }
                             ],
                             selectedOffset: 25,
@@ -762,11 +777,11 @@
                 };
                 myChartczzzbm.setOption(czzzbmOption);
 
-                $("#zzbm-top15").append('<div class=\"czzzbm-legendtitle\"><span>TOP15</span><em>(' + top15NumRate
-                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop15Num + '</div>');
+                $("#zzbm-top5").append('<div class=\"czzzbm-legendtitle\"><span>TOP5</span><em>(' + top5NumRate
+                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + gridTop5Num + '</div>');
 
                 $("#zzbm-else").append('<div class=\"czzzbm-legendtitle\"><span>其他</span><em>(' + elseNumRate
-                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop15Num) + '</div>');
+                    + '%)</em></div><div class=\"czzzbm-legenddata testAerial\">' + (gridTotalNum - gridTop5Num) + '</div>');
 
             });
         },
