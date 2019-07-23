@@ -10,6 +10,25 @@
             "wrj_charging_cnt": 0
         },
 
+    	//左一列无人机视频
+        wrjRideo: {
+        	"2019-07-20": [
+				"http://zhlingang-wrjsp.oss-cn-shanghai.aliyuncs.com/%E6%B5%B7%E5%B2%B8%E7%BA%BF%E5%B7%A1%E9%A3%9E/2019-07-20/01/DJI_0003_ev.mov?Expires=1563852594&OSSAccessKeyId=LTAICCNnnSzEG88N&Signature=YlKxXdZBQGazew%2FXKq8%2Fi4Ef5rU%3D"
+        	],
+        	"2019-06-30": [
+				"http://zhlingang-wrjsp.oss-cn-shanghai.aliyuncs.com/%E6%B5%B7%E5%B2%B8%E7%BA%BF%E5%B7%A1%E9%A3%9E/2019-06-30/01/DJI_0001_ev%283%29.mov?Expires=1563852594&OSSAccessKeyId=LTAICCNnnSzEG88N&Signature=%2BK45E3dirLqulbzSVWlDjGh9QnE%3D"
+        	],
+        	"2019-07-21": [
+				"http://zhlingang-wrjsp.oss-cn-shanghai.aliyuncs.com/%E6%B5%B7%E5%B2%B8%E7%BA%BF%E5%B7%A1%E9%A3%9E/2019-07-21/01/DJI_0001_ev.MOV?Expires=1563852594&OSSAccessKeyId=LTAICCNnnSzEG88N&Signature=M3H3Pc9RwYvbnPyggzIyoGDD114%3D"
+        	],
+        	"dateList": [
+				"2019-07-21",
+				"2019-07-20",
+				"2019-06-30"
+        	]
+        },
+
+
         //中间大数字
         societyBigNumData: {
             "errorCode": "0",
@@ -171,6 +190,158 @@
                 ]
             }
         },
+
+    	//景区--摄像头
+        jqCameraVideo: {
+			"total": 4,
+			"pagination": {
+        		"current": 0,
+        		"total": 4,
+        		"pageSize": 5
+			},
+			"list": [
+				{
+					"resolutionRatio": "1920*1080p",
+					"nvrIpAddress": "100.90.80.14",
+					"type": "3",
+					"password": "a123456",
+					"cameraHeight": "3m",
+					"totalPeoples": 1239,
+					"communityName": "海洋小区",
+					"id": 8742,
+					"lat": "30.881252",
+					"deviceType": "枪击",
+					"lng": "121.913298",
+					"ipAddress": "100.90.80.14",
+					"verticalBarCoding": "海洋小区入口车闸处",
+					"occupancyRate": 60.86,
+					"cameraAngle": "79.55",
+					"communityOwn": "申港社区",
+					"nvrDeviceId": "31011900011188034000",  
+					"y1": 0,
+					"y2": 0,
+					"communityId": "S012",
+					"address": "上海市浦东新区南汇新城镇古棕路438弄",
+					"committee": "临港家园",
+					"gbId": "31011900011328041004", //sbbm
+					"updateUser": "admin",
+					"updateTime": "2019-07-22T16:00:02.000+0000",
+					"cameraType": "普通枪击",
+					"bitStream": "4096Kbps",
+					"x": 0,
+					"channelName": "海洋小区入口人脸识别机4",
+					"globalNumber": "31011900011328041004",
+					"sbzt": "ON",
+					"sxjlx": "2",
+					"account": "admin"
+				},
+				{
+					"resolutionRatio": "1920*1080p",
+					"nvrIpAddress": "100.90.80.13",
+					"type": "3",
+					"password": "a123456",
+					"cameraHeight": "3m",
+					"totalPeoples": 1239,
+					"communityName": "海洋小区",
+					"id": 8741,
+					"lat": "30.881341",
+					"deviceType": "枪击",
+					"lng": "121.913406",
+					"ipAddress": "100.90.80.13",
+					"verticalBarCoding": "海洋小区入口车闸处",
+					"occupancyRate": 60.86,
+					"cameraAngle": "79.55",
+					"communityOwn": "申港社区",
+					"nvrDeviceId": "31011900011188034000",
+					"y1": 0,
+					"y2": 0,
+					"communityId": "S012",
+					"address": "上海市浦东新区南汇新城镇古棕路438弄",
+					"committee": "临港家园",
+					"gbId": "31011900011328041003",
+					"updateUser": "admin",
+					"updateTime": "2019-07-22T16:00:01.000+0000",
+					"cameraType": "普通枪击",
+					"bitStream": "4096Kbps",
+					"x": 0,
+					"channelName": "海洋小区入口人脸识别机3",
+					"globalNumber": "31011900011328041003",
+					"sbzt": "ON",
+					"sxjlx": "2",
+					"account": "admin"
+				},
+				{
+					"resolutionRatio": "1920*1080p",
+					"nvrIpAddress": "100.90.80.12",
+					"type": "3",
+					"password": "a123456",
+					"cameraHeight": "3m",
+					"totalPeoples": 1239,
+					"communityName": "海洋小区",
+					"id": 8740,
+					"lat": "30.881124",
+					"deviceType": "枪击",
+					"lng": "121.913455",
+					"ipAddress": "100.90.80.12",
+					"verticalBarCoding": "海洋小区入口车闸处",
+					"occupancyRate": 60.86,
+					"cameraAngle": "79.55",
+					"communityOwn": "申港社区",
+					"nvrDeviceId": "31011900011188034000",
+					"y1": 0,
+					"y2": 0,
+					"communityId": "S012",
+					"address": "上海市浦东新区南汇新城镇古棕路438弄",
+					"committee": "临港家园",
+					"gbId": "31011900011328041002",
+					"updateUser": "admin",
+					"updateTime": "2019-07-22T16:00:02.000+0000",
+					"cameraType": "普通枪击",
+					"bitStream": "4096Kbps",
+					"x": 0,
+					"channelName": "海洋小区入口人脸识别机2",
+					"globalNumber": "31011900011328041002",
+					"sbzt": "ON",
+					"sxjlx": "2",
+					"account": "admin"
+				},
+				{
+					"resolutionRatio": "1920*1080p",
+					"nvrIpAddress": "100.90.80.11",
+					"type": "3",
+					"password": "a123456",
+					"cameraHeight": "3m",
+					"totalPeoples": 1239,
+					"communityName": "海洋小区",
+					"id": 8739,
+					"lat": "30.881225",
+					"deviceType": "枪击",
+					"lng": "121.91354",
+					"ipAddress": "100.90.80.11",
+					"verticalBarCoding": "海洋小区入口车闸处",
+					"occupancyRate": 60.86,
+					"cameraAngle": "79.55",
+					"communityOwn": "申港社区",
+					"nvrDeviceId": "31011900011188034000",
+					"y1": 0,
+					"y2": 0,
+					"communityId": "S012",
+					"address": "上海市浦东新区南汇新城镇古棕路438弄",
+					"committee": "临港家园",
+					"gbId": "31011900011328041001",
+					"updateUser": "admin",
+					"updateTime": "2019-07-22T16:00:01.000+0000",
+					"cameraType": "普通枪击",
+					"bitStream": "4096Kbps",
+					"x": 0,
+					"channelName": "海洋小区入口人脸识别机1",
+					"globalNumber": "31011900011328041001",
+					"sbzt": "ON",
+					"sxjlx": "2",
+					"account": "admin"
+				}
+			]
+		},
 
 
         //景区--摄像头

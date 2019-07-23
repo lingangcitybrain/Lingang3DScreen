@@ -2,31 +2,57 @@
     return {
         /*************************社区综治-Echart********************************/
 
-        //社区综治无人机
-        getSocietyWrj: function (callback) {
-            if (con.IsInterface)//执行接口
-            {
-                $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v1/drone/droneInfo',
-                    cache: false,
-                    //data: post_data,  //传送的数据
-                    dataType: 'json',  // 返回数据的数据类型json
-                    success: function (data) {
-                        require("s_Echart").wrjData = data[0];
-                        callback(data)
-                    },
-                    error: function () {
-                        //alert("数据传输错误");
-                    }
-                });
-            }
-            else {//执行本地
-                require("s_Echart").wrjData = s_EchartData.wrjData;
-                callback();
-            }
-        },
-        //社区综治传感器
+    	//社区综治无人机
+    	getSocietyWrj: function (callback) {
+    		if (con.IsInterface)//执行接口
+    		{
+    			$.ajax({
+    				type: "POST",      //data 传送数据类型。post 传递 
+    				url: con.InterfaceUrl_DataStation + 'v1/drone/droneInfo',
+    				cache: false,
+    				//data: post_data,  //传送的数据
+    				dataType: 'json',  // 返回数据的数据类型json
+    				success: function (data) {
+    					require("s_Echart").wrjData = data[0];
+    					callback(data)
+    				},
+    				error: function () {
+    					//alert("数据传输错误");
+    				}
+    			});
+    		}
+    		else {//执行本地
+    			require("s_Echart").wrjData = s_EchartData.wrjData;
+    			callback();
+    		}
+    	},
+
+    	//社综左1无人机视频
+    	getWrjRideo: function (callback) {
+    		if (con.IsInterface)//执行接口
+    		{
+    			$.ajax({
+    				type: "POST",      //data 传送数据类型。post 传递 
+    				url: con.InterfaceUrl_DataStation + 'v1/drone/getCoastLineHistoryVideo',
+    				cache: false,
+    				//data: post_data,  //传送的数据
+    				dataType: 'json',  // 返回数据的数据类型json
+    				success: function (data) {
+    					require("s_Echart").wrjRideo = data;
+    					callback(data)
+    				},
+    				error: function () {
+    					//alert("数据传输错误");
+    				}
+    			});
+    		}
+    		else {//执行本地
+    			require("s_Echart").wrjRideo = s_EchartData.wrjRideo;
+    			callback();
+    		}
+    	},
+
+    	//社区综治传感器
         getSocietyCgq: function (callback) {
             if (con.IsInterface)
             {
@@ -99,29 +125,52 @@
         },
 
 
-        //景区--摄像头
+    	//景区--摄像头视频
+        getJqCameraVideo: function (callback) {
+        	if (con.IsInterface) {
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_DataStation + 'v1/camera/entranceCamera',
+        			cache: false,
+        			//data: post_data,  //传送的数据
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("s_Echart").jqCameraVideo = data;
+        				callback(data);
+        			},
+        			error: function () {
+        				//console.log("景区摄像头数据传输错误,加载本地数据");
+        			}
+        		});
+        	} else {//执行本地
+        		require("s_Echart").jqCameraVideo = s_EchartData.jqCameraVideo;
+        		callback();
+        	}
+        },
+
+    	//景区--摄像头信息
         getJqCameraData: function (post_data, callback) {
-            if (con.IsInterface) {
-                $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v1/park/camera/cameraInfo',
-                    cache: false,
-                    data: post_data,  //传送的数据
-                    dataType: 'json',  // 返回数据的数据类型json
-                    success: function (data) {
-                        require("s_Echart").jqCameraData = data;
-                        callback(data);
-                    },
-                    error: function () {
-                        console.log("景区摄像头数据传输错误,加载本地数据");
-                        require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
-                        callback();
-                    }
-                });
-            } else {//执行本地
-                require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
-                callback();
-            }
+        	if (con.IsInterface) {
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_DataStation + 'v1/park/camera/cameraInfo',
+        			cache: false,
+        			data: post_data,  //传送的数据
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("s_Echart").jqCameraData = data;
+        				callback(data);
+        			},
+        			error: function () {
+        				console.log("景区摄像头数据传输错误,加载本地数据");
+        				require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+        				callback();
+        			}
+        		});
+        	} else {//执行本地
+        		require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+        		callback();
+        	}
         },
 
         //景区--车辆
