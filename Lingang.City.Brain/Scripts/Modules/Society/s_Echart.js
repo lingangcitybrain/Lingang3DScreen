@@ -636,11 +636,11 @@
                 var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
 
                 $("#sj-list1").find(".sj-data").eq(0).html(data.distributeNums);
-                $("#sj-list1").find(".sj-data").eq(1).html(data.discoverRate);
+                $("#sj-list1").find(".sj-data").eq(1).html(data.discoverRate + '%');
                 $("#sj-list1").find(".sj-data").eq(2).html(disSaveTime);
 
                 $("#sj-list2").find(".sj-data").eq(0).html(data.eventNums);
-                $("#sj-list2").find(".sj-data").eq(1).html(data.smartSingleRate);
+                $("#sj-list2").find(".sj-data").eq(1).html(data.smartSingleRate + '%');
                 $("#sj-list2").find(".sj-data").eq(2).html(smartSaveTime);
 
 
