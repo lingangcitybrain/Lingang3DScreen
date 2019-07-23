@@ -478,7 +478,7 @@ body{
 	border-radius: 50%;
 	background: url(../Content/images/sxt-1.png) center center no-repeat;
 	background-size: .9rem;
-}
+} 
 .sxt-circleinfo{
 	float: left;
 	font-size: .26rem;
@@ -1288,7 +1288,7 @@ dd.pjc-statistic-star >form{
 .dkl-r-sxtul .sxt-videoli:first-child{ margin-left: 0; }*/
 .dkl-jtxxul>li{ 
 	flex-grow: 1; 
-	width: calc(100% / 3);
+	width: calc(100% / 4);
 	margin-right: 0 !important; 
 }
 
@@ -1298,10 +1298,13 @@ dd.pjc-statistic-star >form{
 	border-color: #f68724;
 	background-size: .9rem;
 }
+#dt, #subway, #park, #car {font-size:.4rem;
+}
 .dkl-jtxxul>li>.item-r{ margin-top: .05rem}
 .dkl-jtxxul .cgq-li:nth-child(1)>.item-l{ background-image: url(../Content/images/cgq-9.png);  }
 .dkl-jtxxul .cgq-li:nth-child(2)>.item-l{ background-image: url(../Content/images/cgq-9.png); }
-.dkl-jtxxul .cgq-li:nth-child(3)>.item-l{ background-image: url(../Content/images/cgq-10.png); }
+.dkl-jtxxul .cgq-li:nth-child(3)>.item-l{ background-image: url(../Content/images/cgq-8.png); }
+.dkl-jtxxul .cgq-li:nth-child(4)>.item-l{ background-image: url(../Content/images/cgq-10.png); }
 .jtxx-chartdiv{ 
 	position: relative;
 	margin-top: .3rem;
