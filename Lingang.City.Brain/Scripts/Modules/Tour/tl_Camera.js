@@ -30,33 +30,49 @@
         createCameraPoi: function (cameraData) {
             var areaName = con.AreaName;
             var icon = require("tl_Camera").LayerType.UnChooseIcon;
+            var icon_offline = "Texture/Common/camera_offline.png";
             var pois = [];
+            var pois_offline = [];
             for (var i = 0; i < cameraData.length; i++) {
                 var row = cameraData[i];
-                var sbmc = row.sbmc
+                var sbmc = row.sbmc;
 
                 if (sbmc.indexOf("海洋小区") <= -1) {
                     require("tl_Camera").CameraListData.put(row.id, row);
                     var poiName = "POITour" + require("tl_Camera").LayerType.Name + "_" + row.id;//POIIOT_01
+                    if (row.sbzt != 'ON')
+                        poiName = poiName + '_offline';
+
 
                     var iconSize = Q3D.vector2(41, 45);
                     var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转84坐标
                     var pos = Coordinate + ",0";
                     var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
                     var node = map.getSceneNode(areaName + "/" + poiName);
                     if (node) {
                         node.setVisible(1);//显示当前父节点
                     } else {
-                        pois.push(poi);
+                        if(row.sbzt == 'ON'){
+                            var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+                            pois.push(poi);
+                        }
+                        else{
+                            var poi_offline = { POIName: poiName, Position: position, Text: "", Icon: icon_offline, IconSize: iconSize };
+                            pois_offline.push(poi_offline);
+                        }
                     }
                 }
             }
-            com.InitPois(areaName, pois);
+            if (pois.length > 0)
+                com.InitPois(areaName, pois);
+            if (pois_offline.length > 0)
+                com.InitPois(areaName, pois_offline);
         },
         //摄像头点击事件
         loadCameraDetial: function (nodeName) {
+            if(nodeName.split('_')[2]) //离线摄像头不处理
+                return;
 
             $("#detail_tourplayer").hide();
             this.closeCameraDetial();
