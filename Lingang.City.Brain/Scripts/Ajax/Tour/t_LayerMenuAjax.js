@@ -40,9 +40,9 @@
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("tl_Camera").POIData = data;
+                        require("tl_Camera").POIData = data.list;
                         if ($.isFunction(callback))
-                            callback(data);
+                            callback(data.list);
                     },
                     error: function () {
                         console.log('景区管理---获取摄像头点位数据失败')
