@@ -128,13 +128,10 @@ define(["config"], function (con) {
            
         
         //无人机
-        wrjData: {
-            "wrj_flying_cnt": 0,
-            "wrj_idle_cnt": 0,
-            "wrj_lost_cnt": 7,
-            "wrj_cnt": 7,
-            "wrj_charging_cnt": 0
-        },
+        wrjData: [{ "wrj_flying_cnt": 1,
+        "wrj_idle_cnt": 2,
+        "wrj_cnt": 5,
+        "wrj_charging_cnt": 1 }],
         //交通信息
         jtxxData:{
             "20190323": {

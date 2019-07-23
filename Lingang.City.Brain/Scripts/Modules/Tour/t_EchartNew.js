@@ -1073,7 +1073,7 @@
 
                     wrjOption = {
                         title: {
-                            text: data.wrj_cnt,
+                            text: data[0].wrj_cnt,
                             subtext: '总数',
                             x: 'center',
                             y: '38%',
@@ -1135,9 +1135,9 @@
                                     }
                                 },
                                 data: [
-                                    { value: data.wrj_flying_cnt, name: '执飞中' },
-                                    { value: data.wrj_charging_cnt, name: '充电中' },
-                                    { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
+                                    { value: data[0].wrj_flying_cnt, name: '执飞中' },
+                                    { value: data[0].wrj_charging_cnt, name: '充电中' },
+                                    { value: data.wrj_idle_cnt, name: '待命中' }
                                 ]
                             }
                         ]
