@@ -7,19 +7,19 @@ define(["config"], function (con) {
         //    "auth": {},
         //    "data": [
         //        {
-        //            "Value": 30,
+        //            "Value": 28,
         //            "Name": "女"
         //        },
         //        {
-        //            "Value": 70,
+        //            "Value": 72,
         //            "Name": "男"
         //        },
         //        {
-        //            "Value": 39,
+        //            "Value": 42,
         //            "Name": "外省"
         //        },
         //        {
-        //            "Value": 61,
+        //            "Value": 58,
         //            "Name": "本省"
         //        }
         //    ],
@@ -28,24 +28,19 @@ define(["config"], function (con) {
     	//},
 
     	//游客画像---新
-    	ykhxData:{
-			"auth": {},
-			"data": [{
-        		"Value": 19981,
-        		"Name": "女"
-			}, {
-        		"Value": 52266,
-        		"Name": "男"
-			}, {
-        		"Value": 5097425,
-        		"Name": "外省"
-			}, {
-        		"Value": 7032332,
-        		"Name": "本省"
-			}],
-			"errCode": 0,
-			"errMsg": "SUCCESS"
-		},
+        ykhxData: [{
+                    "Value": 0.3428359168828865,
+                    "Name": "女"
+                }, {
+                    "Value": 0.6571640831171135,
+                    "Name": "男"
+                }, {
+                    "Value": 0.5677499947670125,
+                    "Name": "外省"
+                }, {
+                    "Value": 0.43225000523298757,
+                    "Name": "本省"
+                }],
 
         //游客分析（用户年龄分布）
         TouristAnalysisData: {
@@ -62,36 +57,35 @@ define(["config"], function (con) {
             "errCode": 0, "errMsg": "SUCCESS"
         },
         //游客趋势分析（当前时间游客趋势分析）
-        FutureVisitorTrafficData: {
-        	"auth": {},
-        	"data": [{
-        		"month": 1,
-        		"visnumber": 1999923,
-        		"year": 2019
-        	}, {
-        		"month": 2,
-        		"visnumber": 116427,
-        		"year": 2019
-        	}, {
-        		"month": 3,
-        		"visnumber": 4003879,
-        		"year": 2019
-        	}, {
-        		"month": 4,
-        		"visnumber": 3294572,
-        		"year": 2019
-        	}, {
-        		"month": 5,
-        		"visnumber": 3470435,
-        		"year": 2019
-        	}, {
-        		"month": 6,
-        		"visnumber": 3201723,
-        		"year": 2019
-        	}],
-        	"errCode": 0,
-        	"errMsg": "SUCCESS"
-        },
+        FutureVisitorTrafficData: [{
+                "month": 1,
+                "visNumber": 972295,
+                "DataDate": "2019-01"
+            }, {
+                "month": 2,
+                "visNumber": 1613018,
+                "DataDate": "2019-02"
+            }, {
+                "month": 3,
+                "visNumber": 4003879,
+                "DataDate": "2019-03"
+            }, {
+                "month": 4,
+                "visNumber": 3294572,
+                "DataDate": "2019-04"
+            }, {
+                "month": 5,
+                "visNumber": 3470435,
+                "DataDate": "2019-05"
+            }, {
+                "month": 6,
+                "visNumber": 3794924,
+                "DataDate": "2019-06"
+            }, {
+                "month": 7,
+                "visNumber": 1980279,
+                "DataDate": "2019-07"
+            }],
 
     	//获取舆情类型统计数
         yqlxtjsData: {

@@ -7,8 +7,8 @@
             {
                 $.ajax({
                     type: 'POST',
-                    url: con.InterfaceUrl + 'v1/park/userProfile',
-                    //url: con.InterfaceUrl_DataStation + '/v1/park/getUserProfile',
+                    //url: con.InterfaceUrl + 'v1/park/userProfile',
+                    url: con.InterfaceUrl_DataStation + '/v1/park/getUserProfile',
                     cache: false,
                     dataType: 'json',
                     success: function (data) {
@@ -57,23 +57,24 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/park/person/futureVisitorTraffic',
+                    //url: con.InterfaceUrl + 'v1/park/person/futureVisitorTraffic',
+                    url: con.InterfaceUrl_DataStation + '/v1/tourist/getFutureVisitorTraffic',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("t_Echart").FutureVisitorTrafficData = data.data;
+                        require("t_Echart").FutureVisitorTrafficData = data;
                         callback(data)
                     },
                     error: function () {
-                        require("t_Echart").FutureVisitorTrafficData = t_EchartData.FutureVisitorTrafficData.data;
+                        require("t_Echart").FutureVisitorTrafficData = t_EchartData.FutureVisitorTrafficData;
                         callback();
 
                     }
                 });
             }
             else {//执行本地
-                require("t_Echart").FutureVisitorTrafficData = t_EchartData.FutureVisitorTrafficData.data;
+                require("t_Echart").FutureVisitorTrafficData = t_EchartData.FutureVisitorTrafficData;
                 callback();
             }
         },
@@ -83,7 +84,8 @@
             {
                 $.ajax({
                     type: 'POST',
-                    url: con.InterfaceUrl + 'v1/drone/droneInfo',
+                    //url: con.InterfaceUrl + 'v1/drone/droneInfo',
+                    url: con.InterfaceUrl_DataStation + 'v1/drone/droneInfo',
                     cache: false,
 
                     dataType: 'json',
@@ -378,28 +380,7 @@
                 callback();
             }
         },
-        //num: function (post_data,callback) {
-        //    if (con.IsInterface)//执行接口
-        //    {
-        //        $.ajax({
-        //            type: "POST",      //data 传送数据类型。post 传递 
-        //            url: con.InterfaceUrl + 'v1/park/getData',
-        //            cache: false,
-        //            dataType: 'json',  // 返回数据的数据类型json
-        //            success: function (data) {
-        //                require("t_Echart").numData = data;
-        //                callback(data);
-        //            },
-        //            error: function () {
-        //                //alert("数据传输错误");
-        //            }
-        //        });
-        //    }
-        //    else {//执行本地
-        //        require("t_Echart").numData = t_EchartData.numData;
-        //        callback();
-        //    }
-        //},
+        
 
         //近五日事件统计
         getJwrsjtj: function (callback) {
