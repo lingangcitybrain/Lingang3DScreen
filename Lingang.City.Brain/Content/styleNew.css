@@ -810,9 +810,16 @@ button.arrowbtn.btnright{
 .sj-li>.sj-div{
 	background:url(../Content/images/sj-div2.png) center center no-repeat;
 	background-size:.6rem;
+	margin-top:.1rem;
 }
-.sj-li:first-child>.sj-div{ background-image:url(../Content/images/sj-div5.png);}
-.sj-li:last-child>.sj-div{ background-image:url(../Content/images/sj-div1.png);}
+.sj-list1 .sj-li:nth-child(1)>.sj-div{ background-image:url(../Content/images/sj-div3.png);}
+.sj-list1 .sj-li:nth-child(2)>.sj-div{ background-image:url(../Content/images/sj-div2.png);}
+.sj-list1 .sj-li:nth-child(3)>.sj-div{ background-image:url(../Content/images/sj-div1.png);}
+
+.sj-list2 .sj-li:nth-child(1)>.sj-div{ background-image:url(../Content/images/sj-div3-1.png);}
+.sj-list2 .sj-li:nth-child(2)>.sj-div{ background-image:url(../Content/images/sj-div2-1.png);}
+.sj-list2 .sj-li:nth-child(3)>.sj-div{ background-image:url(../Content/images/sj-div1-1.png);}
+
 .sj-title{
 	float: left;
 	font-size: .25rem;
@@ -820,7 +827,7 @@ button.arrowbtn.btnright{
 	color: #c5c3c3;
 }
 .sj-data{ 
-	font-size: .36rem;
+	font-size: .45rem;
 	color: #eda637;
 }
 .sj-li .sj-title:last-child>.sj-data{ color: #0ff;}

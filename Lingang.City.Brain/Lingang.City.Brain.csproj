@@ -620,8 +620,11 @@
     <Content Include="Content\images\poi_guiji_leftshadow.png" />
     <Content Include="Content\images\real-scene.png" />
     <Content Include="Content\images\rycltj-datebtn.png" />
+    <Content Include="Content\images\sj-div1-1.png" />
     <Content Include="Content\images\sj-div1.png" />
+    <Content Include="Content\images\sj-div2-1.png" />
     <Content Include="Content\images\sj-div2.png" />
+    <Content Include="Content\images\sj-div3-1.png" />
     <Content Include="Content\images\sj-div3.png" />
     <Content Include="Content\images\sj-div4.png" />
     <Content Include="Content\images\sj-div5.png" />
