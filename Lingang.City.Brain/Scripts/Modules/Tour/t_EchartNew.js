@@ -561,13 +561,13 @@
         ykhx: function () {
             t_EchartAjax.ykhx(function (result) {
 
-                var data = require("t_Echart").ykhxData.data;
+                var data = require("t_Echart").ykhxData;
 
-                var nvPer = (data[0].Value / (data[0].Value + data[1].Value) * 100).toFixed(1)
+                var nvPer = data[0].Value.toFixed(2)*100
                 var nanPer = 100 - nvPer;
 
-                var waiPer = (data[2].Value / (data[2].Value + data[3].Value) * 100).toFixed(1)
-                var benPer = 100 - waiPer;
+                var benPer = data[3].Value.toFixed(2) * 100
+                var waiPer = 100 - benPer;
 
                 var numPer = [nvPer, nanPer, waiPer, benPer]
 
@@ -596,8 +596,8 @@
             	var ykqsfxdata=[], ykqsfxtime=[];
 
             	for (var i = 0; i < data.length; i++) {
-            		ykqsfxdata.push(data[i].visnumber);
-            		ykqsfxtime.push(data[i].month + "月");
+            	    ykqsfxdata.push(data[i].visNumber);
+            	    ykqsfxtime.push(data[i].month + "月");
 				}
 
                option = {
@@ -3506,17 +3506,17 @@
                 $('#sjlxtotal').html(htmltotal);
                 var html = '';
                 html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].label + '</div>';
+                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].name + '</div>';
                 html += '<ol class="yqsj-itemol">';
-                html += '<li class="">' + data[0].name + '</li>';
+                html += '<li class="">' + data[0].label + '</li>';
                 html += '<li class="">' + data[0].content + '</li>';
                 html += '</ol>';
                 html += '</li>';
                 for (var i = 2; i < data.length; i++) {
                     html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].label + '</div>';
+                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].name + '</div>';
                     html += '<ol class="yqsj-itemol">';
-                    html += '<li class="">' + data[i].name + '</li>';
+                    html += '<li class="">' + data[i].label + '</li>';
                     html += '<li class="">' + data[i].content + '</li>';
                     html += '</ol>';
                     html += '</li>';
