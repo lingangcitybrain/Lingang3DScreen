@@ -123,7 +123,7 @@
                         Alpha: 0.1, //颜色材质使用的透明度
                         Center: quanposition, //底面中心坐标 Vector3        
                         Anchor: null,//顶面中心坐标 Vector3，非垂直情况下可设置
-                        Radius: 1500, //半径
+                        Radius: 2500, //半径
                         Height: parseInt(1),//1000,//高度
                         Pieces: 360, //设置生成圆面的面个数    
                         OnCylinderCreated: function () {//加载结束回调
