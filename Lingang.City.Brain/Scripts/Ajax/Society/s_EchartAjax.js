@@ -322,7 +322,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",    
-                    url: con.InterfaceUrl_DataStation + 'v1/affair/comunity/dealOvertime',
+                    url: con.InterfaceUrl_DataStation + 'v1/communities/eventSummary',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
