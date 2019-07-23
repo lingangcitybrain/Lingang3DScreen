@@ -292,13 +292,10 @@
                 if (require("s_Echart").societyPersonData == null) { return false; }
                 var data = require("s_Echart").societyPersonData;
 
-                //$("#society-person>li").eq(0).find(".item-r-data").html(data.total);
-                //$("#society-person>li").eq(1).find(".item-r-data").html(data.visitor);
-                //$("#society-person>li").eq(2).find(".item-r-data").html(data.permanent);
-                //$("#society-person>li").eq(3).find(".item-r-data").html(data.peopleFlow);
+
                 this.currentPopulation = data.peopleFlow;
-                com.numberAnimation($("#society-person>li").eq(0).find(".item-r-data"), Number(data.total) - 200, Number(data.total), 2000);
-                com.numberAnimation($("#society-person>li").eq(1).find(".item-r-data"), Number(data.visitor) - 20, Number(data.visitor), 2000);
+                com.numberAnimation($("#society-person>li").eq(1).find(".item-r-data"), Number(data.total) - 200, Number(data.total), 2000);
+                //com.numberAnimation($("#society-person>li").eq(1).find(".item-r-data"), Number(data.visitor) - 20, Number(data.visitor), 2000);
                 com.numberAnimation($("#society-person>li").eq(2).find(".item-r-data"), Number(data.permanent) - 200, Number(data.permanent), 2000);
 
 
@@ -654,13 +651,15 @@
         },
         // 摄像头圆圈
         loadCirclediv: function (str) {
-            if ($("body").width() == 7680) {
-               // $("html").css({ fontSize: "90px" });
-                $('#iot-sxt1>.sxt-circlediv').empty();
-                com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
+        	if ($("body").width() == 4500) {
+        		$('#iot-sxt1>.sxt-circlediv').empty();
+        		com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 5, 30, 1000);
+
+        	}else if ($("body").width() == 7680) {
+        		$('#iot-sxt1>.sxt-circlediv').empty();
+        		com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 6, 40, 1000);
 
             } else if ($("body").width() == 11520) {
-                //$("html").css({ fontSize: "160px" });
                 $('#iot-sxt1>.sxt-circlediv').empty();
                 com.loopFun($('#iot-sxt1>.sxt-circlediv')[0], 40, '#071956', '#0078ff', 'transparent', '20px', 10, 65, 1000);
             }

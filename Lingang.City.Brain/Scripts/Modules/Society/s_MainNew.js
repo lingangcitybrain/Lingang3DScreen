@@ -344,27 +344,42 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 require("s_Main").left01_03_video01 = null;
             }
             $("#Societyleft01_03_video01").empty();
-            require(['aliplayer'], function (data) {
-                require("s_Main").left01_03_video01 = new Aliplayer({
-                    "id": "Societyleft01_03_video01",
-                    //"source": "http://106.14.152.119:8082/videoGetStream/103.214.87.69:11937/citybrain/31011900011328031005.flv?vhost=cb.alivecdn.com",
-                    "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
-                    //"width": videowidth + "px",
-                    //"height": videoheight + "px",
-                    "autoplay": true,
-                    "isLive": false,
-                    "rePlay": true,
-                    "showBuffer": true,
-                    "snapshot": false,
-                    "showBarTime": 5000,
-                    "useFlashPrism": true,
-                    "mediaType": "audio"
 
-                }, function (player) {
-                    //加载成功,清空错误提示
-                    $(".prism-ErrorMessage").empty();
-                })
-            });
+            s_EchartAjax.getWrjRideo(function () {
+            	if (require("s_Echart").wrjRideo == null) { return false; }
+            	var data = require("s_Echart").wrjRideo;
+
+            	var dataLatestTime = data.dateList[0];
+            	var videoUrl = '';
+            	for (var key in data) {
+            		if (key === dataLatestTime) {
+            			videoUrl = data[key][0]
+            		}
+            	}
+
+				require(['aliplayer'], function (data) {
+					require("s_Main").left01_03_video01 = new Aliplayer({
+						"id": "Societyleft01_03_video01",
+						//"source": "http://106.14.152.119:8082/videoGetStream/103.214.87.69:11937/citybrain/31011900011328031005.flv?vhost=cb.alivecdn.com",
+						"source": videoUrl,
+						//"width": videowidth + "px",
+						//"height": videoheight + "px",
+						"autoplay": true,
+						"isLive": false,
+						"rePlay": true,
+						"showBuffer": true,
+						"snapshot": false,
+						"showBarTime": 5000,
+						"useFlashPrism": true,
+						"mediaType": "audio"
+
+					}, function (player) {
+						//加载成功,清空错误提示
+						$(".prism-ErrorMessage").empty();
+					})
+				});
+            })
+
         },
 
 

@@ -10,6 +10,25 @@
             "wrj_charging_cnt": 0
         },
 
+    	//左一列无人机视频
+        wrjRideo: {
+        	"2019-07-20": [
+				"http://zhlingang-wrjsp.oss-cn-shanghai.aliyuncs.com/%E6%B5%B7%E5%B2%B8%E7%BA%BF%E5%B7%A1%E9%A3%9E/2019-07-20/01/DJI_0003_ev.mov?Expires=1563852594&OSSAccessKeyId=LTAICCNnnSzEG88N&Signature=YlKxXdZBQGazew%2FXKq8%2Fi4Ef5rU%3D"
+        	],
+        	"2019-06-30": [
+				"http://zhlingang-wrjsp.oss-cn-shanghai.aliyuncs.com/%E6%B5%B7%E5%B2%B8%E7%BA%BF%E5%B7%A1%E9%A3%9E/2019-06-30/01/DJI_0001_ev%283%29.mov?Expires=1563852594&OSSAccessKeyId=LTAICCNnnSzEG88N&Signature=%2BK45E3dirLqulbzSVWlDjGh9QnE%3D"
+        	],
+        	"2019-07-21": [
+				"http://zhlingang-wrjsp.oss-cn-shanghai.aliyuncs.com/%E6%B5%B7%E5%B2%B8%E7%BA%BF%E5%B7%A1%E9%A3%9E/2019-07-21/01/DJI_0001_ev.MOV?Expires=1563852594&OSSAccessKeyId=LTAICCNnnSzEG88N&Signature=M3H3Pc9RwYvbnPyggzIyoGDD114%3D"
+        	],
+        	"dateList": [
+				"2019-07-21",
+				"2019-07-20",
+				"2019-06-30"
+        	]
+        },
+
+
         //中间大数字
         societyBigNumData: {
             "errorCode": "0",
