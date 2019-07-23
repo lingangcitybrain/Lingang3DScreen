@@ -811,7 +811,7 @@ button.arrowbtn.btnright{
 	background:url(../Content/images/sj-div2.png) center center no-repeat;
 	background-size:.6rem;
 }
-.sj-li:first-child>.sj-div{ background-image:url(../Content/images/sj-div3.png);}
+.sj-li:first-child>.sj-div{ background-image:url(../Content/images/sj-div5.png);}
 .sj-li:last-child>.sj-div{ background-image:url(../Content/images/sj-div1.png);}
 .sj-title{
 	float: left;

@@ -260,7 +260,10 @@
             }
             com.UIControlAni(option, function () {
             	require("sl_IOT").loadCarPersonInOutData();
-            	setInterval(function () { require("sl_IOT").loadCarPersonInOutData(); }, 5*60 * 1000)
+				//每5分钟刷新一次
+            	setInterval(function () {
+            		require("sl_IOT").loadCarPersonInOutData();
+            	}, 5 * 60 * 1000)
 
             });
         },
@@ -306,7 +309,7 @@
                     if (lastvalue) {
                         lastvalue = lastvalue.replace(/,/ig, '');
                     }                    
-                    var step_values = com.random(-5, 5);
+                    var step_values = com.random(0, 5);
                     var current_values = parseInt(lastvalue) + step_values;
 
                     var minValues = parseInt(parseInt(this.currentPopulation) * 0.8);

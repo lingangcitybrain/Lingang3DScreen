@@ -289,50 +289,60 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             $("#Societyleft01_02_video01").empty();
             $("#Societyleft01_02_video02").empty();
 
-            require(['aliplayer'], function (data) {
-                //setTime
-                var post_data = { "sbbm": "31011900011328032001" }
-                require("s_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
-                    var cameraurl = result.data;
-                    require("s_Main").left01_02_video01 = new Aliplayer({
-                        "id": "Societyleft01_02_video01",
-                        "source":cameraurl,
-                        //"width": "100%",
-                        //"height": "100%",
-                        "autoplay": true,
-                        "isLive": true,
-                        "rePlay": false,
-                        "showBuffer": true,
-                        "snapshot": false,
-                        "showBarTime": 5000,
-                        "useFlashPrism": true,
+            s_EchartAjax.getJqCameraVideo(function () {
+            	if (require("s_Echart").jqCameraVideo == null) { return false; }
+            	var data = require("s_Echart").jqCameraVideo;
+            	data = data.list;
 
-                    }, function (player) {
-                        //加载成功,清空错误提示
-                        $(".prism-ErrorMessage").empty();
-                    })
-                });
-                var post_data = { "sbbm": "31011900011328033016" }
-                require("s_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
-                    var cameraurl = result.data;
-                require("s_Main").left01_02_video02 = new Aliplayer({
-                    "id": "Societyleft01_02_video02",
-                    "source": cameraurl,
-                    //"width": "20%",
-                    //"height": "20%",
-                    "autoplay": true,
-                    "isLive": true,
-                    "rePlay": false,
-                    "showBuffer": true,
-                    "snapshot": false,
-                    "showBarTime": 5000,
-                    "useFlashPrism": true,
+            	var post_data1 = { "sbbm": data[0].gbId };
+            	var post_data2 = { "sbbm": data[1].gbId };
+            	console.log(post_data1,post_data2)
 
-                }, function (player) {
-                    $(".prism-ErrorMessage").empty();
-                })
-                 });
-            });
+
+            	require(['aliplayer'], function (data) {
+            		//setTime
+            		require("s_LayerMenuAjax").getCameraUrlById(post_data1, function (result) {
+            			var cameraurl = result.data;
+            			require("s_Main").left01_02_video01 = new Aliplayer({
+            				"id": "Societyleft01_02_video01",
+            				"source":cameraurl,
+            				//"width": "100%",
+            				//"height": "100%",
+            				"autoplay": true,
+            				"isLive": true,
+            				"rePlay": false,
+            				"showBuffer": true,
+            				"snapshot": false,
+            				"showBarTime": 5000,
+            				"useFlashPrism": true,
+
+            			}, function (player) {
+            				//加载成功,清空错误提示
+            				$(".prism-ErrorMessage").empty();
+            			})
+            		});
+            		//var post_data = { "sbbm": "31011900011328033016" }
+            		require("s_LayerMenuAjax").getCameraUrlById(post_data2, function (result) {
+            			var cameraurl = result.data;
+            			require("s_Main").left01_02_video02 = new Aliplayer({
+            				"id": "Societyleft01_02_video02",
+            				"source": cameraurl,
+            				//"width": "20%",
+            				//"height": "20%",
+            				"autoplay": true,
+            				"isLive": true,
+            				"rePlay": false,
+            				"showBuffer": true,
+            				"snapshot": false,
+            				"showBarTime": 5000,
+            				"useFlashPrism": true,
+
+            			}, function (player) {
+            				$(".prism-ErrorMessage").empty();
+            			})
+            		});
+            	});
+            })
         },
         //加载无人机视频
         loadLeft01_03_Video: function () {
