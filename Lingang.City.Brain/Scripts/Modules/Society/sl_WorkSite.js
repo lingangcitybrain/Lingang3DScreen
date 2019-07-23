@@ -229,22 +229,22 @@
         	if (num === "" || num === null || num === undefined) {
         		str = ["空", "#666"]//灰
 
-        	}else if (num >= 0 && num <= 50) {
+        	} else if (num >= 0 && num <= 50 || num === "优") {
         		str = ["优", "#0f0"]//绿色
 
-        	} else if (num >= 51 && num <= 100) {
-        		str = ["良", "#fee300"]//黄色 
+        	} else if (num >= 51 && num <= 100 || num === "良") {
+        		str = ["良", "#a0a000"]//黄色 
 
-        	} else if (num >= 101 && num <= 150) {
+        	} else if (num >= 101 && num <= 150 || num === "轻度污染") {
         		str = ["轻度污染", "#fe9100"]//橙色 
 
-        	} else if (num >= 151 && num <= 200) {
+        	} else if (num >= 151 && num <= 200 || num === "中度污染") {
         		str = ["中度污染", "#f00"]//红色 
 
-        	} else if (num >= 201 && num <= 300) {
+        	} else if (num >= 201 && num <= 300 || num === "重度污染") {
         		str = ["重度污染", "#b0008f"]//紫红色 
 
-        	} else if (num > 300) {
+        	} else if (num > 300 || num === "严重污染") {
         		str = ["严重污染", "#8b0000"]//暗红色 
 
         	}
@@ -325,7 +325,7 @@
 						'		<td>' + data[3].tqms + '</td>' +
 						'	</tr>' +
 						'	<tr>' +
-						'		<td>空气质量：' + data[0].kqzl + '<span class=\"sqzz-wrj-lr2-air\" style=\" background:' + require("sl_WorkSite").getAirText(data[0].kqzl)[1] + '\" >' + require("sl_WorkSite").getAirText(data[0].kqzl)[0] + '</span></td>' +
+						'		<td>空气质量：' + (isNaN(data[0].kqzl) ? '' : data[0].kqzl) + '<span class=\"sqzz-wrj-lr2-air\" style=\" background:' + require("sl_WorkSite").getAirText(data[0].kqzl)[1] + '\" >' + require("sl_WorkSite").getAirText(data[0].kqzl)[0] + '</span></td>' +
 						'		<td>' + data[1].fxfs + '</td>' +
 						'		<td>' + data[2].fxfs + '</td>' +
 						'		<td>' + data[3].fxfs + '</td>' +

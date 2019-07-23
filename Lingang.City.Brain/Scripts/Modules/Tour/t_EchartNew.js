@@ -108,6 +108,7 @@
         Interval2: null,                 //交通信息数字定时器  
         Interval3: null,                 //无人机定时器
         Interval4: null,                 //交通信息数字定时器  
+        Interval5: null,                 //交通信息数字定时器  
 
 
         myChartykfx: null,               //游客分析
@@ -1072,7 +1073,7 @@
 
                     wrjOption = {
                         title: {
-                            text: data.wrj_cnt,
+                            text: data[0].wrj_cnt,
                             subtext: '总数',
                             x: 'center',
                             y: '38%',
@@ -1134,9 +1135,9 @@
                                     }
                                 },
                                 data: [
-                                    { value: data.wrj_flying_cnt, name: '执飞中' },
-                                    { value: data.wrj_charging_cnt, name: '充电中' },
-                                    { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
+                                    { value: data[0].wrj_flying_cnt, name: '执飞中' },
+                                    { value: data[0].wrj_charging_cnt, name: '充电中' },
+                                    { value: data.wrj_idle_cnt, name: '待命中' }
                                 ]
                             }
                         ]
@@ -1246,16 +1247,18 @@
             t_EchartAjax.getJtxxData(function (data) {
                 var data = require("t_Echart").jtxxData;//数据
                 try {
-                    var dtNumber = data[sum].进港;
+                    var cgNumber = data[sum].进港;
 
-                    var jcgNumber = data[sum].出港;
+                    var jgNumber = data[sum].出港;
 
                     var tccNumber = data[sum].停车场;
 
-                    $('#subway').html(dtNumber);
-                    $('#car').html(jcgNumber);
-                    $('#park').html(tccNumber);
+                    var dtNumber = data[sum].地铁;
 
+                    $('#subway').html(cgNumber);
+                    $('#car').html(jgNumber);
+                    $('#park').html(tccNumber);
+                    $('#dt').html(dtNumber);
                 } catch (error) {
 
                 }
@@ -1264,21 +1267,16 @@
                 var sum = MyDate(0);//索引查找第一天日期
                 t_EchartAjax.getJtxxData(function (data) {
                     var data = require("t_Echart").jtxxData;//数据
-
-                    var CarRan = Math.round(Math.random() * 1657);
-                    var parkRan = Math.round(Math.random() * 663);
                     try {
 
-                        var dtNumber = data[sum].进港;
-                        var jcgNumber = data[sum].出港;
+                        var jgNumber = data[sum].进港;
+                        var cgNumber = data[sum].出港;
                         var tccNumber = data[sum].停车场;
-                        $('#subway').html(dtNumber);
-                        $('#car').html(jcgNumber);
+                        var dtNumber = data[sum].地铁;
+                        $('#subway').html(jgNumber);
+                        $('#car').html(cgNumber);
                         $('#park').html(tccNumber);
-                        //com.numberAnimation($('#subway'), dtNumber - 0, dtNumber, 1500);
-                        //com.numberAnimation($('#car'), jcgNumber - CarRan, jcgNumber + CarRan, 3000);
-                        //com.numberAnimation($('#park'), tccNumber - parkRan, tccNumber + parkRan, 2000);
-
+                        $('#').html(dtNumber);
                     } catch (error) {
 
                     }
@@ -1286,12 +1284,12 @@
             }, 1000 * 60 * 1); //每分钟刷新一次页面下边显示的数据
             if ($("#car").length > 0) {
                 this.Interval1 = setInterval(function () {
-                    var jcgNumber = $("#car").html();
-                    if (jcgNumber != "" && jcgNumber != null) {
-                        jcgNumber = jcgNumber.replace(/,/ig, '');
+                    var cgNumber = $("#car").html();
+                    if (cgNumber != "" && cgNumber != null) {
+                        cgNumber = cgNumber.replace(/,/ig, '');
                     }
                     var step_values = com.random(0, 10)
-                    var current_values = parseInt(jcgNumber) + step_values
+                    var current_values = parseInt(cgNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
                     current_values = com.toThousands(current_values)
                     $("#car").html(current_values)
@@ -1312,16 +1310,29 @@
             }
             if ($("#subway").length > 0) {
                 this.Interval4 = setInterval(function () {
-                    var tccNumber = $("#subway").html();
-                    if (tccNumber != "" && tccNumber != null) {
-                        tccNumber = tccNumber.replace(/,/ig, '');
+                    var jgNumber = $("#subway").html();
+                    if (jgNumber != "" && jgNumber != null) {
+                        jgNumber = jgNumber.replace(/,/ig, '');
                     }
                     var step_values = com.random(0, 10)
-                    var current_values = parseInt(tccNumber) + step_values
+                    var current_values = parseInt(jgNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
                     current_values = com.toThousands(current_values)
                     $("#subway").html(current_values)
                 }, 5400);
+            }
+            if ($("#dt").length > 0) {
+                this.Interval5 = setInterval(function () {
+                    var dtNumber = $("#dt").html();
+                    if (dtNumber != "" && dtNumber != null) {
+                        dtNumber = dtNumber.replace(/,/ig, '');
+                    }
+                    var step_values = com.random(0, 10)
+                    var current_values = parseInt(dtNumber) + step_values
+                    //if (current_values <= 20) { current_values = 20 }
+                    current_values = com.toThousands(current_values)
+                    $("#dt").html(current_values)
+                }, 6000);
             }
         },
 
@@ -1354,7 +1365,7 @@
             if ($("#jtxx-chart").length <= 0) { return false; }
             t_EchartAjax.getJtxxData(function (data) {
                 // var dtData = [0, 0, 0, 0, 0, 0, 0], jcgData = [129116, 137918, 118433, 126314, 121394, 127931, 93626], tccData = [28887, 25124, 15987, 10006, 19017, 19364, 14042];
-                var jgclData = [], cgclData = [], tccData = []
+                var jgclData = [], cgclData = [], tccData = [],dtData=[]
 
                 var TempData = 0;
                 var data = require("t_Echart").jtxxData;//数据
@@ -1363,6 +1374,7 @@
                         jgclData.push(data[i].进港)
                         cgclData.push(data[i].出港)
                         tccData.push(data[i].停车场)
+                        dtData.push(data[i].地铁)
                         TempData++
                     }
                     JtxxCharxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
@@ -1371,9 +1383,10 @@
                         JtxxCharData1 = jgclData;
                         JtxxCharData2 = cgclData;
                         JtxxCharData3 = tccData;
-                        JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3, JtxxCharxAxisData)
+                        JtxxCharData4 = dtData;
+                        JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3,JtxxCharData4, JtxxCharxAxisData)
                     }
-                    function JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3, JtxxCharxAxisData) {
+                    function JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3,JtxxCharData4, JtxxCharxAxisData) {
                         jtxxOption = {
                             title: {
                                 text: "实时流量",
@@ -1387,9 +1400,9 @@
                             legend: {
                                 left: '25%',
                                 top: " 5%",
-                                data: ['进港车辆', '出港车辆', '停车场'],
+                                data: ['进港车辆', '出港车辆', '停车场','地铁'],
                                 icon: 'rect',
-                                itemWidth: 26,
+                                itemWidth: 40,
                                 itemHeight: 26,
                                 textStyle: {
                                     fontSize: 28,
@@ -1508,6 +1521,16 @@
                                   symbolSize: 8,
                                   name: "停车场",
                                   data: JtxxCharData3
+                              },
+                              {
+                                  type: 'line',
+                                  color: "blue",
+                                  lineStyle: {
+                                      width: 4,
+                                  },
+                                  symbolSize: 8,
+                                  name: "地铁",
+                                  data: JtxxCharData4
                               }
                             ]
                         };
@@ -1587,6 +1610,18 @@
                                 color: "#fff"
                             },
                             data: ['停车场']
+                        },
+                        {
+                            left: '80%',
+                            top: "1%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#fff"
+                            },
+                            data: ['地铁']
                         },
                     ],
                     color: ['#3398DB'],
@@ -1706,6 +1741,16 @@
                             symbolSize: 16,
                             name: "停车场",
                             data: JtxxCharData3
+                        },
+                        {
+                            type: 'line',
+                            color: "blue",
+                            lineStyle: {
+                                width: 8,
+                            },
+                            symbolSize: 16,
+                            name: "地铁",
+                            data: JtxxCharData4
                         }
                     ]
                 };
@@ -3895,30 +3940,6 @@
 
         //清空
         Revert: function () {
-            //if (this.Interval6 != null) {
-            //    clearInterval(this.Interval6)
-            //}
-            //if (this.Interval7 != null) {
-            //    clearInterval(this.Interval7)
-            //}
-            //if (this.Interval8 != null) {
-            //    clearInterval(this.Interval8)
-            //}
-            //if (this.Interval9 != null) {
-            //    clearInterval(this.Interval9)
-            //}
-            //if (this.Interval10 != null) {
-            //    clearInterval(this.Interval10)
-            //}
-            //if (this.Interval11 != null) {
-            //    clearInterval(this.Interval11)
-            //}
-            //if (this.Interval12 != null) {
-            //    clearInterval(this.Interval12)
-            //}
-            //if (this.Interval13 != null) {
-            //    clearInterval(this.Interval13)
-            //}
             if (this.personCarTimer != null) {
                 clearInterval(this.personCarTimer)
             }
@@ -3945,6 +3966,9 @@
             }
             if (this.Interval4 != null) {
                 clearInterval(this.Interval4)
+            }
+            if (this.Interval5 != null) {
+                clearInterval(this.Interval5)
             }
             //游客趋势分析
             if (require("t_Echart").myChartykqsfx != null && require("t_Echart").myChartykqsfx != "" && require("t_Echart").myChartykqsfx != undefined) {
