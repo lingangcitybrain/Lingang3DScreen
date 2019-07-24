@@ -140,6 +140,30 @@
                 callback();
             }
         },
+        //在线摄像头
+        zxsxt: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: 'POST',
+                    url: con.InterfaceUrl_DataStation + '/v1/park/camera',
+                    cache: false,
+                    // data:post_data,
+                    dataType: 'json',
+                    success: function (data) {
+                        require("t_Echart").zxsxtData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        require("t_Echart").zxsxtData = t_EchartData.zxsxtData;
+                        callback();
+                    }
+                })
+            }
+            else {//执行本地
+                require("t_Echart").zxsxtData = t_EchartData.zxsxtData;
+                callback();
+            }
+        },
         //交通信息
         getJtxxData: function (callback) {//地铁
             if (con.IsInterface)//执行接口

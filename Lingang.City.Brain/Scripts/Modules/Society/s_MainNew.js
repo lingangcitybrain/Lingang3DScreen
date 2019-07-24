@@ -518,11 +518,27 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             var videowidth = $("#Big-chart").width();
             var videoheight = $("#Big-chart").height();
-               $("#Big-chart").empty();
+            if (require("s_Main").left01_03_video01) {
+                require("s_Main").left01_03_video01.dispose();
+                require("s_Main").left01_03_video01 = null;
+            }
+            $("#Societyleft01_03_video01").empty();
+
+            s_EchartAjax.getWrjRideo(function () {
+                if (require("s_Echart").wrjRideo == null) { return false; }
+                var data = require("s_Echart").wrjRideo;
+
+                var dataLatestTime = data.dateList[0];
+                var videoUrl = '';
+                for (var key in data) {
+                    if (key === dataLatestTime) {
+                        videoUrl = data[key][0]
+                    }
+                }
             require(['aliplayer'], function (data) {
                 require("s_Main").leftcenter_video = new Aliplayer({
                     "id": "Big-chart",
-                    "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
+                    "source": videoUrl,
                     "width": videowidth + "px",
                     "height": videoheight + "px",
                     "autoplay": true,
@@ -536,6 +552,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
                 })
             });
+                })
         },
 
 

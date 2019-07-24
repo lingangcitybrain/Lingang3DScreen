@@ -123,9 +123,10 @@
         rycltjData: null,                  //人员车辆统计
         rycltjdtData: null,                  //人员车辆统计地铁
         rycltjjcclData: null,              //人员车辆统计进出车辆
-        yqsjlbData: null,
-        yqsjlbtjData: null,
-        yqsjlbCenterEventData: null,
+        zxsxtData: null,                   //在线摄像头 
+        yqsjlbData: null,                  //园区事件列表
+        yqsjlbtjData: null,                //园区事件列表统计
+        yqsjlbCenterEventData: null,       //园区事件列表放大
         myChartyqfx: null,                 //舆情分析
         myChartwrj: null,                  //无人机
         myChartjtxx: null,                 //交通信息 
@@ -310,6 +311,7 @@
             html += '<a class="rycltj-datetab">' + MyDate(0) + '</a>';
             $('#rq').html(html)
         },
+        //加载中间无人机视频
         wrjsp:function(){
             $("#bigechartHead").empty();
             require("t_Main").loadCenter_Video();
@@ -724,8 +726,8 @@
             	var ykqsfxdata = [], ykqsfxtime = [];
 
             	for (var i = 0; i < data.length; i++) {
-            		ykqsfxdata.push(data[i].visnumber);
-            		ykqsfxtime.push(data[i].month + "月");
+            	    ykqsfxdata.push(data[i].visNumber);
+            	    ykqsfxtime.push(data[i].month + "月");
             	}
 
                 option = {
@@ -954,12 +956,12 @@
                             startAngle: 45, //起始角度
                             center: ["center", "center"],
                             data: [
-                                { value: data.data[0].value, name: data.data[0].name },
-                                { value: data.data[1].value, name: data.data[1].name },
-                                { value: data.data[2].value, name: data.data[2].name },
-                                { value: data.data[3].value, name: data.data[3].name },
-                                { value: data.data[4].value, name: data.data[4].name },
-                                { value: data.data[5].value, name: data.data[5].name }
+                                { value: data[0].value, name: data[0].name },
+                                { value: data[1].value, name: data[1].name },
+                                { value: data[2].value, name: data[2].name },
+                                { value: data[3].value, name: data[3].name },
+                                { value: data[4].value, name: data[4].name },
+                                { value: data[5].value, name: data[5].name }
                             ],
                             itemStyle: {
                                 emphasis: {
@@ -1137,7 +1139,7 @@
                                 data: [
                                     { value: data[0].wrj_flying_cnt, name: '执飞中' },
                                     { value: data[0].wrj_charging_cnt, name: '充电中' },
-                                    { value: data.wrj_idle_cnt, name: '待命中' }
+                                    { value: data[0].wrj_idle_cnt, name: '待命中' }
                                 ]
                             }
                         ]
@@ -1160,7 +1162,7 @@
                 var data = require("t_Echart").wrjData;
                 wrjOption = {
                     title: {
-                        text: data.wrj_cnt,
+                        text: data[0].wrj_cnt,
                         subtext: '总数',
                         x: 'center',
                         y: '38%',
@@ -1224,9 +1226,9 @@
                                 }
                             },
                             data: [
-                                { value: data.wrj_flying_cnt, name: '执飞中' },
-                                { value: data.wrj_charging_cnt, name: '充电中' },
-                                { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
+                                     { value: data[0].wrj_flying_cnt, name: '执飞中' },
+                                     { value: data[0].wrj_charging_cnt, name: '充电中' },
+                                     { value: data[0].wrj_idle_cnt, name: '待命中' }
                             ]
                         }
                     ]
@@ -1768,19 +1770,12 @@
         },
         //在线摄像头
         zxsxt: function () {
-            $.ajax({
-                type: 'POST',
-                url: 'http://47.101.181.131:8091/cameraInfo',
-                cache: false,
-                // data:post_data,
-                dataType: 'json',
-                success: function (data) {
-
-                   
-                },
-                error: function () {
-
-                }
+            t_EchartAjax.zxsxt(function (data) {
+                var data = require('t_Echart').zxsxtData;
+                $('#total').html(data.onTotal);
+                $('#ball').html(data.onBall);
+                $('#gun').html(data.onGun);
+                $('#eagle').html(data.onEagle);
             })
         },
 
@@ -2061,7 +2056,6 @@
                     })
             }
             else if (domName == "dt") {
-
                     clearInterval(window.personCarTimer2)
                     clearInterval(window.personCarTimer3);
                     clearInterval(window.personCarTimer4);
