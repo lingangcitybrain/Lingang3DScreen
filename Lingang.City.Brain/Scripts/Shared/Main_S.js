@@ -163,11 +163,11 @@
 require(['Shared/Map', "qmap3d", "qmap3dcustom", 'jquery', 'jqueryui'], function (mapObj) {
     mapObj.initMap();
 
-   // 社区综治
-    require(['s_Main'], function (data) {
-        data.loadMain();
-        $("body").css("background-color", "black");
-    });
+    // 社区综治
+    // require(['s_Main'], function (data) {
+    //     data.loadMain();
+    //     $("body").css("background-color", "black");
+    // });
  
     // 园区
     //require(['g_Main'], function (data) {
