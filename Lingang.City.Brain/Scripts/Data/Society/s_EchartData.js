@@ -16035,18 +16035,16 @@
 
         //事件信息
         societySjData: {
-            "errorCode": "0",
-            "errorMessage": "成功",
-            "resultType": "0",
-            "data": {
-                "dealDeptList": [{
-                    "eventCounts": "3219",
-                    "saveTime": "1341.25小时",
-                    "accuracyRate": "83%",
-                    "autoRate": "35%"
-                }]
-            }
-        },
+			"待督查": 324,
+			"待受理": 14,
+			"discoverRate": "98.18",
+			"smartSingleRate": "91.69",
+			"discoverTimeSaving": "69天0小时",
+			"已结案": 32582,
+			"distributeNums": "5992",
+			"eventNums": "1126",
+			"smartSingleTimeSaving": "18天5小时"
+		},
 
         //事件处理成功数
         societySjcgData:{
