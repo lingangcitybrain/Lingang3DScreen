@@ -2055,7 +2055,7 @@
 
                     })
             }
-            else if (domName == "dt") {
+            else if (domName == "dtrs") {
                     clearInterval(window.personCarTimer2)
                     clearInterval(window.personCarTimer3);
                     clearInterval(window.personCarTimer4);
