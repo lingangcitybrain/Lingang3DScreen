@@ -32,22 +32,22 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v1/park/userAgeDistribute',// url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
+                    url: con.InterfaceUrl_DataStation + '/v1/park/getUserAgeDistribute',// url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("t_Echart").TouristAnalysisData = data.data;
+                        require("t_Echart").TouristAnalysisData = data;
                         callback(data);
                     },
                     error: function () {
-                        require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData.data;
+                        require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData;
                         callback();
 
                     }
                 });
             }
             else {//执行本地
-                require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData.data;
+                require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData;
                 callback();
             }
         },
@@ -384,8 +384,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl_TourEvent + 'v1/park/affair',
-                    url: con.InterfaceUrl_DataStation + '/v1/park/affair/list',
+                    url: con.InterfaceUrl_TourEvent + 'v1/park/affair',
+                    //url: con.InterfaceUrl_DataStation + '/v1/park/affair/list',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
