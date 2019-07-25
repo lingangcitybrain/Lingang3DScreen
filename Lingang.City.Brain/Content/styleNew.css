@@ -3970,7 +3970,7 @@ dd.pjc-statistic-star >form{
 .eventProcess-li.nowactive{ color:#f90; }
 
 @media screen and (max-width: 11520px){
-	html{ font-size:140px !important;}
+	html{ font-size:140px;}
 }
 @media screen and (max-width: 7680px) {
     html { font-size: 90px; }
