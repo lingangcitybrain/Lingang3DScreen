@@ -182,26 +182,42 @@
         		case "阴转晴":
         		case "晴转多云":
         		case "晴转阴":
+        		case "多云":
         			picNum = 1;
         			break;
-        		case "多云":
         		case "阴":
         		case "阴转多云":
         		case "多云转阴":
         			picNum = 2;
         			break;
         		case "小雨":
+        		case "小雨转多云":
+        		case "多云转小雨":
         			picNum = 7;
         			break;
+        		case "中雨转小雨":
+        		case "小雨转中雨":
         		case "中雨":
         			picNum = 8;
         			break;
+        		case "小雨转大雨":
+        		case "中雨转大雨":
+        		case "大雨转中雨":
+        		case "大雨转小雨":
         		case "大雨":
         			picNum = 9;
         			break;
+        		case "中雨转阵雨":
+        		case "大雨转阵雨":
+        		case "阵雨转大雨":
+        		case "阵雨转中雨":
         		case "阵雨":
         			picNum = 3;
         			break;
+        		case "阵雨转雷阵雨":
+        		case "大雨转雷阵雨":
+        		case "雷阵雨转阵雨":
+        		case "雷阵雨转大雨":
         		case "雷阵雨":
         			picNum = 4;
         			break;
@@ -211,13 +227,60 @@
         		case "小雪":
         			picNum = 14;
         			break;
+        		case "小雪转中雪":
+        		case "中雪转小雪":
         		case "中雪":
         			picNum = 15;
         			break;
+        		case "小雪转大雪":
+        		case "中雪转大雪":
+        		case "大雪转小雪":
+        		case "大雪转中雪":
         		case "大雪":
         			picNum = 16;
         			break;
-        		default: ""
+        		case "中雪转阵雪":
+        		case "大雪转阵雪":
+        		case "阵雪转中雪":
+        		case "阵雪转大雪":
+        		case "阵雪":
+        			picNum = 17;
+        			break;
+        		default:
+        			picNum = "";
+        			break;
+        	}
+			
+        	if (picNum === "") {
+        		if ("晴".test(str)) {
+        			picNum = 0;
+        		} else if ("多云".test(str)) {
+        			picNum = 1;
+        		} else if ("阴".test(str)) {
+        			picNum = 2;
+        		}else if ("小雨".test(str)) {
+        			picNum = 7;
+        		}else if ("中雨".test(str)) {
+        			picNum = 8;
+        		}else if ("大雨".test(str)) {
+        			picNum = 9;
+        		} else if ("阵雨".test(str)) {
+        			picNum = 3;
+        		} else if ("雷阵雨".test(str)) {
+        			picNum = 4;
+        		} else if ("小雪".test(str)) {
+        			picNum = 14;
+        		} else if ("中雪".test(str)) {
+        			picNum = 15;
+        		} else if ("大雪".test(str)) {
+        			picNum = 16;
+        		} else if ("阵雪".test(str)) {
+        			picNum = 17;
+        		} else if ("冰雹".test(str)) {
+        			picNum = 19;
+        		} else {
+        			picNum = 3;
+        		}        		
         	}
         	return picNum;
 
