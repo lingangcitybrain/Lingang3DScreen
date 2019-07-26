@@ -1418,24 +1418,25 @@
             require("s_LayerMenuAjax").getEventList(function (result) {
                 var data = require("sl_Event").POIData;
                 var html = '';
-                var num = 0;
                 for (var i = 0; i < data.length; i++) {
-                    num++;
-                    var style = "sjxx-li"
+                    var style = "sjxx-li flex"
                     if (i <= 1) {
-                        style = "sjxx-li active"
+                        style = "sjxx-li active flex"
                     }
                     var poiName = "POISociety" + require("sl_Event").LayerType.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                     html +=
                        '<li class="' + style + '" onclick="require(&apos;sl_Event&apos;).loadEventDetail(' + poiName + ')">' +
-                        '<div class="sjxx-li-line1">' +
-                            '<span class="sjxx-id counter">' + num + '</span>' +
-                            '<span class="sjxx-event">' + data[i].eventName + '</span>' +
-                            '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-                        '</div>' +
-                        '<div class="sjxx-address">' + data[i].address +
-                            '<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
-                        '</div>' +
+							'<span class="sjxx-id counter"></span>' +
+							'<div class="sjxx-div">' +
+								'<div class="sjxx-li-line1">' +
+									'<span class="sjxx-event">' + data[i].eventName + '</span>' +
+									'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+									'<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
+								'</div>' +
+								'<div class="sjxx-address">' + data[i].address +
+									'<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
+								'</div>' +
+							'</div>' +
                         '</li>';
 
                     require("s_RightLayer").EventData.put(data[i].id, data[i]);
