@@ -24,7 +24,7 @@
         eventProcessTimerout: null,//事件处置流程
         timeCountDownData: new util.HashMap,//倒计时数据
         allLoopEventList: [],
-        allPOINameList:[],//所有POI名字
+        allPOINameList: [],//所有POI名字
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
@@ -78,7 +78,7 @@
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                         if (row.lastTime > 0) {
-                            console.log(row.lastTime);
+                            //console.log(row.lastTime);
                         }
                         var textname = "";
                         if (i == 0) {
@@ -106,10 +106,10 @@
                         if (i == 0) {
                             require("sl_Event").timeCountDownData.put(poiName, "510");//标记
                         }
-                        else if(i == 1) {
+                        else if (i == 1) {
                             require("sl_Event").timeCountDownData.put(poiName, "794");//标记
                         }
-                        else if (i ==2) {
+                        else if (i == 2) {
                             require("sl_Event").timeCountDownData.put(poiName, "698");//标记
                         }
                     }
@@ -121,8 +121,7 @@
                 require("sl_Event").LoopAllEvents();
 
                 //循环播放倒计时
-                if (require("sl_Event").timeCountDownData.size() > 0)
-                {
+                if (require("sl_Event").timeCountDownData.size() > 0) {
                     for (var i in require("sl_Event").timeCountDownData.keys()) {
                         var datalist = require("sl_Event").timeCountDownData.get(require("sl_Event").timeCountDownData.keys()[i]);
                         //开始倒计时
@@ -199,57 +198,65 @@
         /*********************循环播放所有-start*********************/
         //加载事件后循环播放事件处置
         LoopAllEvents: function () {
-            require("sl_Event").allEventTimer = setInterval(function () {
-                if (require("sl_Event").allLoopEventList.length>0){
-                    require("sl_Event").closeLoopPlay();
-                    var areaName = con.AreaName;
-                    if (require("sl_Event").LastPOI_Clk && require("sl_Event").LastPOI_Clk != "") {
-                        var type = require("sl_Event").LastPOI_Clk.split('_')[1];
-                        var icon = require("sl_Event").LayerType.List[type].UnChooseIcon;
+            require("sl_Event").allEventTimer = setInterval("require('sl_Event').EachAllEvent()", 10000);
+        },
+        EachAllEvent: function () {
+             if (require("sl_Event").allLoopEventList.length > 0) {
+                    if ($("#header_menu div button.active").text() == "社区综合" && $("#bottom_menu ul li.active").text() == "事件") {
+                        require("sl_Event").closeLoopPlay();
+                        var areaName = con.AreaName;
+                        if (require("sl_Event").LastPOI_Clk && require("sl_Event").LastPOI_Clk != "") {
+                            var type = require("sl_Event").LastPOI_Clk.split('_')[1];
+                            var icon = require("sl_Event").LayerType.List[type].UnChooseIcon;
 
-                        var lastNode = map.getSceneNode(areaName, require("sl_Event").LastPOI_Clk);
-                        if (lastNode) {
-                            lastNode.asPOI().setIcon(icon);
-                            //lastNode.setVisible(0);
+                            var lastNode = map.getSceneNode(areaName, require("sl_Event").LastPOI_Clk);
+                            if (lastNode) {
+                                lastNode.asPOI().setIcon(icon);
+                                //lastNode.setVisible(0);
+                            }
                         }
-                    }
 
-                    var tempid = require("sl_Event").allEventID;
-                    //console.log(tempid);
-                    var data = require("sl_Event").allLoopEventList[tempid];
-                    if (require("sl_Event").LayerType.List[data.communityId] != null) {
-                        var nodeName = "POISociety" + require("sl_Event").LayerType.List[data.communityId].Name + "_" + data.id;//POIIOT_01
+                        var tempid = require("sl_Event").allEventID;
+                        //console.log(tempid);
+                        var data = require("sl_Event").allLoopEventList[tempid];
+                        if (require("sl_Event").LayerType.List[data.communityId] != null) {
+                            var nodeName = "POISociety" + require("sl_Event").LayerType.List[data.communityId].Name + "_" + data.id;//POIIOT_01
 
-                        //console.log(nodeName);
-                        require("sl_Event").LastPOI_Clk = nodeName;
-                        var node = map.getSceneNode(areaName, nodeName);
-                        if (node != null) {
-                            var poi = node.asPOI();
-                            var type = nodeName.split('_')[1];
-                            var icon = require("sl_Event").LayerType.List[type].ChooseIcon;
-                            poi.setIcon(icon);
+                            //console.log(nodeName);
+                            require("sl_Event").LastPOI_Clk = nodeName;
+                            var node = map.getSceneNode(areaName, nodeName);
+                            if (node != null) {
+                                var poi = node.asPOI();
+                                var type = nodeName.split('_')[1];
+                                var icon = require("sl_Event").LayerType.List[type].ChooseIcon;
+                                poi.setIcon(icon);
+                            }
+                            if (data.videoUrl != null && data.videoUrl != "")//视频不为空 优先显示视频格式
+                            {
+                                require("sl_Event").loadEventVedioDetail(data.id);
+
+
+                            }
+                            else {
+                                //显示图片格式
+                                require("sl_Event").loadEventPicDetail(data.id);
+                            }
                         }
-                        if (data.videoUrl != null && data.videoUrl != "")//视频不为空 优先显示视频格式
-                        {
-                            require("sl_Event").loadEventVedioDetail(data.id);
-
-                       
+                        //循环到最后一个时 重新置于0
+                        if (require("sl_Event").allEventID == require("sl_Event").allEventLength - 1) {
+                            require("sl_Event").allEventID = 0;
                         }
                         else {
-                            //显示图片格式
-                            require("sl_Event").loadEventPicDetail(data.id);
+                            require("sl_Event").allEventID++;
                         }
                     }
-                    //循环到最后一个时 重新置于0
-                    if(require("sl_Event").allEventID== require("sl_Event").allEventLength-1)
-                    {
-                        require("sl_Event").allEventID = 0;
-                    }
                     else {
-                        require("sl_Event").allEventID++;
+                        //console.log("LoopAllEvents-清空循环");
+                        clearInterval(require("sl_Event").allEventTimer);
+                        require("sl_Event").allEventTimer = null;
+
                     }
                 }
-            }, 10000);
         },
         //关闭循环播放事件
         closeLoopAllEvents: function () {
@@ -259,13 +266,13 @@
                 require("sl_Event").allEventTimer = null;
             }
         },
-       
+
         /*********************单独点击查看事件详情-start*********************/
         //事件处理特效
         loadEventProcessing: function (nodeName) {
             require("sl_Event").closeLoopAllEvents();//关闭循环播放所有事件
             require("sl_Event").closeDetail();//关闭事件详情
-           
+
 
             require("sl_Event").jumppoilist = [];
             var areaName = con.AreaName;
@@ -327,7 +334,7 @@
                 require("sl_Event").eventProcessTimerout = setTimeout(
                     require("sl_Event").loadEventPicDetail(id)
                     , 5000);//延迟5000毫米
-            },10000);
+            }, 10000);
         },
         closeLoopPlay: function () {
             //var id = 14204;
@@ -530,14 +537,13 @@
             }
         },
         loadEventStatusHtml: function (statusname) {
-            var statuslist = ["新事件发现", "巡查员取证", "选择处置流程", "处置单位处理","巡查员审核", "确认是否结案"];
+            var statuslist = ["新事件发现", "巡查员取证", "选择处置流程", "处置单位处理", "巡查员审核", "确认是否结案"];
             var html = '<div class="eventProcess-div">' +
 							 '<div class="eventProcess-title">事件状态：</div>' +
 								'<ul class="eventProcess-ul flex">';
             var classname = "active";
             for (var i = 0; i < statuslist.length; i++) {
-                if (statusname == statuslist[i])
-                {
+                if (statusname == statuslist[i]) {
                     classname = "nowactive";
                 }
 
@@ -733,7 +739,7 @@
 
             //派单员是否有值
             if (data.dealPerson != null && data.dealPerson != "") {
-                require("sl_Event").paidan2Timerout=setTimeout(function () {
+                require("sl_Event").paidan2Timerout = setTimeout(function () {
                     var inspectordetail = require("sl_Event").InspectorList.get(data.dealPerson);//通过巡查员查找巡查员坐标
                     if (inspectordetail != null) {
 
@@ -896,8 +902,10 @@
             if (require("sl_Event").eventTimer != null) {
                 clearInterval(require("sl_Event").eventTimer);
                 require("sl_Event").eventTimer = null;
-
-                require("sl_Event").LoopAllEvents();//开启全部事件循环播放
+                //if ($("#header_menu div button.active").text() == "社区综合" && $("#bottom_menu ul li.active").text() == "事件") {
+                //    console.log("开启全部事件循环播放");
+                //    require("sl_Event").LoopAllEvents();//开启全部事件循环播放
+                //}
             }
             //延后执行事件连线
             if (require("sl_Event").eventProcessTimerout != null) {
@@ -1083,7 +1091,7 @@
                 }
             }
             if (this.DanaoAnimation) {
-               clearTimeout(this.DanaoAnimation);
+                clearTimeout(this.DanaoAnimation);
             }
             map.unloadArea("danao");//卸载模型
         },
@@ -1415,9 +1423,7 @@
                         style = "sjxx-li active flex"
                     }
                     var aiiconstyle = "";
-                    console.log(data[i].dispatchType);
-                    if (data[i].dispatchType == "主动发现")
-                    {
+                    if (data[i].dispatchType == "主动发现") {
                         aiiconstyle = 'style="background: url(../Content/images/AI-icon.png) center center no-repeat;"';
                     }
                     var poiName = "POISociety" + require("sl_Event").LayerType.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
