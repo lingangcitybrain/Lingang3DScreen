@@ -191,17 +191,33 @@
         			picNum = 2;
         			break;
         		case "小雨":
+        		case "小雨转多云":
+        		case "多云转小雨":
         			picNum = 7;
         			break;
+        		case "中雨转小雨":
+        		case "小雨转中雨":
         		case "中雨":
         			picNum = 8;
         			break;
+        		case "小雨转大雨":
+        		case "中雨转大雨":
+        		case "大雨转中雨":
+        		case "大雨转小雨":
         		case "大雨":
         			picNum = 9;
         			break;
+        		case "中雨转阵雨":
+        		case "大雨转阵雨":
+        		case "阵雨转大雨":
+        		case "阵雨转中雨":
         		case "阵雨":
         			picNum = 3;
         			break;
+        		case "阵雨转雷阵雨":
+        		case "大雨转雷阵雨":
+        		case "雷阵雨转阵雨":
+        		case "雷阵雨转大雨":
         		case "雷阵雨":
         			picNum = 4;
         			break;
@@ -211,9 +227,15 @@
         		case "小雪":
         			picNum = 14;
         			break;
+        		case "小雪转中雪":
+        		case "中雪转小雪":
         		case "中雪":
         			picNum = 15;
         			break;
+        		case "小雪转大雪":
+        		case "中雪转大雪":
+        		case "大雪转小雪":
+        		case "大雪转中雪":
         		case "大雪":
         			picNum = 16;
         			break;
