@@ -1259,9 +1259,9 @@
             require("sl_Event").closeLoopAllEvents();//关闭循环播放所有事件
         },
         loadloopevent: function () {
-            if ($("#bottom_menu ul li.active").text() == "事件") {
-                require("sl_Event").LoopAllEvents();//开启全部事件循环播放
-            }
+            //if ($("#header_menu div button.active").text() == "社区综合" && $("#bottom_menu ul li.active").text() == "事件") {
+            //    //require("sl_Event").LoopAllEvents();//开启全部事件循环播放
+            //}
         },
         Revert: function () {
             require("s_Echart").intervalTime = 0;
