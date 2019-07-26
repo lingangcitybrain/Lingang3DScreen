@@ -44,8 +44,9 @@
             //}, 10000);
 
             var nowdata = require("common").getNowFormatDate();//当前时间
-            var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
-            var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+            //var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+            var beforetime = nowdata.split(' ')[0] + " 00:00:00";//当天事件
+            var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": beforetime, "endTime": nowdata }
             require("sl_Event").allPOINameList = [];
             //获取最近7天事件
             require("s_LayerMenuAjax").getEventList(post_data, function (result) {
@@ -407,7 +408,7 @@
                                                 '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                                                 '<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                                                 '<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-                                                '<li><em>事件类型：</em><span>' + data.eventTypeName + '</span></li>' +
+                                                '<li><em>事件类型：</em><span>' + data.dispatchType + '</span></li>' +
                                                  //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
                                                 '<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
                                                 '<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
@@ -464,7 +465,7 @@
                                                 '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                                                 '<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                                                 '<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
-                                                '<li><em>事件类型：</em><span>' + data.eventTypeName + '</span></li>' +
+                                                '<li><em>事件类型：</em><span>' + data.dispatchType + '</span></li>' +
                                                  //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
                                                 '<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
                                                 '<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
@@ -574,7 +575,7 @@
                 html += ' <li><div>事件属性：</div><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                 '<li><div>接警时间：</div><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>地址：</div><span>' + data.address + '</span></li>' +
-                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件类型：</div><span>' + data.eventTypeName + '</span></li>' +
+                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件类型：</div><span>' + data.dispatchType + '</span></li>' +
                      '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件状态：</div><span>' + data.statusName + '</span></li>' +
                      '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>发生区域：</div><span>' + data.regionName + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon2.png"/>事件描述：</div><span>' + data.eventDes + '</span></li>';
@@ -1413,10 +1414,16 @@
                     if (i <= 1) {
                         style = "sjxx-li active flex"
                     }
+                    var aiiconstyle = "";
+                    console.log(data[i].dispatchType);
+                    if (data[i].dispatchType == "主动发现")
+                    {
+                        aiiconstyle = 'style="background: url(../Content/images/AI-icon.png) center center no-repeat;"';
+                    }
                     var poiName = "POISociety" + require("sl_Event").LayerType.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                     html +=
                        '<li class="' + style + '" onclick="require(&apos;sl_Event&apos;).loadEventDetail(' + poiName + ')">' +
-							'<span class="sjxx-id counter"></span>' +
+							'<span class="sjxx-id counter"  style="background: url(../Content/images/AI-icon.png) center center no-repeat;"' + aiiconstyle + '></span>' +
 							'<div class="sjxx-div">' +
 								'<div class="sjxx-li-line1">' +
 									'<span class="sjxx-event">' + data[i].eventName + '</span>' +

@@ -1,4 +1,4 @@
-﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu","s_Main"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu,s_Main) {
+﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax", "mainMenu", "s_Main"], function (con, com, s_layerMenuData, s_EchartAjax, mainMenu, s_Main) {
 
     var sjcgSeriesDataMax = 0; //事件处理成功数据最大值
     var sjcgSeriesDataMin = 0; //事件处理成功数据最大值
@@ -8,9 +8,9 @@
     var strTitle = "事件成功数";
 
     return {
-        sjcgTimer:null,
+        sjcgTimer: null,
         mybigChart: null,     //大的图表显示  
-        myChartsxt1:null,     //摄像头
+        myChartsxt1: null,     //摄像头
         myChartsxt2: null,    //摄像头
         myChartsxt3: null,    //摄像头
         myChartwrj: null,     //无人机
@@ -36,10 +36,10 @@
         societySjcgListData: null,  //事件处理成功事件列表
         societyBigNumData: null,    //事件（海岸线，工地，街面，网格）大数字
         cgqBigNumData: null,        //传感器，无人机，摄像头，村居工作站大数字
-        jmBasicInfoData:null,       //街面基本信息
+        jmBasicInfoData: null,       //街面基本信息
         jmDroneData: null,          //街面无人机 
         jmXcyData: null,            //街面巡查员
-    	workSiteInspectorData:null, //工地巡查员
+        workSiteInspectorData: null, //工地巡查员
         recentFlightData: null,     //海岸线无人机最近一次飞行统计
         monthlyRecentFlightData: null, //海岸线无人机最近一个月飞行统计
         costlineTideData: null,     //海岸线潮汐时间表
@@ -47,10 +47,10 @@
         workSiteWrjData: null,     //工地无人机
         dealTaskNumData: null,     //网格处置案件数量
         dealTaskTypeData: null,   //网格处置案件类别
-        intervalTime:0,
+        intervalTime: 0,
         //加载图表
         loadEcharts: function () {
-           
+
             //setInterval(require("s_Echart").tick, 1000);
 
             //require("s_Echart").gradient();           //渐变进场动画
@@ -65,12 +65,13 @@
         },
 
         loadBigChart: function (divname) {
+
             var url = con.HtmlUrl + 'SocietyNew/Center_03.html';
             require(['text!' + url], function (template) {
                 $("#center_03").html(template);
                 $("#center_03").show('drop', 1000);//左侧
                 sjcgChartClose = true;
-
+                require("s_Echart").closeEvent();//关闭事件循环播放
                 switch (divname) {
                     case "Left_First_02"://无人机视频
                         require("s_Echart").wrjsp();
@@ -99,44 +100,33 @@
         },
         //关闭大的图表
         closeBigChart: function () {
+            require("s_Echart").loadloopevent();//关闭事件循环播放
             if (require("s_Echart").mybigChart != null && require("s_Echart").mybigChart != "" && require("s_Echart").mybigChart != undefined) {
                 require("s_Echart").mybigChart.dispose();
             }
             sjcgChartClose = true;
             $("#center_03").html("");
         },
-		//社综事件列表 ---放大
-        loadCenterEventList: function () {
-        	var url = con.HtmlUrl + 'SocietyNew/Center_04.html';
-        	require(['text!' + url], function (template) {
-        		$("#center_04").html(template);
-        		$("#center_04").show('drop', 1000);//左侧
-        		require("s_Echart").loadSocietyEventList();
-        	})
-        	$("#center_03").html("");
-        	$("#center_05").html("");
-        },
 
-        closeCenterEventList: function () {
-        	$("#center_04").html("");
-        },
-		//社综---车辆识别 放大
+        //社综---车辆识别 放大
         loadCenterCarIdentify: function () {
-        	var url = con.HtmlUrl + 'SocietyNew/Center_05.html';
-        	require(['text!' + url], function (template) {
-        		$("#center_05").html(template);
-        		$("#center_05").show('drop', 1000);//左侧
-        		//require("s_Echart").loadSocietyEventList();
-        	})
-        	$("#center_03").html("");
-        	$("#center_04").html("");
+            require("s_Echart").closeEvent();//关闭事件循环播放
+            var url = con.HtmlUrl + 'SocietyNew/Center_05.html';
+            require(['text!' + url], function (template) {
+                $("#center_05").html(template);
+                $("#center_05").show('drop', 1000);//左侧
+                //require("s_Echart").loadSocietyEventList();
+            })
+            $("#center_03").html("");
+            $("#center_04").html("");
         },
 
         closeCenterCarIdentify: function () {
-        	$("#center_05").html("");
+            require("s_Echart").loadloopevent();//关闭事件循环播放
+            $("#center_05").html("");
         },
 
-    	//加载头部日期时间  
+        //加载头部日期时间  
 
         tick: function () {
             var years, months, days, hours, week, minutes, seconds;
@@ -183,7 +173,7 @@
             $('.pj-houre').html(timeString)
             $('.pj-year').html(yearString)
             $('.pj-day').html(week)
-            
+
         },
 
         gradient: function () {
@@ -195,11 +185,11 @@
         wrjsp: function () {
             $("#bigechartHead").empty();
             require("s_Main").loadCenter_Video();
-            
+
         },
         num: function () {
             require(['countup'], function () {
-                $('.counter').countUp({ 
+                $('.counter').countUp({
                     delay: 10,
                     time: 1000
                 });
@@ -320,7 +310,7 @@
 
                     },
                     tooltip: {
-                        show:false,
+                        show: false,
                     },
                     legend: {
                         show: false
@@ -390,7 +380,7 @@
                 if (require("s_Echart").cgqData == null) { return false; }
                 var data = require("s_Echart").cgqData;
                 //data = data.data.sensorNumList;  //20190714改  中台接口直接返回数组
-                
+
                 $('#cgq-ywgy').html(data[6].sensorCount)
                 $('#cgq-zndt').html(data[5].sensorCount)
                 $('#cgq-wxmc').html(data[3].sensorCount)
@@ -447,7 +437,6 @@
 
         //景区--摄像头
         jqCamera: function (post_data) {
-            console.log("jqCamera")
             s_EchartAjax.getJqCameraData(post_data, function (result) {
                 if (require("s_Echart").jqCameraData == null) { return false; }
                 var data = require("s_Echart").jqCameraData;
@@ -475,7 +464,7 @@
                     var mon = d.getMonth() + 1;
                     var day = d.getDate();
 
-                    var s = ''+year + addZero(mon) + addZero(day);
+                    var s = '' + year + addZero(mon) + addZero(day);
                     return s;
                 }
 
@@ -509,7 +498,7 @@
             s_EchartAjax.getJqPersonData(post_data, function (result) {
                 if (require("s_Echart").jqPersonData == null) { return false; }
                 var data = require("s_Echart").jqPersonData;
-             
+
                 $("#total_person").html(data.total);
                 $("#normal_person").html(data.lingangdadao);
                 $("#doubtable_person").html(data.dishui);
@@ -524,7 +513,7 @@
 
                 var cameraOnNum = 0;
                 for (var i = 0; i < data.length; i++) {
-                	if (data[i].sbzt === "ON") {
+                    if (data[i].sbzt === "ON") {
                         cameraOnNum++;
                     }
                 }
@@ -537,7 +526,7 @@
 
         //摄像头--车辆
         sxtCar: function (str, post_data) {
-           // var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
+            // var post_data = { "communityId": "S012", "startDate": "2019-05-01", "endDate": "2019-05-02" };
 
             s_EchartAjax.getSxtCarData(post_data, function (result) {
                 if (require("s_Echart").sxtCarData == null) { return false; }
@@ -549,7 +538,7 @@
                 $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.illegally);
             });
         },
-        
+
         //摄像头--人员
         sxtPerson: function (str) {
             s_EchartAjax.getSxtPersonData(function (result) {
@@ -569,9 +558,9 @@
                 if (require("s_Echart").zzbmData == null) { return false; }
                 var data = require("s_Echart").zzbmData;
                 //data = data.data.dealDeptList;    //201907014 中台接口直接返回数组
-        
+
                 for (var i = 0; i < data.length; i++) {
-                    $("#zzbm-tbody").append("<tr><td>" + (data[i].executeDeptname? data[i].executeDeptname : '') + "</td><td>" +
+                    $("#zzbm-tbody").append("<tr><td>" + (data[i].executeDeptname ? data[i].executeDeptname : '') + "</td><td>" +
                     data[i].infoScname + "</td><td>" + data[i].taskNums + "</td></tr>");
                 }
             });
@@ -582,7 +571,7 @@
 
         /*********************右侧图表-start*********************/
         //右侧事件---好像没用到
-       sj: function () {
+        sj: function () {
             if ($("#sj-chart").length <= 0) { return false; }
             var sjChart = document.getElementById('sj-chart');
             require("s_Echart").myChartsj = echarts.init(sjChart);
@@ -618,10 +607,10 @@
                 ]
             };
             require("s_Echart").myChartsj.setOption(sjOption);
-       },
+        },
 
         //右侧事件信息
-       sjxx: function () {
+        sjxx: function () {
             s_EchartAjax.getSocietySj(function (result) {
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
@@ -644,354 +633,381 @@
 
 
             })
-       },
+        },
 
         //事件处理成功
-       sjcg: function () {
-           var changeTime = 15000;//图表切换频率
+        sjcg: function () {
+            var changeTime = 15000;//图表切换频率
             s_EchartAjax.getSocietySjcg(function (result) {
                 clearInterval(window.sjcgTimer);
                 window.sjcgTimer = null;
 
-               if (require("s_Echart").societySjcgData == null) { return false; }
-               if ($("#sjcg-chart").length <= 0) { return false; }
-               var data = require("s_Echart").societySjcgData;
-               //data = data.data.taskInfo;  //中台直接返回数组  20190714
+                if (require("s_Echart").societySjcgData == null) { return false; }
+                if ($("#sjcg-chart").length <= 0) { return false; }
+                var data = require("s_Echart").societySjcgData;
+                //data = data.data.taskInfo;  //中台直接返回数组  20190714
 
                 //X轴月份
-               var xAxisMonth = [];
-               var oToDay = new Date().getMonth() + 1;
-               for (var i = 0; i < data.length; i++) {
-                   if (i < oToDay) {
-                       data.push(data.shift())
-                   }
-               }
+                var xAxisMonth = [];
+                var oToDay = new Date().getMonth() + 1;
+                for (var i = 0; i < data.length; i++) {
+                    if (i < oToDay) {
+                        data.push(data.shift())
+                    }
+                }
 
-               //事件处理成功数
-               var seriesData = []; 
-               for (var i = 0; i < data.length; i++) {
-                   seriesData.push(Number(data[i].counts));
-                   xAxisMonth.push(data[i].months + '月');
-                   //事件成功率 保留两位小数
-                   oSjcgseriesRateData.push((Number( data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(2) );
-               }
-               var seriesDataMax = Math.max.apply(null, seriesData);
-               seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
-               var seriesDataMin = parseInt(Math.min.apply(null, seriesData));
-               seriesDataMin = seriesDataMin < 200 ? 0 : seriesDataMin;
+                //事件处理成功数
+                var seriesData = [];
+                for (var i = 0; i < data.length; i++) {
+                    seriesData.push(Number(data[i].counts));
+                    xAxisMonth.push(data[i].months + '月');
+                    //事件成功率 保留两位小数
+                    oSjcgseriesRateData.push((Number(data[i].counts) / Number(data[i].totalCounts) * 100).toFixed(2));
+                }
+                var seriesDataMax = Math.max.apply(null, seriesData);
+                seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
+                var seriesDataMin = parseInt(Math.min.apply(null, seriesData));
+                seriesDataMin = seriesDataMin < 200 ? 0 : seriesDataMin;
                 //事件处理成功率最大最小数
-               var sjcgSeriesRateDataMax = Math.max.apply(null, oSjcgseriesRateData);
-               sjcgSeriesRateDataMax = (Math.ceil(sjcgSeriesRateDataMax / 100) * 100).toFixed(0);
-               var sjcgSeriesRateDataMin = parseInt(Math.min.apply(null, oSjcgseriesRateData));
+                var sjcgSeriesRateDataMax = Math.max.apply(null, oSjcgseriesRateData);
+                sjcgSeriesRateDataMax = (Math.ceil(sjcgSeriesRateDataMax / 100) * 100).toFixed(0);
+                var sjcgSeriesRateDataMin = parseInt(Math.min.apply(null, oSjcgseriesRateData));
 
 
-               // 图表成功数成功率循环
-               var sjcgTimerIndex = 0;
-               if (require("s_Echart").intervalTime <=0) {
-                   changeTime = 2000;
-               }
-               window.sjcgTimer = setInterval(function () {
-                
-                   if (sjcgTimerIndex) {
-                       oSjcgseriesData = seriesData;
-                       sjcgSeriesDataMax = seriesDataMax;
-                       sjcgSeriesDataMin = seriesDataMin;
-                       sjcgTimerIndex--;
-                       strTitle = "事件处理成功数";
-                   } else {
-                       oSjcgseriesData = oSjcgseriesRateData;
-                       sjcgSeriesDataMax = sjcgSeriesRateDataMax;
-                       sjcgSeriesDataMin = sjcgSeriesRateDataMin;
-                       sjcgTimerIndex++;
-                       strTitle = "事件处理成功率（%）";
-                   }
-                   $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+                // 图表成功数成功率循环
+                var sjcgTimerIndex = 0;
+                if (require("s_Echart").intervalTime <= 0) {
+                    changeTime = 2000;
+                }
+                window.sjcgTimer = setInterval(function () {
 
-                   sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                    if (sjcgTimerIndex) {
+                        oSjcgseriesData = seriesData;
+                        sjcgSeriesDataMax = seriesDataMax;
+                        sjcgSeriesDataMin = seriesDataMin;
+                        sjcgTimerIndex--;
+                        strTitle = "事件处理成功数";
+                    } else {
+                        oSjcgseriesData = oSjcgseriesRateData;
+                        sjcgSeriesDataMax = sjcgSeriesRateDataMax;
+                        sjcgSeriesDataMin = sjcgSeriesRateDataMin;
+                        sjcgTimerIndex++;
+                        strTitle = "事件处理成功率（%）";
+                    }
+                    $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
 
-                   if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
-                       require("s_Echart").myChartsjcg.dispose();
-                   }
-                   require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
-                   require("s_Echart").myChartsjcg.setOption(sjcgOption);
+                    sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-                   require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
-                   require("s_Echart").intervalTime = 1;
-                   if (require("s_Echart").intervalTime == 1) {
-                       changeTime = 15000;
-                       clearInterval(window.sjcgTimer);
-                       window.sjcgTimer = setInterval(function () {
+                    if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                        require("s_Echart").myChartsjcg.dispose();
+                    }
+                    require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+                    require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
-                           if (sjcgTimerIndex) {
-                               oSjcgseriesData = seriesData;
-                               sjcgSeriesDataMax = seriesDataMax;
-                               sjcgSeriesDataMin = seriesDataMin;
-                               sjcgTimerIndex--;
-                               strTitle = "事件处理成功数";
-                           } else {
-                               oSjcgseriesData = oSjcgseriesRateData;
-                               sjcgSeriesDataMax = sjcgSeriesRateDataMax;
-                               sjcgSeriesDataMin = sjcgSeriesRateDataMin;
-                               sjcgTimerIndex++;
-                               strTitle = "事件处理成功率（%）";
-                           }
-                           $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+                    require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                    require("s_Echart").intervalTime = 1;
+                    if (require("s_Echart").intervalTime == 1) {
+                        changeTime = 15000;
+                        clearInterval(window.sjcgTimer);
+                        window.sjcgTimer = setInterval(function () {
 
-                           sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                            if (sjcgTimerIndex) {
+                                oSjcgseriesData = seriesData;
+                                sjcgSeriesDataMax = seriesDataMax;
+                                sjcgSeriesDataMin = seriesDataMin;
+                                sjcgTimerIndex--;
+                                strTitle = "事件处理成功数";
+                            } else {
+                                oSjcgseriesData = oSjcgseriesRateData;
+                                sjcgSeriesDataMax = sjcgSeriesRateDataMax;
+                                sjcgSeriesDataMin = sjcgSeriesRateDataMin;
+                                sjcgTimerIndex++;
+                                strTitle = "事件处理成功率（%）";
+                            }
+                            $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
 
-                           if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
-                               require("s_Echart").myChartsjcg.dispose();
-                           }
-                           require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
-                           require("s_Echart").myChartsjcg.setOption(sjcgOption);
+                            sjcgFun(sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-                           require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
-                           require("s_Echart").intervalTime = 1;                           
-                       }, 15000);
-                   }
-               }, changeTime);
+                            if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                                require("s_Echart").myChartsjcg.dispose();
+                            }
+                            require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+                            require("s_Echart").myChartsjcg.setOption(sjcgOption);
+
+                            require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                            require("s_Echart").intervalTime = 1;
+                        }, 15000);
+                    }
+                }, changeTime);
 
                 //事件处理成功图表加载
-               $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
-               oSjcgseriesData = seriesData;
-               sjcgSeriesDataMax = seriesDataMax;
-               sjcgFun(sjcgSeriesDataMax, oSjcgseriesData);
-               if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
-                   require("s_Echart").myChartsjcg.dispose();
-               }
-               require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
-               require("s_Echart").myChartsjcg.setOption(sjcgOption);
+                $("#sjcg-charttab>.charttab").eq(sjcgTimerIndex).addClass("active").siblings().removeClass("active");
+                oSjcgseriesData = seriesData;
+                sjcgSeriesDataMax = seriesDataMax;
+                sjcgFun(sjcgSeriesDataMax, oSjcgseriesData);
+                if (require("s_Echart").myChartsjcg != null && require("s_Echart").myChartsjcg != "" && require("s_Echart").myChartsjcg != undefined) {
+                    require("s_Echart").myChartsjcg.dispose();
+                }
+                require("s_Echart").myChartsjcg = echarts.init(document.getElementById('sjcg-chart'));
+                require("s_Echart").myChartsjcg.setOption(sjcgOption);
 
-               require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
+                require("s_Echart").bigSjcg(strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData);
 
-               function sjcgFun(yAxisMax, yAxisMin, seriesData) {
-                   sjcgOption = {
-                       tooltip: {
-                           trigger: 'axis',
-                       },
-                       legend: {
-                           show:false,
-                       },
-                       grid: {
-                           top: '10%',
-                           left: '0',
-                           right: '2%',
-                           bottom: '3%',
-                           containLabel: true,
-                       },
-                       xAxis: [{
-                           type: 'category',
-                           boundaryGap: false,
-                           axisLine: {
-                               show: true,
-                               lineStyle: {
-                                   color: '#3d4147'
-                               },
-                           },
-                           axisLabel: {
-                               interval: 0,
-                               margin: 15,
-                               textStyle: {
-                                   color: '#ebebeb',
-                                   fontFamily: 'Helvetica',
-                                   fontSize: 22,
-                               },
-                           },
-                           axisTick: { show: false, },
-                           data: xAxisMonth,
-                       }],
-                       yAxis: [{
-                           type: 'value',
-                           min: yAxisMin,
-                           max: yAxisMax,
-                           splitNumber: 5,
-                           splitLine: {
-                               show: true,
-                               lineStyle: {
-                                   color: '#3d4147'
-                               }
-                           },
-                           axisLine: { show: false, },
-                           axisLabel: {
-                               margin: 30,
-                               textStyle: {
-                                   color: '#ebebeb',
-                                   fontFamily: 'Helvetica',
-                                   fontSize: 22,
+                function sjcgFun(yAxisMax, yAxisMin, seriesData) {
+                    sjcgOption = {
+                        tooltip: {
+                            trigger: 'axis',
+                        },
+                        legend: {
+                            show: false,
+                        },
+                        grid: {
+                            top: '10%',
+                            left: '0',
+                            right: '2%',
+                            bottom: '3%',
+                            containLabel: true,
+                        },
+                        xAxis: [{
+                            type: 'category',
+                            boundaryGap: false,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: '#3d4147'
+                                },
+                            },
+                            axisLabel: {
+                                interval: 0,
+                                margin: 15,
+                                textStyle: {
+                                    color: '#ebebeb',
+                                    fontFamily: 'Helvetica',
+                                    fontSize: 22,
+                                },
+                            },
+                            axisTick: { show: false, },
+                            data: xAxisMonth,
+                        }],
+                        yAxis: [{
+                            type: 'value',
+                            min: yAxisMin,
+                            max: yAxisMax,
+                            splitNumber: 5,
+                            splitLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: '#3d4147'
+                                }
+                            },
+                            axisLine: { show: false, },
+                            axisLabel: {
+                                margin: 30,
+                                textStyle: {
+                                    color: '#ebebeb',
+                                    fontFamily: 'Helvetica',
+                                    fontSize: 22,
 
-                               },
-                           },
-                           axisTick: { show: false, },
-                       }],
-                       series: [{
-                          // name: '月',
-                           type: 'line',
-                           symbol: 'circle',
-                           symbolSize: 12,
-                           areaStyle: {
-                               color: 'rgba(1,98,133,0.3)'
-                           },
-                           itemStyle: {
-                               normal: {
-                                   color: "#42e2fa",
-                                   borderWidth: 4,
-                                   borderColor: "#000"
-                               }
-                           },
-                           lineStyle: {
-                               normal: {
-                                   color: "#42e2fa"
-                               }
-                           },
-                           data: seriesData
-                       },
-                       ]
-                   };
+                                },
+                            },
+                            axisTick: { show: false, },
+                        }],
+                        series: [{
+                            // name: '月',
+                            type: 'line',
+                            symbol: 'circle',
+                            symbolSize: 12,
+                            areaStyle: {
+                                color: 'rgba(1,98,133,0.3)'
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: "#42e2fa",
+                                    borderWidth: 4,
+                                    borderColor: "#000"
+                                }
+                            },
+                            lineStyle: {
+                                normal: {
+                                    color: "#42e2fa"
+                                }
+                            },
+                            data: seriesData
+                        },
+                        ]
+                    };
 
-               }
+                }
 
             })
             //$("#sjcg-title").click(function () { 
             //    require("s_Echart").sjcg();
             //})
 
-       },
+        },
 
         // 事件处理成功状态
-       loadSocietySjcgStatusData: function () {
-           s_EchartAjax.getSocietySjcgStatusData(function (result) {
-               if (require("s_Echart").societySjcgStatusData == null) { return false; };
-               var data = require("s_Echart").societySjcgStatusData;
-               //data = data.data.dealDeptList;   //中台接口直接返回数组
+        loadSocietySjcgStatusData: function () {
+            s_EchartAjax.getSocietySjcgStatusData(function (result) {
+                if (require("s_Echart").societySjcgStatusData == null) { return false; };
+                var data = require("s_Echart").societySjcgStatusData;
+                //data = data.data.dealDeptList;   //中台接口直接返回数组
 
-               $("#sjcg-status>button").eq(0).find("span").html(data[0].counts);
-               $("#sjcg-status>button").eq(1).find("span").html(data[1].counts);
-               $("#sjcg-status>button").eq(2).find("span").html(data[2].counts);
-           })
-       },
-
-
-    	// 事件处理成功数列表
-       loadSocietySjcgList: function () {
-
-       	var nowdata = require("common").getNowFormatDate();//当前时间
-       	var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
-       	var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
-
-       	s_EchartAjax.getSocietySjcgList(post_data, function (result) {
-       		if (require("s_Echart").societySjcgListData == null) { return false; };
-       		var data = require("s_Echart").societySjcgListData;
-       		//data = data.data.list;   //中台新接口直接返回数组  20190714
-       		var html = '';
-       		for (var i = 0; i < data.length; i++) {
-       			var time = data[i].createTime.split(".")[0].split("T");
-       			var sjxxLiClass = "sjxx-li flex"
-       			if (i <= 0) {
-       				sjxxLiClass = "sjxx-li flex active"
-       			}
-				
-       			if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
-       				var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
-       				html +=
-					   '<li class="' + sjxxLiClass + '" onclick="javascript:$(this).addClass(\'active\');require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
-						  '<span class="sjxx-id counter"></span>' +
-						  '<div class="sjxx-div">' +
-							  '<div class="sjxx-li-line1">' +
-								  '<span class="sjxx-event">' + data[i].eventName + '</span>' +
-								  '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-								  '<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
-							  '</div>' +
-							  '<div class="sjxx-address">' + data[i].address +
-								 '<span class="fr sjxx-time">' + time[0] + '<span>' + data[i].dealPerson + '</span></span>' +
-							  '</div>' +
-						  '</div>' +
-					'</li>';
-       			}
-       		}
-       		$("#ul_eventlist").html(html);
-
-       	})
-       },
-
-    	// 中间放大事件列表
-       loadSocietyEventList: function () {
-			$("#center-event-tabsoci .center-event-tab").each(function (index, element) {
-				$(this).click(function () {
-					$(this).addClass("active").siblings().removeClass("active");
-					var thisHtml = $(this).html();
-					switch (thisHtml) {
-						case "近三天":// 近三天
-							setPostData(3);
-							break;
-						case "近一周"://近一周
-							setPostData(7);
-							break;
-						case "近一月"://近一月
-							setPostData(30);
-							break;
-						default:
-					}
-				})
-				$("#center-event-tabsoci .center-event-tab").eq(0).click();
-       		})
-
-       		function setPostData(n) {
-       			var nowdata = require("common").getNowFormatDate();//当前时间
-       			var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
-       			var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
-
-       			s_EchartAjax.getSocietySjcgList(post_data, function (result) {
-       				if (require("s_Echart").societySjcgListData == null) { return false; };
-       				var data = require("s_Echart").societySjcgListData;
-       			    //data = data.data.list;  //中台新接口直接返回数组  20190714
-					
-       				$("#center-event-sociul").html('');
-       				var html = '';
-       				for (var i = 0; i < data.length; i++) {
-       					var time = data[i].createTime.split(".")[0].split("T");
-       					if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
-       						var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
-
-       						html +=
-							   '<li class="center-event-li flex" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
-								 '<span class="sjxx-id counter"></span>' +
-								 '<div class="sjxx-div">' +
-									 '<div class="sjxx-li-line1 center-event-li-line1">' +
-										 '<span class="sjxx-event">' + data[i].eventName + '</span>' +
-										 '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-										 '<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
-									 '</div>' +
-									 '<div class="sjxx-address">' + data[i].address +
-										'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
-									 '</div>' +
-								 '</div>' +
-								'</li>';
-
-       					}
-       				}
-
-       				$("#center-event-sociul").html(html);
-       				$('.scrolldiv').perfectScrollbar({ cursorwidth: 20, cursorcolor: "rgba(0, 126, 179, .6)", });
-       			})
-       		};
-
-       	},
+                $("#sjcg-status>button").eq(0).find("span").html(data[0].counts);
+                $("#sjcg-status>button").eq(1).find("span").html(data[1].counts);
+                $("#sjcg-status>button").eq(2).find("span").html(data[2].counts);
+            })
+        },
 
 
-       bigSjcg: function (strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData) {
+        // 事件处理成功数列表
+        loadSocietySjcgList: function () {
 
-           //X轴月份
-           var xAxisMonth = [];
-           var oToDay = new Date().getMonth() + 1;
-           for (var i = 0; i < 12; i++) {
-               var j = (oToDay - i) <= 0 ? (12 + oToDay - i) : (oToDay - i);
-               xAxisMonth.unshift(j+'月')
-           }
+            var nowdata = require("common").getNowFormatDate();//当前时间
+            //var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+            var beforetime = nowdata.split(' ')[0] + " 00:00:00";//当天事件
+            var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": beforetime, "endTime": nowdata }
+
+            s_EchartAjax.getSocietySjcgList(post_data, function (result) {
+                if (require("s_Echart").societySjcgListData == null) { return false; };
+                var data = require("s_Echart").societySjcgListData;
+                //data = data.data.list;   //中台新接口直接返回数组  20190714
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    var time = data[i].createTime.split(".")[0].split("T");
+                    var sjxxLiClass = "sjxx-li flex"
+                    if (i <= 0) {
+                        sjxxLiClass = "sjxx-li flex active"
+                    }
+
+                    if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
+                        var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+                        var aiiconstyle = "";
+                        if (data[i].dispatchType == "智能派单") {
+                            aiiconstyle = 'style="background: url(Content/images/AI-icon.png) center center no-repeat;"';
+                        }
+
+                        html +=
+                           '<li class="' + sjxxLiClass + '" onclick="javascript:$(this).addClass(\'active\');require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+                              '<span class="sjxx-id counter" ' + aiiconstyle + '></span>' +
+                              '<div class="sjxx-div">' +
+                                  '<div class="sjxx-li-line1">' +
+                                      '<span class="sjxx-event">' + data[i].eventName + '</span>' +
+                                      '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+                                      '<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
+                                  '</div>' +
+                                  '<div class="sjxx-address">' + data[i].address +
+                                     '<span class="fr sjxx-time">' + time[0] + '<span>' + data[i].dealPerson + '</span></span>' +
+                                  '</div>' +
+                              '</div>' +
+                        '</li>';
+                    }
+                }
+                $("#ul_eventlist").html(html);
+
+            })
+        },
+
+        //社综事件列表 ---放大
+        loadCenterEventList: function () {
+            require("s_Echart").closeEvent();//关闭事件循环播放
+            var url = con.HtmlUrl + 'SocietyNew/Center_04.html';
+            require(['text!' + url], function (template) {
+                $("#center_04").html(template);
+                $("#center_04").show('drop', 1000);//左侧
+                require("s_Echart").loadSocietyEventList();
+            })
+            $("#center_03").html("");
+            $("#center_05").html("");
+        },
+        // 中间放大事件列表
+        loadSocietyEventList: function () {
+            $("#center-event-tabsoci .center-event-tab").each(function (index, element) {
+                $(this).click(function () {
+                    $(this).addClass("active").siblings().removeClass("active");
+                    var thisHtml = $(this).html();
+                    switch (thisHtml) {
+                        case "当天":// 近三天
+                            setPostData(1);
+                            break;
+                        case "近一周"://近一周
+                            setPostData(7);
+                            break;
+                        case "近一月"://近一月
+                            setPostData(30);
+                            break;
+                        default:
+                    }
+                })
+                $("#center-event-tabsoci .center-event-tab").eq(0).click();
+            })
+
+            function setPostData(n) {
+                var nowdata = require("common").getNowFormatDate();//当前时间
+                if (n == 1) {//当天
+                    var beforetime = nowdata.split(' ')[0] + " 00:00:00";//当天事件
+                    var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": beforetime, "endTime": nowdata }
+                }
+                else {
+                    var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
+                    var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+                }
+
+
+                s_EchartAjax.getSocietySjcgList(post_data, function (result) {
+                    if (require("s_Echart").societySjcgListData == null) { return false; };
+                    var data = require("s_Echart").societySjcgListData;
+                    //data = data.data.list;  //中台新接口直接返回数组  20190714
+
+                    $("#center-event-sociul").html('');
+                    var html = '';
+                    for (var i = 0; i < data.length; i++) {
+                        var time = data[i].createTime.split(".")[0].split("T");
+                        if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
+                            var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
+
+                            html +=
+                               '<li class="center-event-li flex" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+                                 '<span class="sjxx-id counter"></span>' +
+                                 '<div class="sjxx-div">' +
+                                     '<div class="sjxx-li-line1 center-event-li-line1">' +
+                                         '<span class="sjxx-event">' + data[i].eventName + '</span>' +
+                                         '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+                                         '<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
+                                     '</div>' +
+                                     '<div class="sjxx-address">' + data[i].address +
+                                        '<span class="fr sjxx-time">' + time[0] + '<span>' + data[i].dealPerson + '</span></span>' +
+                                     '</div>' +
+                                 '</div>' +
+                                '</li>';
+
+                        }
+                    }
+
+                    $("#center-event-sociul").html(html);
+                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 20, cursorcolor: "rgba(0, 126, 179, .6)", });
+                })
+            };
+
+        },
+        //关闭事件大图
+        closeCenterEventList: function () {
+            require("s_Echart").loadloopevent();
+            $("#center_04").html("");
+        },
+        bigSjcg: function (strTitle, sjcgSeriesDataMax, sjcgSeriesDataMin, oSjcgseriesData) {
+
+            //X轴月份
+            var xAxisMonth = [];
+            var oToDay = new Date().getMonth() + 1;
+            for (var i = 0; i < 12; i++) {
+                var j = (oToDay - i) <= 0 ? (12 + oToDay - i) : (oToDay - i);
+                xAxisMonth.unshift(j + '月')
+            }
 
             if (sjcgChartClose) {
                 return false;
             } else {
-                console.log(strTitle)
                 $("#bigechartHead").html(strTitle);
                 option = {
                     tooltip: {
@@ -1068,7 +1084,7 @@
                         axisTick: { show: false, },
                     }],
                     series: [{
-                       // name: '月',
+                        // name: '月',
                         type: 'line',
                         symbol: 'circle',
                         symbolSize: 30,
@@ -1102,12 +1118,12 @@
             }
 
 
-       },
+        },
         //中间大数字
-       bigNumber: function () {
+        bigNumber: function () {
             s_EchartAjax.getSocietyBigNum(function (result) {
                 if (require("s_Echart").bigNumData == null) { return false; };
-                var data = require("s_Echart").bigNumData;                
+                var data = require("s_Echart").bigNumData;
                 $('#dsz-ajljs').html(data.totalCount);
                 $('#dsz-dyajs').html(data.monthCount);
                 $('#dsz-znpds').html(data.dispatchRate + "%");
@@ -1126,13 +1142,13 @@
                 //var weaimg_3 = "https://cdn.huyahaha.com/tianqiapi/skin/qq/" + data.data[3].wea_img + ".png"
                 //console.log(data);
                 var html = '';
-                
-                
-                html += '<div class="sqzz-wrj-lr2-temp">' + data.data[0].week + '（今天，实时：'+ data.data[0].tem +'）</div>';
+
+
+                html += '<div class="sqzz-wrj-lr2-temp">' + data.data[0].week + '（今天，实时：' + data.data[0].tem + '）</div>';
                 html += '<div class="tablebox">';
                 html += '<table cellspacing="0" cellpadding="0" class="table sqzz-wrj-lr2-table">';
                 html += '<tbody>';
-                
+
                 html += '<tr>';
                 //html += '<td rowspan="2">';
                 //html += '<div class=""><img src=' + weaimg_0 + ' style="width: 1.1rem"></div>';
@@ -1170,17 +1186,17 @@
                 html += '<td>' + data.data[3].wea + '</td>';
                 html += '</tr>';
                 html += '<tr>';
-                html += '<td>空气质量：'+ data.data[0].air+'<span class="sqzz-wrj-lr2-air">' + data.data[0].air_level + '</span></td>';
+                html += '<td>空气质量：' + data.data[0].air + '<span class="sqzz-wrj-lr2-air">' + data.data[0].air_level + '</span></td>';
                 html += '<td>' + data.data[1].win[0] + data.data[1].win_speed + '</td>';
                 html += '<td>' + data.data[2].win[0] + data.data[2].win_speed + '</td>';
                 html += '<td>' + data.data[3].win[0] + data.data[3].win_speed + '</td>';
                 html += '</tr>';
 
-                
+
                 html += '</tbody>';
                 html += '</table>';
                 html += '</div>';
-                
+
 
                 $('#drone_weather').html(html);
             }
@@ -1231,14 +1247,24 @@
             //        $('#drone_weather').html(html);
             //    }
             //    require("mainMenu").Weather(setData);
-              
+
             //}
 
         },
-        yq:function(){},
+        yq: function () { },
         /*********************左侧图表-end*********************/
+        //关闭事件循环播放
+        closeEvent: function () {
+            require("sl_Event").closeDetail();//关闭详情窗口
+            require("sl_Event").closeLoopAllEvents();//关闭循环播放所有事件
+        },
+        loadloopevent: function () {
+            if ($("#bottom_menu ul li.active").text() == "事件") {
+                require("sl_Event").LoopAllEvents();//开启全部事件循环播放
+            }
+        },
         Revert: function () {
-            require("s_Echart").intervalTime=0;
+            require("s_Echart").intervalTime = 0;
             //事件成功
             if (window.sjcgTimer != null) {
                 clearInterval(window.sjcgTimer)
