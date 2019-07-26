@@ -429,8 +429,8 @@
                             $(".prism-ErrorMessage").empty();
                         })
                     });
-                    var post_data = { "sbbm": "31011900081316001191" }
-
+                    //var post_data = { "sbbm": "31011900081316001191" }
+                    var post_data = { "sbbm": "31011900081326016003" }
                     require("t_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
                         var cameraurl2 = result.data;
                         //console.log('B:' + cameraurl)

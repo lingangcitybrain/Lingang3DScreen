@@ -3586,28 +3586,44 @@
             }
             t_EchartAjax.yqsjlblx(post_data, function (result) {
                 var data = require("t_Echart").yqsjlblxData;
-
+                    var namearr = [], contentarr = [], valuearr = [];
+                    for (var i in data) {
+                        namearr.push(i)
+                        for (var a in data[i]) {
+                                contentarr.push(a)
+                                valuearr.push(data[i][a]);
+                        }
+                    }
+                    function removeByContent(arr, val) {
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i] == val) {
+                                arr.splice(i, 1);
+                            }
+                        }
+                    }
+                    removeByContent(namearr, 'catCounts');
+                    removeByContent(namearr, 'eventCounts');
+                    removeByContent(contentarr, 'total');
+               
                 var htmltotal = '';
-                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
-                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
+                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
                 $('#sjlxtotal').html(htmltotal);
                 var html = '';
                 html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].name + '</div>';
+                for (var i = 0; i < namearr.length;i++){
+                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + namearr[i] + '</div>';
+                }
+                
                 html += '<ol class="yqsj-itemol">';
-                html += '<li class="">' + data[0].label + '</li>';
-                html += '<li class="">' + data[0].content + '</li>';
+                for (var i = 0; i < contentarr.length; i++) {
+                    html += '<li class="">' + contentarr[i] + '</li>';
+                }
+               
+               
                 html += '</ol>';
                 html += '</li>';
-                for (var i = 2; i < data.length; i++) {
-                    html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].name + '</div>';
-                    html += '<ol class="yqsj-itemol">';
-                    html += '<li class="">' + data[i].label + '</li>';
-                    html += '<li class="">' + data[i].content + '</li>';
-                    html += '</ol>';
-                    html += '</li>';
-                }
+               
                 $('#sj').html(html);
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
