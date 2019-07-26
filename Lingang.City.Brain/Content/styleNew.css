@@ -822,9 +822,11 @@ button.arrowbtn.btnright{
 
 .sj-title{
 	float: left;
+	width:calc(100% - .8rem);
 	font-size: .25rem;
 	line-height: 1.8em;
 	color: #c5c3c3;
+	white-space:nowrap;
 }
 .sj-data{ 
 	font-size: .45rem;

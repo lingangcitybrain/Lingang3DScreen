@@ -626,22 +626,21 @@
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
 
-                function dealSaveTimeFun(str) {
-                	var saveTimeArr = str.split("小时")[0].split("天");
-                	var saveTime = ( Number(saveTimeArr[0]) * 24 + Number(saveTimeArr[1]) )*60;
-                	return saveTime;
-                }
-
-                var disSaveTime = data.distributeNums + "*" + parseInt(dealSaveTimeFun(data.discoverTimeSaving) / data.distributeNums);
-                var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
+                //function dealSaveTimeFun(str) {
+                //	var saveTimeArr = str.split("小时")[0].split("天");
+                //	var saveTime = ( Number(saveTimeArr[0]) * 24 + Number(saveTimeArr[1]) )*60;
+                //	return saveTime;
+                //}
+                //var disSaveTime = data.distributeNums + "*" + parseInt(dealSaveTimeFun(data.discoverTimeSaving) / data.distributeNums);
+                //var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
 
                 $("#sj-list1").find(".sj-data").eq(0).html(data.distributeNums);
                 $("#sj-list1").find(".sj-data").eq(1).html(data.discoverRate + '%');
-                $("#sj-list1").find(".sj-data").eq(2).html(disSaveTime);
+                $("#sj-list1").find(".sj-data").eq(2).html(data.discoverTimeSaving);
 
                 $("#sj-list2").find(".sj-data").eq(0).html(data.eventNums);
                 $("#sj-list2").find(".sj-data").eq(1).html(data.smartSingleRate + '%');
-                $("#sj-list2").find(".sj-data").eq(2).html(smartSaveTime);
+                $("#sj-list2").find(".sj-data").eq(2).html(data.smartSingleTimeSaving);
 
 
             })
