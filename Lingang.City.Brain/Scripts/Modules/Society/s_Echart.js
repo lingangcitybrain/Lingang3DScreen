@@ -626,22 +626,21 @@
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
 
-                function dealSaveTimeFun(str) {
-                	var saveTimeArr = str.split("小时")[0].split("天");
-                	var saveTime = ( Number(saveTimeArr[0]) * 24 + Number(saveTimeArr[1]) )*60;
-                	return saveTime;
-                }
-
-                var disSaveTime = data.distributeNums + "*" + parseInt(dealSaveTimeFun(data.discoverTimeSaving) / data.distributeNums);
-                var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
+                //function dealSaveTimeFun(str) {
+                //	var saveTimeArr = str.split("小时")[0].split("天");
+                //	var saveTime = ( Number(saveTimeArr[0]) * 24 + Number(saveTimeArr[1]) )*60;
+                //	return saveTime;
+                //}
+                //var disSaveTime = data.distributeNums + "*" + parseInt(dealSaveTimeFun(data.discoverTimeSaving) / data.distributeNums);
+                //var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
 
                 $("#sj-list1").find(".sj-data").eq(0).html(data.distributeNums);
                 $("#sj-list1").find(".sj-data").eq(1).html(data.discoverRate + '%');
-                $("#sj-list1").find(".sj-data").eq(2).html(disSaveTime);
+                $("#sj-list1").find(".sj-data").eq(2).html(data.discoverTimeSaving);
 
                 $("#sj-list2").find(".sj-data").eq(0).html(data.eventNums);
                 $("#sj-list2").find(".sj-data").eq(1).html(data.smartSingleRate + '%');
-                $("#sj-list2").find(".sj-data").eq(2).html(smartSaveTime);
+                $("#sj-list2").find(".sj-data").eq(2).html(data.smartSingleTimeSaving);
 
 
             })
@@ -884,23 +883,28 @@
        		var data = require("s_Echart").societySjcgListData;
        		//data = data.data.list;   //中台新接口直接返回数组  20190714
        		var html = '';
-       		var num = 0;
        		for (var i = 0; i < data.length; i++) {
        			var time = data[i].createTime.split(".")[0].split("T");
-       			num++;
+       			var sjxxLiClass = "sjxx-li flex"
+       			if (i <= 0) {
+       				sjxxLiClass = "sjxx-li flex active"
+       			}
+				
        			if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
        				var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
        				html +=
-					   '<li class="sjxx-li" onclick="javascript:$(this).addClass(\'active\');require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
-						'<div class="sjxx-li-line1">' +
-							'<span class="sjxx-id counter">' + num + '</span>' +
-							'<span class="sjxx-event">' + data[i].eventName + '</span>' +
-							'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-						'</div>' +
-						'<div class="sjxx-address">' + data[i].address +
-							//'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +  //time[1]有undefined
-                            '<span class="fr sjxx-time">' + time[0] +  '<span>' + data[i].dealPerson + '</span></span>' +
-						'</div>' +
+					   '<li class="' + sjxxLiClass + '" onclick="javascript:$(this).addClass(\'active\');require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+						  '<span class="sjxx-id counter"></span>' +
+						  '<div class="sjxx-div">' +
+							  '<div class="sjxx-li-line1">' +
+								  '<span class="sjxx-event">' + data[i].eventName + '</span>' +
+								  '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+								  '<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
+							  '</div>' +
+							  '<div class="sjxx-address">' + data[i].address +
+								 '<span class="fr sjxx-time">' + time[0] + '<span>' + data[i].dealPerson + '</span></span>' +
+							  '</div>' +
+						  '</div>' +
 					'</li>';
        			}
        		}
@@ -943,24 +947,26 @@
 					
        				$("#center-event-sociul").html('');
        				var html = '';
-       				var num = 0;
        				for (var i = 0; i < data.length; i++) {
        					var time = data[i].createTime.split(".")[0].split("T");
-       					num++;
        					if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
        						var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
 
        						html +=
-							   '<li class="center-event-li" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
-								'<div class="center-event-li-line1">' +
-									'<span class="sjxx-id counter">' + num + '</span>' +
-									'<span class="sjxx-event">' + data[i].eventName + '</span>' +
-									'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-								'</div>' +
-								'<div class="sjxx-address">' + data[i].address +
-									'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
-								'</div>' +
-							'</li>';
+							   '<li class="center-event-li flex" onclick="require(&apos;sl_Event&apos;).loadEventDetail(&apos;' + poiName + '&apos;)">' +
+								 '<span class="sjxx-id counter"></span>' +
+								 '<div class="sjxx-div">' +
+									 '<div class="sjxx-li-line1 center-event-li-line1">' +
+										 '<span class="sjxx-event">' + data[i].eventName + '</span>' +
+										 '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+										 '<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
+									 '</div>' +
+									 '<div class="sjxx-address">' + data[i].address +
+										'<span class="fr sjxx-time">' + time[0] + ' ' + time[1] + '<span>' + data[i].dealPerson + '</span></span>' +
+									 '</div>' +
+								 '</div>' +
+								'</li>';
+
        					}
        				}
 

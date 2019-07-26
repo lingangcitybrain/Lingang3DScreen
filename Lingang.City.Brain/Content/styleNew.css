@@ -822,9 +822,11 @@ button.arrowbtn.btnright{
 
 .sj-title{
 	float: left;
+	width:calc(100% - .8rem);
 	font-size: .25rem;
 	line-height: 1.8em;
 	color: #c5c3c3;
+	white-space:nowrap;
 }
 .sj-data{ 
 	font-size: .45rem;
@@ -995,24 +997,29 @@ button.arrowbtn.btnright{
 	padding: .06rem  .1rem;
 	margin-top: .02rem;
 }
-.sjxx-li-line1{ 
+.sjxx-id{
+	float: left;
+	width: .6rem;
+	background: url(../Content/images/AI-icon.png) center center no-repeat;
+	background-size: .4rem .4rem;
+}
+.sjxx-div{
+	float: left;
+	width:calc(100% - .6rem);
+}
+.sjxx-li-line1{
 	color: #1a8fef;
 	line-height: 1.3em;
 }
-.sjxx-id{
-	float: left;
-	width: .8rem;
-}
 .sjxx-address{
 	color: #ccd4e9;
-	padding-left: .8rem;
 	line-height: 1.2em;
 }
-.sjxx-time>span{ 
-	float:right;
-	width:5em;
-	text-align:right;
+.sjxx-economizetime{
+	margin-right: .5rem;
 }
+.sjxx-time>span{ margin-left: .15rem; }
+
 
 .sjxx-li:hover,
 .sjxx-li.active{
@@ -3777,6 +3784,13 @@ dd.pjc-statistic-star >form{
 	overflow:hidden;
 }
 .center-event-li:first-child{ margin-top: 0; }
+.center-event-li>.sjxx-id{
+	width:1.2rem;
+	height:1.2rem;
+	background-size:.8rem .8rem;
+	background-position:center 55%;
+}
+.center-event-li>.sjxx-div{ width:calc(100% - 1.2rem);}
 .center-event-li-line1{ 
 	color: #1a8fef;
 	line-height: 1.5em;
@@ -3970,7 +3984,7 @@ dd.pjc-statistic-star >form{
 .eventProcess-li.nowactive{ color:#f90; }
 
 @media screen and (max-width: 11520px){
-	html{ font-size:140px !important;}
+	html{ font-size:140px;}
 }
 @media screen and (max-width: 7680px) {
     html { font-size: 90px; }

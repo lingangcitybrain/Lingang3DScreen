@@ -23,11 +23,12 @@
         paidan2Timerout: null,
         eventProcessTimerout: null,//事件处置流程
         timeCountDownData: new util.HashMap,//倒计时数据
-        allLoopEventList:[],
+        allLoopEventList: [],
+        allPOINameList:[],//所有POI名字
         /*********************加载事件POI-start*********************/
         loadEvent: function (callback) {
             //this.Revert();
-            this.LayerType = require("s_Main").LayerCatalog.Event;
+            require("sl_Event").LayerType = require("s_Main").LayerCatalog.Event;
 
             //map.loadArea("danao");
 
@@ -45,6 +46,7 @@
             var nowdata = require("common").getNowFormatDate();//当前时间
             var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
             var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata }
+            require("sl_Event").allPOINameList = [];
             //获取最近7天事件
             require("s_LayerMenuAjax").getEventList(post_data, function (result) {
 
@@ -58,6 +60,9 @@
                         require("sl_Event").allLoopEventList.push(row);//加入全部事件循环数组
                         var icon = require("sl_Event").LayerType.List[row.communityId].UnChooseIcon;
                         var poiName = "POISociety" + require("sl_Event").LayerType.List[row.communityId].Name + "_" + row.id;//POIIOT_01
+
+                        require("sl_Event").allPOINameList.push(poiName);//添加POI名字集合
+
                         var iconSize = Q3D.vector2(53, 43);
                         //switch (row.communityId) {
                         //    case "U003"://海岸线
@@ -180,50 +185,6 @@
                     }
                 })
             }
-        },
-        //清空事件POI
-        clearEventPOI: function () {
-            var data = require("sl_Event").POIData;
-            var areaName = con.AreaName;
-            //设置POI隐藏
-            if (data != null && this.LayerType != null) {
-                for (var i = 0; i < data.length; i++) {
-                    if (this.LayerType.List[data[i].communityId]) {
-                        var name = this.LayerType.List[data[i].communityId].Name;
-
-                        var poiname = "POISociety" + name + "_" + data[i].id;
-                        var node = map.getSceneNode(areaName + "/" + poiname);
-                        if (node) {
-                            map.getArea(areaName).destroySceneNode(poiname);
-                            //node.setVisible(0);
-
-                        }
-                    }
-                }
-                this.LayerType = null;
-                this.POIData = null;
-            }
-            //if (map.getSceneNode(areaName + "/eventDetail1")) {
-            //    map.getArea(areaName).destroySceneNode("eventDetail1");
-            //}
-            if (map.getSceneNode(areaName + "/paidan_poi")) {
-                map.clearPOIJump();
-                map.getArea(areaName).destroySceneNode("paidan_poi");
-            }
-            if (map.getSceneNode(areaName + "/paidanDetail")) {
-                map.getArea(areaName).destroySceneNode("paidanDetail");
-            }
-            //map.getArea(areaName).destroySceneNode(poiname);
-
-        },
-        clearTimeCount: function () {
-            if (require("sl_Event").timeCountList.length > 0) {
-                for (var i = 0; i < require("sl_Event").timeCountList.length; i++) {
-                    clearInterval(require("sl_Event").timeCountList[i]);
-                }
-                require("sl_Event").timeCountList = [];
-            }
-
         },
         /*********************加载事件POI-end*********************/
 
@@ -929,6 +890,7 @@
         },
         //关闭事件详情
         closeDetail: function () {
+            require("sl_Event").clearTimeCount();//计时器清空
             //循环播放处置流程
             if (require("sl_Event").eventTimer != null) {
                 clearInterval(require("sl_Event").eventTimer);
@@ -987,7 +949,35 @@
             }
 
         },
+        //清空事件POI
+        clearEventPOI: function () {
+            var data = require("sl_Event").allPOINameList;
+            var areaName = con.AreaName;
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    var node = map.getSceneNode(areaName + "/" + data[i]);
+                    if (node) {
+                        map.getArea(areaName).destroySceneNode(data[i]);
+                    }
+                }
+                require("sl_Event").allPOINameList = [];
+            }
+            if (map.getSceneNode(areaName + "/paidan_poi")) {
+                map.getArea(areaName).destroySceneNode("paidan_poi");
+            }
+            if (map.getSceneNode(areaName + "/paidanDetail")) {
+                map.getArea(areaName).destroySceneNode("paidanDetail");
+            }
+        },
+        clearTimeCount: function () {
+            if (require("sl_Event").timeCountList.length > 0) {
+                for (var i = 0; i < require("sl_Event").timeCountList.length; i++) {
+                    clearInterval(require("sl_Event").timeCountList[i]);
+                }
+                require("sl_Event").timeCountList = [];
+            }
 
+        },
         createPOI: function (fullNodePath, data) {
             //给定POI参数		
             var createOptions = {
@@ -1418,24 +1408,25 @@
             require("s_LayerMenuAjax").getEventList(function (result) {
                 var data = require("sl_Event").POIData;
                 var html = '';
-                var num = 0;
                 for (var i = 0; i < data.length; i++) {
-                    num++;
-                    var style = "sjxx-li"
+                    var style = "sjxx-li flex"
                     if (i <= 1) {
-                        style = "sjxx-li active"
+                        style = "sjxx-li active flex"
                     }
                     var poiName = "POISociety" + require("sl_Event").LayerType.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                     html +=
                        '<li class="' + style + '" onclick="require(&apos;sl_Event&apos;).loadEventDetail(' + poiName + ')">' +
-                        '<div class="sjxx-li-line1">' +
-                            '<span class="sjxx-id counter">' + num + '</span>' +
-                            '<span class="sjxx-event">' + data[i].eventName + '</span>' +
-                            '<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
-                        '</div>' +
-                        '<div class="sjxx-address">' + data[i].address +
-                            '<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
-                        '</div>' +
+							'<span class="sjxx-id counter"></span>' +
+							'<div class="sjxx-div">' +
+								'<div class="sjxx-li-line1">' +
+									'<span class="sjxx-event">' + data[i].eventName + '</span>' +
+									'<span class="fr sjxx-state">' + data[i].statusName + '</span>' +
+									'<span class="fr sjxx-economizetime">节约' + data[i].economizeTime + '</span>' +
+								'</div>' +
+								'<div class="sjxx-address">' + data[i].address +
+									'<span class="fr sjxx-time">' + con.getNowFormatDate(data[i].createTime) + '<span>' + data[i].dealPerson + '</span></span>' +
+								'</div>' +
+							'</div>' +
                         '</li>';
 
                     require("s_RightLayer").EventData.put(data[i].id, data[i]);
@@ -1557,7 +1548,10 @@
             //}
             //this.movieClear();
             //map.unloadArea("danao");
-
+            if (require("sl_Event").eventTimer != null) {
+                clearInterval(require("sl_Event").eventTimer);
+                require("sl_Event").eventTimer = null;
+            }
             require("sl_Event").closeLoopAllEvents();//关闭循环播放所有事件
         }
     }
