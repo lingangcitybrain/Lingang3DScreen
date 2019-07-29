@@ -47,6 +47,7 @@
         workSiteWrjData: null,     //工地无人机
         dealTaskNumData: null,     //网格处置案件数量
         dealTaskTypeData: null,   //网格处置案件类别
+    	videoPicData:null,   //海岸线，工地，街面无视频放图片
         intervalTime: 0,
         //加载图表
         loadEcharts: function () {

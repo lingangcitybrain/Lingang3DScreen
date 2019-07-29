@@ -128,7 +128,7 @@
             }
             com.UIControlAni(option, function () {
                 require("sl_SeaboardLine").loadMonthlyRecentFlight();
-            });
+            }); 
         },
         //加载第二列的div3
         loadLeftSecond3: function () {
@@ -182,13 +182,22 @@
                 //require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])   //需要另外获取
 
             });
-            s_EchartAjax.getFlightVideo(function (result) {
-                if (result) {
-                    //require("s_Main").loadMonthlyRecentFlyVideo(result[1].url[0]);
-                    require("s_Main").loadMonthlyRecentFlyVideo(result[result.dateList[1]][0]);
-                }
+            //s_EchartAjax.getFlightVideo(function (result) {   
+            //    if (result) {
+            //        //require("s_Main").loadMonthlyRecentFlyVideo(result[1].url[0]);
+            //        require("s_Main").loadMonthlyRecentFlyVideo(result[result.dateList[1]][0]);
+            //    }
 
-            })
+        	//})
+            s_EchartAjax.getVideoPic(function (result) {
+            	if (require("s_Echart").videoPicData == null) { return false; }
+            	var data = require("s_Echart").videoPicData;
+            	$("#monthlyRecentFlyVideo").css({ background: "url(" + data[0].imageUrl + ") no-repeat", backgroundSize:"100% 100%" });
+            });
+
+
+
+
         },
 
 

@@ -535,24 +535,24 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                         videoUrl = data[key][0]
                     }
                 }
-            require(['aliplayer'], function (data) {
-                require("s_Main").leftcenter_video = new Aliplayer({
-                    "id": "Big-chart",
-                    "source": videoUrl,
-                    "width": videowidth + "px",
-                    "height": videoheight + "px",
-                    "autoplay": true,
-                    "isLive": false,
-                    "rePlay": true,
-                    "showBuffer": true,
-                    "snapshot": false,
-                    "showBarTime": 5000,
-                    "useFlashPrism": true,
-                    "mediaType": "audio"
+				require(['aliplayer'], function (data) {
+					require("s_Main").leftcenter_video = new Aliplayer({
+						"id": "Big-chart",
+						"source": videoUrl,
+						"width": videowidth + "px",
+						"height": videoheight + "px",
+						"autoplay": true,
+						"isLive": false,
+						"rePlay": true,
+						"showBuffer": true,
+						"snapshot": false,
+						"showBarTime": 5000,
+						"useFlashPrism": true,
+						"mediaType": "audio"
 
-                })
-            });
-                })
+					})
+				});
+            })
         },
 
 
