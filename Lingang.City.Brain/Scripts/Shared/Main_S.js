@@ -160,7 +160,7 @@
 
 
 //加载三维
-require(['Shared/Map', "qmap3d", "qmap3dcustom", 'jquery', 'jqueryui'], function (mapObj) {
+require(['Shared/Map_S', "qmap3d", "qmap3dcustom", 'jquery', 'jqueryui'], function (mapObj) {
     mapObj.initMap();
 
     // 社区综治
