@@ -3565,13 +3565,11 @@
             	var html = '';
             	for (var key in data) {
             		if (key !== "catCounts" && key !== "eventCounts") {
-            			console.log(key, data[key])
             			html += '<li class="yqsj-item">' +
 								  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
 								  '<ol class="yqsj-itemol">'
             							for (var key2 in data[key]) {
             								if (key2 !== "total") {
-            									console.log(key2, data[key][key2])
             									html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
             								}
             							}
