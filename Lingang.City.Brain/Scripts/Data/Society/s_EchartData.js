@@ -16649,6 +16649,27 @@
             }
         },
 
+    	//海岸、线工地、街面左二列无视频放图片
+    	videoPicData:[
+			{
+    			"createTime": "2019-07-28T07:00:37.000+0000",
+    			"imageUrl": "http://106.14.149.153/mnt/data/community/coastline/2019-07-28/rubbish21.png",
+    			"eventType": "coastline"
+			},
+			{
+    			"createTime": "2019-07-25T09:11:02.000+0000",
+    			"imageUrl": "http://106.14.149.153/mnt/data/community/eventAttach/2019-07-25/2019072517102571197.png",
+    			"eventType": "construction"
+			},
+			{
+    			"createTime": "2019-03-21T07:32:07.000+0000",
+    			"imageUrl": "http://106.14.149.153/mnt/data/community/eventAttach/2019-03-21/2019032123562045900.png",
+    			"eventType": "sharedRegion"
+			}
+		],
+
+
+
 
     }
 })

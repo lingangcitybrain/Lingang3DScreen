@@ -166,9 +166,15 @@
                 $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
                 $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
 
-                require("s_Main").loadWorkSiteWrjVideo("https://vku.youku.com/live/ilpshare?id=8018484")
+            	// require("s_Main").loadWorkSiteWrjVideo("https://vku.youku.com/live/ilpshare?id=8018484")
 
             });
+            s_EchartAjax.getVideoPic(function (result) {
+            	if (require("s_Echart").videoPicData == null) { return false; }
+            	var data = require("s_Echart").videoPicData;
+            	$("#WorkSiteWrjVideo").css({ background: "url(" + data[0].imageUrl + ")", backgroundSize: "100% 100%" });
+            });
+
         },
 
     	//添加天气图片

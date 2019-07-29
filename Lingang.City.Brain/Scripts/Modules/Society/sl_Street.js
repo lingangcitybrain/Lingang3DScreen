@@ -157,8 +157,16 @@
                 $("#jm_drone2").html(data.flightCount);
                 $("#jm_drone3").html(data.flightTime);
                 //加载视频
-                require("s_Main").loadStreetWrjVideo(data.url)
+               // require("s_Main").loadStreetWrjVideo(data.url)
+
             })
+            s_EchartAjax.getVideoPic(function (result) {
+            	if (require("s_Echart").videoPicData == null) { return false; }
+            	var data = require("s_Echart").videoPicData;
+            	$("#StreetWrjVideo").css({ background: "url(" + data[0].imageUrl + ")", backgroundSize: "100% 100%" });
+            });
+
+
         },
 
         //街面巡查员
