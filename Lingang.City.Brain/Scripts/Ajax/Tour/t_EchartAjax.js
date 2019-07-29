@@ -302,8 +302,8 @@
             }
 
         },
-        //景区事件列表类型
-        yqsjlblx: function (post_data, callback) {
+        //景区事件统计类型
+        getYqsjtjType: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -313,17 +313,17 @@
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("t_Echart").yqsjlblxData = data;
+                    	require("t_Echart").yqsjtjTypeData = data;
                         callback(data);
                     },
                     error: function () {
-                        require("t_Echart").yqsjlblxData = t_EchartData.yqsjlblxData;
-                        callback();
+                       // require("t_Echart").yqsjlblxData = t_EchartData.yqsjlblxData;
+                       // callback();
                     }
                 });
             }
             else {//执行本地
-                require("t_Echart").yqsjlblxData = t_EchartData.yqsjlblxData;
+            	require("t_Echart").yqsjtjTypeData = t_EchartData.yqsjtjTypeData;
                 callback();
             }
         },

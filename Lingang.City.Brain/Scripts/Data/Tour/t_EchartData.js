@@ -1259,7 +1259,7 @@ define(["config"], function (con) {
             }
         },
         //景区事件列表类型
-        yqsjlblxData:{
+        yqsjtjTypeData: {
             "市容市貌": {
                 "超门店经营": 0,
                 "total": 0,
