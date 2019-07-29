@@ -32,9 +32,9 @@
         loadParkingInfo: function () {
             var time = con.getNowFormatDateYYMMDDHHMMSS();
             require("gl_GardenBuildingAjax").getParkingInfo(time, function (data) {
-                require("gl_Stop").parkingLotInfo.put(data.appid,data);
+                require("gl_Stop").parkingLotInfo.put(data.occupied, data);//缺少主键，暂时用occupied代替，没有做多个停车场数据情况返回
                 var areaName = con.AreaName,
-                    poiName = "parkinglotPOI_" + data.appid;//+data.
+                    poiName = "parkinglotPOI_" + data.occupied;//+data.appid
                 var node = map.getSceneNode(areaName, poiName);
                 if (node) {
                     node.setVisible(1);

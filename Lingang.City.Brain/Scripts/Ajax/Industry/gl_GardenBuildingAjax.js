@@ -59,7 +59,7 @@
         getParkingInfo: function (time,callback) {
             $.ajax({
                 type: "POST",      //data 传送数据类型。post 传递 
-                url: con.InterfaceUrl_parking + 'parklotInfo',
+                url: con.InterfaceUrl_DataStation + 'v2/parklotInfo',
                 cache: false,
                 data: { datetime:time},
                 dataType: 'json',  // 返回数据的数据类型json
