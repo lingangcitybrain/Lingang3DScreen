@@ -192,7 +192,12 @@
             s_EchartAjax.getVideoPic(function (result) {
             	if (require("s_Echart").videoPicData == null) { return false; }
             	var data = require("s_Echart").videoPicData;
-            	$("#monthlyRecentFlyVideo").css({ background: "url(" + data[0].imageUrl + ") no-repeat", backgroundSize:"100% 100%" });
+				
+            	for (var i = 0; i < data.length; i++) {
+            		if (data[i].eventType === "coastline") {
+            			$("#monthlyRecentFlyVideo").css({ background: "url(" + data[i].imageUrl + ") no-repeat", backgroundSize: "100% 100%" });
+            		}
+            	}
             });
 
 

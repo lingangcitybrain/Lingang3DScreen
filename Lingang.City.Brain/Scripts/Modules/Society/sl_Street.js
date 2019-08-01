@@ -163,7 +163,11 @@
             s_EchartAjax.getVideoPic(function (result) {
             	if (require("s_Echart").videoPicData == null) { return false; }
             	var data = require("s_Echart").videoPicData;
-            	$("#StreetWrjVideo").css({ background: "url(" + data[0].imageUrl + ")", backgroundSize: "100% 100%" });
+
+            	if (data[i].eventType === "sharedRegion") {
+            		$("#StreetWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
+            	}
+
             });
 
 

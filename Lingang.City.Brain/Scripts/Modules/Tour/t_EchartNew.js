@@ -3554,7 +3554,7 @@
 
 
         },
-        //园区事件类型分布列表  
+        //园区事件统计--类型
         yqsjtjType: function () {
             t_EchartAjax.getYqsjtjType(function (result) {
             	var data = require("t_Echart").yqsjtjTypeData;
@@ -3568,11 +3568,11 @@
             			html += '<li class="yqsj-item">' +
 								  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
 								  '<ol class="yqsj-itemol">'
-            							for (var key2 in data[key]) {
-            								if (key2 !== "total") {
-            									html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
-            								}
+            						for (var key2 in data[key]) {
+            							if (key2 !== "total") {
+            								html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
             							}
+            						}
             			html += '</ol></li>'
             		}
             	}
