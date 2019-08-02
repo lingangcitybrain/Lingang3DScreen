@@ -97,6 +97,8 @@
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "jqsjtj", "func": "require('t_Echart').jqsjtjClickEvent('*');" },//景区事件统计
             /***************************END***************************/
+            //大数字收缩
+            { "menu": "all", "layer": "all", "menuNM": "大数字收缩", "layerNM": "", type: "dszss", "func": " $('.statistic-slidebtn').click();" },
         ],
     }
 })

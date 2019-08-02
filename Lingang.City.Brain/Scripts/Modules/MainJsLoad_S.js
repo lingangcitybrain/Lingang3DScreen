@@ -27,7 +27,22 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
         pagination: function (domID, length, optInit,pageindex) {
         $("#" + domID).pagination(length, optInit);
     },
-
+        /******************图表中间大数字收缩*******************/
+        statisticslidebtn: function () {
+            $(".statistic-slidebtn").each(function () {
+                var thisClick = false;
+                $(this).click(function () {
+                    thisClick = !thisClick;
+                    if (thisClick) {
+                        $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                        
+                    } else {
+                        $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                        
+                    }
+                })
+            })
+        },
     /*********************END*********************/
     }
 })

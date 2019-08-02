@@ -96,5 +96,45 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
             control_Ajax.sendPageButtoncontrolInfo(jsondata); //发送控制命令
         },
         /*********************END*********************/
+
+
+        /******************图表中间大数字收缩*******************/
+        statisticslidebtn: function () {
+            $(".statistic-slidebtn").each(function () {
+                var thisClick = false;
+                $(this).click(function () {
+                    thisClick = !thisClick;
+                    if (thisClick) {
+                        $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                        var jsondata = {
+                            "menu": "all",
+                            "layer": "all",
+                            "type": "dszss",
+                            "id": "",
+                            "xyz": "",
+                            "angle": "",
+                        };
+                        control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+                    } else {
+                        $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                        var jsondata = {
+                            "menu": "all",
+                            "layer": "all",
+                            "type": "dszss",
+                            "id": "",
+                            "xyz": "",
+                            "angle": "",
+                        };
+                        control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+                    }
+                })
+            })
+        },
     }
 })
+
+
+//$(".statistic-slidebtn").click()
+
+//$(".statistic-slidebtn").css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+//$(".statistic-slidebtn").css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
