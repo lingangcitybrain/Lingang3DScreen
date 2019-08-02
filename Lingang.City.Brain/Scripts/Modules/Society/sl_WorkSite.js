@@ -172,7 +172,13 @@
             s_EchartAjax.getVideoPic(function (result) {
             	if (require("s_Echart").videoPicData == null) { return false; }
             	var data = require("s_Echart").videoPicData;
-            	$("#WorkSiteWrjVideo").css({ background: "url(" + data[0].imageUrl + ")", backgroundSize: "100% 100%" });
+
+            	for (var i = 0; i < data.length; i++) {
+            		if (data[i].eventType === "construction") {
+            			$("#WorkSiteWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
+            		}
+            	}
+
             });
 
         },
