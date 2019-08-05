@@ -1,6 +1,7 @@
 ﻿define(['config','common', 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main", "t_Home", "s_Home", "e_Home","pagination"],
 function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_Home, e_Home,pagination) {
     return {
+        thisClick:false,   //大数字收缩相关
         loadJs: function () {
             return;
         },
@@ -29,19 +30,14 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
     },
         /******************图表中间大数字收缩*******************/
         statisticslidebtn: function () {
-            $(".statistic-slidebtn").each(function () {
-                var thisClick = false;
-                $(this).click(function () {
-                    thisClick = !thisClick;
-                    if (thisClick) {
-                        $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
-                        
+
+                    if (!this.thisClick) {
+                        $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                        this.thisClick = true;
                     } else {
-                        $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
-                        
+                        $('.statistic-slidebtn').css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                        this.thisClick = false;
                     }
-                })
-            })
         },
     /*********************END*********************/
     }

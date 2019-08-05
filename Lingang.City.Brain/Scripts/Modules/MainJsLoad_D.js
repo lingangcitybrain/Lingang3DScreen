@@ -1,6 +1,7 @@
 ﻿define(['config', 'common', "control_Ajax", 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main", "t_Home", "s_Home", "e_Home", "pagination"],
 function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_Home, e_Home, pagination) {
     return {
+        thisClick:false,
         loadJs: function () {
             require('mainJsLoad').mainCameraUpdate();
         },
@@ -100,35 +101,23 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
 
         /******************图表中间大数字收缩*******************/
         statisticslidebtn: function () {
-            $(".statistic-slidebtn").each(function () {
-                var thisClick = false;
-                $(this).click(function () {
-                    thisClick = !thisClick;
-                    if (thisClick) {
-                        $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
-                        var jsondata = {
-                            "menu": "all",
-                            "layer": "all",
-                            "type": "dszss",
-                            "id": "",
-                            "xyz": "",
-                            "angle": "",
-                        };
-                        control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
-                    } else {
-                        $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
-                        var jsondata = {
-                            "menu": "all",
-                            "layer": "all",
-                            "type": "dszss",
-                            "id": "",
-                            "xyz": "",
-                            "angle": "",
-                        };
-                        control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
-                    }
-                })
-            })
+            if (!this.thisClick) {
+                this.thisClick = true;
+                $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                
+            } else {
+                this.thisClick = false;
+                $('.statistic-slidebtn').css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+            }
+            var jsondata = {
+                "menu": "all",
+                "layer": "all",
+                "type": "dszss",
+                "id": "",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
         },
     }
 })

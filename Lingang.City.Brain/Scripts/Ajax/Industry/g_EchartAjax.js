@@ -245,7 +245,7 @@
                         callback();
                     }
                 });
-            }
+            } 
             else {//执行本地
                 require("g_Echart").sjtjData = g_EchartData.sjtjData;
                 callback();
