@@ -48,7 +48,7 @@
                     $("#occupancyRate_detail").html(data.occupancyRate);
 
                     $("#loudong-ul li").click(function (e) {
-                        $(this).addClass("active").siblings().removeClass("active");
+                        //$(this).addClass("active").siblings().removeClass("active");
                         var floor = $(this).attr("value");
                         require("g_Home").openFloor(floor);
                         //require("b_BuildingFloor").openFloor(floor);
@@ -68,7 +68,8 @@
             require("b_BuildingFloor").loadPOI();//显示所有楼栋POI
             require("b_BuildingFloor").resetBuildingMaterial();//还原楼宇材质
         },
-        openFloor: function (floor,room) {
+        openFloor: function (floor, room) {
+            $("#loudong-ul").children().eq(parseInt(floor)-1).addClass("active").siblings().removeClass("active");   //设置楼层按钮样式
             require("b_BuildingFloor").resetHideLayer();
             var id = require("b_BuildingFloor").buildingID;
             var layerArr = require("e_LayerMenuData").FloorLayerData[id];

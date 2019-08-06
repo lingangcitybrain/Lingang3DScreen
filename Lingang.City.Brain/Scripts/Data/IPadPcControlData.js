@@ -49,7 +49,8 @@
             //{ "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头-POI", "func": "require('t_Main').PoiEvent('*');" },
             
             { "menu": "3", "layer": "", "menuNM": "产业发展", "layerNM": "园区信息", "func": "require('iPad').poiIndustryControl('*');" },
-            { "menu": "3", "layer": "", "menuNM": "产业发展", "layerNM": "园区停车", "func": "require('gl_Stop').showParkingLotDetail('*');" },
+            //{ "menu": "3", "layer": "", "menuNM": "产业发展", "layerNM": "园区停车", "func": "require('gl_Stop').showParkingLotDetail('*');" },
+
             //{ "menu": "3", "layer": "19", "menuNM": "产业发展", "layerNM": "园区信息", "func": "require('iPad').poiIndustryControl('*');" },
             //{ "menu": "3", "layer": "20", "menuNM": "产业发展", "layerNM": "园区信息-楼宇POI", "func": "require('iPad').poiIndustryControl('*');" },
             //{ "menu": "3", "layer": "21", "menuNM": "产业发展", "layerNM": "园区信息-停车POI", "func": "require('iPad').poiIndustryControl('*');" },
