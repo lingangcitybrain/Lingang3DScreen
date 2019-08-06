@@ -21,17 +21,18 @@
 
 <script>
     $(function () {
-        $(".statistic-slidebtn").each(function () {
-            var thisClick = false;
-            $(this).click(function () {
-                thisClick = !thisClick;
-                if (thisClick) {
-                    $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
-                } else {
-                    $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
-                }
+        //$(".statistic-slidebtn").each(function () {   //$('.statistic-slidebtn').css("transform")
+            //var thisClick = false;
+        $('.statistic-slidebtn').click(function () {
+                require("mainJsLoad").statisticslidebtn();
+                //thisClick = !thisClick;
+                //if (thisClick) {
+                //    $(this).css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                //} else {
+                //    $(this).css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                //}
             })
-        })
+        //})
     })
 
 </script>

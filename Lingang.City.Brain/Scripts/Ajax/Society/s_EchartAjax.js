@@ -125,29 +125,52 @@
         },
 
 
-        //景区--摄像头
+    	//景区--摄像头视频
+        getJqCameraVideo: function (callback) {
+        	if (con.IsInterface) {
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_DataStation + 'v1/camera/entranceCamera',
+        			cache: false,
+        			//data: post_data,  //传送的数据
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("s_Echart").jqCameraVideo = data;
+        				callback(data);
+        			},
+        			error: function () {
+        				//console.log("景区摄像头数据传输错误,加载本地数据");
+        			}
+        		});
+        	} else {//执行本地
+        		require("s_Echart").jqCameraVideo = s_EchartData.jqCameraVideo;
+        		callback();
+        	}
+        },
+
+    	//景区--摄像头信息
         getJqCameraData: function (post_data, callback) {
-            if (con.IsInterface) {
-                $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v1/park/camera/cameraInfo',
-                    cache: false,
-                    data: post_data,  //传送的数据
-                    dataType: 'json',  // 返回数据的数据类型json
-                    success: function (data) {
-                        require("s_Echart").jqCameraData = data;
-                        callback(data);
-                    },
-                    error: function () {
-                        console.log("景区摄像头数据传输错误,加载本地数据");
-                        require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
-                        callback();
-                    }
-                });
-            } else {//执行本地
-                require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
-                callback();
-            }
+        	if (con.IsInterface) {
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_DataStation + 'v1/park/camera/cameraInfo',
+        			cache: false,
+        			data: post_data,  //传送的数据
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("s_Echart").jqCameraData = data;
+        				callback(data);
+        			},
+        			error: function () {
+        				console.log("景区摄像头数据传输错误,加载本地数据");
+        				require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+        				callback();
+        			}
+        		});
+        	} else {//执行本地
+        		require("s_Echart").jqCameraData = s_EchartData.jqCameraData;
+        		callback();
+        	}
         },
 
         //景区--车辆
@@ -299,7 +322,7 @@
             if (con.IsInterface) {
                 $.ajax({
                     type: "POST",    
-                    url: con.InterfaceUrl_DataStation + 'v1/affair/comunity/dealOvertime',
+                    url: con.InterfaceUrl_DataStation + 'v1/communities/eventSummary',
                     cache: false,
                     //data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json
@@ -598,6 +621,30 @@
                 }
             });
         },
+
+    	//海岸、线工地、街面左二列无视频放图片
+        getVideoPic: function (callback) {
+        	if (con.IsInterface) {
+        		$.ajax({
+        			type: "POST",      //data 传送数据类型。post 传递 
+        			url: con.InterfaceUrl_DataStation + 'v1/drone/getEventImageUrlByType',
+        			cache: false,
+        			//data: post_data,  //传送的数据
+        			dataType: 'json',  // 返回数据的数据类型json
+        			success: function (data) {
+        				require("s_Echart").videoPicData = data;
+        				callback(data)
+        			},
+        			error: function () {
+        				//alert("数据传输错误");
+        			}
+        		});
+        	} else {//执行本地
+        		require("s_Echart").videoPicData = s_EchartData.videoPicData;
+        		callback();
+        	}
+        },
+
 
         //海岸线潮汐时间表
         getCostlineTideData: function (post_data, callback) {

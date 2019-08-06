@@ -108,6 +108,7 @@
         Interval2: null,                 //交通信息数字定时器  
         Interval3: null,                 //无人机定时器
         Interval4: null,                 //交通信息数字定时器  
+        Interval5: null,                 //交通信息数字定时器  
 
 
         myChartykfx: null,               //游客分析
@@ -122,9 +123,10 @@
         rycltjData: null,                  //人员车辆统计
         rycltjdtData: null,                  //人员车辆统计地铁
         rycltjjcclData: null,              //人员车辆统计进出车辆
-        yqsjlbData: null,
-        yqsjlbtjData: null,
-        yqsjlbCenterEventData: null,
+        zxsxtData: null,                   //在线摄像头 
+        yqsjlbData: null,                  //园区事件列表
+        yqsjlbtjData: null,                //园区事件列表统计
+        yqsjlbCenterEventData: null,       //园区事件列表放大
         myChartyqfx: null,                 //舆情分析
         myChartwrj: null,                  //无人机
         myChartjtxx: null,                 //交通信息 
@@ -136,7 +138,7 @@
         jcgJtxxData: null,                //进出港数据
         tccJtxxData: null,                //停车场数据
         jtxxData: null,                    //交通信息数据
-
+    	yqsjtjTypeData:null,             //园区事件统计类型
         loadEcharts: function () {
 
             this.rq();                  //日期
@@ -309,6 +311,7 @@
             html += '<a class="rycltj-datetab">' + MyDate(0) + '</a>';
             $('#rq').html(html)
         },
+        //加载中间无人机视频
         wrjsp:function(){
             $("#bigechartHead").empty();
             require("t_Main").loadCenter_Video();
@@ -723,8 +726,8 @@
             	var ykqsfxdata = [], ykqsfxtime = [];
 
             	for (var i = 0; i < data.length; i++) {
-            		ykqsfxdata.push(data[i].visnumber);
-            		ykqsfxtime.push(data[i].month + "月");
+            	    ykqsfxdata.push(data[i].visNumber);
+            	    ykqsfxtime.push(data[i].month + "月");
             	}
 
                 option = {
@@ -953,12 +956,12 @@
                             startAngle: 45, //起始角度
                             center: ["center", "center"],
                             data: [
-                                { value: data.data[0].value, name: data.data[0].name },
-                                { value: data.data[1].value, name: data.data[1].name },
-                                { value: data.data[2].value, name: data.data[2].name },
-                                { value: data.data[3].value, name: data.data[3].name },
-                                { value: data.data[4].value, name: data.data[4].name },
-                                { value: data.data[5].value, name: data.data[5].name }
+                                { value: data[0].value, name: data[0].name },
+                                { value: data[1].value, name: data[1].name },
+                                { value: data[2].value, name: data[2].name },
+                                { value: data[3].value, name: data[3].name },
+                                { value: data[4].value, name: data[4].name },
+                                { value: data[5].value, name: data[5].name }
                             ],
                             itemStyle: {
                                 emphasis: {
@@ -1072,7 +1075,7 @@
 
                     wrjOption = {
                         title: {
-                            text: data.wrj_cnt,
+                            text: data[0].wrj_cnt,
                             subtext: '总数',
                             x: 'center',
                             y: '38%',
@@ -1134,9 +1137,9 @@
                                     }
                                 },
                                 data: [
-                                    { value: data.wrj_flying_cnt, name: '执飞中' },
-                                    { value: data.wrj_charging_cnt, name: '充电中' },
-                                    { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
+                                    { value: data[0].wrj_flying_cnt, name: '执飞中' },
+                                    { value: data[0].wrj_charging_cnt, name: '充电中' },
+                                    { value: data[0].wrj_idle_cnt, name: '待命中' }
                                 ]
                             }
                         ]
@@ -1159,7 +1162,7 @@
                 var data = require("t_Echart").wrjData;
                 wrjOption = {
                     title: {
-                        text: data.wrj_cnt,
+                        text: data[0].wrj_cnt,
                         subtext: '总数',
                         x: 'center',
                         y: '38%',
@@ -1223,9 +1226,9 @@
                                 }
                             },
                             data: [
-                                { value: data.wrj_flying_cnt, name: '执飞中' },
-                                { value: data.wrj_charging_cnt, name: '充电中' },
-                                { value: data.wrj_lost_cnt + data.wrj_idle_cnt, name: '待命中' }
+                                     { value: data[0].wrj_flying_cnt, name: '执飞中' },
+                                     { value: data[0].wrj_charging_cnt, name: '充电中' },
+                                     { value: data[0].wrj_idle_cnt, name: '待命中' }
                             ]
                         }
                     ]
@@ -1246,16 +1249,18 @@
             t_EchartAjax.getJtxxData(function (data) {
                 var data = require("t_Echart").jtxxData;//数据
                 try {
-                    var dtNumber = data[sum].进港;
+                    var cgNumber = data[sum].进港;
 
-                    var jcgNumber = data[sum].出港;
+                    var jgNumber = data[sum].出港;
 
                     var tccNumber = data[sum].停车场;
 
-                    $('#subway').html(dtNumber);
-                    $('#car').html(jcgNumber);
-                    $('#park').html(tccNumber);
+                    var dtNumber = data[sum].地铁;
 
+                    $('#subway').html(cgNumber);
+                    $('#car').html(jgNumber);
+                    $('#park').html(tccNumber);
+                    $('#dt').html(dtNumber);
                 } catch (error) {
 
                 }
@@ -1264,21 +1269,16 @@
                 var sum = MyDate(0);//索引查找第一天日期
                 t_EchartAjax.getJtxxData(function (data) {
                     var data = require("t_Echart").jtxxData;//数据
-
-                    var CarRan = Math.round(Math.random() * 1657);
-                    var parkRan = Math.round(Math.random() * 663);
                     try {
 
-                        var dtNumber = data[sum].进港;
-                        var jcgNumber = data[sum].出港;
+                        var jgNumber = data[sum].进港;
+                        var cgNumber = data[sum].出港;
                         var tccNumber = data[sum].停车场;
-                        $('#subway').html(dtNumber);
-                        $('#car').html(jcgNumber);
+                        var dtNumber = data[sum].地铁;
+                        $('#subway').html(jgNumber);
+                        $('#car').html(cgNumber);
                         $('#park').html(tccNumber);
-                        //com.numberAnimation($('#subway'), dtNumber - 0, dtNumber, 1500);
-                        //com.numberAnimation($('#car'), jcgNumber - CarRan, jcgNumber + CarRan, 3000);
-                        //com.numberAnimation($('#park'), tccNumber - parkRan, tccNumber + parkRan, 2000);
-
+                        $('#').html(dtNumber);
                     } catch (error) {
 
                     }
@@ -1286,12 +1286,12 @@
             }, 1000 * 60 * 1); //每分钟刷新一次页面下边显示的数据
             if ($("#car").length > 0) {
                 this.Interval1 = setInterval(function () {
-                    var jcgNumber = $("#car").html();
-                    if (jcgNumber != "" && jcgNumber != null) {
-                        jcgNumber = jcgNumber.replace(/,/ig, '');
+                    var cgNumber = $("#car").html();
+                    if (cgNumber != "" && cgNumber != null) {
+                        cgNumber = cgNumber.replace(/,/ig, '');
                     }
                     var step_values = com.random(0, 10)
-                    var current_values = parseInt(jcgNumber) + step_values
+                    var current_values = parseInt(cgNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
                     current_values = com.toThousands(current_values)
                     $("#car").html(current_values)
@@ -1312,16 +1312,29 @@
             }
             if ($("#subway").length > 0) {
                 this.Interval4 = setInterval(function () {
-                    var tccNumber = $("#subway").html();
-                    if (tccNumber != "" && tccNumber != null) {
-                        tccNumber = tccNumber.replace(/,/ig, '');
+                    var jgNumber = $("#subway").html();
+                    if (jgNumber != "" && jgNumber != null) {
+                        jgNumber = jgNumber.replace(/,/ig, '');
                     }
                     var step_values = com.random(0, 10)
-                    var current_values = parseInt(tccNumber) + step_values
+                    var current_values = parseInt(jgNumber) + step_values
                     //if (current_values <= 20) { current_values = 20 }
                     current_values = com.toThousands(current_values)
                     $("#subway").html(current_values)
                 }, 5400);
+            }
+            if ($("#dt").length > 0) {
+                this.Interval5 = setInterval(function () {
+                    var dtNumber = $("#dt").html();
+                    if (dtNumber != "" && dtNumber != null) {
+                        dtNumber = dtNumber.replace(/,/ig, '');
+                    }
+                    var step_values = com.random(0, 10)
+                    var current_values = parseInt(dtNumber) + step_values
+                    //if (current_values <= 20) { current_values = 20 }
+                    current_values = com.toThousands(current_values)
+                    $("#dt").html(current_values)
+                }, 6000);
             }
         },
 
@@ -1354,7 +1367,7 @@
             if ($("#jtxx-chart").length <= 0) { return false; }
             t_EchartAjax.getJtxxData(function (data) {
                 // var dtData = [0, 0, 0, 0, 0, 0, 0], jcgData = [129116, 137918, 118433, 126314, 121394, 127931, 93626], tccData = [28887, 25124, 15987, 10006, 19017, 19364, 14042];
-                var jgclData = [], cgclData = [], tccData = []
+                var jgclData = [], cgclData = [], tccData = [],dtData=[]
 
                 var TempData = 0;
                 var data = require("t_Echart").jtxxData;//数据
@@ -1363,6 +1376,7 @@
                         jgclData.push(data[i].进港)
                         cgclData.push(data[i].出港)
                         tccData.push(data[i].停车场)
+                        dtData.push(data[i].地铁)
                         TempData++
                     }
                     JtxxCharxAxisData = [MyDate(6), MyDate(5), MyDate(4), MyDate(3), MyDate(2), MyDate(1), MyDate(0)];
@@ -1371,9 +1385,10 @@
                         JtxxCharData1 = jgclData;
                         JtxxCharData2 = cgclData;
                         JtxxCharData3 = tccData;
-                        JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3, JtxxCharxAxisData)
+                        JtxxCharData4 = dtData;
+                        JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3,JtxxCharData4, JtxxCharxAxisData)
                     }
-                    function JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3, JtxxCharxAxisData) {
+                    function JtxxChartFun(JtxxCharData1, JtxxCharData2, JtxxCharData3,JtxxCharData4, JtxxCharxAxisData) {
                         jtxxOption = {
                             title: {
                                 text: "实时流量",
@@ -1387,9 +1402,9 @@
                             legend: {
                                 left: '25%',
                                 top: " 5%",
-                                data: ['进港车辆', '出港车辆', '停车场'],
+                                data: ['进港车辆', '出港车辆', '停车场','地铁'],
                                 icon: 'rect',
-                                itemWidth: 26,
+                                itemWidth: 40,
                                 itemHeight: 26,
                                 textStyle: {
                                     fontSize: 28,
@@ -1508,6 +1523,16 @@
                                   symbolSize: 8,
                                   name: "停车场",
                                   data: JtxxCharData3
+                              },
+                              {
+                                  type: 'line',
+                                  color: "blue",
+                                  lineStyle: {
+                                      width: 4,
+                                  },
+                                  symbolSize: 8,
+                                  name: "地铁",
+                                  data: JtxxCharData4
                               }
                             ]
                         };
@@ -1587,6 +1612,18 @@
                                 color: "#fff"
                             },
                             data: ['停车场']
+                        },
+                        {
+                            left: '80%',
+                            top: "1%",
+                            icon: 'rect',
+                            itemWidth: 50,
+                            itemHeight: 50,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#fff"
+                            },
+                            data: ['地铁']
                         },
                     ],
                     color: ['#3398DB'],
@@ -1706,6 +1743,16 @@
                             symbolSize: 16,
                             name: "停车场",
                             data: JtxxCharData3
+                        },
+                        {
+                            type: 'line',
+                            color: "blue",
+                            lineStyle: {
+                                width: 8,
+                            },
+                            symbolSize: 16,
+                            name: "地铁",
+                            data: JtxxCharData4
                         }
                     ]
                 };
@@ -1723,19 +1770,12 @@
         },
         //在线摄像头
         zxsxt: function () {
-            $.ajax({
-                type: 'POST',
-                url: 'http://47.101.181.131:8091/cameraInfo',
-                cache: false,
-                // data:post_data,
-                dataType: 'json',
-                success: function (data) {
-
-                   
-                },
-                error: function () {
-
-                }
+            t_EchartAjax.zxsxt(function (data) {
+                var data = require('t_Echart').zxsxtData;
+                $('#total').html(data.onTotal);
+                $('#ball').html(data.onBall);
+                $('#gun').html(data.onGun);
+                $('#eagle').html(data.onEagle);
             })
         },
 
@@ -2015,8 +2055,7 @@
 
                     })
             }
-            else if (domName == "dt") {
-
+            else if (domName == "dtrs") {
                     clearInterval(window.personCarTimer2)
                     clearInterval(window.personCarTimer3);
                     clearInterval(window.personCarTimer4);
@@ -3515,162 +3554,99 @@
 
 
         },
-        //园区事件类型分布列表  
-        yqsjlblx: function () {
-            function MyDate(n) {
-                var n = n;
-                var d = new Date();
-                var year = d.getFullYear();
-                var mon = d.getMonth() + 1;
-                var day = d.getDate();
-                if (day <= n) {
-                    if (mon > 1) {
-                        mon = mon - 1;
-                    }
-                    else {
-                        year = year - 1;
-                        mon = 12;
-                    }
-                }
-                d.setDate(d.getDate() - n);
-                year = d.getFullYear();
-                mon = d.getMonth() + 1;
-                day = d.getDate(); s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
-                //day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
+        //园区事件统计--类型
+        yqsjtjType: function () {
+            t_EchartAjax.getYqsjtjType(function (result) {
+            	var data = require("t_Echart").yqsjtjTypeData;
+            	var htmltotal = '';
+            	htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
+            	htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
+            	$('#sjlxtotal').html(htmltotal);
+            	var html = '';
+            	for (var key in data) {
+            		if (key !== "catCounts" && key !== "eventCounts") {
+            			html += '<li class="yqsj-item">' +
+								  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
+								  '<ol class="yqsj-itemol">'
+            						for (var key2 in data[key]) {
+            							if (key2 !== "total") {
+            								html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
+            							}
+            						}
+            			html += '</ol></li>'
+            		}
+            	}
 
-                return s;
-
-            }
-            var post_data = {
-                "startTime": MyDate(1),
-                "endTime": MyDate(0)
-            }
-            t_EchartAjax.yqsjlblx(post_data, function (result) {
-                var data = require("t_Echart").yqsjlblxData;
-
-                var htmltotal = '';
-                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
-                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
-                $('#sjlxtotal').html(htmltotal);
-                var html = '';
-                html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].name + '</div>';
-                html += '<ol class="yqsj-itemol">';
-                html += '<li class="">' + data[0].label + '</li>';
-                html += '<li class="">' + data[0].content + '</li>';
-                html += '</ol>';
-                html += '</li>';
-                for (var i = 2; i < data.length; i++) {
-                    html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].name + '</div>';
-                    html += '<ol class="yqsj-itemol">';
-                    html += '<li class="">' + data[i].label + '</li>';
-                    html += '<li class="">' + data[i].content + '</li>';
-                    html += '</ol>';
-                    html += '</li>';
-                }
-                $('#sj').html(html);
-                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+            	$('#sjlxList').html(html);
+            	$('#sjlxList>li:first-child').addClass("active");
+            	$('#sjlxList>li:first-child  .yqsj-itemol>li:first-child').addClass("active");
+            	$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
             $("#jqsjtj").click(function () {
-                require("t_Echart").yqsjlblx();
+            	require("t_Echart").yqsjtjType();
             })
             
         },
-        yqsjlbqy: function () {
-            function MyDate(n) {
-                var n = n;
-                var d = new Date();
-                var year = d.getFullYear();
-                var mon = d.getMonth() + 1;
-                var day = d.getDate();
-                if (day <= n) {
-                    if (mon > 1) {
-                        mon = mon - 1;
-                    }
-                    else {
-                        year = year - 1;
-                        mon = 12;
-                    }
-                }
-                d.setDate(d.getDate() - n);
-                year = d.getFullYear();
-                mon = d.getMonth() + 1;
-                day = d.getDate();
-                s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
-                //day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
+        //yqsjlbqy: function () {
+        //    function MyDate(n) {
+        //        var n = n;
+        //        var d = new Date();
+        //        var year = d.getFullYear();
+        //        var mon = d.getMonth() + 1;
+        //        var day = d.getDate();
+        //        if (day <= n) {
+        //            if (mon > 1) {
+        //                mon = mon - 1;
+        //            }
+        //            else {
+        //                year = year - 1;
+        //                mon = 12;
+        //            }
+        //        }
+        //        d.setDate(d.getDate() - n);
+        //        year = d.getFullYear();
+        //        mon = d.getMonth() + 1;
+        //        day = d.getDate();
+        //        s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
+        //        //day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
 
-                return s;
+        //        return s;
 
-            }
-            var post_data = {
-                "startTime": MyDate(1),
-                "endTime": MyDate(0)
-            }
-            t_EchartAjax.yqsjlbqy(post_data, function (result) {
-                var data = require("t_Echart").yqsjlbqyData;
+        //    }
+        //    var post_data = {
+        //        "startTime": MyDate(1),
+        //        "endTime": MyDate(0)
+        //    }
+        //    t_EchartAjax.yqsjlbqy(post_data, function (result) {
+        //        var data = require("t_Echart").yqsjlbqyData;
 
-                var htmltotal2 = '';
-                htmltotal2 += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
-                htmltotal2 += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
-                $('#sjqytotal').html(htmltotal2);
-                var html = '';
-                html += '<li class="yqsj-item active">';
-                html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].content + '</div>';
-                html += '<ol class="yqsj-itemol">';
-                //html += '<li class="">' + data.data[0].label + '</li>';
-                html += '<li class="">' + data[0].content + '</li>';
-                html += '</ol>';
-                html += '</li>';
-                for (var i = 2; i < data.length; i++) {
-                    html += '<li class="yqsj-item">';
-                    html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].content + '</div>';
-                    html += '<ol class="yqsj-itemol">';
-                    //html += '<li class="">' + data.data[i].label + '</li>';
-                    html += '<li class="">' + data[i].content + '</li>';
-                    html += '</ol>';
-                    html += '</li>';
-                }
+        //        var htmltotal2 = '';
+        //        htmltotal2 += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
+        //        htmltotal2 += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
+        //        $('#sjqytotal').html(htmltotal2);
+        //        var html = '';
+        //        html += '<li class="yqsj-item active">';
+        //        html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].content + '</div>';
+        //        html += '<ol class="yqsj-itemol">';
+        //        //html += '<li class="">' + data.data[0].label + '</li>';
+        //        html += '<li class="">' + data[0].content + '</li>';
+        //        html += '</ol>';
+        //        html += '</li>';
+        //        for (var i = 2; i < data.length; i++) {
+        //            html += '<li class="yqsj-item">';
+        //            html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].content + '</div>';
+        //            html += '<ol class="yqsj-itemol">';
+        //            //html += '<li class="">' + data.data[i].label + '</li>';
+        //            html += '<li class="">' + data[i].content + '</li>';
+        //            html += '</ol>';
+        //            html += '</li>';
+        //        }
 
-                $('#sj2').html(html);
-                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
-            })
-        },
-    	//园区事件列表----原来的
-        //yqsjlbtj: function () {
-        //	var post_data = {
-        //		"startTime": MyDate(1),
-        //		"endTime": MyDate(0)
-        //	}
-        //	t_EchartAjax.yqsjlbtj(post_data, function (result) {
-        //		var data = require("t_Echart").yqsjlbtjData;
-        //		$('.yqsjlb-list').empty();
-        //		var html = '';
-
-        //		for (var i = 0; i < data.outputData.length; i++) {
-        //			html += '<li class="yqsjlb-item clearfix">';
-        //			html += '<div class="item-l"></div>';
-        //			html += '<div class="item-r">';
-        //			html += '<div>拍照时间：' + data.outputData[i].sbsj + '</div>';
-        //			html += '<div>事件类型：' + data.outputData[i].sj + '<span>处置状态：' + data.outputData[i].DICTNAME + '</span></div>';
-        //			html += '<div>事件详情：' + data.outputData[i].sjms + '。</div>';
-        //			html += '</div>';
-        //			html += '</li>';
-        //		}
-
-        //		$('.yqsjlb-list').html(html);
-        //		for (var i = 0; i < data.outputData.length; i++) {
-        //			if (data.outputData[i].snapshoturiwithrect == undefined || data.outputData[i].snapshoturiwithrect == "") {
-        //				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(../Content/images/yqsjlb-default.png)")
-        //				$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
-        //			} else if (data.outputData[i].snapshoturiwithrect != undefined) {
-        //				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data.outputData[i].snapshoturiwithrect + ")")
-        //			}
-
-        //		}
-
-        //	})
+        //        $('#sj2').html(html);
+        //        $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+        //    })
         //},
+
     	//园区事件列表
         yqsjlbtj: function () {
         	var nowdata = require("common").getNowFormatDate();//当前时间
@@ -3895,30 +3871,6 @@
 
         //清空
         Revert: function () {
-            //if (this.Interval6 != null) {
-            //    clearInterval(this.Interval6)
-            //}
-            //if (this.Interval7 != null) {
-            //    clearInterval(this.Interval7)
-            //}
-            //if (this.Interval8 != null) {
-            //    clearInterval(this.Interval8)
-            //}
-            //if (this.Interval9 != null) {
-            //    clearInterval(this.Interval9)
-            //}
-            //if (this.Interval10 != null) {
-            //    clearInterval(this.Interval10)
-            //}
-            //if (this.Interval11 != null) {
-            //    clearInterval(this.Interval11)
-            //}
-            //if (this.Interval12 != null) {
-            //    clearInterval(this.Interval12)
-            //}
-            //if (this.Interval13 != null) {
-            //    clearInterval(this.Interval13)
-            //}
             if (this.personCarTimer != null) {
                 clearInterval(this.personCarTimer)
             }
@@ -3945,6 +3897,9 @@
             }
             if (this.Interval4 != null) {
                 clearInterval(this.Interval4)
+            }
+            if (this.Interval5 != null) {
+                clearInterval(this.Interval5)
             }
             //游客趋势分析
             if (require("t_Echart").myChartykqsfx != null && require("t_Echart").myChartykqsfx != "" && require("t_Echart").myChartykqsfx != undefined) {

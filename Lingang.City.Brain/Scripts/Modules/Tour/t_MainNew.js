@@ -314,8 +314,8 @@
                     leftOrRight: 'right'
                 }
                 com.UIControlAni(option, function () {
-                    require("t_Echart").yqsjlblx();//园区事件列表类型 
-                    require("t_Echart").yqsjlbqy();//园区事件列表区域
+                	require("t_Echart").yqsjtjType();//园区事件统计类型 
+                	//require("t_Echart").yqsjlbqy();//园区事件统计区域
                     
                 });
             },
@@ -429,8 +429,8 @@
                             $(".prism-ErrorMessage").empty();
                         })
                     });
-                    var post_data = { "sbbm": "31011900081316001191" }
-
+                    //var post_data = { "sbbm": "31011900081316001191" }
+                    var post_data = { "sbbm": "31011900081326016003" }
                     require("t_LayerMenuAjax").getCameraUrlById(post_data, function (result) {
                         var cameraurl2 = result.data;
                         //console.log('B:' + cameraurl)

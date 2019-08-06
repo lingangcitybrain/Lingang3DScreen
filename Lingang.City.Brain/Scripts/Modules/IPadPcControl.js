@@ -38,7 +38,7 @@
         },
 
         ///////////////////////////////////////////////////菜单控制//////////////////////////////////////////////////////////////////
-        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；102:确认框
+        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；102:确认框;105:收放大数字
         menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
@@ -104,6 +104,11 @@
                        // window.open('', '_self', ''); window.close();
                         $(".vex-dialog-button-secondary").click();
                         break;
+                    //case "105":  //收缩大数字
+
+                    //    $(".statistic-slidebtn").css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                    //    //$(".statistic-slidebtn").css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+                    //    break;
                     default:
                 }
 

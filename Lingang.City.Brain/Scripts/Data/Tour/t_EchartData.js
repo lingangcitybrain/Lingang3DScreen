@@ -128,13 +128,10 @@ define(["config"], function (con) {
            
         
         //无人机
-        wrjData: {
-            "wrj_flying_cnt": 0,
-            "wrj_idle_cnt": 0,
-            "wrj_lost_cnt": 7,
-            "wrj_cnt": 7,
-            "wrj_charging_cnt": 0
-        },
+        wrjData: [{ "wrj_flying_cnt": 1,
+        "wrj_idle_cnt": 2,
+        "wrj_cnt": 5,
+        "wrj_charging_cnt": 1 }],
         //交通信息
         jtxxData:{
             "20190323": {
@@ -1216,6 +1213,7 @@ define(["config"], function (con) {
                 }
             }
         }],
+        //停车场使用情况
         tccsyqkData: {
 	        "20190524": {
 	            "临港大道": 24,
@@ -1261,149 +1259,177 @@ define(["config"], function (con) {
             }
         },
         //景区事件列表类型
-        yqsjlblxData: 
-           
-             [
-                {
-                    "name": "车辆违章",
-                    "VALUE": 164,
-                    "label": "疑似渣土车",
-                    "content": "疑似渣土车(164)"
-                },
-                {
-                    "name": "非法营运",
-                    "VALUE": 137,
-                    "label": "疑似黑车",
-                    "content": "疑似黑车(137)"
-                },
-                {
-                    "name": "车辆违章",
-                    "VALUE": 9,
-                    "label": "非法停车",
-                    "content": "非法停车(9)"
-                },
-                {
-                    "name": "社会治安",
-                    "VALUE": 0,
-                    "label": "拉横幅钉钉",
-                    "content": "拉横幅钉钉(0)"
-                },
-                {
-                    "name": "停车场爆满预警",
-                    "VALUE": 0,
-                    "label": "停车场爆满预警HC",
-                    "content": "停车场爆满预警HC(0)"
-                },
-                {
-                    "name": "市容市貌",
-                    "VALUE": 0,
-                    "label": "无人机垃圾",
-                    "content": "无人机垃圾(0)"
-                },
-                {
-                    "name": "大客流场景预警",
-                    "VALUE": 0,
-                    "label": "大客流预警",
-                    "content": "大客流预警(0)"
-                },
-                {
-                    "name": "车辆拥堵",
-                    "VALUE": 0,
-                    "label": "杞青路车辆拥堵",
-                    "content": "杞青路车辆拥堵(0)"
-                },
-                {
-                    "name": "车辆违章",
-                    "VALUE": 0,
-                    "label": "违规越界",
-                    "content": "违规越界(0)"
-                },
-                {
-                    "name": "社会治安",
-                    "VALUE": 0,
-                    "label": "拉横幅",
-                    "content": "拉横幅(0)"
-                }
-            ],
-           
-        //景区事件列表区域
-        yqsjlbqyData: 
-             [{
-                "value": 561,
-                "content": "港城新天地(561)"
+        yqsjtjTypeData: {
+            "市容市貌": {
+                "超门店经营": 0,
+                "total": 0,
+                "占道堆物": 0,
+                "无人机垃圾": 0,
+                "无人机摊贩": 0,
+                "占道经营": 0
+            },
+            "大客流场景预警": {
+                "total": 0,
+                "大客流预警": 0
+            },
+            "非法营运": {
+                "total": 631,
+                "疑似黑车": 631
+            },
+            "车辆拥堵": {
+                "total": 4,
+                "银飞路车辆拥堵": 4,
+                "松萝路车辆拥堵": 0,
+                "沪城环路车辆拥堵": 0,
+                "杞青路车辆拥堵": 0
+            },
+            "社会治安2": {
+                "示威游行": 0,
+                "翻越围栏": 1,
+                "total": 1,
+                "拉横幅钉钉": 0,
+                "拉横幅": 0,
+                "群体械斗": 0,
+                "火灾烟雾": 0,
+                "黄牛布控": 0
+            },
+            "catCounts": 8,
+            "停车场爆满预警": {
+                "重点车管控": 0,
+                "ceshi333": 0,
+                "total": 0,
+                "停车场爆满预警P1": 0,
+                "停车场爆满预警HC": 0,
+                "停车场爆满预警GC": 0,
+                "停车场爆满预警XRH": 0
+            },
+            "人群聚集": {
+                "total": 0,
+                "人员滞留": 0,
+                "人群聚集": 0
+            },
+            "eventCounts": 758,
+            "车辆违章": {
+                "非法停车": 0,
+                "total": 122,
+                "疑似渣土车": 122,
+                "非机动车驶入禁区": 0
+            }
+        },
+        //旧景区事件列表区域
+        yqsjlbqyData:{
+            "total": 595,
+            "data": [{
+                "value": 234,
+                "content": "沪城环路西侧E村(234)"
             }, {
-                "value": 79,
-                "content": "临港大道P1(79)"
+                "value": 140,
+                "content": "临港大道北侧G村(140)"
             }, {
-                "value": 63,
-                "content": "上海海洋大学(63)"
+                "value": 84,
+                "content": "宜浩佳园第一居委会(84)"
             }, {
-                "value": 33,
-                "content": "雪绒花P(33)"
+                "value": 80,
+                "content": "海昌公园(80)"
             }, {
-                "value": 17,
-                "content": "绿地临港家园海洋小区(17)"
+                "value": 49,
+                "content": "保利蔚蓝林语居委会(49)"
             }, {
-                "value": 17,
-                "content": "海昌公园(17)"
+                "value": 4,
+                "content": "临港家园社区居委会(4)"
             }, {
-                "value": 6,
-                "content": "海昌公园旁(6)"
+                "value": 2,
+                "content": "宜浩佳园第二居委会(2)"
+            }, {
+                "value": 2,
+                "content": "东岸涟城居委会(2)"
             }, {
                 "value": 0,
-                "content": "临港大道周边(0)"
-            }, {
-                "value": 0,
-                "content": "临港创业园区(0)"
+                "content": "科创城区域(0)"
             }, {
                 "value": 0,
                 "content": "滴水湖步行区(0)"
-            }, {
-                "value": 0,
-                "content": "港城新天地P(0)"
-            }, {
-                "value": 0,
-                "content": "滴水湖幼儿园(0)"
-            }, {
-                "value": 0,
-                "content": "同济大学海洋科技技术研究中心(0)"
-            }, {
-                "value": 0,
-                "content": "滴水湖景区(0)"
-            }, {
-                "value": 0,
-                "content": "临港大学城(0)"
-            }, {
-                "value": 0,
-                "content": "无人机(0)"
-            }, {
-                "value": 0,
-                "content": "临港大道地铁口(0)"
-            }, {
-                "value": 0,
-                "content": "上海海事大学(0)"
-            }, {
-                "value": 0,
-                "content": "南汇嘴观海公园(0)"
-            }, {
-                "value": 0,
-                "content": "海洋小区周边(0)"
-            }, {
-                "value": 0,
-                "content": "港城新天地new(0)"
-            }, {
-                "value": 0,
-                "content": "海昌海洋公园(0)"
-            }, {
-                "value": 0,
-                "content": "海昌公园内部P(0)"
-            }, {
-                "value": 0,
-                "content": "海昌公园景区(0)"
-            }, {
-                "value": 0,
-                "content": "上海海洋科技(0)"
             }],
+            "typeValue": 10
+        },
+        //中台景区事件列表区域
+        //yqsjlbqyData: 
+        //     [{
+        //        "value": 561,
+        //        "content": "港城新天地(561)"
+        //    }, {
+        //        "value": 79,
+        //        "content": "临港大道P1(79)"
+        //    }, {
+        //        "value": 63,
+        //        "content": "上海海洋大学(63)"
+        //    }, {
+        //        "value": 33,
+        //        "content": "雪绒花P(33)"
+        //    }, {
+        //        "value": 17,
+        //        "content": "绿地临港家园海洋小区(17)"
+        //    }, {
+        //        "value": 17,
+        //        "content": "海昌公园(17)"
+        //    }, {
+        //        "value": 6,
+        //        "content": "海昌公园旁(6)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "临港大道周边(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "临港创业园区(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "滴水湖步行区(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "港城新天地P(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "滴水湖幼儿园(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "同济大学海洋科技技术研究中心(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "滴水湖景区(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "临港大学城(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "无人机(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "临港大道地铁口(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "上海海事大学(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "南汇嘴观海公园(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "海洋小区周边(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "港城新天地new(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "海昌海洋公园(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "海昌公园内部P(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "海昌公园景区(0)"
+        //    }, {
+        //        "value": 0,
+        //        "content": "上海海洋科技(0)"
+        //    }],
             
         //景区事件列表统计
         yqsjlbtjData: {

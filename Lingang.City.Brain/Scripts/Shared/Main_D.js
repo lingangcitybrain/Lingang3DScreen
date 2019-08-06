@@ -161,14 +161,14 @@ require.config({
 
 
 //加载三维
-require(['Shared/Map', "qmap3d", "qmap3dcustom", 'jquery', 'jqueryui'], function (mapObj) {
+require(['Shared/Map_D', "qmap3d", "qmap3dcustom", 'jquery', 'jqueryui'], function (mapObj) {
     mapObj.initMap();
 
     // 社区综治
-    require(['s_Main'], function (data) {
-        data.loadMain();
-        $("body").css("background-color", "black");
-    });
+    // require(['s_Main'], function (data) {
+    //     data.loadMain();
+    //     $("body").css("background-color", "black");
+    // });
 
     // 园区
     //require(['g_Main'], function (data) {

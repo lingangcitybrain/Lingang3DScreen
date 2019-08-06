@@ -1,6 +1,7 @@
 ﻿define(['config', 'common', "control_Ajax", 's_Echart', 's_Main', 't_Main', "e_Main", "g_Main", "b_Main", "t_Home", "s_Home", "e_Home", "pagination"],
 function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_Home, e_Home, pagination) {
     return {
+        thisClick:false,
         loadJs: function () {
             require('mainJsLoad').mainCameraUpdate();
         },
@@ -96,5 +97,33 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
             control_Ajax.sendPageButtoncontrolInfo(jsondata); //发送控制命令
         },
         /*********************END*********************/
+
+
+        /******************图表中间大数字收缩*******************/
+        statisticslidebtn: function () {
+            if (!this.thisClick) {
+                this.thisClick = true;
+                $('.statistic-slidebtn').css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+                
+            } else {
+                this.thisClick = false;
+                $('.statistic-slidebtn').css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();
+            }
+            var jsondata = {
+                "menu": "all",
+                "layer": "all",
+                "type": "dszss",
+                "id": "",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+        },
     }
 })
+
+
+//$(".statistic-slidebtn").click()
+
+//$(".statistic-slidebtn").css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();
+//$(".statistic-slidebtn").css({ transform: 'rotate(180deg)' }).siblings(".statistic-slidediv").slideDown();

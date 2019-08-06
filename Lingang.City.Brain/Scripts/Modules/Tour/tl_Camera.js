@@ -269,6 +269,13 @@
                         //map.getArea(areaName).destroySceneNode(poiname);
                         node.setVisible(0);
                     }
+
+                    var poiname_offline = "POITour" + name + "_" + data[i].id + '_offline';
+                    var node_offline = map.getSceneNode(areaName + "/" + poiname_offline);
+                    if (node_offline) {
+                        //map.getArea(areaName).destroySceneNode(poiname);
+                        node_offline.setVisible(0);
+                    }
                 }
                 //this.LayerType = null;
                 //this.POIData = null;

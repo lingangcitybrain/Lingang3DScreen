@@ -32,22 +32,22 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v1/park/userAgeDistribute',// url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
+                    url: con.InterfaceUrl_DataStation + '/v1/park/getUserAgeDistribute',// url: con.InterfaceUrl + 'v1/park/userAgeDistribute',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("t_Echart").TouristAnalysisData = data.data;
+                        require("t_Echart").TouristAnalysisData = data;
                         callback(data);
                     },
                     error: function () {
-                        require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData.data;
+                        require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData;
                         callback();
 
                     }
                 });
             }
             else {//执行本地
-                require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData.data;
+                require("t_Echart").TouristAnalysisData = t_EchartData.TouristAnalysisData;
                 callback();
             }
         },
@@ -137,6 +137,30 @@
             }
             else {//执行本地
                 require("t_Echart").yqfxData = t_EchartData.yqfxData;
+                callback();
+            }
+        },
+        //在线摄像头
+        zxsxt: function (callback) {
+            if (con.IsInterface) {
+                $.ajax({
+                    type: 'POST',
+                    url: con.InterfaceUrl_DataStation + '/v1/park/camera',
+                    cache: false,
+                    // data:post_data,
+                    dataType: 'json',
+                    success: function (data) {
+                        require("t_Echart").zxsxtData = data;
+                        callback(data)
+                    },
+                    error: function () {
+                        require("t_Echart").zxsxtData = t_EchartData.zxsxtData;
+                        callback();
+                    }
+                })
+            }
+            else {//执行本地
+                require("t_Echart").zxsxtData = t_EchartData.zxsxtData;
                 callback();
             }
         },
@@ -278,8 +302,8 @@
             }
 
         },
-        //景区事件列表类型
-        yqsjlblx: function (post_data, callback) {
+        //景区事件统计类型
+        getYqsjtjType: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
@@ -289,17 +313,17 @@
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("t_Echart").yqsjlblxData = data;
+                    	require("t_Echart").yqsjtjTypeData = data;
                         callback(data);
                     },
                     error: function () {
-                        require("t_Echart").yqsjlblxData = t_EchartData.yqsjlblxData;
-                        callback();
+                       // require("t_Echart").yqsjlblxData = t_EchartData.yqsjlblxData;
+                       // callback();
                     }
                 });
             }
             else {//执行本地
-                require("t_Echart").yqsjlblxData = t_EchartData.yqsjlblxData;
+            	require("t_Echart").yqsjtjTypeData = t_EchartData.yqsjtjTypeData;
                 callback();
             }
         },
@@ -360,8 +384,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl_TourEvent + 'v1/park/affair',
-                    url: con.InterfaceUrl_DataStation + '/v1/park/affair/list',
+                    url: con.InterfaceUrl_TourEvent + 'v1/park/affair',
+                    //url: con.InterfaceUrl_DataStation + '/v1/park/affair/list',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
