@@ -9,20 +9,20 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             require("common").alert(text);
         },
         commonConfirm: function () {
-            $(".header-cancel").click(function () {
+            //$(".header-cancel").click(function () {
                 vex.dialog.confirm({
-                    message: '是否关闭系统！',
+                    message: '关闭系统大屏？',
                     callback: function (value) {
                         if (value) {
                             window.open('', '_self', ''); window.close();
                         }
                         else {
-                            return null;
+                            //return null;
                         }
                     },
                     className: 'vex-theme-default'
                 });               
-            })
+            //})
         },
         /******************分页点击事件*****************/
         pagination: function (domID, length, optInit,pageindex) {

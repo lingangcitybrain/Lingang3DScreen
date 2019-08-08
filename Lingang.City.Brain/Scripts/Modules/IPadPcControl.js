@@ -82,28 +82,28 @@
                     case "101"://关闭alert窗口
                         $('.vex-dialog-button-primary').click();
                         break;
-                    case "102":
-                        vex.dialog.confirm({
-                            message: '是否关闭系统！',
-                            callback: function (value) {
-                                if (value) {
-                                    window.open('', '_self', ''); window.close();
-                                }
-                                else {
-                                    return null;
-                                }
-                            },
-                            className: 'vex-theme-default'
-                        });
-                        break;
-                    case "103"://关闭系统
-                        //window.open('', '_self', ''); window.close();
-                        $(".vex-dialog-button-primary").click();
-                        break;
-                    case "104":  //关闭确认框
-                       // window.open('', '_self', ''); window.close();
-                        $(".vex-dialog-button-secondary").click();
-                        break;
+                    //case "102":
+                    //    vex.dialog.confirm({
+                    //        message: '是否关闭系统！',
+                    //        callback: function (value) {
+                    //            if (value) {
+                    //                window.open('', '_self', ''); window.close();
+                    //            }
+                    //            else {
+                    //                return null;
+                    //            }
+                    //        },
+                    //        className: 'vex-theme-default'
+                    //    });
+                    //    break;
+                    //case "103"://关闭系统
+                    //    //window.open('', '_self', ''); window.close();
+                    //    $(".vex-dialog-button-primary").click();
+                    //    break;
+                    //case "104":  //关闭确认框
+                    //   // window.open('', '_self', ''); window.close();
+                    //    $(".vex-dialog-button-secondary").click();
+                    //    break;
                     //case "105":  //收缩大数字
 
                     //    $(".statistic-slidebtn").css({ transform: 'rotate(0)' }).siblings(".statistic-slidediv").slideUp();

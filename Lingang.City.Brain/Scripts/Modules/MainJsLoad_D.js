@@ -37,39 +37,39 @@ function (con, com, control_Ajax, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Ma
             
         },
         commonConfirm: function () {
-            $(".header-cancel").click(function () {
+            //$(".header-cancel").click(function () {
                 vex.dialog.confirm({
-                    message: '是否关闭系统！',
+                    message: '关闭系统控制台？',
                     callback: function (value) {
                         if (value) {
                             window.open('', '_self', ''); window.close();
-                            var jsondata = {
-                                "menu": "103",
-                                "xyz": "",
-                                "angle": "",
-                            };
-                            control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令 
+                            //var jsondata = {
+                            //    "menu": "103",
+                            //    "xyz": "",
+                            //    "angle": "",
+                            //};
+                            //control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令 
                         }
                         else {
-                            var jsondata = {
-                                "menu": "104",
-                                "xyz": "",
-                                "angle": "",
-                            };
-                            control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令 
-                            return null;
+                            //var jsondata = {
+                            //    "menu": "104",
+                            //    "xyz": "",
+                            //    "angle": "",
+                            //};
+                            //control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令 
+                            //return null;
                         }
                     },
                     className: 'vex-theme-default'
                 });
 
-                var jsondata = {
-                    "menu": "102",
-                    "xyz": "",
-                    "angle": "",
-                };
-                control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令 
-            })
+                //var jsondata = {
+                //    "menu": "102",
+                //    "xyz": "",
+                //    "angle": "",
+                //};
+                //control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令 
+            //})
         },
 
         /******************分页点击事件*****************/

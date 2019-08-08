@@ -1211,7 +1211,7 @@ var plugin = function plugin (vex) {
   // Now define any additional data that's not the direct dialog API
   dialog.buttons = {
     YES: {
-      text: 'OK',
+      text: '确定',
       type: 'submit',
       className: 'vex-dialog-button-primary',
       click: function yesClick () {
@@ -1220,7 +1220,7 @@ var plugin = function plugin (vex) {
     },
 
     NO: {
-      text: 'Cancel',
+      text: '取消',
       type: 'button',
       className: 'vex-dialog-button-secondary',
       click: function noClick () {
