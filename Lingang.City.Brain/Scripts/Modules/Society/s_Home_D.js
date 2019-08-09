@@ -1,5 +1,5 @@
-﻿define(["config", "common","tl_Drone", "s_Main", "control_Ajax", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
-function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
+﻿define(["config", "common","tl_Drone", "s_Main", "control_Ajax", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid', 'sl_Pipeline'],
+function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid, sl_Pipeline) {
     return {
         layerNO: null,
         POIName:null,
@@ -29,6 +29,9 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
                     jsondata.menu = "12";
                     break;
                 default:
+            }
+            if(require('sl_Pipeline').isOpenedPipeline == true){
+                require('sl_Pipeline').displayPipeline();
             }
 
             control_Ajax.sendMenuControlInfo(jsondata); //发送控制命令
@@ -149,6 +152,17 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             var jsondata = {
                 "menu": "1",
                 "layer": "28",
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
+        },
+        loadPipeline: function () {
+            this.layerNO = 29;
+            sl_Pipeline.openPipeline();
+            var jsondata = {
+                "menu": "1",
+                "layer": "29",
                 "xyz": "",
                 "angle": "",
             };

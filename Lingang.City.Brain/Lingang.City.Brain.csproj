@@ -890,6 +890,7 @@
     <Content Include="Scripts\Modules\Society\sl_Drone.js" />
     <Content Include="Scripts\Modules\Society\sl_Event.js" />
     <Content Include="Scripts\Modules\Society\sl_Grid.js" />
+    <Content Include="Scripts\Modules\Society\sl_Pipeline.js" />
     <Content Include="Scripts\Modules\Society\sl_SeaboardLine.js" />
     <Content Include="Scripts\Modules\Society\sl_Street.js" />
     <Content Include="Scripts\Modules\Society\sl_WorkSite.js" />

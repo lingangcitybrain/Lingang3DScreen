@@ -1,5 +1,5 @@
-﻿define(["config", "common", "tl_Drone","s_Main", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid'],
-function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid) {
+﻿define(["config", "common", "tl_Drone","s_Main", 's_LayerMenuAjax', 's_LeftLayer', 's_RightLayer', 's_Echart', 'sl_IOT', 'sl_Camera', 'sl_Drone', 'sl_Event', 'sl_SeaboardLine', 'sl_WorkSite', 'sl_WorkStation', 'sl_Street', 'sl_Grid', 'sl_Pipeline'],
+function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer, s_Echart, sl_IOT, sl_Camera, sl_Drone, sl_Event, sl_SeaboardLine, sl_WorkSite, sl_WorkStation, sl_Street, sl_Grid, sl_Pipeline) {
     return {
         loadMain: function () {
             s_Main.loadMain(function () {
@@ -16,6 +16,12 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
                     break;
                 default:
             }
+            setTimeout(function () {
+                if (require('sl_Pipeline').isOpenedPipeline == true) {
+                    require('sl_Pipeline').displayPipeline();
+                }
+            }, 1000);
+
         },
         loadIOT: function () {
             sl_IOT.loadIOT();
@@ -64,12 +70,15 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
             sl_Grid.loadLeftSecond();
             require("s_Main").loadCenter1();
         },
+        loadPipeline:function(){
+            sl_Pipeline.openPipeline();
+        },
         /////////////////////////////////////图表控制///////////////////////////////////////////////////
         loadBigChart: function (seat) {
             require("s_Echart").loadBigChart(seat);
         },
         closeBigChart: function () {
-            require("s_Echart").closeBigChart()
+            require("s_Echart").closeBigChart();
         },
         ///////////////////////////////////end////////////////////////////////////////////////////////
         /*******************************POI操作********************************************/

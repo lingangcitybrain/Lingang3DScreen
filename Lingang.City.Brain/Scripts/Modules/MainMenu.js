@@ -24,7 +24,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             });
 
             //关闭系统按钮
-            $("#header_timetemp button").each(function (index) {
+            $("#header_timetemp .header-cancel").each(function (index) {
                 $(this).click(function () {//点击触发事件
                     require("mainJsLoad").commonConfirm();
                     //vex.dialog.confirm({
@@ -233,13 +233,13 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
         showLayer_smain: function (index) {
             s_Main.Revert();
             require('mainMenu').closeBigChartHtml();
-        	//关闭社综居中放大的事件列表
+            //关闭社综居中放大的事件列表
             require('s_Echart').closeCenterEventList();
             require('s_Echart').closeCenterCarIdentify();
 
             var menuname = $("li").eq(index).text();
-            $("li").removeClass("active");//删除当前元素的样式
-            $("li").eq(index).addClass("active");//添加当前元素的样式
+            $("li").removeClass("active"); //删除当前元素的样式
+            $("li").eq(index).addClass("active"); //添加当前元素的样式
             switch (menuname) {
                 case "传感器":
                     require("s_Home").loadIOT();
@@ -269,11 +269,9 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
                     //Q3D.globalCamera().flyTo(("395683.8080060399,286.4911804199219,-3416926.616417045").toVector3d(), ("-42.453548431396484,-2.83009672164917,-2.5931613445281982").toVector3(), 1, null);
                     require("s_Home").loadEvent();
                     break;
-                    //case "管网":
-                    //    sl_Event.loadEvent();
-                    //    sl_IOT.loadLeftSecond();
-                    //    this.loadCenter1Info();
-                    //    break;
+                case "管网":
+                    require("s_Home").loadPipeline();
+                    break;
                 default:
             }
         },

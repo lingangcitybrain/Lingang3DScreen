@@ -159,6 +159,12 @@ namespace Lingang.City.Brain.Web.Controllers
                 _layerViewList.Add(dv);
                 dv = new defaultLayerView();
 
+                //社区综治 - 管线
+                dv.layer = "29";
+                dv.xyz = "396223.84460424346,234.9145050048828,-3417793.3727343944";
+                dv.angle = "-15.524556159973144,6.861627578735352,1.895534873008728";
+                _layerViewList.Add(dv);
+                dv = new defaultLayerView();
 
                 dv.layer = "151";
                 dv.xyz = "397603.622070058,773.3681945800781,-3419747.60735346";
