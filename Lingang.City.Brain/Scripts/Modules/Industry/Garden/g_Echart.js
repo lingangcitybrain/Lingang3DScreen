@@ -61,25 +61,33 @@
             $("#center_02").html("");
         },
         //招商雷达
+        //招商雷达
         zsld: function (post_data) {
             g_EchartAjax.getzsldDataFun(post_data, function (result) {
                 if (require("g_Echart").zsldData == null) { return false; }
-                var data = require("g_Echart").zsldData;
+                var data = JSON.parse(require("g_Echart").zsldData.value_context);
                 
                 if ($("#zsld-chart").length <= 0) { return false; }
                 require("g_Echart").myChartleida = echarts.init(document.getElementById('zsld-chart'));
 
                 // data json 转换成数组
                 var dataToArr = [], dataToArrIndex = -1;
-                for (key in data) {
-                    dataToArrIndex++;
-                    dataToArr[dataToArrIndex] = data[key];
-                }
+                totalNum = parseInt(data.TotalImportances) + parseInt(data.TotalNewInTalks) + parseInt(data.TotalInTalks) + parseInt(data.TotalNewDeals) + parseInt(data.TotalGenerals) + parseInt(data.TotalNewTracks);
+                dataToArr.push({ name: "重点项目", num: data.TotalImportances, color: "#b356d8" });
+                dataToArr.push({ name: "新增在谈", num: data.TotalNewInTalks, color: "#184370" });
+                dataToArr.push({ name: "在谈项目", num: data.TotalInTalks, color: "#547ae5" });
+                dataToArr.push({ name: "新增成交", num: data.TotalNewDeals, color: "#1588e5" });
+                dataToArr.push({ name: "一般项目", num: data.TotalGenerals, color: "#de7869" });
+                dataToArr.push({ name: "新增跟踪", num: data.TotalNewTracks, color: "#e57f01" });
+                //for (key in data) {
+                //    dataToArrIndex++;
+                //    dataToArr[dataToArrIndex] = data[key];
+                //}
 
                 //各产业的百分比-----总和为 1
                 var dataArr = [];
                 for (var i = 0; i < dataToArr.length; i++) {
-                    dataArr.push(dataToArr[i]["招商雷达"] / 100);
+                    dataArr.push(dataToArr[i].num / totalNum);
                 }
 
                 // 前index之和组成的数组   
@@ -93,7 +101,7 @@
                 //产业数据number ---计算出长度百分比
                 var industryNumber = [];
                 for (var i = 0; i < dataArr.length; i++) {
-                    industryNumber.push(  JSON.parse(dataToArr[i]["产业数据"]).number);
+                    industryNumber.push(  JSON.parse(dataToArr[i].num));
                 }
                 var industryNumberMax = Math.max.apply(null, industryNumber); //最大数
                 var industryNumberPercent = []; //百分数
@@ -202,44 +210,22 @@
                                         level = (dataArr[index] * 100).toFixed(0) + '%';
                                         var str = '<div class="zsld-result">产业聚集地</div>'
                                                   + '<ul class="zsld-ul"></ul>'
-                                                  + '<div class="zsld-company flex">'
-                                                      + '<dl class="zsld-dl" id="zsld-cymx">'
-                                                        + '<dt class="">产业明星企业</dt>'
-                                                      + '</dl>'
-                                                      + '<dl class="zsld-dl"  id="zsld-zytzjg">'
-                                                        + '<dt class="">产业主要投资机构</dt>'
-                                                      + '</dl>'
-                                                  + '</div>';
+                                                 
 
                                         $("#zsld").html(str);
 
-                                        $("#zsld>.zsld-result").html(JSON.parse(dataToArr[index]["产业数据"]).industry);
+                                        $("#zsld>.zsld-result").html(dataToArr[index].name);
                                         $("#zsld>.zsld-ul").append(
-                                            '<li class="zsld-li clearfix"><span>上海市</span><div class="zsld-bar"><div data-text="' +
+                                            '<li class="zsld-li clearfix"><span></span><div class="zsld-bar"><div data-text="' +
                                                  industryNumber[index]+ '"></div></div></li>'
                                         );
                                         //zsld-bar 宽度
                                         $(".zsld-bar>div").css({ width: industryNumberPercent[index] + '%' });
 
-                                        //产业明星企业
-                                        var starCompany = dataToArr[index]["明星企业"].split(",");
-                                        for (var j = 0; j < starCompany.length; j++) {
-                                            $("#zsld-cymx").append("<dd>" + starCompany[j] + "</dd>");
-                                        }
-
-                                        //产业主要投资机构
-                                        var mainBody = dataToArr[index]["主要投资机构"].split(",");
-                                        if (mainBody.length && mainBody[0] != ' ') {
-                                            for (var j = 0; j < mainBody.length; j++) {
-                                                $("#zsld-zytzjg").append("<dd>" + mainBody[j] + "</dd>");
-                                            }
-                                        } else {
-                                            $("#zsld-zytzjg").remove()
-                                        }
-
+                                        
                                         //zsld-legend
                                         for (var n = 0; n < $("#zsld-legend>li").length; n++) {
-                                            if (JSON.parse(dataToArr[index]["产业数据"]).industry === $("#zsld-legend>li").eq(n).html()) { 
+                                            if (JSON.parse(dataToArr[index]).name === $("#zsld-legend>li").eq(n).html()) { 
                                                 $("#zsld-legend>li").eq(n).addClass("active").siblings().removeClass("active")
                                             }
                                         }
@@ -283,6 +269,7 @@
                 }, 800);
             })
         },
+        
 
         //企业top10列表
         topTen: function (post_data) {

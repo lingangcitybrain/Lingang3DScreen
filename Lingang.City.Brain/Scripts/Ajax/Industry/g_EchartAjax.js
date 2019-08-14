@@ -24,13 +24,13 @@
                 callback();
             }
         },
-        //招商雷达
+        //招商简报  //招商雷达
         getzsldDataFun: function (post_data, callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/BusinessRadar/getRadar',
+                    url: con.InterfaceUrl_DataStation + 'v1/BusinessBriefing/projectCockpitVM',//'v1/BusinessRadar/getRadar',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
