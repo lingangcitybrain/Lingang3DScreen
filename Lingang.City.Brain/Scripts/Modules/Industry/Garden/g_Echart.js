@@ -225,7 +225,7 @@
                                         
                                         //zsld-legend
                                         for (var n = 0; n < $("#zsld-legend>li").length; n++) {
-                                            if (JSON.parse(dataToArr[index]).name === $("#zsld-legend>li").eq(n).html()) { 
+                                            if (dataToArr[index].name === $("#zsld-legend>li").eq(n).html()) { 
                                                 $("#zsld-legend>li").eq(n).addClass("active").siblings().removeClass("active")
                                             }
                                         }
@@ -317,9 +317,12 @@
             g_EchartAjax.getZsFunnel(function (result) {
                 if (require("g_Echart").zsFunnelData == null) { return false; }
                 var data = require("g_Echart").zsFunnelData;
-                data = data[0];
-                $("#zsfunnel").append('<div>接洽数<span class=\"testAerial\">' + data.totalMerchantsProjects + '</span></div><div>成功数<span class=\"testAerial\">' +
-                             data.successedMerchantsProjects + '</span></div>');
+                data = JSON.parse(data.value_context);
+                //$("#zsfunnel").append('<div>接洽数<span class=\"testAerial\">' + data.totalMerchantsProjects + '</span></div><div>成功数<span class=\"testAerial\">' +
+                //data.successedMerchantsProjects + '</span></div>');
+                for (var i = 0; i < data.length; i++) {
+                    $("#zsfunnel").append('<div>' + data[i].Status + '<span class=\"testAerial\">' + data[i].Count + '</span></div>');
+                }
             });
         },
 
