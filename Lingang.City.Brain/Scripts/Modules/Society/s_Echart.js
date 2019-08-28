@@ -1260,7 +1260,7 @@
             require("sl_Event").closeLoopAllEvents();//关闭循环播放所有事件
         },
         loadloopevent: function () {
-            //if ($("#header_menu div button.active").text() == "社区综合" && $("#bottom_menu ul li.active").text() == "事件") {
+            //if ($("#header_menu div button.active").text() == "城区综治" && $("#bottom_menu ul li.active").text() == "事件") {
             //    //require("sl_Event").LoopAllEvents();//开启全部事件循环播放
             //}
         },

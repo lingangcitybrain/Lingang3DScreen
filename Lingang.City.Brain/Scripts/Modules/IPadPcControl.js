@@ -38,7 +38,7 @@
         },
 
         ///////////////////////////////////////////////////菜单控制//////////////////////////////////////////////////////////////////
-        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；产业发展：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；102:确认框;105:收放大数字
+        //菜单控制    menu 社区综治：1；大客流：2；产业园区：3；园区产业：4；日景：11；夜景：12；还原：100；alert窗口关闭：101；102:确认框;105:收放大数字
         menuControl: function (str) {
             var res = { " code ": "", " message ": "", "xyz": "", "angle": "" }
             var result = 1;
@@ -63,7 +63,7 @@
                         //require('mainMenu').mainMenuSelect(2);
                         require('mainMenu').mainMenuSelect(1);
                         break;
-                    case "3"://产业发展
+                    case "3"://园区产业
                         //require('mainMenu').mainMenuSelect(3);
                         require('mainMenu').mainMenuSelect(2);
                         break;
@@ -250,7 +250,7 @@
             res = { "code ": result, " message ": message }
             return res
         },
-        //社区综合POI
+        //城区综治POI
         //poiSocietyControl: function (id) {
 
         //},
