@@ -138,7 +138,8 @@
         jcgJtxxData: null,                //进出港数据
         tccJtxxData: null,                //停车场数据
         jtxxData: null,                    //交通信息数据
-    	yqsjtjTypeData:null,             //园区事件统计类型
+        yqsjtjTypeData: null,             //园区事件统计类型
+        yqsjtjQuyuData: null,             //园区事件统计区域
         loadEcharts: function () {
 
             this.rq();                  //日期
@@ -3554,98 +3555,67 @@
 
 
         },
-        //园区事件统计--类型
-        yqsjtjType: function () {
+        //园区事件统计--类型和区域
+        yqsjtjTypeAndQuyu: function () {
+            //园区事件统计--类型
             t_EchartAjax.getYqsjtjType(function (result) {
-            	var data = require("t_Echart").yqsjtjTypeData;
-            	var htmltotal = '';
-            	htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
-            	htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
-            	$('#sjlxtotal').html(htmltotal);
-            	var html = '';
-            	for (var key in data) {
-            		if (key !== "catCounts" && key !== "eventCounts") {
-            			html += '<li class="yqsj-item">' +
+                var data = require("t_Echart").yqsjtjTypeData;
+                var htmltotal = '';
+                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
+                $('#sjlxtotal').html(htmltotal);
+                var html = '';
+                for (var key in data) {
+                    if (key !== "catCounts" && key !== "eventCounts") {
+                        html += '<li class="yqsj-item">' +
 								  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
 								  '<ol class="yqsj-itemol">'
-            						for (var key2 in data[key]) {
-            							if (key2 !== "total") {
-            								html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
-            							}
-            						}
-            			html += '</ol></li>'
-            		}
-            	}
+                        for (var key2 in data[key]) {
+                            if (key2 !== "total") {
+                                html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
+                            }
+                        }
+                        html += '</ol></li>'
+                    }
+                }
 
-            	$('#sjlxList').html(html);
-            	$('#sjlxList>li:first-child').addClass("active");
-            	$('#sjlxList>li:first-child  .yqsj-itemol>li:first-child').addClass("active");
-            	$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+                $('#sjlxList').html(html);
+                $('#sjlxList>li:first-child').addClass("active");
+                $('#sjlxList>li:first-child  .yqsj-itemol>li:first-child').addClass("active");
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
             })
+
+            //园区事件统计--区域
+            t_EchartAjax.getYqsjtjQuyu(function (result) {
+                var data = require("t_Echart").yqsjtjQuyuData;
+                var dataNum = 0; dataTypeArr = [];
+                for (var i = 0; i < data.length; i++) {
+                    dataNum += data[i].value;
+                    if (!dataTypeArr.includes(data[i].content)) {
+                        dataTypeArr.push(data[i].content);
+                    }
+                }
+                var htmltotal = '';
+                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + dataTypeArr.length + '</span>类</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' + dataNum + '</span>个</div>';
+                $('#sjqytotal').html(htmltotal);
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<li class="yqsj-item active">' +
+                           '    <div class="yqsj-itemdiv"><span>' + i + '</span>' + data[i].content.split("(")[0] + '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
+                           '</li>'
+                }
+
+                $('#sjqyList').html(html);
+                $('#sjqyList>li:first-child').addClass("active");
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+            })
+
             $("#jqsjtj").click(function () {
-            	require("t_Echart").yqsjtjType();
+                require("t_Echart").yqsjtjType();
             })
             
         },
-        //yqsjlbqy: function () {
-        //    function MyDate(n) {
-        //        var n = n;
-        //        var d = new Date();
-        //        var year = d.getFullYear();
-        //        var mon = d.getMonth() + 1;
-        //        var day = d.getDate();
-        //        if (day <= n) {
-        //            if (mon > 1) {
-        //                mon = mon - 1;
-        //            }
-        //            else {
-        //                year = year - 1;
-        //                mon = 12;
-        //            }
-        //        }
-        //        d.setDate(d.getDate() - n);
-        //        year = d.getFullYear();
-        //        mon = d.getMonth() + 1;
-        //        day = d.getDate();
-        //        s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
-        //        //day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
-
-        //        return s;
-
-        //    }
-        //    var post_data = {
-        //        "startTime": MyDate(1),
-        //        "endTime": MyDate(0)
-        //    }
-        //    t_EchartAjax.yqsjlbqy(post_data, function (result) {
-        //        var data = require("t_Echart").yqsjlbqyData;
-
-        //        var htmltotal2 = '';
-        //        htmltotal2 += ' <div class="">事件类型：<span class="testAerial">' + data.typeValue + '</span>类</div>';
-        //        htmltotal2 += '<div class="">事件个数：<span class="testAerial">' + data.total + '</span>个</div>';
-        //        $('#sjqytotal').html(htmltotal2);
-        //        var html = '';
-        //        html += '<li class="yqsj-item active">';
-        //        html += '<div class="yqsj-itemdiv"><span>001</span>' + data[0].content + '</div>';
-        //        html += '<ol class="yqsj-itemol">';
-        //        //html += '<li class="">' + data.data[0].label + '</li>';
-        //        html += '<li class="">' + data[0].content + '</li>';
-        //        html += '</ol>';
-        //        html += '</li>';
-        //        for (var i = 2; i < data.length; i++) {
-        //            html += '<li class="yqsj-item">';
-        //            html += '<div class="yqsj-itemdiv"><span>00' + i + '</span>' + data[i].content + '</div>';
-        //            html += '<ol class="yqsj-itemol">';
-        //            //html += '<li class="">' + data.data[i].label + '</li>';
-        //            html += '<li class="">' + data[i].content + '</li>';
-        //            html += '</ol>';
-        //            html += '</li>';
-        //        }
-
-        //        $('#sj2').html(html);
-        //        $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
-        //    })
-        //},
 
     	//园区事件列表
         yqsjlbtj: function () {
