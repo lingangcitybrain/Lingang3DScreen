@@ -279,7 +279,7 @@ define(["config", "common", "e_EchartData", "e_LayerMenuData"], function (con, c
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     //url: con.InterfaceUrl_estate + 'v1/industrial/companyStatistics',
-                    url: con.InterfaceUrl_DataStation + '/v1/event/zhlgzqys',
+                    url: con.InterfaceUrl_DataStation + 'v1/event/zhlgzqys',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
