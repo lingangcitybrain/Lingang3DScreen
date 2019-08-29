@@ -1317,119 +1317,60 @@ define(["config"], function (con) {
             }
         },
         //旧景区事件列表区域
-        yqsjlbqyData:{
-            "total": 595,
-            "data": [{
-                "value": 234,
-                "content": "沪城环路西侧E村(234)"
-            }, {
-                "value": 140,
-                "content": "临港大道北侧G村(140)"
-            }, {
-                "value": 84,
-                "content": "宜浩佳园第一居委会(84)"
-            }, {
-                "value": 80,
-                "content": "海昌公园(80)"
-            }, {
-                "value": 49,
-                "content": "保利蔚蓝林语居委会(49)"
-            }, {
-                "value": 4,
-                "content": "临港家园社区居委会(4)"
-            }, {
-                "value": 2,
-                "content": "宜浩佳园第二居委会(2)"
-            }, {
-                "value": 2,
-                "content": "东岸涟城居委会(2)"
-            }, {
+        yqsjtjQuyuData: [
+            {
+                "value": 8,
+                "content": "沪城环路西侧E村(8)"
+            },
+            {
+                "value": 6,
+                "content": "海昌公园(6)"
+            },
+            {
+                "value": 1,
+                "content": "宜浩佳园第二居委会(1)"
+            },
+            {
+                "value": 1,
+                "content": "宜浩佳园第一居委会(1)"
+            },
+            {
+                "value": 1,
+                "content": "保利蔚蓝林语居委会(1)"
+            },
+            {
                 "value": 0,
-                "content": "科创城区域(0)"
-            }, {
+                "content": "滴水湖东侧H村(0)"
+            },
+            {
+                "value": 0,
+                "content": "东岸涟城居委会(0)"
+            },
+            {
                 "value": 0,
                 "content": "滴水湖步行区(0)"
-            }],
-            "typeValue": 10
-        },
-        //中台景区事件列表区域
-        //yqsjlbqyData: 
-        //     [{
-        //        "value": 561,
-        //        "content": "港城新天地(561)"
-        //    }, {
-        //        "value": 79,
-        //        "content": "临港大道P1(79)"
-        //    }, {
-        //        "value": 63,
-        //        "content": "上海海洋大学(63)"
-        //    }, {
-        //        "value": 33,
-        //        "content": "雪绒花P(33)"
-        //    }, {
-        //        "value": 17,
-        //        "content": "绿地临港家园海洋小区(17)"
-        //    }, {
-        //        "value": 17,
-        //        "content": "海昌公园(17)"
-        //    }, {
-        //        "value": 6,
-        //        "content": "海昌公园旁(6)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "临港大道周边(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "临港创业园区(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "滴水湖步行区(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "港城新天地P(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "滴水湖幼儿园(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "同济大学海洋科技技术研究中心(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "滴水湖景区(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "临港大学城(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "无人机(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "临港大道地铁口(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "上海海事大学(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "南汇嘴观海公园(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "海洋小区周边(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "港城新天地new(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "海昌海洋公园(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "海昌公园内部P(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "海昌公园景区(0)"
-        //    }, {
-        //        "value": 0,
-        //        "content": "上海海洋科技(0)"
-        //    }],
+            },
+            {
+                "value": 0,
+                "content": "科创城区域(0)"
+            },
+            {
+                "value": 0,
+                "content": "滴水湖馨苑居委会(0)"
+            },
+            {
+                "value": 0,
+                "content": "临港大道北侧G村(0)"
+            },
+            {
+                "value": 0,
+                "content": "临港家园社区居委会(0)"
+            },
+            {
+                "value": 0,
+                "content": "滴水湖(0)"
+            }
+        ],
             
         //景区事件列表统计
         yqsjlbtjData: {
