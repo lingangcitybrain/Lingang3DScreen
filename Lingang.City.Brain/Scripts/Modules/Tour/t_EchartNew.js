@@ -3612,7 +3612,7 @@
             })
 
             $("#jqsjtj").click(function () {
-                require("t_Echart").yqsjtjType();
+                require("t_Echart").yqsjtjTypeAndQuyu();
             })
             
         },

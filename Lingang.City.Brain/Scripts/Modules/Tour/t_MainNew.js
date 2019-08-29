@@ -314,9 +314,7 @@
                     leftOrRight: 'right'
                 }
                 com.UIControlAni(option, function () {
-                	require("t_Echart").yqsjtjType();//园区事件统计类型 
-                	//require("t_Echart").yqsjlbqy();//园区事件统计区域
-                    
+                    require("t_Echart").yqsjtjTypeAndQuyu();//园区事件统计类型和区域                    
                 });
             },
             //加载第三个div
