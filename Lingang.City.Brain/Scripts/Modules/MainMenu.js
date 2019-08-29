@@ -69,7 +69,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
 
         	//加载div数据
             switch (menuname) {
-                case "社区综合":// 社区综合
+                case "城区综治":// 城区综治
                     s_Home.loadMain();
                     require('mainMenu').loadBottomMenu_smain();
                     break;
@@ -77,7 +77,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
                     t_Home.loadMain();
                     require('mainMenu').loadBottomMenu_tmain();
                     break;
-                case "产业发展"://产业
+                case "园区产业"://产业
                     e_Home.loadMain();
                     require('mainMenu').loadBottomMenu_e_Main();
                     break;

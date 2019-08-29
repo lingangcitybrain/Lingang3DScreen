@@ -202,7 +202,7 @@
         },
         EachAllEvent: function () {
              if (require("sl_Event").allLoopEventList.length > 0) {
-                    if ($("#header_menu div button.active").text() == "社区综合" && $("#bottom_menu ul li.active").text() == "事件") {
+                    if ($("#header_menu div button.active").text() == "城区综治" && $("#bottom_menu ul li.active").text() == "事件") {
                         require("sl_Event").closeLoopPlay();
                         var areaName = con.AreaName;
                         if (require("sl_Event").LastPOI_Clk && require("sl_Event").LastPOI_Clk != "") {
@@ -902,7 +902,7 @@
             if (require("sl_Event").eventTimer != null) {
                 clearInterval(require("sl_Event").eventTimer);
                 require("sl_Event").eventTimer = null;
-                //if ($("#header_menu div button.active").text() == "社区综合" && $("#bottom_menu ul li.active").text() == "事件") {
+                //if ($("#header_menu div button.active").text() == "城区综治" && $("#bottom_menu ul li.active").text() == "事件") {
                 //    console.log("开启全部事件循环播放");
                 //    require("sl_Event").LoopAllEvents();//开启全部事件循环播放
                 //}
