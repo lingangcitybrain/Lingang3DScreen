@@ -11,7 +11,7 @@
             this.LayerType = require("s_Main").LayerCatalog.WorkSite;
             this.POIData = s_layerMenuData.WorkSiteData.Data;
 
-            Q3D.globalCamera().flyTo(("395811.04410528304,286.2732696533203,-3416789.683830375").toVector3d(), ("-31.37611198425293,8.757302284240722,5.298542022705078").toVector3(), 1, null);
+            Q3D.globalCamera().flyTo(("396108.71569771634,2102.016891479492,-3414150.4402918345").toVector3d(), ("-30.96967124938965,0.03673381358385086,0.016093820333480835").toVector3(), 1, null);
 
 
             var areaName = con.AreaName;

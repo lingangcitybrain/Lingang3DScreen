@@ -11,23 +11,24 @@
             this.LayerType = require("s_Main").LayerCatalog.WorkSite;
             this.POIData = s_layerMenuData.WorkSiteData.Data;
 
-            Q3D.globalCamera().flyTo(("395811.04410528304,286.2732696533203,-3416789.683830375").toVector3d(), ("-31.37611198425293,8.757302284240722,5.298542022705078").toVector3(), 1, null);
+            Q3D.globalCamera().flyTo(("395990.1351315872,502.45323181152343,-3416512.159721699").toVector3d(), ("-31.376115798950195,8.757302284240722,5.298542499542236").toVector3(), 1, function () {
+                require("sl_Street").createStreetLine();
+            });
 
+            //var areaName = con.AreaName;
+            //var icon = this.LayerType.UnChooseIcon;
+            //var pois = [];
+            //for (var i = 0; i < this.POIData.length; i++) {
+            //    var row = this.POIData[i];
+            //    var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
+            //    var iconSize = Q3D.vector2(41, 45);
+            //    var pos = row.pos;
+            //    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-            var areaName = con.AreaName;
-            var icon = this.LayerType.UnChooseIcon;
-            var pois = [];
-            for (var i = 0; i < this.POIData.length; i++) {
-                var row = this.POIData[i];
-                var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
-                var iconSize = Q3D.vector2(41, 45);
-                var pos = row.pos;
-                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-
-                var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
-                pois.push(poi);
-            }
-            com.InitPois(areaName, pois);
+            //    var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
+            //    pois.push(poi);
+            //}
+            //com.InitPois(areaName, pois);
 
         },
         //工地点击事件
@@ -75,6 +76,54 @@
                 this.POIData = null;
             }
 
+        },
+        //创建街面路线
+        createStreetLine: function () {
+            var nodename = 'streetline'
+            var nodePath = con.AreaName + "/" + nodename;
+            var lineArray = '121.916344,30.888412|121.908869,30.881892|121.908665,30.881645|121.908483,30.881333|121.908265,30.880754|121.908049,30.880109|121.907367,30.878696'.split("|");
+            var lineArrayV3 = new Array();
+            for (var k = 0; k < lineArray.length; k++) {
+                var pos = lineArray[k]
+                var lng = parseFloat(pos.split(",")[0])
+                var lat = parseFloat(pos.split(",")[1])
+                var hgt = 8
+                var position = Q3D.globalVec3d(lng, lat, hgt).toGlobalPos();
+                var point = Q3D.vector3(Q3D.globalVec3d(lng, lat, hgt).toLocalPos(con.AreaName))
+                lineArrayV3.push(point)
+            }
+
+            var createOptions = {
+                //Material: "Material/linered.mtr",
+                Material: null,
+                SpecialTransparent: true, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
+                LinePoints: [lineArrayV3], //一维数组,由Vector3坐标组成
+                OffsetDist: [],//偏移距离，单位米，用于贝塞尔曲线的控制点计算
+                LineOptions: {
+                    Subdivision: 20, //设置生成曲线细分程度
+                    LineWidth: 10,
+                    WrapLen: 10,
+                    //以下用于动态创建的材质
+                    Color: Q3D.colourValue('#00a600', 1), //线的颜色
+                    Alpha: 1, //线的透明度
+                },
+                OnLineCreated: null
+            }
+
+            var linenode = map.getSceneNode(con.AreaName, nodename)
+            if (linenode) {
+                linenode.setVisible(1)
+                //map.destroySceneNode(con.AreaName, nodename)
+            } else {
+                map.createPolyLine(nodePath, createOptions);
+            }
+        },
+        //清除街面线路
+        clearStreetLine: function () {
+            var node = map.getSceneNode(con.AreaName + "/" + 'streetline');
+            if (node) {
+                node.setVisible(0);
+            }
         },
 
         //加载第二列的div
@@ -199,6 +248,7 @@
 
         Revert: function () {
             this.clearStreetPOI();
+            this.clearStreetLine();
         }
     }
 })
