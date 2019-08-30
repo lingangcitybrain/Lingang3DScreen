@@ -338,12 +338,10 @@
                     //data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        //console.log("success",data);
                         require("t_Echart").yqsjtjQuyuData = data;
                         callback(data);
                     },
                     error: function () {
-                        //console.log("景区事件列表区域数据获取失败 error")
                         //callback();
                     }
                 });
