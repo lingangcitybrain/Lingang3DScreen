@@ -55,8 +55,11 @@
                 require("gl_UnmannedCar").UnmannedCarDetailInfo.put(data.id, data.passengers);  //无人车详情
                 /************************创建无人车POI*******************************/
                 var POINodeName = "UmmannedCarPOI_" + data.id;                
-                //var POIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName);
-                var POIPosition = (data.currentLon + "," + data.currentLat + ",0").toGlobalVec3d().toLocalPos(areaName);
+                //var POIPosition = (data.currentLon + "," + data.currentLat + ",0").toGlobalVec3d().toLocalPos(areaName);
+                var Coordinate = com.gcj02towgs84(parseFloat(data.currentLon), parseFloat(data.currentLat));//高德坐标转wgs84
+                var pos = Coordinate + ",0";
+                var POIPosition = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+
                 var iconSize = Q3D.vector2(31, 35),
                     FontColor = Q3D.colourValue("#000080", 1),
                     icon = require("gl_UnmannedCar").UnmannedCarPOIIcon;
@@ -65,7 +68,7 @@
                     node.setVisible(1);
                 } else {
                     var poiOptions = {
-                        Position: Q3D.vector3(POIPosition),
+                        Position: POIPosition,
                         Orientation: null,
                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
                         Scale: Q3D.vector3(1, 1, 1),
@@ -100,12 +103,16 @@
                 }
 
                 /******************************漫游起点和终点POI***************************************/
+                //var RouteStartNode = "RouteStartPOI_" + data.id, RouteEndNode = "RouteEndPOI_" + data.id;
+                //var RouteStartPOIPosition = (data.startLon + "," + data.startLat + ",0").toGlobalVec3d().toLocalPos(areaName),
+                //    realTimePosition = (data.currentLon + "," + data.currentLat + ",0").toGlobalVec3d().toLocalPos(areaName),
+                //    RouteEndPOIPosition = (data.desLon + "," + data.desLat + ",0").toGlobalVec3d().toLocalPos(areaName);
+
                 var RouteStartNode = "RouteStartPOI_" + data.id, RouteEndNode = "RouteEndPOI_" + data.id;
-                //var RouteStartPOIPosition = data[0].pos.toGlobalVec3d().toLocalPos(areaName),
-                //    RouteEndPOIPosition = data[data.length - 1].pos.toGlobalVec3d().toLocalPos(areaName);
-                var RouteStartPOIPosition = (data.startLon + "," + data.startLat + ",0").toGlobalVec3d().toLocalPos(areaName),
-                    realTimePosition = (data.currentLon + "," + data.currentLat + ",0").toGlobalVec3d().toLocalPos(areaName),
-                    RouteEndPOIPosition = (data.desLon + "," + data.desLat + ",0").toGlobalVec3d().toLocalPos(areaName);
+                var RouteStartPOIPosition = (com.gcj02towgs84(parseFloat(data.startLon) , parseFloat(data.startLat)) + ",0").toGlobalVec3d().toLocalPos(areaName),
+                    realTimePosition = (com.gcj02towgs84(parseFloat(data.currentLon), parseFloat(data.currentLat)) + ",0").toGlobalVec3d().toLocalPos(areaName),
+                    RouteEndPOIPosition = (com.gcj02towgs84(parseFloat(data.desLon), parseFloat(data.desLat)) + ",0").toGlobalVec3d().toLocalPos(areaName);
+
                 var iconSize = Q3D.vector2(31, 35),
                     FontColor = Q3D.colourValue("#000080", 1);
                 //起点

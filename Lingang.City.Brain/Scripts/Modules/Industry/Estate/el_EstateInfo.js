@@ -34,9 +34,11 @@
                 var edetailimg = row.edetailimg;
                 var poiName = "POIIndustry" + require("el_EstateInfo").LayerType.Name + "_" + i;//row.id;
                 var iconSize = Q3D.vector2(150, 150);
-                var pos      = row.lng + "," + row.lat + ",0";
+                //var pos      = row.lng + "," + row.lat + ",0";
+                //var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                var Coordinate = com.gcj02towgs84(parseFloat(row.lng), parseFloat(row.lat));//高德坐标转wgs84
+                var pos = Coordinate + ",0";
                 var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-                
 
                 var node = map.getSceneNode(areaName + "/" + poiName);
                 if (node) {map.destroySceneNode(areaName, poiName)} 
