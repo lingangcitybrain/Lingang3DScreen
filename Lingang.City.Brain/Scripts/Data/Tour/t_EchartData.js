@@ -1316,7 +1316,7 @@ define(["config"], function (con) {
                 "非机动车驶入禁区": 0
             }
         },
-        //旧景区事件列表区域
+        //景区事件列表区域
         yqsjtjQuyuData: [
             {
                 "value": 8,

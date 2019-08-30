@@ -3561,6 +3561,7 @@
             t_EchartAjax.getYqsjtjType(function (result) {
                 var data = require("t_Echart").yqsjtjTypeData;
                 var htmltotal = '';
+
                 htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
                 htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
                 $('#sjlxtotal').html(htmltotal);
@@ -3595,17 +3596,12 @@
                         dataTypeArr.push(data[i].content);
                     }
                 }
-                var htmltotal = '';
-                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + dataTypeArr.length + '</span>类</div>';
-                htmltotal += '<div class="">事件个数：<span class="testAerial">' + dataNum + '</span>个</div>';
-                $('#sjqytotal').html(htmltotal);
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
                     html += '<li class="yqsj-item active">' +
-                           '    <div class="yqsj-itemdiv"><span>' + i + '</span>' + data[i].content.split("(")[0] + '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
+                           '    <div class="yqsj-itemdiv"><span>' + data[i].value + '</span>' +data[i].content.split("(")[0]+ '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
                            '</li>'
                 }
-
                 $('#sjqyList').html(html);
                 $('#sjqyList>li:first-child').addClass("active");
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
