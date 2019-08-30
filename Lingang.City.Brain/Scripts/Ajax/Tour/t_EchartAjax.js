@@ -328,22 +328,23 @@
             }
         },
         //景区事件列表区域
-        getYqsjtjQuyu: function (post_data, callback) {
+        getYqsjtjQuyu: function (callback) {
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     url: con.InterfaceUrl_DataStation + 'v1/park/affair/jrsjqy',
                     cache: false,
-                    data: post_data,
+                    //data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
+                        //console.log("success",data);
                         require("t_Echart").yqsjtjQuyuData = data;
                         callback(data);
                     },
                     error: function () {
-                        require("t_Echart").yqsjtjQuyuData = t_EchartData.yqsjlbqyData;
-                        callback();
+                        //console.log("景区事件列表区域数据获取失败 error")
+                        //callback();
                     }
                 });
             }
