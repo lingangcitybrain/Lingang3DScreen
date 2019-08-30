@@ -3584,7 +3584,7 @@
                 $('#sjlxList>li:first-child').addClass("active");
                 $('#sjlxList>li:first-child  .yqsj-itemol>li:first-child').addClass("active");
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
-            })
+            });
 
             //园区事件统计--区域
             t_EchartAjax.getYqsjtjQuyu(function (result) {
@@ -3592,24 +3592,24 @@
                 var dataNum = 0; dataTypeArr = [];
                 for (var i = 0; i < data.length; i++) {
                     dataNum += data[i].value;
-                    if (!dataTypeArr.includes(data[i].content)) {
+                    if (dataTypeArr.indexOf(data[i].content) === -1) {
                         dataTypeArr.push(data[i].content);
                     }
                 }
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
                     html += '<li class="yqsj-item active">' +
-                           '    <div class="yqsj-itemdiv"><span>' + data[i].value + '</span>' +data[i].content.split("(")[0]+ '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
+                           '    <div class="yqsj-itemdiv"><span>' + data[i].value + '</span>' +data[i].content.split("(")[0] + '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
                            '</li>'
                 }
                 $('#sjqyList').html(html);
                 $('#sjqyList>li:first-child').addClass("active");
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
-            })
+            });
 
             $("#jqsjtj").click(function () {
                 require("t_Echart").yqsjtjTypeAndQuyu();
-            })
+            });
             
         },
 
