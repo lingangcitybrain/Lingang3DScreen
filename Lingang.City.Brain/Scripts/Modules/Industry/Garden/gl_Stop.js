@@ -43,7 +43,10 @@
                         if (node) {
                             node.setVisible(1);
                         }
-                        var parkingLotPOS = Q3D.vector3((data.longitude + "," + data.altitude + ",0").toGlobalVec3d().toLocalPos(areaName));
+                        //var parkingLotPOS = Q3D.vector3((data.longitude + "," + data.altitude + ",0").toGlobalVec3d().toLocalPos(areaName));
+                        var Coordinate = com.gcj02towgs84(parseFloat(data.longitude), parseFloat(data.altitude));//高德坐标转wgs84
+                        var pos = Coordinate + ",0";
+                        var parkingLotPOS = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
                         require("gl_Stop").stopPOIs.push(poiName);
                         var createOptions = {
                             Position: parkingLotPOS,

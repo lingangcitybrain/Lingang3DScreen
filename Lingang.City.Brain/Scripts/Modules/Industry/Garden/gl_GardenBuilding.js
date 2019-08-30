@@ -100,8 +100,13 @@
                         var pointsArr = [], pointsData = row.points.split(",");
                         for (var j = 0; j < pointsData.length; j++) {
                             var point = pointsData[j].split(" ");
-                            var aa = point[0] + "," + point[1] + ",0";
-                            pointsArr.push(Q3D.vector3(aa.toGlobalVec3d().toLocalPos(areaName)));
+                            //var aa = point[0] + "," + point[1] + ",0";
+                            //pointsArr.push(Q3D.vector3(aa.toGlobalVec3d().toLocalPos(areaName)));
+                            var Coordinate = com.gcj02towgs84(parseFloat(point[0]), parseFloat(point[1]));//高德坐标转wgs84
+                var pos = Coordinate + ",0";
+                var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                pointsArr.push(position);
+                            
                         }
                         //画多边形
                         map.createPrism(areaName + "/" + nodename, {
@@ -114,7 +119,7 @@
                             Height:5,
                             OnPolygonCreated: null
                         });
-                        require("gl_GardenBuilding").pieNode.push(node);
+                        require("gl_GardenBuilding").pieNode.push(areaName + "/" + nodename);
                     }
                 }
                 })
@@ -185,7 +190,7 @@
             //隐藏园区饼
             if (require("gl_GardenBuilding").pieNode.length > 0) {
                 for (var i = 0; i < require("gl_GardenBuilding").pieNode.length; i++) {
-                    var node = require("gl_GardenBuilding").pieNode[i];
+                    var node = map.getSceneNode(require("gl_GardenBuilding").pieNode[i]);
                     if (node) {
                         node.setVisible(0);
                     }

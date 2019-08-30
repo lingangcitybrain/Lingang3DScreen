@@ -34,9 +34,11 @@
                 var edetailimg = row.edetailimg;
                 var poiName = "POIIndustry" + require("el_EstateInfo").LayerType.Name + "_" + i;//row.id;
                 var iconSize = Q3D.vector2(150, 150);
-                var pos      = row.lng + "," + row.lat + ",0";
+                //var pos      = row.lng + "," + row.lat + ",0";
+                //var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
+                var Coordinate = com.gcj02towgs84(parseFloat(row.lng), parseFloat(row.lat));//高德坐标转wgs84
+                var pos = Coordinate + ",0";
                 var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-                
 
                 var node = map.getSceneNode(areaName + "/" + poiName);
                 if (node) {map.destroySceneNode(areaName, poiName)} 
@@ -52,7 +54,7 @@
                         FontName: "微软雅黑",
                         FontColor: Q3D.colourValue("#00caca", 1),//封装ColourValue对象
                         CharScale: 1.0,
-                        Text: row.name,
+                        Text: row.region,
                         Icon: icon,
                         IconSize: iconSize,//封装Vector2对象
                         POILayout: Q3D.Enums.poiLayOut.Bottom,
@@ -86,75 +88,14 @@
         },
         //加载产业详情
 
-        /*******************************无用*****************************************/
-        loadEstateDetailNew1: function (AreaName, parentName, icon, id, v3pos)
-        {
-         var pos = Q3D.vector3(2000, -100, 0);
-            if (v3pos != ""){
-                try {
-                    var str = v3pos.split(",")
-                    pos = Q3D.vector3(parseInt(str[0]), parseInt(str[1]), parseInt(str[2]));
-                } catch (e)
-                { }
-            }
-
-
-            var iconSize = Q3D.vector2(420, 248);
-            var createOptions = {
-                Position:pos,
-                Orientation: null,
-                OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                Scale: Q3D.vector3(0.5, 0.5, 0.5),
-                POIOptions: {
-                    CharScale: 1,
-                    Text: "",
-                    Icon: icon,
-                    IconSize: iconSize,
-                    POILayout: Q3D.Enums.poiLayOut.Bottom,
-                    UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                    IconAlphaEnabled: true,
-                    Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                    SpecialTransparent: true,
-                    AlwaysOnScreen: true,
-                    OnLoaded: function () {
-                    },
-                }
-            };
-            var poiName = "PoiEstateInfo" + id;
-            var node = map.getSceneNode(AreaName, poiName)
-            if (node) {map.destroySceneNode(AreaName, poiName)} 
-            map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);                
-        },
-        loadEstateDetail: function () {
-            var areaName = con.AreaName;
-            var detaildata = e_LayerMenuData.estateDetailPOI.Data;
-            for (var i = 0; i < detaildata.length; i++) {
-                var row = detaildata[i];
-                /*显示产业详情*/
-                var fullNodePath = areaName + "/estateDetail" + row.id;
-
-
-                if (map.getSceneNode(fullNodePath)) {
-                    map.getSceneNode(fullNodePath).setVisible(1);
-                }
-                else {
-                    var pos = row.lng + "," + row.lat + ",200";
-                    var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
-
-                    var data1 = {
-                        Position: position, Text: "", Icon: row.edetailimg, IconSize: Q3D.vector2(75, 65)
-                    }
-                    require("sl_Event").createPOI(fullNodePath, data1);
-                }
-            }
-        },
-        /*******************************end*****************************************/
         loadEstateDetailNew: function (nodeName, pid) {
             var data = null;
+            var index=0;
             require("el_EstateInfo").POIData.forEach(function (e) {
-                if (e.id == pid) {
+                if (index == pid) {
                     data = e;
                 }
+                index++;
             });
 
             var url = con.HtmlUrl + 'Industry/Estate/Bottom_EstateDetail.html';
@@ -187,24 +128,7 @@
                 }
             });
         },
-        openWinDetail: function (domWinName, data) {
-            //var parkingName = '';
-            //switch (data.id) {
-            //    case "P0001": //海昌
-            //        parkingName = '海昌公园';
-            //        break;
-            //    case "P0002": //雪绒花
-            //        parkingName = '雪绒花路';
-            //        break;
-            //    case "P0003": //临港
-            //        parkingName = '临港大道';
-            //        break;
-            //    case "P0004": //港城新天地
-            //        parkingName = '港城新天地';
-            //        break;
-            //    default:
-            //}
-
+        openWinDetail: function (domWinName, data) {           
             var html = '<div class="chanye-poibox1">' +
                 '<div class="yqqy-poibox-title">'+data.region+'</div>'+
      '<ul class="chanye-poibox1-list">'+
@@ -256,7 +180,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var name = this.LayerType.Name;
 
-                    var poiname = "POIIndustry" + name + "_" + data[i].id;
+                    var poiname = "POIIndustry" + name + "_" + i;
                     var node = map.getSceneNode(areaName + "/" + poiname);
                     if (node) {
                         //node.setVisible(0);
