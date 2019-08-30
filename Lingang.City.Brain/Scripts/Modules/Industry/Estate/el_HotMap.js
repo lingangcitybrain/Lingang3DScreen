@@ -7,13 +7,13 @@
         //加载人员分布热力图
         loadHotMap:function()
         {
-            //require('tl_VisitorsMap').loadVisitorsMap();
+            require('tl_VisitorsMap').loadVisitorsMap();
             com.LayerFlyto(18);
-            require("el_HotMap").loadFlowRateBar();
+            //require("el_HotMap").loadFlowRateBar();
         },
         //清空
         Revert: function () {
-            //require('tl_VisitorsMap').Revert();
+            require('tl_VisitorsMap').Revert();
             this.closeParkDetailWindow();
         },
         PassengerFlowRate: [
