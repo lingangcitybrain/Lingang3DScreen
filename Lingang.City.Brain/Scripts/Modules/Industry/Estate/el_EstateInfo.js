@@ -9,6 +9,7 @@
         nearDist: null,//近裁面
         freeParkingLotData: [],//停车场数据
         nodeFollowingPath: [],//节点跟随路径
+        EstateAreas:[],
         detailWindowId: 0,//当前窗口id
         //加载产业图层信息
         loadEstateInfo:function()
@@ -26,6 +27,7 @@
             //require("el_EstateInfo").POIData = e_LayerMenuData.estatePOI.Data;
             e_LayerMenuAjax.getIndustryData(function (result) {
                 require("el_EstateInfo").POIData = result;
+                require("el_EstateInfo").loadEstateArea();
             var areaName = con.AreaName;
             var icon = require("el_EstateInfo").LayerType.UnChooseIcon;
             var pois = [];
@@ -242,38 +244,42 @@
                 //if (this.nearDist != null) { mapObj._map3d.getWorldManager().getMainCamera(0).setNearClipDistance(this.nearDist); }
             }
         },
+        areaColor: ["#FFFF00", "#FF0000", "#9966FF", "#00FFFF", "#CCFF00", "#99FFCC", "#FF9900", "#0099FF"],
         //画多边形
-        loadEstateArea: function ()
-        {
-            this.areaListData = e_LayerMenuData.estateAreaData;
+        loadEstateArea: function () {
+            this.areaListData = require("el_EstateInfo").POIData;//e_LayerMenuData.estateAreaData;
 
+            try {
 
-            var AreaName = con.AreaName;
-            for (var i = 0; i < this.areaListData.length; i++)
-            {
-                var id = this.areaListData[i].id
-                var areacolor = this.areaListData[i].areacolor
-                var posstr = this.areaListData[i].pos
-                var nodename = "estatearea" + id;
-                var linenodename = "estatearealine" + id;
-                var lineArray = [];
-                var node = map.getSceneNode(con.AreaName + "/" + nodename);
-                if (node) {
-                    node.setVisible(1);
-                }
-                else {
-                    if (posstr.indexOf("|") > -1) {
-                        var str = posstr.split("|")
-                        for (var k = 0; k < str.length; k++) {
-                            pos = str[k] + "," + 200;
-                            pos = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(AreaName))
-                            lineArray.push(pos)
+                var AreaName = con.AreaName;
+                for (var i = 0; i < this.areaListData.length; i++) {
+                    var id = i;//this.areaListData[i].id
+                    var areacolor = require("el_EstateInfo").areaColor[i];//用静态数据里的颜色 //this.areaListData[i].areacolor
+                    var posstr = this.areaListData[i].points;
+                    var nodename = "estatearea" + i;
+                    var linenodename = "estatearealine" + i;
+                    var lineArray = [];
+                    var node = map.getSceneNode(con.AreaName + "/" + nodename);
+                    if (node) {
+                        node.setVisible(1);
+                    }
+                    else {
+                        if (posstr.indexOf(",") > -1) {
+                            var str = posstr.split(",")
+                            for (var k = 0; k < str.length; k++) {
+                                pos = com.gcj02towgs84(parseFloat(str[k].split(" ")[0]), parseFloat(str[k].split(" ")[1])) + "," + 200;
+                                pos = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(AreaName))
+                                lineArray.push(pos)
+                            }
+
+                            this.drawDecal(nodename, lineArray, areacolor);
+                            this.EstateAreas.push(nodename);
+                            //this.createAreaLine(linenodename, lineArray)
                         }
-
-                        this.drawDecal(nodename, lineArray, areacolor)
-                        //this.createAreaLine(linenodename, lineArray)
                     }
                 }
+            } catch (e) {
+
             }
         },
         //画多边形
@@ -284,7 +290,7 @@
                     SpecialTransparent: false, //设置是否开启特殊透明效果，若开启，则线被物体遮挡时会显示透明效果
                     Points: lineArray,//注意要剔除收尾相等的点
                     Color: Q3D.colourValue(colourValue, 1),
-                    Alpha: 0.1, //填充透明度
+                    Alpha: 0.03, //填充透明度
                     Direction: 1, //默认逆时针方向
                     OnPolygonCreated:null
             });
@@ -325,19 +331,24 @@
                 },
                 OnLineCreated: null
             }
-        
+            this.EstateAreas.push(nodename);
             map.createPolyLine(nodePath, createOptions);
         },
 
 
         //隐藏多边形
         clearDecal: function () {
+            var areaName = con.AreaName;
             if (require("el_EstateInfo").areaListData != null) {
                 for (var i = 0; i < require("el_EstateInfo").areaListData.length; i++) {
-                    var node = map.getSceneNode(con.AreaName + "/" + "estatearea" + this.areaListData[i].id);
-                    var linenode = map.getSceneNode(con.AreaName + "/" + "estatearea" + this.areaListData[i].id);
+                    var node = map.getSceneNode(con.AreaName + "/" + "estatearea" + i); //this.areaListData[i].id);
+                    var linenode = map.getSceneNode(con.AreaName + "/" + "estatearealine" + i);// this.areaListData[i].id);
                     if (node) {
-                        map.getArea(areaName).destroySceneNode(poiname);
+                        map.getArea(areaName).destroySceneNode("estatearea" + i);
+                        //node.setVisible(0);
+                    }
+                    if (linenode) {
+                        map.getArea(areaName).destroySceneNode("estatearealine" + i);
                         //node.setVisible(0);
                     }
                 }
@@ -364,6 +375,7 @@
             this.clearEstateInfo();  //清除产业详情POI
             this.setEstateArea(0);  //显示产业区块
             this.closeDetailWindow();
+            this.clearDecal();
         }
     }
 })
