@@ -816,6 +816,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Ajax\Industry\e_EchartAjax.js" />
+    <Content Include="Scripts\Ajax\Industry\e_LayerMenuAjax.js" />
     <Content Include="Scripts\Ajax\Industry\gl_GardenBuildingAjax.js" />
     <Content Include="Scripts\Ajax\Industry\g_EchartAjax.js" />
     <Content Include="Scripts\Ajax\IPadPcControlAjax.js" />

@@ -1,4 +1,4 @@
-﻿define(["config", "common", "e_LayerMenuData", "util"], function (con, com, e_LayerMenuData, util) {
+﻿define(["config", "common", "e_LayerMenuData", "util","e_LayerMenuAjax"], function (con, com, e_LayerMenuData, util,e_LayerMenuAjax) {
     /****************************产业信息图层****************************/
     return {
         areaListData: null,
@@ -7,6 +7,9 @@
         poiListData: new util.HashMap,
         farDist: null,//远裁面
         nearDist: null,//近裁面
+        freeParkingLotData: [],//停车场数据
+        nodeFollowingPath: [],//节点跟随路径
+        detailWindowId: 0,//当前窗口id
         //加载产业图层信息
         loadEstateInfo:function()
         {
@@ -20,16 +23,16 @@
         loadEstatePOI: function () {
             this.LayerType = require("e_Main").LayerCatalog.Estate;
 
-            require("el_EstateInfo").POIData = e_LayerMenuData.estatePOI.Data;
-
-
+            //require("el_EstateInfo").POIData = e_LayerMenuData.estatePOI.Data;
+            e_LayerMenuAjax.getIndustryData(function (result) {
+                require("el_EstateInfo").POIData = result;
             var areaName = con.AreaName;
             var icon = require("el_EstateInfo").LayerType.UnChooseIcon;
             var pois = [];
             for (var i = 0; i < require("el_EstateInfo").POIData.length; i++) {
                 var row = require("el_EstateInfo").POIData[i];
                 var edetailimg = row.edetailimg;
-                var poiName  = "POIIndustry" + require("el_EstateInfo").LayerType.Name + "_" + row.id;//POIIOT_01
+                var poiName = "POIIndustry" + require("el_EstateInfo").LayerType.Name + "_" + i;//row.id;
                 var iconSize = Q3D.vector2(150, 150);
                 var pos      = row.lng + "," + row.lat + ",0";
                 var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
@@ -73,14 +76,18 @@
                     },
                     OnLoaded: function () {//加载结束回调
                         //创建子POI显示
-                        require("el_EstateInfo").loadEstateDetailNew(areaName, poiName, edetailimg,row.id,row.v3pos);
+                        //require("el_EstateInfo").loadEstateDetailNew(areaName, poiName, edetailimg,row.id,row.v3pos);
+                        require("el_EstateInfo").loadEstateDetailNew(poiName,i);
                     }, 
                 }
                 map.createPOI(areaName + "/" + poiName, options)
             }
+            });
         },
         //加载产业详情
-        loadEstateDetailNew: function (AreaName, parentName, icon, id, v3pos)
+
+        /*******************************无用*****************************************/
+        loadEstateDetailNew1: function (AreaName, parentName, icon, id, v3pos)
         {
          var pos = Q3D.vector3(2000, -100, 0);
             if (v3pos != ""){
@@ -141,6 +148,94 @@
                 }
             }
         },
+        /*******************************end*****************************************/
+        loadEstateDetailNew: function (nodeName, pid) {
+            var data = null;
+            require("el_EstateInfo").POIData.forEach(function (e) {
+                if (e.id == pid) {
+                    data = e;
+                }
+            });
+
+            var url = con.HtmlUrl + 'Industry/Estate/Bottom_EstateDetail.html';
+
+            require("el_EstateInfo").detailWindowId = require("el_EstateInfo").detailWindowId + 1;
+            var domWinName = 'detail_' + require("el_EstateInfo").detailWindowId;
+
+            require(['text!' + url], function (template) {
+                $("#" + domWinName).show();
+                $("#" + domWinName).html(template);
+
+                require("el_EstateInfo").openWinDetail(domWinName, data);
+
+            });
+
+            var nodePath = con.AreaName + '/' + nodeName;
+            var nodeObject = { "nodePath": nodePath, "nodeDom": domWinName };
+
+            require("el_EstateInfo").nodeFollowingPath.push(nodeObject);
+
+            map.enableNodeFollowing(nodePath, function (node, v2i) {
+                require("el_EstateInfo").nodeFolowing(node, v2i);
+            });
+        },
+        nodeFolowing: function (node, v2i) {
+            require("el_EstateInfo").nodeFollowingPath.forEach(function (e) {
+                if (node.getFullName() == e.nodePath) {
+                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                    document.getElementById(e.nodeDom).style.top = v2i.y - 100 + "px";
+                }
+            });
+        },
+        openWinDetail: function (domWinName, data) {
+            //var parkingName = '';
+            //switch (data.id) {
+            //    case "P0001": //海昌
+            //        parkingName = '海昌公园';
+            //        break;
+            //    case "P0002": //雪绒花
+            //        parkingName = '雪绒花路';
+            //        break;
+            //    case "P0003": //临港
+            //        parkingName = '临港大道';
+            //        break;
+            //    case "P0004": //港城新天地
+            //        parkingName = '港城新天地';
+            //        break;
+            //    default:
+            //}
+
+            var html = '<div class="chanye-poibox1">' +
+                '<div class="yqqy-poibox-title">'+data.region+'</div>'+
+     '<ul class="chanye-poibox1-list">'+
+         '<li>面积：<span>'+data.area+'</span>平方米</li>'+
+         '<li>企业数：<span>' + data.entCnt + '</span>家</li>' +
+         '<li>异动企业：<span>'+data.abnomalEntCnt+'</span>家</li>'+
+         '<li>战略型新兴企业：<span>'+data.emergingEntCnt+'</span>家</li>'+
+     '</ul>' +
+ '</div>'
+
+            $("#" + domWinName).html(html);
+        },
+        closeDetailWindow: function () {
+            var currentWinId = require("el_EstateInfo").detailWindowId;
+
+            while (currentWinId > 0) {
+                var domDetail = $("#detail_" + currentWinId);
+                domDetail.empty();
+                domDetail.hide();
+                currentWinId = currentWinId - 1;
+            }
+
+            require("el_EstateInfo").detailWindowId = 0;
+
+            require("el_EstateInfo").nodeFollowingPath.forEach(function (e) {
+                map.disableNodeFollowing(e.nodePath, true);
+            });
+
+            require("el_EstateInfo").nodeFollowingPath = [];
+        },
+        
         //清空摄像头POI
         clearPOI: function () {
             var areaName = con.AreaName;
@@ -344,6 +439,7 @@
             this.clearPOI();         //清除POI
             this.clearEstateInfo();  //清除产业详情POI
             this.setEstateArea(0);  //显示产业区块
+            this.closeDetailWindow();
         }
     }
 })

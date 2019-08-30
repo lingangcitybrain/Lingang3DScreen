@@ -3990,6 +3990,32 @@ dd.pjc-statistic-star >form{
 .eventProcess-li.active>div:after{ display: none; }
 .eventProcess-li.nowactive{ color:#f90; }
 
+/*****************园区产业详情***************/
+.yqqy-poibox{
+	z-index: 999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 1em;
+	padding:.2em .4em;
+	background: rgba(0, 161, 255, 0.5);
+	border-radius: .06em;
+}
+.yqqy-poibox-title{
+	font-size: .34em;
+	line-height: 1.5em;
+	text-align: center;
+	color: #0ff;
+}
+.yqqy-poibox>ul>li{
+	font-size: .3em;
+	line-height: 1.5em;
+	white-space: nowrap;
+}
+.yqqy-poibox>ul>li>div{ float: left; }
+.yqqy-poibox>ul>li>span>em{ font-size: 1.2em; color: #0ff;}
+/******************end**********************/
+
 @media screen and (max-width: 11520px){
 	html{ font-size:140px;}
 }

@@ -31,6 +31,7 @@
         pagination: "jquery.pagination",
 
         //Ajax
+        e_LayerMenuAjax: "Ajax/Industry/e_LayerMenuAjax",
         e_EchartAjax: "Ajax/Industry/e_EchartAjax",
         s_EchartAjax: "Ajax/Society/s_EchartAjax",
         s_LayerMenuAjax: "Ajax/Society/s_LayerMenuAjax",
