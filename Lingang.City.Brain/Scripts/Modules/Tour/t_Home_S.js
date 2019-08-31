@@ -81,7 +81,13 @@
             },
             //人员车辆统计图表日期点击事件
             rqClickEvent: function (index) {
-
+                //index=parseInt(index);
+                //$("#rq").children()[index].click()
+            },
+            //人员车辆统计图表日期点击事件
+            rqPreOrNextClickEvent: function (domID) {
+                //index = parseInt(index);
+                //$("#rq").children()[index].click()
             },
             /*********************END************************/
         }

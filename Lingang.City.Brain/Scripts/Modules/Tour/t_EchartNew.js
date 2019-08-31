@@ -2052,6 +2052,7 @@
                         })
 
                         $("#rycltj-datebtn-pre").click(function () {
+                            require('t_Home').rqPreOrNextClickEvent("#rycltj-datebtn-pre");
                         	datetemp++;
                         	if (datetemp == 7) {
                         		datetemp = 0;
@@ -2059,6 +2060,7 @@
                         	cryFun();
                         })
                         $("#rycltj-datebtn-next").click(function () {
+                            require('t_Home').rqPreOrNextClickEvent("#rycltj-datebtn-next");
                         	datetemp--;
                         	if (datetemp == -1) {
                         		datetemp = 6;
