@@ -1,6 +1,9 @@
 ﻿define(["config", "common", "g_Main", "e_Echart", "el_EstateInfo", "el_AtlasChart", "el_HotMap","e_EchartAjax"], function (con, com, g_Main, e_Echart, el_EstateInfo, el_AtlasChart, el_HotMap,e_EchartAjax) {
     /****************************产业****************************/
     return {
+        zlxxcyRightTimer : null,
+        zlxxcyRightTimer2 : null,
+
         LayerCatalog: {
             Estate: {
                 Id: 1, TextName: "产业信息", Name: "Estate", Level: 1, ChooseIcon: "Texture/Common/cy_hover.png", UnChooseIcon: "Texture/Common/cy_link.png"
@@ -147,8 +150,6 @@
                     var Top10DataLargestNumArr = [];
                     var Top10DataLargestNum = 0;
                     var Top10DataTotalYearNum = [];
-                    var zlxxcyRightTimer = null;
-                    var zlxxcyRightTimer2 = null;
                     var yearIndex = -1;
 
                     for (var i = 0; i < Top10Data.length; i++) {
@@ -167,9 +168,9 @@
                         $(".zlxxcy-year").html(Top10Data[yearIndex].year);
                         $(".zlxxcy-mess").html(Top10Data[yearIndex].text);
 
-                        zlxxcyRightTimer = setTimeout(function () {
-                            clearTimeout(zlxxcyRightTimer)
-                            zlxxcyRightTimer = null;
+                        require("e_Main").zlxxcyRightTimer = setTimeout(function () {
+                            clearTimeout(require("e_Main").zlxxcyRightTimer)
+                            require("e_Main").zlxxcyRightTimer = null;
                             zlxxcyLoopFun();
                         }, 2500)
                     }
@@ -179,13 +180,13 @@
                         if (yearIndex < Top10Data.length) {
                             zlxxcySetDataFun()
                         } else {
-                            clearTimeout(zlxxcyRightTimer)
-                            zlxxcyRightTimer = null;
+                            clearTimeout(require("e_Main").zlxxcyRightTimer)
+                            require("e_Main").zlxxcyRightTimer = null;
                             yearIndex = -1;
 
-                            zlxxcyRightTimer2 = setTimeout(function () {
-                                clearInterval(zlxxcyRightTimer2)
-                                zlxxcyRightTimer2 = null;
+                           require("e_Main").zlxxcyRightTimer2 = setTimeout(function () {
+                                clearInterval(require("e_Main").zlxxcyRightTimer2)
+                                require("e_Main").zlxxcyRightTimer2 = null;
                                 $(".zlxxcy-li").each(function (index, element) {
                                     $(this).find(".zlxxcy-bar").css({ transition: '.3s width linear' }).width(0);
                                     $(this).find(".zlxxcy-num").html('');
@@ -194,9 +195,9 @@
                                 $(".zlxxcy-year").html('');
                                 $(".zlxxcy-mess").html('');
 
-                                zlxxcyRightTimer = setTimeout(function () {
-                                    clearTimeout(zlxxcyRightTimer)
-                                    zlxxcyRightTimer = null;
+                                require("e_Main").zlxxcyRightTimer = setTimeout(function () {
+                                    clearTimeout(require("e_Main").zlxxcyRightTimer)
+                                    require("e_Main").zlxxcyRightTimer = null;
                                     zlxxcyLoopFun();
                                 }, 1500)
 
@@ -205,9 +206,9 @@
                         }
                     }
 
-                    zlxxcyRightTimer = setTimeout(function () {
-                        clearTimeout(zlxxcyRightTimer)
-                        zlxxcyRightTimer = null;
+                    require("e_Main").zlxxcyRightTimer = setTimeout(function () {
+                        clearTimeout(require("e_Main").zlxxcyRightTimer)
+                        require("e_Main").zlxxcyRightTimer = null;
                         zlxxcyLoopFun();
                     }, 1500)
 
@@ -402,6 +403,8 @@
             el_EstateInfo.Revert();
             el_AtlasChart.Revert();
             el_HotMap.Revert();
+            if (require("e_Main").zlxxcyRightTimer) clearTimeout(require("e_Main").zlxxcyRightTimer);
+            if (require("e_Main").zlxxcyRightTimer2) clearTimeout(require("e_Main").zlxxcyRightTimer2);
         }
     }
 })

@@ -2091,7 +2091,7 @@ dd.pjc-statistic-star >form{
 .qytop10-table{ 
 	width: 100%;
 	font-size: .28rem;
-	line-height: .72rem;
+	line-height: .86rem;
 }
 .qytop10-table>tbody>tr>td:nth-child(1){
 	width: 13%;
@@ -2718,19 +2718,17 @@ dd.pjc-statistic-star >form{
 /*cy-qy-lr1-cont*/
 .cy-qy-lr1-cont{
 	width: 100%;
-	height: 3.5rem;
+	/*height: 3.5rem;*/
 }
 .cy-qy-lr1-contdiv{
 	width: 100%;
-	/*margin-top: .2rem;*/
-	padding: 0 1.7rem;
 	background:url(../Content/images/cy-yq-lr-11.png) center center no-repeat;
-	background-size: 7.7rem 3.5rem;
+	background-size: 9rem 5.5rem;
 	box-sizing: border-box;
 }
 .cy-qy-lr1-contdiv>div{
-	font-size: .35rem;
-	line-height: 1.1rem;
+	font-size: .4rem;
+	line-height: 1.8rem;
 	text-align: center;
 }
 .cy-qy-lr1-contdiv>div>span{
@@ -2740,8 +2738,8 @@ dd.pjc-statistic-star >form{
 }
 
 .cy-tcfw-div{
-	padding: .2rem 0 ;
-	height: 1.1rem;
+	padding: .1rem 0 ;
+	height: .9rem;
 	border-radius: .05rem;
 	background-color: rgba(6,88,152,.5);
 	box-sizing: border-box;
