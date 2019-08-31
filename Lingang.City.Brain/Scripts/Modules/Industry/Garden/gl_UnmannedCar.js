@@ -60,7 +60,7 @@
                 var pos = Coordinate + ",0";
                 var POIPosition = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
-                var iconSize = Q3D.vector2(31, 35),
+                var iconSize = Q3D.vector2(21, 25),
                     FontColor = Q3D.colourValue("#000080", 1),
                     icon = require("gl_UnmannedCar").UnmannedCarPOIIcon;
                 var node = map.getSceneNode(areaName, POINodeName);
@@ -73,7 +73,7 @@
                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
                         Scale: Q3D.vector3(1, 1, 1),
                         POIOptions: {
-                            FontSize: 18,
+                            FontSize: 15,
                             FontName: "微软雅黑",
                             FontColor: FontColor,
                             CharScale: 1,
@@ -113,7 +113,7 @@
                     realTimePosition = (com.gcj02towgs84(parseFloat(data.currentLon), parseFloat(data.currentLat)) + ",0").toGlobalVec3d().toLocalPos(areaName),
                     RouteEndPOIPosition = (com.gcj02towgs84(parseFloat(data.desLon), parseFloat(data.desLat)) + ",0").toGlobalVec3d().toLocalPos(areaName);
 
-                var iconSize = Q3D.vector2(31, 35),
+                var iconSize = Q3D.vector2(21, 25),
                     FontColor = Q3D.colourValue("#000080", 1);
                 //起点
                 var node = map.getSceneNode(areaName, RouteStartNode);
@@ -126,7 +126,7 @@
                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
                         Scale: Q3D.vector3(1, 1, 1),
                         POIOptions: {
-                            FontSize: 25,
+                            FontSize: 15,
                             FontName: "微软雅黑",
                             FontColor: FontColor,
                             CharScale: 1,

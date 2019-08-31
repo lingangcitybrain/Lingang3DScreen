@@ -14,7 +14,7 @@
         //加载产业图层信息
         loadEstateInfo:function()
         {
-            this.setEstateArea(1);//显示产业区块
+            //this.setEstateArea(1);//显示产业区块
             require("el_EstateInfo").loadEstatePOI();//加载POI
             com.LayerFlyto(16, function () {
                 
@@ -132,7 +132,7 @@
         },
         openWinDetail: function (domWinName, data) {           
             var html = '<div class="chanye-poibox1">' +
-                '<div class="yqqy-poibox-title">'+data.region+'</div>'+
+                //'<div class="yqqy-poibox-title">'+data.region+'</div>'+
      '<ul class="chanye-poibox1-list">'+
          '<li>面积：<span>'+data.area+'</span>平方米</li>'+
          '<li>企业数：<span>' + data.entCnt + '</span>家</li>' +
