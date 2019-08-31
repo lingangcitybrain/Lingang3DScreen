@@ -105,19 +105,18 @@
         loadLeftFirst1: function () {
             var option = {
                 aniDom: "#left01_01",
-                htmlDom: "#left_second_01",//"#left_first_01",
-                url: con.HtmlUrl + 'Industry/Garden/Left_First_01.html'
+                htmlDom: "#left_first_01",
+                url: con.HtmlUrl + 'Industry/Garden/Left_Second_01.html'
             }
             com.UIControlAni(option, function () {
-                clearInterval(require("g_Echart").zsldInterval);//清空计时器
-                require("g_Echart").zsld({ "offset": 0, "count": 10 }); //招商雷达 
+                require("g_Echart").zsFunnel();
             });
         },
         //加载第二个div
         loadLeftFirst2: function () {
             var option = {
                 aniDom: "#left01_02",
-                htmlDom: "#left_second_02",//"#left_first_02",
+                htmlDom: "#left_first_02",
                 url: con.HtmlUrl + 'Industry/Garden/Left_First_02.html'
             }
             com.UIControlAni(option, function () {
@@ -131,18 +130,19 @@
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
-                htmlDom: "#left_first_01",//"#left_second_01",
-                url: con.HtmlUrl + 'Industry/Garden/Left_Second_01.html'
+                htmlDom: "#left_second_01",
+                url: con.HtmlUrl + 'Industry/Garden/Left_First_01.html'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").zsFunnel();
+                clearInterval(require("g_Echart").zsldInterval);//清空计时器
+                require("g_Echart").zsld({ "offset": 0, "count": 10 }); //招商雷达 
             });
         },
         //加载第二个div
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
-                htmlDom: "#left_first_02",//"#left_second_02",
+                htmlDom: "#left_second_02",
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_02.html'
             }
             com.UIControlAni(option, function () {
@@ -153,7 +153,7 @@
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
-                htmlDom: "#left_first_03",//"#left_second_03",
+                htmlDom: "#left_second_03",
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_03.html'
             }
             com.UIControlAni(option, function () {

@@ -7,6 +7,9 @@
     var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
     var wrjsjbcSeriesDataMax = 0;
 
+    var thisYearMonthData = []; //智慧能耗图表
+    var thisYearEnergyData = [];//智慧能耗图表
+
     /****************************园区****************************/
     return {
         mybigChart: null,
@@ -1112,11 +1115,59 @@
                     $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy + '</span></li>');
                 }
                 // 同比和环比
+                var oTongbiHuanbi = JSON.parse(data.chainratioanalysis);
+                var thisYearData = [];  //今年前六个月能耗数据
+                var lastYearData = oTongbiHuanbi[0].energy;  //去年当月（于今年最近一月同）能耗数据
+                var tongbiData = 0;  //同比  同比的计算公式：（2018年当月数据-2017年当月数据）/2017年当月数据*100%   2017年当月为0，则100%
+                var huanbiData = 0;  //环比环比的计算公式：  （2018年当月数据-2018年上月数据）/2018年上月数据*100%   2018年上月为0，则100%
+
+                for (var i = 0; i < 6; i++) {
+                    thisYearData.push(oTongbiHuanbi[oTongbiHuanbi.length - 1 + i - 5]);
+                }
+
+                thisYearMonthData = []; //智慧能耗图表
+                thisYearEnergyData = [];//智慧能耗图表
+                for (var i = 0; i < thisYearData.length; i++) {
+                    thisYearMonthData.push(thisYearData[i].month + '月');
+                    thisYearEnergyData.push(thisYearData[i].energy);
+                }
+                //同比
+                if (lastYearData == 0) {
+                    tongbiData = "100%";
+                } else {
+                    tongbiData = ((thisYearEnergyData[thisYearEnergyData.length - 1] - lastYearData) / lastYearData) * 100;
+                    if (tongbiData >= 0) {
+                        $("#zhnh-common>span").addClass("colorred").removeClass("colorgreen");
+                    } else {
+                        $("#zhnh-common>span").addClass("colorgreen").removeClass("colorred");
+                    }
+                    tongbiData = tongbiData.toFixed(2) + '%';
+                }
+
+                //环比
+                if (thisYearEnergyData[thisYearEnergyData.length - 2] == 0) {
+                    huanbiData = "100%";
+                } else {
+                    huanbiData = ((thisYearEnergyData[thisYearEnergyData.length - 1] - thisYearEnergyData[thisYearEnergyData.length - 2]) / thisYearEnergyData[thisYearEnergyData.length - 2]) * 100;
+                    if (huanbiData >= 0) {
+                        $("#zhnh-chainratio>span").addClass("colorred").removeClass("colorgreen");
+                    } else {
+                        $("#zhnh-chainratio>span").addClass("colorgreen").removeClass("colorred");
+                    }
+                    huanbiData = huanbiData.toFixed(2) + '%';
+                }
+
+                $("#zhnh-common>span>i").html(tongbiData);
+                $("#zhnh-chainratio>span>i").html(huanbiData);
+
+
 
                 //zhnh-dailyenergy
                 $("#zhnh-dailyenergy>span").html(data.dailyenergy);
                 $("#zhnh-monthenergy>span").html(data.monthenergy);
                 $("#zhnh-yearenergy>span").html(data.yearenergy);
+
+                $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
 
             });
 
@@ -1124,15 +1175,12 @@
 
             if ($("#zhnh-chart").length <= 0) { return false; }
             var zhnhChart = document.getElementById('zhnh-chart');
-            var zhnhdata = [];
-            for (var i = 0; i < 7; i++) {
-                zhnhdata.push(Math.round((Math.random() * 60 + 10)));
-            }
+
                 
             var myChartzhnh = echarts.init(zhnhChart);
             zhnhOption = {
                 title: {
-                    text: "园区日用电量峰值（近一周）",
+                    text: "园区近六月用电量",
                     left: 2,
                     top: 8,
                     textStyle: {
@@ -1160,7 +1208,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['19/02/10', '19/02/11', '19/02/12', '19/02/13', '19/02/14', '19/02/15', '19/02/16'],
+                    data: thisYearMonthData,
                     boundaryGap: ['20%', '20%'],
                     axisTick: {
                         show: false,
@@ -1191,8 +1239,6 @@
                             color: "rgba(80,172,254,.2)",
                         }
                     },
-                    interval: 10,
-                    max: 70,
                     axisLabel: {
                         textStyle: {
                             fontSize: 25,
@@ -1222,7 +1268,7 @@
                           }
                       },
 
-                      data: zhnhdata,
+                      data: thisYearEnergyData,
                   }
                 ]
             };
@@ -1234,23 +1280,12 @@
         },
         //大智慧能耗
         bigzhnh: function () {
-            $("#GbigechartHead").html('园区日用电量峰值（近一周）');
+            $("#GbigechartHead").html('园区近六月用电量');
             if ($("#zhnh-chart").length <= 0) { return false; }
-            var zhnhdata = [];
-            for (var i = 0; i < 7; i++) {
-                zhnhdata.push(Math.round((Math.random() * 60 + 10)));
-            }
+
             zhnhOption = {
                 title: {
                     show:false,
-                    //text: "",
-                    //left: 2,
-                    //top: 8,
-                    //textStyle: {
-                    //    fontWeight: "normal",
-                    //    fontSize: 24,
-                    //    color: "#fff",
-                    //},
                 },
                 legend: {
                     show: false
@@ -1274,7 +1309,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['19/02/10', '19/02/11', '19/02/12', '19/02/13', '19/02/14', '19/02/15', '19/02/16'],
+                    data: thisYearMonthData,
                     boundaryGap: ['20%', '20%'],
                     axisTick: {
                         show: false,
@@ -1308,8 +1343,6 @@
                             color: "rgba(80,172,254,.2)",
                         }
                     },
-                    interval: 10,
-                    max: 70,
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -1340,7 +1373,7 @@
                           }
                       },
 
-                      data: zhnhdata,
+                      data: thisYearEnergyData,
                   }
                 ]
             };
