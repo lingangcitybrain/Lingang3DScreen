@@ -73,7 +73,7 @@
                         OrientationType: Q3D.Enums.nodeOrientationType.Self,
                         Scale: Q3D.vector3(1, 1, 1),
                         POIOptions: {
-                            FontSize: 15,
+                            FontSize: 12,
                             FontName: "微软雅黑",
                             FontColor: FontColor,
                             CharScale: 1,
