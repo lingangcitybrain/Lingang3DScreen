@@ -451,7 +451,55 @@
                     });
                 });
             },
-            //加载无人机视频
+            ////加载无人机视频
+            //loadLeft02_01_Video: function () {
+            //    var videowidth = $(".wrj-li").width();
+            //    var videoheight = $(".wrj-li").height();
+            //    if (require("t_Main").tourhtml_wurenji01) {
+            //        require("t_Main").tourhtml_wurenji01.dispose();
+            //        require("t_Main").tourhtml_wurenji01 = null;
+            //    }
+
+            //    $("#tourhtml_wurenji01").empty();
+            //    require(['aliplayer'], function (data) {
+            //        var post_data = { "offset": "0", "count": "1000" }
+            //         var playurl = con.WebServiceUrl + "/Content/video/dakeliu.flv";
+            //         require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+            //                "id": "tourhtml_wurenji01",
+            //                "source": playurl,
+            //                //"width": videowidth + "px",
+            //                //"height": videoheight + "px",
+            //                "autoplay": true,
+            //                "isLive": false,
+            //                "rePlay": true,
+            //                "showBuffer": true,
+            //                "snapshot": false,
+            //                "showBarTime": 5000,   
+            //                "useFlashPrism": true,
+            //                "mediaType": "audio"
+
+            //                }, function (player) {
+            //                //加载成功,清空错误提示
+            //                $(".prism-ErrorMessage").empty();
+            //            });
+
+            //        //require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
+            //        //    var playurl = con.WebServiceUrl + "/Content/video/dakeliu.flv";
+            //        //    for (var i = 0; i < result.length; i++) {
+            //        //        if (playurl == "") {
+            //        //            playurl = result[i].playUrl;
+            //        //        }
+            //        //    }
+            //        //    if(playurl==""){playurl=con.WebServiceUrl + "/Content/video/dakeliu.flv";}
+ 
+                        
+            //        //})
+
+
+            //    });
+            //},
+
+            //加载  景区左二列 无人机视频
             loadLeft02_01_Video: function () {
                 var videowidth = $(".wrj-li").width();
                 var videoheight = $(".wrj-li").height();
@@ -461,43 +509,46 @@
                 }
 
                 $("#tourhtml_wurenji01").empty();
-                require(['aliplayer'], function (data) {
-                    var post_data = { "offset": "0", "count": "1000" }
-                     var playurl = con.WebServiceUrl + "/Content/video/dakeliu.flv";
-                     require("t_Main").tourhtml_wurenji01 = new Aliplayer({
-                            "id": "tourhtml_wurenji01",
-                            "source": playurl,
-                            //"width": videowidth + "px",
-                            //"height": videoheight + "px",
-                            "autoplay": true,
-                            "isLive": false,
-                            "rePlay": true,
-                            "showBuffer": true,
-                            "snapshot": false,
-                            "showBarTime": 5000,   
-                            "useFlashPrism": true,
-                            "mediaType": "audio"
+
+                require("t_EchartAjax").droneRwlb(function (result) {
+                    if (require("t_Echart").droneRwlbData == null) { return false; }
+                    var t_Data = require("t_Echart").droneRwlbData[0];
+                    var post_data = { "sbbm": t_Data.sbbm, "startTime": t_Data.task_start_time }
+
+
+                    require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
+                        require(['aliplayer'], function (data) {
+
+                            require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+                                "id": "tourhtml_wurenji01",
+                                "source": result,
+                                //"width": videowidth + "px",
+                                //"height": videoheight + "px",
+                                "autoplay": true,
+                                "isLive": false,
+                                "rePlay": true,
+                                "showBuffer": true,
+                                "snapshot": false,
+                                "showBarTime": 5000,
+                                "useFlashPrism": true,
+                                "mediaType": "audio"
 
                             }, function (player) {
-                            //加载成功,清空错误提示
-                            $(".prism-ErrorMessage").empty();
+                                //加载成功,清空错误提示
+                                $(".prism-ErrorMessage").empty();
+                            });
+
                         });
-
-                    //require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
-                    //    var playurl = con.WebServiceUrl + "/Content/video/dakeliu.flv";
-                    //    for (var i = 0; i < result.length; i++) {
-                    //        if (playurl == "") {
-                    //            playurl = result[i].playUrl;
-                    //        }
-                    //    }
-                    //    if(playurl==""){playurl=con.WebServiceUrl + "/Content/video/dakeliu.flv";}
- 
-                        
-                    //})
-
+                    });
 
                 });
             },
+
+
+
+
+
+
             //加载中间无人机视频
             loadCenter_Video: function () {
                 var videowidth = $("#Big-chart").width();

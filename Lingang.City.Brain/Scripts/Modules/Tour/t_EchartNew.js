@@ -140,6 +140,7 @@
         jtxxData: null,                    //交通信息数据
         yqsjtjTypeData: null,             //园区事件统计类型
         yqsjtjQuyuData: null,             //园区事件统计区域
+        droneRwlbData: null,             //景区事件任务列表
         loadEcharts: function () {
 
             this.rq();                  //日期
