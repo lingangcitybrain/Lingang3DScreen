@@ -79,6 +79,10 @@
             jqsjtjClickEvent: function (domName) {
                 require('t_Echart').jqsjtjClickEvent(domName);                
             },
+            //人员车辆统计图表日期点击事件
+            rqClickEvent: function (index) {
+
+            },
             /*********************END************************/
         }
     });

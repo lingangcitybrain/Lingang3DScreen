@@ -105,7 +105,7 @@
         loadLeftFirst1: function () {
             var option = {
                 aniDom: "#left01_01",
-                htmlDom: "#left_first_01",
+                htmlDom: "#left_second_01",//"#left_first_01",
                 url: con.HtmlUrl + 'Industry/Garden/Left_First_01.html'
             }
             com.UIControlAni(option, function () {
@@ -117,7 +117,7 @@
         loadLeftFirst2: function () {
             var option = {
                 aniDom: "#left01_02",
-                htmlDom: "#left_first_02",
+                htmlDom: "#left_second_02",//"#left_first_02",
                 url: con.HtmlUrl + 'Industry/Garden/Left_First_02.html'
             }
             com.UIControlAni(option, function () {
@@ -131,7 +131,7 @@
         loadLeftSecond1: function () {
             var option = {
                 aniDom: "#left02_01",
-                htmlDom: "#left_second_01",
+                htmlDom: "#left_first_01",//"#left_second_01",
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_01.html'
             }
             com.UIControlAni(option, function () {
@@ -142,7 +142,7 @@
         loadLeftSecond2: function () {
             var option = {
                 aniDom: "#left02_02",
-                htmlDom: "#left_second_02",
+                htmlDom: "#left_first_02",//"#left_second_02",
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_02.html'
             }
             com.UIControlAni(option, function () {
@@ -153,7 +153,7 @@
         loadLeftSecond3: function () {
             var option = {
                 aniDom: "#left02_03",
-                htmlDom: "#left_second_03",
+                htmlDom: "#left_first_03",//"#left_second_03",
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_03.html'
             }
             com.UIControlAni(option, function () {
