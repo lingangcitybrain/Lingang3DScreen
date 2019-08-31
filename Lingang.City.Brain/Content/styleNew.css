@@ -2722,15 +2722,15 @@ dd.pjc-statistic-star >form{
 }
 .cy-qy-lr1-contdiv{
 	width: 100%;
-	margin-top: .2rem;
+	/*margin-top: .2rem;*/
 	padding: 0 1.7rem;
 	background:url(../Content/images/cy-yq-lr-11.png) center center no-repeat;
-	background-size: 7.7rem;
+	background-size: 7.7rem 3.5rem;
 	box-sizing: border-box;
 }
 .cy-qy-lr1-contdiv>div{
 	font-size: .35rem;
-	line-height: 1.5rem;
+	line-height: 1.1rem;
 	text-align: center;
 }
 .cy-qy-lr1-contdiv>div>span{
