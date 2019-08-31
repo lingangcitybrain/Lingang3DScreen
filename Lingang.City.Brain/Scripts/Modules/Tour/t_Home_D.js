@@ -191,6 +191,19 @@
                 };
                 control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
             },
+            //关闭公交详情窗口
+            closeBusStopDetail: function () {
+                require('tl_Bus').closeBusStopDetail();
+                var jsondata = {
+                    "menu": "2",
+                    "layer": this.layerNO,
+                    "id": this.POIName_Clk,
+                    "command": "close",
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            },
             //关闭交通仿真窗口
             closeCameraDetialTraffic: function () {
                 require('tl_TrafficSimulation').closeCameraDetial();
@@ -228,6 +241,32 @@
                     "layer": "all",
                     "type": "jqsjtj",
                     "id": domName,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+            //人员车辆统计图表日期点击事件
+            rqClickEvent: function (index) {
+                //index = parseInt(index);
+                //$("#rq").children()[index].click()
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "rycltjrq",
+                    "id": index,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+            //人员车辆统计图表日期点击事件（上一个或下一个）
+            rqPreOrNextClickEvent: function (domID) {
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "rycltjrqPreOrNext",
+                    "id": domID,
                     "xyz": "",
                     "angle": "",
                 };

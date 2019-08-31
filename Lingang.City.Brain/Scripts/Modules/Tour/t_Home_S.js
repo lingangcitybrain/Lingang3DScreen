@@ -64,6 +64,10 @@
             closeEventDetail: function () {
                 require('tl_Event').closeDetail();               
             },
+            //关闭公交详情窗口
+            closeBusStopDetail: function () {
+                require('tl_Bus').closeBusStopDetail();
+            },
             //关闭交通仿真窗口
             closeCameraDetialTraffic: function () {
                 require('tl_TrafficSimulation').closeCameraDetial();
@@ -81,7 +85,13 @@
             },
             //人员车辆统计图表日期点击事件
             rqClickEvent: function (index) {
-
+                //index=parseInt(index);
+                //$("#rq").children()[index].click()
+            },
+            //人员车辆统计图表日期点击事件
+            rqPreOrNextClickEvent: function (domID) {
+                //index = parseInt(index);
+                //$("#rq").children()[index].click()
             },
             /*********************END************************/
         }

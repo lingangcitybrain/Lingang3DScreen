@@ -124,6 +124,20 @@
                 });
             })
         },
+        closeBusStopDetail: function () {
+            $("#center_02").html("");
+            var areaName = con.AreaName;
+            if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
+                var layername = this.LastPOI_Clk.split('_')[0].replace("POITour", "");
+                var level = require("tl_Bus").LayerType.Level;
+                var icon = require("tl_Bus").LayerType.UnChooseIcon;
+                var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
+                if (lastNode) {
+                    lastNode.asPOI().setIcon(icon);
+                    this.LastPOI_Clk = '';
+                }
+            }
+        },
         loadBusLine:function()
         {
             var data = t_LayerMenuData.BusLineData;
@@ -205,7 +219,7 @@
                         node.setVisible(0);
                     }
                 }
-                this.LayerType = null;
+                //this.LayerType = null;
                 this.POIData = null;
             }
         },
@@ -226,6 +240,7 @@
         Revert: function () {
             this.clearBusPOI();
             this.clearBusLine();
+            this.closeBusStopDetail();
         }
     }
 })
