@@ -908,6 +908,7 @@
     <Content Include="Scripts\Modules\Society\s_RightLayer.js" />
     <Content Include="Scripts\Modules\SpecialEfficiency.js" />
     <Content Include="Scripts\Modules\Tour\tl_Bus.js" />
+    <Content Include="Scripts\Modules\Tour\tl_BusNew.js" />
     <Content Include="Scripts\Modules\Tour\tl_Camera.js" />
     <Content Include="Scripts\Modules\Tour\tl_Drone.js" />
     <Content Include="Scripts\Modules\Tour\tl_Event.js" />

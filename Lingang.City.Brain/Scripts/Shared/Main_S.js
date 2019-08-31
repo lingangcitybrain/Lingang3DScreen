@@ -84,7 +84,7 @@
         t_Main: "Modules/Tour/t_MainNew",
         t_Echart: "Modules/Tour/t_EchartNew",
         tl_Metro: "Modules/Tour/tl_Metro",
-        tl_Bus: "Modules/Tour/tl_Bus",
+        tl_Bus: "Modules/Tour/tl_BusNew",
         tl_Camera: "Modules/Tour/tl_Camera",
         tl_Drone: "Modules/Tour/tl_Drone",
         tl_Event: "Modules/Tour/tl_Event",
