@@ -152,6 +152,32 @@
                 callback();
             }
         },
+        //获取公交站数据
+        getbusstopList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "GET",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_DataStation + "six/digit/busstop",
+                    //contentType: 'application/json;charset=UTF-8',
+                    cache: false,
+                    data: null,  //传送的数据
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("tl_Bus").POIData = data;
+                        callback(data); 
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        console.log('景区管理---获取公交车站数据失败');
+                    }
+                });
+            }
+            else {//执行本地
+                require("tl_Bus").POIData = t_LayerMenuData.BusstopData.data;
+                callback();
+            }
+        },
         //获取无人机库列表
         getDroneHangarList: function (post_data, callback) {
             if (con.IsInterface)//执行接口

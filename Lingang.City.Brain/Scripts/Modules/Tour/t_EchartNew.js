@@ -3,6 +3,7 @@
     var oRycltjChartRqaIndex = -1; 
     var oRycltjChartData1 = null;
     var oRycltjChartData2 = null;
+    var legendOption = null;
     var rycltjChartClose = true;
 
     //交通信息图表数据
@@ -140,6 +141,7 @@
         jtxxData: null,                    //交通信息数据
         yqsjtjTypeData: null,             //园区事件统计类型
         yqsjtjQuyuData: null,             //园区事件统计区域
+        droneRwlbData: null,             //景区事件任务列表
         loadEcharts: function () {
 
             this.rq();                  //日期
@@ -183,7 +185,7 @@
                         break;
                     case "Right_First_01"://人员车辆统计
                         rycltjChartClose = false;
-                        require("t_Echart").bigRycltj(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        require("t_Echart").bigRycltj(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                         break;
                     case "Right_First_02"://停车场使用情况
                         require("t_Echart").bigTccsyqk();
@@ -1809,14 +1811,22 @@
             var nowHour = new Date().getHours();
             var nowDate = new Date().getDate();
 
-            function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2) {
+            function tb(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2, legendOption) {
 
                 if ($("#rycltj-chart").length <= 0) { return false; }
                 var rycltjChart = document.getElementById('rycltj-chart');
 
                 rycltjOption = {
                     legend: {
-                        show: false,
+                        show: true,
+                        icon: "rect",
+                        itemGap: 50,
+                        itemWidth: 30,
+                        itemHeight: 16,
+                        textStyle: {
+                            fontSize: 20,
+                            color: "#00d7fe"
+                        }
                     },
                     color: ['#3398DB'],
                     //backgroundColor: "rgba(74,128,244,.15)",
@@ -1889,7 +1899,7 @@
                     },
                     series: [
                       {
-                         // name: "出园",
+                          name: legendOption.enter,
                           type: 'line',
                           color: "#4085ed",
                           lineStyle: {
@@ -1903,7 +1913,7 @@
                           data: rycltjdata1
                       },
                       {
-                          //name: "入园",
+                          name: legendOption.out,
                           type: 'line',
                           color: "#46d1c2",
                           lineStyle: {
@@ -1921,7 +1931,7 @@
                 require("t_Echart").myChartrycltj = echarts.init(rycltjChart);
                 require("t_Echart").myChartrycltj.setOption(rycltjOption, true);
 
-                require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
+                require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2, legendOption);
 
                 $("#renche").click(function () {
                     require("t_Echart").myChartrycltj.clear();
@@ -1929,7 +1939,7 @@
 
                     rycltjChartClose = false;
                     require("t_Echart").mybigChart.clear();
-                    require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2);
+                    require("t_Echart").bigRycltj(oRycltjChartRqaIndex, rycltjdata1, rycltjdata2, legendOption);
                 });
             }
             if (domName == "ry") {
@@ -1993,7 +2003,9 @@
                                 }
                                 oRycltjChartData1 = rysum;
                                 oRycltjChartData2 = cysum;
-                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                                legendOption = { "out":"出园", "enter":"入园"};
+
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                             }
                         }
 
@@ -2033,7 +2045,7 @@
                         			}
                         			oRycltjChartData1 = rysum;
                         			oRycltjChartData2 = cysum;
-                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                         		}
 
                         	})//
@@ -2105,7 +2117,9 @@
                                 }
                                 oRycltjChartData1 = dtsum;
                                 oRycltjChartData2 = null;
-                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                                legendOption = { "out": "", "enter": "地铁人数" };
+
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                             }
                         }
 
@@ -2133,7 +2147,7 @@
                         			}
                         			oRycltjChartData1 = dtsum;
                         			oRycltjChartData2 = null;
-                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                         		}
 
                         	})
@@ -2218,7 +2232,8 @@
                                 }
                                 oRycltjChartData1 = rysum;
                                 oRycltjChartData2 = cysum;
-                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                                legendOption = { "out": "出临港", "enter": "入临港" };
+                                tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                             }
                         }
 
@@ -2258,7 +2273,7 @@
                         			}
                         			oRycltjChartData1 = rysum;
                         			oRycltjChartData2 = cysum;
-                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2);
+                        			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                         		}
 
                         	})
@@ -2299,23 +2314,31 @@
 
                 if (bigRycltjIndex === 0) {
                     $("#bigechartHead").html('出入园人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
-                    tb(rycltjdata1, rycltjdata2);
+                    tb(rycltjdata1, rycltjdata2, legendOption);
 
                 } else if (bigRycltjIndex === 1) {
                     $("#bigechartHead").html('地铁人数统计--' + rqa.eq(oRycltjChartRqaIndex).html());
-                    tb(rycltjdata1);
+                    tb(rycltjdata1, rycltjdata2, legendOption);
 
                 } else if (bigRycltjIndex === 2) {
                     $("#bigechartHead").html('进出临港车辆统计--' + rqa.eq(oRycltjChartRqaIndex).html());
-                    tb(rycltjdata1, rycltjdata2);
+                    tb(rycltjdata1, rycltjdata2, legendOption);
                 }
 
-                function tb(rycltjdata1, rycltjdata2) {
+                function tb(rycltjdata1, rycltjdata2, legendOption) {
 
                     if ($("#Big-chart").length <= 0) { return false; }
                     option = {
                         legend: {
-                            show: false,
+                            show: true,
+                            icon: "rect",
+                            itemGap:100,
+                            itemWidth: 75,
+                            itemHeight: 42,
+                            textStyle: {
+                                fontSize: 50,
+                                color: "#00d7fe"
+                            }
                         },
                         color: ['#3398DB'],
                         //backgroundColor: "rgba(74,128,244,.15)",
@@ -2394,7 +2417,7 @@
                         },
                         series: [
                           {
-                              //name:"出园",
+                              name: legendOption.enter,
                               type: 'line',
                               color: "#4085ed",
                               lineStyle: {
@@ -2408,7 +2431,7 @@
                               data: rycltjdata1
                           },
                           {
-                              //name:"入园",
+                              name: legendOption.out,
                               type: 'line',
                               color: "#46d1c2",
                               lineStyle: {

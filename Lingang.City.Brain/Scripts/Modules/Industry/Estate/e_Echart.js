@@ -17,6 +17,7 @@
         xzspbhqsData: null,             //薪资水平数据
         myChartgccrc: null,             //高层次人才
         gccrcData: null,                //高层次人才数据
+        zlxxcyData: null,                //战略新兴产业数据 
         zlxxcyjgData:null,              //战略新兴产业结构数据 
         myChartleida: null,             //风控雷达
         fkldData:null,                  //风控雷达数据
