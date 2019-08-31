@@ -74,6 +74,8 @@
         { "menu": "2", "layer": "3", "menuNM": "景区管理", "layerNM": "摄像头", POISTR: "POITourCamera", "command": "close", "func": "require('tl_Camera').closeCameraDetial();" },//摄像头窗口关闭
         { "menu": "2", "layer": "7", "menuNM": "景区管理", "layerNM": "事件", POISTR: "POITourEvent", "command": "close", "func": "require('tl_Event').closeDetail();" },//事件窗口关闭
         { "menu": "2", "layer": "9", "menuNM": "景区管理", "layerNM": "交通仿真", POISTR: "TrafficSimulation", "command": "close", "func": "require('tl_TrafficSimulation').closeCameraDetial();" },//交通仿真窗口关闭
+        { "menu": "2", "layer": "6", "menuNM": "景区管理", "layerNM": "公交", POISTR: "POITourBus", "command": "close", "func": "require('tl_Bus').closeBusStopDetail();" },//公交
+        //;
 
         { "menu": "3", "layer": "19", "menuNM": "园区产业", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "open", "func": "$('.cy-qy-navbar').removeClass('active');require('gl_TopCompany').flyToBuilding();" },//花展开
         { "menu": "3", "layer": "19", "menuNM": "园区产业", "layerNM": "代表企业", POISTR: "POIIndustryGTopCompany", "command": "close", "func": "require('gl_TopCompany').closeTopCompanyInfo();$('.cy-qy-menu-close').click();" },//花隐藏
