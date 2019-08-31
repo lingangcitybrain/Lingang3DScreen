@@ -211,17 +211,30 @@ define(["config", "common", "e_EchartData", "e_LayerMenuData"], function (con, c
             }
         },
         //获取战略新兴产业
-        getzlxxcyData: function (year, callback) { 
-            $.ajax({
-                type: "POST",      //data 传送数据类型。post 传递 
-                url: con.InterfaceUrl_DataStation + 'v1/industrial/zhlgzlxxcyjg',
-                cache: false,
-                data: { year: year },
-                dataType: 'json',  // 返回数据的数据类型json
-                success: function (data) {
-                    callback(data);
-                }
-            })
+        getzlxxcyData: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_DataStation + 'v1/industrial/zhlgzlxxcyjg',
+                    cache: false,
+                    //data: { year: year },
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("e_Echart").zlxxcyData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                        require("e_Echart").zlxxcyData = e_EchartData.zlxxcyData;
+                        callback();
+                    }
+                })
+            }
+            else {//执行本地
+                require("e_Echart").zlxxcyData = e_EchartData.zlxxcyData;
+                callback();
+            }
         },
         //战略新兴产业结构
         getzlxxcyjgData: function (callback) {
