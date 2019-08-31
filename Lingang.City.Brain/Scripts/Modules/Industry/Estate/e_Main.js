@@ -110,7 +110,11 @@
 
                 for(var i=0; i<dataYearArr.length; i++){
                     Top10Data.push(
-                        { "year": dataYearArr[dataYearArr.length - 1 - i], "value": dataEntCountArr.slice(dataIndustryArr.length * (dataYearArr.length - 1 - i), dataIndustryArr.length * (dataYearArr.length - i)), "text": Top10TextData[i] }
+                        {
+                            "year": dataYearArr[dataYearArr.length - 1 - i],
+                            "value": dataEntCountArr.slice(dataIndustryArr.length * (dataYearArr.length - 1 - i), dataIndustryArr.length * (dataYearArr.length - i)),
+                            "text": Top10TextData[i]
+                        }
                     )
                 }
 
