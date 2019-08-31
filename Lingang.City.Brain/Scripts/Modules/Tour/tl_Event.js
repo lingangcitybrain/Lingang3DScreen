@@ -204,7 +204,7 @@
 									'<div class=\"box-rightinfo flex\" style=\" margin-left:0; margin-top:.2rem; \">' +
 									'    <ul style="width:100%;">' +
 										'    <li><span>事件时间：</span><em>' + data.sbsj + '</em></li>' +
-										//'   <li><span>车牌号码：</span><em>' + carNumber + '</em></li>' +
+										'   <li><span>车牌号码：</span><em>' + carNumber + '</em></li>' +
 										'   <li><span>事件状态：</span><em>' + data.dictname + '</em></li>' +
 										'    <li style="overflow:hidden;"><span style="float:left; width:5em;">事件描述：</span>' +
                 								'<em class="scrolldiv" style="float:left; width:calc(100% - 5em); height:auto;  max-height:1.5rem; ">' + data.sjms + '</em></li>' +
