@@ -1,4 +1,4 @@
-﻿define(["config", "common","t_LayerMenuData"], function (con, com,t_LayerMenuData) {
+﻿define(["config", "common","t_LayerMenuData", "util"], function (con, com,t_LayerMenuData,util) {
 /****************************公交****************************/
     return {
         LayerType: null,//选择公交
