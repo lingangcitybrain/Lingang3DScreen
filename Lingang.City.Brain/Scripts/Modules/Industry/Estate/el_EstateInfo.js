@@ -131,7 +131,7 @@
             });
         },
         openWinDetail: function (domWinName, data) {           
-            var html = '<div class="chanye-poibox1">' +
+            var html = '<div class="chanye-poibox1" style="width:5rem;">' +
                 //'<div class="yqqy-poibox-title">'+data.region+'</div>'+
      '<ul class="chanye-poibox1-list">'+
          '<li>面积：<span>'+data.area+'</span>平方米</li>'+

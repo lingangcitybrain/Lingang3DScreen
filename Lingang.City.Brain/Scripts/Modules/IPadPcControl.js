@@ -258,6 +258,8 @@
         poiIndustryControl: function (id) {
             if (id.indexOf("UmmannedCarPOI") > -1) { //无人车POI
                 require("gl_UnmannedCar").showUnmannedCarTrajectors(id);
+            } else if (id.indexOf("parkinglotPOI") > -1) {
+                require("gl_Stop").showParkingLotDetail(id);
             }
             else {
                 require("g_Main").PoiEvent(id);
