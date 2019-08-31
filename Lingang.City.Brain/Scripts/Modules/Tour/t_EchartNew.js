@@ -2011,7 +2011,8 @@
 
 
                         rqa.each(function (index, element) {
-                        	$(this).click(function () {
+                            $(this).click(function () {
+                                require('t_Home').rqClickEvent(index);
                         		$(this).addClass("active").siblings().removeClass("active");
                         		datetemp = rqa.length - 1 - index;
                         		oRycltjChartRqaIndex = index;
@@ -2047,7 +2048,7 @@
                         			tb(oRycltjChartRqaIndex, oRycltjChartData1, oRycltjChartData2, legendOption);
                         		}
 
-                        	})
+                        	})//
                         })
 
                         $("#rycltj-datebtn-pre").click(function () {
