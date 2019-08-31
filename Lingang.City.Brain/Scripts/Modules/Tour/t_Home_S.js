@@ -64,6 +64,10 @@
             closeEventDetail: function () {
                 require('tl_Event').closeDetail();               
             },
+            //关闭公交详情窗口
+            closeBusStopDetail: function () {
+                require('tl_Bus').closeBusStopDetail();
+            },
             //关闭交通仿真窗口
             closeCameraDetialTraffic: function () {
                 require('tl_TrafficSimulation').closeCameraDetial();

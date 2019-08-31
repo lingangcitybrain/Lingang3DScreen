@@ -191,6 +191,19 @@
                 };
                 control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
             },
+            //关闭公交详情窗口
+            closeBusStopDetail: function () {
+                require('tl_Bus').closeBusStopDetail();
+                var jsondata = {
+                    "menu": "2",
+                    "layer": this.layerNO,
+                    "id": this.POIName_Clk,
+                    "command": "close",
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendPOIWinControlInfo(jsondata); //发送控制命令
+            },
             //关闭交通仿真窗口
             closeCameraDetialTraffic: function () {
                 require('tl_TrafficSimulation').closeCameraDetial();
