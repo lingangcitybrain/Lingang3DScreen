@@ -647,9 +647,11 @@
                         tl_Drone.loadDroneCamera(nodename);
                         break;
                     case "Event": //事件
-                        tl_Event.loadEventDetial(nodename)
+                        tl_Event.loadEventDetial(nodename);
                         break;
-
+                    case "Bus": //公交
+                        tl_Bus.loadBusDetial(nodename);
+                        break;
                     default:
                 }
             },
