@@ -5,6 +5,7 @@
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
         tlBusstopData: new util.HashMap,
+        nodeFollowingPath: null,
 
         //加载公交Bus
         loadBus: function () {
@@ -20,7 +21,7 @@
                 var pois = [];
                 for (var i = 0; i < require("tl_Bus").POIData.length; i++) {                    
                     var row = require("tl_Bus").POIData[i];
-                    require("tl_Bus").tlBusstopData.put(row[i].id, row[i]);
+                    require("tl_Bus").tlBusstopData.put(row.id, row);
 
                     var poiName = "POITour" + require("tl_Bus").LayerType.Name + "_" + row.id;//POIIOT_01
                     var iconSize = Q3D.vector2(54, 44);
@@ -50,6 +51,8 @@
         //公交点击事件
         loadBusDetial: function (nodeName) {
             var areaName = con.AreaName;
+            //POI放在中间
+            Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
                 var layername = this.LastPOI_Clk.split('_')[0].replace("POITour", "");
                 var level = this.LayerType.Level;
@@ -78,11 +81,48 @@
 
                 var id = nodeName.split('_')[1];
                 var dataBusstop = require("tl_Bus").tlBusstopData.get(id);
-                alert(dataBusstop);
+                if (dataBusstop) {
+                    require("tl_Bus").openBusStopDetail(dataBusstop);
+                }
 
                 
                 //});
             }
+        },
+        openBusStopDetail: function(data){
+            //加载页面内容
+            var url = con.HtmlUrl + 'TourNew/Center_BusStopDetail.html';
+            require(['text!' + url], function (template) {
+                $("#center_02").html(template);
+                $("#center_02").show('slide', { direction: 'left' }, 500);
+
+                $('#ul_busStopDetail_name').html(data.zdmc);
+                $('#ul_busStopDetail_line').html(data.name);
+                $('#ul_busStopDetail_direction').html(data.direction);
+                $('#ul_busStopDetail_distance').html(data.distance);
+                $('#ul_busStopDetail_time').html(data.time);                
+
+                $("#ul_BusStopDetail").hide()
+                $("#ul_BusStopDetail").show('drop', 1000);
+
+
+                //  节点信息窗跟随测试
+                var areaName = con.AreaName;
+                var nodeName = "POITour" + require("tl_Bus").LayerType.Name + "_" + data.id;//POIIOT_01
+                var nodePath = areaName + '/' + nodeName;
+
+                if (require("tl_Bus").nodeFollowingPath != null) {
+                    map.disableNodeFollowing(require("tl_Bus").nodeFollowingPath, true);
+                }
+
+                require("tl_Bus").nodeFollowingPath = nodePath;
+                map.enableNodeFollowing(nodePath, function (node, v2i) {
+                    if (node.getFullName() == nodePath) {
+                        document.getElementById("ul_busStopDetail").style.left = v2i.x + "px";
+                        document.getElementById("ul_busStopDetail").style.top = v2i.y + "px";
+                    }
+                });
+            })
         },
         loadBusLine:function()
         {
