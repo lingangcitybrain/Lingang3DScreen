@@ -845,10 +845,16 @@
                 if (require("g_Echart").zhwyRepairData == null) { return false; }
                 var data = require("g_Echart").zhwyRepairData;
                 $("#zhwy-repair").html("");
+                var total = 0, todayrepaircount = 0, todaywaitrepaircount = 0;
+                for (var i = 0; i < data.length; i++) {
+                    todayrepaircount += Number(data[i].todayrepaircount),
+                    todaywaitrepaircount += Number(data[i].todaywaitrepaircount);
+                }
+                total = todayrepaircount + todaywaitrepaircount;
                 $("#zhwy-repair").append(
-                    '<li class=""><span>总数：</span><em class="testAerial">' + Number(data.todayrepaircount) + Number(data.todaywaitrepaircount) + '</em></li>'
-                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.todayrepaircount + '</em></li>'
-                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.todaywaitrepaircount + '</em></li>'
+                    '<li class=""><span>总数：</span><em class="testAerial">' + total + '</em></li>'//Number(data.todayrepaircount) + Number(data.todaywaitrepaircount)
+                   + '<li class=""><span>已处理：</span><em class="testAerial">' + todayrepaircount + '</em></li>'
+                   + '<li class=""><span>待处理：</span><em class="testAerial">' + todaywaitrepaircount + '</em></li>'
                 )
             });
 
@@ -858,11 +864,11 @@
                 $("#zhwy-inspect").html("");
                 $("#zhwy-weekaveragerate").html("");
                 $("#zhwy-inspect").append(
-                    '<li class=""><span>总数：</span><em class="testAerial">' + Number(data.todaychecked) + Number(data.todayuncheck) + '</em></li>'
-                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.todaychecked + '</em></li>'
-                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.todayuncheck + '</em></li>'
+                    '<li class=""><span>总数：</span><em class="testAerial">' + data.weeklytotal + '</em></li>'  //Number(data.todaychecked) + Number(data.todayuncheck)
+                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.weeklychecked + '</em></li>'
+                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.weeklyuncheck + '</em></li>'
                 );
-                $("#zhwy-weekaveragerate").append('<span class="testAerial">' + data.weekaveragerate + '%</span>')
+                $("#zhwy-weekaveragerate").append('<span class="testAerial">' + parseFloat(data.weekaveragerate)*100 + '%</span>')
             });
 
 
