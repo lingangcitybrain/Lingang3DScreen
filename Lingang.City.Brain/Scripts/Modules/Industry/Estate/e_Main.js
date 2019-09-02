@@ -328,7 +328,7 @@
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
                 require("e_Echart").centernumber()
-                require('e_Main').numberAni();
+               
             })
         },
         /*****************************右侧第一列*****************************/
@@ -391,11 +391,11 @@
                 require("e_Echart").fkld();
             });
         },
-        numberAni: function () {
-            com.numberAnimation($('#e_qyzs'), 123452 - 200, 123452, 2000);
-            com.numberAnimation($('#e_zlxxqys'), 1221 - 200, 1221, 2000);
-            com.numberAnimation($('#e_ssgs'), 23232 - 20, 23232, 2000);
-            com.numberAnimation($('#e_ydqys'), 1 - 200, 1, 2000);
+        numberAni: function (qyzs, zlxxqys, ssgs, ydqys) {
+            com.numberAnimation($('#e_qyzs'), qyzs - 200, qyzs, 2000);
+            com.numberAnimation($('#e_zlxxqys'), zlxxqys - 200, zlxxqys, 2000);
+            com.numberAnimation($('#e_ssgs'), ssgs - 20, ssgs, 2000);
+            com.numberAnimation($('#e_ydqys'), ydqys - 200, ydqys, 2000);
         },
         //清空图层
         Revert: function () {

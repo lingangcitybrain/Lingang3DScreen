@@ -2018,10 +2018,14 @@
             
             e_EchartAjax.centernumberajax(function (result) {
                 var data = require("e_Echart").centernumberData
-                $("#e_qyzs").html(data.total)
-                $("#e_zlxxqys").html(data.potential)
-                $("#e_ssgs").html(data.invested)
-                $("#e_ydqys").html(data.abnormal)
+                if ($.isArray(data)) {
+                    data = data[0];
+                }
+                require('e_Main').numberAni(data.total, data.potential, data.invested, data.abnormal);
+                //$("#e_qyzs").html(data.total)
+                //$("#e_zlxxqys").html(data.potential)
+                //$("#e_ssgs").html(data.invested)
+                //$("#e_ydqys").html(data.abnormal)
             })
         },
         
