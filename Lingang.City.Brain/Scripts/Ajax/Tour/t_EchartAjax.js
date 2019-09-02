@@ -280,8 +280,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    //url: con.InterfaceUrl + 'v1/park/vehicle/parkingLotsStatistic',
-                    url: con.InterfaceUrl_DataStation + '/v1/parkinglots/statistic',
+                    url: con.InterfaceUrl_DataStation + 'v1/park/vehicle/parkingLotsStatistic',
+                    //url: con.InterfaceUrl_DataStation + '/v1/parkinglots/statistic',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
