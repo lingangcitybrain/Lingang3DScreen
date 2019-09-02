@@ -15,32 +15,48 @@
 
             /*******************底部菜单图层**************************/
             loadVisitorsMap: function () {
+                //默认视口
+                com.LayerFlyto(1);
                 tl_VisitorsMap.loadVisitorsMap();
             },
             loadRoadCondition: function () {
                 tl_RoadCondition.loadRoadCondition();
             },
             loadCamera: function () {
+                //默认视口
+                com.LayerFlyto(3)
                 tl_Camera.loadCamera();
             },
             loadDrone: function () {
+                com.LayerFlyto(12, function () { })
                 tl_Drone.loadDrone();
             },
             loadParkingLot: function () {
+                //默认视口
+                com.LayerFlyto(5)
                 tl_ParkingLot.loadParkingLot();
             },
             PublicTransportation: function () {
+                //默认视口
+                com.LayerFlyto(6)
                 tl_Bus.loadBus();
                 tl_Bus.loadBusLine();
                 tl_Metro.loadMetro();
             },
             loadEvent: function () {
+                //默认视口
+                com.LayerFlyto(7, function () {
+
+                })
                 tl_Event.loadEvent();
             },
             loadStream: function () {
+                com.LayerFlyto(8); //飞到默认时口
                 tl_StreamCalculate.loadStream();
             },
             loadTrafficSimulation: function () {
+                //切换视口
+                com.LayerFlyto(9, null, 2);
                 tl_TrafficSimulation.loadTrafficSimulation();
             },
             /************************END******************************/

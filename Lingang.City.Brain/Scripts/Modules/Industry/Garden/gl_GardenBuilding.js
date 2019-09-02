@@ -11,10 +11,7 @@
         loadGardenBuilding:function()
         {
             require("gl_GardenBuilding").loadGardenPOI();
-            //飞行到园区视角
-            com.LayerFlyto(20, function () {
-                
-            })
+            
         
         },
 

@@ -13,10 +13,7 @@
         loadEvent: function () {
             this.Revert();
 
-            //默认视口
-            com.LayerFlyto(7, function () {
-                
-            })
+            
             require("tl_Event").loadEventPOI();
         },
         loadEventPOI:function()

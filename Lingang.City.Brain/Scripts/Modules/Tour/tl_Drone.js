@@ -19,7 +19,7 @@
 
         loadDrone: function () {
             this.Revert();
-            com.LayerFlyto(12, function () { })
+            
 
             //加载无人机库
             require("tl_Drone").loadDroneHangarPOI();

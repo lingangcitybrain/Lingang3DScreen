@@ -37,7 +37,7 @@
             require("sl_Event").clearTimeCount();//计时器清空
 
             require("sl_Event").loadIOTData();//加载传感器详情数据
-            com.LayerFlyto(15, function () { });
+           
             //大脑转动
             //require("s_Main").DanaoAnimation = setTimeout(function () {
             //    require("sl_Event").loadDanaoAnimation();

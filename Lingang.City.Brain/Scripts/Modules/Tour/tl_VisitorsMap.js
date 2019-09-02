@@ -3,8 +3,8 @@
         heatMapPoints: "",
         //加载人流热力图
         loadVisitorsMap: function () {
-            //默认视口
-            com.LayerFlyto(1);
+            ////默认视口
+            //com.LayerFlyto(1);
             
             require('tl_VisitorsMap').createHeatMapDecalV();
 

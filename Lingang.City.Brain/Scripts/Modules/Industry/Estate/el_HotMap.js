@@ -8,7 +8,7 @@
         loadHotMap:function()
         {
             require('tl_VisitorsMap').loadVisitorsMap();
-            com.LayerFlyto(18);
+           
             //require("el_HotMap").loadFlowRateBar();
         },
         //清空

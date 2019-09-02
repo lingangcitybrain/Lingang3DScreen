@@ -10,8 +10,7 @@
             this.Revert();
             this.LayerType = require("t_Main").LayerCatalog.Bus;
 
-            //默认视口
-            com.LayerFlyto(6)
+           
 
 
             var post_data = { "offset": "0", "count": "1000"}

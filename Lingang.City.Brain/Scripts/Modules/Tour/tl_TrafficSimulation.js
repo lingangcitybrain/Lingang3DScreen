@@ -5,8 +5,7 @@
         loadTrafficSimulation: function () {
             //com.ChangeLight(1) //实景
 
-            //切换视口
-            com.LayerFlyto(9, null, 2);
+           
             require("tl_TrafficSimulation").loadCamera();
             //try {
             //    var areaname = "road_fangzhen";

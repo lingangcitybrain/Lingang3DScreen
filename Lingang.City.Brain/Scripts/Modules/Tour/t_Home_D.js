@@ -35,6 +35,8 @@
        
             /*******************底部菜单图层**************************/
             loadVisitorsMap: function () {
+                //默认视口
+                com.LayerFlyto(1);
                 this.layerNO = 1;
                 tl_VisitorsMap.loadVisitorsMap();
                 var jsondata = {
@@ -57,6 +59,8 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadCamera: function () {
+                //默认视口
+                com.LayerFlyto(3)
                 this.layerNO = 3;
                 tl_Camera.loadCamera();
                 var jsondata = {
@@ -68,6 +72,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadDrone: function () {
+                com.LayerFlyto(12, function () { })
                 this.layerNO = 4;
                 tl_Drone.loadDrone();
                 var jsondata = {
@@ -79,6 +84,8 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadParkingLot: function () {
+                //默认视口
+                com.LayerFlyto(5)
                 this.layerNO = 5;
                 tl_ParkingLot.loadParkingLot();
                 var jsondata = {
@@ -90,6 +97,8 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             PublicTransportation: function () {
+                //默认视口
+                com.LayerFlyto(6)
                 this.layerNO = 6;
                 tl_Bus.loadBus();
                 tl_Bus.loadBusLine();
@@ -103,6 +112,10 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadEvent: function () {
+                //默认视口
+                com.LayerFlyto(7, function () {
+
+                })
                 this.layerNO = 7;
                 tl_Event.loadEvent();
                 var jsondata = {
@@ -114,6 +127,7 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadStream: function () {
+                com.LayerFlyto(8); //飞到默认时口
                 this.layerNO = 8;
                 tl_StreamCalculate.loadStream();
                 var jsondata = {
@@ -125,6 +139,8 @@
                 control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
             },
             loadTrafficSimulation: function () {
+                //切换视口
+                com.LayerFlyto(9, null, 2);
                 this.layerNO = 9;
                 tl_TrafficSimulation.loadTrafficSimulation();
                 var jsondata = {
