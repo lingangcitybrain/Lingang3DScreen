@@ -1157,10 +1157,111 @@
                     huanbiData = huanbiData.toFixed(2) + '%';
                 }
 
+
+                if ($("#zhnh-chart").length <= 0) { return false; }
+                var zhnhChart = document.getElementById('zhnh-chart');
+
+                
+                var myChartzhnh = echarts.init(zhnhChart);
+                zhnhOption = {
+                    title: {
+                        text: "园区近六月用电量",
+                        left: 2,
+                        top: 8,
+                        textStyle: {
+                            fontWeight: "normal",
+                            fontSize: 24,
+                            color: "#fff",
+                        },
+                    },
+                    legend: {
+                        show: false
+                    },
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '1%',   // grid 组件离容器左侧的距离。
+                        right: '2%',
+                        bottom: '2%',
+                        height: "80%",
+                        containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: thisYearMonthData,
+                        boundaryGap: ['20%', '20%'],
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 18,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        }
+                    },
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)",
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 18,
+                                color: "#00d7fe",
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,.2)"
+                            }
+                        }
+                    },
+                    series: [
+                      {
+                          type: 'bar',
+                          barWidth: 50,
+                          itemStyle: {
+                              normal: {
+                                  barBorderRadius: 10,
+                                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                      offset: 0,
+                                      color: '#04cafc'
+                                  }, {
+                                      offset: 1,
+                                      color: '#0e4abc'
+                                  }]),
+                              }
+                          },
+
+                          data: thisYearEnergyData,
+                      }
+                    ]
+                };
+                myChartzhnh.setOption(zhnhOption);
+
+                
                 $("#zhnh-common>span>i").html(tongbiData);
                 $("#zhnh-chainratio>span>i").html(huanbiData);
-
-
 
                 //zhnh-dailyenergy
                 $("#zhnh-dailyenergy>span").html(data.dailyenergy);
@@ -1169,110 +1270,9 @@
 
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
 
+
             });
 
-
-
-            if ($("#zhnh-chart").length <= 0) { return false; }
-            var zhnhChart = document.getElementById('zhnh-chart');
-
-                
-            var myChartzhnh = echarts.init(zhnhChart);
-            zhnhOption = {
-                title: {
-                    text: "园区近六月用电量",
-                    left: 2,
-                    top: 8,
-                    textStyle: {
-                        fontWeight: "normal",
-                        fontSize: 24,
-                        color: "#fff",
-                    },
-                },
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow',       //阴影指示器  默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '1%',   // grid 组件离容器左侧的距离。
-                    right: '2%',
-                    bottom: '2%',
-                    height: "80%",
-                    containLabel: true   //grid 区域是否包含坐标轴的刻度标签。
-                },
-                xAxis: {
-                    type: 'category',
-                    data: thisYearMonthData,
-                    boundaryGap: ['20%', '20%'],
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 20,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                yAxis: {
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)",
-                        }
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 25,
-                            color: "#00d7fe",
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,.2)"
-                        }
-                    }
-                },
-                series: [
-                  {
-                      type: 'bar',
-                      barWidth: 50,
-                      itemStyle: {
-                          normal: {
-                              barBorderRadius: 10,
-                              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                  offset: 0,
-                                  color: '#04cafc'
-                              }, {
-                                  offset: 1,
-                                  color: '#0e4abc'
-                              }]),
-                          }
-                      },
-
-                      data: thisYearEnergyData,
-                  }
-                ]
-            };
-            myChartzhnh.setOption(zhnhOption);
             $("#zhnh-title").click(function () {
                 require("g_Echart").zhnh();
             })

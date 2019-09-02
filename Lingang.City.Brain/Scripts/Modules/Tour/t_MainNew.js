@@ -513,7 +513,7 @@
                 require("t_EchartAjax").droneRwlb(function (result) {
                     if (require("t_Echart").droneRwlbData == null) { return false; }
                     var t_Data = require("t_Echart").droneRwlbData[0];
-                    var post_data = { "sbbm": t_Data.sbbm, "startTime": t_Data.task_start_time }
+                    var post_data = { "sbbm": t_Data.sbbm, "startTime": t_Data.task_start_time, "isHistory":1 }
 
 
                     require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
