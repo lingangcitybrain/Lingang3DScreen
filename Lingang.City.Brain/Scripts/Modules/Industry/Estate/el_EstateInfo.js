@@ -134,7 +134,7 @@
             var html = '<div class="chanye-poibox1" style="width:5rem;">' +
                 //'<div class="yqqy-poibox-title">'+data.region+'</div>'+
      '<ul class="chanye-poibox1-list">'+
-         '<li>面积：<span>'+data.area+'</span>平方米</li>'+
+         '<li>面积：<span>'+data.area+'</span>平方公里</li>'+
          '<li>企业数：<span>' + data.entCnt + '</span>家</li>' +
          '<li>异动企业：<span>'+data.abnomalEntCnt+'</span>家</li>'+
          '<li>战略型新兴企业：<span>'+data.emergingEntCnt+'</span>家</li>'+
