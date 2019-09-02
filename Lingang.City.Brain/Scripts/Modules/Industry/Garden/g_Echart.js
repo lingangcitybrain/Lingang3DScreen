@@ -9,7 +9,7 @@
 
     var thisYearMonthData = []; //智慧能耗图表
     var thisYearEnergyData = [];//智慧能耗图表
-
+    var zhwydata = [], dateArr = [];//智慧物业数据便于大图表引用
     /****************************园区****************************/
     return {
         mybigChart: null,
@@ -846,9 +846,12 @@
                 var data = require("g_Echart").zhwyRepairData;
                 $("#zhwy-repair").html("");
                 var total = 0, todayrepaircount = 0, todaywaitrepaircount = 0;
+                //var zhwydata = [],dateArr=[];
                 for (var i = 0; i < data.length; i++) {
                     todayrepaircount += Number(data[i].todayrepaircount),
                     todaywaitrepaircount += Number(data[i].todaywaitrepaircount);
+                    zhwydata.push(Number(data[i].todayrepaircount) + Number(data[i].todaywaitrepaircount));
+                    dateArr.push(data[i].date);
                 }
                 total = todayrepaircount + todaywaitrepaircount;
                 $("#zhwy-repair").append(
@@ -875,10 +878,10 @@
             //图表
             if ($("#zhwy-chart").length <= 0) { return false; }
             var zhwyChart = document.getElementById('zhwy-chart');
-            var zhwydata = [];
-            for (var i = 1; i < 100; i++) {
-                zhwydata.push(Math.round((Math.random() * 70)));
-            }
+            //var zhwydata = [];
+            //for (var i = 1; i < 100; i++) {
+            //    zhwydata.push(Math.round((Math.random() * 70)));
+            //}
             var myChartzhwy = echarts.init(zhwyChart);
             zhwyOption = {
                 title: {
@@ -914,7 +917,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    data: dateArr,//['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
@@ -991,10 +994,10 @@
         bigzhwy: function () {
             $("#GbigechartHead").html('智慧物业(近一周报修量分布)');
             if ($("#zhwy-chart").length <= 0) { return false; }
-            var zhwydata = [];
-            for (var i = 1; i < 100; i++) {
-                zhwydata.push(Math.round((Math.random() * 70)));
-            }
+            //var zhwydata = [];
+            //for (var i = 1; i < 100; i++) {
+            //    zhwydata.push(Math.round((Math.random() * 70)));
+            //}
             zhwyOption = {
                 title: {
                     show:false,
@@ -1032,7 +1035,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    data: dateArr,//['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
