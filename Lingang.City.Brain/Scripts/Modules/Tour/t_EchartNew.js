@@ -1986,8 +1986,10 @@
                                 	if (Number(item) >= 9 && Number(item) <= 24) {
                                 		if (keyDate == nowDate && Number(item) > nowHour) {
                                 			rysum[Number(item) - 9] = '';
+                                		} else if (Number(item) === 24 && data.入园[item] === 0) {
+                                		    rysum[Number(item) - 9] = data.入园[Number(item)-1];
                                 		} else {
-                                			rysum[Number(item) - 9] = data.入园[item];
+                                		    rysum[Number(item) - 9] = data.入园[item];
                                 		}
                                     }
                                 }
@@ -1996,6 +1998,8 @@
                                     if (Number(item) >= 9 && Number(item) <= 24) {
                                     	if (keyDate == nowDate && Number(item) > nowHour) {
                                     		cysum[Number(item) - 9] = '';
+                                    	} else if (Number(item) === 24 && data.出园[item] === 0) {
+                                    	    cysum[Number(item) - 9] = data.出园[Number(item) - 1];
                                     	} else {
                                     		cysum[Number(item) - 9] = data.出园[item];
                                     	}
@@ -2028,6 +2032,8 @@
                         				if (Number(item) >= 9 && Number(item) <= 24) {
                         					if (keyDate == nowDate && Number(item) > nowHour) {
                         						rysum[Number(item) - 9] = '';
+                        					} else if( Number(item) === 24 && data.入园[item] === 0 ){
+                        					    rysum[Number(item) - 9] = data.入园[Number(item)-1];
                         					} else {
                         						rysum[Number(item) - 9] = data.入园[item];
                         					}
@@ -2038,8 +2044,10 @@
                         				if (Number(item) >= 9 && Number(item) <= 24) {
                         					if (keyDate == nowDate && Number(item) > nowHour) {
                         						cysum[Number(item) - 9] = '';
+                        					} else if (Number(item) === 24 && data.出园[item] === 0) {
+                        					    cysum[Number(item) - 9] = data.出园[Number(item) - 1];
                         					} else {
-                        						cysum[Number(item) - 9] = data.出园[item];
+                        					    cysum[Number(item) - 9] = data.出园[item];
                         					}
                         				}
                         			}
