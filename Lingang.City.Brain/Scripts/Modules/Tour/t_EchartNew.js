@@ -566,12 +566,14 @@
         //游客画像
         ykhx: function () {
             t_EchartAjax.ykhx(function (result) {
+                try {
 
+                
                 var data = require("t_Echart").ykhxData;
 
                 var nvPer = data[0].Value.toFixed(2)*100
                 var nanPer = 100 - nvPer;
-
+                    //这里报错，缺少性别数据
                 var benPer = data[3].Value.toFixed(2) * 100
                 var waiPer = 100 - benPer;
 
@@ -587,6 +589,9 @@
                     html += '</li>';
                 }
                 $('.ykhx-ul').html(html)
+                } catch (e) {
+
+                }
             })
 
         },
@@ -1962,6 +1967,7 @@
                             require("t_Echart").personcarData.put(sum, dataAll[i][sum]);
                         }
                         window.personCarTimer2 = setInterval(function () {
+                            console.info(datetemp)
                             if (datetemp == 0) {
                                 datetemp = 6;
                             }

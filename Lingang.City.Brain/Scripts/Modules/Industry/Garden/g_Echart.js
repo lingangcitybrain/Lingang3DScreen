@@ -859,29 +859,10 @@
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + todayrepaircount + '</em></li>'
                    + '<li class=""><span>待处理：</span><em class="testAerial">' + todaywaitrepaircount + '</em></li>'
                 )
-            });
-
-            g_EchartAjax.getZhwInspect(function (result) {
-                if (require("g_Echart").zhwyInspectData == null) { return false; }
-                var data = require("g_Echart").zhwyInspectData;
-                $("#zhwy-inspect").html("");
-                $("#zhwy-weekaveragerate").html("");
-                $("#zhwy-inspect").append(
-                    '<li class=""><span>总数：</span><em class="testAerial">' + data.weeklytotal + '</em></li>'  //Number(data.todaychecked) + Number(data.todayuncheck)
-                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.weeklychecked + '</em></li>'
-                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.weeklyuncheck + '</em></li>'
-                );
-                $("#zhwy-weekaveragerate").append('<span class="testAerial">' + parseFloat(data.weekaveragerate)*100 + '%</span>')
-            });
-
-
-            //图表
+                //图表
             if ($("#zhwy-chart").length <= 0) { return false; }
             var zhwyChart = document.getElementById('zhwy-chart');
-            //var zhwydata = [];
-            //for (var i = 1; i < 100; i++) {
-            //    zhwydata.push(Math.round((Math.random() * 70)));
-            //}
+            
             var myChartzhwy = echarts.init(zhwyChart);
             zhwyOption = {
                 title: {
@@ -953,7 +934,10 @@
                         }
                     },
                     interval: 10,
-                    max: 70,
+                    //max: 70,
+                    type: 'value',
+                    min: function(value) {return value.min;},
+                    max: function(value) {return value.max;},
                     axisLabel: {
                         textStyle: {
                             fontSize: 22,
@@ -984,6 +968,23 @@
                 ]
             };
             myChartzhwy.setOption(zhwyOption);
+            });
+
+            g_EchartAjax.getZhwInspect(function (result) {
+                if (require("g_Echart").zhwyInspectData == null) { return false; }
+                var data = require("g_Echart").zhwyInspectData;
+                $("#zhwy-inspect").html("");
+                $("#zhwy-weekaveragerate").html("");
+                $("#zhwy-inspect").append(
+                    '<li class=""><span>总数：</span><em class="testAerial">' + data.weeklytotal + '</em></li>'  //Number(data.todaychecked) + Number(data.todayuncheck)
+                   + '<li class=""><span>已处理：</span><em class="testAerial">' + data.weeklychecked + '</em></li>'
+                   + '<li class=""><span>待处理：</span><em class="testAerial">' + data.weeklyuncheck + '</em></li>'
+                );
+                $("#zhwy-weekaveragerate").append('<span class="testAerial">' + parseFloat(data.weekaveragerate)*100 + '%</span>')
+            });
+
+
+            
             $("#zhwyRepair-title").click(function () {
                 require("g_Echart").zhwyRepair();
             })
@@ -1074,7 +1075,10 @@
                         }
                     },
                     interval: 10,
-                    max: 70,
+                    //max: 70,
+                    type: 'value',
+                    min: function (value) { return value.min; },
+                    max: function (value) { return value.max; },
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
