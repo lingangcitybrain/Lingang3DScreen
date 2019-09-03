@@ -4,6 +4,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
         layerNO: null,
         POIName:null,
         loadMain: function () {
+            com.LayerFlyto(15, function () { });
             s_Main.loadMain();
 
             var jsondata = {
@@ -91,6 +92,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         layerSeaboard: function () {
+            com.LayerFlyto(14)
             this.layerNO = 14;
             sl_SeaboardLine.layerSeaboard();
             sl_SeaboardLine.loadLeftSecond();
@@ -105,6 +107,8 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadWorkSite: function () {
+
+            Q3D.globalCamera().flyTo(("396108.71569771634,2102.016891479492,-3414150.4402918345").toVector3d(), ("-30.96967124938965,0.03673381358385086,0.016093820333480835").toVector3(), 1, null);
             this.layerNO = 26;
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
@@ -119,6 +123,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadEvent: function () {
+            com.LayerFlyto(15, function () { });
         this.layerNO = 15;
             sl_Event.loadEvent();
             sl_IOT.loadLeftSecond();
@@ -132,6 +137,9 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadStreet: function () {
+            Q3D.globalCamera().flyTo(("395990.1351315872,502.45323181152343,-3416512.159721699").toVector3d(), ("-31.376115798950195,8.757302284240722,5.298542499542236").toVector3(), 1, function () {
+                require("sl_Street").createStreetLine();
+            });
             this.layerNO = 27;
             sl_Street.loadWorkSite();
             sl_Street.loadLeftSecond();
@@ -145,6 +153,9 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadGrid: function () {
+            com.LayerFlyto(281, function () {
+
+            });
             this.layerNO = 28;
             sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();

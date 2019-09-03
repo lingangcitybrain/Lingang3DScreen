@@ -2,6 +2,7 @@
     function (con, com, t_Main, t_LayerMenuAjax, animsition, t_Echart, tl_Bus, tl_Metro, tl_Camera, tl_Drone, tl_Event, tl_ParkingLot, tl_RoadCondition, tl_TrafficSimulation, tl_StreamCalculate, tl_VisitorsMap, t_LayerMenuData,t_Home) {
         return {
             loadMain: function () {
+                com.LayerFlyto(1);
                 t_Main.loadMain(function () {
                     setTimeout(function () { $('.chartzoomin').hide() }, 1000);
                 });
@@ -15,32 +16,48 @@
 
             /*******************底部菜单图层**************************/
             loadVisitorsMap: function () {
+                //默认视口
+                com.LayerFlyto(1);
                 tl_VisitorsMap.loadVisitorsMap();
             },
             loadRoadCondition: function () {
                 tl_RoadCondition.loadRoadCondition();
             },
             loadCamera: function () {
+                //默认视口
+                com.LayerFlyto(3)
                 tl_Camera.loadCamera();
             },
             loadDrone: function () {
+                com.LayerFlyto(12, function () { })
                 tl_Drone.loadDrone();
             },
             loadParkingLot: function () {
+                //默认视口
+                com.LayerFlyto(5)
                 tl_ParkingLot.loadParkingLot();
             },
             PublicTransportation: function () {
+                //默认视口
+                com.LayerFlyto(6)
                 tl_Bus.loadBus();
                 tl_Bus.loadBusLine();
                 tl_Metro.loadMetro();
             },
             loadEvent: function () {
+                //默认视口
+                com.LayerFlyto(7, function () {
+
+                })
                 tl_Event.loadEvent();
             },
             loadStream: function () {
+                com.LayerFlyto(8); //飞到默认时口
                 tl_StreamCalculate.loadStream();
             },
             loadTrafficSimulation: function () {
+                //切换视口
+                com.LayerFlyto(9, null, 2);
                 tl_TrafficSimulation.loadTrafficSimulation();
             },
             /************************END******************************/
@@ -92,6 +109,18 @@
             rqPreOrNextClickEvent: function (domID) {
                 //index = parseInt(index);
                 //$("#rq").children()[index].click()
+            },
+            //景区事件列表放大
+            EventListBigChart: function () {
+                require('t_Echart').loadCenterEventList();
+                require('t_Echart').closeBigChart();
+            },
+            //事件列表时间点击
+            EventListBigChartTimeClickEvent: function (index) {
+                
+            },
+            closeCenterEventList: function () {
+                require('t_Echart').closeCenterEventList();
             },
             /*********************END************************/
         }

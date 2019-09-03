@@ -7,9 +7,7 @@
         //加载象限图谱图层信息
         loadAtlasChart: function () {
             require("el_AtlasChart").loadPOI();
-            com.LayerFlyto(17, function () {
-                
-            })
+            
 
             var url = '/LingangCityBrain/View/Industry/Estate/Bottom_AtlasDetail.html';
             require(['text!' + url], function (template) {

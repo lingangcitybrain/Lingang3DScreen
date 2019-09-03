@@ -12,9 +12,7 @@
 
         POIData:null,
         loadGridInfo: function () {
-            com.LayerFlyto(281, function () {
-                
-            });
+            
             require("sl_Grid").loadGridPOI();
                 require("sl_Grid").loadGridOneLevelLine();
                 require("sl_Grid").loadGridArea();

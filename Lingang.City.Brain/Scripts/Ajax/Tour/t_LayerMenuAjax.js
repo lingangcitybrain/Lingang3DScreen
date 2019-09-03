@@ -183,8 +183,8 @@
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递
-                    url: con.InterfaceUrl_DataStation + "v1/drone/hangers/list",  // yii 控制器/方法   
+                    type: "get",//"POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl_DataStation + "six/manage/warehouse/list",//"v1/drone/hangers/list",  // yii 控制器/方法   
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

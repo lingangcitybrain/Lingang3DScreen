@@ -14,7 +14,7 @@ define(["config", "common", "util"], function (con, com, util) {
         detailWindowId: 0,//当前窗口id
         nodeFollowingPath:[],//节点跟随路径
         loadStream: function () {
-            com.LayerFlyto(8); //飞到默认时口
+            
 
             require("t_LayerMenuAjax").getFlowRatePredictionData(function (result) {
                 require("tl_StreamCalculate").flowRateData = result.data;

@@ -8,7 +8,7 @@
             this.createSeaboardLine();
 
             //Q3D.globalCamera().flyTo(("395745.0747468388,400.4260559082031,-3416851.1637498084").toVector3d(), ("-46.74321365356445,0.5860398411750793,0.615364134311676").toVector3(), 1, null);
-            com.LayerFlyto(14)
+            
 
 
             //if (require("s_LayerMenu").layer_seaboard == false) {

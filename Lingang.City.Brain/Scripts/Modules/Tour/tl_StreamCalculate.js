@@ -16,7 +16,7 @@
 
 
             //飞到默认时口
-            com.LayerFlyto(8)
+            //com.LayerFlyto(8)
 
             this.loadStreamLine(1)
             this.lineClose()

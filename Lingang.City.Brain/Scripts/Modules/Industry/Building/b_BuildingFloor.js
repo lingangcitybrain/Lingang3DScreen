@@ -327,10 +327,7 @@
             require("reset").ClearDivHtmlOnCenter();
             require("b_BuildingFloor").loadPOI();
             require("b_BuildingFloor").showGardenShowWindow();
-            //飞行到园区视角
-            com.LayerFlyto(311, function () {
-
-            })
+           
             //存储楼宇信息到本地
             gl_GardenBuildingAjax.getBuildingListData(function (result) {
                 for (var i = 0; i < result.length; i++) {

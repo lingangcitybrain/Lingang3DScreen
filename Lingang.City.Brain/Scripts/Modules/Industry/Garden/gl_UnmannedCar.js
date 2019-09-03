@@ -16,10 +16,7 @@
         loadUnmannedCar: function () {
                 require("gl_UnmannedCar").loadCarTrajectory();
                 require("gl_UnmannedCar").DrawDrivingRoute();
-            com.LayerFlyto(22, function () {
-                
-            })
-
+            
         },
         //
         Revert: function () {

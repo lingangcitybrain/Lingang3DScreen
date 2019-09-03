@@ -18,7 +18,7 @@
 
                 //视口切换
                 if (xyz != null && angle != null && xyz != "0.00000000000000,0.00000000000000,0.00000000000000") {
-                    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 0.1, null);
+                    Q3D.globalCamera().flyTo((xyz).toString().toVector3d(), (angle).toVector3(), 1, null);
                 }
 
                  result = 1;

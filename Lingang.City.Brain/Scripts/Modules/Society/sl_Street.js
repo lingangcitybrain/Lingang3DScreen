@@ -11,9 +11,7 @@
             this.LayerType = require("s_Main").LayerCatalog.WorkSite;
             this.POIData = s_layerMenuData.WorkSiteData.Data;
 
-            Q3D.globalCamera().flyTo(("395990.1351315872,502.45323181152343,-3416512.159721699").toVector3d(), ("-31.376115798950195,8.757302284240722,5.298542499542236").toVector3(), 1, function () {
-                require("sl_Street").createStreetLine();
-            });
+           
 
             //var areaName = con.AreaName;
             //var icon = this.LayerType.UnChooseIcon;

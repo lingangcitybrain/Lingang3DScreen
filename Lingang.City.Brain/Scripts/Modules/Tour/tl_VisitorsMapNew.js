@@ -6,8 +6,7 @@
             //将默认材质设置为透明，避免白幕布问题。
             var _res = mapObj._map3d.getResourceManager().getResource(Q3D.Enums.resourceType.MATERIAL, '__$$Default.mtr').asMaterial();
             _res.setAlpha(0);
-            //默认视口
-            com.LayerFlyto(1);
+            
 
             require('tl_VisitorsMap').createHeatMapDecalV();
 

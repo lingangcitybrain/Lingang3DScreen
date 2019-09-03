@@ -2,30 +2,54 @@
     /****************************园区****************************/
     return {
         loadMain_e_Main: function () {
+            com.LayerFlyto(16, function () {
+
+            })
             e_Main.loadMain();
         },
         loadEstateInfo: function () {
+        com.LayerFlyto(16, function () {
+                
+            })
             el_EstateInfo.loadEstateInfo();
         },
         loadAtlasChart: function () {
+            com.LayerFlyto(17, function () {
+
+            })
             el_AtlasChart.loadAtlasChart();
         },
         loadHotMap: function () {
+             com.LayerFlyto(18);
             el_HotMap.loadHotMap();
         },
         loadMain_g_Main: function () {
+            //飞行到园区视角
+            com.LayerFlyto(20, function () { 
+
+            })
             g_Main.loadMain();
         },
         loadBuilding: function () {
+            //飞行到园区视角
+           com.LayerFlyto(311, function () { 
+
+            })
             b_BuildingFloor.loadBuilding();
         },
         loadStop: function () {
+            com.LayerFlyto(21);
             gl_Stop.loadStop();
         },
         loadUnmannedCar: function () {
+            com.LayerFlyto(22, function () {
+
+            })
+
             gl_UnmannedCar.loadUnmannedCar();
         },
         loadEvent: function () {
+            com.LayerFlyto(23)
             gl_Event.loadEvent();
         },
 

@@ -7,6 +7,9 @@
         //floor:1,
         /**********************************底部菜单操作********************************************/
         loadMain_e_Main: function () {
+            com.LayerFlyto(16, function () {
+
+            })
             e_Main.loadMain();
             this.layerNO = 24;
             var jsondata = {
@@ -18,6 +21,9 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadEstateInfo: function () {
+            com.LayerFlyto(16, function () {
+
+        })
             el_EstateInfo.loadEstateInfo();
             this.layerNO = 16;
             var jsondata = {
@@ -29,6 +35,9 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadAtlasChart: function () {
+        com.LayerFlyto(17, function () {
+                
+            })
             el_AtlasChart.loadAtlasChart();
             this.layerNO = 17;
             var jsondata = {
@@ -40,6 +49,7 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadHotMap: function () {
+            com.LayerFlyto(18);
             el_HotMap.loadHotMap();
             this.layerNO = 18;
             var jsondata = {
@@ -51,6 +61,10 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadMain_g_Main: function () {
+            //飞行到园区视角
+            com.LayerFlyto(20, function () {
+
+            })
             g_Main.loadMain();
             this.layerNO = 19;
             var jsondata = {
@@ -62,6 +76,10 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadBuilding: function () {
+            //飞行到园区视角
+            com.LayerFlyto(311, function () {
+
+            })
             b_BuildingFloor.loadBuilding();
             this.layerNO = 20;
             var jsondata = {
@@ -73,6 +91,7 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadStop: function () {
+            com.LayerFlyto(21);
             gl_Stop.loadStop();
             this.layerNO = 21;
             var jsondata = {
@@ -84,6 +103,9 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadUnmannedCar: function () {
+            com.LayerFlyto(22, function () {
+
+                })
             gl_UnmannedCar.loadUnmannedCar();
             this.layerNO = 22;
             var jsondata = {
@@ -95,6 +117,7 @@
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadEvent: function () {
+            com.LayerFlyto(23)
             gl_Event.loadEvent();
             this.layerNO = 23;
             var jsondata = {

@@ -19,7 +19,7 @@
 
         loadDrone: function () {
             this.Revert();
-            com.LayerFlyto(12, function () { })
+            
 
             //加载无人机库
             require("tl_Drone").loadDroneHangarPOI();
@@ -177,7 +177,7 @@
                      + '<ul class=\"poi-ul\">'
                      + '<li class=\"poi-li\"><em><i>' + data.jkdz + '</i></em></li>'
                      + '<li class=\"poi-li\"><span>状态：</span><em><i>' + data.jkzt + '</i></em></li>'
-                     + '<li class=\"poi-li\"><span>供电：</span><em><i>' + data.gdms + '</i></em></li>'
+                     + '<li class=\"poi-li\"><span>地址：</span><em><i>' + data.jkdz + '</i></em></li>'
                      + '</ul>'
                      + '</div>'
                      + '</div>';

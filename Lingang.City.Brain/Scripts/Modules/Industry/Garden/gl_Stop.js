@@ -25,7 +25,7 @@
             require("g_Main").loadLeftSecond1();//加载左侧第二列第一个div
             require("g_Main").loadLeftSecond2();//
             require("g_Main").loadLeftSecond3();//1
-            com.LayerFlyto(21);
+            
             require("reset").ClearDivHtmlOnCenter();
             require("gl_Stop").loadParkingInfo();
         },
