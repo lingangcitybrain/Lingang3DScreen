@@ -42,13 +42,13 @@
         //入驻企业统计
         getCompanyData: function (callback) {
             $.ajax({
-                type: "POST",      //data 传送数据类型。post 传递 
-                url: con.InterfaceUrl_garden + 'ywtb/dsbuildingcompanyinfo/companyDetails',
+                type: "get",//"POST",      //data 传送数据类型。post 传递 
+                url: con.InterfaceUrl_DataStation + "v2/ywtb/companyData",//con.InterfaceUrl_garden + 'ywtb/dsbuildingcompanyinfo/companyDetails',
                 cache: false,
                 dataType: 'json',  // 返回数据的数据类型json
                 success: function (data) {
                     //require("g_Echart").tcfwData = data.data;
-                    callback(data);
+                    callback(data.data);
                 },
                 error: function () {
                     //alert("数据传输错误");
