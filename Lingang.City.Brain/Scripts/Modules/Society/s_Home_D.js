@@ -4,6 +4,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
         layerNO: null,
         POIName:null,
         loadMain: function () {
+            com.LayerFlyto(15, function () { });
             s_Main.loadMain();
 
             var jsondata = {

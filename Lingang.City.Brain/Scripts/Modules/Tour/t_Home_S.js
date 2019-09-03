@@ -2,6 +2,7 @@
     function (con, com, t_Main, t_LayerMenuAjax, animsition, t_Echart, tl_Bus, tl_Metro, tl_Camera, tl_Drone, tl_Event, tl_ParkingLot, tl_RoadCondition, tl_TrafficSimulation, tl_StreamCalculate, tl_VisitorsMap, t_LayerMenuData,t_Home) {
         return {
             loadMain: function () {
+                com.LayerFlyto(1);
                 t_Main.loadMain(function () {
                     setTimeout(function () { $('.chartzoomin').hide() }, 1000);
                 });
@@ -108,6 +109,18 @@
             rqPreOrNextClickEvent: function (domID) {
                 //index = parseInt(index);
                 //$("#rq").children()[index].click()
+            },
+            //景区事件列表放大
+            EventListBigChart: function () {
+                require('t_Echart').loadCenterEventList();
+                require('t_Echart').closeBigChart();
+            },
+            //事件列表时间点击
+            EventListBigChartTimeClickEvent: function (index) {
+                
+            },
+            closeCenterEventList: function () {
+                require('t_Echart').closeCenterEventList();
             },
             /*********************END************************/
         }

@@ -3712,7 +3712,8 @@
         yqsjCenterEventList: function () {
 
         	$("#center-event-tabtour .center-event-tab").each(function (index, element) {
-				$(this).click(function () {
+        	    $(this).click(function () {
+        	        require("t_Home").EventListBigChartTimeClickEvent(index);
 					$(this).addClass("active").siblings().removeClass("active");
 					var thisHtml = $(this).html();
 					switch (thisHtml) {

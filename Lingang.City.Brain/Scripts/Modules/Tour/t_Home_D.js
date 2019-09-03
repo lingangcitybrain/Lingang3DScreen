@@ -4,6 +4,7 @@
             layerNO: null,
             POIName_Clk:null,
             loadMain: function () {
+                com.LayerFlyto(1);
                 t_Main.loadMain();
                 var jsondata = {
                     "menu": "2",
@@ -283,6 +284,45 @@
                     "layer": "all",
                     "type": "rycltjrqPreOrNext",
                     "id": domID,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+
+            EventListBigChart: function (domName) {
+                require('t_Echart').loadCenterEventList();
+                require('t_Echart').closeBigChart();
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "EventListBigChart",
+                    "id": domName,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+            //事件列表时间点击
+            EventListBigChartTimeClickEvent: function (index) {
+
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "EventListBigChartTimeClick",
+                    "id": index,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+            },
+            closeCenterEventList:function() {
+                require('t_Echart').closeCenterEventList();
+                var jsondata = {
+                    "menu": "2",
+                    "layer": "all",
+                    "type": "EventListBigChartClose",
+                    "id": null,
                     "xyz": "",
                     "angle": "",
                 };
