@@ -258,5 +258,56 @@
             }
         
         },
+        //获取社区工地列表
+        getWorkSieList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "get",//"POST",      //data 传送数据类型。post 传递
+                    //url: con.InterfaceUrl + "v1/station/list",  // yii 控制器/方法   
+                    url: con.InterfaceUrl_DataStation + "v1/lingang/getConstructionSiteList",  // yii 控制器/方法   
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        //require("sl_WorkStation").POIData = data;
+                        if ($.isFunction(callback))
+                            callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                //require("sl_WorkStation").POIData = s_layerMenuData.WorkSiteData.Data;
+                if ($.isFunction(callback))
+                    callback(s_layerMenuData.WorkSiteData.Data)
+            }
+
+        },
+        //获取社区工地详情列表
+        getWorkSieInfoList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "get",//"POST",      //data 传送数据类型。post 传递
+                    url: con.InterfaceUrl_DataStation + "v1/lingang/getConstructionSiteInfo",  // yii 控制器/方法   
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        if ($.isFunction(callback))
+                            callback(data)
+                    },
+                    error: function () {
+                        //alert("数据传输错误");
+                    }
+                });
+            }
+            else {//执行本地
+                //if ($.isFunction(callback))
+                //    callback(s_layerMenuData.WorkSiteData.Data)
+            }
+
+        },
     }
 })

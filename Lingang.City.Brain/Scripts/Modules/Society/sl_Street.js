@@ -173,15 +173,16 @@
         },
         //加载第二列的div3
         loadLeftSecond3: function () {
-            var option = {
-                aniDom: "#left02_03",
-                htmlDom: "#left_second_03",
-                url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet3.html'
-            }
-            com.UIControlAni(option, function () {
-                require("sl_Street").loadJmXcyData();
-                require("sl_IOT").Scrolldiv();
-            });
+            $("#left_second_03").html("");
+            //var option = {
+            //    aniDom: "#left02_03",
+            //    htmlDom: "#left_second_03",
+            //    url: con.HtmlUrl + 'SocietyNew/Left_Second_EventStreet3.html'
+            //}
+            //com.UIControlAni(option, function () {
+            //    require("sl_Street").loadJmXcyData();
+            //    require("sl_IOT").Scrolldiv();
+            //});
         },
         //街面基本信息
         loadJmBasicInfo: function () {

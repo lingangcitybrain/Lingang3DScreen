@@ -1149,6 +1149,7 @@
     <Content Include="View\SocietyNew\Left_Second_EventWorkSite3.html" />
     <Content Include="View\SocietyNew\Left_Second_EventWorkSite4.html" />
     <Content Include="View\SocietyNew\Left_Second_EventWorkStation.html" />
+    <Content Include="View\SocietyNew\WorkSiteDetail.html" />
     <Content Include="View\SocietyNew\Right_Second_01.html" />
     <Content Include="View\SocietyNew\Right_Second_02.html" />
     <Content Include="View\SocietyNew\Right_Second_03.html" />

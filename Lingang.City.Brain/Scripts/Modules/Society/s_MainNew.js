@@ -635,7 +635,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     sl_Drone.loadDroneCamera(nodename);
                     break;
                 case "WorkSite": //工地
-
+                    require("sl_WorkSite").loadWorkSiteDetial(nodename);
                     break;
                 case "Event": //事件
                     sl_Event.loadEventProcessing(nodename);

@@ -229,9 +229,11 @@
             var option = {
                 aniDom: "#left02_01",
                 htmlDom: "#left_second_01",
-                url: con.HtmlUrl + 'Industry/Estate/Left_Second_01.html'
+                url: con.HtmlUrl +  'Industry/Estate/Left_Second_01.html'
             }
-            com.UIControlAni(option, function () { require("e_Echart").qybhqs() });
+            com.UIControlAni(option, function () {
+                require("e_Echart").zlxxcyjg()//require("e_Echart").qybhqs() 
+            });
 
         },
         //加载第二个div
@@ -378,7 +380,7 @@
             }
             com.UIControlAni(option, function () {
                 //return null;
-                require("e_Echart").zlxxcyjg()
+                require("e_Echart").qybhqs()
             });
         },
         //加载第二个div
