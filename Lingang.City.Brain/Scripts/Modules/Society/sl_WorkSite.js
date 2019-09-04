@@ -4,7 +4,8 @@
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
-        WorkSiteList:new util.HashMap,
+        WorkSiteList: new util.HashMap,
+        changeDroneInterval:null,
         //加载工地POI
         loadWorkSite: function () {
             this.Revert();
@@ -189,30 +190,75 @@
             s_EchartAjax.getWorkSiteWrjData(function (result) {
                 if (require("s_Echart").workSiteWrjData == null) { return false; }
                 var data = require("s_Echart").workSiteWrjData;
-                data = data.data.communityDetail;
+                //data = data.data.communityDetail;
 
                 $("#worksite_wrj_flightCounts").html(data.flightCounts);
                 $("#worksite_wrj_eventCounts").html(data.eventCounts);
-                $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
-                $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
+                $("#worksite_wrj_communityCarNums").html(data.flightDuration);//.html(data.communityCarNums.replace("h", ""));
+                $("#worksite_wrj_communityGrade").html(data.siteGrade);//.html(data.communityGrade.replace("(m2)", ""));
+                //图片轮播
+                try {
+                    if (data.imageUrl && data.imageUrl!="") {
+                        var picArr = data.imageUrl.split(',');
+                        if (picArr.length > 0) {
+                            //require("sl_WorkSite").changeDroneInterval = window.setInterval(function () {
+                            for (var i = 0; i < picArr.length; i++) {
+                                $("#WorkSiteWrjVideo").append('<li class="wrj-li prism-player" style="display:none;background:url(' + picArr[i] + ');backgroundSize:100% 100%;"></li>');
+                                    $("#WorkSiteWrjVideo").css({ background: "url(" + picArr[i] + ")", backgroundSize: "100% 100%" });
+                                    //if (i == picArr.length-1) {
+                                    //    i = -1;
+                                    //}
+                                }
+                            //}, 60000)
+                        }
+                    }
+                } catch (e) {
 
+                }
+                //setTimeout(function () {
+                    require("sl_WorkSite").AutoChangeDroneIMG();
+               // }, 2000)
+                
             	// require("s_Main").loadWorkSiteWrjVideo("https://vku.youku.com/live/ilpshare?id=8018484")
 
             });
-            s_EchartAjax.getVideoPic(function (result) {
-            	if (require("s_Echart").videoPicData == null) { return false; }
-            	var data = require("s_Echart").videoPicData;
+            //s_EchartAjax.getVideoPic(function (result) {
+            //	if (require("s_Echart").videoPicData == null) { return false; }
+            //	var data = require("s_Echart").videoPicData;
 
-            	for (var i = 0; i < data.length; i++) {
-            		if (data[i].eventType === "construction") {
-            			$("#WorkSiteWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
-            		}
-            	}
+            //	for (var i = 0; i < data.length; i++) {
+            //		if (data[i].eventType === "construction") {
+            //			$("#WorkSiteWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
+            //		}
+            //	}
 
-            });
+            //});
 
         },
-
+        AutoChangeDroneIMG: function () {
+            var pics = $("#WorkSiteWrjVideo").find("li");
+            var index = 0;
+            //开始播放轮播图
+            function startAutoPlay(){
+                require("sl_WorkSite").changeDroneInterval = setInterval(function () {
+                    index++;
+                    if(index>pics.length){
+                        index = 0;
+                    }
+                    changeImg();
+                },10000);
+            }
+            
+            //改变轮播图
+            function changeImg(){
+                for(var i=0;i<pics.length;i++){
+                    pics[i].style.display = "none";
+                }
+                pics[index].style.display = "block";
+                //$("#WorkSiteWrjVideo li")[index].();
+            }
+            startAutoPlay();
+        },
     	//添加天气图片
         getWeatherIcon: function (str) {
         	var picNum = "";
@@ -473,6 +519,9 @@
 
         Revert: function () {
             this.clearWorkSitePOI();
+            if (require("sl_WorkSite").changeDroneInterval) {
+                window.clearInterval(require("sl_WorkSite").changeDroneInterval);
+            }
         }
     }
 })
