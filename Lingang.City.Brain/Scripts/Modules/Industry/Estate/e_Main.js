@@ -33,11 +33,14 @@
             this.loadLeftFirst1();//加载左侧第一列第一个div
             this.loadLeftFirst2();//
 
-
-            this.loadLeftSecond1();//加载左侧第二列第一个div
-            this.loadLeftSecond2();//
-            this.loadLeftSecond3();//
-
+            /*   //没有真实数据，先注释
+            //this.loadLeftSecond1();//加载左侧第二列第一个div
+            //this.loadLeftSecond2();//
+            //this.loadLeftSecond3();//
+            */
+            $("#left_second_01").html("");
+            $("#left_second_02").html("");
+            $("#left_second_03").html("");
             this.loadCenter1();//加载中间列
 
             // this.loadRightFirst1();//加载右侧第一列第一个div

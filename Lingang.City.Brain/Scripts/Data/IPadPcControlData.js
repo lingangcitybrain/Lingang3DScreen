@@ -34,9 +34,9 @@
 
             { "menu": "3", "layer": "20", "menuNM": "园区产业", "layerNM": "楼宇", "func": "require('mainMenu').showLayer_gMain(0);" },
             { "menu": "3", "layer": "21", "menuNM": "园区产业", "layerNM": "停车", "func": "require('mainMenu').showLayer_gMain(1);" },
-            { "menu": "3", "layer": "22", "menuNM": "园区产业", "layerNM": "无人驾驶接驳车", "func": "require('mainMenu').showLayer_gMain(2);" },
-            { "menu": "3", "layer": "23", "menuNM": "园区产业", "layerNM": "事件", "func": "require('mainMenu').showLayer_gMain(3);" },
-            { "menu": "3", "layer": "24", "menuNM": "园区产业", "layerNM": "产业信息", "func": "require('mainMenu').showLayer_gMain(4);" },
+            //{ "menu": "3", "layer": "22", "menuNM": "园区产业", "layerNM": "无人驾驶接驳车", "func": "require('mainMenu').showLayer_gMain(2);" },
+            { "menu": "3", "layer": "23", "menuNM": "园区产业", "layerNM": "事件", "func": "require('mainMenu').showLayer_gMain(2);" },
+            { "menu": "3", "layer": "24", "menuNM": "园区产业", "layerNM": "产业信息", "func": "require('mainMenu').showLayer_gMain(3);" },
 
         ],
 

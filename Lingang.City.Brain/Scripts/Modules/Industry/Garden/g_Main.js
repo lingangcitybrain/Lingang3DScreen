@@ -23,7 +23,7 @@
 
             this.loadLeftSecond1();//加载左侧第二列第一个div
             this.loadLeftSecond2();//
-            this.loadLeftSecond3();//
+            //this.loadLeftSecond3();//没有真实数据先注释
 
             this.loadCenter1();//加载中间列
 
