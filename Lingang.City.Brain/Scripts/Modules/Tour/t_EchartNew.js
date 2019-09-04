@@ -3662,6 +3662,12 @@
                         dataTypeArr.push(data[i].content);
                     }
                 }
+
+                //var htmltotal = '';
+                //htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
+                //htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
+                //$('#sjlxtotal').html(htmltotal);
+
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
                     html += '<li class="yqsj-item">' +
