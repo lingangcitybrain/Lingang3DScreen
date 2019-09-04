@@ -3671,7 +3671,7 @@
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
                     html += '<li class="yqsj-item">' +
-                           '    <div class="yqsj-itemdiv"><span>' + data[i].value + '</span>' +data[i].content.split("(")[0] + '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
+                           '    <div class="yqsj-itemdiv">' + data[i].content.split("(")[0] + '（<em class="testAerial">' + data[i].value + '</em>）</div>' +
                            '</li>'
                 }
                 $('#sjqyList').html(html);
