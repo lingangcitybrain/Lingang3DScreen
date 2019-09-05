@@ -2340,7 +2340,7 @@ dd.pjc-statistic-star >form{
 	font-size: .28rem;
 }
 .sqzz-hax-lr2-ul{
-	width: 5.3rem;
+	width: 100%;
 	margin-right: .3rem;
 }
 .sqzz-hax-lr2-ul>li{
@@ -2353,15 +2353,13 @@ dd.pjc-statistic-star >form{
 	font-size: .44rem;
 	padding-right: .1rem;
 }
-.sqzz-hax-lr2-pic{
+/*.sqzz-hax-lr2-pic{
 	width: calc(100% - 5.6rem);
 	border:.1rem solid rgba(53,93,242,.3);
-	/*border-left-width: .6rem;
-	border-right-width: .6rem;*/
 	background:url(../Content/images/sqzz-hax-lr-11.png) no-repeat;
 	background-size: 100% 100%;
 	box-sizing: border-box;
-}
+}*/
 .sqzz-hax-lr3-li{
 	float: left;
 	width: calc((100% - .21rem) / 3);

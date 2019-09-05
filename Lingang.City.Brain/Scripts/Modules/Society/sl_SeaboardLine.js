@@ -172,7 +172,7 @@
                 var data = require("s_Echart").monthlyRecentFlightData;
                 $("#recent-monthflight>li").eq(0).find("em").html(data.totalDistance)
                 $("#recent-monthflight>li").eq(1).find("em").html(data.flightNumber)
-                $("#recent-monthflight>li").eq(2).find("em").html(data.coastDistance)
+                $("#recent-monthflight>li").eq(2).find("em").html(data.flightDuration)
 
                 $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightDuration)
                 $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor)

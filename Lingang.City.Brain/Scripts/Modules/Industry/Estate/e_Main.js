@@ -124,104 +124,78 @@
                     )
                 }
 
+                var Top10DataLargestNumArr = [];
+                var Top10DataLargestNum = 0;
+                var Top10DataTotalYearNum = [];
+                var yearIndex = -1;
 
-                // var arr = [];
-                // for (var i = 0; i < data[4][2015].length; i++) {
-                //     arr.push(data[4][2015][i].entConut)
-                // }
-                // for (var i = 0; i < data[3][2016].length; i++) {
-                //     arr.push(data[3][2016][i].entConut)
-                // }
-                // for (var i = 0; i < data[2][2017].length; i++) {
-                //     arr.push(data[2][2017][i].entConut)
-                // }
-                // for (var i = 0; i < data[1][2018].length; i++) {
-                //     arr.push(data[1][2018][i].entConut)
-                // }
-                // for (var i = 0; i < data[0][2019].length; i++) {
-                //     arr.push(data[0][2019][i].entConut)
-                // }
-                // var Top10Data = [
-                //     { year: 2015, value: dataValueArr.slice(0, 9), text: '临港地区限价商品住房供应管理工作实施方案' },
-                //     { year: 2016, value: dataValueArr.slice(9, 18), text: '高新技术企业职工教育经费税前扣除政策' },
-                //     { year: 2017, value: dataValueArr.slice(18, 27), text: '临港地区建立特别机制和实行特殊政策的三十条实施政策' },
-                //     { year: 2018, value: dataValueArr.slice(27, 36), text: '图解：上海自贸区服务业扩大开发措施' },
-                //     { year: 2019, value: dataValueArr.slice(36, 45), text: '金白银得实惠！本市迎来创业带动就业政策“升级版”！' },
-                // ]
-                // 
+                for (var i = 0; i < Top10Data.length; i++) {
+                    Top10DataLargestNumArr.push(Math.max.apply(null, Top10Data[i].value))
+                    Top10DataTotalYearNum[i] = sum(Top10Data[i].value)
+                }
 
-                    var Top10DataLargestNumArr = [];
-                    var Top10DataLargestNum = 0;
-                    var Top10DataTotalYearNum = [];
-                    var yearIndex = -1;
+                Top10DataLargestNum = Math.max.apply(null, Top10DataLargestNumArr)
 
-                    for (var i = 0; i < Top10Data.length; i++) {
-                        Top10DataLargestNumArr.push(Math.max.apply(null, Top10Data[i].value))
-                        Top10DataTotalYearNum[i] = sum(Top10Data[i].value)
-                    }
-
-                    Top10DataLargestNum = Math.max.apply(null, Top10DataLargestNumArr)
-
-                    function zlxxcySetDataFun() {
-                        $(".zlxxcy-li").each(function (index, element) {
-                            $(this).find(".zlxxcy-bar").css({ transition: '1.5s width linear' }).width(Top10Data[yearIndex].value[index] * 100 / Top10DataLargestNum + '%');
-                            $(this).find(".zlxxcy-num").html(Top10Data[yearIndex].value[index]);
-                            $(this).find(".zlxxcy-per").html((Top10Data[yearIndex].value[index] / Top10DataTotalYearNum[yearIndex] * 100).toFixed(2) + '%');
-                        })
-                        $(".zlxxcy-year").html(Top10Data[yearIndex].year);
-                        $(".zlxxcy-mess").html(Top10Data[yearIndex].text);
-
-                        require("e_Main").zlxxcyRightTimer = setTimeout(function () {
-                            clearTimeout(require("e_Main").zlxxcyRightTimer)
-                            require("e_Main").zlxxcyRightTimer = null;
-                            zlxxcyLoopFun();
-                        }, 2500)
-                    }
-
-                    function zlxxcyLoopFun() {
-                        yearIndex++;
-                        if (yearIndex < Top10Data.length) {
-                            zlxxcySetDataFun()
-                        } else {
-                            clearTimeout(require("e_Main").zlxxcyRightTimer)
-                            require("e_Main").zlxxcyRightTimer = null;
-                            yearIndex = -1;
-
-                           require("e_Main").zlxxcyRightTimer2 = setTimeout(function () {
-                                clearInterval(require("e_Main").zlxxcyRightTimer2)
-                                require("e_Main").zlxxcyRightTimer2 = null;
-                                $(".zlxxcy-li").each(function (index, element) {
-                                    $(this).find(".zlxxcy-bar").css({ transition: '.3s width linear' }).width(0);
-                                    $(this).find(".zlxxcy-num").html('');
-                                    $(this).find(".zlxxcy-per").html('0%');
-                                })
-                                $(".zlxxcy-year").html('');
-                                $(".zlxxcy-mess").html('');
-
-                                require("e_Main").zlxxcyRightTimer = setTimeout(function () {
-                                    clearTimeout(require("e_Main").zlxxcyRightTimer)
-                                    require("e_Main").zlxxcyRightTimer = null;
-                                    zlxxcyLoopFun();
-                                }, 1500)
-
-                            }, 4000)
-
-                        }
-                    }
+                function zlxxcySetDataFun() {
+                    $(".zlxxcy-li").each(function (index, element) {
+                        $(this).find(".zlxxcy-bar").css({ transition: '1.5s width linear' }).width(Top10Data[yearIndex].value[index] * 100 / Top10DataLargestNum + '%');
+                        $(this).find(".zlxxcy-num").html(Top10Data[yearIndex].value[index]);
+                        $(this).find(".zlxxcy-per").html((Top10Data[yearIndex].value[index] / Top10DataTotalYearNum[yearIndex] * 100).toFixed(2) + '%');
+                    })
+                    $(".zlxxcy-year").html(Top10Data[yearIndex].year);
+                    // $(".zlxxcy-mess").html(Top10Data[yearIndex].text);
 
                     require("e_Main").zlxxcyRightTimer = setTimeout(function () {
                         clearTimeout(require("e_Main").zlxxcyRightTimer)
                         require("e_Main").zlxxcyRightTimer = null;
                         zlxxcyLoopFun();
-                    }, 1500)
+                    }, 2500)
+                }
+
+                function zlxxcyLoopFun() {
+                    yearIndex++;
+                    if (yearIndex < Top10Data.length) {
+                        zlxxcySetDataFun()
+                    } else {
+                        clearTimeout(require("e_Main").zlxxcyRightTimer)
+                        require("e_Main").zlxxcyRightTimer = null;
+                        yearIndex = -1;
+
+                        require("e_Main").zlxxcyRightTimer2 = setTimeout(function () {
+                            clearInterval(require("e_Main").zlxxcyRightTimer2)
+                            require("e_Main").zlxxcyRightTimer2 = null;
+                            $(".zlxxcy-li").each(function (index, element) {
+                                $(this).find(".zlxxcy-bar").css({ transition: '.3s width linear' }).width(0);
+                                $(this).find(".zlxxcy-num").html('');
+                                $(this).find(".zlxxcy-per").html('0%');
+                            })
+                            $(".zlxxcy-year").html('');
+                            $(".zlxxcy-mess").html('');
+
+                            require("e_Main").zlxxcyRightTimer = setTimeout(function () {
+                                clearTimeout(require("e_Main").zlxxcyRightTimer)
+                                require("e_Main").zlxxcyRightTimer = null;
+                                zlxxcyLoopFun();
+                            }, 1500)
+
+                        }, 4000)
+
+                    }
+                }
+
+                require("e_Main").zlxxcyRightTimer = setTimeout(function () {
+                    clearTimeout(require("e_Main").zlxxcyRightTimer)
+                    require("e_Main").zlxxcyRightTimer = null;
+                    zlxxcyLoopFun();
+                }, 1500)
 
 
-                    function sum(arr) {
-                        return eval(arr.join("+"));
-                    };
+                function sum(arr) {
+                    return eval(arr.join("+"));
+                };
 
 
-                })
+            })
         },
         /*****************************左侧第二列*****************************/
         //加载第一个div
