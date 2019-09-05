@@ -162,7 +162,7 @@
                             axisLine: {
                                 show: true,
                                 lineStyle: {
-                                    width: 15,
+                                    width: 25,
                                     shadowBlur: 10,         //发光
                                     shadowColor: "#8e26dc",
                                     color: industryColor
@@ -188,7 +188,7 @@
                             },
                             pointer: {       //指针
                                 show: true,
-                                length: '120%',//指针长度
+                                length: '140%',//指针长度
                                 width: 1,
                             },
                             itemStyle: { //仪表盘指针样式
