@@ -170,9 +170,10 @@
             s_EchartAjax.getMonthlyRecentFlightData(function (result) {
                 if (require("s_Echart").monthlyRecentFlightData == null) { return false; }
                 var data = require("s_Echart").monthlyRecentFlightData;
-                $("#recent-monthflight>li").eq(0).find("em").html(data.totalDistance)
-                $("#recent-monthflight>li").eq(1).find("em").html(data.flightNumber)
-                $("#recent-monthflight>li").eq(2).find("em").html(data.flightDuration)
+                $("#recent-monthflight>li").eq(0).find("em").html(parseFloat(data.totalDistance))
+                $("#recent-monthflight>li").eq(1).find("em").html(parseFloat(data.flightNumber))
+                $("#recent-monthflight>li").eq(2).find("em").html(parseFloat(data.flightDuration))
+                
 
                 $("#recent-monthflight-mess>li").eq(0).find("span").html(data.flightDuration)
                 $("#recent-monthflight-mess>li").eq(1).find("span").html(data.visitor)
