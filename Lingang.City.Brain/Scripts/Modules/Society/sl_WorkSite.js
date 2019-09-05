@@ -1,41 +1,44 @@
-﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax"], function (con, com, s_layerMenuData, s_EchartAjax) {
+﻿define(["config", "common", "s_layerMenuData", "s_EchartAjax","s_LayerMenuAjax", "util"], function (con, com, s_layerMenuData, s_EchartAjax,s_LayerMenuAjax, util) {
     /**************************************WorkSite**************************************/
     return {
         LayerType: null,//选择传感器
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
-
+        WorkSiteList: new util.HashMap,
+        changeDroneInterval: null,
+        picArr:[],
         //加载工地POI
         loadWorkSite: function () {
             this.Revert();
             this.LayerType = require("s_Main").LayerCatalog.WorkSite;
-            this.POIData = s_layerMenuData.WorkSiteData.Data;
-
-
-
+            s_LayerMenuAjax.getWorkSieList(function (result) { 
+                require("sl_WorkSite").POIData = result;//s_layerMenuData.WorkSiteData.Data;
             var areaName = con.AreaName;
-            var icon = this.LayerType.UnChooseIcon;
+            var icon = require("sl_WorkSite").LayerType.UnChooseIcon;
             var pois = [];
-            for (var i = 0; i < this.POIData.length; i++) {
-                var row = this.POIData[i];
-                var poiName = "POISociety" + this.LayerType.Name + "_" + row.id;//POIIOT_01
+            for (var i = 0; i < require("sl_WorkSite").POIData.length; i++) {
+                var row = require("sl_WorkSite").POIData[i];
+                require("sl_WorkSite").WorkSiteList.put(i,row);
+                var poiName = "POISociety" + require("sl_WorkSite").LayerType.Name + "_" + i//row.id;//POIIOT_01
                 var iconSize = Q3D.vector2(41, 45);
-                var pos = row.pos;
+
+                var Coordinate = com.gcj02towgs84(parseFloat(row.lat),parseFloat(row.lng));//高德坐标转wgs84  经纬度反了
+                var pos = Coordinate + ",0";
                 var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
 
                 var poi = { POIName: poiName, Position: position, Text: "", Icon: icon, IconSize: iconSize };
                 pois.push(poi);
             }
             com.InitPois(areaName, pois);
-
+            })
         },
         //工地点击事件
         loadWorkSiteDetial: function (nodeName) {
             var areaName = con.AreaName;
             if (this.LastPOI_Clk && this.LastPOI_Clk != "") {
                 var layername = this.LastPOI_Clk.split('_')[0].replace("POISociety", "");
-                var level = this.LayerType.Level;
-                var icon = this.LayerType.UnChooseIcon;
+                var level = require("sl_WorkSite").LayerType.Level;
+                var icon = require("sl_WorkSite").LayerType.UnChooseIcon;
                 var lastNode = map.getSceneNode(areaName, this.LastPOI_Clk);
                 if (lastNode) {
                     lastNode.asPOI().setIcon(icon);
@@ -45,15 +48,45 @@
             this.LastPOI_Clk = nodeName;
             var node = map.getSceneNode(areaName, nodeName);
             if (node != null) {
-
                 var poi = node.asPOI();
-
                 var layername = nodeName.split('_')[0].replace("POISociety", "");
-                var level = this.LayerType.Level;
-                var icon = this.LayerType.ChooseIcon;
+                var level = require("sl_WorkSite").LayerType.Level;
+                var icon = require("sl_WorkSite").LayerType.ChooseIcon;
                 poi.setIcon(icon);
-                //});
+                //POI放在中间
+                Q3D.globalCamera().flyToByClick('MapWrapper', Q3D.vector3d(map.getSceneNode(areaName, nodeName).getAbsPos()), 0.5);
+                require("sl_WorkSite").WorkSiteDetialInfo(nodeName);
             }
+        },
+        WorkSiteDetialInfo: function (nodeName) {          
+            s_LayerMenuAjax.getWorkSieInfoList(function (result) {
+                var key = nodeName.split("_")[1];
+                var info = require("sl_WorkSite").WorkSiteList.get(key);
+                for (var i = 0; i < result.length; i++) {
+                    var data = result[i];
+                    if (info && data) {
+                        if (info.siteName.indexOf(data.constructionSite) > -1) {
+                            //详情页面
+                            var option = {
+                                aniDom: "#center01_01",
+                                htmlDom: "#center_01",
+                                url: con.HtmlUrl + 'SocietyNew/WorkSiteDetail.html'
+                            }
+                            com.UIControlAni(option, function () {
+                                $("#workSite_builder").html(data.builder);
+                                $("#workSite_year").html(data.buildTime);
+                                $("#workSite_use").html(data.forUse);
+
+                                //联动
+                                $("#worksite_startTime").html(data.buildTime);
+                                $("#worksite_builder").html(data.builder);
+                                $("#worksite_usefor").html(data.forUse);
+                            });
+                            break;
+                        }
+                    }
+                }
+            })
         },
         //清空工地POI
         clearWorkSitePOI: function () {
@@ -64,7 +97,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var name = this.LayerType.Name;
 
-                    var poiname = "POISociety" + name + "_" + data[i].id;
+                    var poiname = "POISociety" + name + "_" + i; //data[i].id;
                     var node = map.getSceneNode(areaName + "/" + poiname);
                     if (node) {
                         map.getArea(areaName).destroySceneNode(poiname);
@@ -158,30 +191,65 @@
             s_EchartAjax.getWorkSiteWrjData(function (result) {
                 if (require("s_Echart").workSiteWrjData == null) { return false; }
                 var data = require("s_Echart").workSiteWrjData;
-                data = data.data.communityDetail;
+                //data = data.data.communityDetail;
 
                 $("#worksite_wrj_flightCounts").html(data.flightCounts);
                 $("#worksite_wrj_eventCounts").html(data.eventCounts);
-                $("#worksite_wrj_communityCarNums").html(data.communityCarNums.replace("h", ""));
-                $("#worksite_wrj_communityGrade").html(data.communityGrade.replace("(m2)", ""));
+                $("#worksite_wrj_communityCarNums").html(data.flightDuration);//.html(data.communityCarNums.replace("h", ""));
+                $("#worksite_wrj_communityGrade").html(data.siteGrade);//.html(data.communityGrade.replace("(m2)", ""));
+                //图片轮播
+                try {
+                    if (data.imageUrl && data.imageUrl != "") {
+                        var picArr = data.imageUrl.split(',');
+                        if (picArr.length > 0) {
+                            require("sl_WorkSite").picArr = picArr;
+                            $("#WorkSiteWrjVideo").css({ background: "url(" + picArr[0] + ")", backgroundSize: "100% 100%" });
+                        }
+                    }
+                } catch (e) {
 
-            	// require("s_Main").loadWorkSiteWrjVideo("https://vku.youku.com/live/ilpshare?id=8018484")
+                }
+                require("sl_WorkSite").AutoChangeDroneIMG();
 
             });
-            s_EchartAjax.getVideoPic(function (result) {
-            	if (require("s_Echart").videoPicData == null) { return false; }
-            	var data = require("s_Echart").videoPicData;
+            //s_EchartAjax.getVideoPic(function (result) {
+            //	if (require("s_Echart").videoPicData == null) { return false; }
+            //	var data = require("s_Echart").videoPicData;
 
-            	for (var i = 0; i < data.length; i++) {
-            		if (data[i].eventType === "construction") {
-            			$("#WorkSiteWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
-            		}
-            	}
+            //	for (var i = 0; i < data.length; i++) {
+            //		if (data[i].eventType === "construction") {
+            //			$("#WorkSiteWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
+            //		}
+            //	}
 
-            });
+            //});
 
         },
-
+        AutoChangeDroneIMG: function () {
+            var pics = require("sl_WorkSite").picArr;//$("#WorkSiteWrjVideo").find("li");
+            var index = 0;
+            //开始播放轮播图
+            function startAutoPlay(){
+                require("sl_WorkSite").changeDroneInterval = setInterval(function () {
+                    index++;
+                    if(index>pics.length){
+                        index = 0;
+                    }
+                    changeImg();
+                },10000);
+            }
+            
+            //改变轮播图
+            function changeImg(){
+                for (var i = 0; i < pics.length; i++) {
+                    if (i == index) {
+                        $("#WorkSiteWrjVideo").css({ background: "url(" + pics[i] + ")", backgroundSize: "100% 100%" });
+                        break;
+                    }
+                }
+            }
+            startAutoPlay();
+        },
     	//添加天气图片
         getWeatherIcon: function (str) {
         	var picNum = "";
@@ -442,6 +510,9 @@
 
         Revert: function () {
             this.clearWorkSitePOI();
+            if (require("sl_WorkSite").changeDroneInterval) {
+                window.clearInterval(require("sl_WorkSite").changeDroneInterval);
+            }
         }
     }
 })
