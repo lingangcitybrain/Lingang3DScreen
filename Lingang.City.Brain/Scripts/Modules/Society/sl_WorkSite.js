@@ -30,7 +30,8 @@
                 pois.push(poi);
             }
             com.InitPois(areaName, pois);
-            })
+            })            
+            
         },
         //工地点击事件
         loadWorkSiteDetial: function (nodeName) {
@@ -174,16 +175,23 @@
 
         //工地施工单位
         loadWorkSiteBuilderData: function () {
-            s_EchartAjax.getWorkSiteBuilderData(function (result) {
-                if (require("s_Echart").workSiteBuilderData == null) { return false; }
-                var data = require("s_Echart").workSiteBuilderData;
-                data = data[0];
+            //s_EchartAjax.getWorkSiteBuilderData(function (result) {
+            //    if (require("s_Echart").workSiteBuilderData == null) { return false; }
+            //    var data = require("s_Echart").workSiteBuilderData;
+            //    data = data[0];
 
-                $("#worksite_startTime").html(data.startTime.replace(data.startTime.slice(4, 6), "-" + data.startTime.slice(4, 6) + "-"))
-                $("#worksite_builder").html(data.builder)
-                $("#worksite_usefor").html(data.usage)
+            //    $("#worksite_startTime").html(data.startTime.replace(data.startTime.slice(4, 6), "-" + data.startTime.slice(4, 6) + "-"))
+            //    $("#worksite_builder").html(data.builder)
+            //    $("#worksite_usefor").html(data.usage)
 
-            });
+            //});
+            s_LayerMenuAjax.getWorkSieInfoList(function (result) {
+                if (result.length > 0) {
+                    $("#worksite_startTime").html(result[0].buildTime);
+                    $("#worksite_builder").html(result[0].builder);
+                    $("#worksite_usefor").html(result[0].forUse);
+                }
+            })
         },
 
         //工地无人机

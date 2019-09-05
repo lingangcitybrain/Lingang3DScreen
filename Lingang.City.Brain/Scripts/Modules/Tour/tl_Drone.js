@@ -175,9 +175,9 @@
                      + '<div class=\"poi-title\">' + data.jkmc + '</div>'
                      + '<div class=\"poi-cont\">'
                      + '<ul class=\"poi-ul\">'
-                     + '<li class=\"poi-li\"><em><i>' + data.jkdz + '</i></em></li>'
+                     + '<li class=\"poi-li\"><em><i>' + data.jkmc + '</i></em></li>'
                      + '<li class=\"poi-li\"><span>状态：</span><em><i>' + data.jkzt + '</i></em></li>'
-                     + '<li class=\"poi-li\"><span>供电：</span><em><i>' + data.gdms + '</i></em></li>'
+                     + '<li class=\"poi-li\"><span>地址：</span><em><i>' + data.jkdz + '</i></em></li>'
                      + '</ul>'
                      + '</div>'
                      + '</div>';
