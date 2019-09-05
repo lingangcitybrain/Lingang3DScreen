@@ -5,7 +5,8 @@
         POIData: null,//POI详情数据
         LastPOI_Clk: null,//鼠标选中POI
         WorkSiteList: new util.HashMap,
-        changeDroneInterval:null,
+        changeDroneInterval: null,
+        picArr:[],
         //加载工地POI
         loadWorkSite: function () {
             this.Revert();
@@ -198,28 +199,17 @@
                 $("#worksite_wrj_communityGrade").html(data.siteGrade);//.html(data.communityGrade.replace("(m2)", ""));
                 //图片轮播
                 try {
-                    if (data.imageUrl && data.imageUrl!="") {
+                    if (data.imageUrl && data.imageUrl != "") {
                         var picArr = data.imageUrl.split(',');
                         if (picArr.length > 0) {
-                            //require("sl_WorkSite").changeDroneInterval = window.setInterval(function () {
-                            for (var i = 0; i < picArr.length; i++) {
-                                $("#WorkSiteWrjVideo").append('<li class="wrj-li prism-player" style="display:none;background:url(' + picArr[i] + ');backgroundSize:100% 100%;"></li>');
-                                    $("#WorkSiteWrjVideo").css({ background: "url(" + picArr[i] + ")", backgroundSize: "100% 100%" });
-                                    //if (i == picArr.length-1) {
-                                    //    i = -1;
-                                    //}
-                                }
-                            //}, 60000)
+                            require("sl_WorkSite").picArr = picArr;
+                            $("#WorkSiteWrjVideo").css({ background: "url(" + picArr[0] + ")", backgroundSize: "100% 100%" });
                         }
                     }
                 } catch (e) {
 
                 }
-                //setTimeout(function () {
-                    require("sl_WorkSite").AutoChangeDroneIMG();
-               // }, 2000)
-                
-            	// require("s_Main").loadWorkSiteWrjVideo("https://vku.youku.com/live/ilpshare?id=8018484")
+                require("sl_WorkSite").AutoChangeDroneIMG();
 
             });
             //s_EchartAjax.getVideoPic(function (result) {
@@ -236,7 +226,7 @@
 
         },
         AutoChangeDroneIMG: function () {
-            var pics = $("#WorkSiteWrjVideo").find("li");
+            var pics = require("sl_WorkSite").picArr;//$("#WorkSiteWrjVideo").find("li");
             var index = 0;
             //开始播放轮播图
             function startAutoPlay(){
@@ -251,11 +241,12 @@
             
             //改变轮播图
             function changeImg(){
-                for(var i=0;i<pics.length;i++){
-                    pics[i].style.display = "none";
+                for (var i = 0; i < pics.length; i++) {
+                    if (i == index) {
+                        $("#WorkSiteWrjVideo").css({ background: "url(" + pics[i] + ")", backgroundSize: "100% 100%" });
+                        break;
+                    }
                 }
-                pics[index].style.display = "block";
-                //$("#WorkSiteWrjVideo li")[index].();
             }
             startAutoPlay();
         },
