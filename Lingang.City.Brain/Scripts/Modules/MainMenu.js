@@ -132,6 +132,7 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
             $("li").removeClass("active");//删除当前元素的样式
             $("li").eq(index).addClass("active");//添加当前元素的样式
             e_Main.Revert();
+            g_Main.Revert();
             //关闭放大图表
             require('mainMenu').closeBigChartHtml();
 
@@ -147,7 +148,20 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
                     break;
                 case "园区信息":
                     require("g_Home").loadMain_g_Main();
-                    require('mainMenu').loadBottomMenu_gMain();
+                    //require('mainMenu').loadBottomMenu_gMain();  //园区信息底部菜单合并到产业信息
+                    break;
+                case "园区楼宇":
+                    require("g_Home").loadBuilding();
+                    break;
+                case "园区停车":
+                    require("g_Home").loadStop();
+                    require("g_Echart").topTen();
+                    break;
+                //case "无人驾驶接驳车":
+                //    require("g_Home").loadUnmannedCar();
+                //    break;
+                case "园区事件":
+                    require("g_Home").loadEvent();
                     break;
                 default:
             }
