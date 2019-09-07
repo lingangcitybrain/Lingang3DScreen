@@ -6,6 +6,8 @@
         GardenLayerType: null,//园区POI属性
         GardenPOIData: null,//园区POI详情数据
         pieNode:[],
+        nodeFollowingPath:[],//节点跟随路径
+        detailWindowId:0,//当前窗口id
         
         //加载园区的建筑信息，在建筑上标注楼号POI
         loadGardenBuilding:function()
@@ -124,32 +126,78 @@
         //加载园区详情信息
         loadGardeninfo: function (AreaName, parentName, icon, id)
         {
-            var iconSize = Q3D.vector2(404, 250);
-            var createOptions = {
-                Position: Q3D.vector3(230, -30, 0),
-                Orientation: null,
-                OrientationType: Q3D.Enums.nodeOrientationType.Self,
-                Scale: Q3D.vector3(0.5, 0.5, 0.5),
-                POIOptions: {
-                    CharScale: 1,
-                    Text: "",
-                    Icon: icon,
-                    IconSize: iconSize,
-                    POILayout: Q3D.Enums.poiLayOut.Bottom,
-                    UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
-                    IconAlphaEnabled: true,
-                    Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
-                    SpecialTransparent: true,
-                    AlwaysOnScreen: true,
-                    OnLoaded: function () {
-                    },
-                }
-            };
-            var poiName = "PoiGardenInfo" + id;
-            var node = map.getSceneNode(AreaName, poiName)
-            if (node) {map.destroySceneNode(AreaName,poiName);} 
+            // var iconSize = Q3D.vector2(404, 250);
+            // var createOptions = {
+            //     Position: Q3D.vector3(230, -30, 0),
+            //     Orientation: null,
+            //     OrientationType: Q3D.Enums.nodeOrientationType.Self,
+            //     Scale: Q3D.vector3(0.5, 0.5, 0.5),
+            //     POIOptions: {
+            //         CharScale: 1,
+            //         Text: "",
+            //         Icon: icon,
+            //         IconSize: iconSize,
+            //         POILayout: Q3D.Enums.poiLayOut.Bottom,
+            //         UIType: Q3D.Enums.poiUIType.CameraOrientedKeepSize,
+            //         IconAlphaEnabled: true,
+            //         Location: Q3D.Enums.poiImagePositionType.POI_LOCATE_BOTTOM,
+            //         SpecialTransparent: true,
+            //         AlwaysOnScreen: true,
+            //         OnLoaded: function () {
+            //         },
+            //     }
+            // };
+            // var poiName = "PoiGardenInfo" + id;
+            // var node = map.getSceneNode(AreaName, poiName)
+            // if (node) {map.destroySceneNode(AreaName,poiName);} 
 
-            map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);        
+            // map.createPOI(AreaName + "/" + parentName + "/" + poiName, createOptions);       
+            
+            var url = con.HtmlUrl + 'Industry/Garden/ParkDetail.html';
+
+            require("gl_GardenBuilding").detailWindowId = 1;
+            var domWinName = 'detail_' + require("gl_GardenBuilding").detailWindowId;            
+
+            require(['text!' + url], function (template) {
+                $("#"+domWinName).show();
+                $("#"+domWinName).html(template);             
+
+            });
+
+            var nodePath = AreaName + '/' + parentName;    
+            var nodeObject = {"nodePath": nodePath, "nodeDom": domWinName};
+
+            require("gl_GardenBuilding").nodeFollowingPath.push(nodeObject);
+            
+            map.enableNodeFollowing(nodePath, function(node, v2i){      
+                require("gl_GardenBuilding").nodeFolowing(node, v2i);
+            }); 
+        },
+        nodeFolowing: function(node, v2i){
+            require("gl_GardenBuilding").nodeFollowingPath.forEach(function(e){
+                if (node.getFullName() == e.nodePath){
+                    document.getElementById(e.nodeDom).style.left = v2i.x + "px";
+                    document.getElementById(e.nodeDom).style.top = v2i.y - 100 + "px"; 
+                } 
+            });
+        },
+        closeGardenDetailWindow: function () {
+            var currentWinId = require("gl_GardenBuilding").detailWindowId;
+            
+            while (currentWinId > 0) {
+                var domDetail = $("#detail_" + currentWinId);
+                domDetail.empty();
+                domDetail.hide();
+                currentWinId = currentWinId - 1;
+            }
+
+            require("gl_GardenBuilding").detailWindowId = 0;
+
+            require("gl_GardenBuilding").nodeFollowingPath.forEach(function(e) {
+                map.disableNodeFollowing(e.nodePath, true);
+            }); 
+
+            require("gl_GardenBuilding").nodeFollowingPath = [];
         },
         //隐藏POI
         clearGardenPOI: function () {
@@ -243,6 +291,7 @@
             this.clearGardenPOI();
             //this.clearPOI();
             this.clearGardenInfo();
+            this.closeGardenDetailWindow();
         }
     }
 })
