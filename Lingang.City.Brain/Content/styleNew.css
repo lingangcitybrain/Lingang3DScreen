@@ -3708,6 +3708,10 @@ dd.pjc-statistic-star >form{
 	color: #f8d906;
 }
 
+.ParkDetail .poi-li{ line-height:normal; }
+.ParkDetail .poi-li>em{ color: #00ef00; }
+
+
 .poi-box2{ color: #40dfdd; }
 .poi-box3{ color: #8acae1; }
 
