@@ -205,7 +205,7 @@
                 $("#jm_drone2>.item-r-data").html(data.flightCount);
                 $("#jm_drone3>.item-r-data").html(data.flightTime);
                 //加载视频
-                require("s_Main").loadStreetWrjVideo("../Content/video/CH2.flv")
+                require("s_Main").loadStreetWrjVideo(con.WebServiceUrl + "/Content/video/CH2.flv")
 
             })
             s_EchartAjax.getVideoPic(function (result) {

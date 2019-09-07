@@ -518,11 +518,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             var videowidth = $("#Big-chart").width();
             var videoheight = $("#Big-chart").height();
-            if (require("s_Main").left01_03_video01) {
-                require("s_Main").left01_03_video01.dispose();
-                require("s_Main").left01_03_video01 = null;
-            }
-            $("#Societyleft01_03_video01").empty();
+            // if (require("s_Main").left01_03_video01) {
+            //     require("s_Main").left01_03_video01.dispose();
+            //     require("s_Main").left01_03_video01 = null;
+            // }
+            // $("#Societyleft01_03_video01").empty();
 
             s_EchartAjax.getWrjRideo(function () {
                 if (require("s_Echart").wrjRideo == null) { return false; }
@@ -561,6 +561,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 if (require("s_Main").leftcenter_video) {
                     require("s_Main").leftcenter_video.dispose();
                     require("s_Main").leftcenter_video = null;
+                    //加载无人机视频
+                    setTimeout(function () { require("s_Main").loadLeft01_03_Video();}, 800);
                 }
             } catch (error) {
                 console.log(error.message);
