@@ -15,7 +15,7 @@
                 Id: 4, TextName: "事件", Name: "Event", Level: 1, ChooseIcon: "Texture/Common/event_hover.png", UnChooseIcon: "Texture/Common/event.png"
             },
         },
-        loadMain: function () {
+        loadMain: function (isLoadingPark) {
             //this.loadBottomMenu();//加载底部图层
 
             this.loadLeftFirst1();//加载左侧第一列第一个div
@@ -32,7 +32,8 @@
 
             this.loadRightSecond1();//加载右侧第二列第一个div
 
-            require("gl_GardenBuilding").loadGardenBuilding();
+            if(isLoadingPark == null || isLoadingPark == undentified ||isLoadingPark == true)
+                require("gl_GardenBuilding").loadGardenBuilding();
             //setTimeout(function () {
             //    //加载图表
             //    g_Echart.loadEcharts();

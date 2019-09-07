@@ -35,10 +35,12 @@
            com.LayerFlyto(311, function () { 
 
             })
+            g_Main.loadMain(false);
             b_BuildingFloor.loadBuilding();
         },
         loadStop: function () {
             com.LayerFlyto(21);
+            g_Main.loadMain(false);
             gl_Stop.loadStop();
         },
         loadUnmannedCar: function () {
@@ -50,6 +52,7 @@
         },
         loadEvent: function () {
             com.LayerFlyto(23)
+            g_Main.loadMain(false);
             gl_Event.loadEvent();
         },
 

@@ -80,6 +80,7 @@
             com.LayerFlyto(311, function () {
 
             })
+            g_Main.loadMain(false);
             b_BuildingFloor.loadBuilding();
             this.layerNO = 20;
             var jsondata = {
@@ -92,6 +93,7 @@
         },
         loadStop: function () {
             com.LayerFlyto(21);
+            g_Main.loadMain(false);
             gl_Stop.loadStop();
             this.layerNO = 21;
             var jsondata = {
@@ -118,6 +120,7 @@
         },
         loadEvent: function () {
             com.LayerFlyto(23)
+            g_Main.loadMain(false);
             gl_Event.loadEvent();
             this.layerNO = 23;
             var jsondata = {
