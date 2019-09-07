@@ -153,15 +153,19 @@
                 $("#recent-flight-mess>li").eq(0).find("span").html(data.personCounts)
                 $("#recent-flight-mess>li").eq(1).find("span").html(data.garbage)
                 $("#recent-flight-mess>li").eq(2).find("span").html(data.BootCounts)
-                //$("#recent-flight-mess>li").eq(3).find("span").html(data.boothCounts)
+                
+                //右侧图片
+                $("#monthlyRecentFlyVideo").css({ background: "url(" +data.imageUrl + ") no-repeat", backgroundSize: "100% 100%" });
                
             });
+
             s_EchartAjax.getFlightVideo(function (result) {
                 if (result) {
                     require("s_Main").loadRecentFlyVideo(result[result.dateList[0]][0]);
                 }
                 
             })
+
              
         },
 
@@ -183,26 +187,6 @@
                 //require("s_Main").loadMonthlyRecentFlyVideo(data.url[0])   //需要另外获取
 
             });
-            //s_EchartAjax.getFlightVideo(function (result) {   
-            //    if (result) {
-            //        //require("s_Main").loadMonthlyRecentFlyVideo(result[1].url[0]);
-            //        require("s_Main").loadMonthlyRecentFlyVideo(result[result.dateList[1]][0]);
-            //    }
-
-        	//})
-            s_EchartAjax.getVideoPic(function (result) {
-            	if (require("s_Echart").videoPicData == null) { return false; }
-            	var data = require("s_Echart").videoPicData;
-				
-            	for (var i = 0; i < data.length; i++) {
-            		if (data[i].eventType === "coastline") {
-            			$("#monthlyRecentFlyVideo").css({ background: "url(" + data[i].imageUrl + ") no-repeat", backgroundSize: "100% 100%" });
-            		}
-            	}
-            });
-
-
-
 
         },
 

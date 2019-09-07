@@ -663,18 +663,56 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
 
         numberAni1: function (data) {
-            com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
-            com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
-            com.numberAnimation($('#dsz-znpds'), Number(data.dispatchRate) - 20, Number(data.dispatchRate), 2000);
-            com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
-            com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 20, Number(data.loopRate), 2000);
+            require('s_Main').numberRoll($('#dsz-ajljs'), 0, Number(data.totalCount), 0, 2000);
+            require('s_Main').numberRoll($('#dsz-dyajs'), 0, Number(data.monthCount), 0, 2000);
+            require('s_Main').numberRoll($('#dsz-znpds'), 1, Number(data.dispatchRate), 1, 2000);
+            require('s_Main').numberRoll($('#dsz-zdfxl'), 1, Number(data.autoRate), 1, 2000);
+            require('s_Main').numberRoll($('#dsz-bhl'), 1, Number(data.loopRate), 1, 2000);
         },
-        numberAni2: function (data) {
-            com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
-            com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
-            com.numberAnimation($('#s_bignum3'), parseInt(data.occupy) - 20, parseInt(data.occupy), 2000);
-            com.numberAnimation($('#s_bignum4'), parseInt(data.grade) - 20, parseInt(data.grade), 2000);
+
+        numberRoll: function (divDom, fixedNum, endNum, percentIcon, duration) {
+            var decimal_places = fixedNum;
+            var decimal_factor = decimal_places === 0 ? 0 : decimal_places * 10;
+            divDom.animateNumber(
+              {
+                  number: decimal_places === 0 ? endNum : endNum * decimal_factor / decimal_places,
+                  numberStep: function (now, tween) {
+                      var floored_number, target = $(tween.elem)
+                      if (decimal_places == 0) {
+                          floored_number = Math.floor(now);
+                          floored_number = now.toFixed(decimal_places);
+                      }
+
+                      if (decimal_places > 0) {
+                          floored_number = Math.floor(now) / decimal_factor;
+                          floored_number = (now / 10).toFixed(decimal_places);
+                      }
+                      if (percentIcon == 0) { target.text(floored_number); }
+                      if (percentIcon == 1) { target.text(floored_number + '%'); }
+                  }
+              },
+              {
+                  easing: 'swing',
+                  duration: duration
+              }
+            )
         },
+
+
+
+        //numberAni1: function (data) {
+        //    com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
+        //    com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
+        //    com.numberAnimation($('#dsz-znpds'), Number(data.dispatchRate) - 5, Number(data.dispatchRate), 2000);
+        //    com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
+        //    com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 5, Number(data.loopRate), 2000);
+        //},
+        //numberAni2: function (data) {
+        //    com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
+        //    com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
+        //    com.numberAnimation($('#s_bignum3'), parseInt(data.occupy) - 20, parseInt(data.occupy), 2000);
+        //    com.numberAnimation($('#s_bignum4'), parseInt(data.grade) - 20, parseInt(data.grade), 2000);
+        //},
 
         htmlRevert: function () {
             this.clearVideo();

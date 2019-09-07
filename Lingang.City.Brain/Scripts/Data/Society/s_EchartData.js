@@ -31,19 +31,14 @@
 
         //中间大数字
         societyBigNumData: {
-            "errorCode": "0",
-            "errorMessage": "成功",
-            "resultType": "0",
-            "data": {
-                "inspectorCount": 28,  //巡查总数
-                "uavCount": "4",       //无人机总数
-                "cameraCount": "739",  //摄像头总数
-                "loopRate": 99.35,     //闭环率 
-                "totalCount": "55266", //案件累计数
-                "monthCount": "62",    //当月案件数
-                "dispatchRate": "83",  //智能派单率
-                "autoRate": 15.9       //主动发现率 
-            }
+            "inspectorCount": 28,      //巡查总数
+            "uavCount": 13,            //无人机总数
+            "cameraCount": 758,        //摄像头总数
+            "loopRate": "99.54",       //闭环率 
+            "totalCount": 24379,       //案件累计数
+            "monthCount": 6860,        //当月案件数
+            "dispatchRate": "93.29",   //智能派单率
+            "autoRate": "98.37"        //主动发现率 
         },
 
         cgqBigNumData:{

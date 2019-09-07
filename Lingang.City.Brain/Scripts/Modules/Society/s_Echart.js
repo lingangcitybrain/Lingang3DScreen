@@ -616,20 +616,12 @@
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
 
-                //function dealSaveTimeFun(str) {
-                //	var saveTimeArr = str.split("小时")[0].split("天");
-                //	var saveTime = ( Number(saveTimeArr[0]) * 24 + Number(saveTimeArr[1]) )*60;
-                //	return saveTime;
-                //}
-                //var disSaveTime = data.distributeNums + "*" + parseInt(dealSaveTimeFun(data.discoverTimeSaving) / data.distributeNums);
-                //var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
-
                 $("#sj-list1").find(".sj-data").eq(0).html(data.eventNums);
-                $("#sj-list1").find(".sj-data").eq(1).html(data.discoverRate + '%');
+                $("#sj-list1").find(".sj-data").eq(1).html(Number(data.discoverRate).toFixed(1) + '%');
                 $("#sj-list1").find(".sj-data").eq(2).html(data.discoverTimeSaving);
 
                 $("#sj-list2").find(".sj-data").eq(0).html(data.distributeNums);
-                $("#sj-list2").find(".sj-data").eq(1).html(data.smartSingleRate + '%');
+                $("#sj-list2").find(".sj-data").eq(1).html(Number(data.smartSingleRate).toFixed(1) + '%');
                 $("#sj-list2").find(".sj-data").eq(2).html(data.smartSingleTimeSaving);
 
 
@@ -1120,18 +1112,18 @@
 
 
         },
-        //中间大数字
-        bigNumber: function () {
-            s_EchartAjax.getSocietyBigNum(function (result) {
-                if (require("s_Echart").bigNumData == null) { return false; };
-                var data = require("s_Echart").bigNumData;
-                $('#dsz-ajljs').html(data.totalCount);
-                $('#dsz-dyajs').html(data.monthCount);
-                $('#dsz-znpds').html(data.dispatchRate + "%");
-                $('#dsz-zdfxl').html(data.autoRate + "%");
-                $('#dsz-bhl').html(data.loopRate + "%");
-            })
-        },
+        //中间大数字   //这个没有用到
+        //bigNumber: function () {
+        //    s_EchartAjax.getSocietyBigNum(function (result) {
+        //        if (require("s_Echart").societyBigNumData == null) { return false; };
+        //        var data = require("s_Echart").societyBigNumData;
+        //        $('#dsz-ajljs').html(data.totalCount);
+        //        $('#dsz-dyajs').html(data.monthCount);
+        //        $('#dsz-znpds').html(Number(data.dispatchRate).toFixed(1) + "%");
+        //        $('#dsz-zdfxl').html(Number(data.autoRate).toFixed(1) + "%");
+        //        $('#dsz-bhl').html(Number(data.loopRate).toFixed(1) + "%");
+        //    })
+        //},
         //无人机事件天气预报
         DroneWeather: function () {
             if (WeatherSevenData != null) {
