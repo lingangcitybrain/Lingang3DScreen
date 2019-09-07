@@ -146,7 +146,7 @@
                 url: con.HtmlUrl + 'Industry/Garden/Left_Second_02.html'
             }
             com.UIControlAni(option, function () {
-                require("g_Echart").tcfw({ "datetime": "20190522110000" }); //停车服务图表
+                require("g_Echart").tcfw(); //停车服务图表
             });
         },
         //加载第三个div
