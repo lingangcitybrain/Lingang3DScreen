@@ -673,6 +673,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
 
         numberRoll: function (divDom, fixedNum, endNum, percentIcon, duration) {
+            //divDom    $(".div") $("#div")
+            //fixedNum  精确几位数
+            //endNum    输出数据（可以是精确前数据）
+            //percentIcon    是否有百分号0/1
+            //duration       动画时间毫秒
             var decimal_places = fixedNum;
             var decimal_factor = decimal_places === 0 ? 0 : decimal_places * 10;
             divDom.animateNumber(
