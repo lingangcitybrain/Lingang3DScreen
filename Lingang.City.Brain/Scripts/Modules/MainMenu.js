@@ -138,7 +138,9 @@ function (con, com, s_Echart, s_Main, t_Main, e_Main, g_Main, b_Main, t_Home, s_
 
             switch (menuname) {
                 case "产业信息":
-                    require("g_Home").loadEstateInfo();
+                    //require("g_Home").loadEstateInfo();
+                    require("g_Home").loadMain_e_Main();
+                    require("mainMenu").loadBottomMenu_e_Main();
                     break;
                 case "象限图谱":
                     require("g_Home").loadAtlasChart();
