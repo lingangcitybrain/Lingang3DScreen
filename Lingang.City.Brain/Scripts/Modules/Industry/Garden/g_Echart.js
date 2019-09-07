@@ -374,7 +374,7 @@
                 var myCharttcfw = echarts.init(tcfwChart);
                 tcfwOption = {
                     title: {
-                        text: "(进出车辆数)",
+                        text: "停车统计表",
                         left: "0",
                         top: 8,
                         textStyle: {
@@ -480,7 +480,7 @@
         },
         //大停车服务
         bigtcfw: function () {
-            $("#GbigechartHead").html('进出车辆数');
+            $("#GbigechartHead").html('停车统计表');
             if ($("#tcfw-chart").length <= 0) { return false; }
 
             var xAxisData = []; //X轴数据
