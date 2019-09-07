@@ -49,7 +49,7 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
             sl_SeaboardLine.layerSeaboard();
             sl_SeaboardLine.loadLeftSecond();
            // require("s_Main").loadCenter1Info();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
         },
         loadWorkSite: function () {
 
@@ -57,13 +57,13 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
            // require("s_Main").loadCenter1Info();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
         },
         loadEvent: function () {
             com.LayerFlyto(15, function () { });
             sl_Event.loadEvent();
             sl_IOT.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
         },
         loadStreet: function () {
             Q3D.globalCamera().flyTo(("395990.1351315872,502.45323181152343,-3416512.159721699").toVector3d(), ("-31.376115798950195,8.757302284240722,5.298542499542236").toVector3(), 1, function () {
@@ -71,7 +71,7 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
             });
             sl_Street.loadWorkSite();
             sl_Street.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
         },
         loadGrid: function () {
             com.LayerFlyto(281, function () {
@@ -79,7 +79,7 @@ function (con, com, tl_Drone, s_Main, s_LayerMenuAjax, s_LeftLayer, s_RightLayer
             });
             sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
         },
         loadPipeline:function(){
             sl_Pipeline.openPipeline();

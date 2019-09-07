@@ -12,8 +12,6 @@
                 }
             },
             left02_video01: null,
-            left02_video01: null,
-            left02_video01: null,
             tourhtml_wurenji01: null,
             Interval1: null,//园区总人数
             Interval2: null,//园区车辆数

@@ -652,7 +652,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 if (require("s_Echart").societyBigNumData == null) { return false; }
                 var data = require("s_Echart").societyBigNumData;
                // data = data.data;   //中台接口格式变更
-                require('s_Main').numberAni1(data);
+               setTimeout(function(){require('s_Main').numberAni1(data);}, 1200);
             });
         },
 
