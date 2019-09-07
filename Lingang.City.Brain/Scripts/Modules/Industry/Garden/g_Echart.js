@@ -1,7 +1,7 @@
 ﻿define(["config", "common", "g_EchartAjax", "pagination", "nicescroll"], function (con, com, g_EchartAjax, pagination, nicescroll) {
     var gauge_value = 0;
     //var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
-    var tcfwSeriesData = []; //停车服务数据 便于大图表引用
+    var tcfwDayCarData = []; //停车服务数据 便于大图表引用
     var tcfwSeriesDataMax = 0;
     var tcfwSeriesDataMin = 0;
     var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
@@ -330,37 +330,47 @@
         },
 
         //停车服务
-        tcfw: function (post_data) {
+        tcfw: function () {
             var post_data = require("g_Echart").latestSevenDate(0)[2];
-            g_EchartAjax.getTcfw(post_data, function (result) {
+            require("gl_GardenBuildingAjax").getParkingInfo(post_data, function (result) {
                 if (require("g_Echart").tcfwData == null) { return false; }
-                var data = require("g_Echart").tcfwData;
+                var data = require("g_Echart").tcfwData[0];
 
                 $("#cyyq-tcfw-total").html(data.total);
-                data.occupied ? data.occupied : 0;
                 $("#cyyq-tcfw-empty").html(data.total - data.occupied);
 
-                var xAxisData = []; //X轴数据
+
+                //图表
+                //X轴日期
+                var xAxisData = []; 
                 for (var i = 6; i >= 0; i--) {
                     xAxisData.push( require("g_Echart").latestSevenDate(i)[0] )
+                }
+                
+                //接口parkings数据
+                var tcfwCarData = JSON.parse(data.parkings);
+                var tcfwDayCarArr = [[], [], [], [], [], [], []];
+                tcfwDayCarData = [];
+
+                for (var i = 0; i < tcfwCarData.length; i++) {
+                    for (var key1 in tcfwCarData[i]) {
+                        for (var j = 0; j < xAxisData.length; j++) {
+                            if (key1 == xAxisData[j].replace("/", "-")) {
+                                for (var key2 in tcfwCarData[i][key1]) {
+                                    tcfwDayCarArr[j].push(tcfwCarData[i][key1][key2]);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (var i = 0; i < tcfwDayCarArr.length; i++) {
+                    tcfwDayCarData.push(Math.max.apply(Math, tcfwDayCarArr[i]));
                 }
 
                 if ($("#tcfw-chart").length <= 0) { return false; }
                 var tcfwChart = document.getElementById('tcfw-chart');
 
-                data = JSON.parse(data.parkings);
-                var tcfwdata = [];
-                for (var i = 0; i < xAxisData.length; i++) {
-                    for (var key in data[i + 1]) {
-                        tcfwdata.push(data[i + 1][key]);
-                    }
-                }
-
-                tcfwSeriesDataMax = Math.max.apply(null, tcfwdata);
-                tcfwSeriesDataMin = Math.min.apply(null, tcfwdata);
-
-
-                tcfwSeriesData = tcfwdata;
                 var myCharttcfw = echarts.init(tcfwChart);
                 tcfwOption = {
                     title: {
@@ -431,8 +441,6 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
-                        min: parseInt( parseInt(tcfwSeriesDataMin / 10) * 10),
                         axisLabel: {
                             textStyle: {
                                 fontSize: 22,
@@ -458,7 +466,7 @@
                               width: 2,
                           },
                           symbolSize: 10,
-                          data: tcfwdata,
+                          data: tcfwDayCarData,
                       }
                     ]
                 };
@@ -479,7 +487,6 @@
             for (var i = 6; i >= 0; i--) {
                 xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
             }
-            var tcfwdata = tcfwSeriesData;
 
             tcfwOption = {
                 title: {
@@ -548,8 +555,8 @@
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
-                    max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
-                    min: parseInt(parseInt(tcfwSeriesDataMin / 10) * 10),
+                    //max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
+                    //min: parseInt(parseInt(tcfwSeriesDataMin / 10) * 10),
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -575,7 +582,7 @@
                           width: 10,
                       },
                       symbolSize: 20,
-                      data: tcfwdata,
+                      data: tcfwDayCarData,
                   }
                 ]
             };
@@ -1503,7 +1510,7 @@
                 second = d.getSeconds();
 
                 var mmdd1 = addZero(mon) + "/" + addZero(day);
-                var mmdd2 = addZero(mon) + "/" + addZero(day);
+                var mmdd2 = addZero(mon) + "-" + addZero(day);
                 var yymmddhhmmss = '' +year + addZero(mon) +addZero(day) +addZero(hour) +addZero(minute) +addZero(second);
 
                 return [mmdd1, mmdd2, yymmddhhmmss];

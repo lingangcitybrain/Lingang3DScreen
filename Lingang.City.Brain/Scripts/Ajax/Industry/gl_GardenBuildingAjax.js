@@ -64,7 +64,7 @@
                 data: { datetime:time},
                 dataType: 'json',  // 返回数据的数据类型json
                 success: function (data) {
-                    //require("g_Echart").tcfwData = data.data;
+                    require("g_Echart").tcfwData = data;
                     callback(data);
                 },
                 error: function () {
