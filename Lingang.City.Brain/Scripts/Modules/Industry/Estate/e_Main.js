@@ -306,7 +306,7 @@
             require(['text!' + url], function (template) {
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
-                require("e_Echart").centernumber()
+                setTimeout(function(){require("e_Echart").centernumber();}, 1200);            
                
             })
         },
@@ -329,7 +329,7 @@
                 url: con.HtmlUrl + 'Industry/Estate/Right_First_02.html',
                 leftOrRight: 'right'
             }
-            com.UIControlAni(option, function () { require("e_Echart").xzsp() });
+            com.UIControlAni(option, function () { require("e_Echart").xzsp()});
         },
         //加载第三个div
         loadRightFirst3: function () {

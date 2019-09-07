@@ -97,7 +97,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             sl_SeaboardLine.layerSeaboard();
             sl_SeaboardLine.loadLeftSecond();
             //require("s_Main").loadCenter1Info();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "14",
@@ -113,7 +113,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
            // require("s_Main").loadCenter1Info();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "26",
@@ -127,7 +127,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
         this.layerNO = 15;
             sl_Event.loadEvent();
             sl_IOT.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "15",
@@ -143,7 +143,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             this.layerNO = 27;
             sl_Street.loadWorkSite();
             sl_Street.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "27",
@@ -159,7 +159,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             this.layerNO = 28;
             sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "28",
