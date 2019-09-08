@@ -32,7 +32,7 @@
 
             this.loadRightSecond1();//加载右侧第二列第一个div
 
-            if(isLoadingPark == null || isLoadingPark == undentified ||isLoadingPark == true)
+            if(isLoadingPark == null || isLoadingPark == 'undentified' ||isLoadingPark == true)
                 require("gl_GardenBuilding").loadGardenBuilding();
             //setTimeout(function () {
             //    //加载图表
