@@ -529,7 +529,7 @@
                     require("sl_Event").paidanTimerout = setTimeout(function () {
 
                         if (data.eventDes.indexOf("渣土车") > -1 || data.eventDes.indexOf("黑车") > -1) {
-                            require("sl_Event").loadPartCarTravel();//加载轨迹线
+                            //require("sl_Event").loadPartCarTravel();//加载轨迹线
                         }
                         require("sl_Event").loadPaidan(id);//加载派单页面
                     }, 1000);
