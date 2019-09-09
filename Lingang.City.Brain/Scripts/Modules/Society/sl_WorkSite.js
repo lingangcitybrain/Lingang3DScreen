@@ -278,7 +278,11 @@
         			picNum = 2;
         			break;
         		case "小雨":
-        		case "小雨转多云":
+        	    case "小雨转多云":
+        	    case "小雨转阴":
+        	    case "小雨转晴":
+        	    case "晴转小雨":
+        	    case "阴转小雨":
         	    case "多云转小雨":
         	    case "多云转中雨":
         			picNum = 7;
@@ -340,31 +344,31 @@
         	}
 			
         	if (picNum === "") {
-        	    if (str.indexOf("晴")) {
+        	    if (str.indexOf("晴") !== -1) {
         			picNum = 0;
-        	    } else if (str.indexOf("多云")) {
+        	    } else if (str.indexOf("多云") !== -1) {
         			picNum = 1;
-        	    } else if (str.indexOf("阴")) {
+        	    } else if (str.indexOf("阴") !== -1) {
         			picNum = 2;
-        	    }else if (str.indexOf("小雨")) {
+        	    }else if (str.indexOf("小雨") !== -1) {
         			picNum = 7;
-        	    }else if (str.indexOf("中雨")) {
+        	    }else if (str.indexOf("中雨") !== -1) {
         			picNum = 8;
-        	    }else if (str.indexOf("大雨")) {
+        	    } else if (str.indexOf("大雨") !== -1) {
         			picNum = 9;
-        	    } else if (str.indexOf("阵雨")) {
+        	    } else if (str.indexOf("阵雨") !== -1) {
         			picNum = 3;
-        	    } else if (str.indexOf("雷阵雨")) {
+        	    } else if (str.indexOf("雷阵雨") !== -1) {
         			picNum = 4;
-        	    } else if (str.indexOf("小雪")) {
+        	    } else if (str.indexOf("小雪") !== -1) {
         			picNum = 14;
-        	    } else if (str.indexOf("中雪")) {
+        	    } else if (str.indexOf("中雪") !== -1) {
         			picNum = 15;
-        	    } else if (str.indexOf("大雪")) {
+        	    } else if (str.indexOf("大雪") !== -1) {
         			picNum = 16;
-        	    } else if (str.indexOf("阵雪")) {
+        	    } else if (str.indexOf("阵雪") !== -1) {
         			picNum = 17;
-        	    } else if (str.indexOf("冰雹")) {
+        	    } else if (str.indexOf("冰雹") !== -1) {
         			picNum = 19;
         		} else {
         			picNum = 3;
