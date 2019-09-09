@@ -371,7 +371,7 @@
         	    } else if (str.indexOf("冰雹") !== -1) {
         			picNum = 19;
         		} else {
-        			picNum = 3;
+        			picNum = 1;
         		}        		
         	}
         	return picNum;

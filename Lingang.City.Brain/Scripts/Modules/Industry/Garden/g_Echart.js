@@ -987,7 +987,7 @@
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + data.weeklychecked + '</em></li>'
                    + '<li class=""><span>待处理：</span><em class="testAerial">' + data.weeklyuncheck + '</em></li>'
                 );
-                //$("#zhwy-weekaveragerate").append('<span class="testAerial">' + parseFloat(data.weekaveragerate)*100 + '%</span>')
+                $("#zhwy-weekaveragerate").append('<div>周平均完成率</div><span class="testAerial">' + (parseFloat(data.weekaveragerate) * 100).toFixed(2) + '%</span>')
             });
 
 
