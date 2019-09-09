@@ -340,31 +340,31 @@
         	}
 			
         	if (picNum === "") {
-        	    if (str.indexOf("晴")) {
+        		if ("晴".test(str)) {
         			picNum = 0;
-        	    } else if (str.indexOf("多云")) {
+        		} else if ("多云".test(str)) {
         			picNum = 1;
-        	    } else if (str.indexOf("阴")) {
+        		} else if ("阴".test(str)) {
         			picNum = 2;
-        	    }else if (str.indexOf("小雨")) {
+        		}else if ("小雨".test(str)) {
         			picNum = 7;
-        	    }else if (str.indexOf("中雨")) {
+        		}else if ("中雨".test(str)) {
         			picNum = 8;
-        	    }else if (str.indexOf("大雨")) {
+        		}else if ("大雨".test(str)) {
         			picNum = 9;
-        	    } else if (str.indexOf("阵雨")) {
+        		} else if ("阵雨".test(str)) {
         			picNum = 3;
-        	    } else if (str.indexOf("雷阵雨")) {
+        		} else if ("雷阵雨".test(str)) {
         			picNum = 4;
-        	    } else if (str.indexOf("小雪")) {
+        		} else if ("小雪".test(str)) {
         			picNum = 14;
-        	    } else if (str.indexOf("中雪")) {
+        		} else if ("中雪".test(str)) {
         			picNum = 15;
-        	    } else if (str.indexOf("大雪")) {
+        		} else if ("大雪".test(str)) {
         			picNum = 16;
-        	    } else if (str.indexOf("阵雪")) {
+        		} else if ("阵雪".test(str)) {
         			picNum = 17;
-        	    } else if (str.indexOf("冰雹")) {
+        		} else if ("冰雹".test(str)) {
         			picNum = 19;
         		} else {
         			picNum = 3;

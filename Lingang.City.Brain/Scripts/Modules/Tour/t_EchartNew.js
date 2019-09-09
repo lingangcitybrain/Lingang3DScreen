@@ -3001,7 +3001,7 @@
                 //  day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
                 return s;
             }
-            var num = 5;
+            var num = 6;
             //五种数据的每日统计
             var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [], jwrsjtjdata4 = [], jwrsjtjdata5 = [];
 
@@ -3028,8 +3028,8 @@
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])
                     jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
-                    jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
-                    jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
+                    //jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
+                    //jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
                 }
 
                 //if ($("#" + jwrsjtjChart).length <= 0) { return false; }
@@ -3206,16 +3206,16 @@
                           symbolSize: 8,
                           data: jwrsjtjdata2
                       },
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[2],
-                      //    color: "#e3a102",
-                      //    lineStyle: {
-                      //    	width: 4,
-                      //    },
-                      //    symbolSize: 8,
-                      //    data: jwrsjtjdata3
-                      //},
+                      {
+                          type: 'line',
+                          name: keyTemp[2],
+                          color: "#e3a102",
+                          lineStyle: {
+                          	width: 4,
+                          },
+                          symbolSize: 8,
+                          data: jwrsjtjdata3
+                      },
                       //{
                       //    type: 'line',
                       //    name: keyTemp[3],
@@ -3226,16 +3226,16 @@
                       //    symbolSize: 8,
                       //    data: jwrsjtjdata4
                       //},
-                      {
-                          type: 'line',
-                          name: keyTemp[4],
-                          color: "#5702e3",
-                          lineStyle: {
-                          	width: 4,
-                          },
-                          symbolSize: 8,
-                          data: jwrsjtjdata5
-                      }
+                      //{
+                      //    type: 'line',
+                      //    name: keyTemp[4],
+                      //    color: "#5702e3",
+                      //    lineStyle: {
+                      //    	width: 4,
+                      //    },
+                      //    symbolSize: 8,
+                      //    data: jwrsjtjdata5
+                      //}
                     ]
                 };
 
@@ -3281,7 +3281,7 @@
                 //  day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
                 return s;
             }
-            var num = 5;
+            var num = 6;
             //五种数据的每日统计
             var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [], jwrsjtjdata4 = [], jwrsjtjdata5 = [];
 
@@ -3308,9 +3308,9 @@
                 for (var i = 0; i < 5; i++) {
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])
-                    //jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
+                    jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
                     //jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
-                    jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
+                    //jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
                 }
                 option = {
                     legend: {
@@ -3488,16 +3488,16 @@
                           symbolSize: 16,
                           data: jwrsjtjdata2
                       },
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[2],
-                      //    color: "#e3a102",
-                      //    lineStyle: {
-                      //        width: 8,
-                      //    },
-                      //    symbolSize: 16,
-                      //    data: jwrsjtjdata3
-                      //},
+                      {
+                          type: 'line',
+                          name: keyTemp[2],
+                          color: "#e3a102",
+                          lineStyle: {
+                              width: 8,
+                          },
+                          symbolSize: 16,
+                          data: jwrsjtjdata3
+                      },
                       //{
                       //    type: 'line',
                       //    name: keyTemp[3],
@@ -3508,16 +3508,16 @@
                       //    symbolSize: 16,
                       //    data: jwrsjtjdata4
                       //},
-                      {
-                          type: 'line',
-                          name: keyTemp[4],
-                          color: "#5702e3",
-                          lineStyle: {
-                              width: 8,
-                          },
-                          symbolSize: 16,
-                          data: jwrsjtjdata5
-                      }
+                      //{
+                      //    type: 'line',
+                      //    name: keyTemp[4],
+                      //    color: "#5702e3",
+                      //    lineStyle: {
+                      //        width: 8,
+                      //    },
+                      //    symbolSize: 16,
+                      //    data: jwrsjtjdata5
+                      //}
                     ]
                 };
 
