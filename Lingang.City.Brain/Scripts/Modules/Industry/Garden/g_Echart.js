@@ -1132,7 +1132,7 @@
                 var unitEnergyRank = JSON.parse(data.unitenergyrank);
                 $("#zhnh-unit").html("");
                 for (var i = 0; i < unitEnergyRank.length; i++) {
-                    $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy + '</span></li>');
+                    $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy.toFixed(2) + '</span></li>');
                 }
                 // 同比和环比
                 var oTongbiHuanbi = JSON.parse(data.chainratioanalysis);
