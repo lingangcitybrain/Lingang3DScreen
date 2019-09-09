@@ -8,6 +8,7 @@
     var strTitle = "事件成功数";
 
     return {
+        perCarPicTimer: null,   //人员车辆结构化图片
         sjcgTimer: null,
         mybigChart: null,     //大的图表显示  
         myChartsxt1: null,     //摄像头
@@ -27,6 +28,7 @@
         sxtCameraData: null,  //摄像头--摄像头
         sxtCarData: null,     //摄像头--车辆
         sxtPersonData: null,  //摄像头--人员
+        perCarPicData: null,   //人员车辆结构化图片
         zzbmData: null,       //主责部门
         societyPersonData: null,    // 社区人口
         societySjcgListData: null,  //事件成功列表数据
@@ -116,7 +118,8 @@
             require(['text!' + url], function (template) {
                 $("#center_05").html(template);
                 $("#center_05").show('drop', 1000);//左侧
-                //require("s_Echart").loadSocietyEventList();
+
+                require("s_Echart").perCarPic();
             })
             $("#center_03").html("");
             $("#center_04").html("");
@@ -549,6 +552,52 @@
                 $(str).find(".sxt-circleinfo").children().eq(0).find("em").html(data.total);
                 $(str).find(".sxt-circleinfo").children().eq(1).find("em").html(data.total - data.count);
                 $(str).find(".sxt-circleinfo").children().eq(2).find("em").html(data.count);
+
+            });
+        },
+
+
+        //人员车辆结构化图片
+        perCarPic: function () {
+            clearInterval(window.perCarPicTimer);
+            window.perCarPicTimer = null;
+
+            s_EchartAjax.getPerCarPicData(function (result) {
+                if (require("s_Echart").perCarPicData == null) { return false; }
+                var data = require("s_Echart").perCarPicData;
+
+                var carData = data.car[0];
+                var personData = data.person[0];
+                var perCarPicNum = 1;
+                changeToCarFun();
+                perCarPicTimer = setInterval(function () {
+                    perCarPicNum++;
+                    perCarPicNum % 2 == 0 ? changeToPersonFun() : changeToCarFun();
+                }, 6000);
+
+                function changeToCarFun() {
+                    $(".iot-percarpic").html('<img src="' + carData.picurl + '" />');
+                    $(".iot-percarmess>em").html('车牌号：');
+                    $(".iot-percarmess>span").html(carData.platenumber);
+                    $(".iot-percartime>em").html('识别时间：');
+                    $(".iot-percartime>span").html([carData.date.split("-")[1], carData.date.split("-")[2]].join("/"));
+                }
+
+                function changeToPersonFun() {
+                    var time = personData.wzbjsj.split(".")[0].split("-");
+                    var timestr = [time[1], time[2]].join("/").replace("T", " ");
+
+                    if ($("#iot-percarpic").length > 0) {
+                        $(".iot-percarpic").html('<img src="' + personData.cjtobjectid + '" />');
+                    } else {
+                        $("#iot-percarpic").html('<img src="' + personData.ytobjectid + '" />');
+                    }
+                    $(".iot-percarmess>em").html('性别：');
+                    $(".iot-percarmess>span").html(personData.gender);
+                    $(".iot-percartime>em").html('识别时间：');
+                    $(".iot-percartime>span").html(timestr);
+                }
+
 
             });
         },
@@ -1263,6 +1312,11 @@
                 clearInterval(window.sjcgTimer)
             }
 
+            if (window.perCarPicTimer != null) {
+                clearInterval(window.perCarPicTimer)
+                window.perCarPicTimer = null;
+
+            }
             //摄像头
             if (require("s_Echart").myChartsxt1 != null && require("s_Echart").myChartsxt1 != "" && require("s_Echart").myChartsxt1 != undefined) {
                 require("s_Echart").myChartsxt1.dispose();
