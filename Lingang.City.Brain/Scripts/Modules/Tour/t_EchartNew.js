@@ -3046,7 +3046,7 @@
                             fontSize: 18,
                             color: "#0296d4"
                         },
-                        data: [keyTemp[0], keyTemp[1], keyTemp[4]]
+                        data: [keyTemp[0], keyTemp[1], keyTemp[2]]
                     },
 
 
@@ -3323,7 +3323,7 @@
                             fontSize: 40,
                             color: "#0296d4"
                         },
-                        data: [keyTemp[0], keyTemp[1], keyTemp[4]]
+                        data: [keyTemp[0], keyTemp[1], keyTemp[2]]
                     }, 
                     //legend: [
                     //     {
