@@ -370,11 +370,12 @@
                 require("e_Echart").fkld();
             });
         },
-        numberAni: function (qyzs, zlxxqys, ssgs, ydqys) {
+        numberAni: function (qyzs, gsqys, zlxxqys, djsqys, ssqys) {
             com.numberAnimation($('#e_qyzs'), qyzs - 200, qyzs, 2000);
-            com.numberAnimation($('#e_zlxxqys'), zlxxqys - 200, zlxxqys, 2000);
-            com.numberAnimation($('#e_ssgs'), ssgs - 20, ssgs, 2000);
-            com.numberAnimation($('#e_ydqys'), ydqys - 200, ydqys, 2000);
+            com.numberAnimation($('#e_gsqys'), gsqys - 200, gsqys, 2000);
+            com.numberAnimation($('#e_zlxxqys'), zlxxqys - 20, zlxxqys, 2000);
+            com.numberAnimation($('#e_djsqys'), djsqys - 200, djsqys, 2000);
+            com.numberAnimation($('#e_ssqys'), ssqys - 200, ssqys, 2000);
         },
         //清空图层
         Revert: function () {

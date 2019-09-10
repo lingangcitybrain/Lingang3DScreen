@@ -438,6 +438,12 @@
                 //require("t_Echart").myChartykfx.clear();
                 require("t_Echart").myChartykfx.setOption(option, true);
             });
+            
+            $("#ykfx-title").click(function () {
+                 require("t_Echart").ykfx();
+            })
+
+
         },
         //游客分析（用户年龄分布）
         bigTouristAnalysis: function () {
@@ -3002,7 +3008,7 @@
             }
             var num = 6;
             //五种数据的每日统计
-            var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [], jwrsjtjdata4 = [], jwrsjtjdata5 = [];
+            var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [];
 
             var starttime = [];      //请求数据的日期
             var Day = [];
@@ -3524,8 +3530,9 @@
                 var data = require("t_Echart").yqsjtjTypeData;
                 var htmltotal = '';
 
-                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
-                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
+               // htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
+                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.carCounts + '</span>类</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' +data.eventCounts + '</span>个</div>';
                 $('#sjlxtotal').html(htmltotal);
                 var html = '';
                 for (var key in data) {

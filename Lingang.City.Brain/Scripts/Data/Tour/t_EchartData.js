@@ -1293,7 +1293,8 @@ define(["config"], function (con) {
                 "火灾烟雾": 0,
                 "黄牛布控": 0
             },
-            "catCounts": 8,
+           // "catCounts": 8,
+            "carCounts": 8,
             "停车场爆满预警": {
                 "重点车管控": 0,
                 "ceshi333": 0,

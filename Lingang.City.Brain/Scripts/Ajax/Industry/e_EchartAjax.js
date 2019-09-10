@@ -292,21 +292,23 @@ define(["config", "common", "e_EchartData", "e_LayerMenuData"], function (con, c
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     //url: con.InterfaceUrl_estate + 'v1/industrial/companyStatistics',
-                    url: con.InterfaceUrl_DataStation + 'v1/industrial/zhlgzqys',
+                    //url: con.InterfaceUrl_DataStation + 'v1/industrial/zhlgzqys',
+                    url: con.InterfaceUrl_TourEvent + 'api/v1/industryBriefing',
+                   
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("e_Echart").centernumberData = data.data;
+                        require("e_Echart").centernumberData = data;
                         callback(data);
                     },
                     error: function () {
-                        require("e_Echart").centernumberData = e_EchartData.centernumberData.data;
+                        require("e_Echart").centernumberData = e_EchartData.centernumberData;
                         callback();
                     }
                 });
             }
             else {//执行本地
-                require("e_Echart").centernumberData = e_EchartData.centernumberData.data;
+                require("e_Echart").centernumberData = e_EchartData.centernumberData;
                 callback();
             }
         },

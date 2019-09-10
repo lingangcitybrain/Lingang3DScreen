@@ -2017,15 +2017,8 @@
         centernumber: function () {
             
             e_EchartAjax.centernumberajax(function (result) {
-                var data = require("e_Echart").centernumberData
-                if ($.isArray(data)) {
-                    data = data[0];
-                }
-                require('e_Main').numberAni(data.total, data.potential, data.invested, data.abnormal);
-                //$("#e_qyzs").html(data.total)
-                //$("#e_zlxxqys").html(data.potential)
-                //$("#e_ssgs").html(data.invested)
-                //$("#e_ydqys").html(data.abnormal)
+                var data = require("e_Echart").centernumberData;
+                require('e_Main').numberAni(data.total, data.above, data.emerging, data.unicorn, data.public);
             })
         },
         
