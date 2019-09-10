@@ -2998,7 +2998,6 @@
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
                 day = d.getDate(); s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
-                //  day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
                 return s;
             }
             var num = 6;
@@ -3018,18 +3017,18 @@
             //图表
             t_EchartAjax.getJwrsjtj(function (data) {
                 var keyTemp = [];
-
                 var data = require("t_Echart").jwrsjtjData;
 
                 for (var key in data) {
-                    keyTemp.push(key)
+                    if (key !== "疑似渣土车" && key !== "疑似黑车") {
+                        keyTemp.push(key);
+                    }
                 }
+
                 for (var i = 0; i < 5; i++) {
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])
                     jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
-                    //jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
-                    //jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
                 }
 
                 //if ($("#" + jwrsjtjChart).length <= 0) { return false; }
@@ -3046,7 +3045,7 @@
                             fontSize: 18,
                             color: "#0296d4"
                         },
-                        data: [keyTemp[0], keyTemp[1], keyTemp[2]]
+                        data: keyTemp,
                     },
 
 
@@ -3216,26 +3215,6 @@
                           symbolSize: 8,
                           data: jwrsjtjdata3
                       },
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[3],
-                      //    color: "#025ce3",
-                      //    lineStyle: {
-                      //    	width: 4,
-                      //    },
-                      //    symbolSize: 8,
-                      //    data: jwrsjtjdata4
-                      //},
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[4],
-                      //    color: "#5702e3",
-                      //    lineStyle: {
-                      //    	width: 4,
-                      //    },
-                      //    symbolSize: 8,
-                      //    data: jwrsjtjdata5
-                      //}
                     ]
                 };
 
@@ -3298,20 +3277,19 @@
             //图表
             t_EchartAjax.getJwrsjtj(function (data) {
                 var keyTemp = [];
-
                 var data = require("t_Echart").jwrsjtjData;
-
                 for (var key in data) {
-                    keyTemp.push(key)
+                    if (key !== "疑似渣土车" && key !== "疑似黑车") {
+                        keyTemp.push(key);
+                    }
                 }
 
                 for (var i = 0; i < 5; i++) {
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])
                     jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
-                    //jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
-                    //jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
                 }
+
                 option = {
                     legend: {
                         bottom: "5%",
@@ -3323,70 +3301,8 @@
                             fontSize: 40,
                             color: "#0296d4"
                         },
-                        data: [keyTemp[0], keyTemp[1], keyTemp[2]]
+                        data: keyTemp,
                     }, 
-                    //legend: [
-                    //     {
-                    //         left: '5%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[0]]
-                    //     },
-                    //     {
-                    //         left: '20%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[1]]
-                    //     },
-                    //     {
-                    //         left: '45%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[2]]
-                    //     },
-                    //     {
-                    //         left: '65%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[3]]
-                    //     },
-                    //     {
-                    //         left: '85%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[4]]
-                    //     },
-                    //],
                     color: ['#3398DB'],
                     grid: {
                         left: '5%',
@@ -3498,26 +3414,6 @@
                           symbolSize: 16,
                           data: jwrsjtjdata3
                       },
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[3],
-                      //    color: "#025ce3",
-                      //    lineStyle: {
-                      //        width: 8,
-                      //    },
-                      //    symbolSize: 16,
-                      //    data: jwrsjtjdata4
-                      //},
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[4],
-                      //    color: "#5702e3",
-                      //    lineStyle: {
-                      //        width: 8,
-                      //    },
-                      //    symbolSize: 16,
-                      //    data: jwrsjtjdata5
-                      //}
                     ]
                 };
 
