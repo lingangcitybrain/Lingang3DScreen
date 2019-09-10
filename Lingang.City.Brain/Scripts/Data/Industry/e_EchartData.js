@@ -321,6 +321,8 @@
 		        }]
 	        }
         },
+
+        //中间大数字和产业简报图表数据
         centernumberData: {
             "total": "98927",
             "public": "68",

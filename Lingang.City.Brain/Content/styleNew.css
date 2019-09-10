@@ -4044,6 +4044,72 @@ dd.pjc-statistic-star >form{
 .yqqy-poibox>ul>li>span>em{ font-size: 1.2em; color: #0ff;}
 /******************end**********************/
 
+
+
+/*产业简报图表 */
+.cyjb-cont .charttabbox{
+	justify-content: space-around;
+	align-items: center;
+	padding: 0 .5rem;
+	height: .5rem;
+	margin-bottom: .2rem;
+    font-size:.3rem;
+	box-sizing: border-box;
+}
+.cyjb-cont .charttab:after{display: none;}
+.cyjb-cont .charttab.active:after{ 
+	display: block;
+    top: 100%;
+    left: 50%;
+    width: .8rem;
+    height: .05rem;
+    background: currentcolor;
+    border-radius:0;
+    border: none;
+    transform: translate(-50%, 50%);
+    box-sizing: border-box;
+}
+.cyjb-div .chartdiv{
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.cyjb-div .legend-list{
+    position: absolute;
+    top: 50%;
+    right: auto;
+    left: 60%;
+    width: 32%;
+    max-height: 90%;
+    font-size: .2rem;
+    line-height: 2em;
+    overflow: hidden;
+}
+.cyjb-div .legend-list>li{
+	padding-left: .3rem;
+}
+.cyjb-div .legend-list>li>div{ 
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    color:#fff; 
+}
+.cyjb-div .legend-list>li:after{
+	content: "";
+    left: 0rem;
+    width: .2rem;
+    height: .2rem;
+    border-radius: .03rem;
+    background-color: currentcolor; 
+    transform: translate(0, -50%);
+}
+
+
+
+
 @media screen and (max-width: 11520px){
 	html{ font-size:140px;}
 }

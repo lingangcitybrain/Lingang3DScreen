@@ -2,6 +2,7 @@
     var gauge_value = 0;
     /****************************产业****************************/
     return {
+        oIndustryBriefingTimer:null,    //产业简报图表定时器
         mybigChart:null,
         myChartcyjzl: null,             //产业竞争力
         cyjzlData:null,                 //产业竞争力数据
@@ -2013,15 +2014,113 @@
 				}, 300);
             })
         },
-        //中间大数字
+
+        //中间大数字和产业简报图表
         centernumber: function () {
-            
             e_EchartAjax.centernumberajax(function (result) {
                 var data = require("e_Echart").centernumberData;
+                //中间大数字
                 require('e_Main').numberAni(data.total, data.above, data.emerging, data.unicorn, data.public);
+
+                //产业简报图表
+                var cyjbChart = document.getElementById('cyjb-chart');
+                require("e_Echart").myChartcyjb = echarts.init(cyjbChart);
+
+                var cyjbColor = ["#3cb2ef", "#32c4e9", "#66e0e3", "#9fe7b9", "#fedb5b", "#ff9f7f", "#fc7293", "#e061ae", "#e690d1", "#e7bcf2", "#9d96f5", "#96bfff", "#96bfff", "#3cb2ef", "#32c4e9", "#64dee1", "#a1e6b9"];
+
+                var cyjbIndustryData = [], cyjbEnt234TypeData = [], cyjbRegionData = [];
+                var cyjbIndustryName = [], cyjbEnt234TypeName = [], cyjbRegionName = [];
+                //industry
+                for (var i = 0; i < data.category.industry.length; i++) {
+                    cyjbIndustryName.push(data.category.industry[i].name);
+                    cyjbIndustryData.push({ "value": data.category.industry[i].count, "name": data.category.industry[i].name });
+                }
+                //ent234Type
+                for (var i = 0; i < data.category.ent234Type.length; i++) {
+                    cyjbEnt234TypeName.push(data.category.ent234Type[i].name);
+                    cyjbEnt234TypeData.push({ "value": data.category.ent234Type[i].count, "name": data.category.ent234Type[i].name });
+                }
+                //region
+                for (var i = 0; i < data.category.region.length; i++) {
+                    cyjbRegionName.push(data.category.region[i].name);
+                    cyjbRegionData.push({ "value": data.category.region[i].count, "name": data.category.region[i].name });
+                }
+
+                function cyjbChartFun(colorData, NameData, seriesData) {
+                    $(".cyjb-chartdiv>.legend-list").empty();
+                    for (var i = 0; i < NameData.length; i++) {
+                        $(".cyjb-chartdiv>.legend-list").append("<li style=' color:" + colorData[i] + "'><div>" + NameData[i] + "</div></li>")
+                    };
+
+                    cyjbOption = {
+                        title: {
+                            text: "单位：家",
+                            textStyle: {
+                                fontSize: 12,
+                                color: "#ccc"
+                            },
+                            x: 'left',
+
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{b} : {c} ({d}%)"
+                        },
+                        color: colorData,
+                        legend: {
+                            show: false,
+                        },
+                        series: [
+                            {
+                                type: 'pie',
+                                radius: [60, 130],
+                                center: ['28%', '50%'],
+                                roseType: 'area',
+                                label: {
+                                    formatter: "{c}",
+                                    textStyle: {
+                                        fontSize: 20,
+                                    },
+
+                                },
+                                data: seriesData
+                            }
+                        ]
+                    };
+                    require("e_Echart").myChartcyjb.setOption(cyjbOption);
+                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+
+                }
+
+                cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
+
+                //循环播放
+                var cyjbChartIndex = 1;
+                clearInterval(require("e_Echart").oIndustryBriefingTimer);
+                require("e_Echart").oIndustryBriefingTimer = null;
+                require("e_Echart").oIndustryBriefingTimer = setInterval(function () {
+                    cyjbChartIndex++;
+                    cyjbChartIndex = cyjbChartIndex === 4 ? 1 : cyjbChartIndex;
+
+                    if (cyjbChartIndex === 1) {
+                        cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
+                    } else if (cyjbChartIndex === 2) {
+                        cyjbChartFun(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData);
+                    } else if (cyjbChartIndex === 3) {
+                        cyjbChartFun(cyjbColor, cyjbRegionName, cyjbRegionData);
+                    }
+                    $("#cyjb-charttabbox>a").eq(cyjbChartIndex - 1).addClass("active").siblings().removeClass("active");
+                }, 20000);
+
+
+
             })
         },
-        
+
+
+
+
+
         Revert: function () {
             //产业竞争力
             if (require("e_Echart").myChartcyjzl != null && require("e_Echart").myChartcyjzl != "" && require("e_Echart").myChartcyjzl != undefined) {
@@ -2063,11 +2162,20 @@
             if (require("e_Echart").myChartleida != null && require("e_Echart").myChartleida != "" && require("e_Echart").myChartleida != undefined) {
                 clearInterval(require("e_Echart").fkldInterval);//清空计时器
                 require("e_Echart").myChartleida.dispose();
-                
+
 
                 //require("e_Echart").myChartleida.restore();
             }
-            
+
+            //产业简报图表
+            if (require("e_Echart").myChartcyjb != null && require("e_Echart").myChartcyjb != "" && require("e_Echart").myChartcyjb != undefined) {
+                require("e_Echart").myChartcyjb.dispose();
+            }
+
+            if (require("e_Echart").oIndustryBriefingTimer != null) {
+                clearInterval(require("e_Echart").oIndustryBriefingTimer);
+                require("e_Echart").oIndustryBriefingTimer = null;
+            }
            
         },
        

@@ -354,7 +354,7 @@
             }
             com.UIControlAni(option, function () {
                 //return null;
-                require("e_Echart").qybhqs()
+                require("e_Echart").centernumber();
             });
         },
         //加载第二个div
