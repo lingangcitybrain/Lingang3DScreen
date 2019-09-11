@@ -26,7 +26,8 @@
             estimateOuterParkPeopleNo: 0,   //未来30分钟预测人数
             loadMain: function (callback) {
 
-                tl_VisitorsMap.loadVisitorsMap();
+                //tl_VisitorsMap.loadVisitorsMap();
+                tl_StreamCalculate.loadStream();
                 //this.Revert();
                 //this.loadBottomMenu();//加载底部图层
 

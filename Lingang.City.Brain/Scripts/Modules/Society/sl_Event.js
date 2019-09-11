@@ -91,7 +91,7 @@
                         }
 
                         var poi = {
-                            POIName: poiName, Position: position, Text: textname, Icon: icon, IconSize: iconSize, FontColor: "#00caca"
+                            POIName: poiName, Position: position, Text: '', Icon: icon, IconSize: iconSize, FontColor: "#00caca"
                         };
 
                         var node = map.getSceneNode(areaName + "/" + poiName);
@@ -103,15 +103,15 @@
                         }
 
                         //数据暂未提供，默认前3个 开始POI倒计时
-                        if (i == 0) {
-                            require("sl_Event").timeCountDownData.put(poiName, "510");//标记
-                        }
-                        else if (i == 1) {
-                            require("sl_Event").timeCountDownData.put(poiName, "794");//标记
-                        }
-                        else if (i == 2) {
-                            require("sl_Event").timeCountDownData.put(poiName, "698");//标记
-                        }
+                        // if (i == 0) {
+                        //     require("sl_Event").timeCountDownData.put(poiName, "510");//标记
+                        // }
+                        // else if (i == 1) {
+                        //     require("sl_Event").timeCountDownData.put(poiName, "794");//标记
+                        // }
+                        // else if (i == 2) {
+                        //     require("sl_Event").timeCountDownData.put(poiName, "698");//标记
+                        // }
                     }
                 }
                 com.InitPois(areaName, pois);
@@ -125,7 +125,7 @@
                     for (var i in require("sl_Event").timeCountDownData.keys()) {
                         var datalist = require("sl_Event").timeCountDownData.get(require("sl_Event").timeCountDownData.keys()[i]);
                         //开始倒计时
-                        require("sl_Event").setTimeCountDown(require("sl_Event").timeCountDownData.keys()[i], datalist);
+                        // require("sl_Event").setTimeCountDown(require("sl_Event").timeCountDownData.keys()[i], datalist);
                     }
 
                 }

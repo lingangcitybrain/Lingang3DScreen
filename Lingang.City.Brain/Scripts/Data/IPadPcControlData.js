@@ -11,9 +11,9 @@
 
             { "menu": "1", "layer": "26", "menuNM": "城区综治", "layerNM": "工地", "func": "require('mainMenu').showLayer_smain(1);" },
 
-            { "menu": "1", "layer": "27", "menuNM": "城区综治", "layerNM": "街面", "func": "require('mainMenu').showLayer_smain(2);" },
-            { "menu": "1", "layer": "28", "menuNM": "城区综治", "layerNM": "网格", "func": "require('mainMenu').showLayer_smain(3);" },
-            { "menu": "1", "layer": "15", "menuNM": "城区综治", "layerNM": "事件", "func": "require('mainMenu').showLayer_smain(4);" },
+            // { "menu": "1", "layer": "27", "menuNM": "城区综治", "layerNM": "街面", "func": "require('mainMenu').showLayer_smain(2);" },
+            { "menu": "1", "layer": "28", "menuNM": "城区综治", "layerNM": "网格", "func": "require('mainMenu').showLayer_smain(2);" },
+            { "menu": "1", "layer": "15", "menuNM": "城区综治", "layerNM": "事件", "func": "require('mainMenu').showLayer_smain(3);" },
             //{ "menu": "1", "layer": "29", "menuNM": "城区综治", "layerNM": "地下管网", "func": "require('mainMenu').showLayer_smain(9);" },
 
             { "menu": "2", "layer": "1", "menuNM": "景区管理", "layerNM": "人流热力图", "func": "require('mainMenu').showLayer_tmain(0);" },
@@ -33,9 +33,9 @@
             { "menu": "3", "layer": "19", "menuNM": "园区产业", "layerNM": "园区信息", "func": " require('mainMenu').showLayer_e_Main(1);" },//3+
 
             { "menu": "3", "layer": "20", "menuNM": "园区产业", "layerNM": "园区楼宇", "func": "require('mainMenu').showLayer_e_Main(2);" },  //showLayer_gMain
-            { "menu": "3", "layer": "21", "menuNM": "园区产业", "layerNM": "园区停车", "func": "require('mainMenu').showLayer_e_Main(3);" },//showLayer_gMain
+            // { "menu": "3", "layer": "21", "menuNM": "园区产业", "layerNM": "园区停车", "func": "require('mainMenu').showLayer_e_Main(3);" },//showLayer_gMain
             //{ "menu": "3", "layer": "22", "menuNM": "园区产业", "layerNM": "无人驾驶接驳车", "func": "require('mainMenu').showLayer_gMain(2);" },//showLayer_gMain
-            { "menu": "3", "layer": "23", "menuNM": "园区产业", "layerNM": "园区事件", "func": "require('mainMenu').showLayer_e_Main(4);" },//showLayer_gMain
+            // { "menu": "3", "layer": "23", "menuNM": "园区产业", "layerNM": "园区事件", "func": "require('mainMenu').showLayer_e_Main(4);" },//showLayer_gMain
             //{ "menu": "3", "layer": "24", "menuNM": "园区产业", "layerNM": "产业信息", "func": "require('mainMenu').showLayer_gMain(3);" },//showLayer_gMain
 
         ],
