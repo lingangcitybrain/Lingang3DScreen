@@ -62,7 +62,7 @@
         },
         loadMain_g_Main: function () {
             //飞行到园区视角
-            com.LayerFlyto(20, function () {
+            com.LayerFlyto(19, function () {
 
             })
             g_Main.loadMain();

@@ -107,8 +107,8 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadWorkSite: function () {
-
-            Q3D.globalCamera().flyTo(("396108.71569771634,2102.016891479492,-3414150.4402918345").toVector3d(), ("-30.96967124938965,0.03673381358385086,0.016093820333480835").toVector3(), 1, null);
+            com.LayerFlyto(26);
+            
             this.layerNO = 26;
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
