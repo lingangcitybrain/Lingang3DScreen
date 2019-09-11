@@ -256,7 +256,7 @@
                             label: {
                                 normal: {
                                     fontSize: 20,
-                                    formatter: '{b|{b}}\n{per|{d}}%',
+                                    formatter: '{b|{b}}\n{c}架',
                                     padding: [0, -70],
                                     color: "#0996d1",
                                     rich: {
@@ -265,6 +265,12 @@
                                             lineHeight: 36,
                                             color: "#fff",
 
+                                        },
+                                        c: {
+                                            fontSize: 20,
+                                            lineHeight: 36,
+                                            color: "#fff",
+                                            position: "center",
                                         },
                                         per: {
                                             fontSize: 20,
@@ -342,7 +348,7 @@
                             label: {
                                 normal: {
                                     fontSize: 70,
-                                    formatter: '{b|{b}}\n{per|{d}}%',
+                                    formatter: '{b|{b}}\n{c}架',
                                     padding: [0, -200],
                                     color: "#0996d1",
                                     rich: {
@@ -350,6 +356,12 @@
                                             fontSize: 70,
                                             lineHeight: 76,
                                             color: "#fff",
+                                        },
+                                        c: {
+                                            fontSize: 70,
+                                            lineHeight: 76,
+                                            color: "#fff",
+                                            position: "center",
                                         },
                                         per: {
                                             fontSize: 70,

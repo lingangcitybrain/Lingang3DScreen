@@ -6,13 +6,13 @@
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_garden + 'ywtb/dsparkdata/DsparkDetial',
+                    type: "GET",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_DataStation + 'v2/ywtb/parkData',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("g_Echart").bigNumData = data;
-                        callback(data);
+                        require("g_Echart").bigNumData = data.data;
+                        callback(data.data);
                     },
                     error: function () {
                         //alert("数据传输错误");
