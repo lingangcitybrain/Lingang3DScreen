@@ -82,7 +82,8 @@
             {
                 $.ajax({
                     type: "POST",
-                    url: con.InterfaceUrl_DataStation + "v1/park/affair/list",
+                    //url: con.InterfaceUrl_DataStation + "v1/park/affair/list",
+                    url: con.InterfaceUrl_TourEvent + 'v1/park/affair',
                     cache: false,
                     data: post_data,  //传送的数据
                     dataType: 'json',  // 返回数据的数据类型json

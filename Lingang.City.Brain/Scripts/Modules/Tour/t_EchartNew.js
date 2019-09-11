@@ -3603,8 +3603,8 @@
     	//园区事件列表
         yqsjlbtj: function () {
         	var nowdata = require("common").getNowFormatDate();//当前时间
-        	var before7 = require("common").getDaysBefore(nowdata, 30);//30天前的时间
-        	var post_data = { "startTime": before7, "endTime": nowdata }
+        	var before7 = require("common").getDaysBefore(nowdata, 7);//30天前的时间
+        	var post_data = { "starttime": before7, "endtime": nowdata, "offset": 0, "count": 10000} //&offset=0&count=10000
 
         	t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
         		var data = require("t_Echart").yqsjlbCenterEventData;
@@ -3662,7 +3662,7 @@
         	function setPostData(n) {
         		var nowdata = require("common").getNowFormatDate();//当前时间
         		var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
-        		var post_data = { "startTime": before7, "endTime": nowdata }
+        		var post_data = { "starttime": before7, "endtime": nowdata, "offset": 0, "count": 10000 }
 
         		t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
         			var data = require("t_Echart").yqsjlbCenterEventData;

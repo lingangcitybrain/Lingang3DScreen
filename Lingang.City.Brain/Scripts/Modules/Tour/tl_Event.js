@@ -20,8 +20,11 @@
         {
             require("tl_Event").LayerType = require("t_Main").LayerCatalog.Event;
             
-            var post_data = { "offset": "0", "count": "10000", "startTime": "2019-02-19", "endTime": com.getNowFormatDate() }
+            var nowdata = require("common").getNowFormatDate();//当前时间
+            var before7 = require("common").getDaysBefore(nowdata, 7);//30天前的时间
+            var post_data = { "starttime": before7, "endtime": nowdata, "offset": 0, "count": 10000 } //&offset=0&count=10000
             require("t_LayerMenuAjax").getEventList(post_data, function (result) {
+
                 var areaName = con.AreaName;
                 var icon = require("tl_Event").LayerType.UnChooseIcon;
                 var pois = [];
@@ -201,8 +204,8 @@
 									'<div class=\"box-rightinfo flex\" style=\" margin-left:0; margin-top:.2rem; \">' +
 									'    <ul style="width:100%;">' +
 										'    <li><span>事件时间：</span><em>' + data.sbsj + '</em></li>' +
-										'   <li><span>车牌号码：</span><em>' + carNumber + '</em></li>' +
-										'   <li><span>事件状态：</span><em>' + data.dictname + '</em></li>' +
+										//'   <li><span>车牌号码：</span><em>' + carNumber + '</em></li>' +
+										'   <li><span>事件状态：</span><em>' + data.DICTNAME + '</em></li>' +
 										'    <li style="overflow:hidden;"><span style="float:left; width:5em;">事件描述：</span>' +
                 								'<em class="scrolldiv" style="float:left; width:calc(100% - 5em); height:auto;  max-height:1.5rem; ">' + data.sjms + '</em></li>' +
 									'    </ul>' +
