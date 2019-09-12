@@ -934,6 +934,9 @@
                         sjxxLiClass = "sjxx-li flex active"
                     }
 
+                    if (data[i].communityId == null) {
+                        data[i].communityId = 'SANGAO';
+                    }
                     if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
                         var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                         var aiiconstyle = "";
@@ -1017,6 +1020,9 @@
                     var html = '';
                     for (var i = 0; i < data.length; i++) {
                         var time = data[i].createTime.split(".")[0].split("T");
+                        if (data[i].communityId == null) {
+                            data[i].communityId = 'SANGAO';
+                        }
                         if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
                             var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
 

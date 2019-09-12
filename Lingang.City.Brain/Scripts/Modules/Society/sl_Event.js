@@ -44,9 +44,9 @@
             //}, 10000);
 
             var nowdata = require("common").getNowFormatDate();//当前时间
-            //var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
+            var before7 = require("common").getDaysBefore(nowdata, 7);//7天前的时间
             var beforetime = nowdata.split(' ')[0] + " 00:00:00";//当天事件
-            var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": beforetime, "endTime": nowdata }
+            var post_data = { "pageIndex": 1, "pageSize": 10000, "startTime": before7, "endTime": nowdata };
             require("sl_Event").allPOINameList = [];
             //获取最近7天事件
             require("s_LayerMenuAjax").getEventList(post_data, function (result) {
@@ -57,6 +57,9 @@
                 for (var i = 0; i < require("sl_Event").POIData.length; i++) {
                     var row = require("sl_Event").POIData[i];
                     require("sl_Event").EventList.put(row.id, row);
+                    if(row.communityId == null){
+                        row.communityId = 'SANGAO';
+                    }                    
                     if (require("sl_Event").LayerType.List[row.communityId] != null) {
                         require("sl_Event").allLoopEventList.push(row);//加入全部事件循环数组
                         var icon = require("sl_Event").LayerType.List[row.communityId].UnChooseIcon;
@@ -1426,6 +1429,9 @@
                     if (data[i].dispatchType == "主动发现") {
                         aiiconstyle = 'style="background: url(../Content/images/AI-icon.png) center center no-repeat;"';
                     }
+                    if(data[i].communityId == null){
+                        data[i].communityId = 'SANGAO';
+                    }   
                     var poiName = "POISociety" + require("sl_Event").LayerType.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                     html +=
                        '<li class="' + style + '" onclick="require(&apos;sl_Event&apos;).loadEventDetail(' + poiName + ')">' +
