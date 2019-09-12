@@ -1130,7 +1130,7 @@
                                 label: {
                                     normal: {
                                         fontSize: 20,
-                                        formatter: '{b|{b}}\n{c}l架',
+                                        formatter: '{b|{b}}\n{c}架',
                                         padding: [0, -70],
                                         color: "#0996d1",
                                         rich: {
