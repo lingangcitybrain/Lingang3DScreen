@@ -2147,6 +2147,16 @@
         cyjbList: function () {
             e_EchartAjax.getCyjbList(function (result) {
                 var data = require("e_Echart").cyjbListData;
+                //更新时间
+                var cyjbUpdateTimeYear = parseInt(data.summarydate.split("年")[0]);
+                var cyjbUpdateTimeMonth = parseInt(data.summarydate.split("年")[1]);
+                if (cyjbUpdateTimeMonth === 12) {
+                    cyjbUpdateTimeMonth = 1;
+                    cyjbUpdateTimeYear++;
+                } else {
+                    cyjbUpdateTimeMonth++;
+                }
+                $("#cyjb-updatetime>em").html(cyjbUpdateTimeYear + "年" + cyjbUpdateTimeMonth + "月15日");
 
                 //cyjbList-tab
                 $("#cyjb-business>div").html(data.newBusinessCount);
@@ -2174,7 +2184,7 @@
                     cyjbListIndex++;
                     cyjbListIndex = cyjbListIndex === 5 ? 0 : cyjbListIndex;
                     cyjbListFun(cyjbListIndex, cyjbListArr[cyjbListIndex]);
-                }, 1000*60);
+                }, 1000*15);
 
                 //tab点击加载
                 $(".cyjbList-tabbox>.cyjbList-tab").each(function (index, element) {
@@ -2219,13 +2229,14 @@
                         )
                     };
 
+                    $("#cyjbList-div>.cyjbList-item").eq(0).addClass("active");
                     $('.scrolldiv').perfectScrollbar({ cursorwidth: 6, cursorcolor: "rgba(0, 126, 179, .6)", });
 
                     require("e_Echart").oIndustryBriefingTimer2 = setInterval(function () {
                         cyjbListIndex++;
                         cyjbListIndex = cyjbListIndex === 5 ? 0 : cyjbListIndex;
                         cyjbListFun(cyjbListIndex, cyjbListArr[cyjbListIndex]);
-                    }, 1000 * 60);
+                    }, 1000 * 15);
 
                 }
 
