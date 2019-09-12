@@ -3546,20 +3546,40 @@
                 htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.carCounts + '</span>类</div>';
                 htmltotal += '<div class="">事件个数：<span class="testAerial">' +data.eventCounts + '</span>个</div>';
                 $('#sjlxtotal').html(htmltotal);
+
+                data = data.list;
                 var html = '';
-                for (var key in data) {
-                    if (key !== "catCounts" && key !== "eventCounts") {
+                for (var i = 0; i < data.length; i++) {
+                    for (var key in data[i]) {
                         html += '<li class="yqsj-item">' +
-								  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
+								  '<div class="yqsj-itemdiv"><span>' + data[i][key].total + '</span>' + key + '</div>' +
 								  '<ol class="yqsj-itemol">'
-                        for (var key2 in data[key]) {
+                        for (var key2 in data[i][key]) {
                             if (key2 !== "total") {
-                                html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
+                                html += '<li>' + key2 + '（<em class="testAerial">' + data[i][key][key2] + '</em>）</li>'
                             }
                         }
                         html += '</ol></li>'
                     }
                 }
+
+
+
+
+                //var html = '';
+                //for (var key in data) {
+                //    if (key !== "catCounts" && key !== "eventCounts") {
+                //        html += '<li class="yqsj-item">' +
+				//				  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
+				//				  '<ol class="yqsj-itemol">'
+                //        for (var key2 in data[key]) {
+                //            if (key2 !== "total") {
+                //                html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
+                //            }
+                //        }
+                //        html += '</ol></li>'
+                //    }
+                //}
 
                 $('#sjlxList').html(html);
                 $('#sjlxList>li:first-child').addClass("active");
