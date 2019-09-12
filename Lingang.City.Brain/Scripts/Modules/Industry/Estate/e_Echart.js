@@ -2,8 +2,9 @@
     var gauge_value = 0;
     /****************************产业****************************/
     return {
-        oIndustryBriefingTimer:null,    //产业简报图表定时器
-        mybigChart:null,
+        oIndustryBriefingTimer: null,    //产业简报图表定时器
+        oIndustryBriefingTimer2: null,    //产业简报企业列表定时器
+        mybigChart: null,
         myChartcyjzl: null,             //产业竞争力
         cyjzlData:null,                 //产业竞争力数据
         myChartqybhqs: null,            //企业变化趋势
@@ -18,12 +19,13 @@
         xzspbhqsData: null,             //薪资水平数据
         myChartgccrc: null,             //高层次人才
         gccrcData: null,                //高层次人才数据
-        zlxxcyData: null,                //战略新兴产业数据 
+        zlxxcyData: null,               //战略新兴产业数据 
         zlxxcyjgData:null,              //战略新兴产业结构数据 
         myChartleida: null,             //风控雷达
         fkldData:null,                  //风控雷达数据
         fkldInterval: null,             //雷达计时器
-        centernumberData: null,          //中间数字数据
+        centernumberData: null,         //中间数字数据
+        cyjbListData: null,             //产业简报企业列表
 
         //加载图表
         loadEcharts:function()
@@ -2141,7 +2143,96 @@
             })
         },
 
+        //产业简报企业列表
+        cyjbList: function () {
+            e_EchartAjax.getCyjbList(function (result) {
+                var data = require("e_Echart").cyjbListData;
 
+                //cyjbList-tab
+                $("#cyjb-business>div").html(data.newBusinessCount);
+                $("#cyjb-died>div").html(data.newDiedCount);
+                $("#cyjb-regulatory>div").html(data.newRegulatoryCount);
+                $("#cyjb-judged>div").html(data.newJudgedCount);
+                $("#cyjb-emerging>div").html(data.newEmergingCount);
+             
+                //["newBusinessList", "newDiedList", "newRegulatoryList", "newJudgedList", "newEmergingList"]
+                var cyjbListIndex = 0;
+                var newBusinessList = data.newBusinessList;     //新增企业数
+                var newDiedList = data.newDiedList;             //迁出/消亡企业数
+                var newRegulatoryList = data.newRegulatoryList; //新增司法监管数
+                var newJudgedList = data.newJudgedList;         //新增行政处罚数
+                var newEmergingList = data.newEmergingList;     //新增战略新兴企业数
+                var cyjbListArr = [newBusinessList, newDiedList, newRegulatoryList, newJudgedList, newEmergingList]
+
+                //默认加载
+                cyjbListFun(0, cyjbListArr[0]);
+
+                //定时器循环
+                clearInterval(require("e_Echart").oIndustryBriefingTimer2);
+                require("e_Echart").oIndustryBriefingTimer2 = null;
+                require("e_Echart").oIndustryBriefingTimer2 = setInterval(function () {
+                    cyjbListIndex++;
+                    cyjbListIndex = cyjbListIndex === 5 ? 0 : cyjbListIndex;
+                    cyjbListFun(cyjbListIndex, cyjbListArr[cyjbListIndex]);
+                }, 1000*60);
+
+                //tab点击加载
+                $(".cyjbList-tabbox>.cyjbList-tab").each(function (index, element) {
+                    $(this).click(function () {
+                        cyjbListFun(index, cyjbListArr[index]);
+                    })
+                });
+
+                //列表函数
+                function cyjbListFun(index, listData) {
+                    clearInterval(require("e_Echart").oIndustryBriefingTimer2);
+                    require("e_Echart").oIndustryBriefingTimer2 = null;
+                    cyjbListIndex = index;
+
+                    $("#cyjbList-div").empty();
+                    $(".cyjbList-tabbox>.cyjbList-tab").eq(index).addClass("active").siblings().removeClass("active");
+
+                    for (var i = 0; i < listData.length; i++) {
+                        if (index === 0) {
+                            cyjbListCommonFun(listData, listData[i].basicInfo.industryPhy)
+
+                        } else if (index === 1) {
+                            cyjbListCommonFun(listData, listData[i].basicInfo.entStatus)
+
+                        } else if (index === 2) {
+                            cyjbListCommonFun(listData, listData[i].riskType[0])
+
+                        } else if (index === 3) {
+                            cyjbListCommonFun(listData, listData[i].riskInfo[0].illeg_act_type)
+
+                        } else if (index === 4) {
+                            cyjbListCommonFun(listData, listData[i].basicInfo.industryPhy)
+                        }
+                    }
+
+                    function cyjbListCommonFun(listData, listDataMess) {
+                        $("#cyjbList-div").append(
+                            '<div class="cyjbList-item">' +
+                                '<div class="cyjbList-name">' + listData[i].entName + '</div>' +
+                                '<div class="cyjbList-type">' + listDataMess + '</div>' +
+                            '</div> '
+                        )
+                    };
+
+                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 6, cursorcolor: "rgba(0, 126, 179, .6)", });
+
+                    require("e_Echart").oIndustryBriefingTimer2 = setInterval(function () {
+                        cyjbListIndex++;
+                        cyjbListIndex = cyjbListIndex === 5 ? 0 : cyjbListIndex;
+                        cyjbListFun(cyjbListIndex, cyjbListArr[cyjbListIndex]);
+                    }, 1000 * 60);
+
+                }
+
+
+
+            });
+        },
 
 
 
@@ -2200,7 +2291,12 @@
                 clearInterval(require("e_Echart").oIndustryBriefingTimer);
                 require("e_Echart").oIndustryBriefingTimer = null;
             }
-           
+
+            if (require("e_Echart").oIndustryBriefingTimer2 != null) {
+                clearInterval(require("e_Echart").oIndustryBriefingTimer2);
+                require("e_Echart").oIndustryBriefingTimer2 = null;
+            }
+
         },
        
     

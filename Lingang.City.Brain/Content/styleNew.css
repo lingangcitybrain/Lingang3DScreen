@@ -4108,6 +4108,69 @@ dd.pjc-statistic-star >form{
     transform: translate(0, -50%);
 }
 
+/*cyjbList-tabbox*/
+.cyjbList-tabbox{ margin-bottom: .3rem;}
+.cyjbList-tabbox>button{
+	flex-grow: 1;
+	justify-content: space-around;
+	align-items: center;
+}
+.cyjbList-tabbox>button>div{
+	color: #00c9ef;
+	font-size: .46rem;
+	font-weight: bold;
+	font-family: "苹方";
+}
+.cyjbList-tabbox>button>span{
+	color: #ccc;
+	font-size: .22rem;
+	font-family: "苹方";
+	text-decoration: underline;
+}
+.cyjbList-tabbox>.cyjbList-tab:hover>div,
+.cyjbList-tabbox>.cyjbList-tab.active>div,
+.cyjbList-tabbox>.cyjbList-tab:hover>span,
+.cyjbList-tabbox>.cyjbList-tab.active>span{
+	color: #cc4605;
+}
+
+.cyjbList-div{
+	font-size: .25rem;
+}
+.cyjbList-item{
+	padding: .06rem .2rem;
+	margin-bottom: .1rem;
+	background: rgba(0, 65, 121, 0.2);
+	border-radius: .03rem;
+	cursor: pointer;
+}
+.cyjbList-item:last-child{ margin-bottom: 0; }
+.cyjbList-name{
+	font-size: .26rem;
+	line-height: 1.2em;
+	color: #00c9ef;
+}
+.cyjbList-type{
+	display: block;
+	font-size: .22rem;
+	line-height: 1.3em;
+	text-align: right;
+	text-indent: 2em;
+	color: #ccc;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.cyjbList-item:hover,
+.cyjbList-item.active{
+	background: rgba(2, 110, 175, 0.71);
+}
+.cyjbList-item:hover>.cyjbList-type,
+.cyjbList-item.active>.cyjbList-type{
+	color: #fff;
+}
+
+
 
 
 

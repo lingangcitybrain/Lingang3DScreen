@@ -290,11 +290,10 @@ define(["config", "common", "e_EchartData", "e_LayerMenuData"], function (con, c
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
-                    type: "POST",      //data 传送数据类型。post 传递 
+                    type: "GET",      //data 传送数据类型。post 传递 
                     //url: con.InterfaceUrl_estate + 'v1/industrial/companyStatistics',
                     //url: con.InterfaceUrl_DataStation + 'v1/industrial/zhlgzqys',
                     url: con.InterfaceUrl_TourEvent + 'api/v1/industryBriefing',
-                   
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
@@ -312,5 +311,34 @@ define(["config", "common", "e_EchartData", "e_LayerMenuData"], function (con, c
                 callback();
             }
         },
+        
+        //产业简报企业列表
+        getCyjbList: function (callback) {
+            if (con.IsInterface)//执行接口
+            {
+                $.ajax({
+                    type: "GET",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_TourEvent + 'api/v1/industryMonthly',
+                    cache: false,
+                    dataType: 'json',  // 返回数据的数据类型json
+                    success: function (data) {
+                        require("e_Echart").cyjbListData = data;
+                        callback(data);
+                    },
+                    error: function () {
+                        require("e_Echart").cyjbListData = e_EchartData.cyjbListData;
+                        callback();
+                    }
+                });
+            }
+            else {//执行本地
+                require("e_Echart").cyjbListData = e_EchartData.cyjbListData;
+                callback();
+            }
+        },
+
+
+
+
     }
 });

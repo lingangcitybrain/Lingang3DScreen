@@ -366,8 +366,9 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                clearInterval(require("e_Echart").fkldInterval);//清空计时器
-                require("e_Echart").fkld();
+               // clearInterval(require("e_Echart").fkldInterval);//清空计时器
+                // require("e_Echart").fkld();
+                require("e_Echart").cyjbList();
             });
         },
         numberAni: function (qyzs, gsqys, zlxxqys, djsqys, ssqys) {
