@@ -11,10 +11,10 @@
 
             })
             e_Main.loadMain();
-            this.layerNO = 24;
+            this.layerNO = 16;
             var jsondata = {
                 "menu":"3",
-                "layer": "24",
+                "layer": "16",
                 "xyz": "",
                 "angle": "",
             };
