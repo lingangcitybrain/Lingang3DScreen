@@ -4056,6 +4056,7 @@ dd.pjc-statistic-star >form{
     font-size:.3rem;
 	box-sizing: border-box;
 }
+.cyjb-cont .charttab { cursor:pointer;}
 .cyjb-cont .charttab:after{display: none;}
 .cyjb-cont .charttab.active:after{ 
 	display: block;

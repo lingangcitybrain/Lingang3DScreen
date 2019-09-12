@@ -853,128 +853,130 @@
                 var data = require("g_Echart").zhwyRepairData;
                 $("#zhwy-repair").html("");
                 var total = 0, todayrepaircount = 0, todaywaitrepaircount = 0;
-                //var zhwydata = [],dateArr=[];
+                zhwydata = [];
+                dateArr = [];
                 for (var i = 0; i < data.length; i++) {
                     todayrepaircount += Number(data[i].todayrepaircount),
                     todaywaitrepaircount += Number(data[i].todaywaitrepaircount);
                     zhwydata.push(Number(data[i].todayrepaircount) + Number(data[i].todaywaitrepaircount));
-                    dateArr.push(data[i].date);
+                    dateArr.push([data[i].date.split("-")[1], data[i].date.split("-")[2]].join("/"));
                 }
                 total = todayrepaircount + todaywaitrepaircount;
                 $("#zhwy-repair").append(
-                    '<li class=""><span>总数：</span><em class="testAerial">' + total + '</em></li>'//Number(data.todayrepaircount) + Number(data.todaywaitrepaircount)
+                    '<li class=""><span>总数：</span><em class="testAerial">' + total + '</em></li>'
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + todayrepaircount + '</em></li>'
                    + '<li class=""><span>待处理：</span><em class="testAerial">' + todaywaitrepaircount + '</em></li>'
                 )
                 //图表
-            if ($("#zhwy-chart").length <= 0) { return false; }
-            var zhwyChart = document.getElementById('zhwy-chart');
+                if ($("#zhwy-chart").length <= 0) { return false; }
+                var zhwyChart = document.getElementById('zhwy-chart');
             
-            var myChartzhwy = echarts.init(zhwyChart);
-            zhwyOption = {
-                title: {
-                    text: "近一周报修量分布",
-                    left: "center",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
+                var myChartzhwy = echarts.init(zhwyChart);
+                zhwyOption = {
+                    title: {
+                        text: "近一周报修量分布",
+                        left: "center",
+                        top: 8,
+                        textStyle: {
+                            fontSize: 24,
+                            color: "#00d7fe",
+                            fontWeight: "normal",
+                        },
                     },
-                },
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                grid: {
-                    left: '0',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "85%",
-                    containLabel: true
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#3398DB'],
+                    grid: {
+                        left: '0',
+                        right: '2%',
+                        bottom: '2%',
+                        height: "85%",
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: dateArr,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
                             show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
                         }
 
                     },
-                },
-                xAxis: {
-                    type: 'category',
-                    data: dateArr,//['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
-                    boundaryGap: ["5%", "5%"],
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        //max: 70,
+                        minInterval:1,
+                        type: 'value',
+                        //min: function(value) {return value.min;},
+                        //max: function(value) {return value.max;},
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                                //color:"#50acfe"
+                            }
                         }
                     },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    }
-
-                },
-                yAxis: {
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    },
-                    interval: 10,
-                    //max: 70,
-                    type: 'value',
-                    min: function(value) {return value.min;},
-                    max: function(value) {return value.max;},
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
-                        }
-                    }
-                },
-                series: [
-                  {
-                      type: 'line',
-                      smooth: true,
-                      color: "rgba(7,196,230,1)",
-                      areaStyle: {
-                          opacity: .1,
-                      },
-                      lineStyle: {
-                          width: 2,
-                      },
-                      symbolSize: 4,
-                      data: zhwydata,
-                  }
-                ]
-            };
-            myChartzhwy.setOption(zhwyOption);
+                    series: [
+                      {
+                          type: 'line',
+                          smooth: true,
+                          color: "rgba(7,196,230,1)",
+                          areaStyle: {
+                              opacity: .1,
+                          },
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 4,
+                          data: zhwydata,
+                      }
+                    ]
+                };
+                myChartzhwy.setOption(zhwyOption);
             });
 
             g_EchartAjax.getZhwInspect(function (result) {
@@ -1002,10 +1004,6 @@
         bigzhwy: function () {
             $("#GbigechartHead").html('智慧物业(近一周报修量分布)');
             if ($("#zhwy-chart").length <= 0) { return false; }
-            //var zhwydata = [];
-            //for (var i = 1; i < 100; i++) {
-            //    zhwydata.push(Math.round((Math.random() * 70)));
-            //}
             zhwyOption = {
                 title: {
                     show:false,
@@ -1043,7 +1041,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: dateArr,//['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    data: dateArr,
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
@@ -1081,11 +1079,12 @@
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
-                    interval: 10,
+                    //interval: 10,
+                    minInterval:1,
                     //max: 70,
                     type: 'value',
-                    min: function (value) { return value.min; },
-                    max: function (value) { return value.max; },
+                    //min: function (value) { return value.min; },
+                    //max: function (value) { return value.max; },
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
