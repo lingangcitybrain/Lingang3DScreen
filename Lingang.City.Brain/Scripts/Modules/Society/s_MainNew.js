@@ -37,10 +37,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     S012: {
                         Id: 1001, TextName: "社区", Name: "Event_S012", Type: 1, ChooseIcon: "Texture/Common/event1_hover.png", UnChooseIcon: "Texture/Common/event1.png",
                     },
-                    U001: { Id: 1002, TextName: "市政道路", Name: "Event_U001", Type: 2, ChooseIcon: "Texture/Common/event2_hover.png", UnChooseIcon: "Texture/Common/event2.png" },
+                    C001: { Id: 1002, TextName: "市政道路", Name: "Event_C001", Type: 2, ChooseIcon: "Texture/Common/event2_hover.png", UnChooseIcon: "Texture/Common/event2.png" },
                     U002: { Id: 1003, TextName: "街面", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
-                    U003: { Id: 1004, TextName: "海岸线", Name: "Event_U003", Type: 4, ChooseIcon: "Texture/Common/event4_hover.png", UnChooseIcon: "Texture/Common/event4.png", },
-                    C001: { Id: 1005, TextName: "工地", Name: "Event_C001", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
+                    U001: { Id: 1004, TextName: "海岸线", Name: "Event_U001", Type: 4, ChooseIcon: "Texture/Common/event4_hover.png", UnChooseIcon: "Texture/Common/event4.png", },
+                    U003: { Id: 1005, TextName: "工地", Name: "Event_C003", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
+                    SANGAO: { Id: 1005, TextName: "三高事件", Name: "Event_SANGAO", Type: 6, ChooseIcon: "Texture/Common/event1_hover.png", UnChooseIcon: "Texture/Common/event1.png", },
                 }
             },
             DroneHangar: {
@@ -518,11 +519,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             var videowidth = $("#Big-chart").width();
             var videoheight = $("#Big-chart").height();
-            if (require("s_Main").left01_03_video01) {
-                require("s_Main").left01_03_video01.dispose();
-                require("s_Main").left01_03_video01 = null;
-            }
-            $("#Societyleft01_03_video01").empty();
+            // if (require("s_Main").left01_03_video01) {
+            //     require("s_Main").left01_03_video01.dispose();
+            //     require("s_Main").left01_03_video01 = null;
+            // }
+            // $("#Societyleft01_03_video01").empty();
 
             s_EchartAjax.getWrjRideo(function () {
                 if (require("s_Echart").wrjRideo == null) { return false; }
@@ -561,6 +562,8 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 if (require("s_Main").leftcenter_video) {
                     require("s_Main").leftcenter_video.dispose();
                     require("s_Main").leftcenter_video = null;
+                    //加载无人机视频
+                    setTimeout(function () { require("s_Main").loadLeft01_03_Video();}, 800);
                 }
             } catch (error) {
                 console.log(error.message);
@@ -650,7 +653,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 if (require("s_Echart").societyBigNumData == null) { return false; }
                 var data = require("s_Echart").societyBigNumData;
                // data = data.data;   //中台接口格式变更
-                require('s_Main').numberAni1(data);
+               setTimeout(function(){require('s_Main').numberAni1(data);}, 1200);
             });
         },
 
@@ -663,18 +666,61 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         },
 
         numberAni1: function (data) {
-            com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
-            com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
-            com.numberAnimation($('#dsz-znpds'), Number(data.dispatchRate) - 20, Number(data.dispatchRate), 2000);
-            com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
-            com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 20, Number(data.loopRate), 2000);
+            require('s_Main').numberRoll($('#dsz-ajljs'), 0, Number(data.totalCount), 0, 2000);
+            require('s_Main').numberRoll($('#dsz-dyajs'), 0, Number(data.monthCount), 0, 2000);
+            require('s_Main').numberRoll($('#dsz-znpds'), 1, Number(data.dispatchRate), 1, 2000);
+            require('s_Main').numberRoll($('#dsz-zdfxl'), 1, Number(data.autoRate), 1, 2000);
+            require('s_Main').numberRoll($('#dsz-bhl'), 1, Number(data.loopRate), 1, 2000);
         },
-        numberAni2: function (data) {
-            com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
-            com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
-            com.numberAnimation($('#s_bignum3'), parseInt(data.occupy) - 20, parseInt(data.occupy), 2000);
-            com.numberAnimation($('#s_bignum4'), parseInt(data.grade) - 20, parseInt(data.grade), 2000);
+
+        numberRoll: function (divDom, fixedNum, endNum, percentIcon, duration) {
+            //divDom    $(".div") $("#div")
+            //fixedNum  精确几位数
+            //endNum    输出数据（可以是精确前数据）
+            //percentIcon    是否有百分号0/1
+            //duration       动画时间毫秒
+            var decimal_places = fixedNum;
+            var decimal_factor = decimal_places === 0 ? 0 : decimal_places * 10;
+            divDom.animateNumber(
+              {
+                  number: decimal_places === 0 ? endNum : endNum * decimal_factor / decimal_places,
+                  numberStep: function (now, tween) {
+                      var floored_number, target = $(tween.elem)
+                      if (decimal_places == 0) {
+                          floored_number = Math.floor(now);
+                          floored_number = now.toFixed(decimal_places);
+                      }
+
+                      if (decimal_places > 0) {
+                          floored_number = Math.floor(now) / decimal_factor;
+                          floored_number = (now / 10).toFixed(decimal_places);
+                      }
+                      if (percentIcon == 0) { target.text(floored_number); }
+                      if (percentIcon == 1) { target.text(floored_number + '%'); }
+                  }
+              },
+              {
+                  easing: 'swing',
+                  duration: duration
+              }
+            )
         },
+
+
+
+        //numberAni1: function (data) {
+        //    com.numberAnimation($('#dsz-ajljs'), Number(data.totalCount) - 20, Number(data.totalCount), 2000);
+        //    com.numberAnimation($('#dsz-dyajs'), Number(data.monthCount) - 20, Number(data.monthCount), 2000);
+        //    com.numberAnimation($('#dsz-znpds'), Number(data.dispatchRate) - 5, Number(data.dispatchRate), 2000);
+        //    com.numberAnimation($('#dsz-zdfxl'), Number(data.autoRate) - 5, Number(data.autoRate), 2000);
+        //    com.numberAnimation($('#dsz-bhl'), Number(data.loopRate) - 5, Number(data.loopRate), 2000);
+        //},
+        //numberAni2: function (data) {
+        //    com.numberAnimation($('#s_bignum1'), Number(data.peopleCount) - 20, Number(data.peopleCount), 2000);
+        //    com.numberAnimation($('#s_bignum2'), Number(data.carCounts) - 20, Number(data.carCounts), 2000);
+        //    com.numberAnimation($('#s_bignum3'), parseInt(data.occupy) - 20, parseInt(data.occupy), 2000);
+        //    com.numberAnimation($('#s_bignum4'), parseInt(data.grade) - 20, parseInt(data.grade), 2000);
+        //},
 
         htmlRevert: function () {
             this.clearVideo();

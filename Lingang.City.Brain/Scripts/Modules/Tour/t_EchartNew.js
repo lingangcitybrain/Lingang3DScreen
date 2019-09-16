@@ -438,6 +438,12 @@
                 //require("t_Echart").myChartykfx.clear();
                 require("t_Echart").myChartykfx.setOption(option, true);
             });
+            
+            $("#ykfx-title").click(function () {
+                 require("t_Echart").ykfx();
+            })
+
+
         },
         //游客分析（用户年龄分布）
         bigTouristAnalysis: function () {
@@ -1124,7 +1130,7 @@
                                 label: {
                                     normal: {
                                         fontSize: 20,
-                                        formatter: '{b|{b}}\n{per|{d}}%',
+                                        formatter: '{b|{b}}\n{c}架',
                                         padding: [0, -70],
                                         color: "#0996d1",
                                         rich: {
@@ -1132,6 +1138,12 @@
                                                 fontSize: 20,
                                                 lineHeight: 36,
                                                 color: "#fff",
+                                            },
+                                            c: {
+                                                fontSize: 20,
+                                                lineHeight: 36,
+                                                color: "#fff",
+                                                position: "center",
                                             },
                                             per: {
                                                 fontSize: 20,
@@ -1213,7 +1225,7 @@
                             label: {
                                 normal: {
                                     fontSize: 70,
-                                    formatter: '{b|{b}}\n{per|{d}}%',
+                                    formatter: '{b|{b}}\n{c}架',
                                     padding: [0, -200],
                                     color: "#0996d1",
                                     rich: {
@@ -1221,6 +1233,12 @@
                                             fontSize: 70,
                                             lineHeight: 76,
                                             color: "#fff",
+                                        },
+                                        c: {
+                                            fontSize: 20,
+                                            lineHeight: 36,
+                                            color: "#fff",
+                                            position: "center",
                                         },
                                         per: {
                                             fontSize: 70,
@@ -2998,12 +3016,11 @@
                 year = d.getFullYear();
                 mon = d.getMonth() + 1;
                 day = d.getDate(); s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);//日期类型2019-03-07
-                //  day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
                 return s;
             }
-            var num = 5;
+            var num = 6;
             //五种数据的每日统计
-            var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [], jwrsjtjdata4 = [], jwrsjtjdata5 = [];
+            var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [];
 
             var starttime = [];      //请求数据的日期
             var Day = [];
@@ -3018,18 +3035,18 @@
             //图表
             t_EchartAjax.getJwrsjtj(function (data) {
                 var keyTemp = [];
-
                 var data = require("t_Echart").jwrsjtjData;
 
                 for (var key in data) {
-                    keyTemp.push(key)
+                    if (key !== "疑似渣土车" && key !== "疑似黑车") {
+                        keyTemp.push(key);
+                    }
                 }
+
                 for (var i = 0; i < 5; i++) {
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])
                     jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
-                    jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
-                    jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
                 }
 
                 //if ($("#" + jwrsjtjChart).length <= 0) { return false; }
@@ -3046,7 +3063,7 @@
                             fontSize: 18,
                             color: "#0296d4"
                         },
-                        data: [keyTemp[0], keyTemp[1], keyTemp[4]]
+                        data: keyTemp,
                     },
 
 
@@ -3206,36 +3223,16 @@
                           symbolSize: 8,
                           data: jwrsjtjdata2
                       },
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[2],
-                      //    color: "#e3a102",
-                      //    lineStyle: {
-                      //    	width: 4,
-                      //    },
-                      //    symbolSize: 8,
-                      //    data: jwrsjtjdata3
-                      //},
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[3],
-                      //    color: "#025ce3",
-                      //    lineStyle: {
-                      //    	width: 4,
-                      //    },
-                      //    symbolSize: 8,
-                      //    data: jwrsjtjdata4
-                      //},
                       {
                           type: 'line',
-                          name: keyTemp[4],
-                          color: "#5702e3",
+                          name: keyTemp[2],
+                          color: "#e3a102",
                           lineStyle: {
                           	width: 4,
                           },
                           symbolSize: 8,
-                          data: jwrsjtjdata5
-                      }
+                          data: jwrsjtjdata3
+                      },
                     ]
                 };
 
@@ -3281,7 +3278,7 @@
                 //  day = d.getDate(); s = year + (mon < 10 ? ('0' + mon) : mon) + (day < 10 ? ('0' + day) : day);//日期类型20190307(字符串)
                 return s;
             }
-            var num = 5;
+            var num = 6;
             //五种数据的每日统计
             var jwrsjtjdata1 = [], jwrsjtjdata2 = [], jwrsjtjdata3 = [], jwrsjtjdata4 = [], jwrsjtjdata5 = [];
 
@@ -3298,20 +3295,19 @@
             //图表
             t_EchartAjax.getJwrsjtj(function (data) {
                 var keyTemp = [];
-
                 var data = require("t_Echart").jwrsjtjData;
-
                 for (var key in data) {
-                    keyTemp.push(key)
+                    if (key !== "疑似渣土车" && key !== "疑似黑车") {
+                        keyTemp.push(key);
+                    }
                 }
 
                 for (var i = 0; i < 5; i++) {
                     jwrsjtjdata1.push(data[keyTemp[0]][starttime[i]])
                     jwrsjtjdata2.push(data[keyTemp[1]][starttime[i]])
-                    //jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
-                    //jwrsjtjdata4.push(data[keyTemp[3]][starttime[i]])
-                    jwrsjtjdata5.push(data[keyTemp[4]][starttime[i]])
+                    jwrsjtjdata3.push(data[keyTemp[2]][starttime[i]])
                 }
+
                 option = {
                     legend: {
                         bottom: "5%",
@@ -3323,70 +3319,8 @@
                             fontSize: 40,
                             color: "#0296d4"
                         },
-                        data: [keyTemp[0], keyTemp[1], keyTemp[4]]
+                        data: keyTemp,
                     }, 
-                    //legend: [
-                    //     {
-                    //         left: '5%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[0]]
-                    //     },
-                    //     {
-                    //         left: '20%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[1]]
-                    //     },
-                    //     {
-                    //         left: '45%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[2]]
-                    //     },
-                    //     {
-                    //         left: '65%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[3]]
-                    //     },
-                    //     {
-                    //         left: '85%',
-                    //         bottom: "5%",
-                    //         icon: 'circle',
-                    //         itemWidth: 50,
-                    //         itemHeight: 50,
-                    //         textStyle: {
-                    //             fontSize: 40,
-                    //             color: "#0296d4"
-                    //         },
-                    //         data: [keyTemp[4]]
-                    //     },
-                    //],
                     color: ['#3398DB'],
                     grid: {
                         left: '5%',
@@ -3488,36 +3422,16 @@
                           symbolSize: 16,
                           data: jwrsjtjdata2
                       },
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[2],
-                      //    color: "#e3a102",
-                      //    lineStyle: {
-                      //        width: 8,
-                      //    },
-                      //    symbolSize: 16,
-                      //    data: jwrsjtjdata3
-                      //},
-                      //{
-                      //    type: 'line',
-                      //    name: keyTemp[3],
-                      //    color: "#025ce3",
-                      //    lineStyle: {
-                      //        width: 8,
-                      //    },
-                      //    symbolSize: 16,
-                      //    data: jwrsjtjdata4
-                      //},
                       {
                           type: 'line',
-                          name: keyTemp[4],
-                          color: "#5702e3",
+                          name: keyTemp[2],
+                          color: "#e3a102",
                           lineStyle: {
                               width: 8,
                           },
                           symbolSize: 16,
-                          data: jwrsjtjdata5
-                      }
+                          data: jwrsjtjdata3
+                      },
                     ]
                 };
 
@@ -3628,23 +3542,44 @@
                 var data = require("t_Echart").yqsjtjTypeData;
                 var htmltotal = '';
 
-                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
-                htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
+               // htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
+                htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.carCounts + '</span>类</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' +data.eventCounts + '</span>个</div>';
                 $('#sjlxtotal').html(htmltotal);
+
+                data = data.list;
                 var html = '';
-                for (var key in data) {
-                    if (key !== "catCounts" && key !== "eventCounts") {
+                for (var i = 0; i < data.length; i++) {
+                    for (var key in data[i]) {
                         html += '<li class="yqsj-item">' +
-								  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
+								  '<div class="yqsj-itemdiv"><span>' + data[i][key].total + '</span>' + key + '</div>' +
 								  '<ol class="yqsj-itemol">'
-                        for (var key2 in data[key]) {
+                        for (var key2 in data[i][key]) {
                             if (key2 !== "total") {
-                                html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
+                                html += '<li>' + key2 + '（<em class="testAerial">' + data[i][key][key2] + '</em>）</li>'
                             }
                         }
                         html += '</ol></li>'
                     }
                 }
+
+
+
+
+                //var html = '';
+                //for (var key in data) {
+                //    if (key !== "catCounts" && key !== "eventCounts") {
+                //        html += '<li class="yqsj-item">' +
+				//				  '<div class="yqsj-itemdiv"><span>' + data[key].total + '</span>' + key + '</div>' +
+				//				  '<ol class="yqsj-itemol">'
+                //        for (var key2 in data[key]) {
+                //            if (key2 !== "total") {
+                //                html += '<li>' + key2 + '（<em class="testAerial">' + data[key][key2] + '</em>）</li>'
+                //            }
+                //        }
+                //        html += '</ol></li>'
+                //    }
+                //}
 
                 $('#sjlxList').html(html);
                 $('#sjlxList>li:first-child').addClass("active");
@@ -3688,8 +3623,8 @@
     	//园区事件列表
         yqsjlbtj: function () {
         	var nowdata = require("common").getNowFormatDate();//当前时间
-        	var before7 = require("common").getDaysBefore(nowdata, 30);//30天前的时间
-        	var post_data = { "startTime": before7, "endTime": nowdata }
+        	var before7 = require("common").getDaysBefore(nowdata, 7);//30天前的时间
+        	var post_data = { "starttime": before7, "endtime": nowdata, "offset": 0, "count": 10000} //&offset=0&count=10000
 
         	t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
         		var data = require("t_Echart").yqsjlbCenterEventData;
@@ -3747,7 +3682,7 @@
         	function setPostData(n) {
         		var nowdata = require("common").getNowFormatDate();//当前时间
         		var before7 = require("common").getDaysBefore(nowdata, n);//7天前的时间
-        		var post_data = { "startTime": before7, "endTime": nowdata }
+        		var post_data = { "starttime": before7, "endtime": nowdata, "offset": 0, "count": 10000 }
 
         		t_EchartAjax.yqsjlbCenterEvent(post_data, function (result) {
         			var data = require("t_Echart").yqsjlbCenterEventData;

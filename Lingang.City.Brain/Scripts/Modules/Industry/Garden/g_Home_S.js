@@ -25,7 +25,7 @@
         },
         loadMain_g_Main: function () {
             //飞行到园区视角
-            com.LayerFlyto(20, function () { 
+            com.LayerFlyto(19, function () { 
 
             })
             g_Main.loadMain();
@@ -35,10 +35,12 @@
            com.LayerFlyto(311, function () { 
 
             })
+            g_Main.loadMain(false);
             b_BuildingFloor.loadBuilding();
         },
         loadStop: function () {
             com.LayerFlyto(21);
+            g_Main.loadMain(false);
             gl_Stop.loadStop();
         },
         loadUnmannedCar: function () {
@@ -50,6 +52,7 @@
         },
         loadEvent: function () {
             com.LayerFlyto(23)
+            g_Main.loadMain(false);
             gl_Event.loadEvent();
         },
 

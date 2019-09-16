@@ -2,7 +2,7 @@
     return {
         //园区POI
         GardenList:{
-            "Data": [{ "id": "1", "name": "海创园", "lng": "121.905517", "lat": "30.867087", "edetailimg": "Texture/Common/gardendetail1.png" }]
+            "Data": [{ "id": "1", "name": "海立方", "lng": "121.905517", "lat": "30.867087", "edetailimg": "Texture/Common/gardendetail1.png" }]
         },
         //龙头企业
         TopCompany: {

@@ -8,6 +8,7 @@
     var strTitle = "事件成功数";
 
     return {
+        perCarPicTimer: null,   //人员车辆结构化图片
         sjcgTimer: null,
         mybigChart: null,     //大的图表显示  
         myChartsxt1: null,     //摄像头
@@ -27,6 +28,7 @@
         sxtCameraData: null,  //摄像头--摄像头
         sxtCarData: null,     //摄像头--车辆
         sxtPersonData: null,  //摄像头--人员
+        perCarPicData: null,   //人员车辆结构化图片
         zzbmData: null,       //主责部门
         societyPersonData: null,    // 社区人口
         societySjcgListData: null,  //事件成功列表数据
@@ -116,7 +118,8 @@
             require(['text!' + url], function (template) {
                 $("#center_05").html(template);
                 $("#center_05").show('drop', 1000);//左侧
-                //require("s_Echart").loadSocietyEventList();
+
+                require("s_Echart").perCarPic();
             })
             $("#center_03").html("");
             $("#center_04").html("");
@@ -253,7 +256,7 @@
                             label: {
                                 normal: {
                                     fontSize: 20,
-                                    formatter: '{b|{b}}\n{per|{d}}%',
+                                    formatter: '{b|{b}}\n{c}架',
                                     padding: [0, -70],
                                     color: "#0996d1",
                                     rich: {
@@ -262,6 +265,12 @@
                                             lineHeight: 36,
                                             color: "#fff",
 
+                                        },
+                                        c: {
+                                            fontSize: 20,
+                                            lineHeight: 36,
+                                            color: "#fff",
+                                            position: "center",
                                         },
                                         per: {
                                             fontSize: 20,
@@ -339,7 +348,7 @@
                             label: {
                                 normal: {
                                     fontSize: 70,
-                                    formatter: '{b|{b}}\n{per|{d}}%',
+                                    formatter: '{b|{b}}\n{c}架',
                                     padding: [0, -200],
                                     color: "#0996d1",
                                     rich: {
@@ -347,6 +356,12 @@
                                             fontSize: 70,
                                             lineHeight: 76,
                                             color: "#fff",
+                                        },
+                                        c: {
+                                            fontSize: 70,
+                                            lineHeight: 76,
+                                            color: "#fff",
+                                            position: "center",
                                         },
                                         per: {
                                             fontSize: 70,
@@ -553,6 +568,52 @@
             });
         },
 
+
+        //人员车辆结构化图片
+        perCarPic: function () {
+            clearInterval(window.perCarPicTimer);
+            window.perCarPicTimer = null;
+
+            s_EchartAjax.getPerCarPicData(function (result) {
+                if (require("s_Echart").perCarPicData == null) { return false; }
+                var data = require("s_Echart").perCarPicData;
+
+                var carData = data.car[0];
+                var personData = data.person[0];
+                var perCarPicNum = 1;
+                changeToCarFun();
+                perCarPicTimer = setInterval(function () {
+                    perCarPicNum++;
+                    perCarPicNum % 2 == 0 ? changeToPersonFun() : changeToCarFun();
+                }, 6000);
+
+                function changeToCarFun() {
+                    $(".iot-percarpic").html('<img src="' + carData.picurl + '" />');
+                    $(".iot-percarmess>em").html('车牌号：');
+                    $(".iot-percarmess>span").html(carData.platenumber);
+                    $(".iot-percartime>em").html('识别时间：');
+                    $(".iot-percartime>span").html([carData.date.split("-")[1], carData.date.split("-")[2]].join("/"));
+                }
+
+                function changeToPersonFun() {
+                    var time = personData.wzbjsj.split(".")[0].split("-");
+                    var timestr = [time[1], time[2]].join("/").replace("T", " ");
+
+                    if ($("#iot-percarpic").length > 0) {
+                        $(".iot-percarpic").html('<img src="' + personData.cjtobjectid + '" />');
+                    } else {
+                        $("#iot-percarpic").html('<img src="' + personData.ytobjectid + '" />');
+                    }
+                    $(".iot-percarmess>em").html('性别：');
+                    $(".iot-percarmess>span").html(personData.gender);
+                    $(".iot-percartime>em").html('识别时间：');
+                    $(".iot-percartime>span").html(timestr);
+                }
+
+
+            });
+        },
+
         //主责部门
         zzbm: function () {
             s_EchartAjax.getSocietyZzbm(function (result) {
@@ -616,20 +677,12 @@
                 if (require("s_Echart").societySjData == null) { return false; }
                 var data = require("s_Echart").societySjData;
 
-                //function dealSaveTimeFun(str) {
-                //	var saveTimeArr = str.split("小时")[0].split("天");
-                //	var saveTime = ( Number(saveTimeArr[0]) * 24 + Number(saveTimeArr[1]) )*60;
-                //	return saveTime;
-                //}
-                //var disSaveTime = data.distributeNums + "*" + parseInt(dealSaveTimeFun(data.discoverTimeSaving) / data.distributeNums);
-                //var smartSaveTime = data.eventNums + "*" + parseInt(dealSaveTimeFun(data.smartSingleTimeSaving) / data.eventNums);
-
                 $("#sj-list1").find(".sj-data").eq(0).html(data.eventNums);
-                $("#sj-list1").find(".sj-data").eq(1).html(data.discoverRate + '%');
+                $("#sj-list1").find(".sj-data").eq(1).html(Number(data.discoverRate).toFixed(1) + '%');
                 $("#sj-list1").find(".sj-data").eq(2).html(data.discoverTimeSaving);
 
                 $("#sj-list2").find(".sj-data").eq(0).html(data.distributeNums);
-                $("#sj-list2").find(".sj-data").eq(1).html(data.smartSingleRate + '%');
+                $("#sj-list2").find(".sj-data").eq(1).html(Number(data.smartSingleRate).toFixed(1) + '%');
                 $("#sj-list2").find(".sj-data").eq(2).html(data.smartSingleTimeSaving);
 
 
@@ -881,6 +934,9 @@
                         sjxxLiClass = "sjxx-li flex active"
                     }
 
+                    if (data[i].communityId == null) {
+                        data[i].communityId = 'SANGAO';
+                    }
                     if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
                         var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
                         var aiiconstyle = "";
@@ -964,6 +1020,9 @@
                     var html = '';
                     for (var i = 0; i < data.length; i++) {
                         var time = data[i].createTime.split(".")[0].split("T");
+                        if (data[i].communityId == null) {
+                            data[i].communityId = 'SANGAO';
+                        }
                         if (require("s_Main").LayerCatalog.Event.List[data[i].communityId]) {
                             var poiName = "POISociety" + require("s_Main").LayerCatalog.Event.List[data[i].communityId].Name + "_" + data[i].id;//POIIOT_01
 
@@ -1120,18 +1179,18 @@
 
 
         },
-        //中间大数字
-        bigNumber: function () {
-            s_EchartAjax.getSocietyBigNum(function (result) {
-                if (require("s_Echart").bigNumData == null) { return false; };
-                var data = require("s_Echart").bigNumData;
-                $('#dsz-ajljs').html(data.totalCount);
-                $('#dsz-dyajs').html(data.monthCount);
-                $('#dsz-znpds').html(data.dispatchRate + "%");
-                $('#dsz-zdfxl').html(data.autoRate + "%");
-                $('#dsz-bhl').html(data.loopRate + "%");
-            })
-        },
+        //中间大数字   //这个没有用到
+        //bigNumber: function () {
+        //    s_EchartAjax.getSocietyBigNum(function (result) {
+        //        if (require("s_Echart").societyBigNumData == null) { return false; };
+        //        var data = require("s_Echart").societyBigNumData;
+        //        $('#dsz-ajljs').html(data.totalCount);
+        //        $('#dsz-dyajs').html(data.monthCount);
+        //        $('#dsz-znpds').html(Number(data.dispatchRate).toFixed(1) + "%");
+        //        $('#dsz-zdfxl').html(Number(data.autoRate).toFixed(1) + "%");
+        //        $('#dsz-bhl').html(Number(data.loopRate).toFixed(1) + "%");
+        //    })
+        //},
         //无人机事件天气预报
         DroneWeather: function () {
             if (WeatherSevenData != null) {
@@ -1271,6 +1330,11 @@
                 clearInterval(window.sjcgTimer)
             }
 
+            if (window.perCarPicTimer != null) {
+                clearInterval(window.perCarPicTimer)
+                window.perCarPicTimer = null;
+
+            }
             //摄像头
             if (require("s_Echart").myChartsxt1 != null && require("s_Echart").myChartsxt1 != "" && require("s_Echart").myChartsxt1 != undefined) {
                 require("s_Echart").myChartsxt1.dispose();

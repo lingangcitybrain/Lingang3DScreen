@@ -11,10 +11,10 @@
 
             })
             e_Main.loadMain();
-            this.layerNO = 24;
+            this.layerNO = 16;
             var jsondata = {
                 "menu":"3",
-                "layer": "24",
+                "layer": "16",
                 "xyz": "",
                 "angle": "",
             };
@@ -62,7 +62,7 @@
         },
         loadMain_g_Main: function () {
             //飞行到园区视角
-            com.LayerFlyto(20, function () {
+            com.LayerFlyto(19, function () {
 
             })
             g_Main.loadMain();
@@ -80,6 +80,7 @@
             com.LayerFlyto(311, function () {
 
             })
+            g_Main.loadMain(false);
             b_BuildingFloor.loadBuilding();
             this.layerNO = 20;
             var jsondata = {
@@ -92,6 +93,7 @@
         },
         loadStop: function () {
             com.LayerFlyto(21);
+            g_Main.loadMain(false);
             gl_Stop.loadStop();
             this.layerNO = 21;
             var jsondata = {
@@ -118,6 +120,7 @@
         },
         loadEvent: function () {
             com.LayerFlyto(23)
+            g_Main.loadMain(false);
             gl_Event.loadEvent();
             this.layerNO = 23;
             var jsondata = {

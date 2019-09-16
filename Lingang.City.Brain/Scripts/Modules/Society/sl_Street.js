@@ -201,11 +201,11 @@
             s_EchartAjax.getJmDroneData(function (result) {
                 if (require("s_Echart").jmDroneData == null) { return false; }
                 var data = require("s_Echart").jmDroneData;
-                $("#jm_drone1").html(data.flightNumber);
-                $("#jm_drone2").html(data.flightCount);
-                $("#jm_drone3").html(data.flightTime);
+                $("#jm_drone1>.item-r-data").html(data.flightNumber);
+                $("#jm_drone2>.item-r-data").html(data.flightCount);
+                $("#jm_drone3>.item-r-data").html(data.flightTime);
                 //加载视频
-               // require("s_Main").loadStreetWrjVideo(data.url)
+                require("s_Main").loadStreetWrjVideo(con.WebServiceUrl + "/Content/video/CH2.flv")
 
             })
             s_EchartAjax.getVideoPic(function (result) {
@@ -214,7 +214,7 @@
 
             	for (var i = 0; i < data.length; i++) {
             	    if (data[i].eventType === "sharedRegion") {
-            	        $("#StreetWrjVideo").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
+            	        $("#StreetWrjPic").css({ background: "url(" + data[i].imageUrl + ")", backgroundSize: "100% 100%" });
             	    }
             	}
             });

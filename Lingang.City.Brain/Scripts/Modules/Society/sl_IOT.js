@@ -277,7 +277,10 @@
             com.UIControlAni(option, function () {
                 require("sl_IOT").loadCirclediv();
                 require("s_Echart").sxtCamera();
-                // require("s_Echart").sxtCamera({ "communityId": "S012" });
+                require("s_Echart").perCarPic();
+                setInterval(function () {
+                    require("s_Echart").perCarPic();
+                }, 5 * 60 * 1000)
             });
         },
         //加载第二列的div4

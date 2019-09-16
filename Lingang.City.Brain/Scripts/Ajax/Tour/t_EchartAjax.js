@@ -309,7 +309,7 @@
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     //url: con.InterfaceUrl + 'v1/park/affair/jrsjlx',
-                    url: con.InterfaceUrl_DataStation + 'v1/park/affair/jrsjlx',
+                    url: con.InterfaceUrl_DataStation + 'v1/park/affair/jrsjlx2',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {

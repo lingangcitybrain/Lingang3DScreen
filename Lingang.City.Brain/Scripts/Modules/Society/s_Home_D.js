@@ -97,7 +97,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             sl_SeaboardLine.layerSeaboard();
             sl_SeaboardLine.loadLeftSecond();
             //require("s_Main").loadCenter1Info();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "14",
@@ -107,13 +107,13 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             control_Ajax.sendLayerControlInfo(jsondata); //发送控制命令
         },
         loadWorkSite: function () {
-
-            Q3D.globalCamera().flyTo(("396108.71569771634,2102.016891479492,-3414150.4402918345").toVector3d(), ("-30.96967124938965,0.03673381358385086,0.016093820333480835").toVector3(), 1, null);
+            com.LayerFlyto(26);
+            
             this.layerNO = 26;
             sl_WorkSite.loadWorkSite();
             sl_WorkSite.loadLeftSecond();
            // require("s_Main").loadCenter1Info();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "26",
@@ -127,7 +127,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
         this.layerNO = 15;
             sl_Event.loadEvent();
             sl_IOT.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "15",
@@ -143,7 +143,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             this.layerNO = 27;
             sl_Street.loadWorkSite();
             sl_Street.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "27",
@@ -159,7 +159,7 @@ function (con, com,tl_Drone, s_Main, control_Ajax, s_LayerMenuAjax, s_LeftLayer,
             this.layerNO = 28;
             sl_Grid.loadGridInfo();
             sl_Grid.loadLeftSecond();
-            require("s_Main").loadCenter1();
+            //require("s_Main").loadCenter1();
             var jsondata = {
                 "menu": "1",
                 "layer": "28",

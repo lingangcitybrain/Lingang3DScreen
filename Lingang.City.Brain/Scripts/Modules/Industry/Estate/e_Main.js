@@ -306,7 +306,7 @@
             require(['text!' + url], function (template) {
                 $("#center_01").html(template);
                 $("#center_01").show('drop', 1000);//左侧
-                require("e_Echart").centernumber()
+                setTimeout(function(){require("e_Echart").centernumber();}, 1200);            
                
             })
         },
@@ -329,7 +329,7 @@
                 url: con.HtmlUrl + 'Industry/Estate/Right_First_02.html',
                 leftOrRight: 'right'
             }
-            com.UIControlAni(option, function () { require("e_Echart").xzsp() });
+            com.UIControlAni(option, function () { require("e_Echart").xzsp()});
         },
         //加载第三个div
         loadRightFirst3: function () {
@@ -354,7 +354,7 @@
             }
             com.UIControlAni(option, function () {
                 //return null;
-                require("e_Echart").qybhqs()
+                require("e_Echart").centernumber();
             });
         },
         //加载第二个div
@@ -366,15 +366,17 @@
                 leftOrRight: 'right'
             }
             com.UIControlAni(option, function () {
-                clearInterval(require("e_Echart").fkldInterval);//清空计时器
-                require("e_Echart").fkld();
+               // clearInterval(require("e_Echart").fkldInterval);//清空计时器
+                // require("e_Echart").fkld();
+                require("e_Echart").cyjbList();
             });
         },
-        numberAni: function (qyzs, zlxxqys, ssgs, ydqys) {
+        numberAni: function (qyzs, gsqys, zlxxqys, djsqys, ssqys) {
             com.numberAnimation($('#e_qyzs'), qyzs - 200, qyzs, 2000);
-            com.numberAnimation($('#e_zlxxqys'), zlxxqys - 200, zlxxqys, 2000);
-            com.numberAnimation($('#e_ssgs'), ssgs - 20, ssgs, 2000);
-            com.numberAnimation($('#e_ydqys'), ydqys - 200, ydqys, 2000);
+            com.numberAnimation($('#e_gsqys'), gsqys - 200, gsqys, 2000);
+            com.numberAnimation($('#e_zlxxqys'), zlxxqys - 20, zlxxqys, 2000);
+            com.numberAnimation($('#e_djsqys'), djsqys - 200, djsqys, 2000);
+            com.numberAnimation($('#e_ssqys'), ssqys - 200, ssqys, 2000);
         },
         //清空图层
         Revert: function () {

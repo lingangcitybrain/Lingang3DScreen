@@ -1,7 +1,7 @@
 ﻿define(["config", "common", "g_EchartAjax", "pagination", "nicescroll"], function (con, com, g_EchartAjax, pagination, nicescroll) {
     var gauge_value = 0;
     //var xAxisData = []; //停车服务、无人驾驶接驳车X轴日期
-    var tcfwSeriesData = []; //停车服务数据 便于大图表引用
+    var tcfwDayCarData = []; //停车服务数据 便于大图表引用
     var tcfwSeriesDataMax = 0;
     var tcfwSeriesDataMin = 0;
     var wrjsjbcSeriesData = []; //无人驾驶接驳车数据 
@@ -162,7 +162,7 @@
                             axisLine: {
                                 show: true,
                                 lineStyle: {
-                                    width: 15,
+                                    width: 25,
                                     shadowBlur: 10,         //发光
                                     shadowColor: "#8e26dc",
                                     color: industryColor
@@ -188,7 +188,7 @@
                             },
                             pointer: {       //指针
                                 show: true,
-                                length: '120%',//指针长度
+                                length: '140%',//指针长度
                                 width: 1,
                             },
                             itemStyle: { //仪表盘指针样式
@@ -330,41 +330,51 @@
         },
 
         //停车服务
-        tcfw: function (post_data) {
+        tcfw: function () {
             var post_data = require("g_Echart").latestSevenDate(0)[2];
-            g_EchartAjax.getTcfw(post_data, function (result) {
+            require("gl_GardenBuildingAjax").getParkingInfo(post_data, function (result) {
                 if (require("g_Echart").tcfwData == null) { return false; }
-                var data = require("g_Echart").tcfwData;
+                var data = require("g_Echart").tcfwData[0];
 
                 $("#cyyq-tcfw-total").html(data.total);
-                data.occupied ? data.occupied : 0;
                 $("#cyyq-tcfw-empty").html(data.total - data.occupied);
 
-                var xAxisData = []; //X轴数据
+
+                //图表
+                //X轴日期
+                var xAxisData = []; 
                 for (var i = 6; i >= 0; i--) {
                     xAxisData.push( require("g_Echart").latestSevenDate(i)[0] )
+                }
+                
+                //接口parkings数据
+                var tcfwCarData = JSON.parse(data.parkings);
+                var tcfwDayCarArr = [[], [], [], [], [], [], []];
+                tcfwDayCarData = [];
+
+                for (var i = 0; i < tcfwCarData.length; i++) {
+                    for (var key1 in tcfwCarData[i]) {
+                        for (var j = 0; j < xAxisData.length; j++) {
+                            if (key1 == xAxisData[j].replace("/", "-")) {
+                                for (var key2 in tcfwCarData[i][key1]) {
+                                    tcfwDayCarArr[j].push(tcfwCarData[i][key1][key2]);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (var i = 0; i < tcfwDayCarArr.length; i++) {
+                    tcfwDayCarData.push(Math.max.apply(Math, tcfwDayCarArr[i]));
                 }
 
                 if ($("#tcfw-chart").length <= 0) { return false; }
                 var tcfwChart = document.getElementById('tcfw-chart');
 
-                data = JSON.parse(data.parkings);
-                var tcfwdata = [];
-                for (var i = 0; i < xAxisData.length; i++) {
-                    for (var key in data[i + 1]) {
-                        tcfwdata.push(data[i + 1][key]);
-                    }
-                }
-
-                tcfwSeriesDataMax = Math.max.apply(null, tcfwdata);
-                tcfwSeriesDataMin = Math.min.apply(null, tcfwdata);
-
-
-                tcfwSeriesData = tcfwdata;
                 var myCharttcfw = echarts.init(tcfwChart);
                 tcfwOption = {
                     title: {
-                        text: "(进出车辆数)",
+                        text: "停车统计表",
                         left: "0",
                         top: 8,
                         textStyle: {
@@ -431,8 +441,6 @@
                                 color: "rgba(80,172,254,0.2)"
                             }
                         },
-                        max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
-                        min: parseInt( parseInt(tcfwSeriesDataMin / 10) * 10),
                         axisLabel: {
                             textStyle: {
                                 fontSize: 22,
@@ -458,7 +466,7 @@
                               width: 2,
                           },
                           symbolSize: 10,
-                          data: tcfwdata,
+                          data: tcfwDayCarData,
                       }
                     ]
                 };
@@ -472,14 +480,13 @@
         },
         //大停车服务
         bigtcfw: function () {
-            $("#GbigechartHead").html('进出车辆数');
+            $("#GbigechartHead").html('停车统计表');
             if ($("#tcfw-chart").length <= 0) { return false; }
 
             var xAxisData = []; //X轴数据
             for (var i = 6; i >= 0; i--) {
                 xAxisData.push(require("g_Echart").latestSevenDate(i)[0])
             }
-            var tcfwdata = tcfwSeriesData;
 
             tcfwOption = {
                 title: {
@@ -548,8 +555,8 @@
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
-                    max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
-                    min: parseInt(parseInt(tcfwSeriesDataMin / 10) * 10),
+                    //max: parseInt(Math.ceil(tcfwSeriesDataMax / 10) * 10),
+                    //min: parseInt(parseInt(tcfwSeriesDataMin / 10) * 10),
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -575,7 +582,7 @@
                           width: 10,
                       },
                       symbolSize: 20,
-                      data: tcfwdata,
+                      data: tcfwDayCarData,
                   }
                 ]
             };
@@ -846,128 +853,130 @@
                 var data = require("g_Echart").zhwyRepairData;
                 $("#zhwy-repair").html("");
                 var total = 0, todayrepaircount = 0, todaywaitrepaircount = 0;
-                //var zhwydata = [],dateArr=[];
+                zhwydata = [];
+                dateArr = [];
                 for (var i = 0; i < data.length; i++) {
                     todayrepaircount += Number(data[i].todayrepaircount),
                     todaywaitrepaircount += Number(data[i].todaywaitrepaircount);
                     zhwydata.push(Number(data[i].todayrepaircount) + Number(data[i].todaywaitrepaircount));
-                    dateArr.push(data[i].date);
+                    dateArr.push([data[i].date.split("-")[1], data[i].date.split("-")[2]].join("/"));
                 }
                 total = todayrepaircount + todaywaitrepaircount;
                 $("#zhwy-repair").append(
-                    '<li class=""><span>总数：</span><em class="testAerial">' + total + '</em></li>'//Number(data.todayrepaircount) + Number(data.todaywaitrepaircount)
+                    '<li class=""><span>总数：</span><em class="testAerial">' + total + '</em></li>'
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + todayrepaircount + '</em></li>'
                    + '<li class=""><span>待处理：</span><em class="testAerial">' + todaywaitrepaircount + '</em></li>'
                 )
                 //图表
-            if ($("#zhwy-chart").length <= 0) { return false; }
-            var zhwyChart = document.getElementById('zhwy-chart');
+                if ($("#zhwy-chart").length <= 0) { return false; }
+                var zhwyChart = document.getElementById('zhwy-chart');
             
-            var myChartzhwy = echarts.init(zhwyChart);
-            zhwyOption = {
-                title: {
-                    text: "近一周报修量分布",
-                    left: "center",
-                    top: 8,
-                    textStyle: {
-                        fontSize: 24,
-                        color: "#00d7fe",
-                        fontWeight: "normal",
+                var myChartzhwy = echarts.init(zhwyChart);
+                zhwyOption = {
+                    title: {
+                        text: "近一周报修量分布",
+                        left: "center",
+                        top: 8,
+                        textStyle: {
+                            fontSize: 24,
+                            color: "#00d7fe",
+                            fontWeight: "normal",
+                        },
                     },
-                },
-                legend: {
-                    show: false
-                },
-                color: ['#3398DB'],
-                grid: {
-                    left: '0',
-                    right: '2%',
-                    bottom: '2%',
-                    height: "85%",
-                    containLabel: true
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
+                    legend: {
+                        show: false
+                    },
+                    color: ['#3398DB'],
+                    grid: {
+                        left: '0',
+                        right: '2%',
+                        bottom: '2%',
+                        height: "85%",
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                show: false,
+                            }
+
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: dateArr,
+                        boundaryGap: ["5%", "5%"],
+                        axisTick: {
                             show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
                         }
 
                     },
-                },
-                xAxis: {
-                    type: 'category',
-                    data: dateArr,//['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
-                    boundaryGap: ["5%", "5%"],
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
+                    yAxis: {
+                        axisTick: {
+                            show: false,
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)"
+                            }
+                        },
+                        //interval: 10,
+                        //max: 70,
+                        minInterval:1,
+                        type: 'value',
+                        //min: function(value) {return value.min;},
+                        //max: function(value) {return value.max;},
+                        axisLabel: {
+                            textStyle: {
+                                fontSize: 22,
+                                color: "#00d7fe"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(80,172,254,0.2)",
+                                //color:"#50acfe"
+                            }
                         }
                     },
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    }
-
-                },
-                yAxis: {
-                    axisTick: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)"
-                        }
-                    },
-                    interval: 10,
-                    //max: 70,
-                    type: 'value',
-                    min: function(value) {return value.min;},
-                    max: function(value) {return value.max;},
-                    axisLabel: {
-                        textStyle: {
-                            fontSize: 22,
-                            color: "#00d7fe"
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: "rgba(80,172,254,0.2)",
-                            //color:"#50acfe"
-                        }
-                    }
-                },
-                series: [
-                  {
-                      type: 'line',
-                      smooth: true,
-                      color: "rgba(7,196,230,1)",
-                      areaStyle: {
-                          opacity: .1,
-                      },
-                      lineStyle: {
-                          width: 2,
-                      },
-                      symbolSize: 4,
-                      data: zhwydata,
-                  }
-                ]
-            };
-            myChartzhwy.setOption(zhwyOption);
+                    series: [
+                      {
+                          type: 'line',
+                          smooth: true,
+                          color: "rgba(7,196,230,1)",
+                          areaStyle: {
+                              opacity: .1,
+                          },
+                          lineStyle: {
+                              width: 2,
+                          },
+                          symbolSize: 4,
+                          data: zhwydata,
+                      }
+                    ]
+                };
+                myChartzhwy.setOption(zhwyOption);
             });
 
             g_EchartAjax.getZhwInspect(function (result) {
@@ -980,7 +989,7 @@
                    + '<li class=""><span>已处理：</span><em class="testAerial">' + data.weeklychecked + '</em></li>'
                    + '<li class=""><span>待处理：</span><em class="testAerial">' + data.weeklyuncheck + '</em></li>'
                 );
-                //$("#zhwy-weekaveragerate").append('<span class="testAerial">' + parseFloat(data.weekaveragerate)*100 + '%</span>')
+                $("#zhwy-weekaveragerate").append('<div>周平均完成率</div><span class="testAerial">' + (parseFloat(data.weekaveragerate) * 100).toFixed(2) + '%</span>')
             });
 
 
@@ -995,10 +1004,6 @@
         bigzhwy: function () {
             $("#GbigechartHead").html('智慧物业(近一周报修量分布)');
             if ($("#zhwy-chart").length <= 0) { return false; }
-            //var zhwydata = [];
-            //for (var i = 1; i < 100; i++) {
-            //    zhwydata.push(Math.round((Math.random() * 70)));
-            //}
             zhwyOption = {
                 title: {
                     show:false,
@@ -1036,7 +1041,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: dateArr,//['02/26', '02/27', '02/28', '03/01', '03/02', '03/03', '03/04'],
+                    data: dateArr,
                     boundaryGap: ["5%", "5%"],
                     axisTick: {
                         show: false,
@@ -1074,11 +1079,12 @@
                             color: "rgba(80,172,254,0.2)"
                         }
                     },
-                    interval: 10,
+                    //interval: 10,
+                    minInterval:1,
                     //max: 70,
                     type: 'value',
-                    min: function (value) { return value.min; },
-                    max: function (value) { return value.max; },
+                    //min: function (value) { return value.min; },
+                    //max: function (value) { return value.max; },
                     axisLabel: {
                         textStyle: {
                             fontSize: 50,
@@ -1125,7 +1131,7 @@
                 var unitEnergyRank = JSON.parse(data.unitenergyrank);
                 $("#zhnh-unit").html("");
                 for (var i = 0; i < unitEnergyRank.length; i++) {
-                    $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy + '</span></li>');
+                    $("#zhnh-unit").append('<li>'+ unitEnergyRank[i].buildingname + '栋<span>' + unitEnergyRank[i].energy.toFixed(2) + '</span></li>');
                 }
                 // 同比和环比
                 var oTongbiHuanbi = JSON.parse(data.chainratioanalysis);
@@ -1503,7 +1509,7 @@
                 second = d.getSeconds();
 
                 var mmdd1 = addZero(mon) + "/" + addZero(day);
-                var mmdd2 = addZero(mon) + "/" + addZero(day);
+                var mmdd2 = addZero(mon) + "-" + addZero(day);
                 var yymmddhhmmss = '' +year + addZero(mon) +addZero(day) +addZero(hour) +addZero(minute) +addZero(second);
 
                 return [mmdd1, mmdd2, yymmddhhmmss];

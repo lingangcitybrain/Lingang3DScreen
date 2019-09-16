@@ -31,19 +31,14 @@
 
         //中间大数字
         societyBigNumData: {
-            "errorCode": "0",
-            "errorMessage": "成功",
-            "resultType": "0",
-            "data": {
-                "inspectorCount": 28,  //巡查总数
-                "uavCount": "4",       //无人机总数
-                "cameraCount": "739",  //摄像头总数
-                "loopRate": 99.35,     //闭环率 
-                "totalCount": "55266", //案件累计数
-                "monthCount": "62",    //当月案件数
-                "dispatchRate": "83",  //智能派单率
-                "autoRate": 15.9       //主动发现率 
-            }
+            "inspectorCount": 28,      //巡查总数
+            "uavCount": 13,            //无人机总数
+            "cameraCount": 758,        //摄像头总数
+            "loopRate": "99.54",       //闭环率 
+            "totalCount": 24379,       //案件累计数
+            "monthCount": 6860,        //当月案件数
+            "dispatchRate": "93.29",   //智能派单率
+            "autoRate": "98.37"        //主动发现率 
         },
 
         cgqBigNumData:{
@@ -16666,7 +16661,57 @@
     			"imageUrl": "http://106.14.149.153/mnt/data/community/eventAttach/2019-03-21/2019032123562045900.png",
     			"eventType": "sharedRegion"
 			}
-		],
+    	],
+
+        //人员车辆结构化图片
+        perCarPicData:{
+            "car": [
+                {
+                    "date": "2019-09-05 20:52:38",
+                    "picurl": "http://internal.lmding.com/internal/oss/limadcw/image/preview?filename=/2019-09-05/A1545133094075E8CA2A89E8443D48534576F965A33174/192.168.253.132/2019-09-05_20-52-38-516_鲁P790HU_67.jpg",
+                    "platenumber": "鲁P790HU",
+                    "iotid": "zu0wuCRubAZAtxkIGCnR000100",
+                    "cameraid": "haiyangchu",
+                    "platecolor": "蓝",
+                    "devicename": "dynamic",
+                    "parkid": "A1545133094075E8CA2A89E8443D48534576F965A33174",
+                    "status": "出"
+                },
+                {
+                    "date": "2019-09-05 20:52:26",
+                    "picurl": "http://internal.lmding.com/internal/oss/limadcw/image/preview?filename=/2019-09-05/A1545133094075E8CA2A89E8443D48534576F965A33174/192.168.253.131/2019-09-05_20-52-26-660_沪C552BR_73.jpg",
+                    "platenumber": "沪C552BR",
+                    "iotid": "zu0wuCRubAZAtxkIGCnR000100",
+                    "cameraid": "haiyangjin",
+                    "platecolor": "蓝",
+                    "devicename": "dynamic",
+                    "parkid": "A1545133094075E8CA2A89E8443D48534576F965A33174",
+                    "status": "进"
+                },
+            ],
+            "person": [
+                {
+                    "nlxx": 52,
+                    "gender": "男",
+                    "channelName": "海洋小区入口人脸识别机3",
+                    "sxtid": "31011900011328041003",
+                    "nlsx": 62,
+                    "ytobjectid": "http://zhlingang-stsf.oss-cn-shanghai.aliyuncs.com/video_face_panoramic/038/20190909/20190909-88f0a26d-0a580a000fc1-00000038-0006237d.jpg?Expires=1568022778&OSSAccessKeyId=LTAIt0qEZUZItgae&Signature=gRsiRkjLWPbk%2BaKCLv5sg61kcOA%3D",
+                    "cjtobjectid": "http://zhlingang-stsf.oss-cn-shanghai.aliyuncs.com/video_face_cropped/038/20190909/20190909-88f7f82d-0a580a000da1-00000038-000010da.jpg?Expires=1568022778&OSSAccessKeyId=LTAIt0qEZUZItgae&Signature=Lvr1G7wpgBC2bOm4x6TJkShBqB8%3D",
+                    "wzbjsj": "2019-09-09T08:05:00.000+0000"
+                },
+                {
+                    "nlxx": 32,
+                    "gender": "男",
+                    "channelName": "海洋小区入口人脸识别机3",
+                    "sxtid": "31011900011328041003",
+                    "nlsx": 42,
+                    "ytobjectid": "http://zhlingang-stsf.oss-cn-shanghai.aliyuncs.com/video_face_panoramic/031/20190909/20190909-7d765c85-0a580a000983-00000031-00067fe4.jpg?Expires=1568022778&OSSAccessKeyId=LTAIt0qEZUZItgae&Signature=%2FmnMXS67c1tLkBYJ6stolJvMfUI%3D",
+                    "cjtobjectid": "http://zhlingang-stsf.oss-cn-shanghai.aliyuncs.com/video_face_cropped/031/20190909/20190909-7d7e5f60-0a580a0000a3-00000031-000011cf.jpg?Expires=1568022778&OSSAccessKeyId=LTAIt0qEZUZItgae&Signature=oMXD6Gw%2BckvcboHbi5duXfKSpwg%3D",
+                    "wzbjsj": "2019-09-09T08:04:41.000+0000"
+                },
+            ]
+        },
 
 
 
