@@ -577,10 +577,11 @@
                 
                 var data = require("t_Echart").ykhxData;
 
-                var nvPer = data[0].Value.toFixed(2)*100
+               // var nvPer = data[0].Value.toFixed(2) * 100
+                var nvPer = (data[0].Value * 100).toFixed(2);
                 var nanPer = 100 - nvPer;
                     //这里报错，缺少性别数据
-                var benPer = data[3].Value.toFixed(2) * 100
+                var benPer = (data[3].Value * 100).toFixed(2);
                 var waiPer = 100 - benPer;
 
                 var numPer = [nvPer, nanPer, waiPer, benPer]

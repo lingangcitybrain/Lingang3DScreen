@@ -436,6 +436,7 @@ body{
 	width: .8rem;
 	height: .8rem;
 	margin-right: .1rem;
+    margin-top: .1rem;
 	border-radius: 50%;
 	border:.04rem solid #007eb3;
 	background: url(../Content/images/cgq-1.png) center center no-repeat;
@@ -455,6 +456,13 @@ body{
 .ykhx-ul .cgq-li:nth-child(3)>.item-l{ background-image: url(../Content/images/ykhx-3.png); }
 .ykhx-ul .cgq-li:nth-child(4)>.item-l{ background-image: url(../Content/images/ykhx-4.png); }
 .ykhx-ul .item-r-data{ color:#1a8fef ; }
+
+.ykhx-ul .cgq-li>.item-l{
+	width: .6rem;
+	height: .6rem;
+    background-size: .6rem;
+}
+.ykhx-ul .cgq-li .item-r-data { font-size: .4rem;}
 
 .cgq-li>.item-r{ float:left; margin-top: .04rem;}
 .cgq-li .item-r-name{ font-size: .26rem;}
