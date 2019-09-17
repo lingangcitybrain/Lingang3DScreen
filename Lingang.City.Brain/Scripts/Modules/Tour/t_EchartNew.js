@@ -3637,7 +3637,7 @@
         			html += '<div class="item-l"></div>';
         			html += '<div class="item-r">';
         			html += '<div>拍照时间：' + data[i].sbsj + '</div>';
-        			html += '<div>事件类型：' + data[i].sj + '<span>处置状态：' + data[i].dictname + '</span></div>';   //DICTNAME
+        			html += '<div>事件类型：' + data[i].sj + '<span>处置状态：' + data[i].DICTNAME + '</span></div>';   //DICTNAME
         			html += '<div>事件详情：' + data[i].sjms + '。</div>';
         			html += '</div>';
         			html += '</li>';
@@ -3695,7 +3695,7 @@
         				html += '<div class="item-l"></div>';
         				html += '<div class="item-r">';
         				html += '<div>拍照时间：' + data[i].sbsj + '</div>';
-        				html += '<div>' + data[i].sj + '<span>' + data[i].dictname + '</span></div>';  //DICTNAME
+        				html += '<div>' + data[i].sj + '<span>' + data[i].DICTNAME + '</span></div>';  //DICTNAME
         				html += '<div>事件详情：' + data[i].sjms + '。</div>';
         				html += '</div>';
         				html += '</li>';
