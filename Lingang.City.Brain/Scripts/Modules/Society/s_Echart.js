@@ -599,9 +599,9 @@
                     var time = personData.wzbjsj.split(".")[0].split("-");
                     var timestr = [time[1], time[2]].join("/").replace("T", " ");
 
-                    $(".iot-percarpic").css({ "backgroundImage": "url(" + personData.ytobjectid + ")" });
+                    $(".iot-percarpic").css({ "backgroundImage": "url(" + personData.cjtobjectid + ")" });
                     if ($("#iot-percarpic").length > 0) {
-                        $("#iot-percarpic").css({"backgroundImage": "url("+ personData.cjtobjectid +")"});
+                        $("#iot-percarpic").css({"backgroundImage": "url("+ personData.ytobjectid +")"});
                     }
 
                     $(".iot-percarmess>em").html('性别：');
