@@ -88,44 +88,63 @@ define(["config"], function (con) {
             }],
 
     	//获取舆情类型统计数
-        yqlxtjsData: {
-            "Result": 3,
-            "data": [
-        {
-            "fsPercent": 38.71,
-            "fsProperty": "正面"
-        },
-        {
-            "fsPercent": 51.61,
-            "fsProperty": "中性"
-        },
-        {
-            "fsPercent": 9.68,
-            "fsProperty": "负面"
-        }
+        yqlxtjsData: [
+            {
+                "fsPercent": 4.02,
+                "fsProperty": "中性"
+            },
+            {
+                "fsPercent": 95.86,
+                "fsProperty": "正面"
+            },
+            {
+                "fsPercent": 0.12,
+                "fsProperty": "负面"
+            }
+        ],
+
+        //舆情分析
+        yqfxData:{
+            "NameList": [
+                "新浪微博",
+                "其他",
+                "百度网页搜索",
+                "今日头条",
+                "微信",
+                "腾讯网",
+                "新浪网",
+                "搜狐网",
+                "搜狐新闻",
+                "新浪"
+            ],
+            "ValueList": [
+                14240,
+                6078,
+                644,
+                425,
+                394,
+                385,
+                267,
+                266,
+                198,
+                183
             ]
         },
-        //舆情分析
-        yqfxData: [{
-                "name": "东方网",
-                "value": 7.01
-            }, {
-                "name": "东方财富网",
-                "value": 5.60
-            }, {
-                "name": "凤凰网",
-                "value": 5.25
-            }, {
-                "name": "网易",
-                "value": 3.85
-            }, {
-                "name": "新浪新闻",
-                "value": 3.33
-            }, {
-                "name": "其它",
-                "value": 74.96
-            }],
-           
+        //舆情分析（类型统计数 正面负面中性）
+        yqfxTypeData:[
+            {
+                "fsPercent": 4.02,
+                "fsProperty": "中性"
+            },
+            {
+                "fsPercent": 95.86,
+                "fsProperty": "正面"
+            },
+            {
+                "fsPercent": 0.12,
+                "fsProperty": "负面"
+            }
+        ],
         
         //无人机
         wrjData: [{ "wrj_flying_cnt": 1,

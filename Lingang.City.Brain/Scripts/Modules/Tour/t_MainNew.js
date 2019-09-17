@@ -135,9 +135,8 @@
                     url: con.HtmlUrl + 'TourNew/Left_First_04.html'
                 }
                 com.UIControlAni(option, function () {
-                    require("t_Echart").yqfx();//舆情分析
-                    //require("t_Echart").Interval8 = setInterval(function () { require("t_Echart").yqfx() }, 5000)
-                    require("t_Echart").yqxxs();//舆情分析
+                    require("t_Echart").yqfx();//舆情分析  图表和类型
+                    require("t_Echart").yqxxs();//舆情分析  话题数
                 });
             },
             hideLeft01Div: function () {

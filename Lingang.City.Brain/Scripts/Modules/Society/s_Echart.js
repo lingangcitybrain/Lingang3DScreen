@@ -585,10 +585,10 @@
                 perCarPicTimer = setInterval(function () {
                     perCarPicNum++;
                     perCarPicNum % 2 == 0 ? changeToPersonFun() : changeToCarFun();
-                }, 6000);
+                }, 20000);
 
                 function changeToCarFun() {
-                    $(".iot-percarpic").html('<img src="' + carData.picurl + '" />');
+                    $(".iot-percarpic").css({ "backgroundImage": "url(" + carData.picurl + ")" });
                     $(".iot-percarmess>em").html('车牌号：');
                     $(".iot-percarmess>span").html(carData.platenumber);
                     $(".iot-percartime>em").html('识别时间：');
@@ -599,11 +599,11 @@
                     var time = personData.wzbjsj.split(".")[0].split("-");
                     var timestr = [time[1], time[2]].join("/").replace("T", " ");
 
+                    $(".iot-percarpic").css({ "backgroundImage": "url(" + personData.ytobjectid + ")" });
                     if ($("#iot-percarpic").length > 0) {
-                        $(".iot-percarpic").html('<img src="' + personData.cjtobjectid + '" />');
-                    } else {
-                        $("#iot-percarpic").html('<img src="' + personData.ytobjectid + '" />');
+                        $("#iot-percarpic").css({"backgroundImage": "url("+ personData.cjtobjectid +")"});
                     }
+
                     $(".iot-percarmess>em").html('性别：');
                     $(".iot-percarmess>span").html(personData.gender);
                     $(".iot-percartime>em").html('识别时间：');

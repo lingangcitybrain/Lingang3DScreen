@@ -3902,10 +3902,15 @@ dd.pjc-statistic-star >form{
 	border-radius: .05em;
 	box-sizing: border-box;
 }
-.sxtcar-identify-pic>img{
-	float: left;
-	width: 100%;
+.sxtcar-identify-pic>div{
+    width: 100%;
 	height: 100%;
+	background: url(../Content/images/pic-car.png);
+	background-size: 100% 100%;
+}
+#iot-percarpic {
+    width:60%;
+    margin:0 auto;
 }
 .sxtcar-identify-text{
 	float: left;

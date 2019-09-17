@@ -118,6 +118,7 @@
         myChartykqsfx: null,              //游客趋势分析 
         FutureVisitorTrafficData: null,   //游客区域分析数据
         yqfxData: null,                   //舆情分析数据
+        yqfxTypeData: null,               //舆情分析（类型统计数 正面负面中性）
         wrjData: null,                    //无人机数据
         ykhxData: null,                   //游客分析数据
         tccsyqkData: null,                 //停车场使用情况
@@ -866,6 +867,11 @@
                 if (require("t_Echart").yqfxData == null) { return false; }
 
                 var data = require("t_Echart").yqfxData;
+                var seriesData = [];
+                for (var i = 0; i < data.ValueList.length; i++) {
+                    seriesData.push({ "value": data.ValueList[i], "name": data.NameList[i], });
+                }
+
                 require("t_Echart").myChartyqfx = echarts.init(yqfxChart);
                 option = {
                     tooltip: {
@@ -875,23 +881,16 @@
                     legend: {
                         show: false,
                     },
-                    color: ["#e77800", "#5672ed", "#70d958", "#b758d9", "#e7e300", "#1a8fef"],
+                    color: ["#3cb2ef", "#32c4e9", "#66e0e3", "#9fe7b9", "#fedb5b", "#ff9f7f", "#fc7293", "#e061ae", "#e690d1", "#e7bcf2"],
                     series: [
                         {
                             name: '访问来源',
                             type: 'pie',
-                            radius: '50%',
+                            radius: '55%',
                             minAngle: 15,//最小角度
                             startAngle: 45, //起始角度
                             center: ["center", "center"],
-                            data: [
-                                { value: data[0].value, name: data[0].name },
-                                { value: data[1].value, name: data[1].name },
-                                { value: data[2].value, name: data[2].name },
-                                { value: data[3].value, name: data[3].name },
-                                { value: data[4].value, name: data[4].name },
-                                { value: data[5].value, name: data[5].name }
-                            ],
+                            data: seriesData,
                             itemStyle: {
                                 emphasis: {
                                     shadowBlur: 10,
@@ -902,7 +901,7 @@
                             labelLine: {
                                 normal: {
                                     length: 20,
-                                    length2: 90,
+                                    length2:90,
                                     lineStyle: {
                                         width: 2,
                                         color: "#0996d1"
@@ -912,18 +911,15 @@
                             label: {
                                 normal: {
                                     fontSize: 18,
-                                    formatter: '{b|{b}}{per|{d}}%\n',
+                                    formatter: '{b|{b}}{per|{d}}%\n\n',
                                     padding: [0, -90],
-                                    //color:"#0996d1",
                                     rich: {
                                         b: {
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             lineHeight: 36,
-                                            //color:"#fff",
                                         },
                                         per: {
-                                            fontSize: 18,
-                                            // color:"#0996d1",
+                                            fontSize: 20,
                                             fontFamily: "Aerial",
                                         },
                                         center: {
@@ -935,11 +931,20 @@
                         }
                     ]
                 };
-                //require("t_Echart").myChartyqfx.clear();
 
                 require("t_Echart").myChartyqfx.setOption(option, true)
             })
 
+            //舆情分析（类型统计数 正面负面中性）
+            t_EchartAjax.yqfxType(function (result) {
+                if (require("t_Echart").yqfxTypeData == null) { return false; }
+                var data = require("t_Echart").yqfxTypeData;
+
+                $("#yqfx-positive").html("( " + data[1].fsPercent + "% )")
+                $("#yqfx-neutral").html("( " + data[0].fsPercent + "% )")
+                $("#yqfx-negative").html("( " + data[2].fsPercent + "% )")
+
+            })
 
         },
         //舆情分析（统计图表）
@@ -952,6 +957,11 @@
                 if (require("t_Echart").yqfxData == null) { return false; }
 
                 var data = require("t_Echart").yqfxData;
+                var seriesData = [];
+                for (var i = 0; i < data.ValueList.length; i++) {
+                    seriesData.push({ "value": data.ValueList[i], "name": data.NameList[i], });
+                }
+
                 option = {
                     tooltip: {
                         show: false,
@@ -961,7 +971,8 @@
                     legend: {
                         show: false,
                     },
-                    color: ["#e77800", "#5672ed", "#70d958", "#b758d9", "#e7e300", "#1a8fef"],
+                   // color: ["#e77800", "#5672ed", "#70d958", "#b758d9", "#e7e300", "#1a8fef"],
+                    color: ["#3cb2ef", "#32c4e9", "#66e0e3", "#9fe7b9", "#fedb5b", "#ff9f7f", "#fc7293", "#e061ae", "#e690d1", "#e7bcf2"],
                     series: [
                         {
                             name: '访问来源',
@@ -970,14 +981,7 @@
                             minAngle: 15,//最小角度
                             startAngle: 45, //起始角度
                             center: ["center", "center"],
-                            data: [
-                                { value: data[0].value, name: data[0].name },
-                                { value: data[1].value, name: data[1].name },
-                                { value: data[2].value, name: data[2].name },
-                                { value: data[3].value, name: data[3].name },
-                                { value: data[4].value, name: data[4].name },
-                                { value: data[5].value, name: data[5].name }
-                            ],
+                            data: seriesData,
                             itemStyle: {
                                 emphasis: {
                                     shadowBlur: 10,
@@ -1000,16 +1004,13 @@
                                     fontSize: 50,
                                     formatter: '{b|{b}}{per|{d}}%\n\n',
                                     padding: [0, -180],
-                                    //color:"#0996d1",
                                     rich: {
                                         b: {
                                             fontSize: 50,
                                             lineHeight: 52,
-                                            //color:"#fff",
                                         },
                                         per: {
-                                            fontSize: 50,
-                                            // color:"#0996d1",
+                                            fontSize: 56,
                                             fontFamily: "Aerial",
                                         },
                                         center: {
@@ -1028,52 +1029,25 @@
                 require("t_Echart").mybigChart.setOption(option);
             })
         },
+
         //舆情信息数 话题数
         yqxxs: function () {
             $.ajax({
                 type: 'POST',
-                //url: con.InterfaceUrl + 'v1/park/publicSentimentByType',
                 url: con.InterfaceUrl_DataStation + '/v1/publicSentimentStatistic',
                 cache: false,
-
                 // data:post_data,
                 dataType: 'json',
                 success: function (data) {
-                    ////console.log(data);
-                    //if (data == null) { return false;}
-                    $('#yqxxs').html(data[0].fiCount)
-                    $('#rmhts').html(data[1].fiCount)
+                    $('#yqxxs').html(data[0])
+                    $('#rmhts').html(data[1])
                 },
                 error: function () {
 
                 }
             })
         },
-        //舆情类型统计
-        yqlxtj: function () {
-            $.ajax({
-                type: 'POST',
-                //url: con.InterfaceUrl + 'v1/park/publicSentiment',
-                url: con.InterfaceUrl_DataStation + '/v1/publicSentimentInfo',
-                cache: false,
 
-                // data:post_data,
-                dataType: 'json',
-                success: function (data) {
-                    $('.charttabbox').empty();
-                    ////console.log(data);
-                    var html = '';
-                    html += '<a class="charttab">' + data.data[0].fsProperty + '<span style="color: #22990a;">' + '(' + data.data[0].fsPercent + '%' + ')' + '</span></a>';
-                    html += '<a class="charttab">' + data.data[1].fsProperty + '<span style="color: #2961f1;">' + '(' + data.data[1].fsPercent + '%' + ')' + '</span></a>';
-                    html += '<a class="charttab">' + data.data[2].fsProperty + '<span style="color: #fb5301;">' + '(' + data.data[2].fsPercent + '%' + ')' + '</span></a>';
-
-                    $('.charttabbox').html(html);
-                },
-                error: function () {
-
-                }
-            })
-        },
         //无人机
         wrj: function () {
             this.Interval3 = setInterval(function () {
