@@ -331,7 +331,7 @@
             //存储楼宇信息到本地
             gl_GardenBuildingAjax.getBuildingListData(function (result) {
                 for (var i = 0; i < result.length; i++) {
-                    require("b_BuildingFloor").BuildingListData.put(result[i].id, result[i]);
+                    require("b_BuildingFloor").BuildingListData.put(result[i].buildingID, result[i]);
                 }
             })
         },
@@ -351,7 +351,7 @@
                 var row = require("b_BuildingFloor").POIData[i];
                 //require("gl_GardenBuilding").poiListData.put(row.id, row);
 
-                var poiName = "POIIndustryG" + require("b_BuildingFloor").LayerType.Name + "_" + row.id;//POIIOT_01
+                var poiName = "POIIndustryG" + require("b_BuildingFloor").LayerType.Name + "_" + row.buildingID;//row.id; //POIIOT_01
 
                 var iconSize = Q3D.vector2(48, 57);
                 //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
