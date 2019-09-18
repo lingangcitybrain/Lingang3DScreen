@@ -94,7 +94,8 @@
 
             { "menu": "3", "layer": "19", "menuNM": "园区产业", "layerNM": "代表企业", type: "flowerClk", "func": "$('.cy-qy-menu a')[*].click();" },  //花瓣显示隐藏
             { "menu": "3", "layer": "20", "menuNM": "园区产业", "layerNM": "楼宇", type: "buildingFloor", "func": "require('b_BuildingFloor').openFloor(*);" },//揭楼层
-
+            { "menu": "3", "layer": "all", "menuNM": "园区产业", "layerNM": "", type: "cyjbTabClick", "func": "$('#cyjb-charttabbox').children()[*].click();" },//产业简报tab点击
+            { "menu": "3", "layer": "all", "menuNM": "园区产业", "layerNM": "", type: "cyjbListClick", "func": "$('.cyjbList-tabbox').children()[*].click();" },//产业简报列表点击
            // { "menu": "3", "layer": "23", "menuNM": "园区产业", "layerNM": "事件", type: "POIIndustryGEvent", "func": "require('gl_Event').showEventDetail(*);" },//
             /*********************图表点击事件**************************/
             { "menu": "2", "layer": "all", "menuNM": "景区管理", "layerNM": "", type: "rycltj", "func": "require('t_Echart').rycltjClickEvent('*');" },//人员车辆统计 出入园统计

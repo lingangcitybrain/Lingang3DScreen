@@ -64,6 +64,9 @@
                     case "Right_First_03"://高层次人才变化趋势
                         require("e_Echart").biggccrc();
                         break;
+                    case "Right_Second_01"://高层次人才变化趋势
+                        require("e_Echart").bigcyjb();
+                        break;
                     default:
                 }
 
@@ -2121,6 +2124,7 @@
                 //Tab点击
                 $("#cyjb-charttabbox>a").each(function (index, element) {
                     $(this).click(function () {
+                        require("e_Home").cyjbTabClickEvent(index);
                         clearInterval(require("e_Echart").oIndustryBriefingTimer);
                         require("e_Echart").oIndustryBriefingTimer = null;
                         if (index === 0) {
@@ -2142,7 +2146,10 @@
 
             })
         },
-
+        //大产业简报图表
+        bigcyjb: function () {
+            
+        },
         //产业简报企业列表
         cyjbList: function () {
             e_EchartAjax.getCyjbList(function (result) {
@@ -2189,6 +2196,7 @@
                 //tab点击加载
                 $(".cyjbList-tabbox>.cyjbList-tab").each(function (index, element) {
                     $(this).click(function () {
+                        require("e_Home").cyjbListClickEvent(index);
                         cyjbListFun(index, cyjbListArr[index]);
                     })
                 });
@@ -2245,7 +2253,7 @@
             });
         },
 
-
+        
 
         Revert: function () {
             //产业竞争力
