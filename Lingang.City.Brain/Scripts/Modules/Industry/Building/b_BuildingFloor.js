@@ -35,7 +35,7 @@
                 var data = require("b_BuildingFloor").BuildingListData.get(id);
                 if (data) {
                     $("#buildingName_detail").html(data.buildingName);
-                    $("#").html();
+                    //$("#").html();
                     $("#buildingArea_detail").html(data.buildingArea);
                     var floors = parseInt(data.floors);
                     var floorHTML = "";
@@ -394,7 +394,7 @@
                 for (var i in data) {
                     var name = this.LayerType.Name;
 
-                    var poiname = "POIIndustryG" + name + "_" + data[i].id;
+                    var poiname = "POIIndustryG" + name + "_" + data[i].buildingID;//id;
                     if (poiname != nodename) {  //nodename有值表示从楼宇详情来，故不隐藏当前点击的POI
                         var node = map.getSceneNode(areaName + "/" + poiname);
                         if (node) {
