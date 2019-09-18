@@ -1,5 +1,12 @@
 ﻿define(["config", "common", "e_EchartAjax"], function (con, com, e_EchartAjax) {
     var gauge_value = 0;
+    var cyjbChartColor = null;  //产业简报
+    var cyjbChartName = null;
+    var cyjbChartData = null;
+    var cyjbChartType = ["产业简报图表--产业类型划分", "产业简报图表--2+3+4企业分类划分", "产业简报图表--园区划分"];
+    var cyjbChartClose = true;
+
+
     /****************************产业****************************/
     return {
         oIndustryBriefingTimer: null,    //产业简报图表定时器
@@ -41,7 +48,7 @@
             require(['text!' + url], function (template) {
                 $("#center_03").html(template);
                 $("#center_03").show('drop', 1000);//左侧
-
+                cyjbChartClose = true;
                 switch (divname) {
                     case "Left_First_01"://产业竞争力
                         require("e_Echart").bigcyjzl();
@@ -64,6 +71,10 @@
                     case "Right_First_03"://高层次人才变化趋势
                         require("e_Echart").biggccrc();
                         break;
+                    case "Right_Second_01"://产业简报
+                        cyjbChartClose = false;
+                        require("e_Echart").bigcyjb(cyjbChartColor, cyjbChartName, cyjbChartData, cyjbChartType[0]);
+                        break;
                     default:
                 }
 
@@ -75,6 +86,7 @@
                 require("e_Echart").mybigChart.dispose();
             }
             $("#center_03").html("");
+            cyjbChartClose = true;
         },
         //产业竞争力
         cyjzl: function () {
@@ -2049,10 +2061,6 @@
                 }
 
                 function cyjbChartFun(colorData, NameData, seriesData) {
-                    $(".cyjb-chartdiv>.legend-list").empty();
-                    for (var i = 0; i < NameData.length; i++) {
-                        $(".cyjb-chartdiv>.legend-list").append("<li style=' color:" + colorData[i] + "'><div>" + NameData[i] + "</div></li>")
-                    };
 
                     cyjbOption = {
                         title: {
@@ -2070,12 +2078,21 @@
                         },
                         color: colorData,
                         legend: {
-                            show: false,
+                            type: 'scroll',
+                            orient: 'vertical',
+                            right: 100,
+                            top: 20,
+                            itemGap: 15,
+                            bottom: 20,
+                            textStyle: {
+                                color: '#fff',
+                            },
+                            data: NameData,
                         },
                         series: [
                             {
                                 type: 'pie',
-                                radius: [60, 130],
+                                radius: ['30%', '70%'],
                                 center: ['28%', '50%'],
                                 roseType: 'area',
                                 label: {
@@ -2090,11 +2107,15 @@
                         ]
                     };
                     require("e_Echart").myChartcyjb.setOption(cyjbOption);
-                    $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
+                    //$('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
 
                 }
 
+                cyjbChartColor = cyjbColor;
+                cyjbChartName = cyjbIndustryName;
+                cyjbChartData = cyjbIndustryData;
                 cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
+                require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType[0]);
 
                 //循环播放
                 var cyjbChartIndex = 1;
@@ -2108,10 +2129,15 @@
 
                     if (cyjbChartIndex === 1) {
                         cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
+                        require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType[0]);
+
                     } else if (cyjbChartIndex === 2) {
                         cyjbChartFun(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData);
+                        require("e_Echart").bigcyjb(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData, cyjbChartType[1]);
+
                     } else if (cyjbChartIndex === 3) {
                         cyjbChartFun(cyjbColor, cyjbRegionName, cyjbRegionData);
+                        require("e_Echart").bigcyjb(cyjbColor, cyjbRegionName, cyjbRegionData, cyjbChartType[2]);
                     }
                     $("#cyjb-charttabbox>a").eq(cyjbChartIndex - 1).addClass("active").siblings().removeClass("active");
 
@@ -2126,22 +2152,86 @@
                         if (index === 0) {
                             cyjbChartIndex = 1;
                             cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
+                            require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType[0]);
                         }else if(index === 1) {
                             cyjbChartIndex = 2;
                             cyjbChartFun(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData);
+                            require("e_Echart").bigcyjb(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData, cyjbChartType[1]);
                         }else if (index === 2) {
                             cyjbChartIndex = 3;
                             cyjbChartFun(cyjbColor, cyjbRegionName, cyjbRegionData);
+                            require("e_Echart").bigcyjb(cyjbColor, cyjbRegionName, cyjbRegionData, cyjbChartType[2]);
                         }
                         $(this).addClass("active").siblings().removeClass("active");
                         require("e_Echart").oIndustryBriefingTimer = setInterval(IndustryBriefingTimerFun, 20000);
 
                     })
                 })
-
-
             })
         },
+
+        //大产业简报
+        bigcyjb: function (colorData, NameData, seriesData, chartType) {
+            if (cyjbChartClose) {
+                return false;
+            } else {
+                $("#EbigechartHead").html(chartType)
+                bigcyjbOption = {
+                    title: {
+                        text: "单位：家",
+                        textStyle: {
+                            fontSize: 50,
+                            color: "#ccc"
+                        },
+                        x: 'center',
+
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{b} : {c} ({d}%)"
+                    },
+                    color: colorData,
+                    legend: {
+                        type: 'scroll',
+                        orient: 'vertical',
+                        right: 50,
+                        top: 80,
+                        bottom: 80,
+                        itemGap: 30,
+                        itemWidth: 50,
+                        itemHeight: 28,
+                        textStyle: {
+                            color: '#fff',
+                            fontSize: 45,
+                        },
+                        data: NameData,
+                    },
+                    series: [
+                        {
+                            type: 'pie',
+	                        radius : ['30%', '72%'],
+	                        center : ['30%', '50%'],
+                            roseType: 'area',
+                            label: {
+                                formatter: "{c}",
+                                textStyle: {
+                                    fontSize: 50,
+                                },
+
+                            },
+                            data: seriesData
+                        }
+                    ]
+                };
+
+                if (require("e_Echart").mybigChart != null && require("e_Echart").mybigChart != "" && require("e_Echart").mybigChart != undefined) {
+                    require("e_Echart").mybigChart.dispose();
+                }
+                require("e_Echart").mybigChart = echarts.init(document.getElementById('Ebig-chart'));
+                require("e_Echart").mybigChart.setOption(bigcyjbOption);
+            }
+        },
+
 
         //产业简报企业列表
         cyjbList: function () {
@@ -2204,18 +2294,43 @@
 
                     for (var i = 0; i < listData.length; i++) {
                         if (index === 0) {
+                            //if (listData[i].basicInfo) {
+                            //    cyjbListCommonFun(listData, listData[i].basicInfo.industryPhy)
+                            //} else {
+                            //    cyjbListCommonFun(listData, '')
+                            //}
                             cyjbListCommonFun(listData, listData[i].basicInfo.industryPhy)
 
                         } else if (index === 1) {
+                            //if (listData[i].basicInfo.entStatus) {
+                            //    cyjbListCommonFun(listData, listData[i].basicInfo.entStatus)
+                            //} else {
+                            //    cyjbListCommonFun(listData, '')
+                            //}
                             cyjbListCommonFun(listData, listData[i].basicInfo.entStatus)
 
                         } else if (index === 2) {
+                            //if (listData[i].riskType[0]) {
+                            //    cyjbListCommonFun(listData, listData[i].riskType[0])
+                            //} else {
+                            //    cyjbListCommonFun(listData, '')
+                            //}
                             cyjbListCommonFun(listData, listData[i].riskType[0])
 
                         } else if (index === 3) {
-                            cyjbListCommonFun(listData, listData[i].riskInfo[0].illeg_act_type)
+                            if (listData[i].riskInfo[0]) {
+                                cyjbListCommonFun(listData, listData[i].riskInfo[0].illeg_act_type)
+                            } else {
+                                cyjbListCommonFun(listData, '')
+                            }
+                            //cyjbListCommonFun(listData, listData[i].riskInfo[0].illeg_act_type)
 
                         } else if (index === 4) {
+                            //if (listData[i].basicInfo.industryPhy) {
+                            //    cyjbListCommonFun(listData, listData[i].basicInfo.industryPhy)
+                            //} else {
+                            //    cyjbListCommonFun(listData, '')
+                            //}
                             cyjbListCommonFun(listData, listData[i].basicInfo.industryPhy)
                         }
                     }
