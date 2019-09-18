@@ -3,7 +3,7 @@
     var cyjbChartColor = null;  //产业简报
     var cyjbChartName = null;
     var cyjbChartData = null;
-    var cyjbChartType = ["产业简报图表--产业类型划分", "产业简报图表--2+3+4企业分类划分", "产业简报图表--园区划分"];
+    var cyjbChartType = "";
     var cyjbChartClose = true;
 
 
@@ -73,7 +73,7 @@
                         break;
                     case "Right_Second_01"://产业简报
                         cyjbChartClose = false;
-                        require("e_Echart").bigcyjb(cyjbChartColor, cyjbChartName, cyjbChartData, cyjbChartType[0]);
+                        require("e_Echart").bigcyjb(cyjbChartColor, cyjbChartName, cyjbChartData, cyjbChartType);
                         break;
                     default:
                 }
@@ -2041,7 +2041,7 @@
                 require("e_Echart").myChartcyjb = echarts.init(cyjbChart);
 
                 var cyjbColor = ["#3cb2ef", "#32c4e9", "#66e0e3", "#9fe7b9", "#fedb5b", "#ff9f7f", "#fc7293", "#e061ae", "#e690d1", "#e7bcf2", "#9d96f5", "#96bfff", "#96bfff", "#3cb2ef", "#32c4e9", "#64dee1", "#a1e6b9"];
-
+                var cyjbType = ["产业简报图表--产业类型划分", "产业简报图表--2+3+4企业分类划分", "产业简报图表--园区划分"];
                 var cyjbIndustryData = [], cyjbEnt234TypeData = [], cyjbRegionData = [];
                 var cyjbIndustryName = [], cyjbEnt234TypeName = [], cyjbRegionName = [];
                 //industry
@@ -2114,8 +2114,9 @@
                 cyjbChartColor = cyjbColor;
                 cyjbChartName = cyjbIndustryName;
                 cyjbChartData = cyjbIndustryData;
+                cyjbChartType = cyjbType[0];
                 cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
-                require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType[0]);
+                require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType);
 
                 //循环播放
                 var cyjbChartIndex = 1;
@@ -2128,16 +2129,25 @@
                     cyjbChartIndex = cyjbChartIndex === 4 ? 1 : cyjbChartIndex;
 
                     if (cyjbChartIndex === 1) {
+                        cyjbChartName = cyjbIndustryName;
+                        cyjbChartData = cyjbIndustryData;
+                        cyjbChartType = cyjbType[0];
                         cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
-                        require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType[0]);
+                        require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType);
 
                     } else if (cyjbChartIndex === 2) {
+                        cyjbChartName = cyjbEnt234TypeName;
+                        cyjbChartData = cyjbEnt234TypeData;
+                        cyjbChartType = cyjbType[1];
                         cyjbChartFun(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData);
-                        require("e_Echart").bigcyjb(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData, cyjbChartType[1]);
+                        require("e_Echart").bigcyjb(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData, cyjbChartType);
 
                     } else if (cyjbChartIndex === 3) {
+                        cyjbChartName = cyjbRegionName;
+                        cyjbChartData = cyjbRegionData;
+                        cyjbChartType = cyjbType[2];
                         cyjbChartFun(cyjbColor, cyjbRegionName, cyjbRegionData);
-                        require("e_Echart").bigcyjb(cyjbColor, cyjbRegionName, cyjbRegionData, cyjbChartType[2]);
+                        require("e_Echart").bigcyjb(cyjbColor, cyjbRegionName, cyjbRegionData, cyjbChartType);
                     }
                     $("#cyjb-charttabbox>a").eq(cyjbChartIndex - 1).addClass("active").siblings().removeClass("active");
 
@@ -2152,16 +2162,25 @@
                         require("e_Echart").oIndustryBriefingTimer = null;
                         if (index === 0) {
                             cyjbChartIndex = 1;
+                            cyjbChartName = cyjbIndustryName;
+                            cyjbChartData = cyjbIndustryData;
+                            cyjbChartType = cyjbType[0];
                             cyjbChartFun(cyjbColor, cyjbIndustryName, cyjbIndustryData);
-                            require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType[0]);
+                            require("e_Echart").bigcyjb(cyjbColor, cyjbIndustryName, cyjbIndustryData, cyjbChartType);
                         }else if(index === 1) {
                             cyjbChartIndex = 2;
+                            cyjbChartName = cyjbEnt234TypeName;
+                            cyjbChartData = cyjbEnt234TypeData;
+                            cyjbChartType = cyjbType[1];
                             cyjbChartFun(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData);
-                            require("e_Echart").bigcyjb(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData, cyjbChartType[1]);
+                            require("e_Echart").bigcyjb(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData, cyjbChartType);
                         }else if (index === 2) {
                             cyjbChartIndex = 3;
+                            cyjbChartName = cyjbRegionName;
+                            cyjbChartData = cyjbRegionData;
+                            cyjbChartType = cyjbType[2];
                             cyjbChartFun(cyjbColor, cyjbRegionName, cyjbRegionData);
-                            require("e_Echart").bigcyjb(cyjbColor, cyjbRegionName, cyjbRegionData, cyjbChartType[2]);
+                            require("e_Echart").bigcyjb(cyjbColor, cyjbRegionName, cyjbRegionData, cyjbChartType);
                         }
                         $(this).addClass("active").siblings().removeClass("active");
                         require("e_Echart").oIndustryBriefingTimer = setInterval(IndustryBriefingTimerFun, 20000);
