@@ -22,6 +22,9 @@
         closeBigChart: function () {
             require("e_Echart").closeBigChart()
         },
+        cyjbTabClickEvent: function () {
+        },
+        cyjbListClickEvent: function () { },
         ///////////////////////////////////end////////////////////////////////////////////////////////
     }
 });

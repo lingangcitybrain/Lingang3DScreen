@@ -41,6 +41,31 @@
             };
             control_Ajax.sendEchartControlInfo(jsondata); //发送控制命令
         },
+        //产业简报tab点击
+        cyjbTabClickEvent: function (index) {
+
+                var jsondata = {
+                    "menu": "3",
+                    "layer": "all",
+                    "type": "cyjbTabClick",
+                    "id": index,
+                    "xyz": "",
+                    "angle": "",
+                };
+                control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+        },
+        cyjbListClickEvent: function (index) {
+
+            var jsondata = {
+                "menu": "3",
+                "layer": "all",
+                "type": "cyjbListClick",
+                "id": index,
+                "xyz": "",
+                "angle": "",
+            };
+            control_Ajax.sendButtoncontrolInfo(jsondata); //发送控制命令
+        },
         ///////////////////////////////end////////////////////////////////////
     }
 });

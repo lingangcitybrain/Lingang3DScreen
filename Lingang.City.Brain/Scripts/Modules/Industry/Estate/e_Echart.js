@@ -2147,6 +2147,7 @@
                 //Tab点击
                 $("#cyjb-charttabbox>a").each(function (index, element) {
                     $(this).click(function () {
+                        require("e_Home").cyjbTabClickEvent(index);
                         clearInterval(require("e_Echart").oIndustryBriefingTimer);
                         require("e_Echart").oIndustryBriefingTimer = null;
                         if (index === 0) {
@@ -2279,6 +2280,7 @@
                 //tab点击加载
                 $(".cyjbList-tabbox>.cyjbList-tab").each(function (index, element) {
                     $(this).click(function () {
+                        require("e_Home").cyjbListClickEvent(index);
                         cyjbListFun(index, cyjbListArr[index]);
                     })
                 });
@@ -2360,7 +2362,7 @@
             });
         },
 
-
+        
 
         Revert: function () {
             //产业竞争力
