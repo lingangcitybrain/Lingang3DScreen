@@ -326,7 +326,7 @@
             require("reset").ClearDivHtmlOnLeft();
             require("reset").ClearDivHtmlOnCenter();
             require("b_BuildingFloor").loadPOI();
-            require("b_BuildingFloor").showGardenShowWindow();
+            // require("b_BuildingFloor").showGardenShowWindow();
            
             //存储楼宇信息到本地
             gl_GardenBuildingAjax.getBuildingListData(function (result) {
