@@ -14,7 +14,7 @@
             // { "menu": "1", "layer": "27", "menuNM": "城区综治", "layerNM": "街面", "func": "require('mainMenu').showLayer_smain(2);" },
             { "menu": "1", "layer": "28", "menuNM": "城区综治", "layerNM": "网格", "func": "require('mainMenu').showLayer_smain(2);" },
             { "menu": "1", "layer": "15", "menuNM": "城区综治", "layerNM": "事件", "func": "require('mainMenu').showLayer_smain(3);" },
-            //{ "menu": "1", "layer": "29", "menuNM": "城区综治", "layerNM": "地下管网", "func": "require('mainMenu').showLayer_smain(9);" },
+            { "menu": "1", "layer": "29", "menuNM": "城区综治", "layerNM": "地下管网", "func": "require('mainMenu').showLayer_smain(4);" },
 
             { "menu": "2", "layer": "1", "menuNM": "景区管理", "layerNM": "人流热力图", "func": "require('mainMenu').showLayer_tmain(0);" },
             /*{ "menu": "2", "layer": "2", "menuNM": "景区管理", "layerNM": "实时路况", "func": "require('iPad').layerSocietyControl('2');" },*/

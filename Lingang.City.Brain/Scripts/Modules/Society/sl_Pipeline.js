@@ -13,7 +13,14 @@
                 // map.getSceneNode('beijing/beijing_shuimian').setVisible(0);
                 // map.getSceneNode('beijing/beijing_dikuai').setVisible(0);
                 // map.getSceneNode('beijing/beijing_luwang').setVisible(0);
-                map.unloadArea("beijing");
+                // map.unloadArea("beijing");
+                // map.unloadArea("faguangdongxian");
+
+                var container = Q3D.nodeContainer("pipeContainer");
+                container.addSceneNodeFromArea("beijing");
+                container.addSceneNodeFromArea("faguangdongxian");
+                container.setTargetVal(Q3D.Enums.nodeContainerType.Visible, 0, Q3D.Enums.materialApplyMode.Replace); 
+
 
             } else if (con.currStatus == 0) { //日景
                 var terrainMgr = map.getOcx().getTerrainManager();
@@ -23,7 +30,7 @@
                 terrainMgr.setTransparency("lgbig_version_1", 0.8);
             }
             require('sl_Pipeline').isOpenedPipeline = true;
-            require('sl_Pipeline').startSectionAnalyst();
+            // require('sl_Pipeline').startSectionAnalyst();
         },
 
         hidePipeline: function(){
@@ -31,7 +38,13 @@
                 // map.getSceneNode('beijing/beijing_shuimian').setVisible(1);
                 // map.getSceneNode('beijing/beijing_dikuai').setVisible(1);
                 // map.getSceneNode('beijing/beijing_luwang').setVisible(1);
-                map.loadArea("beijing");
+                // map.loadArea("beijing");
+                // map.loadArea("faguangdongxian");
+
+                var container = Q3D.nodeContainer("pipeContainer");
+                container.addSceneNodeFromArea("beijing");
+                container.addSceneNodeFromArea("faguangdongxian");
+                container.setTargetVal(Q3D.Enums.nodeContainerType.Visible, 1, Q3D.Enums.materialApplyMode.Replace); 
             }
 
             if(require('sl_Pipeline').isOpenedPipeline == true && con.currStatus == 0){    
@@ -43,7 +56,7 @@
             }
 
             require('sl_Pipeline').isOpenedPipeline = false;      
-            require('sl_Pipeline').endSectionAnalyst();      
+            // require('sl_Pipeline').endSectionAnalyst();      
         },
 
         //开始剖面分析
