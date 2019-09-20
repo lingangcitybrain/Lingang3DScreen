@@ -514,38 +514,56 @@
                     var post_data = { "sbbm": t_Data.sbbm, "startTime": t_Data.task_start_time, "isHistory":1 }
 
 
-                    require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
-                        require(['aliplayer'], function (data) {
+                    // require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
+                    //     require(['aliplayer'], function (data) {
 
-                            require("t_Main").tourhtml_wurenji01 = new Aliplayer({
-                                "id": "tourhtml_wurenji01",
-                                "source": result,
-                                //"width": videowidth + "px",
-                                //"height": videoheight + "px",
-                                "autoplay": true,
-                                "isLive": false,
-                                "rePlay": true,
-                                "showBuffer": true,
-                                "snapshot": false,
-                                "showBarTime": 5000,
-                                "useFlashPrism": true,
-                                "mediaType": "audio"
+                    //         require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+                    //             "id": "tourhtml_wurenji01",
+                    //             "source": result,
+                    //             //"width": videowidth + "px",
+                    //             //"height": videoheight + "px",
+                    //             "autoplay": true,
+                    //             "isLive": false,
+                    //             "rePlay": true,
+                    //             "showBuffer": true,
+                    //             "snapshot": false,
+                    //             "showBarTime": 5000,
+                    //             "useFlashPrism": true,
+                    //             "mediaType": "audio"
 
-                            }, function (player) {
-                                //加载成功,清空错误提示
-                                $(".prism-ErrorMessage").empty();
-                            });
+                    //         }, function (player) {
+                    //             //加载成功,清空错误提示
+                    //             $(".prism-ErrorMessage").empty();
+                    //         });
 
-                        });
+                    //     });
+                    // });
+
+                });
+
+                require(['aliplayer'], function (data) {
+
+                    require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+                        "id": "tourhtml_wurenji01",
+                        "source": con.WebServiceUrl + "/Content/video/dakeliu.flv",
+                        //"width": videowidth + "px",
+                        //"height": videoheight + "px",
+                        "autoplay": true,
+                        "isLive": false,
+                        "rePlay": true,
+                        "showBuffer": true,
+                        "snapshot": false,
+                        "showBarTime": 5000,
+                        "useFlashPrism": true,
+                        "mediaType": "audio"
+
+                    }, function (player) {
+                        //加载成功,清空错误提示
+                        $(".prism-ErrorMessage").empty();
                     });
 
                 });
             },
-
-
-
-
-
 
             //加载中间无人机视频
             loadCenter_Video: function () {

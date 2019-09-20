@@ -458,8 +458,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         loadRecentFlyVideo: function (url) {
             var videowidth = $("#recentFlyVideo").width();
             var videoheight = $("#recentFlyVideo").height();
-            if (require("s_Main").recentFlyVideo) {
+            if (require("s_Main").recentFlyVideo && require("s_Main").recentFlyVideo != undefined) {
+                try{
                 require("s_Main").recentFlyVideo.dispose();
+                }
+                catch(e){console.log(e);}
                 require("s_Main").recentFlyVideo = null;
             }
             $("#recentFlyVideo").empty();
@@ -469,13 +472,18 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     // "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
                     "source": url,
                     "autoplay": true,
-                    "isLive": false,
-                    "rePlay": true,
-                    "showBuffer": true,
-                    "snapshot": false,
-                    "showBarTime": 5000,
+                    "isLive": true,
+                    // "rePlay": true,
+                    // "showBuffer": true,
+                    // "snapshot": false,
+                    // "showBarTime": 5000,
                     "useFlashPrism": true,
-                    "mediaType": "audio"
+                    // "mediaType": "audio"
+                    playsinline:true,
+                    controlBarVisibility:'hover',
+                    extraInfo:{
+                        crossOrigin:"anonymous"
+                      }
 
                 }, function (player) {
                     //加载成功,清空错误提示
