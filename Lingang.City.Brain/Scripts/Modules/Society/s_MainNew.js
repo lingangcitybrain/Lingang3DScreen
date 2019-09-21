@@ -279,16 +279,20 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         ////////////////////////////////////////////////////////////////////其他///////////////////////////////////////////////////
         //加载视频
         loadLeft01_02_Video: function () {
-            if (require("s_Main").left01_02_video01) {
-                require("s_Main").left01_02_video01.dispose();
-                require("s_Main").left01_02_video01 = null;
+            try {
+                if (require("s_Main").left01_02_video01) {
+                    require("s_Main").left01_02_video01.dispose();
+                    require("s_Main").left01_02_video01 = null;
+                }
+                if (require("s_Main").left01_02_video02) {
+                    require("s_Main").left01_02_video02.dispose();
+                    require("s_Main").left01_02_video02 = null;
+                }
+                $("#Societyleft01_02_video01").empty();
+                $("#Societyleft01_02_video02").empty();
+            } catch (e) {
+                console.log(e);
             }
-            if (require("s_Main").left01_02_video02) {
-                require("s_Main").left01_02_video02.dispose();
-                require("s_Main").left01_02_video02 = null;
-            }
-            $("#Societyleft01_02_video01").empty();
-            $("#Societyleft01_02_video02").empty();
 
             s_EchartAjax.getJqCameraVideo(function () {
             	if (require("s_Echart").jqCameraVideo == null) { return false; }
@@ -326,18 +330,39 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             		require("s_LayerMenuAjax").getCameraUrlById(post_data2, function (result) {
             			var cameraurl = result.data;
             			require("s_Main").left01_02_video02 = new Aliplayer({
-            				"id": "Societyleft01_02_video02",
-            				"source": cameraurl,
-            				//"width": "20%",
-            				//"height": "20%",
-            				"autoplay": true,
-            				"isLive": true,
-            				"rePlay": false,
-            				"showBuffer": true,
-            				"snapshot": false,
-            				"showBarTime": 5000,
-            				"useFlashPrism": true,
-
+            				id: "Societyleft01_02_video02",
+            				source: cameraurl,
+                            useFlashPrism: true,   
+                            autoplay: true,
+                            isLive:true,
+                            playsinline:true,
+                            controlBarVisibility:'hover',
+                            extraInfo:{
+                                crossOrigin:"anonymous"
+                            },
+                            // skinLayout:[
+                            //     {name: "bigPlayButton", align: "blabs", x: 30, y: 80},
+                            //     {
+                            //       name: "H5Loading", align: "cc"
+                            //     },
+                            //     {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+                            //     {name: "infoDisplay"},
+                            //     {name:"tooltip", align:"blabs",x: 0, y: 56},
+                            //     {name: "thumbnail"},
+                            //     {
+                            //       name: "controlBar", align: "blabs", x: 0, y: 0,
+                            //       children: [
+                            //         {name: "progress", align: "blabs", x: 0, y: 44},
+                            //         {name: "playButton", align: "tl", x: 15, y: 12},
+                            //         {name: "timeDisplay", align: "tl", x: 10, y: 7},
+                            //         {name: "fullScreenButton", align: "tr", x: 10, y: 12},
+                            //         {name:"subtitle", align:"tr",x:15, y:12},
+                            //         {name:"setting", align:"tr",x:15, y:12},
+                            //         {name: "volume", align: "tr", x: 15, y: 10},
+                            //         {name: "snapshot", align: "tr", x: 5, y: 12},
+                            //       ]
+                            //     }
+                            //   ],
             			}, function (player) {
             				$(".prism-ErrorMessage").empty();
             			})

@@ -431,17 +431,16 @@
                         var cameraurl2 = result.data;
                         //console.log('B:' + cameraurl)
                         require("t_Main").left02_video02 = new Aliplayer({
-                            "id": "left02_video02",
-                            "source": cameraurl2,
-                            //"width": videowidth + "px",
-                            //"height": videoheight + "px",
-                            "autoplay": true,
-                            "isLive": true,
-                            "rePlay": false,
-                            "showBuffer": true,
-                            "snapshot": false,
-                            "showBarTime": 5000,
-                            "useFlashPrism": true,
+                            id: "left02_video02",
+                            source: cameraurl2,
+                            useFlashPrism: true,   
+                            autoplay: true,
+                            isLive:true,
+                            playsinline:true,
+                            controlBarVisibility:'hover',
+                            extraInfo:{
+                                crossOrigin:"anonymous"
+                            },
 
                         }, function (player) {
                             $(".prism-ErrorMessage").empty();
@@ -544,19 +543,16 @@
                 require(['aliplayer'], function (data) {
 
                     require("t_Main").tourhtml_wurenji01 = new Aliplayer({
-                        "id": "tourhtml_wurenji01",
-                        "source": con.WebServiceUrl + "/Content/video/dakeliu.flv",
-                        //"width": videowidth + "px",
-                        //"height": videoheight + "px",
-                        "autoplay": true,
-                        "isLive": false,
-                        "rePlay": true,
-                        "showBuffer": true,
-                        "snapshot": false,
-                        "showBarTime": 5000,
-                        "useFlashPrism": true,
-                        "mediaType": "audio"
-
+                        id: "tourhtml_wurenji01",
+                        source: con.WebServiceUrl + "/Content/video/dakeliu.flv",
+                        useFlashPrism: true,   
+                        autoplay: true,
+                        isLive:true,
+                        playsinline:true,
+                        controlBarVisibility:'hover',
+                        extraInfo:{
+                            crossOrigin:"anonymous"
+                        },
                     }, function (player) {
                         //加载成功,清空错误提示
                         $(".prism-ErrorMessage").empty();
