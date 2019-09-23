@@ -592,7 +592,12 @@
                     $(".iot-percarmess>em").html('车牌号：');
                     $(".iot-percarmess>span").html(carData.platenumber);
                     $(".iot-percartime>em").html('识别时间：');
+
                     $(".iot-percartime>span").html([carData.date.split("-")[1], carData.date.split("-")[2]].join("/"));
+                    if ($("#iot-percartime").length > 0) {
+                        $("#iot-percartime>span").html([carData.date.split("-")[1], carData.date.split("-")[2]].join("月").replace(" ", "日 "));
+                    }
+                    
                 }
 
                 function changeToPersonFun() {
@@ -607,7 +612,12 @@
                     $(".iot-percarmess>em").html('性别：');
                     $(".iot-percarmess>span").html(personData.gender);
                     $(".iot-percartime>em").html('识别时间：');
+
                     $(".iot-percartime>span").html(timestr);
+                    if ($("#iot-percartime").length > 0) {
+                        $("#iot-percartime>span").html(timestr.replace("/", "月").replace(" ", "日 "));
+                    }
+
                 }
 
 
