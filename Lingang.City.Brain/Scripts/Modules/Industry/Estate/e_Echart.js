@@ -2080,7 +2080,7 @@
                         legend: {
                             type: 'scroll',
                             orient: 'vertical',
-                            right: 100,
+                            right: 20,
                             top: 20,
                             itemGap: 15,
                             bottom: 20,
@@ -2200,7 +2200,7 @@
                     title: {
                         text: "单位：家",
                         textStyle: {
-                            fontSize: 50,
+                            fontSize: 40,
                             color: "#ccc"
                         },
                         x: 'center',
@@ -2222,7 +2222,7 @@
                         itemHeight: 28,
                         textStyle: {
                             color: '#fff',
-                            fontSize: 45,
+                            fontSize: 35,
                         },
                         data: NameData,
                     },

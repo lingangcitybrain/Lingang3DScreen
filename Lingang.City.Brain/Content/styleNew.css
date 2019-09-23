@@ -319,7 +319,7 @@ body{
 }
 .divbox>h3{
 	font-size: .4rem;
-	font-family: "黑体"，
+	font-family: "黑体";
 } 
 .divbox>h3:not(.hastabbox){
 	float: left;
@@ -352,6 +352,7 @@ body{
 	padding-left: 1.4rem;
 	box-sizing: border-box;
 }
+.divbox>h3.hastabbox>.charttabbox>.charttab{ transform:translateY(-20%);}
 .yqfx.divbox>h3.hastabbox>.charttabbox{ width: calc(100% - 6em); }
 .yqfx .charttab{ margin-right: .2rem;}
 .yqfx .charttab:after{ display: none;}
@@ -2245,7 +2246,7 @@ dd.pjc-statistic-star >form{
 	padding: .2rem;
 	box-sizing: border-box;
 	padding-bottom:.5rem;
-	padding-top:.4rem;
+	/*padding-top:.4rem;*/
 }
 .sqzz-wrj-lr2-temp{ 
 	font-size: .32rem;
@@ -4058,8 +4059,8 @@ dd.pjc-statistic-star >form{
 
 }
 .cyjb-box .hastabbox .charttab{
-	position: absolute;
-	top: 0;
+	/*position: absolute;
+	top: 0;*/
 	white-space:nowrap;
 }
 .cyjb-box .hastabbox .charttab>em{ color: #01fdf5;}
@@ -4189,8 +4190,9 @@ dd.pjc-statistic-star >form{
 .cyjbList-item.active>.cyjbList-type{
 	color: #fff;
 }
-
-
+#sjqytotal > div > .testAerial ,
+#sjlxtotal > div > .testAerial {
+ font-size:.4rem;}
 
 
 
@@ -4202,6 +4204,12 @@ dd.pjc-statistic-star >form{
 }
 @media screen and (max-width: 4500px) {
     html { font-size: 70px; }
+    .cgq-li > .has-num.item-l::after { font-size:.35rem;}
+
+
+
+
+
     /*城区综治*/
     .society-lf1 { top:13rem !important;}
     .society-lf2 { top:16.8rem !important;}
@@ -4270,10 +4278,10 @@ dd.pjc-statistic-star >form{
     .industry-estate-rs2 { top:19rem !important; }
 
     .industry-garden-lf1 { top:13rem !important; }
-    .industry-garden-lf2 { top:22.5rem !important; }
+    .industry-garden-lf2 { top:21rem !important; }
 
     .industry-garden-ls1 { top:13rem !important; }
-    .industry-garden-ls2 { top:18rem !important; }
+    .industry-garden-ls2 { top:21rem !important; }
     .industry-garden-ls3 { top:24.5rem !important; }
 
     .industry-garden-rf1 { top:13rem !important; }

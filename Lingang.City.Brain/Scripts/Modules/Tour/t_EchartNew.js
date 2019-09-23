@@ -900,7 +900,7 @@
                             },
                             labelLine: {
                                 normal: {
-                                    length: 20,
+                                    length: 10,
                                     length2:90,
                                     lineStyle: {
                                         width: 2,
@@ -911,7 +911,7 @@
                             label: {
                                 normal: {
                                     fontSize: 18,
-                                    formatter: '{b|{b}}{per|{d}}%\n\n',
+                                    formatter: '{b|{b}}{per|{d}}%\n',
                                     padding: [0, -90],
                                     rich: {
                                         b: {
@@ -940,9 +940,9 @@
                 if (require("t_Echart").yqfxTypeData == null) { return false; }
                 var data = require("t_Echart").yqfxTypeData;
 
-                $("#yqfx-positive").html("( " + data[1].fsPercent + "% )")
-                $("#yqfx-neutral").html("( " + data[0].fsPercent + "% )")
-                $("#yqfx-negative").html("( " + data[2].fsPercent + "% )")
+                $("#yqfx-positive").html("(" + data[1].fsPercent + "%)")
+                $("#yqfx-neutral").html("(" + data[0].fsPercent + "%)")
+                $("#yqfx-negative").html("(" + data[2].fsPercent + "%)")
 
             })
 
@@ -991,7 +991,7 @@
                             },
                             labelLine: {
                                 normal: {
-                                    length: 40,
+                                    length: 20,
                                     length2: 200,
                                     lineStyle: {
                                         width: 4,
@@ -1002,7 +1002,7 @@
                             label: {
                                 normal: {
                                     fontSize: 50,
-                                    formatter: '{b|{b}}{per|{d}}%\n\n',
+                                    formatter: '{b|{b}}{per|{d}}%\n',
                                     padding: [0, -180],
                                     rich: {
                                         b: {
