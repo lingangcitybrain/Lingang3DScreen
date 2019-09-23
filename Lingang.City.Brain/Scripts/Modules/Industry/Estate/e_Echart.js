@@ -122,7 +122,7 @@
                                     fontSize: 25
                                 }
                             },
-                            radius: 150,
+                            radius: '60%',
                             center: ['50%', '55%'],
                             axisLine: {
                                 lineStyle: {
@@ -201,7 +201,7 @@
                                         fontSize: 50
                                     }
                                 },
-                                radius: 380,
+                                radius: '60%',
                                 center: ['50%', '54%'],
                                 axisLine: {
                                     lineStyle: {
@@ -2080,7 +2080,7 @@
                         legend: {
                             type: 'scroll',
                             orient: 'vertical',
-                            right: 20,
+                            left: '60%',
                             top: 20,
                             itemGap: 15,
                             bottom: 20,
@@ -2214,7 +2214,7 @@
                     legend: {
                         type: 'scroll',
                         orient: 'vertical',
-                        right: 50,
+                        left: '60%',
                         top: 80,
                         bottom: 80,
                         itemGap: 30,
