@@ -122,7 +122,7 @@
                                     fontSize: 25
                                 }
                             },
-                            radius: '60%',
+                            radius: '65%',
                             center: ['50%', '55%'],
                             axisLine: {
                                 lineStyle: {
@@ -201,7 +201,7 @@
                                         fontSize: 50
                                     }
                                 },
-                                radius: '60%',
+                                radius: '65%',
                                 center: ['50%', '54%'],
                                 axisLine: {
                                     lineStyle: {
@@ -2066,15 +2066,18 @@
                         title: {
                             text: "单位：家",
                             textStyle: {
-                                fontSize: 12,
+                                fontSize: 20,
                                 color: "#ccc"
                             },
-                            x: 'left',
+                            x: 'center',
 
                         },
                         tooltip: {
                             trigger: 'item',
-                            formatter: "{b} : {c} ({d}%)"
+                            formatter: "{b} : {c} ({d}%)",
+                            textStyle: {
+                                fontSize: 20,
+                            },
                         },
                         color: colorData,
                         legend: {
@@ -2137,6 +2140,7 @@
 
                     } else if (cyjbChartIndex === 2) {
                         cyjbChartName = cyjbEnt234TypeName;
+
                         cyjbChartData = cyjbEnt234TypeData;
                         cyjbChartType = cyjbType[1];
                         cyjbChartFun(cyjbColor, cyjbEnt234TypeName, cyjbEnt234TypeData);
@@ -2208,7 +2212,10 @@
                     },
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)",
+                        textStyle: {
+                            fontSize:50,
+                        },
                     },
                     color: colorData,
                     legend: {
@@ -2222,10 +2229,15 @@
                         itemHeight: 28,
                         textStyle: {
                             color: '#fff',
-                            fontSize: 35,
+                            fontSize: 45,
                         },
+                
+                        //formatter: function(name){
+                        //    return name.length>14?name.substr(0,13)+"...":name;
+                        //},
                         data: NameData,
                     },
+
                     series: [
                         {
                             type: 'pie',

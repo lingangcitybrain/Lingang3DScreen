@@ -1,7 +1,7 @@
 ﻿define(["util"], function (util) {
     return {
         WebServiceUrl: "http://" + location.host + "/LingangCityBrain/",
-        WebServiceUrlForControl: "http://192.168.1.222/LingangCityBrain/",
+        WebServiceUrlForControl: "http://10.242.212.63/LingangCityBrain/",
         HtmlUrl: "/LingangCityBrain/View/",
         InterfaceUrl: "http://47.101.181.131:8091/",  //原接口地址
         InterfaceUrl_DataStation: "http://47.102.116.141:8082/",  //数据中台接口地址
