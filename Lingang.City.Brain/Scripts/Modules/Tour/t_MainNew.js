@@ -500,9 +500,14 @@
             loadLeft02_01_Video: function () {
                 var videowidth = $(".wrj-li").width();
                 var videoheight = $(".wrj-li").height();
-                if (require("t_Main").tourhtml_wurenji01) {
-                    require("t_Main").tourhtml_wurenji01.dispose();
-                    require("t_Main").tourhtml_wurenji01 = null;
+                try{
+                    if (require("t_Main").tourhtml_wurenji01) {
+                        require("t_Main").tourhtml_wurenji01.dispose();
+                        require("t_Main").tourhtml_wurenji01 = null;
+                    }
+                }
+                catch (e) {
+                    console.log(e);
                 }
 
                 $("#tourhtml_wurenji01").empty();
@@ -547,7 +552,7 @@
                         source: con.WebServiceUrl + "/Content/video/dakeliu.flv",
                         useFlashPrism: true,   
                         autoplay: true,
-                        isLive:true,
+                        isLive:false,
                         playsinline:true,
                         controlBarVisibility:'hover',
                         extraInfo:{

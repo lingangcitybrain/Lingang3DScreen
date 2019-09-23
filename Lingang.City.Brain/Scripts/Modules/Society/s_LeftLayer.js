@@ -105,9 +105,14 @@
             return rnd;
         },
         Revert: function () {
-            if (require("s_LeftLayer").left02_video01) { require("s_LeftLayer").left02_video01.dispose(); }
-            if (require("s_LeftLayer").left02_video02) { require("s_LeftLayer").left02_video02.dispose(); }
-            if (require("s_LeftLayer").left02_video03) { require("s_LeftLayer").left02_video03.dispose(); }
+            try {
+                if (require("s_LeftLayer").left02_video01) { require("s_LeftLayer").left02_video01.dispose(); }
+                if (require("s_LeftLayer").left02_video02) { require("s_LeftLayer").left02_video02.dispose(); }
+                if (require("s_LeftLayer").left02_video03) { require("s_LeftLayer").left02_video03.dispose(); }
+            }
+            catch (e) {
+                console.log(e);
+            }
         }
     }
 });

@@ -375,11 +375,16 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             var videowidth = $(".wrj-li").width();
             var videoheight = $(".wrj-li").height();
-            if (require("s_Main").left01_03_video01) {
-                require("s_Main").left01_03_video01.dispose();
-                require("s_Main").left01_03_video01 = null;
+            try{
+                if (require("s_Main").left01_03_video01) {
+                    require("s_Main").left01_03_video01.dispose();
+                    require("s_Main").left01_03_video01 = null;
+                }
+                $("#Societyleft01_03_video01").empty();
             }
-            $("#Societyleft01_03_video01").empty();
+            catch (e) {
+                console.log(e);
+            }
 
             s_EchartAjax.getWrjRideo(function () {
             	if (require("s_Echart").wrjRideo == null) { return false; }
