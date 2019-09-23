@@ -57,7 +57,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/industrial/topTen',
+                    //url: con.InterfaceUrl + 'v1/industrial/topTen',
+                    url: con.InterfaceUrl_DataStation + 'v1/topTen2',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json

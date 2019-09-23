@@ -279,14 +279,14 @@
             g_EchartAjax.getTopTenData(post_data, function (result) {
                 if (require("g_Echart").topTenData == null) { return false; }
                 var data = require("g_Echart").topTenData;
-                data = data.data;
+                //data = data.data;
 
                 var aTopTenRecCap = []; //前十注册资本
                 var aTopTenSubConam = []; //前十对外投资
                 
                 for (var i = 0; i < data.length; i++) {
-                    aTopTenRecCap.push(Number(data[i].rec_cap) ? Number(data[i].rec_cap) : 0);
-                    aTopTenSubConam.push(Number(data[i].sub_conam) ? Number(data[i].sub_conam) : 0);
+                    aTopTenRecCap.push(Number(data[i].registAmount) ? Number(data[i].registAmount) : 0);
+                    aTopTenSubConam.push(Number(data[i].ranking) ? Number(data[i].ranking) : 0);
                 }
 
                 //最大数
