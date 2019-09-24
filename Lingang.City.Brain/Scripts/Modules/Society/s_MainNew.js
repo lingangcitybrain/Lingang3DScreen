@@ -691,7 +691,16 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 if (require("s_Echart").societyBigNumData == null) { return false; }
                 var data = require("s_Echart").societyBigNumData;
                // data = data.data;   //中台接口格式变更
-               setTimeout(function(){require('s_Main').numberAni1(data);}, 1200);
+               setTimeout(function(){require('s_Main').numberAni1(data);}, 200);
+               setTimeout(function(){
+                   if($('#dsz-ajljs').text() == '0'){
+                    $('#dsz-ajljs').html(data.totalCount);
+                    $('#dsz-dyajs').html(data.monthCount);
+                    $('#dsz-znpds').html(data.dispatchRate);
+                    $('#dsz-zdfxl').html(data.autoRate);
+                    $('#dsz-bhl').html(data.loopRate);
+                   }
+               }, 2000);
             });
         },
 
