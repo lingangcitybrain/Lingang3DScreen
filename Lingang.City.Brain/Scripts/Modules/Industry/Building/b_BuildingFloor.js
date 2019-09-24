@@ -45,7 +45,7 @@
                     $("#loudong-ul").html(floorHTML);
                     $("#buildingFloors_detail").html(data.floors);
                     $("#companyCount_detail").html(data.companyCount);
-                    $("#occupancyRate_detail").html(data.occupancyRate);
+                    $("#occupancyRate_detail").html(data.occupancyRate * 100);
 
                     $("#loudong-ul li").click(function (e) {
                         //$(this).addClass("active").siblings().removeClass("active");
