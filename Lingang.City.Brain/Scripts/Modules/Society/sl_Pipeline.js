@@ -9,6 +9,7 @@
         },
 
         displayPipeline: function () {
+            var terrainMgr = map.getOcx().getTerrainManager();
             if (con.currStatus == 1) { //夜景
                 // map.getSceneNode('beijing/beijing_shuimian').setVisible(0);
                 // map.getSceneNode('beijing/beijing_dikuai').setVisible(0);
@@ -19,11 +20,10 @@
                 var container = Q3D.nodeContainer("pipeContainer");
                 container.addSceneNodeFromArea("beijing");
                 container.addSceneNodeFromArea("faguangdongxian");
-                container.setTargetVal(Q3D.Enums.nodeContainerType.Visible, 0, Q3D.Enums.materialApplyMode.Replace); 
-
+                container.setTargetVal(Q3D.Enums.nodeContainerType.Visible, 0, Q3D.Enums.materialApplyMode.Replace);                 
+                terrainMgr.setTransparency("lgbig_version_1", 0.8);
 
             } else if (con.currStatus == 0) { //日景
-                var terrainMgr = map.getOcx().getTerrainManager();
                 terrainMgr.hideTerrain("osgb_version_1");
                 terrainMgr.hideTerrain("new_gaoqing_version_1");
                 terrainMgr.hideTerrain("pudong_version_1");
@@ -34,6 +34,7 @@
         },
 
         hidePipeline: function(){
+            var terrainMgr = map.getOcx().getTerrainManager();
             if (con.currStatus == 1) { //夜景
                 // map.getSceneNode('beijing/beijing_shuimian').setVisible(1);
                 // map.getSceneNode('beijing/beijing_dikuai').setVisible(1);
@@ -44,11 +45,11 @@
                 var container = Q3D.nodeContainer("pipeContainer");
                 container.addSceneNodeFromArea("beijing");
                 container.addSceneNodeFromArea("faguangdongxian");
-                container.setTargetVal(Q3D.Enums.nodeContainerType.Visible, 1, Q3D.Enums.materialApplyMode.Replace); 
+                container.setTargetVal(Q3D.Enums.nodeContainerType.Visible, 1, Q3D.Enums.materialApplyMode.Replace);
+                terrainMgr.setTransparency("lgbig_version_1", 1);    
             }
 
             if(require('sl_Pipeline').isOpenedPipeline == true && con.currStatus == 0){    
-                var terrainMgr = map.getOcx().getTerrainManager();
                 terrainMgr.showTerrain("osgb_version_1");
                 terrainMgr.showTerrain("new_gaoqing_version_1");
                 terrainMgr.showTerrain("pudong_version_1");
