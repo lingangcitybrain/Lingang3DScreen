@@ -731,12 +731,12 @@
                 var seriesDataMax = Math.max.apply(null, seriesData);
                 seriesDataMax = (Math.ceil(seriesDataMax / 1000) * 1000).toFixed(0);
                 var seriesDataMin = parseInt(Math.min.apply(null, seriesData));
-                seriesDataMin = seriesDataMin < 200 ? 0 : seriesDataMin;
+                seriesDataMin = seriesDataMin < 8000 ? 0 : seriesDataMin;
                 //事件处理成功率最大最小数
                 var sjcgSeriesRateDataMax = Math.max.apply(null, oSjcgseriesRateData);
                 sjcgSeriesRateDataMax = (Math.ceil(sjcgSeriesRateDataMax / 100) * 100).toFixed(0);
                 var sjcgSeriesRateDataMin = parseInt(Math.min.apply(null, oSjcgseriesRateData));
-
+                // sjcgSeriesRateDataMin = sjcgSeriesRateDataMin < 99.8 ? 99 : sjcgSeriesRateDataMin;
 
                 // 图表成功数成功率循环
                 var sjcgTimerIndex = 0;
