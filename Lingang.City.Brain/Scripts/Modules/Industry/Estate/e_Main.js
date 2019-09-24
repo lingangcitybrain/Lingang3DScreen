@@ -65,7 +65,8 @@
                 url: con.HtmlUrl + 'Industry/Estate/Left_First_01.html'
             }
             com.UIControlAni(option, function () {
-                require("e_Echart").cyjzl()
+                // require("e_Echart").cyjzl()
+                require("e_Echart").qybhqs();
             });
         },
         //加载第二个div
