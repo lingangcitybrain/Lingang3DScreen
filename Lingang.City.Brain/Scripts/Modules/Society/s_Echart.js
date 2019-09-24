@@ -6,6 +6,7 @@
     var oSjcgseriesRateData = []; //事件处理成功率数据
     var sjcgChartClose = true;
     var strTitle = "事件成功数";
+    var sPerCarPic = 'car'; //放大显示车或者人
 
     return {
         perCarPicTimer: null,   //人员车辆结构化图片
@@ -119,7 +120,7 @@
                 $("#center_05").html(template);
                 $("#center_05").show('drop', 1000);//左侧
 
-                require("s_Echart").perCarPic();
+                require("s_Echart").bigPerCarPic();
             })
             $("#center_03").html("");
             $("#center_04").html("");
@@ -588,6 +589,8 @@
                 }, 20000);
 
                 function changeToCarFun() {
+                    sPerCarPic = 'car'
+                    $("#bigpercartitle").html("车辆信息");
                     $(".iot-percarpic").css({ "backgroundImage": "url(" + carData.picurl + ")" });
                     $(".iot-percarmess>em").html('车牌号：');
                     $(".iot-percarmess>span").html(carData.platenumber);
@@ -601,6 +604,8 @@
                 }
 
                 function changeToPersonFun() {
+                    sPerCarPic = 'person'
+                    $("#bigpercartitle").html("人员信息");
                     var time = personData.wzbjsj.split(".")[0].split("-");
                     var timestr = [time[1], time[2]].join("/").replace("T", " ");
 
@@ -617,10 +622,58 @@
                     if ($("#iot-percartime").length > 0) {
                         $("#iot-percartime>span").html(timestr.replace("/", "月").replace(" ", "日 "));
                     }
-
                 }
 
 
+            });
+        },
+
+        bigPerCarPic: function () {
+            s_EchartAjax.getPerCarPicData(function (result) {
+                if (require("s_Echart").perCarPicData == null) { return false; }
+                var data = require("s_Echart").perCarPicData;
+                var carData = data.car[0];
+                var personData = data.person[0];
+
+                if (sPerCarPic === 'car') {
+                    changeToCarFun();
+                } else {
+                    changeToPersonFun();
+                }
+
+                function changeToCarFun() {
+                    $("#bigpercartitle").html("车辆信息");
+                    $(".iot-percarpic").css({ "backgroundImage": "url(" + carData.picurl + ")" });
+                    $(".iot-percarmess>em").html('车牌号：');
+                    $(".iot-percarmess>span").html(carData.platenumber);
+                    $(".iot-percartime>em").html('识别时间：');
+
+                    $(".iot-percartime>span").html([carData.date.split("-")[1], carData.date.split("-")[2]].join("/"));
+                    if ($("#iot-percartime").length > 0) {
+                        $("#iot-percartime>span").html([carData.date.split("-")[1], carData.date.split("-")[2]].join("月").replace(" ", "日 "));
+                    }
+
+                }
+
+                function changeToPersonFun() {
+                    $("#bigpercartitle").html("人员信息");
+                    var time = personData.wzbjsj.split(".")[0].split("-");
+                    var timestr = [time[1], time[2]].join("/").replace("T", " ");
+
+                    $(".iot-percarpic").css({ "backgroundImage": "url(" + personData.cjtobjectid + ")" });
+                    if ($("#iot-percarpic").length > 0) {
+                        $("#iot-percarpic").css({ "backgroundImage": "url(" + personData.ytobjectid + ")" });
+                    }
+
+                    $(".iot-percarmess>em").html('性别：');
+                    $(".iot-percarmess>span").html(personData.gender);
+                    $(".iot-percartime>em").html('识别时间：');
+
+                    $(".iot-percartime>span").html(timestr);
+                    if ($("#iot-percartime").length > 0) {
+                        $("#iot-percartime>span").html(timestr.replace("/", "月").replace(" ", "日 "));
+                    }
+                }
             });
         },
 
