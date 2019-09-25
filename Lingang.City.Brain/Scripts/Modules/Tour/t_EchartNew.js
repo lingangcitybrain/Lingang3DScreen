@@ -615,8 +615,8 @@
             	var ykqsfxdata=[], ykqsfxtime=[];
 
             	for (var i = 0; i < data.length; i++) {
-            	    ykqsfxdata.push(data[i].visNumber);
-            	    ykqsfxtime.push(data[i].month + "月");
+            	    ykqsfxdata.push(data[i].ryrs);
+            	    ykqsfxtime.push(data[i].MONTH);
 				}
 
                option = {
@@ -742,8 +742,10 @@
             	var ykqsfxdata = [], ykqsfxtime = [];
 
             	for (var i = 0; i < data.length; i++) {
-            	    ykqsfxdata.push(data[i].visNumber);
-            	    ykqsfxtime.push(data[i].month + "月");
+            	    // ykqsfxdata.push(data[i].visNumber);
+                    // ykqsfxtime.push(data[i].month + "月");
+                    ykqsfxdata.push(data[i].ryrs);
+            	    ykqsfxtime.push(data[i].MONTH);
             	}
 
                 option = {

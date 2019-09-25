@@ -58,7 +58,8 @@
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
                     //url: con.InterfaceUrl + 'v1/park/person/futureVisitorTraffic',
-                    url: con.InterfaceUrl_DataStation + '/v1/tourist/getFutureVisitorTraffic',
+                    // url: con.InterfaceUrl_DataStation + '/v1/tourist/getFutureVisitorTraffic',
+                    url: con.InterfaceUrl_TourEvent + '/v1/park/person/hcgylsryrsay',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
