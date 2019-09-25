@@ -614,7 +614,7 @@
 
             	var ykqsfxdata=[], ykqsfxtime=[];
 
-            	for (var i = 0; i < data.length; i++) {
+            	for (var i = 0; i < data.length - 1; i++) { //不显示当前月的数据
             	    ykqsfxdata.push(data[i].ryrs);
             	    ykqsfxtime.push(data[i].MONTH);
 				}
