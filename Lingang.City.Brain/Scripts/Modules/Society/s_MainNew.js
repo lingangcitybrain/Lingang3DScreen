@@ -40,7 +40,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     C001: { Id: 1002, TextName: "市政道路", Name: "Event_C001", Type: 2, ChooseIcon: "Texture/Common/event2_hover.png", UnChooseIcon: "Texture/Common/event2.png" },
                     U002: { Id: 1003, TextName: "街面", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
                     U001: { Id: 1004, TextName: "海岸线", Name: "Event_U001", Type: 4, ChooseIcon: "Texture/Common/event4_hover.png", UnChooseIcon: "Texture/Common/event4.png", },
-                    U003: { Id: 1005, TextName: "工地", Name: "Event_C003", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
+                    U003: { Id: 1005, TextName: "工地", Name: "Event_U003", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
                     SANGAO: { Id: 1005, TextName: "三高事件", Name: "Event_SANGAO", Type: 6, ChooseIcon: "Texture/Common/event1_hover.png", UnChooseIcon: "Texture/Common/event1.png", },
                 }
             },
