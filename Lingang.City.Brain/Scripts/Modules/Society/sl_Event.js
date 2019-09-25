@@ -415,12 +415,12 @@
                                         '<div class="box-rightinfo scrolldiv flex" style="width:calc(100% - 6.5rem);">' +
                                             '<ul style="flex-grow:1; width:100%;">' +
                                               '<li style="color: #f90;">事件详情</li>' +
-                                                '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+                                                // '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                                                 '<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                                                 '<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
                                                 '<li><em>事件类型：</em><span>' + data.dispatchType + '</span></li>' +
                                                  //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-                                                '<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
+                                                // '<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
                                                 '<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
                                             '</ul>';
                         //社区事件的话，有传感器ID显示传感器详情
@@ -472,12 +472,12 @@
                                         '<div class="box-rightinfo scrolldiv flex" style="width:100%;">' +
                                             '<ul style="flex-grow:1;">' +
                                                 '<li style="color: #f90;">事件详情</li>' +
-                                                '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+                                                // '<li><em>事件属性：</em><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                                                 '<li><em>事件时间：</em><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                                                 '<li><em>事件地点：</em><span>' + data.address + '</span></li>' +
                                                 '<li><em>事件类型：</em><span>' + data.dispatchType + '</span></li>' +
                                                  //'<li><em>事件状态：</em><span>' + data.statusName + '</span></li>' +
-                                                '<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
+                                                // '<li><em>发生区域：</em><span>' + data.regionName + '</span></li>' +
                                                 '<li style="overflow:hidden;"><em style="float:left; width:5em;">事件描述：</em><span style="float:left; width:calc(100% - 5em);">' + data.eventDes + '</span></li>' +
                                             '</ul>';
                         //社区事件的话，有传感器ID显示传感器详情
@@ -581,12 +581,13 @@
 
                 $("#eventhead").html(data.eventName);//标题
                 var html = '<ul>';
-                html += ' <li><div>事件属性：</div><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
+                html += 
+                // ' <li><div>事件属性：</div><span>' + require("sl_Event").LayerType.List[data.communityId].TextName + '</span></li>' +
                 '<li><div>接警时间：</div><span>' + require("common").formatDate2(data.createTime) + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>地址：</div><span>' + data.address + '</span></li>' +
                      '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件类型：</div><span>' + data.dispatchType + '</span></li>' +
                      '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>事件状态：</div><span>' + data.statusName + '</span></li>' +
-                     '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>发生区域：</div><span>' + data.regionName + '</span></li>' +
+                    //  '<li><div><img src="Content/images/sqzz-poi-icon1.png"/>发生区域：</div><span>' + data.regionName + '</span></li>' +
                     '<li><div><img src="Content/images/sqzz-poi-icon2.png"/>事件描述：</div><span>' + data.eventDes + '</span></li>';
                 html += '</ul>';
                 //海岸线，街面，工地 显示历史无人机
