@@ -3566,7 +3566,7 @@
 
             //园区事件统计--区域
             t_EchartAjax.getYqsjtjQuyu(function (result) {
-                var data = require("t_Echart").yqsjtjQuyuData;
+                var data = require("t_Echart").yqsjtjQuyuData.list;
                 var dataNum = 0; dataTypeArr = [];
                 for (var i = 0; i < data.length; i++) {
                     dataNum += data[i].value;
@@ -3575,10 +3575,10 @@
                     }
                 }
 
-                //var htmltotal = '';
-                //htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
-                //htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
-                //$('#sjlxtotal').html(htmltotal);
+                var htmltotal = '';
+                htmltotal += ' <div class="">监控区域：<span class="testAerial">' + require("t_Echart").yqsjtjQuyuData.carCounts + '</span>个</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' + require("t_Echart").yqsjtjQuyuData.eventCounts + '</span>个</div>';
+                $('#sjqytotal').html(htmltotal);
 
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
