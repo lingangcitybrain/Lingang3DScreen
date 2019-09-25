@@ -239,12 +239,13 @@
                     leftOrRight: 'right'
                 }
                 com.UIControlAni(option, function () {
-                    require("t_Echart").zxsxt()
+                    setTimeout(function(){require("t_Echart").zxsxt();},1000);
+                    
                     require("t_Echart").rq();
                     //require("t_Echart").rycltj();//人员车辆统计
                     //require("t_Echart").personCarTotal();
                     require("t_Echart").personTotal_xj();
-                    setInterval(function () { require("t_Echart").personTotal_xj();}, 60 * 1000 * 30)
+                    setInterval(function () { require("t_Echart").personTotal_xj();}, 60 * 1000 * 30);
                     //require("t_Echart").personTotal();
                     //require("t_Echart").rycltj();//人员车辆统计
                     //require("t_Echart").Interval11 = setInterval(function () { require("t_Echart").rycltj() }, 5000)
