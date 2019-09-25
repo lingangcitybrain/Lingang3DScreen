@@ -3633,7 +3633,6 @@
         },
     	//中间放大 园区事件列表
         yqsjCenterEventList: function () {
-
         	$("#center-event-tabtour .center-event-tab").each(function (index, element) {
         	    $(this).click(function () {
         	        require("t_Home").EventListBigChartTimeClickEvent(index);
@@ -3686,6 +3685,8 @@
         					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
         				}
         			}
+        			$('.scrolldiv').perfectScrollbar({ cursorwidth: 6, cursorcolor: "rgba(0, 126, 179, .6)", });
+
         		})
         	}
         },
