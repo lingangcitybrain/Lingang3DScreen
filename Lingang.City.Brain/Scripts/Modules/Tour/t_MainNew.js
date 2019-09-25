@@ -558,6 +558,7 @@
                         extraInfo:{
                             crossOrigin:"anonymous"
                         },
+                        "rePlay": true,
                     }, function (player) {
                         //加载成功,清空错误提示
                         $(".prism-ErrorMessage").empty();
