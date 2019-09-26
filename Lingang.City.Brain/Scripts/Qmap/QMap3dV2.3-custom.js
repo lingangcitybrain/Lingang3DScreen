@@ -51,14 +51,14 @@
             });            
             
             MapObj.parent().prepend(
-                //"<div id='progressbarWrapper' style='width:" + this.WidthInView + "px" + ";height:" + this.HeightInView + "px;background-image:url(http://" + location.host + "/LingangCityBrain/Content/images/pj-3d.png);background-color:#D2DCE9;background-repeat:no-repeat;overflow:hidden;background-position:top center;'>" +
-                "<div id='progressbarWrapper' style='width:" + this.WidthInView + "px" + ";height:" + this.HeightInView + "px;background-color:#D2DCE9;background-repeat:no-repeat;overflow:hidden;background-position:top center;'>" +
-                   "<div id='versionInfo'  style='text-align:center;color:#E27109;font-family: 微软雅黑; font-size: .8rem;'>&nbsp;</div>" +
+                "<div id='progressbarWrapper' style='width:" + this.WidthInView + "px" + ";height:" + this.HeightInView + "px;background-image:url(http://" + location.host + "/LingangCityBrain/Content/images/backgroundimg.png);background-color:#136A9A;background-repeat:no-repeat;overflow:hidden;background-position:top center;'>" +
+                //"<div id='progressbarWrapper' style='width:" + this.WidthInView + "px" + ";height:" + this.HeightInView + "px;background-color:#D2DCE9;background-repeat:no-repeat;overflow:hidden;background-position:top center;'>" +
+                   "<div id='versionInfo'  style='text-align:center;color:#E27109;font-family: 微软雅黑; font-size: .7rem;'>&nbsp;</div>" +
                     "<div id='progressbar' style='position:relative;'>"+
                         "<div class='progress-label' style='text-align:center; line-height:2em; font-family:微软雅黑;font-weight:bold;font-size: inherit; text-shadow: 1px 1px 0 #fff;color: darkmagenta '>正在加载QMap3D V2.0引擎，请稍等,如果您是首次访问速度会较慢，请耐心等待</div>" +
 
                   "</div>" +
-                    "<div id='LoadingInfo' style='text-align: center; font-family: 微软雅黑; font-size: .8rem;'></div>"+
+                    "<div id='LoadingInfo' style='text-align: center; font-family: 微软雅黑; font-size: .7rem;'></div>"+
                 "</div>");
             var progressbar = $("#progressbar"),
 				progressLabel = $(".progress-label");

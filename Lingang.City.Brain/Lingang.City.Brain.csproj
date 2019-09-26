@@ -529,7 +529,9 @@
     <Content Include="Content\animsition.min.css" />
     <Content Include="Content\common.css" />
     <Content Include="Content\images\20190320-1b77e4e7-0a580a000f62-00000008-000090d4.jpg" />
+    <Content Include="Content\images\AI-icon.png" />
     <Content Include="Content\images\alert_red.png" />
+    <Content Include="Content\images\backgroundimg.png" />
     <Content Include="Content\images\bgtoleft.png" />
     <Content Include="Content\images\bgtoright.png" />
     <Content Include="Content\images\box-bg1-active.png" />
