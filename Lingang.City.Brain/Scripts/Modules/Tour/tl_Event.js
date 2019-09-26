@@ -161,7 +161,7 @@
                     //html += '<li class="yqsjlb-item clearfix">'+
                     //    '<div class="item-l"></div>'+
                     //    '<div class="item-r" onclick="require(\'tl_Event\').loadEventDetail(' + data[i].id + ');">' +
-                    //        '<div>拍照时间：' + data[i].sbsj + '</div>' +
+                    //        '<div>事件时间：' + data[i].sbsj + '</div>' +
                     //        '<div>处理状态：' + data[i].DICTNAME + '<span>事件类型：' + data[i].flmc + '</span></div>' +
                     //        '<div>事件详情：' + data[i].sjms + '</div>' +
                     //    '</div>'+
