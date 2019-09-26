@@ -741,7 +741,7 @@
 
             	var ykqsfxdata = [], ykqsfxtime = [];
 
-            	for (var i = 0; i < data.length; i++) {
+            	for (var i = 0; i < data.length - 1; i++) {
             	    // ykqsfxdata.push(data[i].visNumber);
                     // ykqsfxtime.push(data[i].month + "月");
                     ykqsfxdata.push(data[i].ryrs);
