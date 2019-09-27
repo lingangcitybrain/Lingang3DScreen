@@ -18,7 +18,7 @@
                 var areaName = con.AreaName;
                 var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
                 var pois = [];
-                var poiList = '';
+                var poiList = [];
                 var resPoi = '';
                 for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
 
@@ -28,16 +28,43 @@
                     var iconSize = Q3D.vector2(72, 76);
 
                     var poiPOS = e_LayerMenuData.GardenPOI.Data[row.buildingID];
-                    if(poiPOS) {
-                        resPoi = poiPOS.lng +','+  poiPOS.lat;
+                    if (poiPOS) {
+                        resPoi = poiPOS.lng + ',' + poiPOS.lat;
                     }
-                    if (poiList.indexOf(resPoi) && resPoi != '' && resPoi && poiPOS) {
-                        var lng = Number(poiPOS.lng) + 0.001;
-                        var lat = Number(poiPOS.lat) + 0.001;
-                        resPoi = lng + ',' +lat;
+                    else{
+                        continue;
                     }
 
-                    poiList = poiList + ';' + resPoi;
+                    var counts = 0;
+
+                    for (var j = 0; j < poiList.length; j++) {
+                        if (resPoi == poiList[j]) {
+                            counts++;
+                        }
+                    }
+                    poiList.push(resPoi);
+                    if (counts > 0 && resPoi != '' && resPoi && poiPOS) {
+                        var lng,lat;
+                        if(counts == 1){
+                            lng = Number(poiPOS.lng) + 0.00015;
+                            lat = Number(poiPOS.lat) + 0.00015;
+                        }
+                        else if(counts == 2){
+                            lng = Number(poiPOS.lng) + 0.00015;
+                            lat = Number(poiPOS.lat) - 0.00015;
+                        }
+                        else if(counts == 3){
+                            lng = Number(poiPOS.lng) - 0.00015;
+                            lat = Number(poiPOS.lat) + 0.00015;
+                        }
+                        else{
+                            lng = Number(poiPOS.lng) - 0.00015;
+                            lat = Number(poiPOS.lat) - 0.00015;
+                        }
+                        resPoi = lng + ',' + lat;
+                    }
+
+
                     //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
                     //var pos = Coordinate + ",0";
 
@@ -353,36 +380,32 @@
             if (data != null) {
                 var name = data.companyName; //公司名称
                 var createtime = data.registDate; //成立时间
-                var companytype = data.companyType; //" "; //data.companytype;//公司类型
-                var zczb = data.registAmount + "千万"; // " //data.zczb;//注册资本
+                var companytype = data.companyType; //data.companytype;//公司类型
+                var zczb = data.registAmount + "万"; //data.zczb;//注册资本
                 var updatetime = data.inputTime;
 
                 //var hy = data.hy;//行业
                 var jyfw = data.businessScope; //经营范围 
-                if (jyfw != '' && jyfw.length > 22) {
-                    jyfw = jyfw.substr(0, 22) + '...';
-                }
+                // if (jyfw != '' && jyfw.length > 22) {
+                //     jyfw = jyfw.substr(0, 22) + '...';
+                // }
                 var zt = data.status; //状态
                 // var preYearOutputValue = data.preYearOutputValue;
                 // var preYearTax = data.preYearTax;
                 var dwtz = ''; //data.status; //data.dwtz;//对外投资
                 var address = data.buildingName + '   ' + data.roomName;
 
-
-                //if (jyfw.length > 20) { jyfw = jyfw.substring(0, 20)+"..." }
-
-
                 var html = "";
                 html += '<li class="qyjbxx-li"><div>公司名称：</div><span>' + name + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>注册日期：</div><span>' + createtime + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>公司类型：</div><span>' + companytype + '</span></li>';
+                html += '<li class="qyjbxx-li"><div>注册日期：</div><span>' + createtime + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>注册资本：</div><span>' + zczb + '</span></li>';
+                html += '<li class="qyjbxx-li"><div>对外投资：</div><span>' + dwtz + '</span></li>';
                 // html += '<li class="qyjbxx-li"><div>上年度产值：</div><span>' + preYearOutputValue + '</span></li>';
                 // html += '<li class="qyjbxx-li"><div>上年度税收：</div><span>' + preYearTax + '</span></li>';
-                //html += '<li class="qyjbxx-li"><div>所属行业：</div><span>' + hy + '</span></li>';
+                // html += '<li class="qyjbxx-li"><div>所属行业：</div><span>' + hy + '</span></li>';
                 html += '<li class="qyjbxx-li qyjbxx-jyfwli"><div>经营范围：</div><span>' + jyfw + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>状态：</div><span>' + zt + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>对外投资：</div><span>' + dwtz + '</span></li>';
+                html += '<li class="qyjbxx-li"><div>当前状态：</div><span>' + zt + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>所在楼号：</div><span>' + address + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>更新日期：</div><span>' + updatetime + '</span></li>';
 
