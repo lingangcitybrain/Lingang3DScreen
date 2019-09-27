@@ -77,7 +77,7 @@
                 var dataToArr = [], dataToArrIndex = -1;
                 totalNum = parseInt(data.TotalImportances) + parseInt(data.TotalNewInTalks) + parseInt(data.TotalInTalks) + parseInt(data.TotalNewDeals) + parseInt(data.TotalGenerals) + parseInt(data.TotalNewTracks);
                 dataToArr.push({ name: "重点项目", num: data.TotalImportances, color: "#b356d8" });
-                dataToArr.push({ name: "新增在谈", num: data.TotalNewInTalks, color: "#184370" });
+                dataToArr.push({ name: "新增在谈", num: data.TotalNewInTalks, color: "#00b645" });
                 dataToArr.push({ name: "在谈项目", num: data.TotalInTalks, color: "#547ae5" });
                 dataToArr.push({ name: "新增成交", num: data.TotalNewDeals, color: "#1588e5" });
                 dataToArr.push({ name: "一般项目", num: data.TotalGenerals, color: "#de7869" });
@@ -113,7 +113,7 @@
                 }
 
                 //产业颜色
-                var dataArrColor = ["#b356d8", "#184370", "#547ae5", "#1588e5", "#de7869", "#e57f01", "#e4e100", "#07d8ae", "#70d367"]
+                var dataArrColor = ["#b356d8", "#00b645", "#547ae5", "#1588e5", "#de7869", "#e57f01", "#e4e100", "#07d8ae", "#70d367"]
                 var industryColor = [];
                 for (var i = 0; i < dataArr.length; i++) {
                     industryColor.push([dataArrIndexSum[i], dataArrColor[i]])
