@@ -2216,13 +2216,20 @@ dd.pjc-statistic-star >form{
 	background-color: rgba(3,9,43,.5);
 	font-size: .32rem;
 	box-shadow: inset 0 0 .25rem rgba(20,154,239,.75);
-
+    box-sizing:border-box;
 }
 .qyjbxx-li>div{
 	float: left;
 	margin-right: .2rem;
 }
 .qyjbxx-li>span{ color: #0395bc; }
+.qyjbxx-jyfwli{
+	padding: .3rem;
+	padding-left: .35rem;
+    height: auto;
+    line-height: normal;
+}
+
 
 /*sqzz-wrj-lr*/
 .sqzz-wrj-lr1{

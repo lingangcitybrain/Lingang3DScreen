@@ -368,7 +368,7 @@
                 // html += '<li class="qyjbxx-li"><div>上年度产值：</div><span>' + preYearOutputValue + '</span></li>';
                 // html += '<li class="qyjbxx-li"><div>上年度税收：</div><span>' + preYearTax + '</span></li>';
                 //html += '<li class="qyjbxx-li"><div>所属行业：</div><span>' + hy + '</span></li>';
-                html += '<li class="qyjbxx-li"><div>经营范围：</div><span>' + jyfw + '</span></li>';
+                html += '<li class="qyjbxx-li qyjbxx-jyfwli"><div>经营范围：</div><span>' + jyfw + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>状态：</div><span>' + zt + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>对外投资：</div><span>' + dwtz + '</span></li>';
                 html += '<li class="qyjbxx-li"><div>所在楼号：</div><span>' + address + '</span></li>';
