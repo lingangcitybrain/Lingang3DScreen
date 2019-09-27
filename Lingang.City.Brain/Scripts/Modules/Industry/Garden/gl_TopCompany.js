@@ -18,6 +18,8 @@
                 var areaName = con.AreaName;
                 var icon = require("gl_TopCompany").LayerType.UnChooseIcon;
                 var pois = [];
+                var poiList = '';
+                var resPoi = '';
                 for (var i = 0; i < require("gl_TopCompany").POIData.length; i++) {
 
                     var row = require("gl_TopCompany").POIData[i];
@@ -26,13 +28,23 @@
                     var iconSize = Q3D.vector2(72, 76);
 
                     var poiPOS = e_LayerMenuData.GardenPOI.Data[row.buildingID];
+                    if(poiPOS) {
+                        resPoi = poiPOS.lng +','+  poiPOS.lat;
+                    }
+                    if (poiList.indexOf(resPoi) && resPoi != '' && resPoi && poiPOS) {
+                        var lng = Number(poiPOS.lng) + 0.001;
+                        var lat = Number(poiPOS.lat) + 0.001;
+                        resPoi = lng + ',' +lat;
+                    }
+
+                    poiList = poiList + ';' + resPoi;
                     //var Coordinate = com.gcj02towgs84(row.lng, row.lat);//高德坐标转百度坐标
                     //var pos = Coordinate + ",0";
 
                     //var pos = row.lng + "," + row.lat + ",15";
                     var pos = "";
-                    if (poiPOS) {
-                        pos = poiPOS.lng + "," + poiPOS.lat + ",15";
+                    if (resPoi) {
+                        pos = resPoi + ",15";
                     }
                     if (pos != "") {
                         var position = Q3D.vector3(pos.toGlobalVec3d().toLocalPos(areaName));
@@ -346,14 +358,14 @@
                 var updatetime = data.inputTime;
 
                 //var hy = data.hy;//行业
-                var jyfw = data.businessScope;//经营范围 
-                if(jyfw != '' && jyfw.length > 22){
-                    jyfw = jyfw.substr(0,22) + '...';
+                var jyfw = data.businessScope; //经营范围 
+                if (jyfw != '' && jyfw.length > 22) {
+                    jyfw = jyfw.substr(0, 22) + '...';
                 }
-                var zt = data.status;//状态
+                var zt = data.status; //状态
                 // var preYearOutputValue = data.preYearOutputValue;
                 // var preYearTax = data.preYearTax;
-                var dwtz = '';//data.status; //data.dwtz;//对外投资
+                var dwtz = ''; //data.status; //data.dwtz;//对外投资
                 var address = data.buildingName + '   ' + data.roomName;
 
 
