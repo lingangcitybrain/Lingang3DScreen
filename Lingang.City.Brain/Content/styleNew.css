@@ -2643,7 +2643,7 @@ dd.pjc-statistic-star >form{
 	font-size: .2rem;
 	padding-top: .2rem;
 	color: #03d2fe;
-	background: url(../Content/images/cy-qy-jrlc-enter.png) no-repeat;
+	/* background: url(../Content/images/cy-qy-jrlc-enter.png) no-repeat; */
 	background-size: 1rem;
 	border-radius: 50%;
 	box-sizing: border-box;

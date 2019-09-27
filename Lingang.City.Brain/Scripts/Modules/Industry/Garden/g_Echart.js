@@ -302,7 +302,7 @@
                 }
 
                 for (var i = 0; i < aTopTenRecCap.length; i++) {
-                    $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].ent_name)
+                    $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].companyName);
 
                     $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar1").css({ width: aTopTenSubConamWidth[i] + '%' }).children().html(aTopTenSubConam[i])
 
@@ -1131,7 +1131,7 @@
                 var unitEnergyRank = JSON.parse(data.unitenergyrank);
                 $("#zhnh-unit").html("");
                 for (var i = 0; i < unitEnergyRank.length; i++) {
-                    $("#zhnh-unit").append('<li>' + unitEnergyRank[i].buildingname + '<span>' + unitEnergyRank[i].energy.toFixed(2) + ' KW/㎡</span></li>');
+                    $("#zhnh-unit").append('<li>' + unitEnergyRank[i].buildingname + '<span>' + unitEnergyRank[i].energy.toFixed(1) + ' KW/㎡</span></li>');
                 }
                 // 同比和环比
                 var oTongbiHuanbi = JSON.parse(data.chainratioanalysis);
@@ -1160,7 +1160,7 @@
                     } else {
                         $("#zhnh-common>span").addClass("colorgreen").removeClass("colorred");
                     }
-                    tongbiData = tongbiData.toFixed(2) + '%';
+                    tongbiData = tongbiData.toFixed(1) + '%';
                 }
 
                 //环比
@@ -1173,7 +1173,7 @@
                     } else {
                         $("#zhnh-chainratio>span").addClass("colorgreen").removeClass("colorred");
                     }
-                    huanbiData = huanbiData.toFixed(2) + '%';
+                    huanbiData = huanbiData.toFixed(1) + '%';
                 }
 
 
@@ -1283,9 +1283,9 @@
                 $("#zhnh-chainratio>span>i").html(huanbiData);
 
                 //zhnh-dailyenergy
-                $("#zhnh-dailyenergy>span").html(data.dailyenergy);
-                $("#zhnh-monthenergy>span").html(data.monthenergy);
-                $("#zhnh-yearenergy>span").html(data.yearenergy);
+                $("#zhnh-dailyenergy>span").html(parseInt(data.dailyenergy).toFixed(0));
+                $("#zhnh-monthenergy>span").html(parseInt(data.monthenergy).toFixed(0));
+                $("#zhnh-yearenergy>span").html(parseInt(data.yearenergy).toFixed(0));
 
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
 
