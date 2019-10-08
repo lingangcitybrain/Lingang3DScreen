@@ -40,7 +40,7 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     C001: { Id: 1002, TextName: "市政道路", Name: "Event_C001", Type: 2, ChooseIcon: "Texture/Common/event2_hover.png", UnChooseIcon: "Texture/Common/event2.png" },
                     U002: { Id: 1003, TextName: "街面", Name: "Event_U002", Type: 3, ChooseIcon: "Texture/Common/event3_hover.png", UnChooseIcon: "Texture/Common/event3.png" },
                     U001: { Id: 1004, TextName: "海岸线", Name: "Event_U001", Type: 4, ChooseIcon: "Texture/Common/event4_hover.png", UnChooseIcon: "Texture/Common/event4.png", },
-                    U003: { Id: 1005, TextName: "工地", Name: "Event_C003", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
+                    U003: { Id: 1005, TextName: "工地", Name: "Event_U003", Type: 5, ChooseIcon: "Texture/Common/event5_hover.png", UnChooseIcon: "Texture/Common/event5.png", },
                     SANGAO: { Id: 1005, TextName: "三高事件", Name: "Event_SANGAO", Type: 6, ChooseIcon: "Texture/Common/event1_hover.png", UnChooseIcon: "Texture/Common/event1.png", },
                 }
             },
@@ -279,16 +279,20 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         ////////////////////////////////////////////////////////////////////其他///////////////////////////////////////////////////
         //加载视频
         loadLeft01_02_Video: function () {
-            if (require("s_Main").left01_02_video01) {
-                require("s_Main").left01_02_video01.dispose();
-                require("s_Main").left01_02_video01 = null;
+            try {
+                if (require("s_Main").left01_02_video01) {
+                    require("s_Main").left01_02_video01.dispose();
+                    require("s_Main").left01_02_video01 = null;
+                }
+                if (require("s_Main").left01_02_video02) {
+                    require("s_Main").left01_02_video02.dispose();
+                    require("s_Main").left01_02_video02 = null;
+                }
+                $("#Societyleft01_02_video01").empty();
+                $("#Societyleft01_02_video02").empty();
+            } catch (e) {
+                console.log(e);
             }
-            if (require("s_Main").left01_02_video02) {
-                require("s_Main").left01_02_video02.dispose();
-                require("s_Main").left01_02_video02 = null;
-            }
-            $("#Societyleft01_02_video01").empty();
-            $("#Societyleft01_02_video02").empty();
 
             s_EchartAjax.getJqCameraVideo(function () {
             	if (require("s_Echart").jqCameraVideo == null) { return false; }
@@ -326,18 +330,39 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
             		require("s_LayerMenuAjax").getCameraUrlById(post_data2, function (result) {
             			var cameraurl = result.data;
             			require("s_Main").left01_02_video02 = new Aliplayer({
-            				"id": "Societyleft01_02_video02",
-            				"source": cameraurl,
-            				//"width": "20%",
-            				//"height": "20%",
-            				"autoplay": true,
-            				"isLive": true,
-            				"rePlay": false,
-            				"showBuffer": true,
-            				"snapshot": false,
-            				"showBarTime": 5000,
-            				"useFlashPrism": true,
-
+            				id: "Societyleft01_02_video02",
+            				source: cameraurl,
+                            useFlashPrism: true,   
+                            autoplay: true,
+                            isLive:true,
+                            playsinline:true,
+                            controlBarVisibility:'hover',
+                            extraInfo:{
+                                crossOrigin:"anonymous"
+                            },
+                            // skinLayout:[
+                            //     {name: "bigPlayButton", align: "blabs", x: 30, y: 80},
+                            //     {
+                            //       name: "H5Loading", align: "cc"
+                            //     },
+                            //     {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+                            //     {name: "infoDisplay"},
+                            //     {name:"tooltip", align:"blabs",x: 0, y: 56},
+                            //     {name: "thumbnail"},
+                            //     {
+                            //       name: "controlBar", align: "blabs", x: 0, y: 0,
+                            //       children: [
+                            //         {name: "progress", align: "blabs", x: 0, y: 44},
+                            //         {name: "playButton", align: "tl", x: 15, y: 12},
+                            //         {name: "timeDisplay", align: "tl", x: 10, y: 7},
+                            //         {name: "fullScreenButton", align: "tr", x: 10, y: 12},
+                            //         {name:"subtitle", align:"tr",x:15, y:12},
+                            //         {name:"setting", align:"tr",x:15, y:12},
+                            //         {name: "volume", align: "tr", x: 15, y: 10},
+                            //         {name: "snapshot", align: "tr", x: 5, y: 12},
+                            //       ]
+                            //     }
+                            //   ],
             			}, function (player) {
             				$(".prism-ErrorMessage").empty();
             			})
@@ -350,11 +375,16 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
 
             var videowidth = $(".wrj-li").width();
             var videoheight = $(".wrj-li").height();
-            if (require("s_Main").left01_03_video01) {
-                require("s_Main").left01_03_video01.dispose();
-                require("s_Main").left01_03_video01 = null;
+            try{
+                if (require("s_Main").left01_03_video01) {
+                    require("s_Main").left01_03_video01.dispose();
+                    require("s_Main").left01_03_video01 = null;
+                }
+                $("#Societyleft01_03_video01").empty();
             }
-            $("#Societyleft01_03_video01").empty();
+            catch (e) {
+                console.log(e);
+            }
 
             s_EchartAjax.getWrjRideo(function () {
             	if (require("s_Echart").wrjRideo == null) { return false; }
@@ -458,8 +488,11 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
         loadRecentFlyVideo: function (url) {
             var videowidth = $("#recentFlyVideo").width();
             var videoheight = $("#recentFlyVideo").height();
-            if (require("s_Main").recentFlyVideo) {
+            if (require("s_Main").recentFlyVideo && require("s_Main").recentFlyVideo != undefined) {
+                try{
                 require("s_Main").recentFlyVideo.dispose();
+                }
+                catch(e){console.log(e);}
                 require("s_Main").recentFlyVideo = null;
             }
             $("#recentFlyVideo").empty();
@@ -469,13 +502,18 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                     // "source": con.WebServiceUrl + "/Content/video/drone_video_demo.flv",
                     "source": url,
                     "autoplay": true,
-                    "isLive": false,
-                    "rePlay": true,
-                    "showBuffer": true,
-                    "snapshot": false,
-                    "showBarTime": 5000,
+                    "isLive": true,
+                    // "rePlay": true,
+                    // "showBuffer": true,
+                    // "snapshot": false,
+                    // "showBarTime": 5000,
                     "useFlashPrism": true,
-                    "mediaType": "audio"
+                    // "mediaType": "audio"
+                    playsinline:true,
+                    controlBarVisibility:'hover',
+                    extraInfo:{
+                        crossOrigin:"anonymous"
+                      }
 
                 }, function (player) {
                     //加载成功,清空错误提示
@@ -653,7 +691,16 @@ function (con, com, s_LayerMenuAjax, s_EchartAjax, s_LeftLayer, s_RightLayer, s_
                 if (require("s_Echart").societyBigNumData == null) { return false; }
                 var data = require("s_Echart").societyBigNumData;
                // data = data.data;   //中台接口格式变更
-               setTimeout(function(){require('s_Main').numberAni1(data);}, 1200);
+               setTimeout(function(){require('s_Main').numberAni1(data);}, 200);
+               setTimeout(function(){
+                   if($('#dsz-ajljs').text() == '0'){
+                    $('#dsz-ajljs').html(data.totalCount);
+                    $('#dsz-dyajs').html(data.monthCount);
+                    $('#dsz-znpds').html(data.dispatchRate);
+                    $('#dsz-zdfxl').html(data.autoRate);
+                    $('#dsz-bhl').html(data.loopRate);
+                   }
+               }, 2000);
             });
         },
 

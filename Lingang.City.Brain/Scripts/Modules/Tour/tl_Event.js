@@ -161,7 +161,7 @@
                     //html += '<li class="yqsjlb-item clearfix">'+
                     //    '<div class="item-l"></div>'+
                     //    '<div class="item-r" onclick="require(\'tl_Event\').loadEventDetail(' + data[i].id + ');">' +
-                    //        '<div>拍照时间：' + data[i].sbsj + '</div>' +
+                    //        '<div>事件时间：' + data[i].sbsj + '</div>' +
                     //        '<div>处理状态：' + data[i].DICTNAME + '<span>事件类型：' + data[i].flmc + '</span></div>' +
                     //        '<div>事件详情：' + data[i].sjms + '</div>' +
                     //    '</div>'+
@@ -205,7 +205,7 @@
 									'    <ul style="width:100%;">' +
 										'    <li><span>事件时间：</span><em>' + data.sbsj + '</em></li>' +
 										//'   <li><span>车牌号码：</span><em>' + carNumber + '</em></li>' +
-										'   <li><span>事件状态：</span><em>' + data.DICTNAME + '</em></li>' +
+										// '   <li><span>事件状态：</span><em>' + data.DICTNAME + '</em></li>' +
 										'    <li style="overflow:hidden;"><span style="float:left; width:5em;">事件描述：</span>' +
                 								'<em class="scrolldiv" style="float:left; width:calc(100% - 5em); height:auto;  max-height:1.5rem; ">' + data.sjms + '</em></li>' +
 									'    </ul>' +

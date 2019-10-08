@@ -6,13 +6,13 @@
             if (con.IsInterface)//执行接口
             {
                 $.ajax({
-                    type: "GET",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + 'v2/ywtb/parkData',
+                    type: "POST",      //data 传送数据类型。post 传递 
+                    url: con.InterfaceUrl_DataStation + 'v1/hlf',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {
-                        require("g_Echart").bigNumData = data.data;
-                        callback(data.data);
+                        require("g_Echart").bigNumData = data;
+                        callback(data);
                     },
                     error: function () {
                         //alert("数据传输错误");
@@ -57,7 +57,8 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl + 'v1/industrial/topTen',
+                    //url: con.InterfaceUrl + 'v1/industrial/topTen',
+                    url: con.InterfaceUrl_DataStation + 'v1/topTen2',
                     cache: false,
                     data: post_data,
                     dataType: 'json',  // 返回数据的数据类型json
@@ -182,7 +183,7 @@
             {
                 $.ajax({
                     type: "POST",      //data 传送数据类型。post 传递 
-                    url: con.InterfaceUrl_DataStation + "v1/patrol/list",//'v1/inspection/lastest',
+                    url: con.InterfaceUrl_DataStation + "v1/patrol/summary",//'v1/inspection/lastest',
                     cache: false,
                     dataType: 'json',  // 返回数据的数据类型json
                     success: function (data) {

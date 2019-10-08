@@ -154,8 +154,16 @@
                 $("#recent-flight-mess>li").eq(1).find("span").html(data.garbage)
                 $("#recent-flight-mess>li").eq(2).find("span").html(data.BootCounts)
                 
+                var img = '';
+                var arrImg = data.imageUrl.split(',');
+                if(arrImg.length > 0){
+                    img = arrImg[0];
+                }
+                else{
+                    img = data.imageUrl;
+                }
                 //右侧图片
-                $("#monthlyRecentFlyVideo").css({ background: "url(" +data.imageUrl + ") no-repeat", backgroundSize: "100% 100%" });
+                $("#monthlyRecentFlyVideo").css({ background: "url(" +img + ") no-repeat", backgroundSize: "100% 100%" });
                
             });
 

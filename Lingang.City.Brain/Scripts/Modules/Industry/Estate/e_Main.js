@@ -65,7 +65,8 @@
                 url: con.HtmlUrl + 'Industry/Estate/Left_First_01.html'
             }
             com.UIControlAni(option, function () {
-                require("e_Echart").cyjzl()
+                // require("e_Echart").cyjzl()
+                require("e_Echart").qybhqs();
             });
         },
         //加载第二个div
@@ -372,11 +373,11 @@
             });
         },
         numberAni: function (qyzs, gsqys, zlxxqys, djsqys, ssqys) {
-            com.numberAnimation($('#e_qyzs'), qyzs - 200, qyzs, 2000);
-            com.numberAnimation($('#e_gsqys'), gsqys - 200, gsqys, 2000);
-            com.numberAnimation($('#e_zlxxqys'), zlxxqys - 20, zlxxqys, 2000);
-            com.numberAnimation($('#e_djsqys'), djsqys - 200, djsqys, 2000);
-            com.numberAnimation($('#e_ssqys'), ssqys - 200, ssqys, 2000);
+            com.numberAnimation($('#e_qyzs'), qyzs - qyzs, qyzs, 2000);
+            com.numberAnimation($('#e_gsqys'), gsqys - gsqys, gsqys, 2000);
+            com.numberAnimation($('#e_zlxxqys'), zlxxqys - zlxxqys, zlxxqys, 2000);
+            com.numberAnimation($('#e_djsqys'), djsqys - djsqys, djsqys, 2000);
+            com.numberAnimation($('#e_ssqys'), ssqys - ssqys, ssqys, 2000);
         },
         //清空图层
         Revert: function () {

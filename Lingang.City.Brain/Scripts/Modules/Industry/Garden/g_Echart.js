@@ -77,7 +77,7 @@
                 var dataToArr = [], dataToArrIndex = -1;
                 totalNum = parseInt(data.TotalImportances) + parseInt(data.TotalNewInTalks) + parseInt(data.TotalInTalks) + parseInt(data.TotalNewDeals) + parseInt(data.TotalGenerals) + parseInt(data.TotalNewTracks);
                 dataToArr.push({ name: "重点项目", num: data.TotalImportances, color: "#b356d8" });
-                dataToArr.push({ name: "新增在谈", num: data.TotalNewInTalks, color: "#184370" });
+                dataToArr.push({ name: "新增在谈", num: data.TotalNewInTalks, color: "#00b645" });
                 dataToArr.push({ name: "在谈项目", num: data.TotalInTalks, color: "#547ae5" });
                 dataToArr.push({ name: "新增成交", num: data.TotalNewDeals, color: "#1588e5" });
                 dataToArr.push({ name: "一般项目", num: data.TotalGenerals, color: "#de7869" });
@@ -113,7 +113,7 @@
                 }
 
                 //产业颜色
-                var dataArrColor = ["#b356d8", "#184370", "#547ae5", "#1588e5", "#de7869", "#e57f01", "#e4e100", "#07d8ae", "#70d367"]
+                var dataArrColor = ["#b356d8", "#00b645", "#547ae5", "#1588e5", "#de7869", "#e57f01", "#e4e100", "#07d8ae", "#70d367"]
                 var industryColor = [];
                 for (var i = 0; i < dataArr.length; i++) {
                     industryColor.push([dataArrIndexSum[i], dataArrColor[i]])
@@ -279,14 +279,14 @@
             g_EchartAjax.getTopTenData(post_data, function (result) {
                 if (require("g_Echart").topTenData == null) { return false; }
                 var data = require("g_Echart").topTenData;
-                data = data.data;
+                //data = data.data;
 
                 var aTopTenRecCap = []; //前十注册资本
                 var aTopTenSubConam = []; //前十对外投资
                 
                 for (var i = 0; i < data.length; i++) {
-                    aTopTenRecCap.push(Number(data[i].rec_cap) ? Number(data[i].rec_cap) : 0);
-                    aTopTenSubConam.push(Number(data[i].sub_conam) ? Number(data[i].sub_conam) : 0);
+                    aTopTenRecCap.push(Number(data[i].registAmount) ? Number(data[i].registAmount) : 0);
+                    aTopTenSubConam.push(Number(data[i].ranking) ? Number(data[i].ranking) : 0);
                 }
 
                 //最大数
@@ -302,7 +302,7 @@
                 }
 
                 for (var i = 0; i < aTopTenRecCap.length; i++) {
-                    $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].ent_name)
+                    $("#topten-table>tbody>tr").eq(i).find("td:nth-child(2)>div").html(data[i].companyName);
 
                     $("#topten-table>tbody>tr").eq(i).find(".qytop10-bar1").css({ width: aTopTenSubConamWidth[i] + '%' }).children().html(aTopTenSubConam[i])
 
@@ -1131,7 +1131,7 @@
                 var unitEnergyRank = JSON.parse(data.unitenergyrank);
                 $("#zhnh-unit").html("");
                 for (var i = 0; i < unitEnergyRank.length; i++) {
-                    $("#zhnh-unit").append('<li>' + unitEnergyRank[i].buildingname + '<span>' + parseFloat(unitEnergyRank[i].energy).toFixed(2) + ' KW/㎡</span></li>');
+                    $("#zhnh-unit").append('<li>' + unitEnergyRank[i].buildingname + '<span>' + parseFloat(unitEnergyRank[i].energy).toFixed(1) + ' KW/㎡</span></li>');
                 }
                 // 同比和环比
                 var oTongbiHuanbi = JSON.parse(data.chainratioanalysis);
@@ -1160,7 +1160,7 @@
                     } else {
                         $("#zhnh-common>span").addClass("colorgreen").removeClass("colorred");
                     }
-                    tongbiData = tongbiData.toFixed(2) + '%';
+                    tongbiData = tongbiData.toFixed(1) + '%';
                 }
 
                 //环比
@@ -1173,7 +1173,7 @@
                     } else {
                         $("#zhnh-chainratio>span").addClass("colorgreen").removeClass("colorred");
                     }
-                    huanbiData = huanbiData.toFixed(2) + '%';
+                    huanbiData = huanbiData.toFixed(1) + '%';
                 }
 
 
@@ -1283,9 +1283,9 @@
                 $("#zhnh-chainratio>span>i").html(huanbiData);
 
                 //zhnh-dailyenergy
-                $("#zhnh-dailyenergy>span").html(data.dailyenergy);
-                $("#zhnh-monthenergy>span").html(data.monthenergy);
-                $("#zhnh-yearenergy>span").html(data.yearenergy);
+                $("#zhnh-dailyenergy>span").html(parseInt(data.dailyenergy).toFixed(0));
+                $("#zhnh-monthenergy>span").html(parseInt(data.monthenergy).toFixed(0));
+                $("#zhnh-yearenergy>span").html(parseInt(data.yearenergy).toFixed(0));
 
                 $('.scrolldiv').perfectScrollbar({ cursorwidth: 10, cursorcolor: "rgba(0, 126, 179, .6)", });
 

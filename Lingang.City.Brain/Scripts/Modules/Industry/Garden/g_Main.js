@@ -287,12 +287,12 @@
             g_EchartAjax.getBigNum(function (result) {
                 if (require("g_Echart").bigNumData == null) { return false; }
                 var data = require("g_Echart").bigNumData;
-                data = data[0];
+                // data = data[0];
 
-                com.numberAnimation($('#g_zcqys'), data.companyCount - 20, data.companyCount, 2000);
-                com.numberAnimation($('#g_gdzctz'), data.investmentValue - 200, data.investmentValue, 2000);
-                com.numberAnimation($('#g_cz'), data.outputValue - 200, data.outputValue, 2000);
-                com.numberAnimation($('#g_ss'), data.tax - 100, data.tax, 2000);
+                com.numberAnimation($('#g_zcqys'), data.total - data.total, data.total, 2000);
+                com.numberAnimation($('#g_gdzctz'), data.potential - data.potential, data.potential, 2000);
+                // com.numberAnimation($('#g_cz'), data.outputValue - 200, data.outputValue, 2000);
+                // com.numberAnimation($('#g_ss'), data.tax - 100, data.tax, 2000);
 
             });
         },

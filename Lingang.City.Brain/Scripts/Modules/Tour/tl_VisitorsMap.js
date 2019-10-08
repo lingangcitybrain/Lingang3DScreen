@@ -2,13 +2,17 @@
     return {
         heatMapPoints: "",
         //加载人流热力图
-        loadVisitorsMap: function () {
+        loadVisitorsMap: function (callback) {
             ////默认视口
             //com.LayerFlyto(1);
             
             require('tl_VisitorsMap').createHeatMapDecalV();
 
             require('tl_VisitorsMap').updateHeatMapData();
+
+            if($.isFunction(callback)){
+                callback();  
+            }
         },
         //清空
         Revert: function () {

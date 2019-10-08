@@ -319,7 +319,7 @@ body{
 }
 .divbox>h3{
 	font-size: .4rem;
-	font-family: "黑体"，
+	font-family: "黑体";
 } 
 .divbox>h3:not(.hastabbox){
 	float: left;
@@ -352,6 +352,7 @@ body{
 	padding-left: 1.4rem;
 	box-sizing: border-box;
 }
+.divbox>h3.hastabbox>.charttabbox>.charttab{ transform:translateY(-20%);}
 .yqfx.divbox>h3.hastabbox>.charttabbox{ width: calc(100% - 6em); }
 .yqfx .charttab{ margin-right: .2rem;}
 .yqfx .charttab:after{ display: none;}
@@ -1444,7 +1445,7 @@ dd.pjc-statistic-star >form{
 
 /*园区事件*/
 .yqsj .testAerial{ color:#f98d02; font-size:.4rem; }
-.yqsj .jtxx-tabbox{ top: -.2rem; }
+.yqsj .jtxx-tabbox{ top: -.7rem; }
 .yqsj-div1{
 	font-size: .25rem;
 	line-height: .8rem;
@@ -2215,13 +2216,32 @@ dd.pjc-statistic-star >form{
 	background-color: rgba(3,9,43,.5);
 	font-size: .32rem;
 	box-shadow: inset 0 0 .25rem rgba(20,154,239,.75);
-
+    box-sizing:border-box;
+    overflow:hidden;
 }
 .qyjbxx-li>div{
 	float: left;
-	margin-right: .2rem;
+    width:6em;
+    text-align:right;
 }
-.qyjbxx-li>span{ color: #0395bc; }
+.qyjbxx-li>span{
+    padding-left:.1rem;
+    float:left;
+    color: #0395bc; 
+    width:calc(100% - 6em);
+    box-sizing:border-box;
+}
+.qyjbxx-jyfwli{
+	padding: .3rem;
+	padding-left: .35rem;
+    height: auto;
+    line-height: normal;
+}
+.qyjbxx-jyfwli > span { 
+    max-height:1.3rem;
+    overflow:hidden;
+
+}
 
 /*sqzz-wrj-lr*/
 .sqzz-wrj-lr1{
@@ -2245,7 +2265,7 @@ dd.pjc-statistic-star >form{
 	padding: .2rem;
 	box-sizing: border-box;
 	padding-bottom:.5rem;
-	padding-top:.4rem;
+	/*padding-top:.4rem;*/
 }
 .sqzz-wrj-lr2-temp{ 
 	font-size: .32rem;
@@ -2642,7 +2662,7 @@ dd.pjc-statistic-star >form{
 	font-size: .2rem;
 	padding-top: .2rem;
 	color: #03d2fe;
-	background: url(../Content/images/cy-qy-jrlc-enter.png) no-repeat;
+	/* background: url(../Content/images/cy-qy-jrlc-enter.png) no-repeat; */
 	background-size: 1rem;
 	border-radius: 50%;
 	box-sizing: border-box;
@@ -2918,16 +2938,6 @@ dd.pjc-statistic-star >form{
 }
 
 
-
-
-
-
-
-
-
-
-
-
 .cy-ly-ll1 .sjxx-tab>button{
 	height: 1.6rem;
 	line-height: 1.3em;
@@ -2976,7 +2986,7 @@ dd.pjc-statistic-star >form{
 }
 .zsld-legend-list >li{ color:#0395bc; }
 .zsld-legend-list >li:nth-child(1):after{ color: #b659d8; }
-.zsld-legend-list >li:nth-child(2):after{ color: #183e6d; }
+.zsld-legend-list >li:nth-child(2):after{ color: #00b645; }
 .zsld-legend-list >li:nth-child(3):after{ color: #5673ed; }
 .zsld-legend-list >li:nth-child(4):after{ color: #128cf4; }
 .zsld-legend-list >li:nth-child(5):after{ color: #dd7373; }
@@ -3905,7 +3915,7 @@ dd.pjc-statistic-star >form{
 .sxtcar-identify-pic>div{
     width: 100%;
 	height: 100%;
-	background: url(../Content/images/pic-car.png);
+	/*background: url(../Content/images/pic-car.png);*/
 	background-size: 100% 100%;
 }
 #iot-percarpic {
@@ -4068,8 +4078,8 @@ dd.pjc-statistic-star >form{
 
 }
 .cyjb-box .hastabbox .charttab{
-	position: absolute;
-	top: 0;
+	/*position: absolute;
+	top: 0;*/
 	white-space:nowrap;
 }
 .cyjb-box .hastabbox .charttab>em{ color: #01fdf5;}
@@ -4199,19 +4209,22 @@ dd.pjc-statistic-star >form{
 .cyjbList-item.active>.cyjbList-type{
 	color: #fff;
 }
-
-
-
+#sjqytotal > div > .testAerial ,
+#sjlxtotal > div > .testAerial {font-size:.4rem;}
+.dkl-jtxx .cgq-li .item-r {margin-top:.2rem;}
 
 
 @media screen and (max-width: 11520px){
 	html{ font-size:140px;}
+
 }
 @media screen and (max-width: 7680px) {
     html { font-size: 90px; }
 }
 @media screen and (max-width: 4500px) {
     html { font-size: 70px; }
+    .cgq-li > .has-num.item-l::after { font-size:.35rem;}
+
     /*城区综治*/
     .society-lf1 { top:13rem !important;}
     .society-lf2 { top:16.8rem !important;}
@@ -4280,10 +4293,10 @@ dd.pjc-statistic-star >form{
     .industry-estate-rs2 { top:19rem !important; }
 
     .industry-garden-lf1 { top:13rem !important; }
-    .industry-garden-lf2 { top:22.5rem !important; }
+    .industry-garden-lf2 { top:21rem !important; }
 
     .industry-garden-ls1 { top:13rem !important; }
-    .industry-garden-ls2 { top:18rem !important; }
+    .industry-garden-ls2 { top:21rem !important; }
     .industry-garden-ls3 { top:24.5rem !important; }
 
     .industry-garden-rf1 { top:13rem !important; }

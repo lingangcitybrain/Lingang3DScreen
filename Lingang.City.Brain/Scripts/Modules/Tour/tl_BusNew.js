@@ -100,7 +100,15 @@
                 $('#ul_busStopDetail_line').html(data.name);
                 $('#ul_busStopDetail_direction').html(data.direction);
                 $('#ul_busStopDetail_distance').html(data.distance);
-                $('#ul_busStopDetail_time').html(data.time);                
+
+                var arrived = '已到站'
+                if(data.time < 30){
+                    arrived = '已到站';
+                }
+                else{
+                    arrived = Math.round(data.time / 60) + '分钟';
+                }
+                $('#ul_busStopDetail_time').html(arrived);                
 
                 $("#ul_BusStopDetail").hide()
                 $("#ul_BusStopDetail").show('drop', 1000);

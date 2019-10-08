@@ -239,12 +239,13 @@
                     leftOrRight: 'right'
                 }
                 com.UIControlAni(option, function () {
-                    require("t_Echart").zxsxt()
+                    setTimeout(function(){require("t_Echart").zxsxt();},1000);
+                    
                     require("t_Echart").rq();
                     //require("t_Echart").rycltj();//人员车辆统计
                     //require("t_Echart").personCarTotal();
                     require("t_Echart").personTotal_xj();
-                    setInterval(function () { require("t_Echart").personTotal_xj();}, 60 * 1000 * 30)
+                    setInterval(function () { require("t_Echart").personTotal_xj();}, 60 * 1000 * 30);
                     //require("t_Echart").personTotal();
                     //require("t_Echart").rycltj();//人员车辆统计
                     //require("t_Echart").Interval11 = setInterval(function () { require("t_Echart").rycltj() }, 5000)
@@ -431,17 +432,16 @@
                         var cameraurl2 = result.data;
                         //console.log('B:' + cameraurl)
                         require("t_Main").left02_video02 = new Aliplayer({
-                            "id": "left02_video02",
-                            "source": cameraurl2,
-                            //"width": videowidth + "px",
-                            //"height": videoheight + "px",
-                            "autoplay": true,
-                            "isLive": true,
-                            "rePlay": false,
-                            "showBuffer": true,
-                            "snapshot": false,
-                            "showBarTime": 5000,
-                            "useFlashPrism": true,
+                            id: "left02_video02",
+                            source: cameraurl2,
+                            useFlashPrism: true,   
+                            autoplay: true,
+                            isLive:true,
+                            playsinline:true,
+                            controlBarVisibility:'hover',
+                            extraInfo:{
+                                crossOrigin:"anonymous"
+                            },
 
                         }, function (player) {
                             $(".prism-ErrorMessage").empty();
@@ -501,9 +501,14 @@
             loadLeft02_01_Video: function () {
                 var videowidth = $(".wrj-li").width();
                 var videoheight = $(".wrj-li").height();
-                if (require("t_Main").tourhtml_wurenji01) {
-                    require("t_Main").tourhtml_wurenji01.dispose();
-                    require("t_Main").tourhtml_wurenji01 = null;
+                try{
+                    if (require("t_Main").tourhtml_wurenji01) {
+                        require("t_Main").tourhtml_wurenji01.dispose();
+                        require("t_Main").tourhtml_wurenji01 = null;
+                    }
+                }
+                catch (e) {
+                    console.log(e);
                 }
 
                 $("#tourhtml_wurenji01").empty();
@@ -514,38 +519,54 @@
                     var post_data = { "sbbm": t_Data.sbbm, "startTime": t_Data.task_start_time, "isHistory":1 }
 
 
-                    require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
-                        require(['aliplayer'], function (data) {
+                    // require("t_LayerMenuAjax").getDroneVideo(post_data, function (result) {
+                    //     require(['aliplayer'], function (data) {
 
-                            require("t_Main").tourhtml_wurenji01 = new Aliplayer({
-                                "id": "tourhtml_wurenji01",
-                                "source": result,
-                                //"width": videowidth + "px",
-                                //"height": videoheight + "px",
-                                "autoplay": true,
-                                "isLive": false,
-                                "rePlay": true,
-                                "showBuffer": true,
-                                "snapshot": false,
-                                "showBarTime": 5000,
-                                "useFlashPrism": true,
-                                "mediaType": "audio"
+                    //         require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+                    //             "id": "tourhtml_wurenji01",
+                    //             "source": result,
+                    //             //"width": videowidth + "px",
+                    //             //"height": videoheight + "px",
+                    //             "autoplay": true,
+                    //             "isLive": false,
+                    //             "rePlay": true,
+                    //             "showBuffer": true,
+                    //             "snapshot": false,
+                    //             "showBarTime": 5000,
+                    //             "useFlashPrism": true,
+                    //             "mediaType": "audio"
 
-                            }, function (player) {
-                                //加载成功,清空错误提示
-                                $(".prism-ErrorMessage").empty();
-                            });
+                    //         }, function (player) {
+                    //             //加载成功,清空错误提示
+                    //             $(".prism-ErrorMessage").empty();
+                    //         });
 
-                        });
+                    //     });
+                    // });
+
+                });
+
+                require(['aliplayer'], function (data) {
+
+                    require("t_Main").tourhtml_wurenji01 = new Aliplayer({
+                        id: "tourhtml_wurenji01",
+                        source: con.WebServiceUrl + "/Content/video/dakeliu.flv",
+                        useFlashPrism: true,   
+                        autoplay: true,
+                        isLive:false,
+                        playsinline:true,
+                        controlBarVisibility:'hover',
+                        extraInfo:{
+                            crossOrigin:"anonymous"
+                        },
+                        "rePlay": true,
+                    }, function (player) {
+                        //加载成功,清空错误提示
+                        $(".prism-ErrorMessage").empty();
                     });
 
                 });
             },
-
-
-
-
-
 
             //加载中间无人机视频
             loadCenter_Video: function () {

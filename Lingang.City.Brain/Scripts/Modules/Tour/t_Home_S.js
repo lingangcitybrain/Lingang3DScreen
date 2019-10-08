@@ -16,9 +16,7 @@
 
             /*******************底部菜单图层**************************/
             loadVisitorsMap: function () {
-                //默认视口
-                com.LayerFlyto(1);
-                tl_VisitorsMap.loadVisitorsMap();
+                tl_VisitorsMap.loadVisitorsMap(function(){com.LayerFlyto(1);});
             },
             loadRoadCondition: function () {
                 tl_RoadCondition.loadRoadCondition();

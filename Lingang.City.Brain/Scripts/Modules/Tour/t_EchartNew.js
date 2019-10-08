@@ -579,10 +579,10 @@
                 var data = require("t_Echart").ykhxData;
 
                // var nvPer = data[0].Value.toFixed(2) * 100
-                var nvPer = (data[0].Value * 100).toFixed(2);
+                var nvPer = (data[0].Value * 100).toFixed(0);
                 var nanPer = 100 - nvPer;
                     //这里报错，缺少性别数据
-                var benPer = (data[3].Value * 100).toFixed(2);
+                var benPer = (data[3].Value * 100).toFixed(0);
                 var waiPer = 100 - benPer;
 
                 var numPer = [nvPer, nanPer, waiPer, benPer]
@@ -614,9 +614,9 @@
 
             	var ykqsfxdata=[], ykqsfxtime=[];
 
-            	for (var i = 0; i < data.length; i++) {
-            	    ykqsfxdata.push(data[i].visNumber);
-            	    ykqsfxtime.push(data[i].month + "月");
+            	for (var i = 0; i < data.length - 1; i++) { //不显示当前月的数据
+            	    ykqsfxdata.push(data[i].ryrs);
+            	    ykqsfxtime.push(data[i].MONTH);
 				}
 
                option = {
@@ -741,9 +741,11 @@
 
             	var ykqsfxdata = [], ykqsfxtime = [];
 
-            	for (var i = 0; i < data.length; i++) {
-            	    ykqsfxdata.push(data[i].visNumber);
-            	    ykqsfxtime.push(data[i].month + "月");
+            	for (var i = 0; i < data.length - 1; i++) {
+            	    // ykqsfxdata.push(data[i].visNumber);
+                    // ykqsfxtime.push(data[i].month + "月");
+                    ykqsfxdata.push(data[i].ryrs);
+            	    ykqsfxtime.push(data[i].MONTH);
             	}
 
                 option = {
@@ -900,7 +902,7 @@
                             },
                             labelLine: {
                                 normal: {
-                                    length: 20,
+                                    length: 10,
                                     length2:90,
                                     lineStyle: {
                                         width: 2,
@@ -911,7 +913,7 @@
                             label: {
                                 normal: {
                                     fontSize: 18,
-                                    formatter: '{b|{b}}{per|{d}}%\n\n',
+                                    formatter: '{b|{b}}{per|{d}}%\n',
                                     padding: [0, -90],
                                     rich: {
                                         b: {
@@ -940,9 +942,9 @@
                 if (require("t_Echart").yqfxTypeData == null) { return false; }
                 var data = require("t_Echart").yqfxTypeData;
 
-                $("#yqfx-positive").html("( " + data[1].fsPercent + "% )")
-                $("#yqfx-neutral").html("( " + data[0].fsPercent + "% )")
-                $("#yqfx-negative").html("( " + data[2].fsPercent + "% )")
+                $("#yqfx-positive").html("(" + data[1].fsPercent + "%)")
+                $("#yqfx-neutral").html("(" + data[0].fsPercent + "%)")
+                $("#yqfx-negative").html("(" + data[2].fsPercent + "%)")
 
             })
 
@@ -991,7 +993,7 @@
                             },
                             labelLine: {
                                 normal: {
-                                    length: 40,
+                                    length: 20,
                                     length2: 200,
                                     lineStyle: {
                                         width: 4,
@@ -1002,7 +1004,7 @@
                             label: {
                                 normal: {
                                     fontSize: 50,
-                                    formatter: '{b|{b}}{per|{d}}%\n\n',
+                                    formatter: '{b|{b}}{per|{d}}%\n',
                                     padding: [0, -180],
                                     rich: {
                                         b: {
@@ -3564,7 +3566,7 @@
 
             //园区事件统计--区域
             t_EchartAjax.getYqsjtjQuyu(function (result) {
-                var data = require("t_Echart").yqsjtjQuyuData;
+                var data = require("t_Echart").yqsjtjQuyuData.list;
                 var dataNum = 0; dataTypeArr = [];
                 for (var i = 0; i < data.length; i++) {
                     dataNum += data[i].value;
@@ -3573,10 +3575,10 @@
                     }
                 }
 
-                //var htmltotal = '';
-                //htmltotal += ' <div class="">事件类型：<span class="testAerial">' + data.catCounts + '</span>类</div>';
-                //htmltotal += '<div class="">事件个数：<span class="testAerial">' + data.eventCounts + '</span>个</div>';
-                //$('#sjlxtotal').html(htmltotal);
+                var htmltotal = '';
+                htmltotal += ' <div class="">监控区域：<span class="testAerial">' + require("t_Echart").yqsjtjQuyuData.carCounts + '</span>个</div>';
+                htmltotal += '<div class="">事件个数：<span class="testAerial">' + require("t_Echart").yqsjtjQuyuData.eventCounts + '</span>个</div>';
+                $('#sjqytotal').html(htmltotal);
 
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
@@ -3610,8 +3612,9 @@
         			html += '<li class="yqsjlb-item clearfix">';
         			html += '<div class="item-l"></div>';
         			html += '<div class="item-r">';
-        			html += '<div>拍照时间：' + data[i].sbsj + '</div>';
-        			html += '<div>事件类型：' + data[i].sj + '<span>处置状态：' + data[i].DICTNAME + '</span></div>';   //DICTNAME
+        			html += '<div>事件时间：' + data[i].sbsj + '</div>';
+        			// html += '<div>事件类型：' + data[i].sj + '<span>处置状态：' + data[i].DICTNAME + '</span></div>';   //DICTNAME
+        			html += '<div>事件类型：' + data[i].sj + '</div>';   //DICTNAME
         			html += '<div>事件详情：' + data[i].sjms + '。</div>';
         			html += '</div>';
         			html += '</li>';
@@ -3632,7 +3635,6 @@
         },
     	//中间放大 园区事件列表
         yqsjCenterEventList: function () {
-
         	$("#center-event-tabtour .center-event-tab").each(function (index, element) {
         	    $(this).click(function () {
         	        require("t_Home").EventListBigChartTimeClickEvent(index);
@@ -3668,8 +3670,9 @@
         				html += '<li class="yqsjlb-item clearfix">';
         				html += '<div class="item-l"></div>';
         				html += '<div class="item-r">';
-        				html += '<div>拍照时间：' + data[i].sbsj + '</div>';
-        				html += '<div>' + data[i].sj + '<span>' + data[i].DICTNAME + '</span></div>';  //DICTNAME
+        				html += '<div>事件时间：' + data[i].sbsj + '</div>';
+        				// html += '<div>' + data[i].sj + '<span>' + data[i].DICTNAME + '</span></div>';  //DICTNAME
+        				html += '<div>' + data[i].sj + '</div>';  //DICTNAME
         				html += '<div>事件详情：' + data[i].sjms + '。</div>';
         				html += '</div>';
         				html += '</li>';
@@ -3684,6 +3687,8 @@
         					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
         				}
         			}
+        			$('.scrolldiv').perfectScrollbar({ cursorwidth: 6, cursorcolor: "rgba(0, 126, 179, .6)", });
+
         		})
         	}
         },
