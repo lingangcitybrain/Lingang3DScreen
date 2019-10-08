@@ -210,7 +210,7 @@
 
                                     function loadZsldFormatterFun(index) {
                                         paramLevel = index;
-                                        level = (dataArr[index] * 100).toFixed(0) + '%';
+                                        level = (parseFloat(dataArr[index]) * 100).toFixed(0) + '%';
                                         var str = '<div class="zsld-result">产业聚集地</div>'
                                                   + '<ul class="zsld-ul"></ul>'
                                                  
@@ -240,14 +240,14 @@
                                         } while (param > dataArrIndexSum[index] * 100)
 
                                         if (paramLevel === index) {
-                                            return level = (dataArr[index] * 100).toFixed(0) + '%';
+                                            return level = (parseFloat(dataArr[index]) * 100).toFixed(0) + '%';
                                         } else {
                                             loadZsldFormatterFun(index);
                                         }
 
                                     } else if (param <= dataArrIndexSum[0] * 100) {
                                         if (paramLevel === index) {
-                                            return level = (dataArr[index] * 100).toFixed(0) + '%';
+                                            return level = (parseFloat(dataArr[index]) * 100).toFixed(0) + '%';
                                         } else {
                                             loadZsldFormatterFun(0);
                                         }
@@ -1131,7 +1131,7 @@
                 var unitEnergyRank = JSON.parse(data.unitenergyrank);
                 $("#zhnh-unit").html("");
                 for (var i = 0; i < unitEnergyRank.length; i++) {
-                    $("#zhnh-unit").append('<li>' + unitEnergyRank[i].buildingname + '<span>' + unitEnergyRank[i].energy.toFixed(2) + ' KW/㎡</span></li>');
+                    $("#zhnh-unit").append('<li>' + unitEnergyRank[i].buildingname + '<span>' + parseFloat(unitEnergyRank[i].energy).toFixed(2) + ' KW/㎡</span></li>');
                 }
                 // 同比和环比
                 var oTongbiHuanbi = JSON.parse(data.chainratioanalysis);
