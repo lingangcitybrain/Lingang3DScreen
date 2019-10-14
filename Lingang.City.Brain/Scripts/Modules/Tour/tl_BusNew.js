@@ -125,12 +125,15 @@
 
                 require("tl_Bus").nodeFollowingPath = nodePath;
                 map.enableNodeFollowing(nodePath, function (node, v2i) {
-                    if (node.getFullName() == nodePath) {
-                        document.getElementById("ul_busStopDetail").style.left = v2i.x + "px";
-                        document.getElementById("ul_busStopDetail").style.top = v2i.y + "px";
-                    }
+                    require("tl_Bus").nodeFolowing(node, v2i);
                 });
             })
+        },
+        nodeFolowing: function (node, v2i) {
+            if (node.getFullName() == require("tl_Bus").nodeFollowingPath) {
+                document.getElementById("ul_busStopDetail").style.left = v2i.x + "px";
+                document.getElementById("ul_busStopDetail").style.top = v2i.y + "px";
+            }
         },
         closeBusStopDetail: function () {
             $("#center_02").html("");
