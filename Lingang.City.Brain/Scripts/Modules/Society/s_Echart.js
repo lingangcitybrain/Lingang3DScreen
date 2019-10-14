@@ -586,12 +586,12 @@
                 perCarPicTimer = setInterval(function () {
                     perCarPicNum++;
                     perCarPicNum % 2 == 0 ? changeToPersonFun() : changeToCarFun();
-                }, 20000);
+                }, 30000);
 
                 function changeToCarFun() {
                     sPerCarPic = 'car'
                     $("#bigpercartitle").html("车辆信息");
-                    $(".iot-percarpic").css({ "backgroundImage": "url(" + carData.picurl + ")" });
+                    $(".iot-percarpic1").css({ "backgroundImage": "url(" + encodeURI(carData.picurl) + ")" });
                     $(".iot-percarmess>em").html('车牌号：');
                     $(".iot-percarmess>span").html(carData.platenumber);
                     $(".iot-percartime>em").html('识别时间：');
@@ -609,9 +609,9 @@
                     var time = personData.wzbjsj.split(".")[0].split("-");
                     var timestr = [time[1], time[2]].join("/").replace("T", " ");
 
-                    $(".iot-percarpic").css({ "backgroundImage": "url(" + personData.cjtobjectid + ")" });
+                    $(".iot-percarpic1").css({ "backgroundImage": "url(" + personData.cjtobjectid + ")" });
                     if ($("#iot-percarpic").length > 0) {
-                        $("#iot-percarpic").css({"backgroundImage": "url("+ personData.ytobjectid +")"});
+                    $("#iot-percarpic").css({"backgroundImage": "url("+ personData.ytobjectid +")"});
                     }
 
                     $(".iot-percarmess>em").html('性别：');
@@ -643,7 +643,7 @@
 
                 function changeToCarFun() {
                     $("#bigpercartitle").html("车辆信息");
-                    $(".iot-percarpic").css({ "backgroundImage": "url(" + carData.picurl + ")" });
+                    $(".iot-percarpic2").css({ "backgroundImage": "url(" + encodeURI(carData.picurl) + ")" });
                     $(".iot-percarmess>em").html('车牌号：');
                     $(".iot-percarmess>span").html(carData.platenumber);
                     $(".iot-percartime>em").html('识别时间：');
@@ -660,7 +660,7 @@
                     var time = personData.wzbjsj.split(".")[0].split("-");
                     var timestr = [time[1], time[2]].join("/").replace("T", " ");
 
-                    $(".iot-percarpic").css({ "backgroundImage": "url(" + personData.cjtobjectid + ")" });
+                    $(".iot-percarpic2").css({ "backgroundImage": "url(" + personData.cjtobjectid + ")" });
                     if ($("#iot-percarpic").length > 0) {
                         $("#iot-percarpic").css({ "backgroundImage": "url(" + personData.ytobjectid + ")" });
                     }
