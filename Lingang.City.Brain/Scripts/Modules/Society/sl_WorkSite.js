@@ -91,6 +91,7 @@
         },
         //清空工地POI
         clearWorkSitePOI: function () {
+            $("#center_01").html("");
             var data = this.POIData;
             var areaName = con.AreaName;
             //设置POI隐藏

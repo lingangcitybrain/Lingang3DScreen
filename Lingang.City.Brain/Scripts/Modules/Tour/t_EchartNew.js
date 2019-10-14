@@ -650,9 +650,9 @@
                     },
                     color: ['#3398DB'],
                     grid: {
-                        left: '1%',   // grid 组件离容器左侧的距离。
-                        right: '2%',
-                        bottom: '3%',
+                        left: '5%',   // grid 组件离容器左侧的距离。
+                        right: '5%',
+                        bottom: '5%',
                         height: "86%",
                         containLabel: true,   //grid 区域是否包含坐标轴的刻度标签。
                         show: true,
@@ -678,7 +678,7 @@
                         boundaryGap: false,
                         nameTextStyle: {
                             color: "#00d7fe",
-                            fontSize: 16,
+                            fontSize: 15,
                         },
                         axisTick: {
                             show: false,
@@ -694,7 +694,8 @@
                             textStyle: {
                                 fontSize: 22,
                                 color: "#00d7fe"
-                            }
+                            },
+                            //rotate:45,
                         },
                         splitLine: {
                             show: true,
