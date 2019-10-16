@@ -280,7 +280,7 @@
                 require("s_Echart").perCarPic();
                 setInterval(function () {
                     require("s_Echart").perCarPic();
-                }, 5 * 60 * 1000)
+                }, 30 * 1000)
             });
         },
         //加载第二列的div4

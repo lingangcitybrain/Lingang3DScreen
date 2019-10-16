@@ -17,7 +17,7 @@
         AreaName: "gwh_xilou",
         CONFIG_NAME: "Example",
         SERVER_PATH: "http://" + location.host + "/mapdata3d/LingangCityBrain20190321_Pipeline",
-        // SERVER_PATH: "http://" + location.host + "/mapdata3d/LingangCityBrain20190321",
+         //SERVER_PATH: "http://" + location.host + "/mapdata3d/LingangCityBrain20190321",
         // LICENSE_SVR: "http://www.q-map.com.cn:8280/",
         VideoInitialSize: null,//视频初始大小
         VideoInitialPosition: null,//视频初始位置
