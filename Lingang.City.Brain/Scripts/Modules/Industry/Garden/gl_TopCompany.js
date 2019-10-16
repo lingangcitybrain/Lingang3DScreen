@@ -610,7 +610,7 @@
                             case "5": //产业政策  产业项目
                                 html_PolicyIndustry += '<li class="cy-qy-zcli"><p onclick="window.open(\'' + data[i].policy_url + '\')">' + data[i].policy_name + '</p></li>';
                                 break;
-                            case "财政税收政策":
+                            case "3"://财政金融政策
                                 html_tax += '<li class="cy-qy-zcli"><p onclick="window.open(\'' + data[i].policy_url + '\')">' + data[i].policy_name + '</p></li>';
                                 break;
                             case "金融政策":
