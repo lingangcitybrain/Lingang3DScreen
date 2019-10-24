@@ -1122,7 +1122,10 @@
         },
         //智慧能耗
         zhnh: function () {
-            var post_data=20190521123030
+            //var post_data=20190521123030
+            date = new Date(); year = date.getFullYear(); month = date.getMonth() + 1; sdate = date.getDate();
+            olddate = new Date(year, month - 6, sdate);
+            var post_data = olddate.getFullYear() + '' + ((olddate.getMonth() + 1) < 10 ? ("0" + (olddate.getMonth() + 1)) : (olddate.getMonth() + 1)) + "010000";
             g_EchartAjax.getZhnh(post_data, function (result) {
                 if (require("g_Echart").zhnhData == null) { return false; }
                 var data = require("g_Echart").zhnhData;
