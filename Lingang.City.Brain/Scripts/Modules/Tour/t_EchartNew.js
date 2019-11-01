@@ -3648,8 +3648,19 @@
 
         		$('.yqsjlb-list').html(html);
         		for (var i = 0; i < data.length; i++) {
-        			if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
-        				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
+        		    if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
+        		        var url = "url(Content/images/yqsjlb-default.png)";
+        		        if (data[i].sj.indexOf("停车场爆满") > -1) {
+        		            url = "url(Content/images/停车场爆满2.jpg)"
+        		        } else if (data[i].sj.indexOf("大客流预警") > -1) {
+        		            url = "url(Content/images/大客流预警1.jpg)"
+        		        } else if (data[i].sj.indexOf("车辆拥堵") > -1) {
+        		            url = "url(Content/images/车辆拥堵.jpg)"
+        		        }
+        		        else if (data[i].sj.indexOf("黑车") > -1) {
+        		            url = "url(Content/images/黑车.jpg)"
+        		        }
+        				$('.yqsjlb-list .item-l').eq(i).css("background-image", url)
         				$('.yqsjlb-list .item-l').eq(i).css("background-size", "cover")
         			} else if (data[i].snapshoturiwithrect != undefined) {
         				$('.yqsjlb-list .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
@@ -3706,9 +3717,20 @@
 
         			$('#center-event-tourul').html(html);
         			for (var i = 0; i < data.length; i++) {
-        				if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
-        					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(Content/images/yqsjlb-default.png)")
-        					$('#center-event-tourul .item-l').eq(i).css("background-size", "cover")
+        			    if (data[i].snapshoturiwithrect == undefined || data[i].snapshoturiwithrect == "") {
+        			        var url = "url(Content/images/yqsjlb-default.png)";
+                            if (data[i].sj.indexOf("停车场爆满") > -1) {
+                                url = "url(Content/images/停车场爆满2.jpg)"
+                            } else if (data[i].sj.indexOf("大客流预警") > -1) {
+                                url = "url(Content/images/大客流预警1.jpg)"
+                            } else if (data[i].sj.indexOf("车辆拥堵") > -1) {
+                                url = "url(Content/images/车辆拥堵.jpg)"
+                            }
+                            else if (data[i].sj.indexOf("黑车") > -1) {
+                                url = "url(Content/images/黑车.jpg)"
+                            }
+                            $('#center-event-tourul .item-l').eq(i).css("background-image", url);
+                            $('#center-event-tourul .item-l').eq(i).css("background-size", "cover");
         				} else if (data[i].snapshoturiwithrect != undefined) {
         					$('#center-event-tourul .item-l').eq(i).css("background-image", "url(" + data[i].snapshoturiwithrect + ")")
         				}

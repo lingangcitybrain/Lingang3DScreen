@@ -683,6 +683,10 @@
     <Content Include="Content\images\zhouyong.jpg" />
     <Content Include="Content\images\zlxxcyjg-bg.png" />
     <Content Include="Content\images\zoomin.png" />
+    <Content Include="Content\images\停车场爆满2.jpg" />
+    <Content Include="Content\images\大客流预警1.jpg" />
+    <Content Include="Content\images\车辆拥堵.jpg" />
+    <Content Include="Content\images\黑车.jpg" />
     <Content Include="Content\jqueryui\images\ui-bg_glass_75_d0e5f5_1x400.png" />
     <Content Include="Content\jqueryui\images\ui-bg_glass_85_dfeffc_1x400.png" />
     <Content Include="Content\jqueryui\images\ui-bg_glass_95_fef1ec_1x400.png" />
