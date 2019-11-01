@@ -451,6 +451,7 @@ body{
 .cgq-li:nth-child(5)>.item-l{ background-image: url(../Content/images/cgq-5.png); }
 .cgq-li:nth-child(6)>.item-l{ background-image: url(../Content/images/cgq-6.png); }
 .cgq-li:nth-child(7)>.item-l{ background-image: url(../Content/images/cgq-7.png); }
+.cgq-li:nth-child(8)>.item-l{ background-image: url(../Content/images/cgq-101.png); }
 
 .ykhx-ul .cgq-li:nth-child(1)>.item-l{ background-image: url(../Content/images/ykhx-1.png); }
 .ykhx-ul .cgq-li:nth-child(2)>.item-l{ background-image: url(../Content/images/ykhx-2.png); }

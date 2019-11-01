@@ -539,6 +539,7 @@
     <Content Include="Content\images\box-close.png" />
     <Content Include="Content\images\cgq-1.png" />
     <Content Include="Content\images\cgq-10.png" />
+    <Content Include="Content\images\cgq-101.png" />
     <Content Include="Content\images\cgq-2.png" />
     <Content Include="Content\images\cgq-3.png" />
     <Content Include="Content\images\cgq-4.png" />
@@ -547,6 +548,8 @@
     <Content Include="Content\images\cgq-7.png" />
     <Content Include="Content\images\cgq-8.png" />
     <Content Include="Content\images\cgq-9.png" />
+    <Content Include="Content\images\clydsj_1.png" />
+    <Content Include="Content\images\clydsj_2.png" />
     <Content Include="Content\images\cy-cyxx-legend.png" />
     <Content Include="Content\images\cy-cyyq-rl-21.png" />
     <Content Include="Content\images\cy-cyyq-rl-22.png" />
@@ -583,6 +586,8 @@
     <Content Include="Content\images\divbox-titlebg-hastabbox2.png" />
     <Content Include="Content\images\divbox-titlebg-hastabbox3.png" />
     <Content Include="Content\images\divbox-titlebg.png" />
+    <Content Include="Content\images\dklsj_1.png" />
+    <Content Include="Content\images\dklsj_2.png" />
     <Content Include="Content\images\dtrk-pic.png" />
     <Content Include="Content\images\eventdetail_car.png" />
     <Content Include="Content\images\eventProcess-icon.png" />
@@ -656,6 +661,7 @@
     <Content Include="Content\images\sxt-video-btnicon-blue.png" />
     <Content Include="Content\images\sxt-video-btnicon.png" />
     <Content Include="Content\images\sxt-videoli.png" />
+    <Content Include="Content\images\tccbmsj.png" />
     <Content Include="Content\images\traffic-icon1.png" />
     <Content Include="Content\images\traffic-icon2.png" />
     <Content Include="Content\images\twocol-topicon.png" />
@@ -683,9 +689,6 @@
     <Content Include="Content\images\zhouyong.jpg" />
     <Content Include="Content\images\zlxxcyjg-bg.png" />
     <Content Include="Content\images\zoomin.png" />
-    <Content Include="Content\images\停车场爆满2.jpg" />
-    <Content Include="Content\images\大客流预警1.jpg" />
-    <Content Include="Content\images\车辆拥堵.jpg" />
     <Content Include="Content\images\黑车.jpg" />
     <Content Include="Content\jqueryui\images\ui-bg_glass_75_d0e5f5_1x400.png" />
     <Content Include="Content\jqueryui\images\ui-bg_glass_85_dfeffc_1x400.png" />

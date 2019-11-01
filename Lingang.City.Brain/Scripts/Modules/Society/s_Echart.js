@@ -405,6 +405,7 @@
                 $('#cgq-wxkm').html(data[2].sensorCount)
                 $('#cgq-dzwl').html(data[8].sensorCount)
                 $('#cgq-znjg').html(data[4].sensorCount)
+                $('#cgq-dl').html(data[7].sensorCount)
 
                 if (data[6].alarmSensorCount) {
                     $('#cgq-ywgy').parents(".item-r").siblings().addClass("testAerial has-num").attr("data-text", data[6].alarmSensorCount)
