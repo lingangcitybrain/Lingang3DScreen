@@ -31,6 +31,7 @@
             }
             require('sl_Pipeline').isOpenedPipeline = true;
             // require('sl_Pipeline').startSectionAnalyst();
+            mapObj._map3d.getWorldManager().enableAreaAutoLoad(1); //打开管线调度
         },
 
         hidePipeline: function(){
@@ -58,6 +59,7 @@
 
             require('sl_Pipeline').isOpenedPipeline = false;      
             // require('sl_Pipeline').endSectionAnalyst();      
+            mapObj._map3d.getWorldManager().enableAreaAutoLoad(0); //关闭管线调度
         },
 
         //开始剖面分析
